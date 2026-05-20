@@ -3,7 +3,7 @@
   "descricao": "Base de dados super completa (45 questões) cobrindo cifras por blocos modernas (AES, DES, 3DES), arquitetura detalhada do AES (SubBytes, ShiftRows, MixColumns, AddRoundKey), número de rondas, skips de passos e comparativos de modos (ECB, CBC, CFB, OFB, CTR).",
   "perguntas": [
     {
-      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).\n\n[Q1] Se a cifragem for realizada utilizando o modo ECB (Electronic Code Book) com padding PKCS7, quais das seguintes afirmações sobre o padding e o tamanho final do criptograma estão corretas?",
+      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).\n\nSe a cifragem for realizada utilizando o modo ECB (Electronic Code Book) com padding PKCS7, quais das seguintes afirmações sobre o padding e o tamanho final do criptograma estão corretas?",
       "opcoes": [
         "Serão adicionados exatamente 13 bytes de padding ao documento PDF.",
         "O tamanho final do criptograma resultante será de 176 bytes.",
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q2] Se Alice optar por utilizar o modo CTR (Counter) para cifrar o mesmo documento de 163 bytes com a mesma cifra por blocos, qual será o tamanho final do criptograma enviado?",
+      "pergunta": "[Cenário anterior] Se Alice optar por utilizar o modo CTR (Counter) para cifrar o mesmo documento de 163 bytes com a mesma cifra por blocos, qual será o tamanho final do criptograma enviado?",
       "opcoes": [
         "164 bytes, incluindo um byte especial que indica o fim da transmissão.",
         "160 bytes, descartando os últimos 3 bytes excedentes.",
@@ -30,7 +30,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q3] Durante a transmissão de rede do criptograma cifrado em modo CTR, um bit de ruído sofre uma inversão (bit flip) acidental. Ao decifrar a mensagem, qual é o impacto desta corrupção no documento PDF final de Bob?",
+      "pergunta": "[Cenário anterior] Durante a transmissão de rede do criptograma cifrado em modo CTR, um bit de ruído sofre uma inversão (bit flip) acidental. Ao decifrar a mensagem, qual é o impacto desta corrupção no documento PDF final de Bob?",
       "opcoes": [
         "Apenas o bloco de 16 bytes onde ocorreu o erro fica corrompido.",
         "Todo o documento PDF decifrado a partir do ponto de erro fica completamente corrompido (lixo).",
@@ -43,7 +43,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q4] Se Alice utilizar o modo CBC (Cipher Block Chaining) e ocorrer a inversão acidental de um único bit no Bloco 3 do criptograma durante a transmissão, qual será o efeito observado por Bob na decifragem?",
+      "pergunta": "[Cenário anterior] Se Alice utilizar o modo CBC (Cipher Block Chaining) e ocorrer a inversão acidental de um único bit no Bloco 3 do criptograma durante a transmissão, qual será o efeito observado por Bob na decifragem?",
       "opcoes": [
         "Toda a mensagem a partir do Bloco 3 fica corrompida devido à propagação de erros em cadeia.",
         "O Bloco 3 é completamente corrompido (lixo) e o Bloco 4 apresenta uma inversão de bit na mesma posição exata; os restantes blocos são decifrados corretamente.",
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "pergunta": "[Q5] Na cifra de blocos AES (Advanced Encryption Standard) configurada com uma chave de 128 bits, qual é o número de rondas executado pelo algoritmo e qual é a fonte primária de confusão (não-linearidade)?",
+      "pergunta": "Na cifra de blocos AES (Advanced Encryption Standard) configurada com uma chave de 128 bits, qual é o número de rondas executado pelo algoritmo e qual é a fonte primária de confusão (não-linearidade)?",
       "opcoes": [
         "10 rondas, sendo a confusão introduzida pelo passo SubBytes (aplicação da S-box).",
         "10 rondas, sendo a confusão introduzida pelo passo ShiftRows.",
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "pergunta": "[Q6] No algoritmo AES, as operações ShiftRows e MixColumns são responsáveis por qual propriedade de segurança descrita por Claude Shannon?",
+      "pergunta": "No algoritmo AES, as operações ShiftRows e MixColumns são responsáveis por qual propriedade de segurança descrita por Claude Shannon?",
       "opcoes": [
         "Confusão horizontal e vertical.",
         "Difusão (espalhar a influência de alterações no texto claro por todo o criptograma).",
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "pergunta": "[Q7] Qual é o único passo de processamento de uma ronda do AES que depende diretamente da chave secreta de ronda?",
+      "pergunta": "Qual é o único passo de processamento de uma ronda do AES que depende diretamente da chave secreta de ronda?",
       "opcoes": [
         "AddRoundKey.",
         "MixColumns.",
@@ -95,7 +95,7 @@
       ]
     },
     {
-      "pergunta": "[Q8] As cifras sequenciais (stream ciphers) baseiam-se na geração de uma sequência de chaves de comprimento arbitrário (keystream) a partir de uma chave curta de tamanho fixo.",
+      "pergunta": "As cifras sequenciais (stream ciphers) baseiam-se na geração de uma sequência de chaves de comprimento arbitrário (keystream) a partir de uma chave curta de tamanho fixo.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "pergunta": "[Q9] O uso de um NONCE (Number used only ONCE) em cifras sequenciais serve para garantir a confidencialidade da chave secreta face a ataques passivos.",
+      "pergunta": "O uso de um NONCE (Number used only ONCE) em cifras sequenciais serve para garantir a confidencialidade da chave secreta face a ataques passivos.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "pergunta": "[Q10] Nas cifras sequenciais síncronas, a perda ou inserção de um bit no criptograma resulta na perda de sincronização da decifragem, gerando lixo a partir desse ponto.",
+      "pergunta": "Nas cifras sequenciais síncronas, a perda ou inserção de um bit no criptograma resulta na perda de sincronização da decifragem, gerando lixo a partir desse ponto.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "pergunta": "[Q11] Uma cifra sequencial auto-sincronizadora (como o modo CFB) calcula o próximo bit da keystream com base nos últimos 'n' bits do criptograma, permitindo recuperar a sincronização após perda de bits na rede.",
+      "pergunta": "Uma cifra sequencial auto-sincronizadora (como o modo CFB) calcula o próximo bit da keystream com base nos últimos 'n' bits do criptograma, permitindo recuperar a sincronização após perda de bits na rede.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -135,7 +135,7 @@
       ]
     },
     {
-      "pergunta": "[Q12] Cifras sequenciais clássicas como A5 (GSM), E0 (Bluetooth) e CSS (DVD) são atualmente reconhecidas pela comunidade científica como oferecendo garantias de segurança robustas.",
+      "pergunta": "Cifras sequenciais clássicas como A5 (GSM), E0 (Bluetooth) e CSS (DVD) são atualmente reconhecidas pela comunidade científica como oferecendo garantias de segurança robustas.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -145,7 +145,7 @@
       ]
     },
     {
-      "pergunta": "[Q13] O algoritmo ChaCha20 é um exemplo moderno e seguro de uma cifra sequencial (stream cipher).",
+      "pergunta": "O algoritmo ChaCha20 é um exemplo moderno e seguro de uma cifra sequencial (stream cipher).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -155,7 +155,7 @@
       ]
     },
     {
-      "pergunta": "[Q14] No contexto de cifras por blocos, a propriedade de 'Confusão' assegura que a relação estatística entre o criptograma e a chave seja o mais complexa possível.",
+      "pergunta": "No contexto de cifras por blocos, a propriedade de 'Confusão' assegura que a relação estatística entre o criptograma e a chave seja o mais complexa possível.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -165,7 +165,7 @@
       ]
     },
     {
-      "pergunta": "[Q15] O modo de operação ECB (Electronic Code Book) é considerado seguro para cifrar mensagens longas com múltiplos blocos porque mascara os padrões repetitivos do texto claro.",
+      "pergunta": "O modo de operação ECB (Electronic Code Book) é considerado seguro para cifrar mensagens longas com múltiplos blocos porque mascara os padrões repetitivos do texto claro.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -175,7 +175,7 @@
       ]
     },
     {
-      "pergunta": "[Q16] O vetor de inicialização (IV) no modo CBC deve ser mantido em segredo absoluto, tal como a chave de encriptação.",
+      "pergunta": "O vetor de inicialização (IV) no modo CBC deve ser mantido em segredo absoluto, tal como a chave de encriptação.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -185,7 +185,7 @@
       ]
     },
     {
-      "pergunta": "[Q17] Os modos de operação CFB, OFB e CTR partilham a característica de utilizarem apenas o algoritmo de cifragem (E) da cifra por blocos quer para cifrar quer para decifrar.",
+      "pergunta": "Os modos de operação CFB, OFB e CTR partilham a característica de utilizarem apenas o algoritmo de cifragem (E) da cifra por blocos quer para cifrar quer para decifrar.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -195,7 +195,7 @@
       ]
     },
     {
-      "pergunta": "[Q18] O modo CTR (Counter) permite a paralelização de processos de cifragem e decifragem porque o cálculo da keystream de cada bloco depende apenas de um contador previsível.",
+      "pergunta": "O modo CTR (Counter) permite a paralelização de processos de cifragem e decifragem porque o cálculo da keystream de cada bloco depende apenas de um contador previsível.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -205,7 +205,7 @@
       ]
     },
     {
-      "pergunta": "[Q19] A maleabilidade (malleability) descreve a facilidade com que um atacante consegue realizar alterações intencionais e previsíveis no texto claro através da manipulação do criptograma.",
+      "pergunta": "A maleabilidade (malleability) descreve a facilidade com que um atacante consegue realizar alterações intencionais e previsíveis no texto claro através da manipulação do criptograma.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -215,7 +215,7 @@
       ]
     },
     {
-      "pergunta": "[Q20] Cifras com propagação de erro nula (como síncronas) apresentam tipicamente baixa maleabilidade.",
+      "pergunta": "Cifras com propagação de erro nula (como síncronas) apresentam tipicamente baixa maleabilidade.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -225,7 +225,7 @@
       ]
     },
     {
-      "pergunta": "[Q21] O que caracteriza a encriptação autenticada (AEAD)?",
+      "pergunta": "O que caracteriza a encriptação autenticada (AEAD)?",
       "opcoes": [
         "A encriptação é realizada por chaves assimétricas públicas.",
         "Combina cifragem e autenticidade/integridade num único modo de operação, impedindo ataques baseados em maleabilidade de criptogramas.",
@@ -238,7 +238,7 @@
       ]
     },
     {
-      "pergunta": "[Q22] Assinale qual dos seguintes modos de operação da cifra por blocos fornece nativamente Confidencialidade e Autenticidade/Integridade (AEAD):",
+      "pergunta": "Assinale qual dos seguintes modos de operação da cifra por blocos fornece nativamente Confidencialidade e Autenticidade/Integridade (AEAD):",
       "opcoes": [
         "CBC (Cipher Block Chaining).",
         "GCM (Galois/Counter Mode).",
@@ -251,7 +251,7 @@
       ]
     },
     {
-      "pergunta": "[Q23] Se for necessário cifrar uma mensagem cujo tamanho não seja múltiplo do bloco utilizando o modo CBC, que método de preenchimento acrescenta bytes com valores idênticos ao número de bytes adicionados?",
+      "pergunta": "Se for necessário cifrar uma mensagem cujo tamanho não seja múltiplo do bloco utilizando o modo CBC, que método de preenchimento acrescenta bytes com valores idênticos ao número de bytes adicionados?",
       "opcoes": [
         "Padding Zero-byte.",
         "Ciphertext Stealing.",
@@ -264,7 +264,7 @@
       ]
     },
     {
-      "pergunta": "[Q24] Se a chave de cifra AES for alterada em apenas 1 bit, os passos de difusão garantem que quase todo o criptograma gerado se altere de forma imprevisível.",
+      "pergunta": "Se a chave de cifra AES for alterada em apenas 1 bit, os passos de difusão garantem que quase todo o criptograma gerado se altere de forma imprevisível.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -274,7 +274,7 @@
       ]
     },
     {
-      "pergunta": "[Q25] A cifra por blocos 3DES (Triple DES) consiste na aplicação sucessiva do algoritmo DES três vezes com chaves independentes, aumentando o tamanho efetivo de chave.",
+      "pergunta": "A cifra por blocos 3DES (Triple DES) consiste na aplicação sucessiva do algoritmo DES três vezes com chaves independentes, aumentando o tamanho efetivo de chave.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -284,7 +284,7 @@
       ]
     },
     {
-      "pergunta": "[Q26] O modo OFB (Output Feedback) gera uma keystream que depende do texto claro, pelo que os blocos de keystream só podem ser calculados à medida que a mensagem é escrita.",
+      "pergunta": "O modo OFB (Output Feedback) gera uma keystream que depende do texto claro, pelo que os blocos de keystream só podem ser calculados à medida que a mensagem é escrita.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -294,7 +294,7 @@
       ]
     },
     {
-      "pergunta": "[Q27] O modo CFB (Cipher Feedback) é sequencial porque o cálculo da keystream do bloco seguinte depende da cifragem do bloco de criptograma anterior.",
+      "pergunta": "O modo CFB (Cipher Feedback) é sequencial porque o cálculo da keystream do bloco seguinte depende da cifragem do bloco de criptograma anterior.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -304,7 +304,7 @@
       ]
     },
     {
-      "pergunta": "[Q28] O algoritmo de cifra RC4, outrora muito utilizado em redes Wi-Fi (WEP), é atualmente considerado seguro e recomendado para novas aplicações de software.",
+      "pergunta": "O algoritmo de cifra RC4, outrora muito utilizado em redes Wi-Fi (WEP), é atualmente considerado seguro e recomendado para novas aplicações de software.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -314,7 +314,7 @@
       ]
     },
     {
-      "pergunta": "[Q29] Na cifra AES, o passo MixColumns consiste na multiplicação do estado por uma matriz fixa, sendo esta operação responsável pela difusão vertical entre os bytes.",
+      "pergunta": "Na cifra AES, o passo MixColumns consiste na multiplicação do estado por uma matriz fixa, sendo esta operação responsável pela difusão vertical entre os bytes.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -324,7 +324,7 @@
       ]
     },
     {
-      "pergunta": "[Q30] Um erro de transmissão num único bit de um criptograma cifrado com uma cifra síncrona pura provoca a corrupção total do resto da mensagem decifrada.",
+      "pergunta": "Um erro de transmissão num único bit de um criptograma cifrado com uma cifra síncrona pura provoca a corrupção total do resto da mensagem decifrada.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -334,7 +334,7 @@
       ]
     },
     {
-      "pergunta": "[Q31] Como é internamente representado o bloco de dados de 128 bits no algoritmo AES para efeitos de processamento das suas transformações?",
+      "pergunta": "Como é internamente representado o bloco de dados de 128 bits no algoritmo AES para efeitos de processamento das suas transformações?",
       "opcoes": [
         "Duas metades de 64 bits processadas numa estrutura de Feistel.",
         "Um polinómio de grau 128 com coeficientes booleanos.",
@@ -347,7 +347,7 @@
       ]
     },
     {
-      "pergunta": "[Q32] O AES é uma cifra de rede SP (Substitution-Permutation Network). O que significa isto em termos de design e invertibilidade?",
+      "pergunta": "O AES é uma cifra de rede SP (Substitution-Permutation Network). O que significa isto em termos de design e invertibilidade?",
       "opcoes": [
         "Baseia-se numa estrutura de Feistel onde a função da ronda não precisa de ser invertível.",
         "O algoritmo cifra apenas metade do bloco em cada ronda.",
@@ -360,7 +360,7 @@
       ]
     },
     {
-      "pergunta": "[Q33] Qual das seguintes transformações do AES é omitida (não é executada) na última ronda do algoritmo (ex: ronda 10 no AES-128)?",
+      "pergunta": "Qual das seguintes transformações do AES é omitida (não é executada) na última ronda do algoritmo (ex: ronda 10 no AES-128)?",
       "opcoes": [
         "MixColumns.",
         "ShiftRows.",
@@ -373,7 +373,7 @@
       ]
     },
     {
-      "pergunta": "[Q34] A operação de decifragem do AES (Decryption) utiliza exatamente as mesmas matrizes e S-boxes da cifragem, na mesma ordem de passos.",
+      "pergunta": "A operação de decifragem do AES (Decryption) utiliza exatamente as mesmas matrizes e S-boxes da cifragem, na mesma ordem de passos.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -383,7 +383,7 @@
       ]
     },
     {
-      "pergunta": "[Q35] No passo SubBytes do AES, a S-box mapeia cada byte de entrada num byte de saída. Por exemplo, o byte em hexadecimal '6D' (01101101) é mapeado em:",
+      "pergunta": "No passo SubBytes do AES, a S-box mapeia cada byte de entrada num byte de saída. Por exemplo, o byte em hexadecimal '6D' (01101101) é mapeado em:",
       "opcoes": [
         "'00' (00000000)",
         "'3C' (00111100)",
@@ -396,7 +396,7 @@
       ]
     },
     {
-      "pergunta": "[Q36] A tecnologia AES-NI (Advanced Encryption Standard New Instructions) refere-se a uma extensão do conjunto de instruções x86 que acelera a cifragem e decifragem AES em hardware nas CPUs modernas.",
+      "pergunta": "A tecnologia AES-NI (Advanced Encryption Standard New Instructions) refere-se a uma extensão do conjunto de instruções x86 que acelera a cifragem e decifragem AES em hardware nas CPUs modernas.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -406,7 +406,7 @@
       ]
     },
     {
-      "pergunta": "[Q37] Comparando cifras por blocos e cifras sequenciais, assinale a afirmação correta:",
+      "pergunta": "Comparando cifras por blocos e cifras sequenciais, assinale a afirmação correta:",
       "opcoes": [
         "As cifras por blocos são tipicamente mais rápidas em software do que as cifras sequenciais.",
         "As cifras sequenciais não promovem a difusão (um bit do texto claro afeta apenas o respetivo bit do criptograma), enquanto as cifras por blocos propagam alterações dentro do mesmo bloco.",
@@ -419,7 +419,7 @@
       ]
     },
     {
-      "pergunta": "[Q38] No modo CBC (Cipher Block Chaining), a operação que é realizada no texto claro de cada bloco antes da sua encriptação é:",
+      "pergunta": "No modo CBC (Cipher Block Chaining), a operação que é realizada no texto claro de cada bloco antes da sua encriptação é:",
       "opcoes": [
         "Uma substituição não-linear por S-box.",
         "A rotação de bits ShiftRows.",
@@ -432,7 +432,7 @@
       ]
     },
     {
-      "pergunta": "[Q39] Qual dos seguintes modos de operação permite decifrar blocos de criptograma de forma inteiramente paralela?",
+      "pergunta": "Qual dos seguintes modos de operação permite decifrar blocos de criptograma de forma inteiramente paralela?",
       "opcoes": [
         "CBC.",
         "ECB e CTR.",
@@ -445,7 +445,7 @@
       ]
     },
     {
-      "pergunta": "[Q40] Qual o impacto de um erro na transmissão de 1 bit do criptograma no modo de operação OFB?",
+      "pergunta": "Qual o impacto de um erro na transmissão de 1 bit do criptograma no modo de operação OFB?",
       "opcoes": [
         "O algoritmo recupera a integridade aplicando a S-box invertida.",
         "Corrompe apenas o bit equivalente do texto claro decifrado, tendo propagação de erro zero.",
@@ -458,7 +458,7 @@
       ]
     },
     {
-      "pergunta": "[Q41] A técnica de 'Ciphertext Stealing' é uma alternativa ao preenchimento tradicional de padding que permite cifrar mensagens que não são múltiplos do tamanho do bloco sem aumentar o tamanho do criptograma final.",
+      "pergunta": "A técnica de 'Ciphertext Stealing' é uma alternativa ao preenchimento tradicional de padding que permite cifrar mensagens que não são múltiplos do tamanho do bloco sem aumentar o tamanho do criptograma final.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -468,7 +468,7 @@
       ]
     },
     {
-      "pergunta": "[Q42] A cifra DES utiliza chaves de 64 bits das quais apenas 56 bits são efetivos (sendo os restantes 8 bits usados para verificação de paridade).",
+      "pergunta": "A cifra DES utiliza chaves de 64 bits das quais apenas 56 bits são efetivos (sendo os restantes 8 bits usados para verificação de paridade).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -478,7 +478,7 @@
       ]
     },
     {
-      "pergunta": "[Q43] O processo de substituição não-linear (S-box) do AES é considerado vulnerável a ataques de fatorização inteira.",
+      "pergunta": "O processo de substituição não-linear (S-box) do AES é considerado vulnerável a ataques de fatorização inteira.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -488,7 +488,7 @@
       ]
     },
     {
-      "pergunta": "[Q44] Qual o número de rondas utilizado no AES quando a chave secreta tem o tamanho de 256 bits?",
+      "pergunta": "Qual o número de rondas utilizado no AES quando a chave secreta tem o tamanho de 256 bits?",
       "opcoes": [
         "10 rondas.",
         "14 rondas.",
@@ -501,7 +501,7 @@
       ]
     },
     {
-      "pergunta": "[Q45] Em termos de propagação de erro, o modo de operação CFB assemelha-se ao modo CBC, pois um erro num bit do criptograma afeta o bloco corrente e um bit do bloco seguinte.",
+      "pergunta": "Em termos de propagação de erro, o modo de operação CFB assemelha-se ao modo CBC, pois um erro num bit do criptograma afeta o bloco corrente e um bit do bloco seguinte.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -511,7 +511,7 @@
       ]
     },
     {
-      "pergunta": "[Q46] O algoritmo de cifra simétrica ChaCha20, estruturado como uma cifra sequencial (stream cipher), baseia-se em quais dos seguintes conceitos e estruturas de execução?",
+      "pergunta": "O algoritmo de cifra simétrica ChaCha20, estruturado como uma cifra sequencial (stream cipher), baseia-se em quais dos seguintes conceitos e estruturas de execução?",
       "opcoes": [
         "Uma tabela S-box estática para substituição não-linear de bytes idêntica à do AES.",
         "A execução de rodadas (rounds) alternadas entre colunas e diagonais recorrendo a adições modulares, XORs e rotações (função de quarto de rodada ARX).",
@@ -526,7 +526,7 @@
       ]
     },
     {
-      "pergunta": "[Q47] Relativamente aos modos de funcionamento aplicados a cifras por blocos (como o AES), identifique as afirmações que são corretas:",
+      "pergunta": "Relativamente aos modos de funcionamento aplicados a cifras por blocos (como o AES), identifique as afirmações que são corretas:",
       "opcoes": [
         "O modo ECB (Electronic Codebook) cifra blocos idênticos de texto limpo em blocos idênticos de texto cifrado, revelando padrões visuais no criptograma final.",
         "O modo GCM (Galois/Counter Mode) é um modo de cifragem autenticada (AEAD) que providencia tanto confidencialidade como integridade através de computação paralela.",
@@ -543,7 +543,7 @@
     },
     {
       "cabecalho": "Considere a seguinte linha de configuração de uma cifra por blocos para proteção de comunicações:\nCifra: AES-256\nModo: CBC (Cipher Block Chaining)\nPadding: PKCS#7\nVetor de Inicialização (IV): Valor fixo estático igual a zero (todos os bits a 0)",
-      "pergunta": "[Q48] Qual é a principal vulnerabilidade de segurança introduzida pela configuração do cabeçalho ao utilizar um IV fixo estático em modo CBC?",
+      "pergunta": "Qual é a principal vulnerabilidade de segurança introduzida pela configuração do cabeçalho ao utilizar um IV fixo estático em modo CBC?",
       "opcoes": [
         "O padding PKCS#7 deixa de poder ser validado no processo de decifragem.",
         "O tamanho da chave é reduzido de 256 bits para 128 bits.",
@@ -557,7 +557,7 @@
     },
     {
       "cabecalho": "Considere a seguinte linha de configuração de uma cifra por blocos para proteção de comunicações:\nCifra: AES-256\nModo: CBC (Cipher Block Chaining)\nPadding: PKCS#7\nVetor de Inicialização (IV): Valor fixo estático igual a zero (todos os bits a 0)",
-      "pergunta": "[Q49] O que acontece ao bloco de texto cifrado C_i durante a decifragem em modo CBC se o bloco de texto cifrado anterior C_{i-1} for corrompido durante a transmissão?",
+      "pergunta": "O que acontece ao bloco de texto cifrado C_i durante a decifragem em modo CBC se o bloco de texto cifrado anterior C_{i-1} for corrompido durante a transmissão?",
       "opcoes": [
         "Apenas o bloco P_{i-1} fica ilegível, todos os outros blocos decifram sem qualquer erro.",
         "O processo de decifragem aborta imediatamente com erro de integridade sem decifrar mais nada.",
@@ -571,7 +571,7 @@
     },
     {
       "cabecalho": "Considere a seguinte linha de configuração de uma cifra por blocos para proteção de comunicações:\nCifra: AES-256\nModo: CBC (Cipher Block Chaining)\nPadding: PKCS#7\nVetor de Inicialização (IV): Valor fixo estático igual a zero (todos os bits a 0)",
-      "pergunta": "[Q50] Por que motivo é necessário o preenchimento (padding) PKCS#7 na configuração descrita no cabeçalho?",
+      "pergunta": "Por que motivo é necessário o preenchimento (padding) PKCS#7 na configuração descrita no cabeçalho?",
       "opcoes": [
         "Para gerar um fluxo de chave pseudoaleatório que faz XOR com a mensagem.",
         "Para acelerar a cifragem em arquiteturas de hardware multiprocessadas.",

@@ -8,20 +8,26 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 EXAMS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exames')
-OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exames.json')
+OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'exames', 'index.json')
 
 def build_exams_json():
-    """Scans, validates and merges all exam JSON files into a single exames.json."""
+    """Scans, validates and merges all exam metadata into exames/index.json."""
     loaded_exams = []
     
     if not os.path.exists(EXAMS_DIR):
         logging.error(f"Diretório de exames não encontrado em {EXAMS_DIR}")
         return False
 
-    logging.info(f"A compilar exames de {EXAMS_DIR}...")
+    logging.info(f"A compilar metadados de exames em {EXAMS_DIR}...")
     
-    for filename in sorted(os.listdir(EXAMS_DIR)):
-        if filename.endswith('.json'):
+    import re
+    def natural_sort_key(s):
+        match = re.match(r'^(\d+)', s)
+        return (0, int(match.group(1)), s) if match else (1, 0, s)
+
+    for filename in sorted(os.listdir(EXAMS_DIR), key=natural_sort_key):
+        # Ignorar o próprio index.json que estamos a criar nesta pasta
+        if filename.endswith('.json') and filename != 'index.json':
             file_path = os.path.join(EXAMS_DIR, filename)
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
@@ -71,7 +77,8 @@ def build_exams_json():
                         "id": exam_id,
                         "titulo": data["titulo"],
                         "descricao": data["descricao"],
-                        "perguntas": valid_questions
+                        "path": f"exames/{filename}",
+                        "perguntas_count": len(valid_questions)
                     })
                     logging.info(f"Sucesso ao ler: '{data['titulo']}' com {len(valid_questions)} questões.")
             except Exception as e:
@@ -80,7 +87,7 @@ def build_exams_json():
     try:
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
             json.dump(loaded_exams, f, ensure_ascii=False, indent=2)
-        logging.info(f"Ficheiro consolidado gerado com sucesso: {OUTPUT_FILE} ({len(loaded_exams)} exames)")
+        logging.info(f"Index de exames gerado com sucesso: {OUTPUT_FILE} ({len(loaded_exams)} exames)")
         return True
     except Exception as e:
         logging.error(f"Erro ao gravar {OUTPUT_FILE}: {e}")

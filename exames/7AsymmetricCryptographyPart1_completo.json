@@ -3,7 +3,7 @@
   "descricao": "Base de dados super completa (35 questões) cobrindo distribuição de chaves, acordo de Diffie-Hellman, estruturas algébricas modulares, problemas matemáticos difíceis, ElGamal e criptossistema RSA (com cálculos de chave e padding OAEP).",
   "perguntas": [
     {
-      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 5:\n\nAlice e Bob decidem aplicar conceitos de criptografia assimétrica e acordo de chaves para comunicar num canal público.\n\n[Q1] Se uma comunidade de utilizadores crescer para N = 1000 pessoas e todas decidirem comunicar de forma segura e direta par a par utilizando apenas criptografia simétrica clássica, quantas chaves secretas partilhadas distintas terão de ser pré-distribuídas e armazenadas em total?",
+      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 5:\n\nAlice e Bob decidem aplicar conceitos de criptografia assimétrica e acordo de chaves para comunicar num canal público.\n\nSe uma comunidade de utilizadores crescer para N = 1000 pessoas e todas decidirem comunicar de forma segura e direta par a par utilizando apenas criptografia simétrica clássica, quantas chaves secretas partilhadas distintas terão de ser pré-distribuídas e armazenadas em total?",
       "opcoes": [
         "Apenas 2 chaves por utilizador.",
         "499.500 chaves (obtidas pela fórmula N(N-1)/2).",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q2] Alice e Bob realizam o acordo de chaves Diffie-Hellman utilizando como parâmetros públicos o número primo p = 23 e o gerador g = 5. A chave privada de Alice é A = 4 e a chave privada de Bob é B = 3. Quais das seguintes afirmações sobre os valores intermédios e a chave final estão corretas?",
+      "pergunta": "[Cenário anterior] Alice e Bob realizam o acordo de chaves Diffie-Hellman utilizando como parâmetros públicos o número primo p = 23 e o gerador g = 5. A chave privada de Alice é A = 4 e a chave privada de Bob é B = 3. Quais das seguintes afirmações sobre os valores intermédios e a chave final estão corretas?",
       "opcoes": [
         "A chave pública de Alice é X = 12.",
         "Alice calcula e envia a sua chave pública X = 4 (pois 5^4 mod 23 = 4).",
@@ -33,7 +33,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q3] Para o setup do algoritmo RSA, Alice seleciona os números primos p = 3 e q = 11, e escolhe o expoente público e = 3. Quais são, respetivamente, o módulo de cifragem n, a função totiente de Euler ϕ(n) e a chave privada d de Alice?",
+      "pergunta": "[Cenário anterior] Para o setup do algoritmo RSA, Alice seleciona os números primos p = 3 e q = 11, e escolhe o expoente público e = 3. Quais são, respetivamente, o módulo de cifragem n, a função totiente de Euler ϕ(n) e a chave privada d de Alice?",
       "opcoes": [
         "n = 30, ϕ(n) = 20, d = 3",
         "n = 33, ϕ(n) = 20, d = 7",
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q4] Utilizando a chave pública de Alice baseada no RSA do exercício anterior (n = 33, e = 3), se Bob pretender cifrar a mensagem m = 2, qual será o criptograma 'c' enviado a Alice?",
+      "pergunta": "[Cenário anterior] Utilizando a chave pública de Alice baseada no RSA do exercício anterior (n = 33, e = 3), se Bob pretender cifrar a mensagem m = 2, qual será o criptograma 'c' enviado a Alice?",
       "opcoes": [
         "c = 8",
         "c = 6",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q5] Quando Alice recebe o criptograma c = 8 do exercício anterior, como realiza a decifragem utilizando a sua chave privada d = 7 e o módulo n = 33?",
+      "pergunta": "[Cenário anterior] Quando Alice recebe o criptograma c = 8 do exercício anterior, como realiza a decifragem utilizando a sua chave privada d = 7 e o módulo n = 33?",
       "opcoes": [
         "Calcula 8^7 mod 33 = 2",
         "Calcula 8^(1/7) mod 33 = 4",
@@ -72,7 +72,7 @@
       ]
     },
     {
-      "pergunta": "[Q6] Qual o principal desafio da criptografia simétrica no que toca à distribuição de chaves que a criptografia assimétrica ajuda a resolver?",
+      "pergunta": "Qual o principal desafio da criptografia simétrica no que toca à distribuição de chaves que a criptografia assimétrica ajuda a resolver?",
       "opcoes": [
         "As chaves simétricas necessitam de ser cifradas com curvas elípticas.",
         "A circularidade de que o canal seguro necessário para pré-distribuir a chave simétrica depende, ele próprio, da existência de um canal seguro já estabelecido.",
@@ -85,7 +85,7 @@
       ]
     },
     {
-      "pergunta": "[Q7] Num sistema fechado, o Key Distribution Center (KDC, como o Kerberos) resolve o problema de distribuição ao armazenar uma chave de longo prazo para cada utilizador e gerar chaves de sessão sob procura. Qual a sua desvantagem principal?",
+      "pergunta": "Num sistema fechado, o Key Distribution Center (KDC, como o Kerberos) resolve o problema de distribuição ao armazenar uma chave de longo prazo para cada utilizador e gerar chaves de sessão sob procura. Qual a sua desvantagem principal?",
       "opcoes": [
         "Ser vulnerável a ataques de colisão simples de aniversário.",
         "Exigir cifragem assimétrica em todos os passos.",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "pergunta": "[Q8] A criptografia assimétrica tem pior desempenho computacional e exige premissas matemáticas de segurança mais fortes quando comparada com a criptografia simétrica.",
+      "pergunta": "A criptografia assimétrica tem pior desempenho computacional e exige premissas matemáticas de segurança mais fortes quando comparada com a criptografia simétrica.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -108,7 +108,7 @@
       ]
     },
     {
-      "pergunta": "[Q9] O protocolo de acordo de chaves de Diffie e Hellman (1976) permite que duas partes concordem num segredo partilhado através de mensagens num canal público sem que um espião passivo consiga obter o segredo.",
+      "pergunta": "O protocolo de acordo de chaves de Diffie e Hellman (1976) permite que duas partes concordem num segredo partilhado através de mensagens num canal público sem que um espião passivo consiga obter o segredo.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -118,7 +118,7 @@
       ]
     },
     {
-      "pergunta": "[Q10] Um protocolo de três passos (Three-pass protocol) com cifra simétrica permite enviar uma mensagem protegida sem acordo prévio de chave desde que a operação de cifragem seja:",
+      "pergunta": "Um protocolo de três passos (Three-pass protocol) com cifra simétrica permite enviar uma mensagem protegida sem acordo prévio de chave desde que a operação de cifragem seja:",
       "opcoes": [
         "Baseada numa estrutura de Feistel assimétrica.",
         "Homomórfica.",
@@ -131,7 +131,7 @@
       ]
     },
     {
-      "pergunta": "[Q11] O protocolo básico de Diffie-Hellman sem autenticação (como assinaturas digitais) é vulnerável a que tipo de ataque ativo?",
+      "pergunta": "O protocolo básico de Diffie-Hellman sem autenticação (como assinaturas digitais) é vulnerável a que tipo de ataque ativo?",
       "opcoes": [
         "Ataque de extensão de comprimento.",
         "Fatorização rápida do módulo n.",
@@ -144,7 +144,7 @@
       ]
     },
     {
-      "pergunta": "[Q12] Defina o conceito algébrico de 'Grupo Abelian':",
+      "pergunta": "Defina o conceito algébrico de 'Grupo Abelian':",
       "opcoes": [
         "Um conjunto de números inteiros onde a divisão é sempre possível.",
         "Um grupo cuja operação binária interna é comutativa.",
@@ -157,7 +157,7 @@
       ]
     },
     {
-      "pergunta": "[Q13] Um 'Corpo' (Field) é uma estrutura algébrica de anel onde cada elemento não-nulo possui um inverso multiplicativo.",
+      "pergunta": "Um 'Corpo' (Field) é uma estrutura algébrica de anel onde cada elemento não-nulo possui um inverso multiplicativo.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -167,7 +167,7 @@
       ]
     },
     {
-      "pergunta": "[Q14] Para um módulo 'n' composto (não primo), a estrutura (Zn, +, *) forma um Corpo.",
+      "pergunta": "Para um módulo 'n' composto (não primo), a estrutura (Zn, +, *) forma um Corpo.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -177,7 +177,7 @@
       ]
     },
     {
-      "pergunta": "[Q15] Na aritmética modular de Zn, os elementos que possuem inverso multiplicativo (unidades) são aqueles cujo maior divisor comum com 'n' é igual a 1 (gcd(x, n) = 1).",
+      "pergunta": "Na aritmética modular de Zn, os elementos que possuem inverso multiplicativo (unidades) são aqueles cujo maior divisor comum com 'n' é igual a 1 (gcd(x, n) = 1).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -187,7 +187,7 @@
       ]
     },
     {
-      "pergunta": "[Q16] A função totiente de Euler (ϕ(n)) para n = p * q, onde p e q são primos distintos, é calculada como:",
+      "pergunta": "A função totiente de Euler (ϕ(n)) para n = p * q, onde p e q são primos distintos, é calculada como:",
       "opcoes": [
         "ϕ(n) = (p - 1) * (q - 1)",
         "ϕ(n) = p * q - 1",
@@ -200,7 +200,7 @@
       ]
     },
     {
-      "pergunta": "[Q17] Que algoritmo matemático eficiente é utilizado para calcular inversos multiplicativos modulares?",
+      "pergunta": "Que algoritmo matemático eficiente é utilizado para calcular inversos multiplicativos modulares?",
       "opcoes": [
         "O algoritmo de Euclides Estendido.",
         "A compressão de Merkle-Damgård.",
@@ -213,7 +213,7 @@
       ]
     },
     {
-      "pergunta": "[Q18] O problema matemático difícil que serve de base de segurança ao acordo de chaves Diffie-Hellman é:",
+      "pergunta": "O problema matemático difícil que serve de base de segurança ao acordo de chaves Diffie-Hellman é:",
       "opcoes": [
         "O problema do logaritmo discreto.",
         "O problema P versus NP.",
@@ -226,7 +226,7 @@
       ]
     },
     {
-      "pergunta": "[Q19] Em criptografia assimétrica, a propriedade de 'Forward Secrecy' garante que o comprometimento das chaves de longo prazo não compromete a confidencialidade das chaves de sessão efémeras de comunicações passadas.",
+      "pergunta": "Em criptografia assimétrica, a propriedade de 'Forward Secrecy' garante que o comprometimento das chaves de longo prazo não compromete a confidencialidade das chaves de sessão efémeras de comunicações passadas.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -236,7 +236,7 @@
       ]
     },
     {
-      "pergunta": "[Q20] O conceito de 'Permutação de Sentido Único com Alçapão' (Trapdoor One-Way Permutation) refere-se a uma função fácil de calcular num sentido, difícil de inverter no sentido oposto, exceto se for conhecida uma informação especial (alçapão/trapdoor).",
+      "pergunta": "O conceito de 'Permutação de Sentido Único com Alçapão' (Trapdoor One-Way Permutation) refere-se a uma função fácil de calcular num sentido, difícil de inverter no sentido oposto, exceto se for conhecida uma informação especial (alçapão/trapdoor).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -246,7 +246,7 @@
       ]
     },
     {
-      "pergunta": "[Q21] O algoritmo de encriptação de ElGamal é uma extensão do acordo de chaves Diffie-Hellman para cifragem de chaves públicas.",
+      "pergunta": "O algoritmo de encriptação de ElGamal é uma extensão do acordo de chaves Diffie-Hellman para cifragem de chaves públicas.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -256,7 +256,7 @@
       ]
     },
     {
-      "pergunta": "[Q22] No algoritmo de ElGamal, o criptograma resultante da cifragem de uma mensagem 'm' é composto por dois valores, o que duplica o tamanho do criptograma em relação ao texto claro.",
+      "pergunta": "No algoritmo de ElGamal, o criptograma resultante da cifragem de uma mensagem 'm' é composto por dois valores, o que duplica o tamanho do criptograma em relação ao texto claro.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -266,7 +266,7 @@
       ]
     },
     {
-      "pergunta": "[Q23] O algoritmo ElGamal é um algoritmo de encriptação determinístico.",
+      "pergunta": "O algoritmo ElGamal é um algoritmo de encriptação determinístico.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -276,7 +276,7 @@
       ]
     },
     {
-      "pergunta": "[Q24] A cifra de ElGamal apresenta propriedades de homomorfismo multiplicativo, o que significa que multiplicar dois criptogramas resulta no criptograma do produto das mensagens originais.",
+      "pergunta": "A cifra de ElGamal apresenta propriedades de homomorfismo multiplicativo, o que significa que multiplicar dois criptogramas resulta no criptograma do produto das mensagens originais.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -286,7 +286,7 @@
       ]
     },
     {
-      "pergunta": "[Q25] O criptossistema RSA baseia a sua segurança na dificuldade de resolver o problema matemático da fatorização de inteiros com fatores primos de grande dimensão.",
+      "pergunta": "O criptossistema RSA baseia a sua segurança na dificuldade de resolver o problema matemático da fatorização de inteiros com fatores primos de grande dimensão.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -296,7 +296,7 @@
       ]
     },
     {
-      "pergunta": "[Q26] No RSA, a chave pública e a chave privada de Alice contêm em comum o valor do módulo 'n'.",
+      "pergunta": "No RSA, a chave pública e a chave privada de Alice contêm em comum o valor do módulo 'n'.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -306,7 +306,7 @@
       ]
     },
     {
-      "pergunta": "[Q27] No RSA clássico, a encriptação de uma mensagem 'm' é realizada através da fórmula:",
+      "pergunta": "No RSA clássico, a encriptação de uma mensagem 'm' é realizada através da fórmula:",
       "opcoes": [
         "c = m^e mod n",
         "c = m * e mod n",
@@ -319,7 +319,7 @@
       ]
     },
     {
-      "pergunta": "[Q28] No RSA clássico, a decifragem de um criptograma 'c' é obtida calculando:",
+      "pergunta": "No RSA clássico, a decifragem de um criptograma 'c' é obtida calculando:",
       "opcoes": [
         "m = c^d mod n",
         "m = (c ⊕ d) mod n",
@@ -332,7 +332,7 @@
       ]
     },
     {
-      "pergunta": "[Q29] No RSA clássico determinístico, encriptar a mesma mensagem com a mesma chave pública resulta sempre no mesmo criptograma, o que o torna vulnerável a ataques se o espaço de mensagens for pequeno.",
+      "pergunta": "No RSA clássico determinístico, encriptar a mesma mensagem com a mesma chave pública resulta sempre no mesmo criptograma, o que o torna vulnerável a ataques se o espaço de mensagens for pequeno.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -342,7 +342,7 @@
       ]
     },
     {
-      "pergunta": "[Q30] Um tamanho de módulo RSA de 3072 bits fornece um nível de segurança computacional equivalente a uma chave simétrica de:",
+      "pergunta": "Um tamanho de módulo RSA de 3072 bits fornece um nível de segurança computacional equivalente a uma chave simétrica de:",
       "opcoes": [
         "128 bits (como o AES-128).",
         "56 bits.",
@@ -355,7 +355,7 @@
       ]
     },
     {
-      "pergunta": "[Q31] O que é o RSA-OAEP (Optimal Asymmetric Encryption Padding) e qual o seu benefício?",
+      "pergunta": "O que é o RSA-OAEP (Optimal Asymmetric Encryption Padding) e qual o seu benefício?",
       "opcoes": [
         "Um acelerador de hardware para fazer bypass às S-boxes do AES.",
         "Uma KDF que gera chaves efémeras a partir do totiente de Euler.",
@@ -368,7 +368,7 @@
       ]
     },
     {
-      "pergunta": "[Q32] Se um atacante ativo interceptar um criptograma RSA e tentar decifrá-lo, descobrir os fatores primos p e q do módulo n = p * q permitiria ao atacante reconstruir a chave privada 'd' de forma simples.",
+      "pergunta": "Se um atacante ativo interceptar um criptograma RSA e tentar decifrá-lo, descobrir os fatores primos p e q do módulo n = p * q permitiria ao atacante reconstruir a chave privada 'd' de forma simples.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -378,7 +378,7 @@
       ]
     },
     {
-      "pergunta": "[Q33] Qual das seguintes opções representa uma tendência moderna de gestão descentralizada de chaves (DKMS)?",
+      "pergunta": "Qual das seguintes opções representa uma tendência moderna de gestão descentralizada de chaves (DKMS)?",
       "opcoes": [
         "Uso de computação multi-partidária (MPC) para armazenamento de chaves sem um ponto único de confiança e uso de blockchains para políticas de segurança invioláveis.",
         "Centralizar todas as chaves num único KDC local do tipo Kerberos.",
@@ -391,7 +391,7 @@
       ]
     },
     {
-      "pergunta": "[Q34] A propriedade comutativa na cifragem assimétrica (ou acordo de chaves) é importante porque garante que a ordem de aplicação de operações por diferentes entidades não altera o resultado final da chave acordada.",
+      "pergunta": "A propriedade comutativa na cifragem assimétrica (ou acordo de chaves) é importante porque garante que a ordem de aplicação de operações por diferentes entidades não altera o resultado final da chave acordada.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -401,7 +401,7 @@
       ]
     },
     {
-      "pergunta": "[Q35] No Diffie-Hellman matemático real, o gerador 'g' é um elemento primitivo que gera um subgrupo de ordem prima 'q' dentro do grupo multiplicativo do corpo finito GF(p).",
+      "pergunta": "No Diffie-Hellman matemático real, o gerador 'g' é um elemento primitivo que gera um subgrupo de ordem prima 'q' dentro do grupo multiplicativo do corpo finito GF(p).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -411,7 +411,7 @@
       ]
     },
     {
-      "pergunta": "[Q36] No contexto do protocolo de acordo de chaves Diffie-Hellman (DH) clássico, selecione as afirmações corretas sobre o seu funcionamento e segurança:",
+      "pergunta": "No contexto do protocolo de acordo de chaves Diffie-Hellman (DH) clássico, selecione as afirmações corretas sobre o seu funcionamento e segurança:",
       "opcoes": [
         "O segredo K partilhado é transmitido cifrado através do canal público utilizando chaves assimétricas.",
         "Assenta na dificuldade computacional do cálculo do logaritmo discreto em grupos multiplicativos de inteiros modulares.",
@@ -427,7 +427,7 @@
     },
     {
       "cabecalho": "Considere os seguintes parâmetros de uma chave RSA simples gerada para testes:\n- Primos: p = 61, q = 53\n- Módulo: n = p * q = 3233\n- Função Totiente de Euler: phi(n) = (p - 1) * (q - 1) = 3120\n- Expoente Público: e = 17\n- Expoente Privado: d = 2753 (onde (d * e) mod phi(n) = 1)",
-      "pergunta": "[Q37] Com base nos parâmetros apresentados no cabeçalho, quais são os componentes que constituem a Chave Pública RSA exposta publicamente?",
+      "pergunta": "Com base nos parâmetros apresentados no cabeçalho, quais são os componentes que constituem a Chave Pública RSA exposta publicamente?",
       "opcoes": [
         "O par (n, d), ou seja, (3233, 2753)",
         "O par (phi(n), e), ou seja, (3120, 17)",
@@ -441,7 +441,7 @@
     },
     {
       "cabecalho": "Considere os seguintes parâmetros de uma chave RSA simples gerada para testes:\n- Primos: p = 61, q = 53\n- Módulo: n = p * q = 3233\n- Função Totiente de Euler: phi(n) = (p - 1) * (q - 1) = 3120\n- Expoente Público: e = 17\n- Expoente Privado: d = 2753 (onde (d * e) mod phi(n) = 1)",
-      "pergunta": "[Q38] Se um remetente desejar cifrar uma mensagem inteira M = 65 para o proprietário desta chave, qual é a fórmula matemática correta para calcular o criptograma C?",
+      "pergunta": "Se um remetente desejar cifrar uma mensagem inteira M = 65 para o proprietário desta chave, qual é a fórmula matemática correta para calcular o criptograma C?",
       "opcoes": [
         "C = 65 * 17 mod 3120",
         "C = 17^65 mod 3120",
@@ -455,7 +455,7 @@
     },
     {
       "cabecalho": "Considere os seguintes parâmetros de uma chave RSA simples gerada para testes:\n- Primos: p = 61, q = 53\n- Módulo: n = p * q = 3233\n- Função Totiente de Euler: phi(n) = (p - 1) * (q - 1) = 3120\n- Expoente Público: e = 17\n- Expoente Privado: d = 2753 (onde (d * e) mod phi(n) = 1)",
-      "pergunta": "[Q39] Por que razão os primos 'p' e 'q' do cabeçalho devem ser mantidos em segredo absoluto?",
+      "pergunta": "Por que razão os primos 'p' e 'q' do cabeçalho devem ser mantidos em segredo absoluto?",
       "opcoes": [
         "Porque qualquer pessoa que conheça 'p' e 'q' pode calcular facilmente phi(n) = 3120 e, a partir daí, descobrir o expoente privado 'd = 17^-1 mod phi(n)'.",
         "Porque 'p' e 'q' contêm os bits da assinatura digital da autoridade de certificação.",

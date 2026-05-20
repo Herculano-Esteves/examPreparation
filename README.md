@@ -1,74 +1,50 @@
-# Simulador de Exames - Teoria de SSI
+# Exam Preparation
 
-Este repositório contém a versão estática e modular do **Simulador de Exames de Segurança de Sistemas de Informação (SSI)**, otimizado para funcionar diretamente no **GitHub Pages** (`github.io`).
+This repository contains the static and modular version of the **Information Systems Security (ISS) Theory Exam Simulator**, optimized to run directly on **GitHub Pages** (`github.io`).
 
-## 🚀 Arquitetura Estática e Modular
+## Static and Modular Architecture
 
-Para permitir o alojamento no GitHub Pages (que suporta apenas ficheiros estáticos como HTML, CSS e JavaScript), o projeto utiliza a seguinte estrutura:
+To enable hosting on GitHub Pages (which only supports static files such as HTML, CSS, and JavaScript), the project uses the following structure:
 
-- `index.html`: A página principal do simulador (usa caminhos relativos para os recursos).
-- `static/`: Contém os estilos visualmente ricos (`style.css`) e a lógica de interação do frontend (`app.js`).
-- `exames/`: Pasta onde adicionas os ficheiros JSON individuais de cada exame (ex: `ExameModelo.json`, etc.).
-- `exames.json`: Ficheiro consolidado gerado automaticamente que contém todos os exames validados e prontos a serem consumidos pelo frontend.
-- `run.py`: Script auxiliar em Python para desenvolvimento local. Ele valida todos os ficheiros de exames, gera o `exames.json` consolidado e inicia um servidor local.
+- `index.html`: The main page of the simulator (uses relative paths for resources).
+- `static/`: Contains visually rich styles (`style.css`) and frontend interaction logic (`app.js`).
+- `exames/`: Folder where individual JSON files for each exam are added (e.g., `ExameModelo.json`, etc.).
+- `exames.json`: Automatically generated consolidated file that contains all validated exams ready to be consumed by the frontend.
+- `run.py`: Auxiliary Python script for local development. It validates all exam files, generates the consolidated `exames.json`, and starts a local server.
 
 ---
 
-## 🛠️ Como Testar Localmente (Passo a Passo)
+## How to Test Locally
 
-Podes testar o site localmente antes de fazer commit e push para o GitHub:
+You can test the site locally before committing and pushing to GitHub:
 
-1. **Abre o terminal** na pasta deste projeto:
+1. **Open the terminal** in the project folder:
    ```bash
    cd examPreparation
    ```
 
-2. **Executa o script Python**:
+2. **Run the Python script**:
    ```bash
    python run.py
    ```
-   *Nota: O script utiliza apenas a biblioteca padrão do Python, pelo que não necessitas de instalar dependências adicionais (como Flask).*
+   *Note: The script uses only the Python standard library, so no additional dependencies (such as Flask) are required.*
 
-3. **Acede ao simulador**:
-   Abre o teu navegador e acede ao link indicado no terminal:
+3. **Access the simulator**:
+   Open your browser and go to the link shown in the terminal:
    ```text
    http://127.0.0.1:5000
    ```
 
-4. **Modo apenas compilação** (se apenas quiseres regenerar o `exames.json` sem iniciar o servidor):
+4. **Compilation-only mode** (if you only want to regenerate `exames.json` without starting the server):
    ```bash
    python run.py --build-only
    ```
 
 ---
 
-## ✍️ Adicionar Novos Exames
+## Adding New Exams
 
-Para adicionar novos exames ou questões:
-1. Cria ou edita um ficheiro `.json` dentro da pasta `exames/`.
-2. Garante que o formato obedece à estrutura esperada (com `titulo`, `descricao` e a lista de `perguntas` contendo `pergunta`, `opcoes` e `solucao` como índices da resposta correta).
-3. Corre o script `run.py` localmente para validar as alterações e atualizar o ficheiro `exames.json`.
-
----
-
-## 🌐 Publicar no GitHub Pages (`github.io`)
-
-Depois de validar tudo localmente, publica o simulador no teu repositório do GitHub:
-
-1. Faz commit e envia os ficheiros para o GitHub (garante que incluis o `exames.json` atualizado):
-   ```bash
-   git add .
-   git commit -m "feat: migração para simulador estático pronto para GitHub Pages"
-   git push origin main
-   ```
-
-2. Ativa o GitHub Pages no teu repositório:
-   - Vai ao teu repositório no GitHub.
-   - Clica em **Settings** (Definições).
-   - Na barra lateral esquerda, na secção *Code and automation*, clica em **Pages**.
-   - Em *Build and deployment*, seleciona a fonte **Deploy from a branch**.
-   - Escolhe o teu branch principal (geralmente `main`) e a pasta `/ (root)`.
-   - Clica em **Save**.
-
-Após alguns instantes, o teu site estará live e funcional em:
-`https://<o-teu-utilizador>.github.io/<nome-do-repositorio>/`
+To add new exams or questions:
+1. Create or edit a `.json` file inside the `exames/` folder.
+2. Ensure the format follows the expected structure (including `titulo`, `descricao`, and a list of `perguntas` containing `pergunta`, `opcoes`, and `solucao` as indices of the correct answer).
+3. Run the `run.py` script locally to validate the changes and update the `exames.json` file.

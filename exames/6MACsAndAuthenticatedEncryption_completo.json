@@ -3,7 +3,7 @@
   "descricao": "Base de dados super completa (45 questões) cobrindo funções MAC (HMAC, CBC-MAC, CMAC), ataques de extensão de comprimento, paradigmas de AEAD (EtM, MtE, EaM), cifras dedicadas (GCM, OCB, SIV, Ascon) e reuso de nonces.",
   "perguntas": [
     {
-      "pergunta": "[Q1] Por que razão as funções de hash simples (como SHA-256 ou MD5), por si só, não garantem a integridade nem a autenticidade de mensagens transmitidas num canal público controlado por um atacante ativo?",
+      "pergunta": "Por que razão as funções de hash simples (como SHA-256 ou MD5), por si só, não garantem a integridade nem a autenticidade de mensagens transmitidas num canal público controlado por um atacante ativo?",
       "opcoes": [
         "Porque o codomínio de 256 bits é demasiado pequeno para evitar colisões simples.",
         "Porque um atacante em trânsito pode alterar a mensagem e gerar um novo hash correspondente à mensagem modificada, uma vez que o cálculo do hash não envolve segredos.",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "pergunta": "[Q2] Um Message Authentication Code (MAC) garante duas propriedades fundamentais de segurança de dados na criptografia simétrica. Quais são?",
+      "pergunta": "Um Message Authentication Code (MAC) garante duas propriedades fundamentais de segurança de dados na criptografia simétrica. Quais são?",
       "opcoes": [
         "Cifragem homomórfica e resistência a ASICs.",
         "Confidencialidade e não-repúdio.",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "pergunta": "[Q3] A construção ingénua de MAC baseada na concatenação de uma chave e de uma mensagem, definida por MAC(k, m) = H(k || m), é vulnerável a que tipo de ataque em funções de hash baseadas em Merkle-Damgård (como MD5, SHA-1 e SHA-2)?",
+      "pergunta": "A construção ingénua de MAC baseada na concatenação de uma chave e de uma mensagem, definida por MAC(k, m) = H(k || m), é vulnerável a que tipo de ataque em funções de hash baseadas em Merkle-Damgård (como MD5, SHA-1 e SHA-2)?",
       "opcoes": [
         "Ataque de extensão de comprimento (Length Extension Attack).",
         "Ataque do paradoxo do aniversário.",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "pergunta": "[Q4] Explique o funcionamento de um Ataque de Extensão de Comprimento (Length Extension Attack) contra o MAC(k, m) = H(k || m):",
+      "pergunta": "Explique o funcionamento de um Ataque de Extensão de Comprimento (Length Extension Attack) contra o MAC(k, m) = H(k || m):",
       "opcoes": [
         "O atacante, sabendo apenas o hash H(k || m) e o tamanho de 'm', consegue calcular H(k || m || pad || m') para qualquer mensagem 'm'' da sua escolha, utilizando o hash original como o estado interno inicial da função de compressão.",
         "O atacante inverte bits no criptograma para decifrar a mensagem.",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "pergunta": "[Q5] A construção HMAC (Hash-based Message Authentication Code) resolve a vulnerabilidade de extensão de comprimento efetuando dois passos de processamento na função de hash, definidos formalmente como:",
+      "pergunta": "A construção HMAC (Hash-based Message Authentication Code) resolve a vulnerabilidade de extensão de comprimento efetuando dois passos de processamento na função de hash, definidos formalmente como:",
       "opcoes": [
         "HMAC(k, m) = H(k) ⊕ H(m)",
         "HMAC(k, m) = H(k || H(m))",
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "pergunta": "[Q6] As constantes ipad (inner pad) e opad (outer pad) utilizadas no HMAC servem para estruturar a chave à largura do bloco de compressão e foram escolhidas de forma a possuir:",
+      "pergunta": "As constantes ipad (inner pad) e opad (outer pad) utilizadas no HMAC servem para estruturar a chave à largura do bloco de compressão e foram escolhidas de forma a possuir:",
       "opcoes": [
         "Entropia de Shannon nula.",
         "Elevada distância de Hamming entre si.",
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "pergunta": "[Q7] Por que razão a construção mais simples MAC(k, m) = H(k || m) é considerada segura quando a função de hash 'H' baseia-se numa construção em Esponja (Sponge), como o SHA-3?",
+      "pergunta": "Por que razão a construção mais simples MAC(k, m) = H(k || m) é considerada segura quando a função de hash 'H' baseia-se numa construção em Esponja (Sponge), como o SHA-3?",
       "opcoes": [
         "Porque o SHA-3 requer chaves de cifragem de tamanho dinâmico.",
         "Porque o SHA-3 não utiliza padding no processamento de dados.",
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "pergunta": "[Q8] A construção CBC-MAC permite criar um MAC a partir de uma cifra por blocos. Quais as suas regras de inicialização e qual é o tag gerado?",
+      "pergunta": "A construção CBC-MAC permite criar um MAC a partir de uma cifra por blocos. Quais as suas regras de inicialização e qual é o tag gerado?",
       "opcoes": [
         "O IV é oculto e o tag corresponde ao primeiro bloco de criptograma.",
         "O IV é aleatório e o tag é o XOR de todos os blocos.",
@@ -107,7 +107,7 @@
       ]
     },
     {
-      "pergunta": "[Q9] A construção CBC-MAC simples é vulnerável a ataques de extensão de comprimento quando aplicada a mensagens de tamanho variável.",
+      "pergunta": "A construção CBC-MAC simples é vulnerável a ataques de extensão de comprimento quando aplicada a mensagens de tamanho variável.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -117,7 +117,7 @@
       ]
     },
     {
-      "pergunta": "[Q10] Como é que o algoritmo CMAC (Cipher-based MAC) corrige a vulnerabilidade de extensão de comprimento do CBC-MAC?",
+      "pergunta": "Como é que o algoritmo CMAC (Cipher-based MAC) corrige a vulnerabilidade de extensão de comprimento do CBC-MAC?",
       "opcoes": [
         "Utilizando iterações de hashing como no PBKDF2.",
         "Adicionando um Nonce público a cada bloco do processo.",
@@ -130,7 +130,7 @@
       ]
     },
     {
-      "pergunta": "[Q11] No CMAC, se o tamanho da mensagem for um múltiplo exato do tamanho do bloco da cifra, que operação especial é realizada no último bloco?",
+      "pergunta": "No CMAC, se o tamanho da mensagem for um múltiplo exato do tamanho do bloco da cifra, que operação especial é realizada no último bloco?",
       "opcoes": [
         "O último bloco sofre uma operação XOR com a chave derivada k1 antes da encriptação final.",
         "O último bloco é descartado.",
@@ -143,7 +143,7 @@
       ]
     },
     {
-      "pergunta": "[Q12] No CMAC, se a mensagem necessitar de preenchimento (padding), qual é o procedimento de modificação do último bloco?",
+      "pergunta": "No CMAC, se a mensagem necessitar de preenchimento (padding), qual é o procedimento de modificação do último bloco?",
       "opcoes": [
         "O bloco é cifrado duas vezes com a chave principal k.",
         "É adicionado padding e o bloco resultante sofre um XOR com a chave derivada k1.",
@@ -156,7 +156,7 @@
       ]
     },
     {
-      "pergunta": "[Q13] As Funções de Hash Universais (Universal Hash Functions - UHFs) possuem uma propriedade de colisão muito mais fraca do que a resistência a colisões tradicional, bastando garantir que para duas mensagens distintas a probabilidade de colisão sob uma chave aleatória seja muito pequena.",
+      "pergunta": "As Funções de Hash Universais (Universal Hash Functions - UHFs) possuem uma propriedade de colisão muito mais fraca do que a resistência a colisões tradicional, bastando garantir que para duas mensagens distintas a probabilidade de colisão sob uma chave aleatória seja muito pequena.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -166,7 +166,7 @@
       ]
     },
     {
-      "pergunta": "[Q14] Uma Função de Hash Universal (UHF) simples pode ser utilizada diretamente como um MAC seguro para autenticar múltiplas mensagens consecutivas com a mesma chave.",
+      "pergunta": "Uma Função de Hash Universal (UHF) simples pode ser utilizada diretamente como um MAC seguro para autenticar múltiplas mensagens consecutivas com a mesma chave.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -176,7 +176,7 @@
       ]
     },
     {
-      "pergunta": "[Q15] A construção de Wegman-Carter fortalece uma UHF para permitir o seu uso como um MAC seguro multi-mensagem através de que mecanismo?",
+      "pergunta": "A construção de Wegman-Carter fortalece uma UHF para permitir o seu uso como um MAC seguro multi-mensagem através de que mecanismo?",
       "opcoes": [
         "Utilizando o algoritmo PBKDF2 com salt.",
         "Encriptando o valor do hash universal gerado usando uma função pseudo-aleatória (PRF) ou cifra alimentada por um Nonce público.",
@@ -189,7 +189,7 @@
       ]
     },
     {
-      "pergunta": "[Q16] A construção Poly1305 é uma UHF que calcula um polinómio cujos coeficientes são blocos da mensagem, operando em aritmética modulo o número primo:",
+      "pergunta": "A construção Poly1305 é uma UHF que calcula um polinómio cujos coeficientes são blocos da mensagem, operando em aritmética modulo o número primo:",
       "opcoes": [
         "2^16",
         "2^128 - 1",
@@ -202,7 +202,7 @@
       ]
     },
     {
-      "pergunta": "[Q17] A combinação ChaCha20-Poly1305 é em larga escala adotada em software porque corre a alta velocidade sem necessidade de instruções ou co-processadores de aceleração dedicados no hardware da CPU.",
+      "pergunta": "A combinação ChaCha20-Poly1305 é em larga escala adotada em software porque corre a alta velocidade sem necessidade de instruções ou co-processadores de aceleração dedicados no hardware da CPU.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -212,7 +212,7 @@
       ]
     },
     {
-      "pergunta": "[Q18] No âmbito da Cifragem Autenticada, a especificação AEAD (Authenticated Encryption with Associated Data) permite garantir que determinados dados adicionais (como cabeçalhos de pacotes IP ou números de sequência):",
+      "pergunta": "No âmbito da Cifragem Autenticada, a especificação AEAD (Authenticated Encryption with Associated Data) permite garantir que determinados dados adicionais (como cabeçalhos de pacotes IP ou números de sequência):",
       "opcoes": [
         "Permanecem em texto-limpo (não encriptados), mas são integrados no cálculo do tag, garantindo a sua integridade e autenticidade.",
         "São cifrados com chaves efémeras no KDC.",
@@ -225,7 +225,7 @@
       ]
     },
     {
-      "pergunta": "[Q19] Considere o paradigma de Cifragem Autenticada 'Encrypt-and-MAC' (EaM), historicamente utilizado no SSH legado. Como é obtido o criptograma final e qual a sua principal limitação?",
+      "pergunta": "Considere o paradigma de Cifragem Autenticada 'Encrypt-and-MAC' (EaM), historicamente utilizado no SSH legado. Como é obtido o criptograma final e qual a sua principal limitação?",
       "opcoes": [
         "Cifra-se a mensagem para obter 'c' e calcula-se o MAC sobre o texto claro para obter 't', enviando (c, t). A limitação é que o tag do MAC pode revelar propriedades estatísticas do texto claro, uma vez que o MAC não foi desenhado para garantir confidencialidade.",
         "Cifra-se a mensagem e aplica-se o MAC ao criptograma, sendo vulnerável a ataques de colisão simples.",
@@ -238,7 +238,7 @@
       ]
     },
     {
-      "pergunta": "[Q20] Considere o paradigma 'MAC-then-Encrypt' (MtE), utilizado em versões antigas do protocolo TLS. Qual o seu comportamento e que vulnerabilidade o afetou na prática?",
+      "pergunta": "Considere o paradigma 'MAC-then-Encrypt' (MtE), utilizado em versões antigas do protocolo TLS. Qual o seu comportamento e que vulnerabilidade o afetou na prática?",
       "opcoes": [
         "A mensagem é cifrada com uma semente de 16 bits de entropia.",
         "Calcula-se o MAC da mensagem limpa, anexa-se à mensagem e cifra-se o conjunto resultante. É vulnerável a ataques de oráculo de padding (ex: Lucky 13), pois o recetor decifra a mensagem corrompida e revela diferenças temporais antes de verificar o MAC.",
@@ -251,7 +251,7 @@
       ]
     },
     {
-      "pergunta": "[Q21] Considere o paradigma 'Encrypt-then-MAC' (EtM), utilizado em IPsec e considerado a abordagem genérica mais segura. Qual é o motivo da sua segurança superior?",
+      "pergunta": "Considere o paradigma 'Encrypt-then-MAC' (EtM), utilizado em IPsec e considerado a abordagem genérica mais segura. Qual é o motivo da sua segurança superior?",
       "opcoes": [
         "Porque permite cifragem homomórfica de dados em nuvem.",
         "Porque o recetor valida a integridade do criptograma 'c' (sobre o qual o MAC foi calculado) antes de tentar qualquer processo de decifragem, mitigando ataques de oráculo e protegendo o decifrador de processar dados inválidos.",
@@ -264,7 +264,7 @@
       ]
     },
     {
-      "pergunta": "[Q22] O modo de operação Galois/Counter Mode (GCM) é uma cifra AEAD muito popular que combina a cifragem por blocos no modo CTR com uma função de hash universal (GHASH).",
+      "pergunta": "O modo de operação Galois/Counter Mode (GCM) é uma cifra AEAD muito popular que combina a cifragem por blocos no modo CTR com uma função de hash universal (GHASH).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -274,7 +274,7 @@
       ]
     },
     {
-      "pergunta": "[Q23] No AES-GCM, o valor do segredo de autenticação H (usado no GHASH) e a máscara final são derivados respetivamente por:",
+      "pergunta": "No AES-GCM, o valor do segredo de autenticação H (usado no GHASH) e a máscara final são derivados respetivamente por:",
       "opcoes": [
         "H = E(k, 0) e Mask = E(k, n) (onde n é o nonce com formatação de bloco).",
         "H = 0 e Mask = 0.",
@@ -287,7 +287,7 @@
       ]
     },
     {
-      "pergunta": "[Q24] O modo GCM perde a capacidade de paralelização inerente ao CTR mode devido ao processamento dos dados associados.",
+      "pergunta": "O modo GCM perde a capacidade de paralelização inerente ao CTR mode devido ao processamento dos dados associados.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -297,7 +297,7 @@
       ]
     },
     {
-      "pergunta": "[Q25] No modo de operação OCB (Offset CodeBook) para AEAD, a cifragem e a autenticação ocorrem em simultâneo através da aplicação de um offset dinâmico antes e depois de cada chamada à cifra de blocos.",
+      "pergunta": "No modo de operação OCB (Offset CodeBook) para AEAD, a cifragem e a autenticação ocorrem em simultâneo através da aplicação de um offset dinâmico antes e depois de cada chamada à cifra de blocos.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -307,7 +307,7 @@
       ]
     },
     {
-      "pergunta": "[Q26] O modo OCB é até 3 vezes mais rápido que o GCM em software, mas a sua adoção foi inicialmente dificultada por questões de patentes de propriedade intelectual.",
+      "pergunta": "O modo OCB é até 3 vezes mais rápido que o GCM em software, mas a sua adoção foi inicialmente dificultada por questões de patentes de propriedade intelectual.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -317,7 +317,7 @@
       ]
     },
     {
-      "pergunta": "[Q27] Ao contrário do GCM (que usa apenas a encriptação do bloco no modo CTR), o modo OCB exige a implementação dos algoritmos de encriptação e de decriptação da cifra de blocos base no hardware.",
+      "pergunta": "Ao contrário do GCM (que usa apenas a encriptação do bloco no modo CTR), o modo OCB exige a implementação dos algoritmos de encriptação e de decriptação da cifra de blocos base no hardware.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -327,7 +327,7 @@
       ]
     },
     {
-      "pergunta": "[Q28] O que acontece em termos de segurança se ocorrer a reutilização acidental de um Nonce (Nonce reuse) no modo GCM?",
+      "pergunta": "O que acontece em termos de segurança se ocorrer a reutilização acidental de um Nonce (Nonce reuse) no modo GCM?",
       "opcoes": [
         "O modo altera-se automaticamente para ECB para se proteger.",
         "O algoritmo apenas reporta um aviso lógico sem impacto de segurança.",
@@ -340,7 +340,7 @@
       ]
     },
     {
-      "pergunta": "[Q29] No modo OCB, a reutilização do Nonce permite ao atacante extrair padrões do texto claro e realizar falsificações de blocos (block forgery) através de somas de XOR.",
+      "pergunta": "No modo OCB, a reutilização do Nonce permite ao atacante extrair padrões do texto claro e realizar falsificações de blocos (block forgery) através de somas de XOR.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -350,7 +350,7 @@
       ]
     },
     {
-      "pergunta": "[Q30] O modo SIV (Synthetic Initialization Vector) resolve o perigo de reutilização de Nonce calculando o IV dinamicamente a partir do tag de autenticação da mensagem (MAC-then-Encrypt modificado).",
+      "pergunta": "O modo SIV (Synthetic Initialization Vector) resolve o perigo de reutilização de Nonce calculando o IV dinamicamente a partir do tag de autenticação da mensagem (MAC-then-Encrypt modificado).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -360,7 +360,7 @@
       ]
     },
     {
-      "pergunta": "[Q31] Cifras em modo SIV (como o AES-GCM-SIV) são eficientes e streamable, processando os dados numa única passagem rápida pela CPU.",
+      "pergunta": "Cifras em modo SIV (como o AES-GCM-SIV) são eficientes e streamable, processando os dados numa única passagem rápida pela CPU.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -370,7 +370,7 @@
       ]
     },
     {
-      "pergunta": "[Q32] A construção baseada em esponja dupla (Duplex Sponge), como a utilizada pelo algoritmo Ascon, permite cifrar e autenticar dados integrando chaves e nonces no estado da esponja.",
+      "pergunta": "A construção baseada em esponja dupla (Duplex Sponge), como a utilizada pelo algoritmo Ascon, permite cifrar e autenticar dados integrando chaves e nonces no estado da esponja.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -380,7 +380,7 @@
       ]
     },
     {
-      "pergunta": "[Q33] O Ascon foi selecionado em 2023 pelo NIST como o novo padrão internacional de criptografia para:",
+      "pergunta": "O Ascon foi selecionado em 2023 pelo NIST como o novo padrão internacional de criptografia para:",
       "opcoes": [
         "Processadores x86 com instruções de hardware avançadas.",
         "Criptografia leve (Lightweight Cryptography), adequada para dispositivos de baixa potência e Internet das Coisas (IoT).",
@@ -393,7 +393,7 @@
       ]
     },
     {
-      "pergunta": "[Q34] No Ascon, a reutilização acidental de um Nonce:",
+      "pergunta": "No Ascon, a reutilização acidental de um Nonce:",
       "opcoes": [
         "Impede a decifragem dos pacotes pelo recetor legítimo.",
         "Quebra a confidencialidade e a autenticidade por completo, como no GCM.",
@@ -406,7 +406,7 @@
       ]
     },
     {
-      "pergunta": "[Q35] No Ascon, os processos de cifragem e decifragem utilizam a mesma permutação interna de bits da esponja, o que reduz a área necessária em implementações de hardware.",
+      "pergunta": "No Ascon, os processos de cifragem e decifragem utilizam a mesma permutação interna de bits da esponja, o que reduz a área necessária em implementações de hardware.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -416,7 +416,7 @@
       ]
     },
     {
-      "pergunta": "[Q36] A cifra de blocos clássica DES utiliza uma chave efetiva de 56 bits, o que a torna vulnerável a ataques de força bruta rápidos atualmente.",
+      "pergunta": "A cifra de blocos clássica DES utiliza uma chave efetiva de 56 bits, o que a torna vulnerável a ataques de força bruta rápidos atualmente.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -426,7 +426,7 @@
       ]
     },
     {
-      "pergunta": "[Q37] Qual o objetivo de utilizar o modo 3DES (Triple DES)?",
+      "pergunta": "Qual o objetivo de utilizar o modo 3DES (Triple DES)?",
       "opcoes": [
         "Eliminar o preenchimento de padding PKCS7.",
         "Executar a cifragem DES três vezes com o mesmo umask.",
@@ -439,7 +439,7 @@
       ]
     },
     {
-      "pergunta": "[Q38] O algoritmo AES foi padronizado no ano 2000 após um concurso internacional lançado pelo NIST, no qual foram avaliadas a segurança e o desempenho de várias submissões.",
+      "pergunta": "O algoritmo AES foi padronizado no ano 2000 após um concurso internacional lançado pelo NIST, no qual foram avaliadas a segurança e o desempenho de várias submissões.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -449,7 +449,7 @@
       ]
     },
     {
-      "pergunta": "[Q39] O tamanho de bloco no AES é fixo em:",
+      "pergunta": "O tamanho de bloco no AES é fixo em:",
       "opcoes": [
         "256 bits.",
         "Depende do tamanho de chave escolhido (128, 192 ou 256).",
@@ -462,7 +462,7 @@
       ]
     },
     {
-      "pergunta": "[Q40] Quantas rondas efetua o AES para chaves de 128 bits, 192 bits e 256 bits, respetivamente?",
+      "pergunta": "Quantas rondas efetua o AES para chaves de 128 bits, 192 bits e 256 bits, respetivamente?",
       "opcoes": [
         "12 rondas, 14 rondas e 16 rondas.",
         "10 rondas para todos os tamanhos.",
@@ -475,7 +475,7 @@
       ]
     },
     {
-      "pergunta": "[Q41] A transformação linear 'MixColumns' do AES realiza uma multiplicação de matrizes num corpo de Galois para espalhar a influência dos bytes de forma vertical.",
+      "pergunta": "A transformação linear 'MixColumns' do AES realiza uma multiplicação de matrizes num corpo de Galois para espalhar a influência dos bytes de forma vertical.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -485,7 +485,7 @@
       ]
     },
     {
-      "pergunta": "[Q42] O passo 'ShiftRows' do AES promove a difusão horizontal ao deslocar ciclicamente as linhas da matriz interna de 4x4 bytes por offsets de 0, 1, 2 e 3 bytes.",
+      "pergunta": "O passo 'ShiftRows' do AES promove a difusão horizontal ao deslocar ciclicamente as linhas da matriz interna de 4x4 bytes por offsets de 0, 1, 2 e 3 bytes.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -495,7 +495,7 @@
       ]
     },
     {
-      "pergunta": "[Q43] O passo 'SubBytes' é a única operação não-linear do AES, sendo a base do seu pilar de confusão.",
+      "pergunta": "O passo 'SubBytes' é a única operação não-linear do AES, sendo a base do seu pilar de confusão.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -505,7 +505,7 @@
       ]
     },
     {
-      "pergunta": "[Q44] No desenvolvimento de um programa criptográfico prático que utiliza a estratégia Encrypt-then-MAC (EtM) combinando o modo AES-CTR e o HMAC-SHA256, porque é necessário requisitar bytes adicionais à KDF (Key Derivation Function)? Selecione as razões corretas.",
+      "pergunta": "No desenvolvimento de um programa criptográfico prático que utiliza a estratégia Encrypt-then-MAC (EtM) combinando o modo AES-CTR e o HMAC-SHA256, porque é necessário requisitar bytes adicionais à KDF (Key Derivation Function)? Selecione as razões corretas.",
       "opcoes": [
         "Para gerar o par de chaves públicas da CA.",
         "Para obter uma chave simétrica independente de 32 bytes para autenticação com HMAC-SHA256.",
@@ -521,7 +521,7 @@
       ]
     },
     {
-      "pergunta": "[Q45] Qual é a diferença prática, em termos de tamanho do ficheiro criptograma final resultante, entre cifrar uma mesma mensagem com a estratégia AES-CTR + HMAC-SHA256 (EtM) ou com a cifra autenticada integrada AES-GCM?",
+      "pergunta": "Qual é a diferença prática, em termos de tamanho do ficheiro criptograma final resultante, entre cifrar uma mesma mensagem com a estratégia AES-CTR + HMAC-SHA256 (EtM) ou com a cifra autenticada integrada AES-GCM?",
       "opcoes": [
         "O AES-CTR + HMAC-SHA256 é mais pequeno porque dispensa o uso de vetores de inicialização (IV).",
         "Nenhuma, ambos produzem exatamente o mesmo tamanho.",
@@ -534,7 +534,7 @@
       ]
     },
     {
-      "pergunta": "[Q46] No domínio das cifras autenticadas (AEAD) e da combinação de cifragem simétrica com códigos de autenticação (MAC), identifique as asserções corretas:",
+      "pergunta": "No domínio das cifras autenticadas (AEAD) e da combinação de cifragem simétrica com códigos de autenticação (MAC), identifique as asserções corretas:",
       "opcoes": [
         "O modo AES-CCM realiza encriptação e autenticação baseada em CBC-MAC, o que impede a paralelização eficiente durante a geração da tag.",
         "O modo AES-GCM funde cifragem CTR com um autenticador Galois (GHASH) para processar dados de forma paralela e de elevado desempenho.",
@@ -550,7 +550,7 @@
     },
     {
       "cabecalho": "Considere as seguintes operações efetuadas para enviar uma mensagem autenticada e cifrada sob o esquema Encrypt-then-MAC (EtM):\n1. C = Cifra_Simetrica(K_cifra, M)\n2. T = HMAC(K_mac, C)\n3. Envia-se o par (C, T) ao destinatário.",
-      "pergunta": "[Q47] Com base no cabeçalho, qual é o primeiro passo que o recetor deve realizar ao receber o par (C, T)?",
+      "pergunta": "Com base no cabeçalho, qual é o primeiro passo que o recetor deve realizar ao receber o par (C, T)?",
       "opcoes": [
         "Decifrar o criptograma C para obter M e depois calcular o MAC da mensagem decifrada.",
         "Gerar um novo par de chaves efémeras Diffie-Hellman.",
@@ -564,7 +564,7 @@
     },
     {
       "cabecalho": "Considere as seguintes operações efetuadas para enviar uma mensagem autenticada e cifrada sob o esquema Encrypt-then-MAC (EtM):\n1. C = Cifra_Simetrica(K_cifra, M)\n2. T = HMAC(K_mac, C)\n3. Envia-se o par (C, T) ao destinatário.",
-      "pergunta": "[Q48] Qual é a principal vantagem de segurança da abordagem Encrypt-then-MAC (EtM) descrita no cabeçalho face a esquemas como Encrypt-and-MAC (E&M)?",
+      "pergunta": "Qual é a principal vantagem de segurança da abordagem Encrypt-then-MAC (EtM) descrita no cabeçalho face a esquemas como Encrypt-and-MAC (E&M)?",
       "opcoes": [
         "O recetor pode descartar criptogramas adulterados imediatamente no passo de verificação do MAC, sem precisar de efetuar decifragem que possa expor vulnerabilidades (ex: oráculos de padding).",
         "O esquema EtM é matematicamente mais rápido na cifragem de ficheiros pequenos.",
@@ -578,7 +578,7 @@
     },
     {
       "cabecalho": "Considere as seguintes operações efetuadas para enviar uma mensagem autenticada e cifrada sob o esquema Encrypt-then-MAC (EtM):\n1. C = Cifra_Simetrica(K_cifra, M)\n2. T = HMAC(K_mac, C)\n3. Envia-se o par (C, T) ao destinatário.",
-      "pergunta": "[Q49] O que aconteceria se as chaves K_cifra e K_mac fossem idênticas na configuração descrita no cabeçalho?",
+      "pergunta": "O que aconteceria se as chaves K_cifra e K_mac fossem idênticas na configuração descrita no cabeçalho?",
       "opcoes": [
         "O tamanho do criptograma final C é reduzido para metade.",
         "Viola as melhores práticas de segurança, pois o uso da mesma chave para diferentes primitivas (cifra e MAC) pode introduzir fraquezas e interações destrutivas.",

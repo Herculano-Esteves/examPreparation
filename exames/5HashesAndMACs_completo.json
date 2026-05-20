@@ -3,7 +3,7 @@
   "descricao": "Simulador de exame cobrindo propriedades de hash (pre-imagem, colisão), Birthday Paradox, Merkle-Damgård vs Sponge (SHA-2 vs SHA-3), KDFs (Argon2, PBKDF2, scrypt), gestão de chaves e Merkle Trees/Git.",
   "perguntas": [
     {
-      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nUm engenheiro de segurança está a desenhar o módulo de autenticação e integridade de uma nova plataforma Web. Pretende selecionar as funções criptográficas adequadas para guardar as passwords de utilizadores, extrair chaves de sessão e garantir a integridade dos ficheiros carregados.\n\n[Q1] O programador propõe utilizar o MD5 para obter o hash das passwords devido à sua rapidez computacional. Esta proposta é aceitável para o sistema?",
+      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nUm engenheiro de segurança está a desenhar o módulo de autenticação e integridade de uma nova plataforma Web. Pretende selecionar as funções criptográficas adequadas para guardar as passwords de utilizadores, extrair chaves de sessão e garantir a integridade dos ficheiros carregados.\n\nO programador propõe utilizar o MD5 para obter o hash das passwords devido à sua rapidez computacional. Esta proposta é aceitável para o sistema?",
       "opcoes": [
         "Sim, desde que o MD5 seja combinado com um IV público no modo ECB.",
         "Não, porque a rapidez do MD5 facilita ataques de força bruta, e o algoritmo está hoje cientificamente quebrado, sendo possível encontrar colisões em segundos.",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q2] Para evitar que um atacante que obtenha acesso à base de dados consiga fazer uma tradução rápida de múltiplos digests utilizando tabelas pré-computadas (Rainbow Tables), que técnica deve ser obrigatoriamente adotada?",
+      "pergunta": "[Cenário anterior] Para evitar que um atacante que obtenha acesso à base de dados consiga fazer uma tradução rápida de múltiplos digests utilizando tabelas pré-computadas (Rainbow Tables), que técnica deve ser obrigatoriamente adotada?",
       "opcoes": [
         "Associar um valor aleatório e único por utilizador ('Salt') à password antes da computação do hash.",
         "Gerar chaves RSA de 4096 bits para cada utilizador do sistema.",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q3] O engenheiro quer escolher uma KDF (Key Derivation Function) que forneça resistência robusta contra tentativas de quebra aceleradas por hardware dedicado (como FPGAs ou ASICs). Qual das seguintes opções deve recomendar?",
+      "pergunta": "[Cenário anterior] O engenheiro quer escolher uma KDF (Key Derivation Function) que forneça resistência robusta contra tentativas de quebra aceleradas por hardware dedicado (como FPGAs ou ASICs). Qual das seguintes opções deve recomendar?",
       "opcoes": [
         "MD5.",
         "SHA-256.",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] [Q4] Se o engenheiro pretender encontrar uma colisão genérica (m1 diferente de m2 com o mesmo hash) num algoritmo como o SHA-256 (256 bits de output) recorrendo ao Paradoxo do Aniversário, qual a complexidade média esperada?",
+      "pergunta": "[Cenário anterior] Se o engenheiro pretender encontrar uma colisão genérica (m1 diferente de m2 com o mesmo hash) num algoritmo como o SHA-256 (256 bits de output) recorrendo ao Paradoxo do Aniversário, qual a complexidade média esperada?",
       "opcoes": [
         "Cerca de 2^128 operações.",
         "Cerca de 2^64 operações.",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "pergunta": "[Q5] A propriedade de 'Resistência à Colisão' de uma função de hash criptográfica H garante que é impossível existirem duas mensagens diferentes no domínio que produzam o mesmo hash no codomínio.",
+      "pergunta": "A propriedade de 'Resistência à Colisão' de uma função de hash criptográfica H garante que é impossível existirem duas mensagens diferentes no domínio que produzam o mesmo hash no codomínio.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "pergunta": "[Q6] A relação de força entre as propriedades das funções de hash estabelece que se uma função é Resistente à Colisão, então é também Resistente à Segunda Pré-imagem.",
+      "pergunta": "A relação de força entre as propriedades das funções de hash estabelece que se uma função é Resistente à Colisão, então é também Resistente à Segunda Pré-imagem.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -75,7 +75,7 @@
       ]
     },
     {
-      "pergunta": "[Q7] A premissa teórica de que as funções criptográficas de sentido único (One-Way Functions) existem e são eficientes implica diretamente a provabilidade matemática de que P = NP.",
+      "pergunta": "A premissa teórica de que as funções criptográficas de sentido único (One-Way Functions) existem e são eficientes implica diretamente a provabilidade matemática de que P = NP.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -85,7 +85,7 @@
       ]
     },
     {
-      "pergunta": "[Q8] A construção clássica de Merkle-Damgård processa mensagens de comprimento arbitrário dividindo-as em blocos e aplicando iterativamente uma função de compressão com tamanho de output fixo.",
+      "pergunta": "A construção clássica de Merkle-Damgård processa mensagens de comprimento arbitrário dividindo-as em blocos e aplicando iterativamente uma função de compressão com tamanho de output fixo.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -95,7 +95,7 @@
       ]
     },
     {
-      "pergunta": "[Q9] A construção 'Sponge' (Esponja), utilizada no algoritmo SHA-3, divide o seu estado interno (l) em dois componentes: a taxa (rate, r) e a capacidade (capacity, c), onde a capacidade determina o nível de segurança.",
+      "pergunta": "A construção 'Sponge' (Esponja), utilizada no algoritmo SHA-3, divide o seu estado interno (l) em dois componentes: a taxa (rate, r) e a capacidade (capacity, c), onde a capacidade determina o nível de segurança.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "pergunta": "[Q10] A família de funções SHAKE (XOFs) permite estender a fase de compressão da esponja por tempo indeterminado para obter digests de tamanho fixo de 160 bits.",
+      "pergunta": "A família de funções SHAKE (XOFs) permite estender a fase de compressão da esponja por tempo indeterminado para obter digests de tamanho fixo de 160 bits.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "pergunta": "[Q11] Em termos de arquitetura e segurança física, um HSM (Hardware Security Module) é utilizado para gerar, armazenar e gerir chaves criptográficas de forma segura, impedindo a sua extração em texto limpo.",
+      "pergunta": "Em termos de arquitetura e segurança física, um HSM (Hardware Security Module) é utilizado para gerar, armazenar e gerir chaves criptográficas de forma segura, impedindo a sua extração em texto limpo.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "pergunta": "[Q12] Na ferramenta de controlo de versões Git, o commit ID é obtido calculando o hash criptográfico apenas do conteúdo da mensagem de commit escrita pelo programador.",
+      "pergunta": "Na ferramenta de controlo de versões Git, o commit ID é obtido calculando o hash criptográfico apenas do conteúdo da mensagem de commit escrita pelo programador.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -135,7 +135,7 @@
       ]
     },
     {
-      "pergunta": "[Q13] Uma árvore de Merkle (Merkle tree) garante a imutabilidade dos dados porque qualquer alteração num bloco de dados na base da árvore altera consecutivamente todos os hashes dos nós superiores até à raiz.",
+      "pergunta": "Uma árvore de Merkle (Merkle tree) garante a imutabilidade dos dados porque qualquer alteração num bloco de dados na base da árvore altera consecutivamente todos os hashes dos nós superiores até à raiz.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -145,7 +145,7 @@
       ]
     },
     {
-      "pergunta": "[Q14] As funções de derivação de chaves (KDFs) são propositadamente lentas a computar para dificultar ataques de força bruta sobre segredos fracos (como passwords).",
+      "pergunta": "As funções de derivação de chaves (KDFs) são propositadamente lentas a computar para dificultar ataques de força bruta sobre segredos fracos (como passwords).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -155,7 +155,7 @@
       ]
     },
     {
-      "pergunta": "[Q15] O algoritmo SHA-1, publicado em 1995 com pequenas correções face ao SHA-0, foi considerado quebrado em 2017 com a demonstração prática de geração de colisões.",
+      "pergunta": "O algoritmo SHA-1, publicado em 1995 com pequenas correções face ao SHA-0, foi considerado quebrado em 2017 com a demonstração prática de geração de colisões.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -165,7 +165,7 @@
       ]
     },
     {
-      "pergunta": "[Q16] A família SHA-2 é considerada insegura atualmente, devendo todas as aplicações migrar imediatamente para SHA-3 para evitar ataques conhecidos.",
+      "pergunta": "A família SHA-2 é considerada insegura atualmente, devendo todas as aplicações migrar imediatamente para SHA-3 para evitar ataques conhecidos.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -175,7 +175,7 @@
       ]
     },
     {
-      "pergunta": "[Q17] De acordo com os princípios de gestão de chaves, uma chave criptográfica deve ser reutilizada para o máximo de propósitos possíveis para simplificar o seu backup.",
+      "pergunta": "De acordo com os princípios de gestão de chaves, uma chave criptográfica deve ser reutilizada para o máximo de propósitos possíveis para simplificar o seu backup.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -185,7 +185,7 @@
       ]
     },
     {
-      "pergunta": "[Q18] Para obter o mesmo nível de segurança fornecido por uma chave simétrica de 128 bits, uma chave pública assimétrica RSA necessita habitualmente de ter um tamanho muito maior (como 3072 ou 4096 bits).",
+      "pergunta": "Para obter o mesmo nível de segurança fornecido por uma chave simétrica de 128 bits, uma chave pública assimétrica RSA necessita habitualmente de ter um tamanho muito maior (como 3072 ou 4096 bits).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -195,7 +195,7 @@
       ]
     },
     {
-      "pergunta": "[Q19] O algoritmo Argon2 foi o vencedor da Password Hashing Competition (PHC) e é recomendado atualmente para armazenamento seguro de palavras-passe.",
+      "pergunta": "O algoritmo Argon2 foi o vencedor da Password Hashing Competition (PHC) e é recomendado atualmente para armazenamento seguro de palavras-passe.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -205,7 +205,7 @@
       ]
     },
     {
-      "pergunta": "[Q20] Um esquema de partilha de segredo por limiar (threshold secret-sharing) garante que nenhuma entidade individual consegue reconstruir a chave de backup sem a cooperação de um número mínimo 'k' de participantes.",
+      "pergunta": "Um esquema de partilha de segredo por limiar (threshold secret-sharing) garante que nenhuma entidade individual consegue reconstruir a chave de backup sem a cooperação de um número mínimo 'k' de participantes.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -215,7 +215,7 @@
       ]
     },
     {
-      "pergunta": "[Q21] Se um sistema necessita de verificar apenas se um ficheiro transmitido foi alterado acidentalmente no canal físico (sem a presença de atacantes maliciosos), que tipo de função é suficiente?",
+      "pergunta": "Se um sistema necessita de verificar apenas se um ficheiro transmitido foi alterado acidentalmente no canal físico (sem a presença de atacantes maliciosos), que tipo de função é suficiente?",
       "opcoes": [
         "Cifragem assimétrica com curvas elípticas.",
         "Uma função KDF memory-hard.",
@@ -228,7 +228,7 @@
       ]
     },
     {
-      "pergunta": "[Q22] A propriedade de 'Resistência à Pré-imagem' garante que:",
+      "pergunta": "A propriedade de 'Resistência à Pré-imagem' garante que:",
       "opcoes": [
         "Dada uma mensagem 'm1', é impossível encontrar outra mensagem 'm2' com o mesmo digest.",
         "A função de hash nunca produz colisões independentemente do tamanho do codomínio.",
@@ -241,7 +241,7 @@
       ]
     },
     {
-      "pergunta": "[Q23] O algoritmo SHA3-256 utiliza a construção Sponge com um estado interno de 1600 bits. Sabendo que a capacidade (c) é de 512 bits, qual é a taxa (rate, r) de processamento?",
+      "pergunta": "O algoritmo SHA3-256 utiliza a construção Sponge com um estado interno de 1600 bits. Sabendo que a capacidade (c) é de 512 bits, qual é a taxa (rate, r) de processamento?",
       "opcoes": [
         "512 bits.",
         "1088 bits.",
@@ -254,7 +254,7 @@
       ]
     },
     {
-      "pergunta": "[Q24] Na fase de 'Squeeze' (espremer) da construção Sponge das funções de hash:",
+      "pergunta": "Na fase de 'Squeeze' (espremer) da construção Sponge das funções de hash:",
       "opcoes": [
         "O salt é misturado com a password para gerar a chave de ronda.",
         "A mensagem de entrada é dividida em blocos e introduzida gradualmente no estado.",
@@ -267,7 +267,7 @@
       ]
     },
     {
-      "pergunta": "[Q25] Que KDF suporta o ajuste dinâmico de custo (cost factor) para permitir o aumento do tempo de computação à medida que o hardware de computadores evolui?",
+      "pergunta": "Que KDF suporta o ajuste dinâmico de custo (cost factor) para permitir o aumento do tempo de computação à medida que o hardware de computadores evolui?",
       "opcoes": [
         "PBKDF2.",
         "Bcrypt.",
@@ -280,7 +280,7 @@
       ]
     },
     {
-      "pergunta": "[Q26] No Git, as colisões de hashes criptográficos na identificação de commits poderiam causar que tipo de anomalia crítica?",
+      "pergunta": "No Git, as colisões de hashes criptográficos na identificação de commits poderiam causar que tipo de anomalia crítica?",
       "opcoes": [
         "Inconsistência de estados e perda de dados durante operações de junção de histórico (merging).",
         "Desaceleração extrema na execução de comandos 'git clone'.",
@@ -293,7 +293,7 @@
       ]
     },
     {
-      "pergunta": "[Q27] A classificação de chaves criptográficas em 'estáticas' (long-term) e 'efémeras' (short-term) sugere que as chaves efémeras devem ser apagadas após:",
+      "pergunta": "A classificação de chaves criptográficas em 'estáticas' (long-term) e 'efémeras' (short-term) sugere que as chaves efémeras devem ser apagadas após:",
       "opcoes": [
         "A password do utilizador ser alterada na base de dados.",
         "O fim da sessão ou da transação específica para a qual foram geradas.",
@@ -306,7 +306,7 @@
       ]
     },
     {
-      "pergunta": "[Q28] O algoritmo PBKDF2 requer quais dos seguintes parâmetros fundamentais para gerar chaves criptográficas seguras a partir de uma password? Selecione todas as opções corretas.",
+      "pergunta": "O algoritmo PBKDF2 requer quais dos seguintes parâmetros fundamentais para gerar chaves criptográficas seguras a partir de uma password? Selecione todas as opções corretas.",
       "opcoes": [
         "A password, frase-passe ou segredo inicial fornecido pelo utilizador.",
         "O número de iterações (fator de custo de processamento temporal).",
@@ -323,7 +323,7 @@
       ]
     },
     {
-      "pergunta": "[Q29] No Paradoxo do Aniversário, para que a probabilidade de haver uma colisão entre duas pessoas num grupo seja superior a 50%, quantas pessoas são necessárias?",
+      "pergunta": "No Paradoxo do Aniversário, para que a probabilidade de haver uma colisão entre duas pessoas num grupo seja superior a 50%, quantas pessoas são necessárias?",
       "opcoes": [
         "23 pessoas.",
         "366 pessoas.",
@@ -336,7 +336,7 @@
       ]
     },
     {
-      "pergunta": "[Q30] As funções de hash criptográficas não são injetivas porque o cardinal do domínio (mensagens de tamanho arbitrário) é infinito, enquanto o cardinal do codomínio (digests de tamanho fixo) é finito (2^n).",
+      "pergunta": "As funções de hash criptográficas não são injetivas porque o cardinal do domínio (mensagens de tamanho arbitrário) é infinito, enquanto o cardinal do codomínio (digests de tamanho fixo) é finito (2^n).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -346,7 +346,7 @@
       ]
     },
     {
-      "pergunta": "[Q31] Quais das seguintes propriedades matemáticas e de segurança caracterizam formalmente uma Função de Hash Criptográfica?",
+      "pergunta": "Quais das seguintes propriedades matemáticas e de segurança caracterizam formalmente uma Função de Hash Criptográfica?",
       "opcoes": [
         "Resistência à Segunda Pré-imagem (dado M1, é inviável obter M2 != M1 tal que Hash(M1) = Hash(M2)).",
         "Resistência à Pré-imagem (dada uma hash H, é inviável obter M tal que Hash(M) = H).",
@@ -362,7 +362,7 @@
     },
     {
       "cabecalho": "Considere os valores de hash SHA-256 gerados para duas strings ligeiramente diferentes:\n- Hash 1 (SHA-256(\"seguranca\")): e793540a8310ba2d65076cfbfb81622b152d131f6d0f1a4e1d3e85e2b02005e8\n- Hash 2 (SHA-256(\"segurancA\")): 4d50d032549216091a134ad7b118b671a5c68b75cdab2fe7e4e1a0937b2d5a0d",
-      "pergunta": "[Q32] Que propriedade fundamental das funções de hash criptográficas é ilustrada pela grande diferença entre o Hash 1 e o Hash 2, apesar de o input diferir apenas num único bit?",
+      "pergunta": "Que propriedade fundamental das funções de hash criptográficas é ilustrada pela grande diferença entre o Hash 1 e o Hash 2, apesar de o input diferir apenas num único bit?",
       "opcoes": [
         "Efeito de avalanche (Avalanche effect).",
         "Resistência a colisões fraca.",
@@ -376,7 +376,7 @@
     },
     {
       "cabecalho": "Considere os valores de hash SHA-256 gerados para duas strings ligeiramente diferentes:\n- Hash 1 (SHA-256(\"seguranca\")): e793540a8310ba2d65076cfbfb81622b152d131f6d0f1a4e1d3e85e2b02005e8\n- Hash 2 (SHA-256(\"segurancA\")): 4d50d032549216091a134ad7b118b671a5c68b75cdab2fe7e4e1a0937b2d5a0d",
-      "pergunta": "[Q33] Se um atacante encontrar um texto alternativo 'M_alt' que produza exatamente o mesmo Hash 1, que propriedade da função de hash foi quebrada?",
+      "pergunta": "Se um atacante encontrar um texto alternativo 'M_alt' que produza exatamente o mesmo Hash 1, que propriedade da função de hash foi quebrada?",
       "opcoes": [
         "Resistência à Pré-imagem (Pre-image Resistance).",
         "Não-repúdio.",
@@ -390,7 +390,7 @@
     },
     {
       "cabecalho": "Considere os valores de hash SHA-256 gerados para duas strings ligeiramente diferentes:\n- Hash 1 (SHA-256(\"seguranca\")): e793540a8310ba2d65076cfbfb81622b152d131f6d0f1a4e1d3e85e2b02005e8\n- Hash 2 (SHA-256(\"segurancA\")): 4d50d032549216091a134ad7b118b671a5c68b75cdab2fe7e4e1a0937b2d5a0d",
-      "pergunta": "[Q34] Qual das seguintes utilizações dos valores de hash apresentados no cabeçalho é correta para verificar a integridade de um ficheiro descarregado da internet?",
+      "pergunta": "Qual das seguintes utilizações dos valores de hash apresentados no cabeçalho é correta para verificar a integridade de um ficheiro descarregado da internet?",
       "opcoes": [
         "O hash permite recuperar o conteúdo do ficheiro em caso de perda de dados.",
         "O utilizador calcula o hash do ficheiro localmente e compara-o com o hash publicado pelo autor num canal confiável.",

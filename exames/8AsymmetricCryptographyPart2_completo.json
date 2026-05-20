@@ -3,7 +3,7 @@
   "descricao": "Base de dados super completa (35 questões) cobrindo curvas elípticas (ECC), cifragem híbrida (KEM/DEM), assinaturas digitais (RSA-PSS, DSA), vulnerabilidades reais (PS3, Wii), S/MIME, computação quântica (Shor, Grover) e normas PQC (ML-KEM, ML-DSA, SLH-DSA).",
   "perguntas": [
     {
-      "pergunta": "[Q1] Na Criptografia de Curvas Elípticas (ECC), quais são as operações matemática fácil e difícil que transpõem o problema do logaritmo discreto clássico?",
+      "pergunta": "Na Criptografia de Curvas Elípticas (ECC), quais são as operações matemática fácil e difícil que transpõem o problema do logaritmo discreto clássico?",
       "opcoes": [
         "Operação fácil: soma matricial; Operação difícil: fatorização modular.",
         "Operação fácil: multiplicação escalar (P * d); Operação difícil: problema do logaritmo discreto em curvas elípticas (ECDLP).",
@@ -16,7 +16,7 @@
       ]
     },
     {
-      "pergunta": "[Q2] Qual é a principal vantagem da criptografia baseada em curvas elípticas (ECC) face ao RSA convencional?",
+      "pergunta": "Qual é a principal vantagem da criptografia baseada em curvas elípticas (ECC) face ao RSA convencional?",
       "opcoes": [
         "ECC é imune a ataques por computadores quânticos.",
         "ECC oferece o mesmo nível de segurança computacional utilizando chaves significativamente mais pequenas.",
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "pergunta": "[Q3] Sobre os parâmetros e curvas padronizadas em ECC, identifique os autores/proponentes das curvas NIST-P (ex: P-256) e Curve25519, respetivamente:",
+      "pergunta": "Sobre os parâmetros e curvas padronizadas em ECC, identifique os autores/proponentes das curvas NIST-P (ex: P-256) e Curve25519, respetivamente:",
       "opcoes": [
         "Ambas foram propostas pela comunidade de hackers Fail0verflow.",
         "NIST-P proposto pela NSA; Curve25519 proposto por Daniel J. Bernstein.",
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "pergunta": "[Q4] Em Cifragem Híbrida (Hybrid Encryption), o que caracteriza o funcionamento de um envelope digital?",
+      "pergunta": "Em Cifragem Híbrida (Hybrid Encryption), o que caracteriza o funcionamento de um envelope digital?",
       "opcoes": [
         "A aplicação sistemática de HMAC-SHA3 em modo SIV.",
         "O armazenamento de chaves simétricas dentro de cartões inteligentes com umask 007.",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "pergunta": "[Q5] No paradigma de Cifragem Híbrida KEM/DEM, selecione as asserções corretas sobre o funcionamento de cada componente:",
+      "pergunta": "No paradigma de Cifragem Híbrida KEM/DEM, selecione as asserções corretas sobre o funcionamento de cada componente:",
       "opcoes": [
         "O KEM (Key Encapsulation Mechanism) gera e encapsula a chave simétrica temporária recorrendo a criptografia assimétrica de chave pública.",
         "O DEM (Data Encapsulation Mechanism) cifra os dados reais com a chave gerada através de uma cifra simétrica (normalmente autenticada/AEAD).",
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "pergunta": "[Q6] A criptografia assimétrica, por si só, resolve a garantia de autenticidade das chaves públicas sem necessitar de terceiros de confiança ou canais seguros adicionais.",
+      "pergunta": "A criptografia assimétrica, por si só, resolve a garantia de autenticidade das chaves públicas sem necessitar de terceiros de confiança ou canais seguros adicionais.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -79,7 +79,7 @@
       ]
     },
     {
-      "pergunta": "[Q7] Qual é a principal diferença de capacidades de segurança entre um código MAC (simétrico) e uma Assinatura Digital (assimétrica)?",
+      "pergunta": "Qual é a principal diferença de capacidades de segurança entre um código MAC (simétrico) e uma Assinatura Digital (assimétrica)?",
       "opcoes": [
         "A assinatura digital não protege contra alterações de integridade de bits.",
         "O MAC garante confidencialidade, a assinatura não.",
@@ -92,7 +92,7 @@
       ]
     },
     {
-      "pergunta": "[Q8] Por que razão as assinaturas digitais são aplicadas sobre o digest/hash da mensagem (ex: H(m)) e não diretamente sobre a mensagem completa?",
+      "pergunta": "Por que razão as assinaturas digitais são aplicadas sobre o digest/hash da mensagem (ex: H(m)) e não diretamente sobre a mensagem completa?",
       "opcoes": [
         "Porque o hash impede a paralelização da decifragem.",
         "Para permitir que a assinatura seja validada por chaves simétricas.",
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "pergunta": "[Q9] No esquema de Assinatura RSA clássico sem hashing, um atacante pode falsificar uma assinatura escolhendo um valor aleatório de assinatura σ e calculando m = σ^e mod n, fazendo com que (σ, m) seja aceite como válido.",
+      "pergunta": "No esquema de Assinatura RSA clássico sem hashing, um atacante pode falsificar uma assinatura escolhendo um valor aleatório de assinatura σ e calculando m = σ^e mod n, fazendo com que (σ, m) seja aceite como válido.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "pergunta": "[Q10] A assinatura RSA baseia-se na inversão de papéis do RSA de cifragem, sendo matematicamente definida por Sign(sk, m) = H(m)^d mod n e Ver(pk, (σ, m)) = (σ^e mod n) == H(m).",
+      "pergunta": "A assinatura RSA baseia-se na inversão de papéis do RSA de cifragem, sendo matematicamente definida por Sign(sk, m) = H(m)^d mod n e Ver(pk, (σ, m)) = (σ^e mod n) == H(m).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "pergunta": "[Q11] O esquema padrão RSA-PSS (Probabilistic Signature Scheme) adiciona aleatoriedade e preenchimento à mensagem antes de assinar, garantindo maior segurança do que a assinatura RSA determinística.",
+      "pergunta": "O esquema padrão RSA-PSS (Probabilistic Signature Scheme) adiciona aleatoriedade e preenchimento à mensagem antes de assinar, garantindo maior segurança do que a assinatura RSA determinística.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -135,7 +135,7 @@
       ]
     },
     {
-      "pergunta": "[Q12] O algoritmo DSA (Digital Signature Standard) baseia a sua segurança no logaritmo discreto e necessita crucialmente de um parâmetro dinâmico para cada assinatura. Que parâmetro é este?",
+      "pergunta": "O algoritmo DSA (Digital Signature Standard) baseia a sua segurança no logaritmo discreto e necessita crucialmente de um parâmetro dinâmico para cada assinatura. Que parâmetro é este?",
       "opcoes": [
         "Uma máscara aleatória e de uso único (one-time mask) 'k'.",
         "Uma chave pública simétrica de 256 bits.",
@@ -148,7 +148,7 @@
       ]
     },
     {
-      "pergunta": "[Q13] Explique a vulnerabilidade grave explorada pelo grupo Fail0verflow que permitiu extrair a chave privada da consola Sony PlayStation 3 (PS3):",
+      "pergunta": "Explique a vulnerabilidade grave explorada pelo grupo Fail0verflow que permitiu extrair a chave privada da consola Sony PlayStation 3 (PS3):",
       "opcoes": [
         "Havia uma colisão SHA-1 induzida por hardware na S-box.",
         "O firmware da PS3 utilizava o algoritmo DSA com uma máscara 'k' constante (não aleatória e fixa) para assinar todos os jogos, permitindo calcular algebricamente a chave privada do fabricante.",
@@ -161,7 +161,7 @@
       ]
     },
     {
-      "pergunta": "[Q14] Explique a vulnerabilidade da consola Nintendo Wii em relação às suas assinaturas RSA:",
+      "pergunta": "Explique a vulnerabilidade da consola Nintendo Wii em relação às suas assinaturas RSA:",
       "opcoes": [
         "A Wii usava KEM/DEM com AES-128 que sofria de oráculos de padding.",
         "As chaves eram derivadas através de uma semente de 16 bits.",
@@ -174,7 +174,7 @@
       ]
     },
     {
-      "pergunta": "[Q15] No protocolo S/MIME para correio eletrónico, a ordem de operação 'Sign-then-Encrypt' é frequentemente a preferida. Que benefício e que potencial ataque a caracterizam?",
+      "pergunta": "No protocolo S/MIME para correio eletrónico, a ordem de operação 'Sign-then-Encrypt' é frequentemente a preferida. Que benefício e que potencial ataque a caracterizam?",
       "opcoes": [
         "Permite a validação da assinatura por gateways de spam sem decifrar; Contudo, revela a chave privada do utilizador.",
         "Dispensa o uso de certificados PKI.",
@@ -187,7 +187,7 @@
       ]
     },
     {
-      "pergunta": "[Q16] No protocolo S/MIME, a ordem de operação 'Encrypt-then-Sign' permite que gateways intermédios validem a autoria/integridade do tráfego sem aceder à mensagem confidencial, mas não fornece não-repúdio do conteúdo original da mensagem.",
+      "pergunta": "No protocolo S/MIME, a ordem de operação 'Encrypt-then-Sign' permite que gateways intermédios validem a autoria/integridade do tráfego sem aceder à mensagem confidencial, mas não fornece não-repúdio do conteúdo original da mensagem.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -197,7 +197,7 @@
       ]
     },
     {
-      "pergunta": "[Q17] No protocolo de acordo de chaves autenticado Station-to-Station (STS), por que razão os intervenientes assinam as suas chaves públicas efémeras (X e Y) e não a chave secreta K resultante?",
+      "pergunta": "No protocolo de acordo de chaves autenticado Station-to-Station (STS), por que razão os intervenientes assinam as suas chaves públicas efémeras (X e Y) e não a chave secreta K resultante?",
       "opcoes": [
         "Porque a assinatura de K revelaria ou daria pistas matemáticas sobre o segredo partilhado, comprometendo a confidencialidade do canal.",
         "Porque K é uma constante de 16 bits.",
@@ -210,7 +210,7 @@
       ]
     },
     {
-      "pergunta": "[Q18] Como afeta o algoritmo quântico de Shor a segurança da criptografia assimétrica clássica baseada em RSA, Diffie-Hellman e curvas elípticas?",
+      "pergunta": "Como afeta o algoritmo quântico de Shor a segurança da criptografia assimétrica clássica baseada em RSA, Diffie-Hellman e curvas elípticas?",
       "opcoes": [
         "O algoritmo de Shor não tem qualquer impacto sobre curvas elípticas.",
         "O algoritmo de Shor resolve o problema do subgrupo oculto em tempo polinomial, quebrando a segurança de todos os criptossistemas assimétricos clássicos baseados em fatorização e logaritmo discreto.",
@@ -223,7 +223,7 @@
       ]
     },
     {
-      "pergunta": "[Q19] Como afeta o algoritmo quântico de Grover a segurança da criptografia simétrica (ex: AES)?",
+      "pergunta": "Como afeta o algoritmo quântico de Grover a segurança da criptografia simétrica (ex: AES)?",
       "opcoes": [
         "Oferece uma aceleração quadrática na pesquisa não estruturada, reduzindo a segurança efetiva de uma chave de N bits para N/2 bits. A mitigação é duplicar o tamanho da chave (usar AES-256 para manter a segurança do AES-128).",
         "Elimina a necessidade de nonces e IVs.",
@@ -236,7 +236,7 @@
       ]
     },
     {
-      "pergunta": "[Q20] O que descreve a ameaça quântica conhecida como 'Store-now-decrypt-later' ou 'Y2Q'?",
+      "pergunta": "O que descreve a ameaça quântica conhecida como 'Store-now-decrypt-later' ou 'Y2Q'?",
       "opcoes": [
         "A necessidade de desativar os HSMs de redes locais.",
         "A compra de computadores quânticos para mineração de criptomoedas.",
@@ -249,7 +249,7 @@
       ]
     },
     {
-      "pergunta": "[Q21] Criptografia Pós-Quântica (PQC) refere-se a algoritmos clássicos (que correm em computadores normais atuais) concebidos para resistir a ataques executados por adversários que possuam computadores quânticos.",
+      "pergunta": "Criptografia Pós-Quântica (PQC) refere-se a algoritmos clássicos (que correm em computadores normais atuais) concebidos para resistir a ataques executados por adversários que possuam computadores quânticos.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -259,7 +259,7 @@
       ]
     },
     {
-      "pergunta": "[Q22] Qual é o principal problema matemático que Shor resolve, inutilizando o RSA e o logaritmo discreto?",
+      "pergunta": "Qual é o principal problema matemático que Shor resolve, inutilizando o RSA e o logaritmo discreto?",
       "opcoes": [
         "A multiplicação escalar de pontos de coordenadas reais.",
         "A determinação do umask inicial.",
@@ -272,7 +272,7 @@
       ]
     },
     {
-      "pergunta": "[Q23] Identifique os problemas matemáticos considerados resistentes a computadores quânticos usados no desenho de algoritmos PQC:",
+      "pergunta": "Identifique os problemas matemáticos considerados resistentes a computadores quânticos usados no desenho de algoritmos PQC:",
       "opcoes": [
         "Problemas baseados em reticulados (Lattices) como LWE (Learning With Errors), SVP e CVP; Criptografia baseada em códigos; Sistemas multivariáveis.",
         "Curvas elípticas NIST-P simples de 256 bits.",
@@ -285,7 +285,7 @@
       ]
     },
     {
-      "pergunta": "[Q25] A norma FIPS 203 define o padrão ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism), anteriormente conhecido como CRYSTALS-Kyber.",
+      "pergunta": "A norma FIPS 203 define o padrão ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism), anteriormente conhecido como CRYSTALS-Kyber.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -295,7 +295,7 @@
       ]
     },
     {
-      "pergunta": "[Q26] A norma FIPS 204 define o padrão ML-DSA (Module-Lattice-Based Digital Signature Standard), anteriormente conhecido como CRYSTALS-Dilithium.",
+      "pergunta": "A norma FIPS 204 define o padrão ML-DSA (Module-Lattice-Based Digital Signature Standard), anteriormente conhecido como CRYSTALS-Dilithium.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -305,7 +305,7 @@
       ]
     },
     {
-      "pergunta": "[Q27] A norma FIPS 205 define o padrão SLH-DSA (Stateless Hash-Based Digital Signature Standard), anteriormente conhecido como SPHINCS+.",
+      "pergunta": "A norma FIPS 205 define o padrão SLH-DSA (Stateless Hash-Based Digital Signature Standard), anteriormente conhecido como SPHINCS+.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -315,7 +315,7 @@
       ]
     },
     {
-      "pergunta": "[Q28] O algoritmo Falcon é um esquema de assinaturas digitais quânticas-seguras baseado em reticulados (Fast Fourier Lattice-Based).",
+      "pergunta": "O algoritmo Falcon é um esquema de assinaturas digitais quânticas-seguras baseado em reticulados (Fast Fourier Lattice-Based).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -325,7 +325,7 @@
       ]
     },
     {
-      "pergunta": "[Q29] A transição para a Criptografia Pós-Quântica (PQC) é facilitada porque os novos algoritmos possuem chaves e assinaturas de tamanho mais pequeno do que o RSA.",
+      "pergunta": "A transição para a Criptografia Pós-Quântica (PQC) é facilitada porque os novos algoritmos possuem chaves e assinaturas de tamanho mais pequeno do que o RSA.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -335,7 +335,7 @@
       ]
     },
     {
-      "pergunta": "[Q30] O uso precoce de Esquemas Híbridos (combinando criptografia clássica com PQC) é recomendado porque protege contra potenciais falhas no design recente de algoritmos PQC e mantém compatibilidade com sistemas legados.",
+      "pergunta": "O uso precoce de Esquemas Híbridos (combinando criptografia clássica com PQC) é recomendado porque protege contra potenciais falhas no design recente de algoritmos PQC e mantém compatibilidade com sistemas legados.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -345,7 +345,7 @@
       ]
     },
     {
-      "pergunta": "[Q31] Um esquema híbrido clássico-PQC garante que a comunicação é segura desde que pelo menos um dos dois esquemas combinados se mantenha seguro (segurança ao nível do melhor esquema).",
+      "pergunta": "Um esquema híbrido clássico-PQC garante que a comunicação é segura desde que pelo menos um dos dois esquemas combinados se mantenha seguro (segurança ao nível do melhor esquema).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -355,7 +355,7 @@
       ]
     },
     {
-      "pergunta": "[Q32] Que desvantagem apresentam os esquemas híbridos clássico-PQC?",
+      "pergunta": "Que desvantagem apresentam os esquemas híbridos clássico-PQC?",
       "opcoes": [
         "Aumento do overhead computacional e aumento do tamanho final de chaves e assinaturas a transmitir na rede.",
         "Fragilizam a segurança do AES-256.",
@@ -368,7 +368,7 @@
       ]
     },
     {
-      "pergunta": "[Q33] A expressão matemática da verificação de assinatura RSA, Ver(pk, (σ, m)) = σ^e mod n == H(m), prova a autoria do documento porque apenas quem possui o expoente privado 'd' (alçapão) conseguiria gerar um σ que satisfizesse esta igualdade.",
+      "pergunta": "A expressão matemática da verificação de assinatura RSA, Ver(pk, (σ, m)) = σ^e mod n == H(m), prova a autoria do documento porque apenas quem possui o expoente privado 'd' (alçapão) conseguiria gerar um σ que satisfizesse esta igualdade.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -378,7 +378,7 @@
       ]
     },
     {
-      "pergunta": "[Q34] O teste de Kasiski aplica-se à decifração de assinaturas RSA-OAEP e assinaturas com curvas elípticas.",
+      "pergunta": "O teste de Kasiski aplica-se à decifração de assinaturas RSA-OAEP e assinaturas com curvas elípticas.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -388,7 +388,7 @@
       ]
     },
     {
-      "pergunta": "[Q35] Os computadores quânticos utilizam 'qubits' que permitem a sobreposição de estados físicos de informação, o que possibilita acelerações exponenciais na resolução de determinados problemas de fatorização.",
+      "pergunta": "Os computadores quânticos utilizam 'qubits' que permitem a sobreposição de estados físicos de informação, o que possibilita acelerações exponenciais na resolução de determinados problemas de fatorização.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -398,7 +398,7 @@
       ]
     },
     {
-      "pergunta": "[Q35] Ao utilizar assinaturas digitais assimétricas baseadas em algoritmos como RSA ou ECDSA, que propriedades e processos se verificam?",
+      "pergunta": "Ao utilizar assinaturas digitais assimétricas baseadas em algoritmos como RSA ou ECDSA, que propriedades e processos se verificam?",
       "opcoes": [
         "O emissor assina aplicando a sua chave privada (sk) sobre o valor de hash calculado a partir do documento original.",
         "Assegura-se o Não-repúdio, uma vez que apenas o detentor da chave privada correspondente poderia ter produzido aquela assinatura específica.",
@@ -414,7 +414,7 @@
     },
     {
       "cabecalho": "Considere as seguintes chaves e certificados de teste gerados por openssl:\n- rootCA.key / rootCA.crt (Autoridade de Certificação Raiz, autoassinado)\n- server.key / server.csr (Pedido de assinatura de certificado para o servidor)\n- server.crt (Certificado do servidor, assinado pela rootCA usando a rootCA.key)",
-      "pergunta": "[Q36] Qual dos ficheiros descritos no cabeçalho contém a chave privada que deve ser protegida com a maior segurança e confidencialidade possível para evitar o colapso de toda a PKI?",
+      "pergunta": "Qual dos ficheiros descritos no cabeçalho contém a chave privada que deve ser protegida com a maior segurança e confidencialidade possível para evitar o colapso de toda a PKI?",
       "opcoes": [
         "server.crt",
         "server.csr",
@@ -428,7 +428,7 @@
     },
     {
       "cabecalho": "Considere as seguintes chaves e certificados de teste gerados por openssl:\n- rootCA.key / rootCA.crt (Autoridade de Certificação Raiz, autoassinado)\n- server.key / server.csr (Pedido de assinatura de certificado para o servidor)\n- server.crt (Certificado do servidor, assinado pela rootCA usando a rootCA.key)",
-      "pergunta": "[Q37] Qual é a principal função do ficheiro 'server.csr' descrito no cabeçalho?",
+      "pergunta": "Qual é a principal função do ficheiro 'server.csr' descrito no cabeçalho?",
       "opcoes": [
         "Conter o Pedido de Assinatura de Certificado (Certificate Signing Request) contendo a chave pública e identidade do servidor.",
         "Cifrar a ligação TLS entre o cliente e o servidor.",
@@ -442,7 +442,7 @@
     },
     {
       "cabecalho": "Considere as seguintes chaves e certificados de teste gerados por openssl:\n- rootCA.key / rootCA.crt (Autoridade de Certificação Raiz, autoassinado)\n- server.key / server.csr (Pedido de assinatura de certificado para o servidor)\n- server.crt (Certificado do servidor, assinado pela rootCA usando a rootCA.key)",
-      "pergunta": "[Q38] Para que um cliente web valide a autenticidade do certificado 'server.crt', de qual ficheiro do cabeçalho necessita ter acesso confiável local?",
+      "pergunta": "Para que um cliente web valide a autenticidade do certificado 'server.crt', de qual ficheiro do cabeçalho necessita ter acesso confiável local?",
       "opcoes": [
         "rootCA.crt",
         "server.csr",

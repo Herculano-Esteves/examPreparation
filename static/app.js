@@ -91,10 +91,10 @@ function setupEventListeners() {
     });
 }
 
-// Fetch Exams List from Static JSON File
+// Fetch Exams List from Static index.json
 async function fetchExams() {
     try {
-        const response = await fetch('exames.json');
+        const response = await fetch('exames/index.json');
         if (!response.ok) throw new Error('Não foi possível carregar os exames.');
         
         State.exams = await response.json();
@@ -135,7 +135,7 @@ function renderExamsMenu() {
                 <div class="exam-icon-box">
                     <i class="fa-solid fa-file-invoice"></i>
                 </div>
-                <span class="question-count-badge">${exam.perguntas.length} Questões</span>
+                <span class="question-count-badge">${exam.perguntas_count} Questões</span>
             </div>
             <h4>${escapeHTML(exam.titulo)}</h4>
             <p>${escapeHTML(exam.descricao)}</p>
@@ -154,22 +154,44 @@ function renderExamsMenu() {
 }
 
 // Start Simulated Exam
-function startExam(examId) {
-    const exam = State.exams.find(e => e.id === examId);
-    if (!exam) return;
+async function startExam(examId) {
+    const examMeta = State.exams.find(e => e.id === examId);
+    if (!examMeta) return;
     
-    // Set active exam and reset state
-    State.activeExam = exam;
-    State.question.index = 0;
-    State.question.selectedOptions = [];
-    State.question.revealed = false;
-    State.question.firstAttemptCorrect = {};
+    // Show loading spinner
+    elements.examsGrid.innerHTML = `
+        <div class="loading-state">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            <p>A carregar as perguntas do exame...</p>
+        </div>
+    `;
     
-    elements.currentExamTitle.textContent = exam.titulo;
-    elements.currentExamDesc.textContent = exam.descricao;
-    
-    transitionTo('exam');
-    renderQuestion();
+    try {
+        const response = await fetch(examMeta.path);
+        if (!response.ok) throw new Error('Não foi possível carregar as questões deste exame.');
+        
+        const examData = await response.json();
+        
+        // Set active exam and reset state
+        State.activeExam = {
+            ...examMeta,
+            perguntas: examData.perguntas
+        };
+        State.question.index = 0;
+        State.question.selectedOptions = [];
+        State.question.revealed = false;
+        State.question.firstAttemptCorrect = {};
+        
+        elements.currentExamTitle.textContent = State.activeExam.titulo;
+        elements.currentExamDesc.textContent = State.activeExam.descricao;
+        
+        transitionTo('exam');
+        renderQuestion();
+    } catch (error) {
+        console.error('Error fetching exam questions:', error);
+        renderExamsMenu(); // Restore menu grid
+        alert('Erro ao carregar o exame: ' + error.message);
+    }
 }
 
 // Render Current Question
@@ -455,6 +477,10 @@ function transitionTo(screenName) {
     
     if (activeScreen) {
         activeScreen.classList.remove('active');
+    }
+    
+    if (screenName === 'menu') {
+        renderExamsMenu();
     }
     
     // Delay setting active slightly if there was an active screen to allow fading out

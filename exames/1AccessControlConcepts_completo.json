@@ -32,7 +32,7 @@
     },
     {
       "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
-      "pergunta": "O executável 'backup_tool' tem o bit setuid ativo ('-rwsr-xr-x') e pertence ao utilizador 'root'. Se o utilizador comum 'bob' executar este binário, qual será o UID efetivo (EUID) do processo?",
+      "pergunta": "O executável 'backup_tool' tem o bit setuid ativo e pertence ao utilizador 'root'. Se o utilizador comum 'bob' executar este binário, qual será o UID efetivo (EUID) do processo?",
       "opcoes": [
         "O UID do utilizador 'root'.",
         "O UID do utilizador 'bob'.",
@@ -46,7 +46,7 @@
     },
     {
       "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
-      "pergunta": "O script 'archive.sh' tem o bit setgid ativo ('-rwxr-sr-x') e pertence ao grupo 'backup'. O utilizador 'alice' executa este script. O processo correspondente corre com que GID efetivo (EGID)?",
+      "pergunta": "O script 'archive.sh' tem o bit setgid ativo e pertence ao grupo 'backup'. O utilizador 'alice' executa este script. O processo correspondente corre com que GID efetivo (EGID)?",
       "opcoes": [
         "O GID do grupo 'managers'.",
         "O GID do grupo 'backup'.",
@@ -60,7 +60,7 @@
     },
     {
       "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
-      "pergunta": "O utilizador 'charlie' tenta apagar o ficheiro 'confidential.txt' sabendo que tem permissão de escrita e execução (rwx) no diretório onde o ficheiro se encontra. O que acontece?",
+      "pergunta": "O utilizador 'charlie' tenta apagar o ficheiro 'confidential.txt' sabendo que tem permissão de escrita e execução no diretório onde o ficheiro se encontra. O que acontece?",
       "opcoes": [
         "A remoção é bem-sucedida, porque a permissão de escrita e execução no diretório pai permite criar, remover ou renomear qualquer entrada de ficheiro nele contida.",
         "A remoção falha porque 'charlie' não é dono do ficheiro e não tem escrita sobre ele.",
@@ -74,7 +74,7 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "Com base no cenário anterior, [Q6] O utilizador 'bob' executa 'cd /var/shared/dir_x' e depois 'cat secret.txt'. Esta operação é bem-sucedida?",
+      "pergunta": "O utilizador 'bob' executa 'cd /var/shared/dir_x' e depois 'cat secret.txt'. Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque 'bob' é impedido de aceder aos ficheiros se não puder listar o diretório com 'ls'.",
         "Sim, porque 'bob' tem permissão de execução na diretoria e tem permissão de leitura no ficheiro 'secret.txt'.",
@@ -88,7 +88,7 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "Com base no cenário anterior, [Q7] O utilizador 'bob' executa 'ls -l /var/shared/dir_r'. O que é que ele consegue ver?",
+      "pergunta": "O utilizador 'bob' executa 'ls -l /var/shared/dir_r'. O que é que ele consegue ver?",
       "opcoes": [
         "Consegue ver a lista completa de ficheiros com os respetivos metadados (tamanhos, permissões, dono).",
         "Consegue ver apenas os nomes dos ficheiros, mas as informações de metadados como tamanho, dono e permissões aparecerão com pontos de interrogação ('?') e erros.",
@@ -102,7 +102,7 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "Com base no cenário anterior, [Q8] O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_rw' (executando 'touch /var/shared/dir_rw/new.txt'). Esta operação é bem-sucedida?",
+      "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_rw' (executando 'touch /var/shared/dir_rw/new.txt'). Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque apenas a dona 'alice' pode criar ficheiros em qualquer pasta.",
         "Sim, porque 'dir_rw' tem permissões de leitura e escrita ('rw-') para o seu grupo.",
@@ -116,7 +116,7 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "Com base no cenário anterior, [Q9] O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_wx' (executando 'touch /var/shared/dir_wx/new.txt'). Esta operação é bem-sucedida?",
+      "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_wx' (executando 'touch /var/shared/dir_wx/new.txt'). Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque apenas a dona 'alice' pode criar ficheiros em qualquer pasta.",
         "Sim, porque 'dir_wx' tem permissões de leitura e escrita ('rw-') para o seu grupo.",
@@ -130,7 +130,7 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "Com base no cenário anterior, [Q10] O utilizador 'bob' executa 'cd /var/shared/dir_rw'. O que acontece?",
+      "pergunta": "O utilizador 'bob' executa 'cd /var/shared/dir_rw'. O que acontece?",
       "opcoes": [
         "O comando funciona, mas 'bob' não poderá ler os ficheiros lá dentro.",
         "O comando funciona porque 'bob' tem permissão de leitura e escrita ('rw-').",
@@ -143,7 +143,7 @@
       ]
     },
     {
-      "pergunta": "[Q11] Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
+      "pergunta": "Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -153,7 +153,7 @@
       ]
     },
     {
-      "pergunta": "[Q12] Numa política de controlo de acesso mandatório (MAC) é o administrador quem define as permissões associadas aos recursos dos utilizadores.",
+      "pergunta": "Numa política de controlo de acesso mandatório (MAC) é o administrador quem define as permissões associadas aos recursos dos utilizadores.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -163,7 +163,7 @@
       ]
     },
     {
-      "pergunta": "[Q13] As políticas de controlo de acesso baseado em papéis (RBAC) são computacionalmente mais exigentes do que as baseadas em atributos (ABAC).",
+      "pergunta": "As políticas de controlo de acesso baseado em papéis (RBAC) são computacionalmente mais exigentes do que as baseadas em atributos (ABAC).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -173,7 +173,7 @@
       ]
     },
     {
-      "pergunta": "[Q14] Em Linux, para um processo realizar uma operação sobre um ficheiro tem de ter permissão de leitura em todas as diretorias que é necessário atravessar para o alcançar.",
+      "pergunta": "Em Linux, para um processo realizar uma operação sobre um ficheiro tem de ter permissão de leitura em todas as diretorias que é necessário atravessar para o alcançar.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -183,7 +183,7 @@
       ]
     },
     {
-      "pergunta": "[Q15] Em sistemas operativos como o Unix e o Linux, a flag de set-user-id (SUID) permite que um programa seja executado com um utilizador efetivo igual ao do dono do ficheiro.",
+      "pergunta": "Em sistemas operativos como o Unix e o Linux, a flag de set-user-id (SUID) permite que um programa seja executado com um utilizador efetivo igual ao do dono do ficheiro.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -193,7 +193,7 @@
       ]
     },
     {
-      "pergunta": "[Q16] Em Linux, o comando sudo utiliza a flag set-user-id para permitir a executar a um utilizador normal a execução de comandos como utilizador root.",
+      "pergunta": "Em Linux, o comando sudo utiliza a flag set-user-id para permitir a executar a um utilizador normal a execução de comandos como utilizador root.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "pergunta": "[Q17] A representação octal do conjunto de permissões '-rwxr-xr-x' é 755.",
+      "pergunta": "A representação octal do conjunto de permissões '-rwxr-xr-x' é 755.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -213,7 +213,7 @@
       ]
     },
     {
-      "pergunta": "[Q18] O bit sticky bit ('t') em diretórios com permissão de escrita pública (como o /tmp) garante que qualquer utilizador pode apagar qualquer ficheiro contido nesse diretório.",
+      "pergunta": "O bit sticky bit ('t') em diretórios com permissão de escrita pública (como o /tmp) garante que qualquer utilizador pode apagar qualquer ficheiro contido nesse diretório.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -223,7 +223,7 @@
       ]
     },
     {
-      "pergunta": "[Q19] Numa política ABAC, os direitos de acesso são determinados pela avaliação de atributos dinâmicos do sujeito, do objeto e do ambiente.",
+      "pergunta": "Numa política ABAC, os direitos de acesso são determinados pela avaliação de atributos dinâmicos do sujeito, do objeto e do ambiente.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -233,7 +233,7 @@
       ]
     },
     {
-      "pergunta": "[Q20] O princípio da 'Mediação Completa' (Complete Mediation) exige que todos os acessos a objetos protegidos sejam inspecionados pela guarda (Reference Monitor), sem atalhos ou caching de decisões.",
+      "pergunta": "O princípio da 'Mediação Completa' (Complete Mediation) exige que todos os acessos a objetos protegidos sejam inspecionados pela guarda (Reference Monitor), sem atalhos ou caching de decisões.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -243,7 +243,7 @@
       ]
     },
     {
-      "pergunta": "[Q21] O ficheiro '/etc/shadow' armazena as passwords em formato hash e é de leitura livre para qualquer processo em execução no sistema.",
+      "pergunta": "O ficheiro '/etc/shadow' armazena as passwords em formato hash e é de leitura livre para qualquer processo em execução no sistema.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -253,7 +253,7 @@
       ]
     },
     {
-      "pergunta": "[Q22] A 'Autoridade Ambiente' (Ambient Authority) é uma das causas principais de vulnerabilidades do tipo 'Confused Deputy' (representante confuso).",
+      "pergunta": "A 'Autoridade Ambiente' (Ambient Authority) é uma das causas principais de vulnerabilidades do tipo 'Confused Deputy' (representante confuso).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -263,7 +263,7 @@
       ]
     },
     {
-      "pergunta": "[Q23] No modelo DAC, um utilizador que tenha acesso de leitura a um ficheiro pode copiá-lo e conceder acesso a outros utilizadores que a política global não pretendia autorizar.",
+      "pergunta": "No modelo DAC, um utilizador que tenha acesso de leitura a um ficheiro pode copiá-lo e conceder acesso a outros utilizadores que a política global não pretendia autorizar.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -273,7 +273,7 @@
       ]
     },
     {
-      "pergunta": "[Q24] Se um ficheiro tiver permissões 'u=---, g=r--, o=rwx' e o utilizador que o tenta ler for o proprietário do ficheiro e pertencer ao grupo proprietário, o acesso é concedido.",
+      "pergunta": "Se um ficheiro tiver permissões 'u=---, g=r--, o=rwx' e o utilizador que o tenta ler for o proprietário do ficheiro e pertencer ao grupo proprietário, o acesso é concedido.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -283,7 +283,7 @@
       ]
     },
     {
-      "pergunta": "[Q25] As Linux Capabilities decompõem a autoridade do superutilizador (root/UID 0) em privilégios mais granulares como CAP_NET_BIND_SERVICE.",
+      "pergunta": "As Linux Capabilities decompõem a autoridade do superutilizador (root/UID 0) em privilégios mais granulares como CAP_NET_BIND_SERVICE.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -293,7 +293,7 @@
       ]
     },
     {
-      "pergunta": "[Q26] No ficheiro '/etc/passwd', o terceiro e o quarto campos separados por dois pontos (:) representam, respetivamente:",
+      "pergunta": "No ficheiro '/etc/passwd', o terceiro e o quarto campos separados por dois pontos (:) representam, respetivamente:",
       "opcoes": [
         "O GID primário e o UID.",
         "O UID e a diretoria home.",
@@ -306,7 +306,7 @@
       ]
     },
     {
-      "pergunta": "[Q27] O ficheiro '/etc/shadow' contém as passwords cifradas e vários parâmetros de validade temporal. O parâmetro 'Warning Period' representa:",
+      "pergunta": "O ficheiro '/etc/shadow' contém as passwords cifradas e vários parâmetros de validade temporal. O parâmetro 'Warning Period' representa:",
       "opcoes": [
         "O número de dias antes da expiração da password em que o utilizador recebe avisos ao fazer login.",
         "A data absoluta de expiração da conta em dias desde a Unix epoch.",
@@ -319,7 +319,7 @@
       ]
     },
     {
-      "pergunta": "[Q28] O mecanismo PAM (Pluggable Authentication Modules) permite alterar as políticas de autenticação do sistema de forma modular sem necessidade de recompilar as aplicações.",
+      "pergunta": "O mecanismo PAM (Pluggable Authentication Modules) permite alterar as políticas de autenticação do sistema de forma modular sem necessidade de recompilar as aplicações.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -329,7 +329,7 @@
       ]
     },
     {
-      "pergunta": "[Q29] No Linux, quando um programa setuid-root é iniciado por um utilizador comum (UID 1000), o Real UID (RUID), o Effective UID (EUID) e o Saved UID (SUID) são atribuídos inicialmente como:",
+      "pergunta": "No Linux, quando um programa setuid-root é iniciado por um utilizador comum (UID 1000), o Real UID (RUID), o Effective UID (EUID) e o Saved UID (SUID) são atribuídos inicialmente como:",
       "opcoes": [
         "ruid=1000, euid=1000, suid=0",
         "ruid=0, euid=0, suid=1000",
@@ -342,7 +342,7 @@
       ]
     },
     {
-      "pergunta": "[Q30] O programa 'seteuid(1000)' chamado por um processo que iniciou como setuid-root (ruid=1000, euid=0, suid=0) permite drop temporário de privilégios. Para recuperar privilégios de root, o programa pode executar:",
+      "pergunta": "O programa 'seteuid(1000)' chamado por um processo que iniciou como setuid-root (ruid=1000, euid=0, suid=0) permite drop temporário de privilégios. Para recuperar privilégios de root, o programa pode executar:",
       "opcoes": [
         "setuid-root binaries não podem recuperar privilégios uma vez abandonados.",
         "seteuid(0), o que é permitido porque o Saved UID (suid) ainda se mantém a 0.",
@@ -355,7 +355,7 @@
       ]
     },
     {
-      "pergunta": "[Q31] O kernel do Linux efetua a verificação de permissões DAC avaliando as classes User, Group e Others de forma cumulativa (ou seja, se falhar no User, passa para o Group para acumular permissões).",
+      "pergunta": "O kernel do Linux efetua a verificação de permissões DAC avaliando as classes User, Group e Others de forma cumulativa (ou seja, se falhar no User, passa para o Group para acumular permissões).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -365,7 +365,7 @@
       ]
     },
     {
-      "pergunta": "[Q32] O LSM (Linux Security Modules) é uma framework que permite aplicar políticas MAC de forma independente e complementar às tradicionais permissões DAC.",
+      "pergunta": "O LSM (Linux Security Modules) é uma framework que permite aplicar políticas MAC de forma independente e complementar às tradicionais permissões DAC.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -375,7 +375,7 @@
       ]
     },
     {
-      "pergunta": "[Q33] A representação octal do comando 'chmod u=rwx,g=rx,o=' é equivalente a:",
+      "pergunta": "A representação octal do comando 'chmod u=rwx,g=rx,o=' é equivalente a:",
       "opcoes": [
         "chmod 700",
         "chmod 740",
@@ -388,7 +388,7 @@
       ]
     },
     {
-      "pergunta": "[Q34] A máscara de rede de criação de ficheiros (umask) afeta apenas diretórios e não ficheiros normais.",
+      "pergunta": "A máscara de rede de criação de ficheiros (umask) afeta apenas diretórios e não ficheiros normais.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -398,7 +398,7 @@
       ]
     },
     {
-      "pergunta": "[Q35] No modelo de matriz de controlo de acessos, as Listas de Controlo de Acesso (ACLs) representam uma decomposição da matriz por colunas (associadas aos objetos).",
+      "pergunta": "No modelo de matriz de controlo de acessos, as Listas de Controlo de Acesso (ACLs) representam uma decomposição da matriz por colunas (associadas aos objetos).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -408,7 +408,7 @@
       ]
     },
     {
-      "pergunta": "[Q36] Se o valor de umask de uma sessão de utilizador estiver definido como 027 (octal), quais serão as permissões atribuídas por omissão a um novo ficheiro regular e a um novo diretório criados por este utilizador? Selecione a permissão correta para cada tipo de recurso.",
+      "pergunta": "Se o valor de umask de uma sessão de utilizador estiver definido como 027 (octal), quais serão as permissões atribuídas por omissão a um novo ficheiro regular e a um novo diretório criados por este utilizador? Selecione a permissão correta para cada tipo de recurso.",
       "opcoes": [
         "Para o novo ficheiro regular: -rw-r----- (640)",
         "Para o novo diretório: drwxr-x--- (750)",
@@ -422,7 +422,7 @@
       ]
     },
     {
-      "pergunta": "[Q37] Se o valor de umask estiver configurado como 007, que permissões finais serão atribuídas a uma nova pasta criada no sistema?",
+      "pergunta": "Se o valor de umask estiver configurado como 007, que permissões finais serão atribuídas a uma nova pasta criada no sistema?",
       "opcoes": [
         "drwxr-x--- (750)",
         "drwxrwxrwx (777)",
@@ -435,7 +435,7 @@
       ]
     },
     {
-      "pergunta": "[Q38] Um utilizador comum tenta executar um servidor web na porta 80 e depara-se com um erro de binding ('Permission denied'). Qual é o motivo e que capability resolve o problema?",
+      "pergunta": "Um utilizador comum tenta executar um servidor web na porta 80 e depara-se com um erro de binding ('Permission denied'). Qual é o motivo e que capability resolve o problema?",
       "opcoes": [
         "A porta 80 exige a capability CAP_SYS_ADMIN exclusivamente.",
         "Apenas o utilizador proprietário da pasta /etc/shadow pode escutar nessa porta.",
@@ -448,7 +448,7 @@
       ]
     },
     {
-      "pergunta": "[Q39] Qual é o comando UNIX correto para visualizar as capabilities atualmente definidas num ficheiro executável (como o /usr/bin/ping)?",
+      "pergunta": "Qual é o comando UNIX correto para visualizar as capabilities atualmente definidas num ficheiro executável (como o /usr/bin/ping)?",
       "opcoes": [
         "getpcaps /usr/bin/ping",
         "setcap -q /usr/bin/ping",
@@ -461,7 +461,7 @@
       ]
     },
     {
-      "pergunta": "[Q40] Qual é o comando correto para atribuir permanentemente a um executável chamado 'webserver' a capability de fazer binding a portas privilegiadas, permitindo a sua execução por utilizadores comuns?",
+      "pergunta": "Qual é o comando correto para atribuir permanentemente a um executável chamado 'webserver' a capability de fazer binding a portas privilegiadas, permitindo a sua execução por utilizadores comuns?",
       "opcoes": [
         "setfacl -m g:webserver:x webserver",
         "chmod 4755 webserver",
@@ -474,7 +474,7 @@
       ]
     },
     {
-      "pergunta": "[Q41] Ao atribuir capabilities a um ficheiro executável usando o sufixo '+ep', o que significam as letras 'e' e 'p'? Selecione as duas definições corretas.",
+      "pergunta": "Ao atribuir capabilities a um ficheiro executável usando o sufixo '+ep', o que significam as letras 'e' e 'p'? Selecione as duas definições corretas.",
       "opcoes": [
         "A letra 'e' significa 'effective' (indica que a capability é ativada de imediato no processo).",
         "A letra 'e' significa 'encryption' (cifragem de blocos).",
@@ -488,7 +488,7 @@
       ]
     },
     {
-      "pergunta": "[Q42] Na avaliação de listas de controlo de acesso estendidas (ACLs) do Linux, qual é a ordem de precedência correta verificada pelo kernel?",
+      "pergunta": "Na avaliação de listas de controlo de acesso estendidas (ACLs) do Linux, qual é a ordem de precedência correta verificada pelo kernel?",
       "opcoes": [
         "Groups, Owner, Others.",
         "Others, Group, Owner, Named Users.",
@@ -501,7 +501,7 @@
       ]
     },
     {
-      "pergunta": "[Q43] Qual é o comando setfacl correto para adicionar uma regra que concede permissão de escrita ao grupo 'grupo-ssi' sobre o ficheiro 'porto.txt'?",
+      "pergunta": "Qual é o comando setfacl correto para adicionar uma regra que concede permissão de escrita ao grupo 'grupo-ssi' sobre o ficheiro 'porto.txt'?",
       "opcoes": [
         "setfacl --add-group=grupo-ssi porto.txt",
         "setfacl -x grupo-ssi porto.txt",
@@ -514,7 +514,7 @@
       ]
     },
     {
-      "pergunta": "[Q44] Qual o comando utilizado para visualizar as permissões detalhadas e as regras de ACL estendidas ativas num ficheiro?",
+      "pergunta": "Qual o comando utilizado para visualizar as permissões detalhadas e as regras de ACL estendidas ativas num ficheiro?",
       "opcoes": [
         "getpcaps",
         "getfacl",
@@ -527,7 +527,7 @@
       ]
     },
     {
-      "pergunta": "[Q45] A capability 'CAP_DAC_OVERRIDE' permite ao processo correspondente contornar todas as verificações de leitura, escrita e execução (bypass DAC).",
+      "pergunta": "A capability 'CAP_DAC_OVERRIDE' permite ao processo correspondente contornar todas as verificações de leitura, escrita e execução (bypass DAC).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -537,7 +537,7 @@
       ]
     },
     {
-      "pergunta": "[Q46] A capability 'CAP_KILL' permite a um processo de um utilizador comum enviar sinais de interrupção (SIGKILL/SIGTERM) a qualquer processo em execução no sistema, independentemente do UID proprietário.",
+      "pergunta": "A capability 'CAP_KILL' permite a um processo de um utilizador comum enviar sinais de interrupção (SIGKILL/SIGTERM) a qualquer processo em execução no sistema, independentemente do UID proprietário.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -547,7 +547,7 @@
       ]
     },
     {
-      "pergunta": "[Q47] O comando 'capsh --print' é utilizado para mostrar as capabilities associadas a um ficheiro executável guardado em disco.",
+      "pergunta": "O comando 'capsh --print' é utilizado para mostrar as capabilities associadas a um ficheiro executável guardado em disco.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -557,7 +557,7 @@
       ]
     },
     {
-      "pergunta": "[Q48] A capability 'CAP_NET_RAW' permite a um processo utilizar sockets do tipo RAW e PACKET, o que viabiliza a escuta e injeção direta de pacotes de rede (sniffing/spoofing).",
+      "pergunta": "A capability 'CAP_NET_RAW' permite a um processo utilizar sockets do tipo RAW e PACKET, o que viabiliza a escuta e injeção direta de pacotes de rede (sniffing/spoofing).",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -567,7 +567,7 @@
       ]
     },
     {
-      "pergunta": "[Q49] O uso de capabilities em vez de binários setuid-root está alinhado com o princípio de segurança de 'Menor Privilégio' (Least Privilege) porque decompõe a autoridade total do root em permissões granulares.",
+      "pergunta": "O uso de capabilities em vez de binários setuid-root está alinhado com o princípio de segurança de 'Menor Privilégio' (Least Privilege) porque decompõe a autoridade total do root em permissões granulares.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -577,7 +577,7 @@
       ]
     },
     {
-      "pergunta": "[Q50] Qual é o comando utilizado para listar as capabilities ativas num processo em execução a partir do seu ID de processo (PID)?",
+      "pergunta": "Qual é o comando utilizado para listar as capabilities ativas num processo em execução a partir do seu ID de processo (PID)?",
       "opcoes": [
         "capsh --pid=<PID>",
         "getcap <PID>",
@@ -590,7 +590,7 @@
       ]
     },
     {
-      "pergunta": "[Q51] Identifique quais das seguintes capacidades (capabilities) do Linux permitem contornar ou elevar privilégios específicos de processos sem recorrer ao root absoluto (UID 0):",
+      "pergunta": "Identifique quais das seguintes capacidades (capabilities) do Linux permitem contornar ou elevar privilégios específicos de processos sem recorrer ao root absoluto (UID 0):",
       "opcoes": [
         "CAP_SYS_ADMIN (concede um conjunto alargado de privilégios de administração do sistema)",
         "CAP_NET_BIND_SERVICE (permite o binding a portas de rede reservadas abaixo da 1024)",
@@ -606,7 +606,7 @@
       ]
     },
     {
-      "pergunta": "[Q52] Numa estrutura de permissões tradicionais UNIX/Linux com utilizador, grupo e outros (UGO), quais das seguintes condições sobre a travessia de diretorias e criação de ficheiros são verdadeiras?",
+      "pergunta": "Numa estrutura de permissões tradicionais UNIX/Linux com utilizador, grupo e outros (UGO), quais das seguintes condições sobre a travessia de diretorias e criação de ficheiros são verdadeiras?",
       "opcoes": [
         "Para criar um novo ficheiro ou apagar um existente, o utilizador necessita de permissões de escrita (w) e de execução (x) na diretoria que o contém.",
         "Para ler um ficheiro, é apenas necessário que o utilizador tenha permissão de leitura (r) no ficheiro, independentemente das permissões das diretorias pai.",
@@ -622,7 +622,7 @@
     },
     {
       "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---",
-      "pergunta": "[Q53] Com base no cabeçalho apresentado, o utilizador 'developer' possui que nível de acesso efetivo ao diretório /var/shared/project?",
+      "pergunta": "Com base no cabeçalho apresentado, o utilizador 'developer' possui que nível de acesso efetivo ao diretório /var/shared/project?",
       "opcoes": [
         "Apenas leitura e travessia (r-x)",
         "Leitura, escrita e travessia (rwx)",
@@ -636,7 +636,7 @@
     },
     {
       "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---",
-      "pergunta": "[Q54] Com base no cabeçalho apresentado, se um utilizador que não seja o 'manager', nem o 'developer', nem pertença ao grupo 'staff' tentar aceder ao diretório, que permissões lhe serão aplicadas?",
+      "pergunta": "Com base no cabeçalho apresentado, se um utilizador que não seja o 'manager', nem o 'developer', nem pertença ao grupo 'staff' tentar aceder ao diretório, que permissões lhe serão aplicadas?",
       "opcoes": [
         "Permissões de 'other', ou seja, nenhum acesso (---)",
         "Permissões de 'group', ou seja, leitura e travessia (r-x)",
@@ -650,7 +650,7 @@
     },
     {
       "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---",
-      "pergunta": "[Q55] Se o proprietário 'manager' executar o comando 'chmod 777 /var/shared/project', qual será o impacto na máscara (mask) de ACL do ficheiro?",
+      "pergunta": "Se o proprietário 'manager' executar o comando 'chmod 777 /var/shared/project', qual será o impacto na máscara (mask) de ACL do ficheiro?",
       "opcoes": [
         "A máscara será recalculada para 'rwx', permitindo que as permissões efetivas dos utilizadores e grupos nomeados (como 'user:developer') subam até ao seu limite máximo definido na ACL.",
         "A máscara será destruída e as ACLs estendidas serão totalmente removidas.",
