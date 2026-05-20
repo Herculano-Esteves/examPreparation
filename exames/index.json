@@ -77,6 +77,27 @@
     "perguntas_count": 30
   },
   {
+    "id": "12WebSecurityOWASPTop10_completo",
+    "titulo": "12. Web Security & OWASP Top 10 (Exame Completo)",
+    "descricao": "Base de dados abrangente sobre vulnerabilidades Web e o OWASP Top 10, cobrindo injeções (SQLi, Command Injection, XSS), controlos de acesso, cookies, CSRF, SameSite, XS-Leaks, lógica de negócio e mecanismos de autenticação segura (FIDO2).",
+    "path": "exames/12WebSecurityOWASPTop10_completo.json",
+    "perguntas_count": 32
+  },
+  {
+    "id": "13SoftwareSecurity_completo",
+    "titulo": "13. Software Security (Exame Completo)",
+    "descricao": "Base de dados abrangente sobre segurança de software, cobrindo vulnerabilidades de memória (buffer overflow, use-after-free, integer overflow, format strings), mitigações de compilação e OS (NX, ASLR, Canaries, RELRO, CFI), concorrência (TOCTOU), injeções, desserialização insegura e ciclo de vida de desenvolvimento seguro (SDL).",
+    "path": "exames/13SoftwareSecurity_completo.json",
+    "perguntas_count": 32
+  },
+  {
+    "id": "14OperatingSystemSecurity_completo",
+    "titulo": "14. Operating System Security (Exame Completo)",
+    "descricao": "Base de dados abrangente sobre segurança de sistemas operativos, cobrindo o TCB, hierarquias de confiança (Rings), isolamento de processos (tabela de páginas, NX, ASLR, KASLR, canários), side-channels (Spectre/Meltdown, KPTI), interface de syscalls e seccomp, modelos de privilégio (setuid, capabilities), segurança de containers (namespaces, cgroups), hypervisors, LSMs (AppArmor/SELinux) e hardening (Secure Boot, TPM).",
+    "path": "exames/14OperatingSystemSecurity_completo.json",
+    "perguntas_count": 32
+  },
+  {
     "id": "ExameModelo",
     "titulo": "4. Exame de Avaliação Modelo (Teoria SSI)",
     "descricao": "Resolução simulada do modelo de exame teórico de Segurança de Sistemas de Informação. Contém questões sobre DAC/MAC/RBAC, permissões em Linux (ls -l), cifras autenticadas, funções hash, MACs, certificados X509 e assinaturas digitais.",

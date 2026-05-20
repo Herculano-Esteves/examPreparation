@@ -91,7 +91,7 @@
       "pergunta": "O utilizador 'bob' executa 'ls -l /var/shared/dir_r'. O que é que ele consegue ver?",
       "opcoes": [
         "Consegue ver a lista completa de ficheiros com os respetivos metadados (tamanhos, permissões, dono).",
-        "Consegue ver apenas os nomes dos ficheiros, mas as informações de metadados como tamanho, dono e permissões aparecerão com pontos de interrogação ('?') e erros.",
+        "Consegue ver apenas os nomes dos ficheiros, mas as informações de metadados como tamanho, dono e permissões aparecerão com pontos de interrogação e erros.",
         "Consegue ver apenas os ficheiros dos quais ele é o proprietário.",
         "Não consegue ver absolutamente nada (recebe erro de permissão negada).",
         "Nenhuma das respostas apresentadas está correta."
@@ -102,11 +102,11 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_rw' (executando 'touch /var/shared/dir_rw/new.txt'). Esta operação é bem-sucedida?",
+      "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_rw' ('touch /var/shared/dir_rw/new.txt'). Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque apenas a dona 'alice' pode criar ficheiros em qualquer pasta.",
-        "Sim, porque 'dir_rw' tem permissões de leitura e escrita ('rw-') para o seu grupo.",
-        "Não, porque criar um ficheiro requer a permissão de execução ('x') na diretoria para poder realizar a travessia e resolução de caminho.",
+        "Sim, porque 'dir_rw' tem permissões de leitura e escrita para o seu grupo.",
+        "Não, porque criar um ficheiro requer a permissão de execução na diretoria para poder realizar a travessia e resolução de caminho.",
         "Sim, porque a escrita na diretoria é suficiente para criar entries de ficheiros.",
         "Nenhuma das respostas apresentadas está correta."
       ],
@@ -116,11 +116,11 @@
     },
     {
       "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
-      "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_wx' (executando 'touch /var/shared/dir_wx/new.txt'). Esta operação é bem-sucedida?",
+      "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_wx' ('touch /var/shared/dir_wx/new.txt'). Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque apenas a dona 'alice' pode criar ficheiros em qualquer pasta.",
-        "Sim, porque 'dir_wx' tem permissões de leitura e escrita ('rw-') para o seu grupo.",
-        "Não, porque bob tem apenas permissão de leitura e execução ('r-x') no grupo proprietário, faltando a permissão de escrita ('w') necessária para criar ficheiros.",
+        "Sim, porque 'dir_wx' tem permissões de leitura e escrita para o seu grupo.",
+        "Não, porque bob tem apenas permissão de leitura e execução no grupo proprietário, faltando a permissão de escrita necessária para criar ficheiros.",
         "Sim, porque a escrita na diretoria é suficiente para criar entries de ficheiros.",
         "Nenhuma das respostas apresentadas está correta."
       ],
@@ -133,8 +133,8 @@
       "pergunta": "O utilizador 'bob' executa 'cd /var/shared/dir_rw'. O que acontece?",
       "opcoes": [
         "O comando funciona, mas 'bob' não poderá ler os ficheiros lá dentro.",
-        "O comando funciona porque 'bob' tem permissão de leitura e escrita ('rw-').",
-        "O comando falha com 'Permissão negada' porque entrar num diretório (travessia) exige obrigatoriamente a permissão de execução ('x').",
+        "O comando funciona porque 'bob' tem permissão de leitura e escrita.",
+        "O comando falha com 'Permissão negada' porque entrar num diretório exige obrigatoriamente a permissão de execução.",
         "O comando falha porque o grupo proprietário não tem permissão de escrita.",
         "Nenhuma das respostas apresentadas está correta."
       ],
@@ -233,7 +233,7 @@
       ]
     },
     {
-      "pergunta": "O princípio da 'Mediação Completa' (Complete Mediation) exige que todos os acessos a objetos protegidos sejam inspecionados pela guarda (Reference Monitor), sem atalhos ou caching de decisões.",
+      "pergunta": "O princípio da Complete Mediation exige que todos os acessos a objetos protegidos sejam inspecionados pelo Reference Monitor, sem atalhos ou caching de decisões.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
@@ -253,7 +253,7 @@
       ]
     },
     {
-      "pergunta": "A 'Autoridade Ambiente' (Ambient Authority) é uma das causas principais de vulnerabilidades do tipo 'Confused Deputy' (representante confuso).",
+      "pergunta": "A Ambient Authority é uma das causas principais de vulnerabilidades do tipo 'Confused Deputy'.",
       "opcoes": [
         "Verdadeiro",
         "Falso"
