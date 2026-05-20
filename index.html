@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSI - Simulador de Exames</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS stylesheet -->
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <!-- Background visual decorations -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-area">
+                <i class="fa-solid fa-shield-halved app-logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Teoria de SSI</h1>
+                    <span class="subtitle">Simulador de Exames</span>
+                </div>
+            </div>
+            <div class="system-status">
+                <span class="status-indicator"></span>
+                <span class="status-text">Online</span>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            <!-- STATE 1: MENU SCREEN -->
+            <section id="screen-menu" class="screen active">
+                <div class="welcome-box">
+                    <h2>Bem-vindo ao Simulador de Exames</h2>
+                    <p>Treine os conceitos teóricos de Segurança de Sistemas de Informação. Selecione um exame abaixo para começar.</p>
+                </div>
+                
+                <h3 class="section-title">Exames Disponíveis</h3>
+                <div id="exams-grid" class="exams-grid">
+                    <!-- Dynamic Exam Cards Loaded from API will go here -->
+                    <div class="loading-state">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        <p>A carregar exames...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATE 2: EXAM SCREEN -->
+            <section id="screen-exam" class="screen">
+                <div class="exam-header-card">
+                    <div class="exam-header-info">
+                        <h2 id="current-exam-title">Título do Exame</h2>
+                        <p id="current-exam-desc">Descrição do exame...</p>
+                    </div>
+                    <div class="exam-progress-container">
+                        <div class="progress-labels">
+                            <span id="question-counter">Questão 1 de 10</span>
+                            <span id="progress-percentage">10%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div class="question-card">
+                    <div class="question-header">
+                        <span class="question-badge">Questão <span id="current-q-num">1</span></span>
+                        <button id="btn-copy" class="btn-copy" title="Copiar questão para área de transferência">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>Copiar Questão</span>
+                        </button>
+                    </div>
+                    
+                    <div id="question-cabecalho" class="question-cabecalho hidden"></div>
+                    <h3 id="question-text" class="question-text">Qual é o objetivo da criptografia?</h3>
+                    
+                    <div id="options-container" class="options-container">
+                        <!-- Options will be generated dynamically -->
+                    </div>
+
+                    <!-- Explanatory answer banner -->
+                    <div id="answer-feedback" class="answer-feedback hidden">
+                        <div class="feedback-icon"></div>
+                        <div class="feedback-text">
+                            <h4 id="feedback-title">Correto!</h4>
+                            <p id="feedback-message">A resposta correta é a alínea X.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="exam-controls">
+                    <button id="btn-exit" class="btn-control btn-danger">
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                        <span>Sair</span>
+                    </button>
+                    <div class="nav-buttons">
+                        <button id="btn-prev" class="btn-control btn-secondary">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <span>Voltar Atrás</span>
+                        </button>
+                        <button id="btn-next" class="btn-control btn-primary">
+                            <span>Avançar</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATE 3: RESULTS SCREEN -->
+            <section id="screen-results" class="screen">
+                <div class="results-card">
+                    <div class="success-icon-wrapper">
+                        <i class="fa-solid fa-trophy results-trophy"></i>
+                    </div>
+                    <h2>Exame Concluído!</h2>
+                    <p id="results-exam-title">Título do Exame Terminado</p>
+                    
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="score-percentage">100%</span>
+                        </div>
+                        <p id="score-detail">Acertou 5 de 5 perguntas na primeira tentativa!</p>
+                    </div>
+
+                    <button id="btn-back-menu" class="btn-control btn-primary">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Voltar ao Menu Principal</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <p>&copy; 2026 Teoria de Segurança de Sistemas de Informação. Desenvolvido para fins letivos.</p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast for Copied feedback -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-check-circle"></i>
+        <span>Copiado com sucesso!</span>
+    </div>
+
+    <!-- Custom JavaScript logic -->
+    <script src="static/app.js"></script>
+</body>
+</html>

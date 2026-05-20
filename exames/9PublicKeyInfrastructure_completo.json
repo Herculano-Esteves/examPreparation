@@ -1,0 +1,478 @@
+{
+  "titulo": "9. Public Key Infrastructure (Exame Alargado)",
+  "descricao": "Base de dados super completa (35 questões) cobrindo certificação de chaves públicas, PGP e Web of Trust, infraestruturas PKI (CAs, Sub-CAs, cadeias de confiança), normas ASN.1 (DER/PEM), extensões críticas X.509v3, revogação (CRLs, OCSP, Pinning) e enquadramentos legais (eIDAS, QES, PAdES).",
+  "perguntas": [
+    {
+      "pergunta": "[Q1] A criptografia de chave pública elimina totalmente o problema da autenticidade das chaves, uma vez que as chaves públicas podem ser distribuídas abertamente sem qualquer risco de segurança ou ataques Man-in-the-Middle.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q2] O PGP (Pretty Good Privacy), criado por Phil Zimmermann em 1991, foi alvo de uma disputa judicial nos EUA porque a criptografia forte era legalmente considerada como:",
+      "opcoes": [
+        "Uma moeda de troca ilegal.",
+        "Material militar/munições sob controlo de exportação sem licença.",
+        "Um malware de interceção de dados associado a spyware.",
+        "Uma infração de patentes da Sony e Nintendo.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q3] A abordagem de certificação de chaves públicas do PGP baseia-se num modelo descentralizado de rede de confiança ('Web of Trust'). O que o caracteriza?",
+      "opcoes": [
+        "O estabelecimento de relações de confiança diretas e indiretas (recomendação por terceiros confiáveis) de forma descentralizada, sem ponto único de falha.",
+        "O cálculo de umask 007 em todos os ficheiros de chaves.",
+        "O uso obrigatório de assinaturas qualificadas eIDAS.",
+        "A dependência de um servidor central online gerido pelo Estado.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q4] O PGP fingerprint corresponde a uma versão reduzida da chave pública (gerada através de uma função de hash) que pode ser facilmente impressa ou trocada por canais físicos seguros para verificar a integridade da chave.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q5] Numa Infraestrutura de Chaves Públicas (PKI), qual é a entidade responsável por emitir e assinar digitalmente a associação entre a identidade de um agente e a sua chave pública?",
+      "opcoes": [
+        "O Registration Authority (RA).",
+        "A Autoridade de Certificação (Certification Authority - CA).",
+        "O Key Distribution Center (KDC).",
+        "O Time Stamping Authority (TSA).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q6] Um certificado digital atesta uma associação de identidade que pode ser verificada por qualquer pessoa que possua a chave pública da respetiva Autoridade de Certificação (CA).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q7] Como funciona a validação numa cadeia de certificados (certificate chain)?",
+      "opcoes": [
+        "É um processo recursivo onde o certificado do utilizador é validado com a chave pública da sub-CA emissora, e o certificado da sub-CA é sucessivamente validado até alcançar um certificado de raiz (Root CA) em que se confia implicitamente.",
+        "O recetor exige que a chave secreta K seja assinada digitalmente.",
+        "Todos os certificados são cifrados em modo CBC com a semente da Root CA.",
+        "Cada certificado é validado de forma independente sem verificar assinaturas.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q8] No processo de pedido de certificado a uma CA (Certificate Signing Request), por que razão Alice deve assinar a sua própria chave pública com a sua respetiva chave privada?",
+      "opcoes": [
+        "Para gerar o umask de proteção da CA.",
+        "Para demonstrar que a chave suporta homomorfismo multiplicativo.",
+        "Para cifrar os dados da transação.",
+        "Para provar que possui a correspondente chave privada (Proof of Possession) associada à chave pública que deseja certificar.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q9] As Autoridades de Certificação Raiz (Root CAs) raramente emitem certificados diretamente para utilizadores finais. Qual o motivo de segurança desta prática?",
+      "opcoes": [
+        "Para reduzir a dimensão do fingerprint da sub-CA.",
+        "Porque as Root CAs utilizam chaves com tamanho de apenas 56 bits.",
+        "Porque as normas de eIDAS proíbem assinaturas de utilizadores finais.",
+        "Para permitir que a chave privada da Root CA seja mantida num ambiente isolado e offline (Air-Gapped), mitigando o risco de comprometimento da raiz de confiança toda.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q10] No modelo de hierarquia de confiança de uma PKI, se duas sub-CAs (CAa e CAb) forem certificadas pela mesma Root CA, os utilizadores da CAa herdam automaticamente a confiança nos certificados emitidos pela CAb.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q11] Para garantir a integridade física e o isolamento das chaves privadas das Root CAs, estas são habitualmente alojadas em dispositivos de hardware dedicados conhecidos como:",
+      "opcoes": [
+        "Repositórios públicos LDAP.",
+        "Key Distribution Centers (KDC).",
+        "Terminais de smartcard sem suporte a APIs.",
+        "Hardware Security Modules (HSMs) ou coprocessadores criptográficos com resistência à violação física (tamper-resistance).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q12] A gestão e distribuição da lista de Autoridades de Certificação Raiz confiáveis (Trust Anchors) no computador de um utilizador comum é tipicamente efetuada de que forma?",
+      "opcoes": [
+        "É partilhada dinamicamente via emails S/MIME.",
+        "É mantida através de chaves efémeras no protocolo Diffie-Hellman.",
+        "O utilizador tem de descarregar e instalar manualmente cada certificado de raiz diariamente.",
+        "É gerida de forma transparente pelo fabricante do Sistema Operativo ou do Navegador de Internet, que disponibiliza uma lista de âncoras de confiança pré-instaladas.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q13] Qual foi a primeira norma bem-sucedida para a normalização de certificados de chave pública, originalmente concebida para serviços de diretoria X.500?",
+      "opcoes": [
+        "Netscape SSLv2.",
+        "X.509 (ITU-1988).",
+        "eIDAS.",
+        "RFC 5280.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q14] A norma X.509 foi posteriormente adotada pela Netscape para o protocolo SSL (Secure Sockets Layer) em 1995 de forma a garantir a segurança das ligações HTTP (HTTPS).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q15] No enquadramento do grupo de trabalho PKIX do IETF (RFC 5280), qual é o papel desempenhado pelas Registration Authorities (RAs)?",
+      "opcoes": [
+        "Validar e estabelecer a associação física e de identidade entre o requerente e a chave pública antes de a CA assinar e emitir o certificado.",
+        "Decifrar tráfego cifrado com RSA.",
+        "Publicar listas de revogação de assinaturas com timestamps.",
+        "Armazenar cópias de segurança das chaves privadas dos utilizadores.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q16] No protocolo S/MIME, os certificados X.509 que acompanham a mensagem eletrónica cifrada ou assinada são tipicamente anexados no formato estruturado:",
+      "opcoes": [
+        "ASN.1 cru.",
+        "Anexos PKCS#7.",
+        "Assinaturas PAdES.",
+        "Diretórios LDAP dinâmicos.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q17] Tecnicamente, um certificado X.509 é especificado em ASN.1 (Abstract Syntax Notation One), que consiste em:",
+      "opcoes": [
+        "Uma linguagem de programação compilada para x86.",
+        "Uma notação de especificação de estruturas de dados independente de plataforma e linguagem.",
+        "Um formato de compressão em esponja de 1600 bits.",
+        "Um protocolo de sincronização de relógio para timestamps.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q18] Quais são os formatos binário e legível em Base64 mais comuns para codificação e transporte de certificados X.509? Selecione todas as opções corretas.",
+      "opcoes": [
+        "Formato legível em Base64 PEM (Privacy Enhanced Mail) contendo delimitadores textuais.",
+        "Formato binário DER (Distinguished Encoding Rules).",
+        "Formato JSON-LD sem criptografia.",
+        "Formato YAML estruturado com tabulações.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q19] Que dados informativos estão tipicamente contidos num certificado X.509 padrão e sobre o que incide a assinatura da CA?",
+      "opcoes": [
+        "Contém apenas a assinatura da CA sobre a chave privada do titular.",
+        "Contém os dados informativos do sujeito, chave pública do sujeito, dados do emissor, período de validade e a assinatura da CA que incide sobre a codificação DER destes mesmos dados informativos.",
+        "Contém a semente efémera de 16 bits cifrada com o umask.",
+        "Contém o hash SHA-3 do estado interno da esponja.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q20] Introduzida em 1996, a versão X.509v3 resolveu limitações de atributos de aplicações adicionando um campo de extensões. Que característica define as extensões marcadas como 'Críticas' (Critical)?",
+      "opcoes": [
+        "Permitem desativar a verificação de data de expiração do certificado.",
+        "Apenas podem ser processadas pela Root CA.",
+        "Se uma aplicação ou cliente não reconhecer uma extensão marcada como crítica, ela é obrigada a rejeitar o certificado por inteiro.",
+        "São extensões que expõem a chave privada ao recetor.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q21] Identifique duas extensões cruciais do padrão X.509v3 e as suas funções:",
+      "opcoes": [
+        "Basic Constraints (sinaliza se o titular é uma CA e limites de cadeia) e Key Usage (restringe o propósito da chave, ex: apenas para assinaturas digitais ou cifragem).",
+        "HMAC e CMAC.",
+        "Grover e Shor.",
+        "ASN.1 e PEM.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q22] A validação de um certificado de utilizador exige a validação da assinatura digital, a verificação da aplicabilidade (datas de validade, atributos de uso) e a garantia de que o certificado não foi revogado.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q23] Identifique motivos legítimos para a revogação de um certificado digital antes da sua data de expiração programada:",
+      "opcoes": [
+        "Compromisso ou perda da chave privada correspondente, comprometimento da CA emissora, ou perda de vínculo do titular com os atributos certificados.",
+        "Utilização de uma umask de utilizador diferente de 027.",
+        "Reutilização de chaves de One-Time Pad.",
+        "Cifragem de ficheiros com tamanho maior do que 163 bytes.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q24] O método clássico de revogação de certificados baseia-se na Certificate Revocation List (CRL). O que a define e qual a sua limitação?",
+      "opcoes": [
+        "É uma base de dados que corre em modo ECB na CPU do cliente.",
+        "É uma lista assinada digitalmente pela CA contendo os certificados revogados; a sua limitação principal é a latência temporal entre atualizações e o aumento do tamanho do ficheiro com o número de revogações.",
+        "É um ficheiro cifrado gerado pelo utilizador; a sua limitação é exigir chaves RSA de 3072 bits.",
+        "É um protocolo síncrono que proíbe o tráfego de e-mail.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q25] Para obter verificação do estado de revogação em tempo real (Real-Time), que protocolo específico de rede é utilizado para interrogar o estado de um certificado?",
+      "opcoes": [
+        "LDAP.",
+        "S/MIME.",
+        "PBKDF2.",
+        "OCSP (Online Certificate Status Protocol).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q26] Em comunidades pequenas ou fechadas (como o setor bancário), é comum gerir a revogação através de listas brancas de certificados válidos conhecidas como Trusted Service Provider Lists (TSL).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q27] O mecanismo de 'Certificate Pinning' consiste em fazer com que uma aplicação, navegador ou servidor web controle e valide de forma estrita o certificado esperado para um serviço, mitigando riscos de CAs de terceiros comprometidas.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q28] O regulamento europeu eIDAS (electronic IDentification, Authentication and trust Services) visa normalizar transações eletrónicas e garantir a interoperabilidade legal de assinaturas digitais na UE.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q29] Que padrão técnico harmoniza as assinaturas digitais em ficheiros PDF com o regulamento europeu eIDAS?",
+      "opcoes": [
+        "ML-DSA.",
+        "S/MIME.",
+        "PAdES (PDF Advanced Electronic Signatures - ISO 32000-2).",
+        "X.500.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q30] No contexto do regulamento eIDAS, o que caracteriza uma Assinatura Eletrónica Qualificada (Qualified Electronic Signature - QES)?",
+      "opcoes": [
+        "Uma assinatura baseada em umask 007 gerada por um script em Python.",
+        "Uma assinatura gerada pelo protocolo de três passos com cifras clássicas.",
+        "Uma assinatura digital suportada por um Certificado Qualificado e criada recorrendo a um dispositivo seguro de criação de assinaturas (como smartcard ou token USB).",
+        "Uma assinatura cifrada com o algoritmo simétrico DES.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q31] Um selo temporal criptográfico (Trusted Timestamping) associa o conteúdo de um documento a uma marca de tempo confiável fornecida por uma terceira entidade de confiança, a Time Stamping Authority (TSA).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q32] A verificação de timestamps é importante porque permite provar que o certificado digital utilizado numa assinatura era inteiramente válido no momento exato em que o documento foi assinado, mesmo que o certificado tenha expirado posteriormente.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q33] Uma assinatura eletrónica qualificada (QES) emitida e acreditada num determinado Estado-Membro da UE é reconhecida com valor legal idêntico em todos os restantes Estados-Membros.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q34] A validação recursiva de certificados de uma cadeia termina sempre num certificado que é obrigatoriamente assinado pela Registration Authority (RA).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q35] Os certificados de raiz auto-assinados (Self-Signed Certificates) são aqueles em que o emissor e o sujeito são a mesma entidade.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q36] De acordo com a norma do formato de certificados de chave pública X.509 v3, quais dos seguintes campos constam do cabeçalho assinado de um certificado?",
+      "opcoes": [
+        "O período de validade do certificado (Validity), contendo as datas 'Not Before' e 'Not After'.",
+        "A identificação detalhada da Autoridade de Certificação emissora (Issuer Name).",
+        "A chave pública do próprio titular (Subject Public Key Info).",
+        "O número de série exclusivo atribuído pelo emissor (Serial Number).",
+        "A chave privada do titular do certificado (Subject Private Key)."
+      ],
+      "solucao": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "cabecalho": "Considere o seguinte extrato de um certificado digital X.509 v3 obtido num browser:\n- Subject: CN=secure.example.com, O=Security Corp, C=PT\n- Issuer: CN=GlobalSign Secure CA, O=GlobalSign, C=BE\n- Validity: Not Before: Mar 1 2026, Not After: Mar 1 2027\n- Subject Public Key Info: RSA (2048 bit)",
+      "pergunta": "[Q37] Quem é a entidade proprietária deste certificado e a quem pertence a chave pública de 2048 bits contida no mesmo?",
+      "opcoes": [
+        "O site secure.example.com",
+        "A organização belga (C=BE)",
+        "A CA GlobalSign",
+        "O utilizador final do browser",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere o seguinte extrato de um certificado digital X.509 v3 obtido num browser:\n- Subject: CN=secure.example.com, O=Security Corp, C=PT\n- Issuer: CN=GlobalSign Secure CA, O=GlobalSign, C=BE\n- Validity: Not Before: Mar 1 2026, Not After: Mar 1 2027\n- Subject Public Key Info: RSA (2048 bit)",
+      "pergunta": "[Q38] Se o relógio do sistema de um cliente estiver incorretamente definido para o ano de 2028, qual será a reação do browser ao verificar este certificado?",
+      "opcoes": [
+        "O browser corrige automaticamente a hora local do sistema de forma silenciosa.",
+        "O browser reencaminha o utilizador para o site da GlobalSign.",
+        "O browser aceita-o normalmente porque o certificado já existia antes.",
+        "O browser rejeitará o certificado como inválido/expirado porque a data atual (2028) ultrapassa o limite 'Not After' (Mar 1 2027).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "cabecalho": "Considere o seguinte extrato de um certificado digital X.509 v3 obtido num browser:\n- Subject: CN=secure.example.com, O=Security Corp, C=PT\n- Issuer: CN=GlobalSign Secure CA, O=GlobalSign, C=BE\n- Validity: Not Before: Mar 1 2026, Not After: Mar 1 2027\n- Subject Public Key Info: RSA (2048 bit)",
+      "pergunta": "[Q39] Qual das seguintes entidades assina digitalmente a estrutura de dados deste certificado para garantir a sua integridade e autenticidade?",
+      "opcoes": [
+        "A Autoridade de Certificação emissora (GlobalSign Secure CA) usando a sua chave privada correspondente.",
+        "A entidade de registo do país de origem (C=PT).",
+        "O utilizador do browser usando a sua chave privada.",
+        "O titular do certificado (secure.example.com) usando a sua chave pública.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}

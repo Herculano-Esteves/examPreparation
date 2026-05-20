@@ -1,0 +1,389 @@
+{
+  "titulo": "10. Internet Protocols, Authentication & Authorization",
+  "descricao": "Simulador de exames sobre IPSec, SSL/TLS, SSH, Challenge-Response, FIDO2, OAuth 2.0 e JWT.",
+  "perguntas": [
+    {
+      "cabecalho": "Considere o seguinte cenário de comunicação segura estabelecida entre um cliente web (browser) e um servidor de e-commerce usando o protocolo TLS 1.3:\n1. O handshake é executado em apenas 1 RTT (Round Trip Time) utilizando criptografia efémera baseada em Diffie-Hellman Elliptic Curve (ECDHE).\n2. O servidor envia o seu certificado X.509 para autenticação, mas o cliente não é autenticado por certificado.\n3. Após o handshake, é estabelecido um canal de dados simétrico utilizando cifras AEAD (como AES-GCM ou ChaCha20-Poly1305).\n4. O cliente abre múltiplos sockets TCP concorrentes para descarregar imagens e folhas de estilo, reutilizando a sessão TLS previamente negociada.",
+      "pergunta": "[Q1] Com base no cabeçalho apresentado, por que motivo o TLS 1.3 consegue realizar o handshake em apenas 1 RTT em comparação com as versões anteriores?",
+      "opcoes": [
+        "Porque o TLS 1.3 elimina a verificação dos certificados do servidor.",
+        "Porque o TLS 1.3 utiliza cifragem simétrica de chaves públicas estáticas.",
+        "Porque o cliente assume uma partilha de chaves e envia a sua parte do Diffie-Hellman efémero (Key Share) logo na primeira mensagem ClientHello, combinando negociação e troca de chaves.",
+        "Porque delega a troca de chaves para o protocolo IP na camada inferior.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "cabecalho": "Considere o seguinte cenário de comunicação segura estabelecida entre um cliente web (browser) e um servidor de e-commerce usando o protocolo TLS 1.3:\n1. O handshake é executado em apenas 1 RTT (Round Trip Time) utilizando criptografia efémera baseada em Diffie-Hellman Elliptic Curve (ECDHE).\n2. O servidor envia o seu certificado X.509 para autenticação, mas o cliente não é autenticado por certificado.\n3. Após o handshake, é estabelecido um canal de dados simétrico utilizando cifras AEAD (como AES-GCM ou ChaCha20-Poly1305).\n4. O cliente abre múltiplos sockets TCP concorrentes para descarregar imagens e folhas de estilo, reutilizando a sessão TLS previamente negociada.",
+      "pergunta": "[Q2] Relativamente ao ponto 4 do cabeçalho, qual é a principal vantagem de reutilizar a sessão TLS (Session Resumption) nas novas ligações TCP concorrentes?",
+      "opcoes": [
+        "Permite estabelecer as novas ligações seguras sem repetir os cálculos computacionalmente dispendiosos de criptografia assimétrica da troca de chaves.",
+        "Permite enviar os dados em texto limpo sem cifragem.",
+        "Substitui o protocolo TCP pelo protocolo UDP.",
+        "Elimina a necessidade de manter o estado de cookies de sessão no browser.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere o seguinte cenário de comunicação segura estabelecida entre um cliente web (browser) e um servidor de e-commerce usando o protocolo TLS 1.3:\n1. O handshake é executado em apenas 1 RTT (Round Trip Time) utilizando criptografia efémera baseada em Diffie-Hellman Elliptic Curve (ECDHE).\n2. O servidor envia o seu certificado X.509 para autenticação, mas o cliente não é autenticado por certificado.\n3. Após o handshake, é estabelecido um canal de dados simétrico utilizando cifras AEAD (como AES-GCM ou ChaCha20-Poly1305).\n4. O cliente abre múltiplos sockets TCP concorrentes para descarregar imagens e folhas de estilo, reutilizando a sessão TLS previamente negociada.",
+      "pergunta": "[Q3] O uso de cifras efémeras (ECDHE) mencionado no ponto 1 do cabeçalho garante que propriedade de segurança essencial?",
+      "opcoes": [
+        "PFS (Perfect Forward Secrecy), garantindo que a segurança das sessões passadas não é comprometida mesmo que a chave privada de longo prazo do servidor seja exposta no futuro.",
+        "Não-repúdio absoluto de todas as transações realizadas pelo cliente.",
+        "Anonimato total do endereço IP do servidor na rede pública.",
+        "Imunidade total contra ataques de negação de serviço distribuídos (DDoS).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere a seguinte sequência de eventos num fluxo de autorização OAuth 2.0 (Authorization Code Grant) entre um utilizador (Resource Owner), um site de terceiros (Client), e um servidor de rede social (Authorization / Resource Server):\n- Passo 1: O utilizador clica em 'Entrar com Rede Social' e é redirecionado para a página de login da rede social.\n- Passo 2: O utilizador insere as suas credenciais no canal direto do browser (Front Channel) e concede permissão com o scope 'read:profile'.\n- Passo 3: O Authorization Server gera um código de autorização temporário e redireciona o utilizador de volta para o Client.\n- Passo 4: O Client recebe o código e troca-o diretamente com o Authorization Server via canal de servidor a servidor (Back Channel), enviando o Client Secret correspondente.\n- Passo 5: O Client recebe um Access Token e um Refresh Token.",
+      "pergunta": "[Q4] Com base no cabeçalho apresentado, por que motivo o código de autorização é trocado por um token através do Back Channel (Passo 4) em vez de o token ser enviado diretamente no redirecionamento do browser (Passo 3)?",
+      "opcoes": [
+        "Porque o Front Channel (browser) é considerado um meio menos seguro e sujeito a fugas ou interceções, enquanto o Back Channel estabelece uma ligação direta autenticada TLS entre servidores.",
+        "Porque o token de acesso exige processamento de hardware que apenas o servidor do Client consegue decifrar.",
+        "Porque o browser não suporta ligações HTTPS obrigatórias para transporte de tokens.",
+        "Porque o utilizador não tem permissão para visualizar o Access Token em momento algum.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere a seguinte sequência de eventos num fluxo de autorização OAuth 2.0 (Authorization Code Grant) entre um utilizador (Resource Owner), um site de terceiros (Client), e um servidor de rede social (Authorization / Resource Server):\n- Passo 1: O utilizador clica em 'Entrar com Rede Social' e é redirecionado para a página de login da rede social.\n- Passo 2: O utilizador insere as suas credenciais no canal direto do browser (Front Channel) e concede permissão com o scope 'read:profile'.\n- Passo 3: O Authorization Server gera um código de autorização temporário e redireciona o utilizador de volta para o Client.\n- Passo 4: O Client recebe o código e troca-o diretamente com o Authorization Server via canal de servidor a servidor (Back Channel), enviando o Client Secret correspondente.\n- Passo 5: O Client recebe um Access Token e um Refresh Token.",
+      "pergunta": "[Q5] Se o Access Token expirar após 1 hora, de que forma o Client pode obter um novo Access Token sem obrigar o utilizador a realizar novamente o login e autenticação na rede social?",
+      "opcoes": [
+        "Utilizando o mesmo código de autorização recebido no Passo 3.",
+        "Fazendo um pedido HTTP GET direto com o Client Secret para a base de dados do utilizador.",
+        "Cifrando o token expirado com a sua chave pública RSA.",
+        "Apresentando o Refresh Token recebido no Passo 5 diretamente ao endpoint de token do Authorization Server.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "cabecalho": "Considere a seguinte sequência de eventos num fluxo de autorização OAuth 2.0 (Authorization Code Grant) entre um utilizador (Resource Owner), um site de terceiros (Client), e um servidor de rede social (Authorization / Resource Server):\n- Passo 1: O utilizador clica em 'Entrar com Rede Social' e é redirecionado para a página de login da rede social.\n- Passo 2: O utilizador insere as suas credenciais no canal direto do browser (Front Channel) e concede permissão com o scope 'read:profile'.\n- Passo 3: O Authorization Server gera um código de autorização temporário e redireciona o utilizador de volta para o Client.\n- Passo 4: O Client recebe o código e troca-o diretamente com o Authorization Server via canal de servidor a servidor (Back Channel), enviando o Client Secret correspondente.\n- Passo 5: O Client recebe um Access Token e um Refresh Token.",
+      "pergunta": "[Q6] Qual das seguintes afirmações descreve corretamente a utilidade do scope 'read:profile' mencionado no Passo 2?",
+      "opcoes": [
+        "Limita o acesso do Client, garantindo que o token emitido apenas autoriza a leitura do perfil do utilizador, impedindo modificações ou acesso a outros recursos.",
+        "Substitui a palavra-passe do utilizador na rede social por uma chave simétrica temporária.",
+        "Garante a confidencialidade do tráfego IP na rede local do utilizador.",
+        "Permite ao Client partilhar as credenciais do utilizador com outras aplicações terceiras.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q7] O protocolo IPSec atua em que camada do modelo de referência OSI?",
+      "opcoes": [
+        "Camada de Rede (Network Layer)",
+        "Camada de Aplicação (Application Layer)",
+        "Camada Física (Physical Layer)",
+        "Camada de Transporte (Transport Layer)",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q8] No IPSec, o modo de encapsulamento 'Transporte' (Transport Mode) cifra e protege tanto o cabeçalho IP original como o payload do pacote.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q9] Quais das seguintes funcionalidades de segurança são asseguradas pelo protocolo IPSec Authentication Header (AH)?",
+      "opcoes": [
+        "Cifragem e encapsulamento do pacote IP original inteiro.",
+        "Integridade dos dados e autenticação de origem de cada pacote IP.",
+        "Proteção opcional contra repetição de pacotes (anti-replay) recorrendo a números de sequência.",
+        "Confidencialidade total do conteúdo do payload (encriptação).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q10] O protocolo SSH (Secure Shell) utiliza que modelo/mecanismo de confiança padrão para validar a identidade de servidores na primeira ligação?",
+      "opcoes": [
+        "TOFU (Trust-On-First-Use) onde o utilizador aceita manualmente a fingerprint da chave pública do servidor.",
+        "Uma infraestrutura de chaves públicas (PKI) centralizada baseada em certificados X.509.",
+        "Assinaturas cegas Diffie-Hellman geradas por uma CA de internet pública.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q11] Em relação ao protocolo TLS, a distinção entre 'TLS Session' e 'TLS Connection' reside em:",
+      "opcoes": [
+        "Uma sessão é persistente e define um conjunto de parâmetros criptográficos que podem ser partilhados entre múltiplas conexões temporárias, evitando handshakes completos repetidos.",
+        "Uma conexão é persistente e contém múltiplas sessões efémeras.",
+        "Sessões e conexões são sinónimos exatos e indistinguíveis no TLS 1.3.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q12] Quais dos seguintes fatores constituem exemplos válidos de autenticação de 'Algo que você tem' (Something you have) no âmbito de MFA?",
+      "opcoes": [
+        "Cartões inteligentes (Smart Cards).",
+        "Tokens criptográficos físicos (ex: YubiKey).",
+        "Impressão digital ou reconhecimento facial.",
+        "Perguntas de segurança e palavras-passe.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q13] Considere um protocolo de autenticação ingénuo onde o utilizador envia a sua palavra-passe em texto limpo ao servidor. Quais são as principais vulnerabilidades deste protocolo?",
+      "opcoes": [
+        "Exposição direta da palavra-passe a interceptação e escutas passivas (sniffing) na rede.",
+        "Vulnerabilidade total a ataques de repetição (replay attacks) por parte de um atacante na rede.",
+        "O servidor necessita de saber ou poder validar a palavra-passe diretamente (ou o seu hash), o que o torna um alvo prioritário.",
+        "Impossibilidade de utilizar algoritmos de hash na base de dados do servidor.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q14] Para mitigar ataques de repetição (replay attacks) em protocolos de autenticação, utiliza-se a técnica de Challenge-Response baseada em Nonces. O que caracteriza um Nonce adequado?",
+      "opcoes": [
+        "Deve ser um valor que nunca se repete (utilizado uma única vez), garantindo que cada resposta gerada pelo cliente é fresca e única.",
+        "Deve ser derivado estaticamente a partir do hash da palavra-passe do utilizador.",
+        "Deve ser público e idêntico para todas as sessões do mesmo utilizador.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q15] Num protocolo de Challenge-Response simétrico, o servidor envia um Nonce (desafio) e o cliente responde com a hash da concatenação da sua palavra-passe com o Nonce. Que vantagem apresenta este método face ao envio direto da palavra-passe?",
+      "opcoes": [
+        "Elimina a necessidade de o servidor conhecer a palavra-passe ou o seu segredo equivalente.",
+        "Permite que a autenticação seja processada de forma assimétrica.",
+        "Impede a exposição da palavra-passe em texto limpo na rede e previne ataques de repetição.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q16] No protocolo FIDO2, o par de chaves públicas/privadas gerado para cada serviço é denominado 'passkey'.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q17] Relativamente à segurança do padrão FIDO2 e ao uso de passkeys, identifique as afirmações corretas:",
+      "opcoes": [
+        "Previne ataques de phishing, uma vez que o autenticador valida o domínio do site e assina o desafio associando-o a essa origem específica.",
+        "Protege contra ataques de repetição porque a entidade confiável (Relying Party) gera um desafio único para cada tentativa.",
+        "Garante a presença física do utilizador através de verificação de consentimento (ex: toque físico no dispositivo, introdução de PIN ou biométrico).",
+        "A chave privada do utilizador é transmitida e armazenada nos servidores do Relying Party para autenticação futura.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q18] No FIDO2, a distinção prática entre 'Device-Bound Passkeys' e 'Synced Passkeys' é que as segundas podem ser sincronizadas entre múltiplos dispositivos do utilizador.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q19] O padrão OAuth 2.0 é essencialmente um framework de autenticação de utilizadores finais.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q20] Um JSON Web Token (JWT) é constituído tipicamente por três partes separadas por pontos (.). Quais são?",
+      "opcoes": [
+        "Cabeçalho (Header), Carga Útil (Payload) e Assinatura (Signature)",
+        "Chave Pública, Criptograma e Hash",
+        "Identificador, Permissões e Data de Expiração",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q21] Relativamente a um JWT simétrico, identifique as afirmações corretas:",
+      "opcoes": [
+        "Qualquer entidade que possua a chave secreta partilhada pode validar o token e também criar novos tokens válidos.",
+        "A carga útil (payload) de um JWT simétrico encontra-se cifrada por padrão e o seu conteúdo é invisível para terceiros sem a chave.",
+        "A integridade e autenticidade do token são garantidas através de um código MAC calculado com uma chave secreta partilhada entre o emissor e o recetor.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q22] Num JWT assimétrico, o emissor assina o token com a sua chave privada e o recetor valida a assinatura utilizando a chave pública correspondente do emissor, permitindo a separação de papéis.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q23] A carga útil (payload) de um JWT padrão é codificada em Base64URL, o que significa que o seu conteúdo pode ser lido por qualquer pessoa que intersete o token, a menos que seja cifrado.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q24] Relativamente aos tokens de acesso (Access Tokens) no OAuth 2.0, é correto afirmar que:",
+      "opcoes": [
+        "São geralmente curtos (ex: 1 hora) para reduzir a janela de oportunidade de um atacante caso o token seja intersetado.",
+        "São stateless quando utilizam formatos auto-contidos como JWT, permitindo ao servidor de recursos validá-los localmente sem consultar o servidor de autorização.",
+        "Devem ser transmitidos obrigatoriamente sob canais seguros (HTTPS) porque a posse do token concede acesso direto ao recurso.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q25] O que é um 'Refresh Token' no contexto do OAuth 2.0?",
+      "opcoes": [
+        "Um token utilizado para atualizar a chave privada do servidor de autorização.",
+        "Um token enviado em texto limpo para invalidar sessões ativas de utilizadores maliciosos.",
+        "Um token de longa duração utilizado pelo cliente para obter novos tokens de acesso expirados sem requerer nova intervenção do utilizador.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q26] O protocolo SSH (Secure Shell) corre por padrão sobre que protocolo de transporte e porta?",
+      "opcoes": [
+        "TCP, porta 22",
+        "UDP, porta 22",
+        "TCP, porta 443",
+        "UDP, porta 500",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q27] A vulnerabilidade conhecida como 'Heartbleed' afetou que biblioteca criptográfica amplamente utilizada na implementação de SSL/TLS?",
+      "opcoes": [
+        "BoringSSL",
+        "OpenSSL",
+        "LibreSSL",
+        "GnuTLS",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q28] No TLS 1.3, quais dos seguintes algoritmos e suites criptográficas obsoletos ou inseguros foram removidos do protocolo?",
+      "opcoes": [
+        "Cifras simétricas em modo CBC (ex: AES-CBC).",
+        "Cifras simétricas obsoletas como RC4 e 3DES.",
+        "Funções de hash MD5 e SHA-1 para assinaturas digitais.",
+        "Trocas de chaves baseadas em Diffie-Hellman efémero.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q29] Qual é o principal papel do componente 'Encapsulating Security Payload' (ESP) no protocolo IPSec?",
+      "opcoes": [
+        "Negociar as chaves de sessão e parâmetros criptográficos (IKE).",
+        "Garantir a confidencialidade (cifragem) e integridade dos pacotes de dados transmitidos.",
+        "Apenas autenticar a origem do pacote IP sem cifrar o seu conteúdo.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q30] Em HTTPS, que partes da comunicação do utilizador com o servidor web são protegidas (cifradas) contra bisbilhoteiros de rede?",
+      "opcoes": [
+        "Os dados submetidos em formulários e os Cookies de sessão.",
+        "O conteúdo dos documentos (HTML, CSS, imagens).",
+        "Os cabeçalhos das mensagens HTTP (como User-Agent e Authorization).",
+        "O URL do documento solicitado (exceto o nome do domínio no handshake TLS via SNI).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}

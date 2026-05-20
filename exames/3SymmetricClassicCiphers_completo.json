@@ -1,0 +1,585 @@
+{
+  "titulo": "3. Cifragem Simétrica e Cifras Clássicas (Exame Alargado)",
+  "descricao": "Base de dados super completa (45 questões) com afirmações V/F e escolha múltipla sobre cifras clássicas, ataques estatísticos em português, e exploração de geradores aleatórios inseguros.",
+  "perguntas": [
+    {
+      "pergunta": "[Q1] Numa Cifra de Transposição pura, a frequência relativa de ocorrência de caracteres do criptograma permanece exatamente idêntica à do texto claro original.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q2] Na cifra One-Time Pad (OTP), a decifragem é realizada através da operação lógica AND bit a bit entre o criptograma e a chave secreta.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q3] De acordo com Claude Shannon, a cifra One-Time Pad garante segurança incondicional porque conhecer o criptograma não reduz a incerteza do adversário sobre o texto claro correspondente.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q4] O cumprimento dos Postulados de Golomb garante que uma sequência numérica é criptograficamente segura e imprevisível para fins de cifra.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q5] A entropia de Shannon de um dado de 6 faces equilibrado, selecionado uniformemente, é de exatamente 6 bits.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q6] A Cifra de César é invulnerável a ataques de força bruta devido ao facto de realizar deslocamentos de letras de forma aleatória a cada caractere.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q7] A Cifra de Vigenère utiliza uma palavra-passe periódica para intercalar múltiplos deslocamentos de César, tornando a análise de frequências simples mais difícil.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q8] A cifra Enigma é um exemplo histórico de máquina de rotores que implementa uma substituição polialfabética extremamente complexa.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q9] Uma sequência pseudo-aleatória determinística gerada por um PRNG diz-se criptograficamente segura se for computacionalmente indistinguível de uma distribuição uniforme por qualquer adversário PPT.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q10] O espaço de chaves de uma cifra de Substituição Monoalfabética com o alfabeto inglês de 26 letras é de exatamente 2^26 chaves.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q11] Considere a encriptação One-Time Pad de 4 bits. Se o texto claro for '1010' e a chave secreta for '1100', qual é o criptograma resultante?",
+      "opcoes": [
+        "1110",
+        "0010",
+        "0110",
+        "0100",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q12] Qual é a entropia associada à escolha de um PIN bancário composto por exatamente 4 dígitos decimais (0-9) gerados de forma uniformemente aleatória?",
+      "opcoes": [
+        "log2(4^10) ≈ 20 bits.",
+        "log2(10) = 3.32 bits.",
+        "log2(10^4) ≈ 13.29 bits.",
+        "log2(4) = 2 bits.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q13] Por que razão a análise de frequências simples de caracteres individuais é inútil numa cifra de Transposição pura?",
+      "opcoes": [
+        "Porque as posições físicas dos caracteres são baralhadas, mas os caracteres originais mantêm-se, logo a sua distribuição estatística individual é inalterada.",
+        "Porque a cifra requer um canal físico seguro para transporte de chaves.",
+        "Porque o algoritmo altera o valor ASCII de todas as vogais.",
+        "Porque a cifra utiliza substituição polialfabética baseada em rotores.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q14] Na cifra de Vigenère, se o texto claro for significativamente maior que o comprimento da chave secreta, qual das seguintes técnicas permite identificar o comprimento da chave?",
+      "opcoes": [
+        "Testes estatísticos de Golomb baseados na autocorrelação de bits.",
+        "O teste de Kasiski (Kasiski examination), que analisa a distância entre padrões repetidos no criptograma.",
+        "Executar força bruta imediata no espaço de chaves de 26! permutações.",
+        "Encontrar a entropia de Shannon de cada bloco de 256 bits.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q15] Quais são os principais problemas práticos que tornam a cifra One-Time Pad (OTP) inviável para uso geral em redes e computadores pessoais?",
+      "opcoes": [
+        "A necessidade de garantir que cada chave secreta é utilizada uma única vez (One-Time) e destruída de imediato.",
+        "A vulnerabilidade teórica a ataques de análise de frequências de bigramas em português.",
+        "A necessidade de gerar e distribuir chaves com comprimento idêntico ao das mensagens a transmitir.",
+        "A exigência de chaves assimétricas RSA de 4096 bits.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q16] Encriptando a palavra 'A' (considerando a correspondência indexada do alfabeto: A=0, B=1...) com a Cifra de César com chave K=3, qual é o caractere resultante?",
+      "opcoes": [
+        "'E'",
+        "'D'",
+        "'C'",
+        "'F'",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q17] Se compusermos duas Cifras de Substituição Monoalfabética simples (uma após a outra, usando chaves K1 e K2), o sistema resultante é equivalente a:",
+      "opcoes": [
+        "Uma cifra de transposição baseada em posições de colunas.",
+        "Um sistema incondicionalmente seguro semelhante ao One-Time Pad.",
+        "Uma cifra polialfabética de Vigenère com período 2.",
+        "Uma cifra de substituição monoalfabética simples com uma chave combinada K3.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q18] Em criptanálise, se o adversário possui apenas o criptograma (ciphertext) para tentar obter a mensagem, está perante um ataque de:",
+      "opcoes": [
+        "Ciphertext-Only Attack (COA).",
+        "Chosen Plaintext Attack (CPA).",
+        "Playback / Replay Attack.",
+        "Chosen Ciphertext Attack (CCA).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q19] A cifra de Vernam (1917) baseia-se em encriptação de sequências de bits. A sua operação fundamental de cifragem/decifragem baseia-se em:",
+      "opcoes": [
+        "Permutações lineares de rotação de disco Hebern.",
+        "Modulação de amplitude de frequência física.",
+        "Operação lógica XOR (OR exclusivo) bit a bit.",
+        "Substituição polialfabética baseada em matrizes de caracteres.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q20] A entropia associada ao lançamento de uma moeda equilibrada (com duas faces possíveis, 'cara' ou 'coroa') é de:",
+      "opcoes": [
+        "log2(4) = 2 bits de entropia.",
+        "log2(2) = 1 bit de entropia.",
+        "0.5 bits de entropia.",
+        "0 bits de entropia.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q21] Considere a seguinte Cifra de Transposição baseada em matriz de 3 colunas, com a chave de permutação de colunas [2; 1; 3]. Se cifrarmos a mensagem 'AindaOutraCifra', qual é o criptograma resultante?",
+      "opcoes": [
+        "AindaOutraCifra",
+        "IATCRADUAFNORIA",
+        "ARIAFNORDUAIATC",
+        "IATCADRUAFNORIA",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q22] Numa Cifra de Substituição Monoalfabética, o histograma de ocorrência de caracteres do criptograma segue uma distribuição uniforme de 1/26 para todos os caracteres, eliminando a vantagem do atacante.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q23] A combinação sistemática de substituições e permutações em rondas alternadas em cifras de blocos modernas (redes SP) visa garantir propriedades de difusão e confusão.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q24] Se um utilizador lançar um dado equilibrado de 8 faces, a entropia associada a este evento de seleção uniforme é de:",
+      "opcoes": [
+        "log2(6) = 2.58 bits.",
+        "log2(2) = 1 bit.",
+        "8 bits.",
+        "log2(8) = 3 bits.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q25] Na análise de aleatoriedade, a autocorrelação mede a dependência estatística entre uma sequência de bits e uma versão deslocada da mesma sequência.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q26] Em cifras baseadas em hardware como a Enigma, o segredo da encriptação residia exclusivamente nos rotores intermutáveis, não havendo possibilidade de alterar a chave diariamente.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q27] No One-Time Pad, se um adversário passivo intercetar dois criptogramas diferentes cifrados com exatamente a mesma chave secreta (reutilização de chave), ele pode obter o XOR das duas mensagens originais.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q28] O tamanho de chave mínimo recomendado atualmente para cifras simétricas modernas para garantir que um ataque de força bruta seja computacionalmente inviável é de:",
+      "opcoes": [
+        "128 bits.",
+        "32 bits.",
+        "56 bits.",
+        "64 bits.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q29] Na cifra de substituição monoalfabética, bigramas comuns da língua portuguesa como 'os' e 'es' tendem a ser mapeados nos mesmos bigramas correspondentes repetidos no criptograma.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q30] Um gerador de números pseudo-aleatórios (PRNG) é um processo puramente físico e não-determinístico que recolhe ruído de hardware para gerar bits aleatórios.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q31] Numa simulação de ataque onde o gerador de números aleatórios de um One-Time Pad é substituído por um PRNG fraco cuja semente é inicializada com apenas 2 bytes (16 bits) de aleatoriedade, quantas chaves possíveis existem no espaço de busca do atacante?",
+      "opcoes": [
+        "2^16 = 65.536 chaves.",
+        "Infinitas chaves, mantendo a cifra incondicionalmente segura.",
+        "2^8 = 256 chaves.",
+        "2^32 = 4.294.967.296 chaves.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q32] Um ataque de força bruta bem-sucedido a um One-Time Pad que utilize o PRNG fraco do exercício anterior (semente de 2 bytes) contradiz a prova matemática de segurança perfeita de Claude Shannon?",
+      "opcoes": [
+        "Não, porque a segurança perfeita do OTP assume uma chave verdadeiramente aleatória (com entropia máxima), o que é violado pela pequenez do espaço de sementes (16 bits) do gerador fraco.",
+        "Sim, prova que a segurança perfeita de Shannon é teoricamente incorreta.",
+        "Não, porque o paradoxo do aniversário não se aplica a cifras binárias.",
+        "Sim, mas apenas se a mensagem for menor do que 30 bytes.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q33] Se um atacante intercetar dois criptogramas C1 e C2 obtidos com a mesma chave secreta K num One-Time Pad, o que é que ele pode calcular de imediato e o que isso revela?",
+      "opcoes": [
+        "Consegue calcular C1 XOR C2, que é equivalente a P1 XOR P2 (o XOR das duas mensagens limpas), revelando padrões estatísticos e permitindo a quebra das mensagens.",
+        "Consegue calcular K = C1 AND C2, revelando a chave secreta.",
+        "Não consegue calcular nada de útil, pois o XOR de dois criptogramas elimina a informação restante.",
+        "Consegue recuperar a semente original de 16 bits do PRNG.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q34] Em Python, para implementar a cifra de César, qual a utilidade da expressão 'ord(c) - ord('A')' para um caractere maiúsculo 'c'?",
+      "opcoes": [
+        "Calcular o valor binário do byte para cifra Vernam.",
+        "Converter a letra para minúscula.",
+        "Obter o valor de entropia da letra no texto.",
+        "Converter o caractere maiúsculo na sua posição numérica correspondente no alfabeto (de 0 a 25).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q35] No ataque à cifra de Vigenère, quando o comprimento da chave 'K' é conhecido, qual o procedimento estatístico utilizado para quebrar a cifra?",
+      "opcoes": [
+        "Aplica-se força bruta diretamente ao espaço de chaves de tamanho 26! permutações.",
+        "Divide-se o criptograma em 'K' fatias (onde a fatia 'i' contém os caracteres nas posições i, i+K, i+2K...) e ataca-se cada fatia de forma isolada como uma cifra de César.",
+        "Multiplica-se o criptograma por uma matriz de transposição de ordem 'K'.",
+        "Calcula-se a entropia da esponja SHA-3 do criptograma total.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q36] Na língua portuguesa, a ordem descendente das letras mais frequentes em textos comuns é:",
+      "opcoes": [
+        "E, O, A, S",
+        "A, E, O, S",
+        "S, O, E, A",
+        "Z, X, Y, W",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q37] Decifrar o caractere 'D' utilizando a Cifra de César com deslocamento K=3 resulta no texto claro:",
+      "opcoes": [
+        "'B'",
+        "'G'",
+        "'A'",
+        "'C'",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q38] Para realizar um ataque por análise de frequências com sucesso na cifra de Vigenère, são necessários criptogramas longos porque:",
+      "opcoes": [
+        "O modo CBC exige padding PKCS7 longo.",
+        "É necessário ter texto suficiente em cada fatia da cifra para que a distribuição de frequências se aproxime da distribuição teórica da língua.",
+        "Caso contrário, o tamanho da chave aumenta exponencialmente.",
+        "As chaves de Vigenère são efémeras.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q39] O módulo padrão 'random' do Python é adequado para gerar segredos criptográficos ou chaves do One-Time Pad.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q40] Geradores de Números Pseudo-Aleatórios Criptograficamente Seguros (CSPRNG) garantem que a sua saída é imprevisível mesmo que os outputs passados tenham sido observados pelo adversário.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q41] Na cifra de Vigenère, se a chave de cifragem for a palavra 'BACO', quais são os deslocamentos respetivos de César aplicados aos quatro primeiros caracteres do texto claro?",
+      "opcoes": [
+        "1, 1, 2, 14",
+        "2, 1, 3, 15",
+        "0, 1, 2, 3",
+        "1, 0, 2, 14",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q42] Cifrar a mensagem 'OLAMUNDO' com a cifra de Vigenère usando a chave periódica 'BACO' resulta no criptograma:",
+      "opcoes": [
+        "DIHFBIPR",
+        "PLCAVNFC",
+        "QNCOWPFQ",
+        "CARTAGOE",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q43] O espaço de chaves de uma Cifra de César é de exatamente 26 chaves possíveis.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q44] Numa cifra de Vigenère com chave de comprimento fixo a 4, o espaço de chaves possíveis é de 26^4 = 456.976 chaves.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q45] Cifrar o texto claro 'AAA' com a cifra de Vigenère e a chave 'ABC' resulta no criptograma:",
+      "opcoes": [
+        "ABC",
+        "DEF",
+        "BBB",
+        "CCC",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q46] Identifique quais das seguintes cifras clássicas são classificadas como cifras de substituição polialfabética:",
+      "opcoes": [
+        "Cifra de Vernam (One-Time Pad)",
+        "Cifra de César",
+        "Cifra de Vigenère",
+        "Cifra de Transposição Colunar Simples",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "cabecalho": "Considere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U",
+      "pergunta": "[Q47] Com base na tabela de mapeamento do cabeçalho, qual é o criptograma da palavra 'BOM'?",
+      "opcoes": [
+        "KOP",
+        "KNP",
+        "KPN",
+        "VOP",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U",
+      "pergunta": "[Q48] Qual das seguintes afirmações sobre a força criptográfica deste sistema de cifragem é verdadeira?",
+      "opcoes": [
+        "É imune à análise de frequências por ser polialfabética.",
+        "É altamente vulnerável à análise de frequências das letras do texto cifrado.",
+        "Garante segredo perfeito (Perfect Secrecy) se a tabela for mantida em segredo.",
+        "Baseia-se na transposição de caracteres e não na sua substituição.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U",
+      "pergunta": "[Q49] Se tentarmos decifrar a letra 'D' usando a tabela do cabeçalho, qual será o carácter correspondente no texto limpo?",
+      "opcoes": [
+        "A",
+        "D",
+        "Z",
+        "X",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}

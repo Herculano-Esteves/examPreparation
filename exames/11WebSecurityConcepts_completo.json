@@ -1,0 +1,373 @@
+{
+  "titulo": "11. Web Security Concepts & Same Origin Policy",
+  "descricao": "Simulador de exames sobre Web Attack Models, Same Origin Policy (SOP), CORS, SameSite e isolamento de Cookies.",
+  "perguntas": [
+    {
+      "cabecalho": "Considere uma página web carregada no browser a partir do URL base A:\nURL A: https://portal.exemplo.pt:8080/home/index.html\n\nA página carrega vários sub-recursos e tenta comunicar com outros URLs listados abaixo:\n- URL B: https://portal.exemplo.pt:8080/api/data\n- URL C: http://portal.exemplo.pt:8080/home/index.html\n- URL D: https://api.exemplo.pt:8080/home/index.html\n- URL E: https://portal.exemplo.pt:9090/home/index.html",
+      "pergunta": "[Q1] Com base no cabeçalho apresentado e nas regras da Same Origin Policy (SOP), qual dos URLs listados partilha exatamente a mesma origem (same-origin) com o URL A?",
+      "opcoes": [
+        "Apenas o URL B",
+        "Os URLs B e C",
+        "Os URLs B, C e D",
+        "Os URLs B e E",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere uma página web carregada no browser a partir do URL base A:\nURL A: https://portal.exemplo.pt:8080/home/index.html\n\nA página carrega vários sub-recursos e tenta comunicar com outros URLs listados abaixo:\n- URL B: https://portal.exemplo.pt:8080/api/data\n- URL C: http://portal.exemplo.pt:8080/home/index.html\n- URL D: https://api.exemplo.pt:8080/home/index.html\n- URL E: https://portal.exemplo.pt:9090/home/index.html",
+      "pergunta": "[Q2] Se um script JavaScript carregado na página do URL A tentar ler programaticamente a resposta de um pedido XMLHttpRequest para o URL C, o que acontecerá por padrão no browser?",
+      "opcoes": [
+        "O browser permite o acesso total porque o domínio e a porta são idênticos.",
+        "O pedido será bloqueado ou a resposta será inacessível ao script devido à violação da SOP (diferença no esquema/protocolo http vs https).",
+        "O browser atualiza automaticamente a ligação do URL C para HTTPS de forma transparente.",
+        "O script consegue ler a resposta, mas apenas se o URL C estiver num sub-frame.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere uma página web carregada no browser a partir do URL base A:\nURL A: https://portal.exemplo.pt:8080/home/index.html\n\nA página carrega vários sub-recursos e tenta comunicar com outros URLs listados abaixo:\n- URL B: https://portal.exemplo.pt:8080/api/data\n- URL C: http://portal.exemplo.pt:8080/home/index.html\n- URL D: https://api.exemplo.pt:8080/home/index.html\n- URL E: https://portal.exemplo.pt:9090/home/index.html",
+      "pergunta": "[Q3] Suponha que a página do URL A incorpora um iFrame apontando para o URL D. O código JavaScript pai em A pode inspecionar ou alterar os elementos DOM de D?",
+      "opcoes": [
+        "Não, a SOP impede o acesso cross-frame entre origens diferentes (neste caso, domínios diferentes: portal.exemplo.pt vs api.exemplo.pt).",
+        "Sim, porque ambos pertencem ao mesmo domínio de topo secundário exemplo.pt.",
+        "Sim, a SOP permite o acesso completo de escrita, mas bloqueia a leitura.",
+        "Não, a menos que o iFrame utilize a porta padrão 443.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere as seguintes diretivas HTTP 'Set-Cookie' enviadas por um servidor web (banco.pt) nas respostas aos clientes:\n- Diretiva 1: Set-Cookie: sessao_a=123; Path=/; Secure; HttpOnly; SameSite=Strict\n- Diretiva 2: Set-Cookie: sessao_b=456; Path=/; SameSite=Lax\n- Diretiva 3: Set-Cookie: sessao_c=789; Path=/admin; HttpOnly",
+      "pergunta": "[Q4] Qual é o principal benefício de segurança da flag 'HttpOnly' presente na Diretiva 1 no caso de a página de banco.pt sofrer uma vulnerabilidade de Cross-Site Scripting (XSS)?",
+      "opcoes": [
+        "Bloqueia a submissão de formulários em texto limpo do browser para o servidor.",
+        "Impede que scripts JavaScript maliciosos injetados na página acedam ao valor do cookie 'sessao_a' via document.cookie, mitigando o roubo de sessão.",
+        "Impede que o cookie seja enviado em pedidos cross-origin.",
+        "Garante que o cookie apenas é transmitido sob ligações cifradas com TLS (HTTPS).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere as seguintes diretivas HTTP 'Set-Cookie' enviadas por um servidor web (banco.pt) nas respostas aos clientes:\n- Diretiva 1: Set-Cookie: sessao_a=123; Path=/; Secure; HttpOnly; SameSite=Strict\n- Diretiva 2: Set-Cookie: sessao_b=456; Path=/; SameSite=Lax\n- Diretiva 3: Set-Cookie: sessao_c=789; Path=/admin; HttpOnly",
+      "pergunta": "[Q5] Relativamente à Diretiva 1, a flag 'SameSite=Strict' garante que o cookie 'sessao_a' apenas seja enviado em que circunstâncias?",
+      "opcoes": [
+        "Apenas se o porto de comunicação for a porta segura padrão 443.",
+        "Quando o utilizador se encontra a navegar em modo privado/anónimo.",
+        "Exclusivamente quando o pedido HTTP é iniciado a partir de uma página com a mesma origem do site destino (banco.pt), impedindo o envio em ligações vindas de links externos.",
+        "Apenas quando o utilizador introduz manualmente a palavra-passe no browser.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "cabecalho": "Considere as seguintes diretivas HTTP 'Set-Cookie' enviadas por um servidor web (banco.pt) nas respostas aos clientes:\n- Diretiva 1: Set-Cookie: sessao_a=123; Path=/; Secure; HttpOnly; SameSite=Strict\n- Diretiva 2: Set-Cookie: sessao_b=456; Path=/; SameSite=Lax\n- Diretiva 3: Set-Cookie: sessao_c=789; Path=/admin; HttpOnly",
+      "pergunta": "[Q6] Com base no cabeçalho apresentado, o que acontece ao cookie 'sessao_c' (Diretiva 3) se um utilizador aceder a um URL no caminho principal 'https://banco.pt/index.html'?",
+      "opcoes": [
+        "O cookie é enviado normalmente porque pertence ao mesmo domínio.",
+        "O cookie é enviado apenas se a ligação for HTTP simples (sem cifragem).",
+        "O browser não enviará o cookie 'sessao_c' porque o caminho do pedido (/index.html) não coincide com o prefixo do caminho definido no cookie (/admin).",
+        "O browser apaga permanentemente o cookie do jar de cookies.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q7] O protocolo HTTP original é considerado um protocolo sem estado (stateless).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q8] Qual das seguintes operações/métodos HTTP é tipicamente recomendada e desenhada semanticamente para obter/descarregar um recurso sem alterar o estado do servidor?",
+      "opcoes": [
+        "POST",
+        "PUT",
+        "DELETE",
+        "GET",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q9] Embora o método GET deva ser livre de efeitos secundários, na prática os servidores web muitas vezes subvertem esta semântica. Qual é o perigo de colocar dados confidenciais nos parâmetros de um URL num pedido GET?",
+      "opcoes": [
+        "Os dados confidenciais são transmitidos no cabeçalho HTTP de Referer quando o utilizador clica num link externo.",
+        "Os dados confidenciais ficam expostos no histórico de navegação do browser.",
+        "Os dados confidenciais ficam expostos e visíveis nos registos do servidor (server logs).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q10] O protocolo HTTP/3, adotado em 2022, introduziu melhorias significativas de performance. Qual das seguintes alterações estruturais o caracteriza?",
+      "opcoes": [
+        "Passou a exigir chaves simétricas AES de 512 bits obrigatoriamente.",
+        "Abandonou o protocolo TCP e passou a correr sobre o protocolo QUIC baseado em UDP.",
+        "Eliminou completamente a camada de aplicação do modelo OSI.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q11] No modelo de execução web, qual é a principal responsabilidade do browser do cliente?",
+      "opcoes": [
+        "Atuar como um sistema de virtualização específico de domínio, processando HTML/CSS, executando JavaScript/WebAssembly e garantindo o isolamento entre origens.",
+        "Garantir o armazenamento persistente de todas as bases de dados SQL do site.",
+        "Cifrar o canal de comunicação ao nível da camada de rede utilizando IPSec.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q12] O DOM (Document Object Model) representa a hierarquia estruturada de objetos de uma página web sob a forma de uma árvore, permitindo que scripts JavaScript a manipulem em tempo de execução.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q13] No modelo de ameaças web, o 'Web Attacker' (ou Atacante Web Interno) é caracterizado por:",
+      "opcoes": [
+        "Controlar parte da aplicação web (ex: um servidor malicioso ou um script embebido numa página cliente), focando-se no abuso de isolamento do browser.",
+        "Controlar o meio de comunicação físico e ter capacidade de escuta/injeção na rede local.",
+        "Controlar o kernel do sistema operativo do utilizador.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q14] Como se define a política Same Origin Policy (SOP) no contexto de isolamento de frames e scripts?",
+      "opcoes": [
+        "Permite que páginas partilhem cookies livremente desde que pertençam ao mesmo país.",
+        "Impede que qualquer página web carregue imagens ou scripts provenientes de servidores externos.",
+        "Um script carregado numa origem apenas pode aceder a dados de outra página se ambas partilharem exatamente o mesmo esquema (scheme), domínio (domain) e porta (port).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q15] Suponha que o site A (https://sitea.com) carrega uma biblioteca JavaScript alojada num servidor de terceiros B (https://cdn.siteb.com/library.js). O código desta biblioteca corre em que origem?",
+      "opcoes": [
+        "Na origem de A (https://sitea.com), com os mesmos privilégios do site A.",
+        "Numa origem mista temporária.",
+        "Na origem de B (https://cdn.siteb.com), isolada do site A.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q16] A Same Origin Policy (SOP) impede totalmente que uma página web faça pedidos HTTP (como GET) a servidores de outras origens.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q17] Relativamente ao mecanismo CORS (Cross-Origin Resource Sharing), selecione as afirmações corretas:",
+      "opcoes": [
+        "Pedidos que possam ter efeitos secundários no servidor (ex: métodos PUT/DELETE) exigem um pedido prévio de verificação denominado pre-flight (HTTP OPTIONS).",
+        "O CORS substitui por completo o protocolo HTTPS.",
+        "Permite que um servidor relaxe as restrições da SOP, declarando que origens externas estão autorizadas a ler as suas respostas usando o cabeçalho 'Access-Control-Allow-Origin'.",
+        "Se o cabeçalho 'Access-Control-Allow-Origin' for definido como '*', qualquer origem web pode ler as respostas desse recurso via scripts.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q18] O que caracteriza um pedido 'Pre-flighted' em CORS?",
+      "opcoes": [
+        "É um pedido para descarregar o certificado digital do servidor antes de iniciar o TLS.",
+        "É um pedido cifrado com a chave privada do browser do cliente.",
+        "É um pedido prévio usando o método OPTIONS enviado pelo browser para verificar se o servidor de destino autoriza a origem antes de enviar o pedido real com efeitos secundários.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q19] No isolamento de cookies, o browser compara a origem de forma diferente do DOM. Quais dos seguintes elementos são considerados por padrão na determinação de se um cookie deve ser enviado para um determinado domínio?",
+      "opcoes": [
+        "Apenas o endereço IP do servidor.",
+        "Exclusivamente o esquema e a porta.",
+        "Apenas o domínio e o caminho (path), ignorando tipicamente o esquema e a porta de comunicação (salvo uso de flags como Secure).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q20] Um site cujo domínio seja https://sub.portal.exemplo.pt pode definir um cookie válido para qual dos seguintes domínios superiores?",
+      "opcoes": [
+        "portal.exemplo.pt",
+        "exemplo.pt",
+        ".pt (sufixo público)",
+        "outroexemplo.pt",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q21] A flag 'SameSite=Lax' (que é o comportamento padrão nos browsers modernos) permite enviar o cookie em que tipo de pedidos cross-site?",
+      "opcoes": [
+        "Em navegações de topo seguras iniciadas pelo utilizador (ex: clicar num link do tipo GET para o site destino), mas bloqueia o envio em pedidos AJAX/Fetch de origens externas.",
+        "Apenas em pedidos assíncronos de sub-recursos como imagens e scripts.",
+        "Em qualquer tipo de pedido POST cross-origin de forma indiscriminada.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q22] A ausência da flag 'HttpOnly' num cookie de sessão permite a leitura do mesmo por código JavaScript a correr na página, tornando a sessão vulnerável a roubo em caso de injeção de scripts (XSS).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q23] A flag 'Secure' instrui o browser a apenas transmitir o respetivo cookie em canais protegidos por HTTPS (criptografados).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q24] O ataque CSRF (Cross-Site Request Forgery) explora que característica do comportamento padrão de gestão de cookies dos browsers?",
+      "opcoes": [
+        "O envio automático de cookies de sessão associados a um domínio em todos os pedidos iniciados para esse domínio, mesmo que o pedido tenha origem num site de terceiros.",
+        "A leitura direta do ficheiro document.cookie por servidores externos.",
+        "A capacidade de falsificar assinaturas digitais RSA de tokens de acesso.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q25] Como pode um programador proteger uma aplicação web contra ataques de roubo de sessão através de scripts?",
+      "opcoes": [
+        "Definindo a flag 'HttpOnly' nos cookies de sessão para bloquear o acesso do JavaScript.",
+        "Utilizando apenas o método HTTP GET para transferências bancárias.",
+        "Substituindo cookies por parâmetros no URL de cada pedido.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q26] No contexto da SOP, as aplicações web podem comunicar entre frames de diferentes origens utilizando qual dos seguintes mecanismos seguros integrados nos browsers?",
+      "opcoes": [
+        "A API postMessage (com validação estrita da origem do remetente e do destinatário).",
+        "Escrevendo diretamente no DOM do frame filho.",
+        "Lendo o document.cookie do frame pai.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q27] Se um site malicioso incorporar a página de login de um banco num iFrame invisível e sobrepuser elementos visuais falsos para roubar credenciais, o ataque é denominado:",
+      "opcoes": [
+        "Man-in-the-Middle (MitM)",
+        "Clickjacking / UI Redressing",
+        "DDoS",
+        "SQL Injection",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q28] O que acontece se uma biblioteca JavaScript maliciosa (malicious library) for executada dentro da nossa própria origem?",
+      "opcoes": [
+        "Terá acesso total ao document.cookie (a menos que seja HttpOnly), poderá manipular o DOM e efetuar pedidos HTTP em nome do utilizador legítimo.",
+        "Será imediatamente bloqueada pelo browser por vir de uma origem mista.",
+        "Não terá qualquer privilégio devido à sandboxing interna do JavaScript.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q29] O protocolo HTTP/2 introduziu o multiplexing, o que permite enviar múltiplos pedidos e respostas de forma concorrente sobre a mesma ligação TCP.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q30] A Same Origin Policy (SOP) garante que os recursos públicos enviados pelo servidor (como imagens pessoais) não revelam quaisquer informações sobre o estado do utilizador.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    }
+  ]
+}

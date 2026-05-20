@@ -1,0 +1,394 @@
+{
+  "titulo": "2. Conceitos Gerais de Segurança e Criptologia (Exame Completo)",
+  "descricao": "Base de dados alargada (30 questões) com afirmações V/F e escolha múltipla sobre definições de segurança, CIA, história da criptologia, níveis de segurança, atacantes e Princípio de Kerckhoffs.",
+  "perguntas": [
+    {
+      "pergunta": "[Q1] Numa Função de Hash Criptográfica é sempre viável encontrar mensagens distintas que são mapeadas num mesmo valor de hash.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q2] Um Message Authentication Code (MAC) garante a confidencialidade e a integridade da mensagem.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q3] O algoritmo ChaCha20 é uma cifra por blocos autenticada.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q4] Um certificado X509 pressupõe uma relação de confiança na entidade responsável pela sua emissão (CA).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q5] Numa assinatura digital, a chave pública do emissor é necessária para gerar a assinatura.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q6] Numa cifra de chave pública, a chave pública do destinatário é necessária para cifrar a mensagem.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q7] O Princípio de Kerckhoffs estabelece que a segurança de uma cifra deve assentar no segredo do algoritmo de cifragem em si.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q8] A perda de Confidencialidade traduz-se na divulgação não autorizada de informação.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q9] Um adversário passivo é aquele que consegue manipular (bloquear, inserir ou repetir) a informação no canal de comunicação.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q10] A segurança incondicional (ou baseada em teoria da informação) assume um adversário com poder computacional limitado (classe PPT).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q11] De acordo com Gary McGraw, a segurança de software consiste em integrar práticas de segurança no processo de construção de software, e não em apenas adicionar funcionalidades de segurança no código.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q12] Uma técnica criptográfica é considerada quebrada se os seus objetivos de segurança forem comprometidos através de criptanálise.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q13] O nascimento da Criptografia como disciplina científica está associado aos trabalhos de Claude Shannon sobre Teoria da Informação publicados no pós-Segunda Guerra Mundial.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q14] A vulnerabilidade 'Heartbleed' é classificada como uma falha ao nível do protocolo (protocol) e não ao nível da implementação (código).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q15] Quais das seguintes propriedades de segurança são garantidas, respetivamente, pela cifragem de chave pública (primeira parte) e pelas assinaturas digitais (segunda parte)? Selecione todas as opções corretas.",
+      "opcoes": [
+        "Autenticidade e Não-repúdio (garantidas pelas assinaturas digitais).",
+        "Confidencialidade (garantida pela cifragem de chave pública).",
+        "Integridade estrutural de rede (garantida pela cifragem de chave pública).",
+        "Disponibilidade (garantida pela cifragem de chave pública).",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q16] A disciplina científica que estuda os métodos para proteger a informação e comprometer sistemas criptográficos chama-se:",
+      "opcoes": [
+        "Criptanálise",
+        "Criptologia",
+        "Esteganografia",
+        "Criptografia",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q17] Qual das seguintes opções descreve corretamente uma perda de Disponibilidade (Availability)?",
+      "opcoes": [
+        "Um atacante lê as mensagens trocadas entre Alice e Bob.",
+        "O emissor de uma transação nega falsamente tê-la efetuado.",
+        "Um atacante altera os saldos das contas numa base de dados bancária.",
+        "Um ataque de Denial-of-Service (DoS) impede os utilizadores legítimos de acederem a um serviço web.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q18] Qual é a principal fraqueza associada ao conceito de 'Segurança por Obscuridade' (Security through Obscurity)?",
+      "opcoes": [
+        "Reduz drasticamente a velocidade de processamento da CPU.",
+        "A segurança colapsa assim que os detalhes da cifra deixam de ser secretos, sendo extremamente difícil e lento redesenhar o sistema.",
+        "Exige chaves muito longas, difíceis de memorizar.",
+        "Só é aplicável a redes de computadores locais.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q19] Numa cifra simétrica moderna, a segurança reside em:",
+      "opcoes": [
+        "Utilizar hardware proprietário não-divulgado.",
+        "Utilizar encriptação assimétrica no canal físico de comunicação.",
+        "Manter a chave secreta em segredo de forma estrita, assumindo que o algoritmo é público.",
+        "Manter o código fonte das bibliotecas em segredo.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q20] A propriedade de Anonimato (Anonymity) garante que:",
+      "opcoes": [
+        "A integridade da mensagem é validada em tempo real.",
+        "Nenhuma informação está disponível sobre a identidade do emissor da mensagem.",
+        "O conteúdo da mensagem é mantido em segredo absoluto.",
+        "O emissor não pode negar o envio da mensagem.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q21] A definição número 1 de Segurança - 'O sistema comporta-se como esperado' - é considerada completa para segurança informática porque especifica de forma detalhada o que o sistema deve e não deve fazer.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q22] Em criptografia teórica, o conceito de 'Security Proofs' (Provas de Segurança) garante que nenhum atacante limitado a capacidades 'X' pode quebrar o objetivo de segurança 'Y'.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q23] A origem etimológica da palavra Criptografia provém da junção dos termos gregos 'Kryptós' (oculto) e 'Gráphein' (escrita).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q24] Assinale o ano correto de introdução do padrão de cifra simétrica Advanced Encryption Standard (AES), que veio substituir o antigo Data Encryption Standard (DES):",
+      "opcoes": [
+        "2022",
+        "1976",
+        "1948",
+        "2001",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "[Q25] Na modelação clássica de segurança, quais das seguintes afirmações descrevem corretamente os papéis dos nomes fictícios 'Eve' (Eva) e 'Mallory'?",
+      "opcoes": [
+        "Eve representa um atacante passivo (que realiza apenas escuta de tráfego).",
+        "Eve representa um atacante ativo (que altera mensagens no canal).",
+        "Mallory representa um atacante ativo (que manipula, altera ou injeta mensagens).",
+        "Ambas representam entidades terceiras de confiança (Trusted Third Parties).",
+        "Mallory representa um atacante passivo (que apenas observa o canal)."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q26] Criptossistemas que garantem segurança contra um adversário com poder computacional infinito possuem a propriedade de:",
+      "opcoes": [
+        "Segurança Computacional.",
+        "Segurança de Implementação.",
+        "Segurança Incondicional (ou baseada em teoria da informação).",
+        "Segurança Estatística.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q27] O conceito de 'Criptográfico Protocol' (Protocolo Criptográfico) refere-se a especificações para troca de mensagens que combinam várias técnicas criptográficas para atingir objetivos complexos.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "[Q28] A vulnerabilidade de hardware conhecida como 'Meltdown' é classificada como uma falha de nível de 'Esquema' (Scheme) no desenho matemático da criptografia.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q29] A encriptação simétrica clássica utilizada no padrão móvel 2G GSM foi considerada extremamente segura até aos dias de hoje devido ao seu desenho público.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "[Q30] Um sistema cuja segurança depende de premissas não-testadas ou de segredo sobre a sua especificação (Security through Obscurity) viola o seguinte princípio fundamental:",
+      "opcoes": [
+        "Princípio do Não-repúdio.",
+        "Tríade CIA.",
+        "Princípio de Kerckhoffs.",
+        "Teoria da Informação de Shannon.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "[Q31] Considere a Tríade CIA (Confidencialidade, Integridade, Disponibilidade). Quais dos seguintes ataques têm como alvo direto e primário a propriedade da Integridade?",
+      "opcoes": [
+        "Injeção de comandos SQL (SQL Injection) que altera ou insere registos falsificados na base de dados de auditoria.",
+        "Ataque de Negação de Serviço (DoS) que impede o acesso de utilizadores legítimos a uma página web.",
+        "Exposição inadvertida de chaves privadas num repositório público de Git.",
+        "Ataque do tipo Man-in-the-Middle (MitM) onde pacotes de dados em trânsito são alterados pelo atacante.",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "cabecalho": "Considere a seguinte política de segurança descrita formalmente para uma rede corporativa:\n- P1: Tráfego de internet exterior não pode iniciar ligações para a base de dados interna.\n- P2: Funcionários do departamento financeiro podem ler e modificar registos de salários.\n- P3: Auditores externos podem apenas ler registos de salários e logs de auditoria, sem capacidade de modificação.",
+      "pergunta": "[Q32] A política P1 do cabeçalho protege principalmente qual das propriedades da tríade CIA contra ameaças externas de intrusão?",
+      "opcoes": [
+        "Confidencialidade e Integridade",
+        "Não-repúdio",
+        "Autenticidade de canal",
+        "Disponibilidade exclusivamente",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere a seguinte política de segurança descrita formalmente para uma rede corporativa:\n- P1: Tráfego de internet exterior não pode iniciar ligações para a base de dados interna.\n- P2: Funcionários do departamento financeiro podem ler e modificar registos de salários.\n- P3: Auditores externos podem apenas ler registos de salários e logs de auditoria, sem capacidade de modificação.",
+      "pergunta": "[Q33] A política P3 do cabeçalho é uma aplicação direta de qual princípio fundamental de segurança?",
+      "opcoes": [
+        "Princípio do Menor Privilégio (Least Privilege)",
+        "Desenho Aberto",
+        "Mediação Completa",
+        "Segurança por Obscuridade",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere a seguinte política de segurança descrita formalmente para uma rede corporativa:\n- P1: Tráfego de internet exterior não pode iniciar ligações para a base de dados interna.\n- P2: Funcionários do departamento financeiro podem ler e modificar registos de salários.\n- P3: Auditores externos podem apenas ler registos de salários e logs de auditoria, sem capacidade de modificação.",
+      "pergunta": "[Q34] Que tipo de controlo de acesso (Access Control) é melhor descrito pelas políticas P2 e P3 com base nas funções desempenhadas (funcionário financeiro vs auditor)?",
+      "opcoes": [
+        "Controlo de Acesso Baseado em Papéis / Perfis (RBAC - Role-Based Access Control)",
+        "Controlo de Acesso Baseado em Identidade Simples (IBAC)",
+        "Controlo de Acesso Discricionário (DAC)",
+        "Controlo de Acesso Mandatório (MAC) puramente baseado em níveis Bell-LaPadula",
+        "Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}
