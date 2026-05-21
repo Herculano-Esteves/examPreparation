@@ -223,16 +223,23 @@
       ]
     },
     {
-      "pergunta": "Que dados informativos estão tipicamente contidos num certificado X.509 padrão e sobre o que incide a assinatura da CA?",
+      "pergunta": "Que dados informativos estão tipicamente contidos num certificado X.509 padrão e sobre o que incide a assinatura da CA? Selecione todas as opções corretas, avaliando cada parâmetro individualmente.",
       "opcoes": [
-        "Contém apenas a assinatura da CA sobre a chave privada do titular.",
-        "Contém os dados informativos do sujeito, chave pública do sujeito, dados do emissor, período de validade e a assinatura da CA que incide sobre a codificação DER destes mesmos dados informativos.",
-        "Contém a semente efémera de 16 bits cifrada com o umask.",
-        "Contém o hash SHA-3 do estado interno da esponja.",
-        "Nenhuma das respostas apresentadas está correta."
+        "Contém os dados informativos e de identificação do sujeito (Subject).",
+        "Contém a chave privada do sujeito cifrada em formato seguro para transporte.",
+        "Contém a chave pública do sujeito.",
+        "Contém os dados informativos e de identificação da Entidade Certificadora emissora (Issuer).",
+        "Contém a chave privada da Entidade Certificadora (CA) para permitir verificações locais.",
+        "Contém o período temporal de validade do certificado (datas Not Before e Not After).",
+        "Contém a assinatura digital da CA, gerada aplicando a chave privada da CA sobre o hash da codificação DER dos dados do certificado.",
+        "A assinatura contida no certificado incide sobre a chave privada do sujeito para comprovar a sua autenticidade à CA."
       ],
       "solucao": [
-        1
+        0,
+        2,
+        3,
+        5,
+        6
       ]
     },
     {

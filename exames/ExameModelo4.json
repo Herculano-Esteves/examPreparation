@@ -1,0 +1,235 @@
+{
+  "titulo": "Exame de Avaliação Modelo 4 (Teoria SSI)",
+  "descricao": "Simulador de exame.",
+  "perguntas": [
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "pergunta": "O utilizador `bob` pode apagar o ficheiro `readme.txt` localizado na diretoria `project`, assumindo apenas estas permissões e não as de `root`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "pergunta": "A execução do comando `chmod o-r readme.txt` pela utilizadora `alice` terminará em insucesso (erro de Permissão Negada) uma vez que a mesma não integra os grupos do sistema de administradores.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "pergunta": "Nas condições dadas pelo LS, o script `run.sh` pode ser corretamente lido e executado pela utilizadora `alice`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "pergunta": "A presença explícita do caractere `t` nas permissões da diretoria `project` assinala que a mesma integra o chamado bit restrito de exclusão (Sticky Bit), evitando desse modo que um utilizador que partilhe o acesso de escrita da diretoria elimine impunemente os ficheiros detidos por outros colegas.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "pergunta": "A execução explícita de `run.sh` por parte do próprio dono do ficheiro (`bob`) implica, automaticamente e via o kernel Linux, um aumento de permissões que confere leitura ao recurso sensível `shadow`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Uma infraestrutura apoiada num modelo de controlo de acessos 'Mandatory Access Control' (MAC) estabelece que as regras de segurança são instanciadas por um administrador central (ou sistema operativo), inibindo que as mesmas sejam contornadas arbitrariamente mesmo pelos criadores originais do objeto ou donos dos ficheiros envolvidos.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Nos parâmetros estatísticos de biometria e autenticação sem fios, um caso conhecido de falso aceite (False Acceptance Rate - FAR) é caracterizado pela negação do acesso a um utilizador inteiramente registado, válido e legítimo para consultar a infraestrutura.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "A implementação e utilização ativa do protocolo SSL/TLS (versão TLSv1.3 e em diante) com uma chave recomendável de AES-256 e RSA-4096 disponibiliza na prática a almejada cifra com nível de Segurança Incondicional (absoluta ou perante base teórica informacional).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O mecanismo base na implementação de 'Salting' em bases de dados de credenciais assenta puramente na encriptação da password enviada via chave pública estática do utilizador e da chave privada do servidor, antes da submissão a um ciclo de cálculo algorítmico do respetivo Hash.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No modelo de validação em cadeia de confiança PKI (Certificate Chain), é exigência das normas Web que a Autoridade de Certificação de topo (Root CA Certificate) não se possa auto-assinar a si mesma, mas antes, tenha que deter transversal e obrigatoriamente a assinatura de uma concorrente validada por outrem independente para obter validade operacional em browsers globalizados.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Descreva em poucas linhas o propósito estrutural do recurso a um parâmetro denominado 'Nonce' numa fase iterativa e mútua de autenticação 'Challenge-Response' (desafio-resposta). Aproveite para destacar uma vulnerabilidade direta subjacente (Replay Attack) caso a password do alvo fosse repetidamente transmitida de modo cifrado ou estaticamente encriptado e o uso de Nonces ou contadores esquecido.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Tendo como contexto de análise os pormenores na construção de primitivas com o Electronic Codebook (ECB), qual destas sentenças consolida o pior argumento contra o seu uso para proteger canais volumosos de ficheiros vitais?",
+      "opcoes": [
+        "A. ECB não detém a possibilidade de ser paralelizado internamente durante o processamento de blocos separados em criptografia.",
+        "B. O requisito estrito para a distribuição do seu IV de 256 bits introduz uma sobrecarga massiva no header da transmissão do socket.",
+        "C. Blocos nativos que no texto-limpo possuam conteúdo equivalente ou igual vão gerar um criptograma resultante exatamente idêntico, revelando potenciais padrões sensíveis ao analista do tráfego.",
+        "D. Por deter segurança incondicional, exige uma capacidade de hardware proibitiva fora de governos e sistemas mainframes limitados.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Quando confrontado com uma cifra de fluxo padronizada, como ChaCha20, o que resulta inequivocamente para a segurança do criptossistema ao utilizar indevidamente, e pela segunda vez repetida, o mesmo nonce sobre a mesma chave (key-nonce reuse) durante a cifragem de dois textos-limpo desassociados?",
+      "opcoes": [
+        "A. Inviabiliza a validação assimétrica das assinaturas geradas pelos peers na ligação remota e força falhas por MAC incongruente.",
+        "B. Uma violação direta de confidencialidade emerge, desde que a execução posterior de um cálculo XOR entre os criptogramas originados devolva de imediato e sem entropias a sub-expressão do XOR dos seus correspondentes textos-limpo.",
+        "C. Por via algorítmica exata, o ataque de colisão temporal reverte todo o ciclo em causa e recupera no espaço de poucas iteracões o segredo absoluto.",
+        "D. A cifra atua sem problemas nem falhas conhecidas se a password não sofrer de debilidades entrópicas ou brute force associado.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Num túnel robusto desenhado contra manipulação arbitrária, como se alcança e combina de forma recomendável a confidencialidade simétrica e o fator garantido por MACs na salvaguarda das mensagens contra injeção e adulteração intermédia (AEAD / modern TLS)?",
+      "opcoes": [
+        "A. Encrypt-and-MAC. Onde é calculada cifra e o HMAC numa arquitetura separada dos valores estritamente limpos.",
+        "B. MAC-then-Encrypt. Onde o digest é feito com a mensagem, e só posteriormente acoplados e cifrados.",
+        "C. Encrypt-then-MAC (ou os modos equivalentes como AES-GCM e ChaCha20-Poly1305 nativos no TLS 1.3). Onde se cifra primeiro com integridade posterior.",
+        "D. Apenas assinar usando a chave privada da cifra OTP.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "O sistema prático de Criptografia Baseada em Chaves Assimétricas assenta no princípio formal de que:",
+      "opcoes": [
+        "A. Por definição técnica da norma IETF, os seus fatores algorítmicos (fatorização de primos e logaritmos discretos) tornam o processo significativamente mais célere face a primitivas como AES.",
+        "B. Uma chave em específico deve pertencer, obrigatoriamente e exclusivamente, à Autoridade Emissora (CA).",
+        "C. O titular utiliza o mesmo conjunto das suas chaves (a chave pública) não apenas para possibilitar a que remetentes lhe cifrem os recursos como inversamente provar aos recetores por verificação as suas assinaturas próprias criadas no segredo partilhado ou privado.",
+        "D. As chaves não detêm diferenças a nível interno e podem ser trocadas indiscriminadamente nos sistemas.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Do conjunto abaixo exposto de metodologias standardizadas, qual destas se exclui das componentes ou mecanismos criados ou desenhados explicitamente por norma de modo a debater o problema em segurança designado como 'distribuição de chaves em canal aberto'?",
+      "opcoes": [
+        "A. Acordos primitivos de Chaves Diffie-Hellman sobre os protocolos Web em redes Wireless ou Cobre abertas.",
+        "B. Validações contíguas hierarquizadas assentes em Public Key Infrastructure (PKI).",
+        "C. Funções algorítmicas de Hash em Criptografia unidirecionais dedicadas, tal como a implementação do SHA-3.",
+        "D. Uso em escala da Web de Certificados Digitais do Standard X.509.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Em relação direta e exclusiva aos criptossistemas baseados em cifra paramétrica de Chave Simétrica e o seu desempenho, qual elemento de classificação e comportamento de gestão melhor serve como um carimbo de definição desta característica do sistema?",
+      "opcoes": [
+        "A. A garantia de que a chave particular a utilizar cifra e posteriormente decifra de modo único o bloco ou byte-stream correspondente de recursos para quem a tem de posse no sistema.",
+        "B. Estribam integralmente em fundações derivadas da força-bruta matemática no domínio da Fatorização dos Inteiros e do algoritmo Shor.",
+        "C. Providenciam ao recetor a única propriedade vital designada na literatura sob os desígnios do 'Não Repúdio' em tribunal ou foro de litígio informático.",
+        "D. Excluem todo o cenário e constrangimento físico envolvido no momento anterior ao estabelecimento e subsequente necessidade do canal partilhado.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No âmbito prático dos cenários em modelação e identificação de anomalias com software de código binário a nível sub-kernel e utilizador em OS, o clássico vetor assinalado com as iniciais TOCTOU traduz formalmente uma debilidade assente num:",
+      "opcoes": [
+        "A. Erro de processamento e corrupção das implementações de criptogramas e algoritmos por intermédio das vulnerabilidades derivadas com bibliotecas desatualizadas (como DES/MD5).",
+        "B. Falhas de parametrização originadas nas querie SQL enviadas sem validação para bases-dados no backend.",
+        "C. Caso ou cenário do género Race Condition, ocorrendo de forma intermédia e invisível durante o hiato ou delonga momentânea que subsiste assim que ocorre uma inspeção a uma validade em acesso do sujeito e a concretização na chamada de abertura física deste mesmo recurso ao descritor que por intermédio for intercetado para alteração de percurso.",
+        "D. Manipulações puras focadas em debilidades da stack ao que se designa em gestão como limite fora das fronteiras originais num buffer preenchido ou array instanciado na alocação de endereços e indexação.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Sob a égide de monitorização de credibilidade operacional com infraestruturas abertas à comunidade (CA / PKI), descreva e indique o motivo chave por trás das construções informacionais como Listas de Revogação de Certificados (CRL) e o serviço nativo com recurso ao OCSP.",
+      "opcoes": [
+        "A. Fornecem infraestrutura que comprime à nascença uma assinatura ou key do portal visado para o dispositivo IoT do cliente remoto por TLS otimizado e com payload reduzido no browser.",
+        "B. Interceptam vulnerabilidades críticas a que um certificado ativo fica sujeito permitindo anular imediatamente por parte do distribuidor central a permissão da CA muito antes deste caducar ativamente no término legal previsto originalmente (e.g. suspeita fundamentada de roubo flagrante e compromisso com os ficheiros detidos em privado ou infraestruturas expostas em incidentes de intrusão nos servidores operados).",
+        "C. Parametrizam e definem ativamente vetores randomizados em Nonces de criptossistemas com a injeção em chaves geradoras num KDF robusto ou PBKDF em hash de sessões temporárias com tempo de vida escasso.",
+        "D. Dispensam a implementação e validações sucessivas face à infraestrutura auto-assinada na root CA inserida na lista por pré-definição e de origem local.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Aborde teoricamente a situação na qual tem por obrigação desenhar num alto nível e pseudo-forma uma comunicação de rede assente num handshake puro para os hosts do Alice e do Bob (ex: SSH). Descreva e expresse detalhadamente, numa ótica puramente defensiva, os passos para garantir e materializar primeiro a entrega entre as duas máquinas sem expor ao analista passivo/ativo intermédio de um segredo recíproco a nível assimétrico. E recorrendo de base a acordos primitivos base do ramo Diffie-Hellman demonstre numa listagem simples e organizada a implementação para afastar o MITM por inteiro pela adoção e vinculação por intermédio das certificações com long-term keys conhecidas a cada interveniente ou assinaturas digitais por validação PKI ou mútua de pares de endpoints na rede aberta.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}

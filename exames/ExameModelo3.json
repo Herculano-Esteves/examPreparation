@@ -1,0 +1,235 @@
+{
+  "titulo": "Exame de Avaliação Modelo 3 (Teoria SSI)",
+  "descricao": "Simulador de exame.",
+  "perguntas": [
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "pergunta": "O utilizador `alice` pode criar novos ficheiros na diretoria `containers`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "pergunta": "A diretoria `containers` possui o bit de set-group-id (SGID) ativo, o que significa que os novos ficheiros criados dentro desta herdarão o grupo `docker`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "pergunta": "O ficheiro `script.sh` pode ser modificado pelo utilizador `charlie`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "pergunta": "O ficheiro `tool` será executado com os privilégios do utilizador que o invocar, independentemente de quem for o invocador.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "pergunta": "A execução do comando `chmod g-s containers` pelo utilizador `root` removerá a capacidade de os utilizadores do grupo `docker` acederem ao conteúdo da diretoria.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Num sistema de Controlo de Acesso Discricionário (DAC), o administrador do sistema é a única entidade autorizada a alterar as permissões de um ficheiro pertencente a um utilizador comum.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O princípio do menor privilégio (least privilege) dita que um programa ou utilizador deve operar com o conjunto de permissões estritamente necessário para completar a sua tarefa, nem mais, nem menos.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "A biometria comportamental (ex: dinâmica de digitação, assinatura) é tipicamente infalível e livre de ruído, garantindo sistematicamente uma taxa de Falso Aceite (FAR) de exatamente 0%.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao utilizar as Linux Capabilities, conceder a flag `CAP_SYS_ADMIN` a um processo não privilegiado é a prática recomendada para evitar a execução de serviços inteiros sob o UID 0, visto ser uma permissão de impacto muito reduzido.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Se a palavra-passe de um utilizador estiver comprometida, um sistema de controlo de acesso baseado em papéis (RBAC) impede automaticamente o atacante de aceder aos recursos permitidos ao utilizador.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Explique o risco de segurança associado a ficheiros executáveis com o bit de `setuid` ativo quando o seu proprietário é o utilizador `root`. Identifique uma alternativa mais moderna nos sistemas Linux para contornar a necessidade de utilizar o `setuid root`.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Numa comunicação de rede segura e robusta, a integridade dos dados cifrados bem como a autenticidade da origem de cada pacote são tipicamente asseguradas em conjunto por qual das seguintes abordagens?",
+      "opcoes": [
+        "A. Cifras de fluxo assíncronas (ex: RC4).",
+        "B. Cifras assimétricas (ex: RSA) iteradas sobre todos os bytes do bloco.",
+        "C. Modos de Cifragem Autenticada (ex: AES-GCM) ou primitivas de MAC (ex: HMAC).",
+        "D. Aplicação de uma Função de Hash (ex: SHA-256) partilhada em claro na rede.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "No que concerne às funções de Hash Criptográficas, a propriedade formal de 'resistência a colisões' dita que:",
+      "opcoes": [
+        "A. É computacionalmente inviável descobrir duas mensagens distintas m1 e m2 que originem o mesmo valor de hash, isto é, hash(m1) == hash(m2).",
+        "B. É teoricamente provado e absoluto que nunca existirão duas mensagens com o mesmo digest.",
+        "C. Dado um output de hash fixo h, é impossível recuperar a mensagem m original.",
+        "D. Dada uma mensagem m1, o cálculo do hash demora um tempo exponencial para atrasar força-bruta.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "O modo de operação ECB (Electronic Codebook) não é recomendado em cifras de blocos modernas para conteúdos grandes porque:",
+      "opcoes": [
+        "A. Requer a transmissão de um vetor de inicialização de 256 bits, aumentando consideravelmente a largura de banda.",
+        "B. Introduz erros exponenciais em cadeia, onde o dano de 1 bit destrói todos os blocos seguintes.",
+        "C. Mapeia sempre blocos idênticos de texto em claro para os exatos mesmos blocos de criptograma, falhando em ocultar eventuais padrões nos dados originais.",
+        "D. Executa de forma estritamente sequencial e por isso não aproveita arquiteturas multi-core.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual é a função central que um certificado digital X.509 desempenha numa Infraestrutura de Chave Pública (PKI)?",
+      "opcoes": [
+        "A. Guardar e transportar de forma encriptada a chave privada do utilizador na rede.",
+        "B. Associar de forma inequívoca (vinculada através da assinatura de uma CA) a identidade de um titular à sua chave pública.",
+        "C. Prevenir intrusões na rede agindo como um proxy TLS descentralizado.",
+        "D. Determinar dinamicamente um segredo partilhado entre partes anónimas sem chaves estáticas.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O protocolo Diffie-Hellman elementar (não autenticado):",
+      "opcoes": [
+        "A. Oferece validação nativa contra falsificação de identidade, sendo robusto contra Man-in-the-Middle.",
+        "B. Viabiliza a construção de um segredo partilhado por dois intervenientes que comunicam num canal inseguro intercetável.",
+        "C. Depende para a sua segurança estritamente da complexidade computacional da fatorização do produto de dois primos gigantes.",
+        "D. Impossibilita o acordo de chaves sem uma Infraestrutura de Chave Pública central previamente operacional.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No âmbito das Infraestruturas de Chave Pública (PKI), caso ocorra o comprometimento de uma chave privada do titular muito antes da data de expiração do certificado digital, qual o processo adequado para salvaguardar os restantes sistemas?",
+      "opcoes": [
+        "A. Apagar todas as cópias da chave privada localmente e esperar silenciosamente que o certificado perca a validade por antiguidade.",
+        "B. A Autoridade de Certificação insere o número de série do certificado comprometido numa Lista de Revogação de Certificados (CRL) ou fornece informação atualizada através de OCSP.",
+        "C. O titular envia uma atualização ao certificado atual sobrepondo e publicando uma nova chave privada.",
+        "D. A Entidade Emissora do certificado ativa remotamente o algoritmo de invalidação no browser de todos os clientes do mundo.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "A primitiva de Assinatura Digital construída usando um algoritmo criptográfico assimétrico:",
+      "opcoes": [
+        "A. Visa garantir em absoluto a confidencialidade do documento digital associado.",
+        "B. Requer obrigatoriamente a partilha segura do hash assinado através de um canal cifrado com cifras simétricas.",
+        "C. É concebida criptografando os dados matemáticos com a chave pública de quem produz a assinatura.",
+        "D. Permite que qualquer entidade de posse da correspondente chave pública possa validar com total segurança a integridade da mensagem e a proveniência do seu emissor.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "No domínio do armazenamento de palavras-passe, as KDFs (Key Derivation Functions) avançadas como o Argon2, scrypt ou o PBKDF2 destacam-se das funções de hash normais (e.g. SHA-3) por qual dos seguintes motivos principais?",
+      "opcoes": [
+        "A. São algoritmos extremamente leves projetados para uso massivo com custo 0 na CPU.",
+        "B. Baseiam-se em algoritmos de cifra por blocos AES, não exigindo assim Salts únicos por utilizador.",
+        "C. Trazem a capacidade embutida de ajustar o 'custo' da operação (esforço da CPU/Memória/Tempo) tornando as pesquisas intensivas ou ataques de dicionário e hardware especializado incrivelmente morosos e dispendiosos.",
+        "D. Permitem decifrar as passwords da base de dados caso um administrador tenha os privilégios corretos e o salt adequado.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Considere que pretende desenhar um sistema seguro de armazenamento de ficheiros na Cloud, que siga as premissas de End-to-End Encryption (o provedor Cloud não tem acesso ao conteúdo dos ficheiros). Como utilizador final, só tem de memorizar uma única palavra-passe para garantir este processo. Apresente numa visão arquitetónica, que algoritmos, primitivas e fluxos criptográficos aplicaria para garantir de forma estanque a Derivação de Chaves, a Confidencialidade e a Autenticidade dos seus ficheiros no processo de guardar e recuperar da Cloud.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}

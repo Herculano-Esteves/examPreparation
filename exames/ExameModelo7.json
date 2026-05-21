@@ -1,0 +1,234 @@
+{
+  "titulo": "Exame de Avaliação Modelo 7 (Parecido ao exame modelo)",
+  "descricao": "Segundo simulador de exame construído para refletir os moldes do exame modelo, avaliando permissões de ficheiros granulares (Sticky bits, SUID), mecanismos de hash, TLS, ECC e modos de operação AEAD.",
+  "perguntas": [
+    {
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "pergunta": "Sobre `/var/log/auth.log`, a flag 'S' (maiúscula) nas permissões de dono (owner) indica que o bit de SUID está ativo, mas o ficheiro não tem permissão base de execução atribuída ao dono.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "pergunta": "O utilizador `charlie` pode apagar quaisquer ficheiros pertencentes ao utilizador `alice` que se encontrem dentro da diretoria `shared_docs`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa política Mandatory Access Control (MAC), o dono do ficheiro tem total poder discricionário para delegar acessos a outros utilizadores do sistema, usando comandos arbitrários como o chmod.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "pergunta": "A execução do programa `backup_tool` por parte da utilizadora `alice` fará com que o processo execute transitoriamente com o grupo efetivo `staff`, em virtude do bit de SetGID ('s').",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Uma Access Control List (ACL) no Linux permite definir permissões granulares e individualizadas para utilizadores específicos, ultrapassando os limites restritos do modelo base clássico de UGO (User, Group, Other).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Na avaliação da performance de um sistema de autenticação biométrica, o Crossover Error Rate (CER) é o ponto exato de calibração onde a taxa de falsos positivos cruza e iguala a taxa de falsos negativos, servindo frequentemente como métrica principal comparativa de precisão geral do sensor.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "pergunta": "O utilizador `bob` conseguiria invocar e executar com sucesso o programa `backup_tool` a partir do seu terminal.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O ficheiro `/etc/shadow` nos sistemas Linux centraliza o armazenamento dos hashes das passwords dos utilizadores locais, exigindo estritamente permissões que impossibilitam a sua leitura por utilizadores comuns e as limitam puramente ao utilizador root (e.g. root:shadow).",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "O modelo ABAC (Attribute-Based Access Control) fundamenta as suas avaliações de segurança baseando-se unicamente nas definições estáticas dos papéis organizacionais geridos pelos recursos humanos, negligenciando fatores como localização e propriedades do objeto.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O princípio do Menor Privilégio postula que cada componente de um sistema (seja utilizador ou processo) deve operar limitando os seus acessos unicamente aos recursos e privilégios exatos que lhe sejam estritamente necessários ao cumprimento rigoroso da sua função.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Descreva o mecanismo base pelo qual a componente de um modelo de Controlo de Acesso Baseado em Papéis (RBAC) atenua o problema de explosão combinatória na atribuição de permissões operacionais e cite o seu impacto prático na implementação de matrizes de separação de deveres nas corporações.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Numa cifra de encriptação autenticada com dados associados (AEAD - Authenticated Encryption with Associated Data), como acontece no modo de operação AES-GCM:",
+      "opcoes": [
+        "A. A confidencialidade é garantida ao pacote, mas a integridade incide unicamente sobre o payload encriptado e não no cabeçalho.",
+        "B. A integridade e autenticação incidem quer sobre o texto cifrado, quer sobre os metadados (dados associados não encriptados), protegendo contra falsificações na mensagem inteira.",
+        "C. A encriptação processa-se apenas através do clássico ECB acoplado com assinatura.",
+        "D. É garantida a integridade em detrimento da confidencialidade da chave privada.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Relativamente aos algoritmos baseados em curvas elíticas (ECC) em comparação direta com o clássico algoritmo assimétrico RSA:",
+      "opcoes": [
+        "A. O ECC é popular por atingir níveis robustos de segurança funcional com dimensões de chave e cálculos francamente mais pequenos do que os requisitos massivos do RSA correspondente.",
+        "B. O seu paradigma criptográfico reduz-se matematicamente à fatorização de grandes números primos semi-idênticos ao RSA.",
+        "C. Tornou-se obsoleto face aos computadores quânticos de Shor, não suportando algoritmos PQC substitutos no futuro.",
+        "D. Não pode gerar acordos de chaves efémeros como no modelo DHE.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Ao avaliarmos a estrutura intrínseca da cifra ChaCha20, podemos categorizá-la fundamentalmente como:",
+      "opcoes": [
+        "A. Uma cifra simétrica baseada no encadeamento clássico AES-CBC.",
+        "B. Um protocolo assimétrico concebido exclusivamente para certificados digitais offline.",
+        "C. Uma cifra simétrica baseada em fluxo (stream cipher), gerando nativamente uma keystream baseada em matriz que é submetida a XOR com a plain-text.",
+        "D. Uma estrutura rígida de esponja (sponge construction) associada a Funções Hash MAC.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "No contexto da gestão de PKI e ciclo de vida de chaves públicas, qual é a principal utilidade do protocolo OCSP (Online Certificate Status Protocol)?",
+      "opcoes": [
+        "A. Gerar interativamente chaves privadas locais usando criptografia assimétrica baseada na CA.",
+        "B. Providenciar ativamente em tempo real uma alternativa ou substituto às tradicionais CRLs (Listas de Revogação de Certificados) pesadas durante as conexões web.",
+        "C. Interagir e renegociar nativamente os handshakes em SSH de túnel profundo no root.",
+        "D. Emitir certificados self-signed válidos publicamente pela Google.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O papel fulcral oferecido pela propriedade denominada Perfect Forward Secrecy (PFS) reside explicitamente em mitigar:",
+      "opcoes": [
+        "A. Que num cenário onde o servidor veja comprometida hoje a sua robusta chave primária privada de longo prazo, tal fuga de material não possibilite descodificar as múltiplas sessões antigas passadas cujos trânsitos foram gravados por espiões (passive adversaries).",
+        "B. Falhas no handshake originadas no intercâmbio simétrico base local na stream de bits XOR.",
+        "C. A utilização reiterada da infraestrutura MD5.",
+        "D. A manipulação de rotas em DNS BGP Spoofing em ligações UDP não garantidas abertamente.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "A introdução sistemática de um Vetor de Inicialização (IV - Initialization Vector) num modo de operação de blocos tem primariamente qual propósito criptográfico fundamental?",
+      "opcoes": [
+        "A. Garantir que a mesma chave simétrica e o mesmo bloco de dados originais produzam consistentemente saídas sempre fixas entre os recetores.",
+        "B. Evitar o replay dos pacotes intermédios acoplando timestamps ao Nonce.",
+        "C. Providenciar as propriedades estocásticas e a incerteza inicial que impedem adversários passivos de detetarem semânticas iguais de plain-text idêntico, gerando ciphertext sempre díspar na saída de sessões repetidas.",
+        "D. Substituir as chaves AES de raiz nativas a meio fluxo por Diffie-Hellmans de longo termo gerados pelo IV da seed.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "O processamento em que uma Assinatura Digital é computada sobre um valor pequeno resultante de Hash, por oposição direta a aplicar a chave privada e processar por cifragem toda a extensão integral base do documento original longo a comprovar, existe primeiramente fundamentado em:",
+      "opcoes": [
+        "A. Uma absoluta e rigorosa eficiência e viabilidade processual da capacidade computacional assimétrica associada quer do RSA como do ECC perante largos blocos textuais extensos.",
+        "B. Ao facto dos blocos ECC não funcionarem nativamente fora do limite do bloco ECDSA e forçarem uma rotina ChaCha20.",
+        "C. Os hashes curtos prevenirem as reversões integrais nas colisões em base no Princípio de Pigeonhole.",
+        "D. As assinaturas completas exporem em retro-engenharia as derivadas parciais da chave privada da Root CA subjacente.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Ao garantir as conexões normais sob TLS na World Wide Web a sites bancários e comercias fidedignos, a base primária técnica adotada nos browsers subjacente que previne com clareza ataques MITM (em certas redes hostis) de reencaminhamentos subtis (DNS Spoofing local, rogue routers) deve-se isoladamente e primeiramente em validar nativamente:",
+      "opcoes": [
+        "A. O certificado X.509 da entidade servidora remota por recurso exato da pré-confiança na validação de cadeias de assinaturas verificadas com as chaves públicas hardcoded na Trust Store das Root CAs incluídas nativamente pelo sistema / fornecedor do browser.",
+        "B. O payload das chaves no túnel simétrico encriptado interativo.",
+        "C. Se o IP remoto faz PING nativo respondido ao MAC host local da firewall sem NAT.",
+        "D. Um secret simétrico global na cloud entre as infraestruturas geridas em open source nos root servers mundiais e os ISPs nacionais base no DNS aberto.",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Considere o cenário prático grave, onde se provou numa rotina criptográfica local a reutilização massiva do mesmo Nonce interligado obrigatoriamente a uma idêntica chave simétrica secreta no fluxo partilhado via stream da cifra ChaCha20.\nIdentifique textualmente a exata consequência e impacto em confidencialidade que tal descuido fatal viabilizou perante a presença passiva dos atores observadores (sniffing), aludindo textualmente o que podem computar face às capturas.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}

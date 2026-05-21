@@ -99,8 +99,8 @@
   },
   {
     "id": "ExameModelo",
-    "titulo": "4. Exame de Avaliação Modelo (Teoria SSI)",
-    "descricao": "Resolução simulada do modelo de exame teórico de Segurança de Sistemas de Informação. Contém questões sobre DAC/MAC/RBAC, permissões em Linux (ls -l), cifras autenticadas, funções hash, MACs, certificados X509 e assinaturas digitais.",
+    "titulo": "Exame de Avaliação Modelo (Teoria SSI)",
+    "descricao": "Simulador de exame.",
     "path": "exames/ExameModelo.json",
     "perguntas_count": 18
   },
@@ -109,6 +109,34 @@
     "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI)",
     "descricao": "Simulador de exame baseado no enunciado real do Exame 2, cobrindo permissões Linux (UGO/chmod/setgid/directories), conceitos de segurança geral, biometria, acordos de chaves (Diffie-Hellman), cifras clássicas (OTP/Nonces), funções hash e assinaturas digitais.",
     "path": "exames/ExameModelo2.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameModelo3",
+    "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI)",
+    "descricao": "Simulador de exame.",
+    "path": "exames/ExameModelo3.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameModelo4",
+    "titulo": "Exame de Avaliação Modelo 3 (Teoria SSI)",
+    "descricao": "Simulador de exame.",
+    "path": "exames/ExameModelo4.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameModelo5",
+    "titulo": "Exame de Avaliação Modelo 5 (Teoria SSI - Web Security)",
+    "descricao": "Simulador de exame.",
+    "path": "exames/ExameModelo5.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameModelo6",
+    "titulo": "Exame de Avaliação Modelo 6 (Teoria SSI - OS & Network Security)",
+    "descricao": "Simulador de exame.",
+    "path": "exames/ExameModelo6.json",
     "perguntas_count": 20
   }
 ]

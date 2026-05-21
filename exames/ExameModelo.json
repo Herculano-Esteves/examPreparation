@@ -1,6 +1,6 @@
 {
-  "titulo": "4. Exame de Avaliação Modelo (Teoria SSI)",
-  "descricao": "Resolução simulada do modelo de exame teórico de Segurança de Sistemas de Informação. Contém questões sobre DAC/MAC/RBAC, permissões em Linux (ls -l), cifras autenticadas, funções hash, MACs, certificados X509 e assinaturas digitais.",
+  "titulo": "Exame de Avaliação Modelo (Teoria SSI)",
+  "descricao": "Simulador de exame.",
   "perguntas": [
     {
       "pergunta": "Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
@@ -19,7 +19,7 @@
         "Falso"
       ],
       "solucao": [
-        1
+        0
       ]
     },
     {
