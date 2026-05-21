@@ -81,7 +81,7 @@
       "solucao": [
         1
       ],
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr-r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
     },
     {
       "pergunta": "Considere o excerto do início da página. O utilizador 'teacher' possui permissões de leitura, escrita e execução sobre o ficheiro 'script.sh'.",
@@ -92,7 +92,7 @@
       "solucao": [
         1
       ],
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr-r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
     },
     {
       "pergunta": "Considere o excerto do início da página. Relativamente à diretoria 'utils', o utilizador 'hector' é capaz de mudar para essa diretoria (efetuar travessia).",
@@ -101,9 +101,9 @@
         "Falso"
       ],
       "solucao": [
-        0
+        1
       ],
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr-r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
     },
     {
       "pergunta": "Uma cifra autenticada combina as seguintes técnicas criptográficas:",
