@@ -106,21 +106,21 @@
   },
   {
     "id": "ExameModelo2",
-    "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI)",
-    "descricao": "Simulador de exame baseado no enunciado real do Exame 2, cobrindo permissões Linux (UGO/chmod/setgid/directories), conceitos de segurança geral, biometria, acordos de chaves (Diffie-Hellman), cifras clássicas (OTP/Nonces), funções hash e assinaturas digitais.",
+    "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI - OS & Network Security)",
+    "descricao": "Simulador de exame.",
     "path": "exames/ExameModelo2.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo3",
-    "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI)",
+    "titulo": "Exame de Avaliação Modelo 3 (Teoria SSI)",
     "descricao": "Simulador de exame.",
     "path": "exames/ExameModelo3.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo4",
-    "titulo": "Exame de Avaliação Modelo 3 (Teoria SSI)",
+    "titulo": "Exame de Avaliação Modelo 4 (Teoria SSI)",
     "descricao": "Simulador de exame.",
     "path": "exames/ExameModelo4.json",
     "perguntas_count": 20
@@ -134,9 +134,16 @@
   },
   {
     "id": "ExameModelo6",
-    "titulo": "Exame de Avaliação Modelo 6 (Teoria SSI - OS & Network Security)",
-    "descricao": "Simulador de exame.",
+    "titulo": "Exame de Avaliação Modelo 6 (Parecido ao exame modelo)",
+    "descricao": "Simulador de exame estruturado estritamente de acordo com os moldes do enunciado fornecido pelo utilizador, focado em Permissões Linux e Criptologia Fundamental.",
     "path": "exames/ExameModelo6.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameModelo7",
+    "titulo": "Exame de Avaliação Modelo 7 (Parecido ao exame modelo)",
+    "descricao": "Segundo simulador de exame construído para refletir os moldes do exame modelo, avaliando permissões de ficheiros granulares (Sticky bits, SUID), mecanismos de hash, TLS, ECC e modos de operação AEAD.",
+    "path": "exames/ExameModelo7.json",
     "perguntas_count": 20
   }
 ]
