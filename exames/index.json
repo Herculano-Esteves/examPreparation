@@ -103,5 +103,12 @@
     "descricao": "Resolução simulada do modelo de exame teórico de Segurança de Sistemas de Informação. Contém questões sobre DAC/MAC/RBAC, permissões em Linux (ls -l), cifras autenticadas, funções hash, MACs, certificados X509 e assinaturas digitais.",
     "path": "exames/ExameModelo.json",
     "perguntas_count": 18
+  },
+  {
+    "id": "ExameModelo2",
+    "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI)",
+    "descricao": "Simulador de exame baseado no enunciado real do Exame 2, cobrindo permissões Linux (UGO/chmod/setgid/directories), conceitos de segurança geral, biometria, acordos de chaves (Diffie-Hellman), cifras clássicas (OTP/Nonces), funções hash e assinaturas digitais.",
+    "path": "exames/ExameModelo2.json",
+    "perguntas_count": 20
   }
 ]

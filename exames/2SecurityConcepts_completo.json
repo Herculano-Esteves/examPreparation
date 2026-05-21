@@ -283,7 +283,7 @@
       "opcoes": [
         "Segurança Computacional.",
         "Segurança de Implementação.",
-        "Segurança Incondicional (ou baseada em teoria da informação).",
+        "Segurança Incondicional.",
         "Segurança Estatística.",
         "Nenhuma das respostas apresentadas está correta."
       ],
@@ -292,7 +292,7 @@
       ]
     },
     {
-      "pergunta": "O conceito de 'Criptográfico Protocol' (Protocolo Criptográfico) refere-se a especificações para troca de mensagens que combinam várias técnicas criptográficas para atingir objetivos complexos.",
+      "pergunta": "O conceito de 'Cryptographic Protocol' (Protocolo Criptográfico) refere-se a especificações para troca de mensagens que combinam várias técnicas criptográficas para atingir objetivos complexos.",
       "opcoes": [
         "Verdadeiro",
         "Falso"

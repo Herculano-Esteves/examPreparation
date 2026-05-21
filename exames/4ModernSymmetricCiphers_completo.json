@@ -3,7 +3,8 @@
   "descricao": "Base de dados super completa (45 questões) cobrindo cifras por blocos modernas (AES, DES, 3DES), arquitetura detalhada do AES (SubBytes, ShiftRows, MixColumns, AddRoundKey), número de rondas, skips de passos e comparativos de modos (ECB, CBC, CFB, OFB, CTR).",
   "perguntas": [
     {
-      "pergunta": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).\n\nSe a cifragem for realizada utilizando o modo ECB (Electronic Code Book) com padding PKCS7, quais das seguintes afirmações sobre o padding e o tamanho final do criptograma estão corretas?",
+      "cabecalho": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).",
+      "pergunta": "Com base no cenário apresentado, se a cifragem for realizada utilizando o modo ECB (Electronic Code Book) com padding PKCS7, quais das seguintes afirmações sobre o padding e o tamanho final do criptograma estão corretas?",
       "opcoes": [
         "Serão adicionados exatamente 13 bytes de padding ao documento PDF.",
         "O tamanho final do criptograma resultante será de 176 bytes.",
@@ -17,7 +18,8 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] Se Alice optar por utilizar o modo CTR (Counter) para cifrar o mesmo documento de 163 bytes com a mesma cifra por blocos, qual será o tamanho final do criptograma enviado?",
+      "cabecalho": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).",
+      "pergunta": "Com base no cenário apresentado, se Alice optar por utilizar o modo CTR (Counter) para cifrar o mesmo documento de 163 bytes com a mesma cifra por blocos, qual será o tamanho final do criptograma enviado?",
       "opcoes": [
         "164 bytes, incluindo um byte especial que indica o fim da transmissão.",
         "160 bytes, descartando os últimos 3 bytes excedentes.",
@@ -30,7 +32,8 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] Durante a transmissão de rede do criptograma cifrado em modo CTR, um bit de ruído sofre uma inversão (bit flip) acidental. Ao decifrar a mensagem, qual é o impacto desta corrupção no documento PDF final de Bob?",
+      "cabecalho": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).",
+      "pergunta": "Com base no cenário apresentado, durante a transmissão de rede do criptograma cifrado em modo CTR, um bit de ruído sofre uma inversão (bit flip) acidental. Ao decifrar a mensagem, qual é o impacto desta corrupção no documento PDF final de Bob?",
       "opcoes": [
         "Apenas o bloco de 16 bytes onde ocorreu o erro fica corrompido.",
         "Todo o documento PDF decifrado a partir do ponto de erro fica completamente corrompido (lixo).",
@@ -43,7 +46,8 @@
       ]
     },
     {
-      "pergunta": "[Cenário anterior] Se Alice utilizar o modo CBC (Cipher Block Chaining) e ocorrer a inversão acidental de um único bit no Bloco 3 do criptograma durante a transmissão, qual será o efeito observado por Bob na decifragem?",
+      "cabecalho": "Considere o seguinte cenário prático para responder às Questões 1 a 4:\n\nAlice pretende cifrar e enviar um documento em PDF com tamanho exato de 163 bytes para o Bob. O criptossistema utiliza uma cifra por blocos clássica com blocos de 16 bytes (128 bits).",
+      "pergunta": "Com base no cenário apresentado, se Alice utilizar o modo CBC (Cipher Block Chaining) e ocorrer a inversão acidental de um único bit no Bloco 3 do criptograma durante a transmissão, qual será o efeito observado por Bob na decifragem?",
       "opcoes": [
         "Toda a mensagem a partir do Bloco 3 fica corrompida devido à propagação de erros em cadeia.",
         "O Bloco 3 é completamente corrompido (lixo) e o Bloco 4 apresenta uma inversão de bit na mesma posição exata; os restantes blocos são decifrados corretamente.",
@@ -435,13 +439,16 @@
       "pergunta": "Qual dos seguintes modos de operação permite decifrar blocos de criptograma de forma inteiramente paralela?",
       "opcoes": [
         "CBC.",
-        "ECB e CTR.",
+        "ECB.",
+        "CTR.",
         "Todos os modos de cifra por blocos são sequenciais na decifragem.",
         "CFB.",
         "Nenhuma das respostas apresentadas está correta."
       ],
       "solucao": [
-        1
+        0,
+        1,
+        2
       ]
     },
     {

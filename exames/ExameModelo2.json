@@ -1,0 +1,238 @@
+{
+  "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI)",
+  "descricao": "Simulador de exame baseado no enunciado real do Exame 2, cobrindo permissões Linux (UGO/chmod/setgid/directories), conceitos de segurança geral, biometria, acordos de chaves (Diffie-Hellman), cifras clássicas (OTP/Nonces), funções hash e assinaturas digitais.",
+  "perguntas": [
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "pergunta": "O utilizador `admin` pode escrever em qualquer ficheiro contido na diretoria `results`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "pergunta": "Relativamente à diretoria `scripts`, o utilizador `bob` é capaz de mudar (`cd`) para essa diretoria.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "As políticas de controlo de acesso baseadas em papéis (RBAC) permitem a definição de papéis com conjuntos específicos de permissões atribuídos a utilizadores do sistema.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "pergunta": "A execução com sucesso do comando `chmod 744 plot.sh` torna o ficheiro `plot.sh` executável para todos os utilizadores.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No Linux, um utilizador pode não conseguir realizar uma operação (leitura, escrita ou execução) num seu ficheiro dentro da diretoria em que se encontra mesmo que a respetiva permissão esteja definida para todos os utilizadores do sistema.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No contexto da autenticação biométrica, quanto mais baixa é a taxa de falsos positivos, mais elevada é a taxa de falsos negativos.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "pergunta": "A execução com sucesso do comando `chmod o+x file` (onde file é notes.txt) permite que o utilizador `bob` escreva no ficheiro `notes.txt`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Em Linux, para criar um grupo de sistema operativo e adicionar utilizadores a esse grupo são necessárias permissões de `root`.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Numa política de controlo de acesso discricionário (DAC) são os donos dos recursos que definem as permissões a eles associadas.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Em sistemas operativos como o Unix e o Linux, a flag de set-group-id permite que um programa seja executado com um grupo real igual ao do grupo do dono do ficheiro.",
+      "opcoes": [
+        "Verdadeiro",
+        "Falso"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Explique como é que o comando `passwd` permite aos utilizadores alterarem as suas senhas apesar dos utilizadores não conseguirem modificar o conteúdo do ficheiro `/etc/passwd`. Identifique as permissões e atributos definidos nos ficheiros e programas relevantes.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Um Message Authentication Code (MAC) garante a(s) seguinte(s) propriedade(s):",
+      "opcoes": [
+        "A. confidencialidade",
+        "B. anonimato",
+        "C. integridade",
+        "D. não repúdio",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "A cifra one time pad estudada no curso:",
+      "opcoes": [
+        "A. é uma cifra simétrica",
+        "B. exibe segurança absoluta",
+        "C. oferece garantias de autenticidade do remetente",
+        "D. a chave de cifração é de tamanho fixo independentemente do tamanho da mensagem",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Os Nonces dispõem de variadas aplicações em criptografia, como na cifra ChaCha20. Nessa utilização,",
+      "opcoes": [
+        "A. é essencial assegurar o segredo do nonce",
+        "B. o nonce pode ser transmitido em claro",
+        "C. o nonce é usado unicamente na encriptação",
+        "D. o nonce deve sempre ser gerado aleatoriamente",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa Função de Hash Criptográfica:",
+      "opcoes": [
+        "A. para um qualquer valor de hash, não se consegue encontrar uma mensagem que mapeie nesse valor",
+        "B. não existem nunca duas mensagens distintas com o mesmo valor de hash",
+        "C. é sempre viável encontrar mensagens distintas que são mapeadas num mesmo valor de hash",
+        "D. é sempre viável o cálculo do valor de hash de qualquer mensagem",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        3
+      ]
+    },
+    {
+      "pergunta": "Um certificado X509:",
+      "opcoes": [
+        "A. pressupõe uma relação de confiança na entidade responsável pela sua emissão",
+        "B. permite associar uma chave pública à entidade detentora da respetiva chave privada",
+        "C. é utilizado para garantir a confidencialidade da chave pública do titular",
+        "D. atesta que uma técnica criptográfica oferece proteção para a(s) propriedade(s) de segurança discriminada(s) nesse certificado",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "O protocolo de acordo de chaves Diffie-Hellman:",
+      "opcoes": [
+        "A. exibe segurança absoluta",
+        "B. é vulnerável ao ataque do homem no meio (MITM)",
+        "C. oferece garantias de autenticidade dos intervenientes",
+        "D. é seguro contra adversários passivos",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Numa assinatura digital:",
+      "opcoes": [
+        "A. garante-se a autenticidade do emissor",
+        "B. a chave pública é requerida ao verificar a assinatura",
+        "C. garante-se a confidencialidade e integridade da mensagem",
+        "D. a chave pública é requerida ao gerar a assinatura",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Uma Cifra de Chave Pública garante a(s) propriedade(s):",
+      "opcoes": [
+        "A. confidencialidade",
+        "B. não repúdio",
+        "C. autenticidade do destino",
+        "D. integridade",
+        "E. Nenhuma das respostas apresentadas está correta."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Considere o cenário onde um remetente pretende enviar uma mensagem (e.g. ficheiro) para um conjunto de recipientes, garantindo:\n\n- Confidencialidade;\n- Autenticidade de origem e destino(s);\n- Integridade.\n\nDesenhe uma solução que dê resposta aos requisitos apresentados, detalhando as suas assunções consideradas.",
+      "opcoes": [
+        "percebido",
+        "não percebido"
+      ],
+      "solucao": [
+        0
+      ]
+    }
+  ]
+}
