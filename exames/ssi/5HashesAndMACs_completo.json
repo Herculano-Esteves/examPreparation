@@ -59,164 +59,84 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A propriedade de 'Resistência à Colisão' de uma função de hash criptográfica H garante que é impossível existirem duas mensagens diferentes no domínio que produzam o mesmo hash no codomínio.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A relação de força entre as propriedades das funções de hash estabelece que se uma função é Resistente à Colisão, então é também Resistente à Segunda Pré-imagem.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A premissa teórica de que as funções criptográficas de sentido único (One-Way Functions) existem e são eficientes implica diretamente a provabilidade matemática de que P = NP.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A construção clássica de Merkle-Damgård processa mensagens de comprimento arbitrário dividindo-as em blocos e aplicando iterativamente uma função de compressão com tamanho de output fixo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A construção 'Sponge' (Esponja), utilizada no algoritmo SHA-3, divide o seu estado interno (l) em dois componentes: a taxa (rate, r) e a capacidade (capacity, c), onde a capacidade determina o nível de segurança.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A família de funções SHAKE (XOFs) permite estender a fase de compressão da esponja por tempo indeterminado para obter digests de tamanho fixo de 160 bits.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em termos de arquitetura e segurança física, um HSM (Hardware Security Module) é utilizado para gerar, armazenar e gerir chaves criptográficas de forma segura, impedindo a sua extração em texto limpo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na ferramenta de controlo de versões Git, o commit ID é obtido calculando o hash criptográfico apenas do conteúdo da mensagem de commit escrita pelo programador.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma árvore de Merkle (Merkle tree) garante a imutabilidade dos dados porque qualquer alteração num bloco de dados na base da árvore altera consecutivamente todos os hashes dos nós superiores até à raiz.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "As funções de derivação de chaves (KDFs) são propositadamente lentas a computar para dificultar ataques de força bruta sobre segredos fracos (como passwords).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo SHA-1, publicado em 1995 com pequenas correções face ao SHA-0, foi considerado quebrado em 2017 com a demonstração prática de geração de colisões.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A família SHA-2 é considerada insegura atualmente, devendo todas as aplicações migrar imediatamente para SHA-3 para evitar ataques conhecidos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "De acordo com os princípios de gestão de chaves, uma chave criptográfica deve ser reutilizada para o máximo de propósitos possíveis para simplificar o seu backup.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Para obter o mesmo nível de segurança fornecido por uma chave simétrica de 128 bits, uma chave pública assimétrica RSA necessita habitualmente de ter um tamanho muito maior (como 3072 ou 4096 bits).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo Argon2 foi o vencedor da Password Hashing Competition (PHC) e é recomendado atualmente para armazenamento seguro de palavras-passe.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um esquema de partilha de segredo por limiar (threshold secret-sharing) garante que nenhuma entidade individual consegue reconstruir a chave de backup sem a cooperação de um número mínimo 'k' de participantes.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Se um sistema necessita de verificar apenas se um ficheiro transmitido foi alterado acidentalmente no canal físico (sem a presença de atacantes maliciosos), que tipo de função é suficiente?",
@@ -340,14 +260,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "As funções de hash criptográficas não são injetivas porque o cardinal do domínio (mensagens de tamanho arbitrário) é infinito, enquanto o cardinal do codomínio (digests de tamanho fixo) é finito (2^n).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Quais das seguintes propriedades matemáticas e de segurança caracterizam formalmente uma Função de Hash Criptográfica?",

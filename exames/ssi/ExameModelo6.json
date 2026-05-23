@@ -3,108 +3,58 @@
   "descricao": "Simulador de exame estruturado estritamente de acordo com os moldes do enunciado fornecido pelo utilizador, focado em Permissões Linux e Criptologia Fundamental.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
       "pergunta": "Considere o excerto do início da página. O utilizador `admin` pode escrever em qualquer ficheiro contido na diretoria `results`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
       "pergunta": "Considere o excerto do início da página. Relativamente à diretoria `scripts`, o utilizador `bob` é capaz de mudar (`cd`) para essa diretoria.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "As políticas de controlo de acesso baseadas em papéis (RBAC) permitem a definição de papéis com conjuntos específicos de permissões atribuídos a utilizadores do sistema.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
       "pergunta": "Considere o excerto do início da página. A execução com sucesso do comando `chmod 744 plot.sh` torna o ficheiro `plot.sh` executável para todos os utilizadores.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "No Linux, um utilizador pode não conseguir realizar uma operação (leitura, escrita ou execução) num seu ficheiro dentro da diretoria em que se encontra mesmo que a respetiva permissão esteja definida para todos os utilizadores do sistema.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "No contexto da autenticação biométrica, quanto mais baixa é a taxa de falsos positivos, mais elevada é a taxa de falsos negativos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
       "pergunta": "Considere o excerto do início da página. A execução com sucesso do comando `chmod o+x notes.txt` permite que o utilizador `bob` escreva no ficheiro `notes.txt`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em Linux, para criar um grupo de sistema operativo e adicionar utilizadores a esse grupo são necessárias permissões de `root`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa política de controlo de acesso discricionário (DAC) são os donos dos recursos que definem as permissões a eles associadas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em sistemas operativos como o Unix e o Linux, a flag de set-group-id permite que um programa seja executado com um grupo real igual ao do grupo do dono do ficheiro.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Explique como é que o comando `passwd` permite aos utilizadores alterarem as suas senhas apesar dos utilizadores não conseguirem modificar o conteúdo do ficheiro `/etc/passwd`. Identifique as permissões e atributos definidos nos ficheiros e programas relevantes.",

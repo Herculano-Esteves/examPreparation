@@ -1,0 +1,332 @@
+{
+  "titulo": "Exame Teórico Modelo TSO",
+  "descricao": "Exame focado em conceitos teóricos, cobrindo Observabilidade, eBPF, APIs de E/S, FUSE, SPDK, Redução de Dados, Durabilidade e Escalonamento de CPU.",
+  "perguntas": [
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre os pilares da observabilidade (Métricas, Logs e Traces).",
+      "opcoes": [
+        "As métricas são ideais para agregação estatística e detetar tendências a longo prazo com baixo overhead.",
+        "Os logs fornecem um histórico detalhado e contextual de eventos específicos, mas têm maior custo de armazenamento do que as métricas.",
+        "Os traces distribuídos permitem acompanhar o percurso de um pedido individual ao longo de múltiplos microserviços.",
+        "Os traces têm menor overhead do que as métricas, pelo que devem ser recolhidos para todas as transações sem amostragem."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Indique a(s) opção(ões) correta(s) sobre a diferença entre Kprobes e Tracepoints na instrumentação com eBPF.",
+      "opcoes": [
+        "Os Kprobes permitem instrumentar dinamicamente quase qualquer instrução ou função do kernel, mas são instáveis pois dependem da versão do código fonte do kernel.",
+        "Os Tracepoints são pontos de instrumentação estáticos inseridos manualmente pelos programadores no código do kernel, sendo mais estáveis ao longo de atualizações de versão.",
+        "Os Kprobes são mais performantes e seguros do que os Tracepoints.",
+        "Os Tracepoints exigem a recompilação da aplicação de utilizador para poderem ser ativados."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre a instrumentação com Uprobes e Kprobes.",
+      "opcoes": [
+        "As Uprobes instrumentam funções no espaço de utilizador (user-space), enquanto as Kprobes instrumentam funções no espaço do kernel.",
+        "As Uprobes têm tipicamente menor overhead de execução do que as Kprobes.",
+        "As Uprobes envolvem uma mudança de contexto (context switch) extra substancial para executar o bytecode eBPF no espaço do kernel quando a função de utilizador é chamada.",
+        "As Kprobes são incapazes de aceder aos argumentos de entrada das funções do kernel."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "pergunta": "Escolha a(s) afirmação(ões) correta(s) sobre a utilização de eBPF Maps.",
+      "opcoes": [
+        "Servem para partilhar dados entre diferentes execuções de um programa eBPF no kernel e para enviar ou receber dados a partir do espaço de utilizador.",
+        "Podem ser lidos e escritos a partir do espaço de utilizador usando chamadas de sistema (syscalls).",
+        "O seu ciclo de vida é estritamente limitado à execução do processo de utilizador que os criou, desaparecendo assim que o processo adormece.",
+        "Os mapas do tipo Ring Buffer (BPF Ring Buffer) são mais eficientes do que os Perf Buffers para transmissão de eventos de alta frequência para o user-space."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Qual ou quais das seguintes afirmações descrevem restrições impostas pelo verificador do eBPF para garantir a segurança do kernel?",
+      "opcoes": [
+        "O programa eBPF não pode conter ciclos que não possam ser provados como finitos em tempo de compilação estática.",
+        "A stack de memória local do programa eBPF está limitada a um tamanho máximo (ex: 512 bytes).",
+        "O programa eBPF não pode ler diretamente endereços arbitrários de memória do kernel sem passar por funções auxiliares adequadas (como helpers de probe_read).",
+        "O programa eBPF tem acesso direto de escrita a todas as páginas do sistema de ficheiros VFS para otimizar E/S."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre as metodologias corretas de Benchmarking de sistemas de ficheiros.",
+      "opcoes": [
+        "Medir apenas a latência média é suficiente para avaliar a experiência do utilizador de uma base de dados interativa.",
+        "É crucial limpar o cache de páginas do sistema operativo (drop caches) antes de iniciar testes de leitura fria, caso contrário mediremos apenas a velocidade da RAM.",
+        "O benchmark deve idealmente usar padrões de dados realistas (e não apenas zeros) se o sistema de ficheiros subjacente efetuar compressão ou deduplicação.",
+        "O aquecimento da cache (warm-up phase) serve para aproximar o sistema do seu comportamento em estado estacionário realista."
+      ],
+      "solucao": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "pergunta": "Porque é que as operações síncronas tradicionais (write/read) da API POSIX se tornam ineficientes em dispositivos de armazenamento ultrarrápidos como SSDs NVMe?",
+      "opcoes": [
+        "Porque obrigam a thread a bloquear (espera síncrona), impedindo a aplicação de aproveitar o paralelismo interno do dispositivo NVMe.",
+        "Devido ao overhead de transição de privilégio (mudança para kernel space e vice-versa) em cada chamada de sistema.",
+        "Porque os dados têm de ser copiados entre o buffer do espaço de utilizador e o espaço de kernel, o que consome largura de banda de memória.",
+        "Porque a API POSIX impede o hardware de utilizar interrupções para sinalizar o fim do I/O."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Identifique a(s) afirmação(ões) correta(s) sobre as diferenças entre a API libaio e a API io_uring no Linux.",
+      "opcoes": [
+        "A API libaio apenas funciona de forma verdadeiramente assíncrona se for configurado o acesso direto ao disco (O_DIRECT), enquanto o io_uring suporta buffering (Page Cache) e ficheiros normais de forma assíncrona.",
+        "O io_uring reduz o overhead de chamadas de sistema através de dois ring buffers em memória partilhada, ao passo que a libaio requer chamadas de sistema (io_submit) frequentes.",
+        "A libaio é mais recente e performante do que o io_uring.",
+        "Ambas as APIs utilizam interrupções ou polling configurável pelo utilizador para detetar eventos de conclusão."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre os modos de polling no io_uring.",
+      "opcoes": [
+        "O modo IORING_SETUP_IOPOLL faz com que o kernel polling ativamente o hardware de armazenamento (busy polling) pelas conclusões de E/S, reduzindo a latência à custa de maior consumo de CPU.",
+        "O modo IORING_SETUP_SQPOLL cria uma thread dedicada do kernel para retirar pedidos da Submission Queue (SQ) sem que a aplicação de utilizador precise de efetuar syscalls (io_uring_enter).",
+        "O modo SQPOLL funciona de forma eficiente sem qualquer consumo de CPU.",
+        "O modo IOPOLL requer o uso de buffers registados em memória no FUSE."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Escolha a(s) opção(ões) correta(s) sobre a ordenação de pedidos no io_uring.",
+      "opcoes": [
+        "A flag IOSQE_IO_LINK encadeia dois pedidos consecutivos, fazendo com que o segundo só inicie quando o primeiro terminar com sucesso.",
+        "Se um elemento numa cadeia iniciada por IOSQE_IO_LINK falhar, todos os elementos seguintes dessa cadeia são cancelados.",
+        "A flag IOSQE_IO_DRAIN atua como uma barreira que garante que o pedido só executa depois de todos os pedidos submetidos anteriormente terem concluído.",
+        "A ordenação por defeito garante que os pedidos de escrita à mesma posição de ficheiro são sempre executados na ordem exata em que foram inseridos na SQ."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual ou quais das seguintes afirmações descrevem corretamente o funcionamento e características do FUSE?",
+      "opcoes": [
+        "O código do sistema de ficheiros corre inteiramente no espaço de utilizador (user-space), facilitando o desenvolvimento e a portabilidade.",
+        "Todas as operações de leitura/escrita feitas pela aplicação têm de transitar pelo kernel (VFS) antes de serem encaminhadas para o daemon do FUSE em user-space.",
+        "O FUSE apresenta tipicamente melhor desempenho do que os sistemas de ficheiros nativos do kernel (ex: ext4) devido ao contorno do VFS.",
+        "O modo passthrough do FUSE permite encaminhar operações de E/S diretamente para um ficheiro ou diretório num sistema de ficheiros local subjacente, minimizando transições."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre as políticas de cache de escrita em FUSE.",
+      "opcoes": [
+        "O modo writeback cache acumula as escritas no Page Cache do kernel, enviando-as em lote para o daemon FUSE, melhorando o desempenho de escritas pequenas.",
+        "O modo writethrough envia todas as escritas imediatamente para o daemon FUSE de forma síncrona, garantindo maior durabilidade imediata à custa de menor débito.",
+        "O writeback cache é completamente imune a perdas de consistência em caso de crash do sistema.",
+        "O writeback cache exige que o daemon FUSE suporte escritas fora de ordem."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "O que caracteriza o desenho arquitetural do SPDK (Storage Performance Development Kit) para NVMe?",
+      "opcoes": [
+        "A execução de toda a pilha de E/S e drivers do disco NVMe em espaço de utilizador (User-space), eliminando completamente as chamadas de sistema no caminho de dados (Kernel Bypass).",
+        "A utilização de polling contínuo (busy polling) em vez de interrupções de hardware para processar conclusões de E/S.",
+        "O uso de Hugepages e DMA para transferir dados sem efetuar cópias adicionais na RAM (zero-copy).",
+        "A dependência total de mecanismos de sincronização síncrona baseados em mutexes POSIX."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre o modelo de concorrência do SPDK.",
+      "opcoes": [
+        "Adota o Modelo de Atores (Actor Programming Model) onde as tarefas correm em threads (reactors) dedicadas e não partilham estado em memória.",
+        "Cada reator possui o seu próprio queue pair de hardware NVMe, eliminando a contenção de locks para submeter pedidos ao disco.",
+        "As threads de reatores comunicam por passagem de mensagens assíncronas em filas de mensagens privadas.",
+        "Os reatores cedem frequentemente o controlo de CPU voltando ao estado Blocked para economizar energia do sistema."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Indique a(s) opção(ões) correta(s) sobre os métodos de fragmentação (chunking) em Deduplicação.",
+      "opcoes": [
+        "O Fixed-Size Chunking divide o ficheiro em blocos de tamanho fixo, sendo rápido de calcular mas vulnerável ao efeito de deslocamento (shift effect).",
+        "O Variable-Size Chunking (ex: com Rabin Fingerprints) calcula limites dinâmicos com base no conteúdo dos dados, contornando o shift effect.",
+        "Uma pequena inserção no início do ficheiro anula quase toda a deduplicação de blocos de tamanho fixo subsequentes.",
+        "Rabin Fingerprints requerem que o sistema utilize encriptação AES-XTS em todos os blocos."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual é o objetivo e comportamento de um índice de deduplicação disperso (sparse index)?",
+      "opcoes": [
+        "Reduzir os requisitos de memória RAM mantendo apenas uma fração das assinaturas dos blocos em memória, carregando outras dinamicamente com base em localidade de dados.",
+        "Garantir que a encriptação AES-XTS é aplicada apenas aos blocos duplicados.",
+        "Aproveitar o facto de que blocos que ocorrem juntos num ficheiro tendem a repetir-se juntos noutros locais do sistema de armazenamento (localidade espacial).",
+        "Aumentar o rácio de compressão LZ4 contornando a deduplicação."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "pergunta": "Indique a(s) afirmação(ões) correta(s) sobre o algoritmo de substituição de páginas 2Q.",
+      "opcoes": [
+        "É uma otimização sobre o LRU (Least Recently Used) clássico desenhada para mitigar o problema da poluição da cache decorrente de leituras sequenciais de larga escala.",
+        "Utiliza duas filas principais: uma fila FIFO simples (A1) para páginas acedidas uma única vez e uma fila LRU (Am) para páginas com múltiplos acessos recorrentes.",
+        "As páginas entram inicialmente na fila de descritores de saída (A1out).",
+        "Permite identificar com maior precisão se uma página merece permanecer em cache comparado com o algoritmo LRU simples."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre as APIs de durabilidade de E/S.",
+      "opcoes": [
+        "A chamada fsync() descarrega tanto os dados do ficheiro como todos os metadados associados (ex: mtime, tamanho, permissões) para o disco físico.",
+        "A chamada fdatasync() descarrega os dados do ficheiro, mas só descarrega metadados se estes forem necessários para permitir leituras corretas subsequentes (ex: se o tamanho do ficheiro mudou).",
+        "O uso da flag O_SYNC na abertura de um ficheiro faz com que todas as escritas subsequentes se comportem como se fossem seguidas de uma chamada a fsync().",
+        "O_DIRECT garante que os dados estão persistidos de forma segura no suporte físico de armazenamento antes de o write() retornar, sem precisar de fsync."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Indique a(s) afirmação(ões) correta(s) sobre a comparação entre Lottery Scheduling e Stride Scheduling.",
+      "opcoes": [
+        "O Lottery Scheduling é baseado num modelo probabilístico aleatório, enquanto o Stride Scheduling é puramente determinístico.",
+        "A precisão a curto prazo na distribuição justa de CPU é superior no Stride Scheduling.",
+        "A incorporação de novos processos a meio da execução é mais simples e direta no Lottery Scheduling.",
+        "Ambos os algoritmos requerem o cálculo complexo de vruntime usando árvores Red-Black."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual ou quais das seguintes afirmações descrevem diferenças entre o CFS e o EEVDF?",
+      "opcoes": [
+        "O CFS escolhe o processo com menor vruntime na árvore Red-Black, ao passo que o EEVDF aplica primeiro um filtro de lag (atraso relativo) e depois escolhe o processo com o Virtual Deadline mais antigo.",
+        "O EEVDF permite que tarefas sensíveis à latência (interativas) peçam fatias de tempo mais pequenas para encurtar o seu Virtual Deadline e obter o CPU mais cedo.",
+        "O CFS corre integralmente no espaço de utilizador, enquanto o EEVDF corre no kernel space.",
+        "O lag no EEVDF mede a diferença entre o vruntime médio de todos os processos prontos e o vruntime do processo individual."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Um administrador de sistemas afirma: “Com as nossas métricas e alertas configurados a cada minuto na infraestrutura de bases de dados, temos observabilidade total sobre o sistema e não precisamos de rastreamento (tracing) ou logs adicionais.” Comente esta afirmação, discutindo a distinção conceitual entre monitorização e observabilidade e se a estratégia descrita garante a resolução rápida de problemas complexos.",
+      "solucao": "A afirmação do administrador de sistemas está conceitualmente incorreta.\n\n**Diferença entre Monitorização e Observabilidade:**\n1. **Monitorização:** Foca-se em detetar *se* algo está errado (por exemplo, uso de CPU acima de 95% ou taxa de erros HTTP a 5%). É baseada em recolha periódica de métricas pré-definidas (painéis e alertas). Diz-nos apenas 'que' o sistema está com problemas.\n2. **Observabilidade:** Foca-se em explicar *porque* o problema está a ocorrer, permitindo diagnosticar comportamentos inesperados ou novos sem precisar de configurar novos alertas. Baseia-se no cruzamento dos três pilares (Métricas, Logs detalhados e Traces distribuídos).\n\n**Limitações da abordagem do administrador:**\nMétricas recolhidas a cada minuto são insuficientes para diagnosticar falhas intermitentes (como picos de latência causados por Garbage Collection de SSDs, ou contenção por locks). Sem logs com contexto ou traces que mapeiem o percurso de uma transação individual pelas várias camadas (aplicação, rede, drivers), o administrador saberá apenas que a base de dados está lenta, mas não conseguirá determinar a causa raiz."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A tecnologia eBPF permite executar código de utilizador diretamente dentro do espaço do kernel Linux. Explique de que forma o componente eBPF Verifier garante que a execução destes programas não compromete a estabilidade e a integridade de todo o sistema operativo. Indique duas restrições específicas aplicadas pelo Verificador.",
+      "solucao": "O **eBPF Verifier** é o componente de segurança responsável por analisar estaticamente o bytecode do programa eBPF antes de este ser carregado e executado no kernel. O seu objetivo é garantir que o programa é seguro, impedindo que este possa corromper o estado do kernel ou bloquear o sistema.\n\n**Mecanismo e Restrições específicas:**\n1. **Garantia de Terminação (Ausência de Loops Infinitos):** O Verificador constrói um Grafo de Fluxo de Controlo (CFG) do programa e inspeciona todos os caminhos possíveis de execução. Se encontrar loops que não possam ser estaticamente provados como finitos e limitados, o programa é rejeitado, prevenindo que o CPU fique bloqueado em loop infinito.\n2. **Segurança de Acesso à Memória (Stack & Pointers):** O Verificador garante que o programa não realiza desreferenciação de ponteiros nulos ou inválidos, nem acede a áreas de memória fora dos limites autorizados (como ler ou escrever em buffers arbitrários do kernel). Para tal, limita o tamanho da stack local a 512 bytes e impede a leitura de dados do kernel ou user-space sem o uso explícito de funções auxiliares seguras (helpers como `bpf_probe_read_kernel` ou `bpf_probe_read_user`)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "“A introdução de sondas dinâmicas ao nível do utilizador (uprobes) permite obter visibilidade granular sobre o comportamento das aplicações, mas o seu uso em loops intensivos de computação pode degradar gravemente o desempenho global.” Justifique esta afirmação detalhando o percurso que o sistema operativo realiza quando uma uprobe é disparada.",
+      "solucao": "A afirmação é correta e reflete um dos maiores cuidados a ter na instrumentação com eBPF.\n\n**Explicação do Percurso e Overhead das Uprobes:**\n1. **Substituição da Instrução:** Quando uma uprobe é anexada a uma função em user-space, o kernel substitui temporariamente a instrução original nessa função por uma instrução de trap (ex: `int3` em x86) na memória do processo.\n2. **Interrupção e Trap:** Quando a aplicação chega a esse ponto e tenta executar a instrução de trap, gera-se uma interrupção de hardware (trap exception) que força o CPU a passar do modo de utilizador (user mode) para o modo de kernel (kernel mode).\n3. **Execução do eBPF:** O kernel recebe a interrupção, identifica a uprobe associada, e executa o programa eBPF anexado.\n4. **Retorno e Restauro:** O kernel restaura a instrução original, executa-a no modo de utilizador e devolve o controlo à aplicação.\n\n**Consequência de Loops Intensivos:**\nCada ativação de uma uprobe provoca duas mudanças de contexto de modo de privilégio de CPU (user -> kernel -> user). Se a função instrumentada for executada milhões de vezes por segundo, o overhead destas transições contínuas de CPU anula a performance da aplicação, podendo torná-la várias ordens de grandeza mais lenta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a arquitetura de comunicação do io_uring baseada em memória partilhada, identificando as três estruturas de dados na memória que a aplicação e o kernel partilham. Como é que esta arquitetura consegue reduzir o número de chamadas ao sistema (syscalls) em comparação com as APIs tradicionais síncronas do POSIX?",
+      "solucao": "**Estruturas Partilhadas na Memória:**\nO io_uring baseia-se num espaço de memória virtual partilhado entre user-space e kernel-space mapeado por `mmap()`. As três estruturas principais são:\n1. **Submission Queue Entries (SQE Array):** Um array contendo as entradas de submissão (SQEs), onde a aplicação escreve as instruções detalhadas de I/O (operação, fd, buffers, offsets).\n2. **Submission Queue (SQ):** Um anel de inteiros (índices) que apontam para as posições no SQE Array. A aplicação produz índices para submissão e o kernel consome-os.\n3. **Completion Queue (CQ):** Um anel de Completion Queue Events (CQEs) contendo os resultados das operações executadas. O kernel produz para este anel e a aplicação consome.\n\n**Redução de Chamadas ao Sistema (Syscalls):**\n1. **Batching (Agrupamento):** A aplicação pode preencher múltiplos SQEs no array e adicionar os seus índices na SQ diretamente na RAM sem efetuar chamadas ao sistema. Apenas quando necessita de notificar o kernel de que há novos pedidos é que efetua uma chamada `io_uring_enter()`, processando dezenas ou centenas de operações com uma única transição.\n2. **Zero-Syscall com SQPOLL:** Se o io_uring for inicializado no modo `IORING_SETUP_SQPOLL`, o kernel cria uma thread dedicada em kernel-space que faz polling contínuo da SQ na RAM. A aplicação de utilizador simplesmente escreve os pedidos nos ring buffers na memória física e a thread do kernel deteta e processa-os de imediato, eliminando por completo a necessidade de efetuar chamadas ao sistema no caminho crítico de E/S."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num sistema de armazenamento cloud com forte contenção de espaço físico em disco, mas que exige a manutenção de um débito máximo de escrita de dados, qual das abordagens de deduplicação (Inline vs. Offline) escolheria? Apresente um argumento a favor e um argumento contra para cada uma das opções no contexto deste cenário.",
+      "solucao": "Neste cenário, a escolha ideal é a **Deduplicação Offline** se o foco primordial for a manutenção do débito máximo de escrita, ou a **Deduplicação Inline** se a escassez de espaço físico em disco for de tal forma severa que não permita qualquer armazenamento temporário.\n\n**Deduplicação Inline (Processamento na critical path):**\n- *Argumento a Favor:* Garante que os blocos duplicados nunca chegam a ocupar espaço no armazenamento físico. Isto minimiza a pegada de disco instantaneamente, protegendo o sistema contra o esgotamento súbito de espaço.\n- *Argumento contra:* Reduz gravemente o débito de escrita, uma vez que cada bloco tem de ser submetido a hashing e pesquisa no índice de deduplicação antes de ser gravado.\n\n**Deduplicação Offline (Processamento em background):**\n- *Argumento a Favor:* Preserva o débito máximo de escrita de dados. Os blocos são gravados no disco físico à velocidade nativa do hardware, e o processo de deduplicação ocorre em background de forma assíncrona.\n- *Argumento contra:* Exige espaço em disco redundante temporário para acomodar os dados duplicados até que o processo em background seja executado. Se a contenção de disco for crítica, o sistema pode ficar sem espaço físico antes de a deduplicação em background ter oportunidade de correr."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique em que consiste o “shift effect” (efeito de deslocamento) na deduplicação de ficheiros. Indique que técnica de fragmentação (chunking) é vulnerável a este problema e de que forma a fragmentação baseada em Rabin Fingerprints consegue mitigar esta ineficiência.",
+      "solucao": "O **shift effect** ocorre quando uma pequena modificação (como a inserção ou remoção de um único byte no início ou a meio de um ficheiro) altera o alinhamento de todos os blocos subsequentes que serão submetidos ao processo de deduplicação.\n\n**Fragmentação Vulnerável (Fixed-Size Chunking):**\nDividir o ficheiro em blocos de tamanho fixo (ex: blocos rígidos de 4KB) torna o sistema altamente vulnerável a este efeito. Se inserirmos 1 byte no início do ficheiro, todos os blocos de 4KB seguintes serão deslocados em 1 byte. As suas assinaturas de hash criptográfico mudarão por completo, fazendo com que o sistema de deduplicação falhe em reconhecer qualquer semelhança, reescrevendo todo o ficheiro como se fosse novo.\n\n**Mitigação com Rabin Fingerprints (Content-Defined Chunking):**\nO Content-Defined Chunking (CDC) mitiga esta limitação definindo os limites dos blocos com base no conteúdo e não num tamanho fixo. O algoritmo corre uma janela deslizante (sliding window) sobre os bytes do ficheiro e calcula uma impressão digital (Rabin Fingerprint) a cada passo. Quando a impressão digital satisfaz uma determinada condição matemática, define-se um limite de bloco. Se inserirmos 1 byte no início, apenas o primeiro bloco será ligeiramente alterado; os blocos seguintes reencontrarão a mesma condição matemática nos mesmos padrões de bytes originais, restabelecendo o alinhamento e permitindo deduplicar o resto do ficheiro com sucesso."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Um programador propõe substituir o Page Cache do kernel (que usa variações do algoritmo 2Q) por um algoritmo LRU (Least Recently Used) clássico por considerar a implementação do LRU muito mais simples. Analise os riscos desta alteração, detalhando de que forma um varrimento sequencial completo de um ficheiro gigante (maior do que a RAM disponível) afetaria o desempenho geral do sistema operativo sob um algoritmo LRU.",
+      "solucao": "A substituição proposta pelo programador introduziria graves problemas de desempenho devido ao fenómeno conhecido como **poluição de cache**.\n\n**Impacto de Varrimento Sequencial Gigante num Cache LRU:**\nNum algoritmo LRU clássico, qualquer página que seja acedida é colocada imediatamente no topo da cache (como a página mais recentemente usada), expulsando as páginas mais antigas da cache para libertar espaço. Se corrermos um varrimento sequencial de um ficheiro gigante (maior do que a RAM): \n1. O LRU lerá os blocos e colocá-los-á no topo da cache.\n2. Para dar espaço a estes novos blocos, o LRU expulsará da memória as páginas de uso frequente e recorrente de outras aplicações (como páginas de código, caches de indexação, config).\n3. Como o ficheiro gigante é lido de forma sequencial uma única vez, a maioria das páginas carregadas para a cache nunca mais será reacedida a curto prazo.\nO resultado é que a cache fica preenchida com dados inúteis (do varrimento sequencial) e as páginas populares foram expulsas. A performance global do sistema operativo degradar-se-á massivamente devido a constantes acessos a disco (page faults) pelas aplicações.\n\n**Como o 2Q resolve isto:**\nO algoritmo 2Q divide o buffer de cache em duas filas (uma fila FIFO inicial para páginas acedidas uma única vez e uma fila LRU ativa para páginas recorrentes). Durante um varrimento sequencial, as novas páginas entram na fila FIFO inicial e saem dela rapidamente sem perturbar a fila LRU de páginas ativas e populares, mantendo a integridade e eficiência da cache global."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Analise o caminho de execução de uma operação síncrona simples de leitura de dados (read()) iniciada por uma aplicação num sistema de ficheiros virtual implementado via FUSE. Explique de que forma este caminho difere de um sistema de ficheiros nativo em kernel (como o ext4) e indique os fatores que contribuem para o overhead de desempenho do FUSE.",
+      "solucao": "**Caminho de Leitura no FUSE:**\n1. A aplicação executa a chamada ao sistema `read()`.\n2. O CPU transita para o modo kernel e o pedido é recebido pelo VFS (Virtual File System).\n3. O VFS encaminha o pedido para o módulo de kernel do `FUSE` (driver FUSE).\n4. O driver FUSE coloca o pedido numa fila de espera interna e acorda o daemon FUSE em espaço de utilizador (user-space). Isto causa uma mudança de contexto (context switch) e os dados do pedido são passados para o user-space.\n5. O daemon FUSE lê o pedido, processa-o (por exemplo, acedendo a um disco físico local ou rede) e obtém os dados.\n6. O daemon FUSE responde gravando os dados de volta no descritor de ficheiro do FUSE (iniciando outra transição para o kernel).\n7. O driver FUSE do kernel copia os dados de resposta para o buffer original da aplicação de utilizador.\n8. A chamada `read()` original retorna à aplicação.\n\n**Diferença para um Sistema de Ficheiros Nativo (ex: ext4):**\nNum sistema de ficheiros nativo como o ext4, a operação é processada inteiramente dentro do espaço do kernel. O VFS chama diretamente as funções do ext4, que interagem com o Page Cache ou com o driver de blocos do kernel, sem nunca ter de sair do kernel space nem envolver deamon de user-space.\n\n**Fatores de Overhead no FUSE:**\n1. **Mudanças de Contexto (Context Switches):** São necessárias múltiplas transições entre modo user e modo kernel por cada pedido (Aplicação -> Kernel -> FUSE Daemon -> Kernel -> Aplicação).\n2. **Cópias de Dados Extras:** Os dados lidos têm de ser copiados entre o espaço do kernel e o buffer do daemon FUSE em user-space, e posteriormente copiados novamente para a aplicação.\n3. **Fila de Comunicação do Kernel:** A necessidade de enfileirar e gerir pedidos na interface `/dev/fuse` adiciona latência de sincronização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo de Lottery Scheduling é conhecido por ser de simples implementação e de fácil manutenção de estado. Contudo, em cenários de partilha de CPU com tempos de execução muito curtos, o algoritmo pode falhar na distribuição justa do CPU. Explique a razão matemática por detrás desta limitação e como a escolha do tamanho do time-slice influi nesta dinâmica.",
+      "solucao": "**Razão Matemática da Ineficiência a Curto Prazo:**\nO Lottery Scheduling baseia-se em conceitos probabilísticos. A probabilidade de um processo ser escolhido para correr é igual à fração dos seus bilhetes sobre o total ($p = \\text{tickets}_i / \\text{total}$). A Lei dos Grandes Números garante que a proporção real de CPU recebida por cada processo converge para a probabilidade teórica ($p$) à medida que o número de sorteios ($N$) tende para o infinito. Contudo, para janelas de tempo curtas ou processos de curta duração (onde ocorrem poucos sorteios, $N$ pequeno), a variância estatística é muito elevada. A probabilidade de desvios significativos em relação à partilha justa é grande. Por exemplo, num sistema com duas tarefas idênticas (50 bilhetes cada), após apenas 4 sorteios, existe uma probabilidade estatística de 12.5% de um dos processos correr os 4 turnos seguidos e o outro sofrer starvation temporária.\n\n**Influência do Tamanho do Time-Slice:**\n- **Time-slice Grande:** Se o quantum de tempo (time-slice) for grande, ocorrem menos sorteios por unidade de tempo ($N$ é pequeno numa determinada janela). Isto exacerba o desequilíbrio e a injustiça a curto prazo, aumentando o tempo de resposta percebido pelas tarefas.\n- **Time-slice Pequeno:** Reduzir o quantum aumenta o número de sorteios por segundo (maior $N$), o que acelera a convergência probabilística para a justiça ideal. No entanto, se o time-slice for demasiado pequeno, o overhead introduzido pelas constantes interrupções de relógio e context switches anulará o desempenho útil do sistema."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao desenhar um escalonador para sistemas operativos multiprocessados com dezenas de cores de CPU, um arquiteto debate-se entre um desenho de fila única (SQMS) ou múltiplas filas (MQMS). Discuta como a disputa por trincas (locking contention) afeta a escalabilidade de cada uma destas soluções à medida que aumentamos o número de cores.",
+      "solucao": "**Impacto da Disputa por Locks na Escalabilidade:**\n\n1. **Fila Única (SQMS - Single-Queue Multiprocessor Scheduling):**\n- **Funcionamento:** Todos os cores de CPU competem pela mesma fila global de processos prontos sempre que ficam sem trabalho.\n- **Escalabilidade:** Muito fraca. Para aceder e modificar a fila de forma segura, a CPU tem de adquirir um lock global. À medida que aumentamos o número de cores (ex: de 4 para 64 cores), a probabilidade de múltiplos cores tentarem ler/escrever na fila simultaneamente cresce exponencialmente. Os CPUs passam a maior parte do tempo em espera ativa (spin lock) ou suspensos a disputar a trinca da fila, gerando um bottleneck de hardware severo. A escalabilidade deixa de ser linear e degrada-se rapidamente.\n\n2. **Múltiplas Filas (MQMS - Multi-Queue Multiprocessor Scheduling):**\n- **Funcionamento:** Cada CPU possui a sua própria fila local e independente de processos prontos. Cada core processa e escolhe apenas tarefas da sua fila privada.\n- **Escalabilidade:** Excelente. Como os caminhos de escalonamento críticos de cada CPU são completamente isolados, não existe partilha de dados frequente nem necessidade de locks globais no acesso às filas. Cada core corre à velocidade máxima sem ser bloqueado pela atividade das restantes CPUs, garantindo uma escalabilidade linear perfeita com o aumento do número de cores.\n- **Overhead Residual:** O único overhead de locking ocorre esporadicamente durante operações de balanceamento de carga, quando uma CPU sem processos ativos (idle) tenta roubar tarefas de uma fila de outra CPU (work stealing). Contudo, este lock é local a essas duas filas e ocorre com frequência muito menor, não impactando o caminho crítico de execução."
+    }
+  ]
+}

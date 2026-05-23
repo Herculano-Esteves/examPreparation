@@ -143,154 +143,79 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa política de controlo de acesso mandatório (MAC) é o administrador quem define as permissões associadas aos recursos dos utilizadores.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "As políticas de controlo de acesso baseado em papéis (RBAC) são computacionalmente mais exigentes do que as baseadas em atributos (ABAC).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em Linux, para um processo realizar uma operação sobre um ficheiro tem de ter permissão de leitura em todas as diretorias que é necessário atravessar para o alcançar.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em sistemas operativos como o Unix e o Linux, a flag de set-user-id (SUID) permite que um programa seja executado com um utilizador efetivo igual ao do dono do ficheiro.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em Linux, o comando sudo utiliza a flag set-user-id para permitir a executar a um utilizador normal a execução de comandos como utilizador root.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A representação octal do conjunto de permissões '-rwxr-xr-x' é 755.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O bit sticky bit ('t') em diretórios com permissão de escrita pública (como o /tmp) garante que qualquer utilizador pode apagar qualquer ficheiro contido nesse diretório.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa política ABAC, os direitos de acesso são determinados pela avaliação de atributos dinâmicos do sujeito, do objeto e do ambiente.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O princípio da Complete Mediation exige que todos os acessos a objetos protegidos sejam inspecionados pelo Reference Monitor, sem atalhos ou caching de decisões.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O ficheiro '/etc/shadow' armazena as passwords em formato hash e é de leitura livre para qualquer processo em execução no sistema.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A Ambient Authority é uma das causas principais de vulnerabilidades do tipo 'Confused Deputy'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "No modelo DAC, um utilizador que tenha acesso de leitura a um ficheiro pode copiá-lo e conceder acesso a outros utilizadores que a política global não pretendia autorizar.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Se um ficheiro tiver permissões 'u=---, g=r--, o=rwx' e o utilizador que o tenta ler for o proprietário do ficheiro e pertencer ao grupo proprietário, o acesso é concedido.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "As Linux Capabilities decompõem a autoridade do superutilizador (root/UID 0) em privilégios mais granulares como CAP_NET_BIND_SERVICE.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No ficheiro '/etc/passwd', o terceiro e o quarto campos separados por dois pontos (:) representam, respetivamente:",
@@ -319,14 +244,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O mecanismo PAM (Pluggable Authentication Modules) permite alterar as políticas de autenticação do sistema de forma modular sem necessidade de recompilar as aplicações.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No Linux, quando um programa setuid-root é iniciado por um utilizador comum (UID 1000), o Real UID (RUID), o Effective UID (EUID) e o Saved UID (SUID) são atribuídos inicialmente como:",
@@ -355,24 +275,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O kernel do Linux efetua a verificação de permissões DAC avaliando as classes User, Group e Others de forma cumulativa (ou seja, se falhar no User, passa para o Group para acumular permissões).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O LSM (Linux Security Modules) é uma framework que permite aplicar políticas MAC de forma independente e complementar às tradicionais permissões DAC.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "A representação octal do comando 'chmod u=rwx,g=rx,o=' é equivalente a:",
@@ -388,24 +298,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A máscara de rede de criação de ficheiros (umask) afeta apenas diretórios e não ficheiros normais.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "No modelo de matriz de controlo de acessos, as Listas de Controlo de Acesso (ACLs) representam uma decomposição da matriz por colunas (associadas aos objetos).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Se o valor de umask de uma sessão de utilizador estiver definido como 027 (octal), quais serão as permissões atribuídas por omissão a um novo ficheiro regular e a um novo diretório criados por este utilizador? Selecione a permissão correta para cada tipo de recurso.",
@@ -527,54 +427,29 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A capability 'CAP_DAC_OVERRIDE' permite ao processo correspondente contornar todas as verificações de leitura, escrita e execução (bypass DAC).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A capability 'CAP_KILL' permite a um processo de um utilizador comum enviar sinais de interrupção (SIGKILL/SIGTERM) a qualquer processo em execução no sistema, independentemente do UID proprietário.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O comando 'capsh --print' é utilizado para mostrar as capabilities associadas a um ficheiro executável guardado em disco.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A capability 'CAP_NET_RAW' permite a um processo utilizar sockets do tipo RAW e PACKET, o que viabiliza a escuta e injeção direta de pacotes de rede (sniffing/spoofing).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O uso de capabilities em vez de binários setuid-root está alinhado com o princípio de segurança de 'Menor Privilégio' (Least Privilege) porque decompõe a autoridade total do root em permissões granulares.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual é o comando utilizado para listar as capabilities ativas num processo em execução a partir do seu ID de processo (PID)?",

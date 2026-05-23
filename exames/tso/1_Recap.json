@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 1: Revisão de Sistemas Operativos (OS Recap)",
+  "descricao": "Exame de revisão geral abrangendo os princípios de design do SO, estados de processos, transições de privilégios (User/Kernel), escalonamento de CPU, paginação, tabelas multi-nível, TLB, hierarquia de memória, HDDs, SSDs e o layout simplificado de sistemas de ficheiros (VFS/VSFS).",
+  "perguntas": [
+    {
+      "pergunta": "No design de sistemas operativos modernos, como se comparam as propriedades de isolamento (protection) e a minimização de overhead na execução de chamadas ao sistema?",
+      "opcoes": [
+        "O isolamento protege a memória e os dispositivos, mas a mudança de modo (user/kernel mode transition) via trap adiciona overhead de CPU, ilustrando o trade-off clássico entre proteção/conveniência e eficiência.",
+        "O isolamento absoluto impede por completo que programas de user-space façam E/S, eliminando qualquer overhead de traps no processador.",
+        "O sistema garante isolamento sem qualquer overhead usando compiladores JIT que traduzem código em user-space diretamente.",
+        "O custo de segurança e isolamento é nulo em CPUs modernas graças à desativação automática do Program Counter durante a escrita em disco."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Considere um processo P0 que está no estado Running e efetua um pedido de leitura assíncrono (ou síncrono bloqueante) ao disco. Que transição de estado ocorre no processo P0 e que ação toma o escalonador nesse exato momento?",
+      "opcoes": [
+        "P0 passa de Running para Ready, e o escalonador mantém a execução de P0 no CPU.",
+        "P0 transita de Running para Blocked, e o escalonador seleciona outro processo no estado Ready para executar (Running).",
+        "P0 é promovido para a fila de alta prioridade do MLFQ e o CPU é colocado em modo halt até à interrupção de E/S.",
+        "P0 transita diretamente de Running para Finished, forçando a desalocação do seu PCB da queue de bloqueados."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a distinção arquitetural fundamental ao nível do CPU entre um Trap e um Interrupt?",
+      "opcoes": [
+        "Um trap é gerado assincronamente por dispositivos de hardware externos, enquanto um interrupt é gerado de forma síncrona pelo processo que está a correr no CPU.",
+        "Um trap é gerado de forma síncrona pelo processo atualmente em execução (ex: syscall ou divisão por zero), enquanto um interrupt é assíncrono e causado por dispositivos de hardware externos (ex: término de leitura de disco).",
+        "Ambas as instruções mudam a CPU para user mode e desativam o registador de base e limite.",
+        "Traps suspendem a execução física do CPU por ciclos indeterminados, ao passo que os interrupts correm em user-space usando bibliotecas dinâmicas."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Relativamente aos algoritmos de escalonamento clássicos, qual das seguintes opções descreve corretamente as vantagens e desvantagens de Round Robin (RR) vs. Shortest Time-to-Completion First (STCF)?",
+      "opcoes": [
+        "RR minimiza o turnaround time médio, mas falha no tempo de resposta para sistemas interativos.",
+        "RR maximiza o tempo de resposta geral, enquanto STCF é ótimo para garantir o fair sharing de CPU.",
+        "RR é excelente para o tempo de resposta (response time) e sistemas interativos, mas é penalizado no turnaround time médio; ao contrário, STCF otimiza o turnaround time, mas prejudica o tempo de resposta e exige conhecimento prévio do tempo de execução.",
+        "STCF é péssimo para o tempo de turnaround médio, uma vez que privilegia tarefas longas em detrimento de curtas."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "No algoritmo Multi-Level Feedback Queue (MLFQ), qual é a finalidade do mecanismo de Priority Boost e como ajuda a resolver o problema da inanição (starvation)?",
+      "opcoes": [
+        "O Priority Boost fornece mais tempo de execução às tarefas longas sem as mover de fila.",
+        "Periodicamente, promove todos os processos do sistema para a fila de prioridade máxima, garantindo que processos intensivos em CPU (que desceram de nível) voltem a ter hipótese de correr e não fiquem sem tempo de CPU indefinidamente.",
+        "Reduz a prioridade de todas as tarefas prontas para o nível mínimo para forçar a execução do Garbage Collector.",
+        "Duplica o quantum de tempo (time slice) das filas inferiores sem alterar a prioridade relativa dos processos."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o principal problema arquitetural da segmentação clássica de memória com base e limite (base/bounds) que a paginação consegue resolver de forma eficiente?",
+      "opcoes": [
+        "A segmentação consome demasiados bits na tabela de páginas linear.",
+        "A segmentação divide a memória física em blocos de tamanho fixo, causando fragmentação interna catastrófica.",
+        "A segmentação divide a memória em pedaços de tamanho variável (segmentos), o que leva a fragmentação externa ao longo do tempo, dificultando a alocação de novos blocos contíguos; a paginação resolve isto dividindo o espaço em blocos de tamanho fixo.",
+        "A segmentação exige que a TLB valide e invalide offsets de disco de forma síncrona a cada ciclo de instrução."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Numa tabela de páginas multi-nível (Multi-level Page Table), qual é a função específica do Diretório de Páginas (Page Directory) e como é que ele reduz o consumo de memória física da tabela de páginas?",
+      "opcoes": [
+        "O Page Directory substitui a cache TLB e armazena os dados físicos reais das variáveis do processo.",
+        "O Page Directory mantém uma entrada (PDE) por unidade/bloco de páginas; se uma gama inteira de endereços virtuais não estiver em uso, a tabela de páginas correspondente a essa gama não é sequer alocada na memória física, poupando espaço substancial.",
+        "Ele força a alocação de todas as tabelas lineares em blocos contíguos no swap space do disco rígido.",
+        "Garante que as páginas de dados do utilizador sejam guardadas nos registadores de base e bounds do CPU."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que acontece exatamente quando o processador sofre um TLB miss num sistema operativo que utiliza paginação?",
+      "opcoes": [
+        "O CPU acede diretamente ao swap space para transferir o ficheiro executável do disco para a RAM física.",
+        "O CPU consulta a tabela de páginas (residente na memória RAM) para obter o mapeamento físico correspondente à VPN; a tradução é então carregada na TLB e a instrução é reexecutada.",
+        "O processo em execução é terminado imediatamente com um erro de segmentação (segmentation fault).",
+        "O verificador estático rejeita a instrução e suspende a execução até ao próximo context switch."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa situação em que uma aplicação realiza um varrimento sequencial (sequential scan) de um array gigante de dados que excede amplamente o tamanho físico da memória RAM, como se comportam as políticas FIFO e LRU?",
+      "opcoes": [
+        "Ambas apresentam o desempenho ideal (0% de falhas de página) porque tiram partido do princípio de localidade temporal.",
+        "Ambas apresentam um péssimo desempenho (thrashing/page faults quase constantes), pois limpam continuamente as páginas mais antigas da memória sem nunca reter as páginas que serão acedidas a seguir.",
+        "A política LRU mantém metade do array na cache indefinidamente, garantindo um hit rate estável de 50%.",
+        "O JIT compiler interceta o varrimento e aloca dinamicamente memória virtual extra nos registadores de base."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o principal papel desempenhado pela camada Virtual File System (VFS) na pilha de armazenamento (storage stack) de um sistema operativo Linux?",
+      "opcoes": [
+        "Traduzir diretamente blocos lógicos em comandos de baixo nível físicos do protocolo SATA ou PCIe.",
+        "Oferecer uma camada abstrata uniforme para as aplicações no topo de múltiplos sistemas de ficheiros reais (ex: ext4, ZFS, NFS), expondo uma interface POSIX comum com operações genéricas.",
+        "Controlar o desgaste dos blocos físicos de transístores em unidades SSD.",
+        "Gerir exclusivamente a fila de prioridades das tarefas no escalonador de CPU."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quais são os três principais componentes de tempo que constituem o tempo total de E/S necessário para ler ou escrever um setor num Hard Disk Drive (HDD)?",
+      "opcoes": [
+        "Tempo de barramento, tempo de JIT compilation e tempo de page fault.",
+        "Tempo de busca (seek time), tempo de atraso rotacional (rotational delay) e tempo de transferência do setor (transfer time).",
+        "Tempo de apagamento do bloco, tempo de programação da página e tempo de relocalização.",
+        "Tempo de context switch, tempo de leitura da TLB e tempo de interrupção do temporizador."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que distingue a política de escalonamento de disco SPTF (Shortest Positioning Time First) de políticas mais simples como SSTF (Shortest Seek Time First)?",
+      "opcoes": [
+        "SPTF foca-se apenas na distância radial das pistas, ignorando a rotação física do prato do disco.",
+        "SPTF considera simultaneamente o tempo de seek (movimento radial do braço) e o tempo de atraso rotacional (posição angular do setor sob a cabeça de leitura) para escolher o pedido mais rápido de posicionar.",
+        "SPTF corre inteiramente na RAM do utilizador e utiliza a biblioteca libpthread para sincronização.",
+        "SPTF reescreve dinamicamente as tabelas de inodes para reduzir a fragmentação interna de dados."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Relativamente às características físicas das memórias Flash utilizadas em SSDs, qual das seguintes regras impõe o maior desafio de design para operações de escrita/atualização?",
+      "opcoes": [
+        "Uma página de flash deve ser apagada individualmente antes de poder ser lida pela controladora.",
+        "Antes de poder escrever ou atualizar uma página de flash, o bloco inteiro que contém essa página tem de ser apagado (erased), sendo a unidade de apagamento (bloco) muito maior do que a unidade de escrita (página).",
+        "O apagamento e a escrita só podem ocorrer em transístores de silício operados a temperaturas sub-zero.",
+        "Cada transístor suporta um número infinito de ciclos de escrita, eliminando a utilidade de wear-leveling."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa unidade SSD moderna, qual é o papel desempenhado pela FTL (Flash Translation Layer) e pelo Garbage Collector (GC)?",
+      "opcoes": [
+        "A FTL traduz chamadas ao sistema do VFS em código C genérico, enquanto o GC limpa a memória RAM do utilizador.",
+        "A FTL mapeia endereços lógicos (expostos ao OS) para blocos/páginas físicas reais dos chips de flash, enquanto o GC identifica páginas inválidas (desatualizadas) e consolida/apaga blocos para libertar espaço contínuo para novas escritas.",
+        "Ambos residem na BIOS do sistema principal e gerem a integridade da cache L3 do processador.",
+        "Servem para sincronizar os relógios dos cores da CPU durante acessos concorrentes à memória volátil."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No layout de um Very Simple File System (VSFS) clássico (ex: disco simples de 64 blocos), para que servem os Bitmaps de Inodes e Bitmaps de Blocos?",
+      "opcoes": [
+        "Guardar a informação de segurança e os nomes dos utilizadores proprietários de cada ficheiro.",
+        "Indicar a alocação (se estão livres ou ocupados) de cada inode na tabela de inodes e de cada bloco de dados na região de dados, respetivamente.",
+        "Armazenar os ponteiros diretos e indiretos que contêm os dados dos ficheiros do utilizador.",
+        "Mapear os offsets de virtualização de páginas de memória para o swap space da RAM."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique detalhadamente o mecanismo utilizado pelo hardware e pelo sistema operativo para permitir que um processo em espaço de utilizador realize uma operação de escrita em disco com segurança. Na sua resposta, aborde a transição entre modos de execução (User/Kernel mode), o papel da instrução especial trap, o registo da trap table/trap handler e o retorno ao espaço de utilizador.",
+      "solucao": "O ciclo de execução seguro de uma operação privilegiada (ex: escrita em disco) baseia-se nos seguintes passos:\n\n1. **Modo de Execução:** O CPU dispõe de um bit de privilégio (modo de execução). Em **User Mode**, o processo de utilizador executa instruções sem acesso direto ao hardware. Qualquer tentativa de acesso direto resulta numa exceção/falha de hardware. O kernel corre em **Kernel Mode** com privilégios de hardware totais.\n2. **Pedido de Serviço (Syscall):** O processo invoca uma função de biblioteca (ex: `write()`), que internamente executa uma instrução especial de **trap** (ou chamada de sistema).\n3. **Transição e Salvaguarda:** A instrução trap faz o CPU mudar o bit de privilégio para Kernel Mode e transfere o controlo de execução para um endereço de memória pré-definido no kernel. Este endereço é configurado no arranque do SO na **Trap Table** (tabela de vetores de interrupção/traps), impedindo que o utilizador salte para código de kernel arbitrário. O CPU ou o SO grava o contexto do processo de utilizador (registadores, PC, etc.) na stack do kernel para preservação.\n4. **Tratamento:** O SO corre o **Trap Handler** adequado (rotina da syscall de escrita), verifica a validade dos parâmetros e executa a operação em nome do utilizador.\n5. **Retorno:** O SO executa a instrução especial **return-from-trap**. Esta instrução restaura o contexto anteriormente guardado, repõe o bit de privilégio do CPU para User Mode e devolve o controlo ao processo de utilizador no ponto imediatamente a seguir à syscall."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Analise o problema da utilização de Tabelas de Páginas Lineares (Linear Page Tables) em sistemas de 32 ou 64 bits em termos de consumo de memória física. Explique como é que o design de Tabelas de Páginas Multi-nível (Multi-level Page Tables) mitiga este problema de espaço e indique qual é o custo/desvantagem de desempenho associado a esta solução.",
+      "solucao": "**Problema de Espaço das Tabelas Lineares:**\nNuma tabela de páginas linear clássica, o sistema operativo necessita de manter uma entrada de tabela (PTE) para cada página virtual no espaço de endereçamento completo, mesmo que o processo apenas utilize uma fração minúscula dele (ex: apenas a stack e o código/heap). Num sistema de 32 bits com páginas de 4KB, a tabela linear consome cerca de 4MB por processo. Em sistemas de 64 bits, o tamanho de uma tabela de páginas linear completa seria impensavelmente gigantesco, impossibilitando a sua existência na RAM física.\n\n**Solução das Tabelas Multi-Nível:**\nAs tabelas multi-nível dividem a tabela linear em unidades do tamanho de uma página física. Adiciona-se uma estrutura intermédia chamada **Page Directory (Diretório de Páginas)**. Cada entrada do diretório (PDE) aponta para uma página da tabela de páginas se ela contiver mapeamentos válidos. Se uma grande zona do espaço virtual não estiver em uso (valid bit da PDE a 0), as tabelas de páginas correspondentes a essa gama não são sequer alocadas na memória física. Isto reduz o consumo de RAM de forma drástica, mantendo na memória apenas as partes ativas da tabela.\n\n**Trade-off/Custo de Desempenho:**\nA desvantagem é o aumento da latência de acesso à memória (aumento de acessos a memória física durante a tradução de endereços). Em vez de um único acesso à tabela de páginas linear, o CPU precisa de ler a PDE, depois a PTE, e finalmente o dado real na RAM física (duas ou mais leituras de tradução por cada acesso de dados). Esse custo de tradução é mitigado na prática com o uso da cache de hardware **TLB (Translation Look-aside Buffer)**."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No design da pilha de armazenamento (storage stack), o sistema operativo e as aplicações usam buffers em RAM para otimizar as operações de escrita no disco. Analise o trade-off de desempenho vs. durabilidade de dados associado a esta técnica, explicando o que acontece em caso de falha de energia do sistema e como as aplicações críticas (ex: bases de dados) contornam este risco.",
+      "solucao": "**O Trade-off Desempenho vs. Durabilidade:**\n- **Desempenho:** Dispositivos físicos de armazenamento (HDDs e SSDs) são ordens de grandeza mais lentos do que a memória RAM. Para evitar que as aplicações fiquem bloqueadas à espera do disco a cada operação `write()`, o SO armazena as atualizações numa cache em RAM (Unified Page Cache) e responde imediatamente à aplicação que a escrita foi concluída, adiando a sincronização física com o disco (dirty pages flushing) para o background. Isto permite agrupar (batch) escritas contíguas e reduzir imenso a latência.\n- **Durabilidade:** Os dados no buffer residem na memória RAM, que é volátil. Se o sistema sofrer uma quebra de energia (power loss) ou um crash antes de o SO descarregar (flush) as páginas para o disco, as alterações perdem-se por completo ou o sistema de ficheiros fica num estado inconsistente.\n\n**Como as aplicações críticas contornam o risco:**\nAplicações que exigem garantias rígidas de integridade e persistência de dados (como sistemas de bases de dados relacionais) contornam este risco usando chamadas ao sistema explícitas de sincronização de ficheiros, tais como **`fsync()`** ou a flag **`O_SYNC`** na abertura de ficheiros. Estas operações forçam o SO a suspender a aplicação até que todas as páginas 'sujas' (dirty) e os metadados do inode correspondentes sejam integralmente transferidos e escritos de forma segura nos pratos magnéticos ou transístores não-voláteis do hardware físico, contornando a volatilidade do buffer cache."
+    }
+  ]
+}

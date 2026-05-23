@@ -3,119 +3,64 @@
   "descricao": "Simulador de exame.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
       "pergunta": "O utilizador `alice` pode criar novos ficheiros na diretoria `containers`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
       "pergunta": "A diretoria `containers` possui o bit de set-group-id (SGID) ativo, o que significa que os novos ficheiros criados dentro desta herdarão o grupo `docker`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
       "pergunta": "O ficheiro `script.sh` pode ser modificado pelo utilizador `charlie`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
       "pergunta": "O ficheiro `tool` será executado com os privilégios do utilizador que o invocar, independentemente de quem for o invocador.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
       "pergunta": "A execução do comando `chmod g-s containers` pelo utilizador `root` removerá a capacidade de os utilizadores do grupo `docker` acederem ao conteúdo da diretoria.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Num sistema de Controlo de Acesso Discricionário (DAC), o administrador do sistema é a única entidade autorizada a alterar as permissões de um ficheiro pertencente a um utilizador comum.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O princípio do menor privilégio (least privilege) dita que um programa ou utilizador deve operar com o conjunto de permissões estritamente necessário para completar a sua tarefa, nem mais, nem menos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A biometria comportamental (ex: dinâmica de digitação, assinatura) é tipicamente infalível e livre de ruído, garantindo sistematicamente uma taxa de Falso Aceite (FAR) de exatamente 0%.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao utilizar as Linux Capabilities, conceder a flag `CAP_SYS_ADMIN` a um processo não privilegiado é a prática recomendada para evitar a execução de serviços inteiros sob o UID 0, visto ser uma permissão de impacto muito reduzido.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Se a palavra-passe de um utilizador estiver comprometida, um sistema de controlo de acesso baseado em papéis (RBAC) impede automaticamente o atacante de aceder aos recursos permitidos ao utilizador.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "escrita",
       "pergunta": "Explique o risco de segurança associado a ficheiros executáveis com o bit de `setuid` ativo quando o seu proprietário é o utilizador `root`. Identifique uma alternativa mais moderna nos sistemas Linux para contornar a necessidade de utilizar o `setuid root`.",
-      "opcoes": [
-        "percebido",
-        "não percebido"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": "Risco do setuid root e Alternativa:\n\n- Risco: Quando um executável tem o bit setuid ativo e pertence a root, qualquer utilizador que o execute corre o programa com privilégios totais de root. Se o programa tiver vulnerabilidades (como buffer overflows), o atacante pode explorá-las para obter uma root shell.\n- Alternativa: Linux Capabilities. Permite atribuir privilégios específicos e granulares a um executável (ex: usar 'setcap cap_net_bind_service=+ep' para permitir ligar a portas < 1024) sem conceder acesso root total."
     },
     {
       "pergunta": "Numa comunicação de rede segura e robusta, a integridade dos dados cifrados bem como a autenticidade da origem de cada pacote são tipicamente asseguradas em conjunto por qual das seguintes abordagens?",
@@ -222,14 +167,9 @@
       ]
     },
     {
+      "tipo": "escrita",
       "pergunta": "Considere que pretende desenhar um sistema seguro de armazenamento de ficheiros na Cloud, que siga as premissas de End-to-End Encryption (o provedor Cloud não tem acesso ao conteúdo dos ficheiros). Como utilizador final, só tem de memorizar uma única palavra-passe para garantir este processo. Apresente numa visão arquitetónica, que algoritmos, primitivas e fluxos criptográficos aplicaria para garantir de forma estanque a Derivação de Chaves, a Confidencialidade e a Autenticidade dos seus ficheiros no processo de guardar e recuperar da Cloud.",
-      "opcoes": [
-        "percebido",
-        "não percebido"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": "Arquitetura E2EE para Cloud:\n\n1. Derivação de Chaves (KDF): Utiliza-se Argon2id (com salt único gerado aleatoriamente e guardado localmente/na cloud) sobre a password para derivar uma Master Key forte.\n2. Confidencialidade e Autenticidade (AEAD): Cifra-se cada ficheiro localmente antes do upload usando cifra simétrica autenticada, como AES-256-GCM ou ChaCha20-Poly1305, gerando o criptograma e uma tag de autenticação.\n3. Fluxo: Na escrita, cifra-se localmente e envia-se o criptograma, tag e IV. Na leitura, descarrega-se e usa-se a chave derivada para decifrar e verificar a integridade da tag."
     }
   ]
 }

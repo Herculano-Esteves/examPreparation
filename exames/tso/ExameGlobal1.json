@@ -1,0 +1,149 @@
+{
+  "titulo": "Exame Global 1: Sistemas, E/S e Monitorização Avançada",
+  "descricao": "Exame integrado abrangendo eBPF, FUSE, Redução de Dados, Durabilidade, Escalonamento e APIs Modernas com perguntas cruzadas e cenários complexos.",
+  "perguntas": [
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre a utilização de eBPF para monitorização de desempenho no subsistema de armazenamento em lote com io_uring.",
+      "opcoes": [
+        "O eBPF permite intercetar a submissão de SQEs ligando kprobes às funções internas do io_uring (ex: io_submit_sqes), permitindo medir a latência sem adicionar syscalls no caminho crítico.",
+        "Os tracepoints no nível do driver de bloco (como block_rq_issue) podem ser correlacionados com dados da SQ usando BPF_MAP_TYPE_HASH para monitorizar a latência de hardware de cada E/S individual.",
+        "O eBPF Verifier garante que qualquer programa anexado a um tracepoint de E/S pode aceder a ponteiros de utilizador sem usar ajudantes como bpf_probe_read_user.",
+        "O uso de eBPF para instrumentar a fila CQ do io_uring é impossível porque a CQ é consumida inteiramente em espaço de utilizador sem intervenção do kernel no modo padrão."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Que impactos e comportamentos ocorrem quando ativamos a cache de escrita (writeback cache) num sistema de ficheiros baseado em FUSE?",
+      "opcoes": [
+        "As escritas pequenas da aplicação são agrupadas no Page Cache do kernel antes de serem enviadas para o daemon FUSE, melhorando o débito à custa de relaxar a consistência imediata dos dados.",
+        "Todas as operações de escrita passam a contornar o Page Cache do kernel, efetuando E/S síncrona direta (O_DIRECT) para o daemon FUSE.",
+        "Se o daemon FUSE falhar ou for morto abruptamente, as páginas 'sujas' ainda presentes no Page Cache do kernel podem ser perdidas, resultando em perda de dados não sincronizados.",
+        "O writeback cache impossibilita o uso de FUSE passthrough."
+      ],
+      "solucao": [
+        0,
+        2
+      ]
+    },
+    {
+      "pergunta": "Considere a integração de escalonamento multiprocessado (MQMS) com o SPDK. Quais das seguintes afirmações são verdadeiras?",
+      "opcoes": [
+        "O SPDK prescinde de escalonadores como CFS ou EEVDF para o caminho de E/S, correndo loops de polling ativos (reactors) que assumem controlo total de cores de CPU dedicados.",
+        "No SPDK, a concorrência é gerida com locks globais na fila única de submissão do driver de espaço de utilizador.",
+        "Ao usar o Actor Model, cada reator do SPDK acede de forma isolada a um queue pair NVMe dedicado, eliminando locks e garantindo que o escalonamento não sofre de contenção por partilha de memória.",
+        "O balanceamento de carga no SPDK é feito automaticamente pelo CFS através de migração de threads reactors."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "pergunta": "Identifique a(s) afirmação(ões) correta(s) sobre durabilidade e consistência numa pilha de armazenamento que corre um FUSE passthrough sobre um disco com cache de escrita volátil ativa.",
+      "opcoes": [
+        "Uma chamada a fsync() no ficheiro aberto via FUSE garante que os dados residem nos pratos/flash físicos do disco, desde que o FUSE envie o pedido correspondente e a pilha subjacente emita comandos flush/barrier ao hardware.",
+        "Se a aplicação abrir o ficheiro com O_SYNC, a chamada write() só retorna quando os dados estão fisicamente seguros no suporte físico de armazenamento.",
+        "O uso de fdatasync() atualiza sempre todos os metadados do ficheiro, incluindo o mtime e atime, exatamente igual a fsync().",
+        "Torn writes podem ocorrer se o sistema falhar a meio de uma escrita de bloco de 4KB onde o hardware físico apenas garante escritas atómicas de setores de 512 bytes."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Num teste de benchmarking de um sistema de ficheiros que implementa deduplicação e compressão de dados, selecione as falhas metodológicas comuns.",
+      "opcoes": [
+        "Utilizar o utilitário dd para escrever um ficheiro preenchido exclusivamente com zeros (/dev/zero), o que resulta em rácios de compressão e deduplicação irrealistas de 100%, mascarando o verdadeiro débito de escrita de hardware.",
+        "Realizar testes sequenciais repetidos sem limpar a cache de páginas (drop_caches), medindo a performance de leitura da RAM em vez de medir a performance do armazenamento físico.",
+        "Usar geradores de dados aleatórios de alta entropia para testar a compressão, sabendo que dados puramente aleatórios não contêm redundância e representam o pior caso realista.",
+        "Não aquecer a cache antes de medir a latência em estado estacionário."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Quais são as implicações de segurança e desempenho ao utilizar o eBPF para tracing de chamadas do sistema?",
+      "opcoes": [
+        "O eBPF corre em kernel-space, reduzindo drasticamente o overhead de context switches em comparação com ferramentas clássicas baseadas em ptrace.",
+        "O Verificador do eBPF analisa estaticamente o programa e garante que este termina (ausência de loops infinitos sem condição de paragem explícita) e não acede a memória inválida.",
+        "Programas de eBPF podem escrever livremente em qualquer endereço de memória física de processos de utilizador para corrigir erros a quente.",
+        "O eBPF Verifier garante imunidade total contra overhead de CPU, mesmo que coloquemos um programa complexo ligado a um kprobe de alta frequência como o scheduler do CPU."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Sobre técnicas de Redução de Dados (Data Reduction), indique a(s) afirmação(ões) correta(s):",
+      "opcoes": [
+        "O particionamento de tamanho fixo (Fixed-Size Chunking) sofre do efeito de deslocamento (shift effect): uma inserção de 1 byte no início do ficheiro altera os hashes de todos os blocos seguintes, arruinando a deduplicação.",
+        "O Content-Defined Chunking (CDC) baseado em Rabin Fingerprints evita o shift effect porque os limites dos blocos são definidos com base no conteúdo deslizante dos dados.",
+        "A deduplicação baseada em ficheiro completo (File-level deduplication) é sempre mais granulada e eficiente do que a deduplicação ao nível do bloco.",
+        "O índice de deduplicação disperso (sparse index) reduz a pegada em memória RAM mantendo apenas uma porção dos hashes em cache, recorrendo à localidade temporal/espacial para carregar os restantes sob procura."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "No io_uring, como se comparam as opções de ordenação IOSQE_IO_LINK e IOSQE_IO_DRAIN?",
+      "opcoes": [
+        "A flag IOSQE_IO_LINK cria uma cadeia linear de SQEs onde cada um só inicia após a conclusão com sucesso do anterior; a falha de um cancela os restantes na cadeia.",
+        "A flag IOSQE_IO_DRAIN atua como uma barreira global, garantindo que o SQE marcado só executa quando todos os SQEs submetidos anteriormente terminarem.",
+        "IOSQE_IO_LINK obriga a uma chamada de sistema síncrona imediata.",
+        "Ambos os modos garantem consistência transacional atómica no hardware SSD sem intervenção do sistema de ficheiros."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Considerando o algoritmo 2Q de substituição de páginas do Page Cache, selecione a(s) opção(ões) correta(s):",
+      "opcoes": [
+        "O 2Q resolve o problema da poluição da cache dividindo o buffer em duas filas: uma fila FIFO simples para páginas acedidas uma única vez e uma fila tipo LRU para páginas com acessos frequentes.",
+        "Páginas que entram na fila FIFO simples (A1in) e são reacedidas após saírem desta (mas residindo na fila A1out de descritores) são promovidas diretamente à fila ativa (Am).",
+        "O 2Q funciona pior do que o LRU tradicional para varrimentos sequenciais de ficheiros gigantes.",
+        "O algoritmo 2Q requer encriptação AES-XTS em RAM para proteger os descritores de páginas."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a relação entre Encriptação e Deduplicação num sistema de ficheiros moderno com suporte a redução de dados?",
+      "opcoes": [
+        "Se a encriptação (ex: AES-XTS com chaves distintas por utilizador) for aplicada no cliente antes de os dados chegarem ao motor de deduplicação, a taxa de deduplicação global cairá para quase zero.",
+        "A deduplicação na origem (source deduplication) requer chaves convergentes (onde a chave é o hash criptográfico do próprio conteúdo) para permitir deduplicar dados encriptados entre utilizadores distintos.",
+        "A encriptação AES-XTS altera o tamanho físico dos blocos, impedindo o alinhamento de 4KB exigido por O_DIRECT.",
+        "A compressão sem perdas (lossless) deve ser sempre executada após a encriptação, pois dados cifrados contêm mais padrões repetitivos fáceis de comprimir."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Desenhe e descreva detalhadamente a arquitetura de um sistema de monitorização baseado em eBPF desenhado para medir a latência introduzida na camada de blocos do sistema operativo por requisições originadas em io_uring. Identifique em que funções/eventos do kernel colocaria os pontos de trace (kprobes/tracepoints), quais os tipos de mapas eBPF que usaria para correlacionar o pedido com a sua conclusão, e como o user-space acede a esta informação minimizando context switches.",
+      "solucao": "**1. Pontos de Instrumentação (Probes):**\n- **Submissão (Start):** Coloca-se um kprobe ou tracepoint no ponto onde as requisições io_uring entram na fila de blocos. Um local ideal é o tracepoint `block_rq_issue` (quando o pedido é enviado para o driver de dispositivo) ou um kprobe em `io_submit_sqe` (para medir o tempo de processamento inicial do io_uring).\n- **Conclusão (End):** Coloca-se um tracepoint em `block_rq_complete` (quando o dispositivo físico completa a transferência de dados e despoleta a interrupção/conclusão).\n\n**2. Estrutura de Mapas eBPF:**\n- Utiliza-se um mapa do tipo **`BPF_MAP_TYPE_HASH`** (ex: `request_timestamps`). A chave do mapa será o identificador único do pedido de bloco (ex: o endereço da estrutura `struct request *` ou o ID do driver de bloco) e o valor será o timestamp atual do sistema obtido com `bpf_ktime_get_ns()`. \n- Na função de início (`block_rq_issue`), o programa eBPF guarda o timestamp atual no mapa usando a referência do pedido como chave.\n- Na função de fim (`block_rq_complete`), o programa eBPF faz um lookup na tabela hash usando a referência do pedido, calcula a latência (`fim - inicio`), apaga a entrada do mapa para evitar fugas de memória, e envia o resultado para o espaço de utilizador.\n\n**3. Comunicação com User-space e Minimização de Overhead:**\n- Para transferir as métricas de latência calculadas para o espaço de utilizador sem efetuar syscalls dispendiosas de pooling ou leitura cíclica de hashes, utiliza-se um mapa do tipo **`BPF_MAP_TYPE_RINGBUF`** (BPF Ring Buffer).\n- O Ring Buffer é mapeado em memória (mmap) pelo agente em user-space. O programa eBPF no kernel faz `bpf_ringbuf_output()` para empurrar os dados de latência diretamente para o buffer circular. O user-space lê estes eventos de forma eficiente com polling sem interrupções frequentes (batching de eventos), minimizando context switches ao limite teórico."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num sistema que utiliza um sistema de ficheiros FUSE a correr em modo passthrough, analise o percurso completo de E/S de uma aplicação de utilizador que executa consecutivamente as chamadas write(), rename() e fsync(). Identifique onde residem os maiores riscos de inconsistência por crash do sistema (ex: lost writes ou torn writes) e discuta o papel do journaling e do Copy-on-Write (CoW) na mitigação destes problemas na camada física subjacente.",
+      "solucao": "**1. Fluxo de Execução das Chamadas:**\n- **`write()`**: A aplicação escreve dados. O VFS do kernel Linux interceta a escrita. No modo FUSE passthrough, a requisição é redirecionada para o daemon FUSE em user-space, que por sua vez emite uma escrita correspondente no sistema de ficheiros físico local subjacente. Se a cache de escrita estiver ativa no kernel (writeback), os dados ficam no Page Cache e a escrita retorna imediatamente (suja). Se O_DIRECT estiver ativo, os dados contornam a cache do kernel e vão diretamente para o driver de blocos subjacente.\n- **`rename()`**: A alteração dos metadados (atualização de diretórios e apontadores de inodes) é propagada através do VFS do kernel e do daemon FUSE até ao sistema de ficheiros local. Esta operação altera as estruturas lógicas do diretório.\n- **`fsync()`**: Força a descarga imediata de todas as páginas 'sujas' no Page Cache do ficheiro e força o sistema de ficheiros subjacente a emitir um comando flush de barramento (como o comando SCSI SYNCHRONIZE CACHE ou NVMe Flush) para garantir que a cache interna volátil do SSD/HDD descarrega os dados para o suporte físico não volátil.\n\n**2. Riscos de Inconsistência (Crash):**\n- **Lost Writes (Escritas Perdidas):** Se ocorrer uma falha de energia antes de o `fsync()` ser executado ou reconhecido pelo hardware físico, os dados que a aplicação acreditava estarem guardados após o `write()` e `rename()` podem estar perdidos na cache volátil do disco ou no Page Cache.\n- **Torn Writes (Escritas Incompletas):** Ocorrem se o sistema falhar a meio do processo de escrita física de um bloco de 4KB (por exemplo, se o SSD sofrer um corte de energia e apenas 2KB de dados forem escritos na flash física, violando a atomicidade do bloco do sistema de ficheiros).\n\n**3. Mitigação por Journaling vs. Copy-on-Write (CoW):**\n- **Journaling:** O sistema de ficheiros subjacente escreve primeiro as intenções de alteração (metadados e opcionalmente dados no modo journal=data) numa área circular dedicada e sequencial (o jornal) no disco. Só depois de o jornal estar em estado seguro (sincronizado) é que altera os blocos reais. Se ocorrer um crash, o kernel lê o jornal no boot e reconstrói o estado consistente fazendo replay das transações completas ou descartando as incompletas. Não evita torn writes nos dados a menos que se use journaling de dados completo.\n- **Copy-on-Write (CoW):** Sistemas de ficheiros baseados em CoW (como Btrfs ou ZFS) nunca sobrescrevem blocos de dados ou metadados ativos no local. Em vez disso, escrevem os novos dados numa localização vazia do disco física e, em seguida, atualizam atomicamente os apontadores de metadados superiores. Desta forma, se ocorrer um crash a meio da escrita, o ponteiro de metadados antigo ainda aponta para a versão antiga e consistente dos dados, eliminando por completo o risco de torn writes e garantindo atomicidade absoluta sem o overhead duplo de escrita de um jornal tradicional."
+    }
+  ]
+}

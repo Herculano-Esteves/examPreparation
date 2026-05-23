@@ -87,14 +87,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O protocolo HTTP original é considerado um protocolo sem estado (stateless).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes operações/métodos HTTP é tipicamente recomendada e desenhada semanticamente para obter/descarregar um recurso sem alterar o estado do servidor?",
@@ -148,14 +143,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O DOM (Document Object Model) representa a hierarquia estruturada de objetos de uma página web sob a forma de uma árvore, permitindo que scripts JavaScript a manipulem em tempo de execução.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No modelo de ameaças web, o 'Web Attacker' (ou Atacante Web Interno) é caracterizado por:",
@@ -194,14 +184,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A Same Origin Policy (SOP) impede totalmente que uma página web faça pedidos HTTP (como GET) a servidores de outras origens.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Relativamente ao mecanismo CORS (Cross-Origin Resource Sharing), selecione as afirmações corretas:",
@@ -269,24 +254,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A ausência da flag 'HttpOnly' num cookie de sessão permite a leitura do mesmo por código JavaScript a correr na página, tornando a sessão vulnerável a roubo em caso de injeção de scripts (XSS).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A flag 'Secure' instrui o browser a apenas transmitir o respetivo cookie em canais protegidos por HTTPS (criptografados).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O ataque CSRF (Cross-Site Request Forgery) explora que característica do comportamento padrão de gestão de cookies dos browsers?",
@@ -350,24 +325,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O protocolo HTTP/2 introduziu o multiplexing, o que permite enviar múltiplos pedidos e respostas de forma concorrente sobre a mesma ligação TCP.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A Same Origin Policy (SOP) garante que os recursos públicos enviados pelo servidor (como imagens pessoais) não revelam quaisquer informações sobre o estado do utilizador.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     }
   ]
 }

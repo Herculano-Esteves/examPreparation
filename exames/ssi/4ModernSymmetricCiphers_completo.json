@@ -99,134 +99,69 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "As cifras sequenciais (stream ciphers) baseiam-se na geração de uma sequência de chaves de comprimento arbitrário (keystream) a partir de uma chave curta de tamanho fixo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O uso de um NONCE (Number used only ONCE) em cifras sequenciais serve para garantir a confidencialidade da chave secreta face a ataques passivos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Nas cifras sequenciais síncronas, a perda ou inserção de um bit no criptograma resulta na perda de sincronização da decifragem, gerando lixo a partir desse ponto.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma cifra sequencial auto-sincronizadora (como o modo CFB) calcula o próximo bit da keystream com base nos últimos 'n' bits do criptograma, permitindo recuperar a sincronização após perda de bits na rede.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Cifras sequenciais clássicas como A5 (GSM), E0 (Bluetooth) e CSS (DVD) são atualmente reconhecidas pela comunidade científica como oferecendo garantias de segurança robustas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo ChaCha20 é um exemplo moderno e seguro de uma cifra sequencial (stream cipher).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "No contexto de cifras por blocos, a propriedade de 'Confusão' assegura que a relação estatística entre o criptograma e a chave seja o mais complexa possível.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo de operação ECB (Electronic Code Book) é considerado seguro para cifrar mensagens longas com múltiplos blocos porque mascara os padrões repetitivos do texto claro.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O vetor de inicialização (IV) no modo CBC deve ser mantido em segredo absoluto, tal como a chave de encriptação.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Os modos de operação CFB, OFB e CTR partilham a característica de utilizarem apenas o algoritmo de cifragem (E) da cifra por blocos quer para cifrar quer para decifrar.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo CTR (Counter) permite a paralelização de processos de cifragem e decifragem porque o cálculo da keystream de cada bloco depende apenas de um contador previsível.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A maleabilidade (malleability) descreve a facilidade com que um atacante consegue realizar alterações intencionais e previsíveis no texto claro através da manipulação do criptograma.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Cifras com propagação de erro nula (como síncronas) apresentam tipicamente baixa maleabilidade.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "O que caracteriza a encriptação autenticada (AEAD)?",
@@ -268,74 +203,39 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Se a chave de cifra AES for alterada em apenas 1 bit, os passos de difusão garantem que quase todo o criptograma gerado se altere de forma imprevisível.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A cifra por blocos 3DES (Triple DES) consiste na aplicação sucessiva do algoritmo DES três vezes com chaves independentes, aumentando o tamanho efetivo de chave.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo OFB (Output Feedback) gera uma keystream que depende do texto claro, pelo que os blocos de keystream só podem ser calculados à medida que a mensagem é escrita.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo CFB (Cipher Feedback) é sequencial porque o cálculo da keystream do bloco seguinte depende da cifragem do bloco de criptograma anterior.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo de cifra RC4, outrora muito utilizado em redes Wi-Fi (WEP), é atualmente considerado seguro e recomendado para novas aplicações de software.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na cifra AES, o passo MixColumns consiste na multiplicação do estado por uma matriz fixa, sendo esta operação responsável pela difusão vertical entre os bytes.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um erro de transmissão num único bit de um criptograma cifrado com uma cifra síncrona pura provoca a corrupção total do resto da mensagem decifrada.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Como é internamente representado o bloco de dados de 128 bits no algoritmo AES para efeitos de processamento das suas transformações?",
@@ -377,14 +277,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A operação de decifragem do AES (Decryption) utiliza exatamente as mesmas matrizes e S-boxes da cifragem, na mesma ordem de passos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "No passo SubBytes do AES, a S-box mapeia cada byte de entrada num byte de saída. Por exemplo, o byte em hexadecimal '6D' (01101101) é mapeado em:",
@@ -400,14 +295,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A tecnologia AES-NI (Advanced Encryption Standard New Instructions) refere-se a uma extensão do conjunto de instruções x86 que acelera a cifragem e decifragem AES em hardware nas CPUs modernas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Comparando cifras por blocos e cifras sequenciais, assinale a afirmação correta:",
@@ -465,34 +355,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A técnica de 'Ciphertext Stealing' é uma alternativa ao preenchimento tradicional de padding que permite cifrar mensagens que não são múltiplos do tamanho do bloco sem aumentar o tamanho do criptograma final.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A cifra DES utiliza chaves de 64 bits das quais apenas 56 bits são efetivos (sendo os restantes 8 bits usados para verificação de paridade).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O processo de substituição não-linear (S-box) do AES é considerado vulnerável a ataques de fatorização inteira.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Qual o número de rondas utilizado no AES quando a chave secreta tem o tamanho de 256 bits?",
@@ -508,14 +383,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em termos de propagação de erro, o modo de operação CFB assemelha-se ao modo CBC, pois um erro num bit do criptograma afeta o bloco corrente e um bit do bloco seguinte.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O algoritmo de cifra simétrica ChaCha20, estruturado como uma cifra sequencial (stream cipher), baseia-se em quais dos seguintes conceitos e estruturas de execução?",

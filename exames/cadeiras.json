@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ssi",
+    "nome": "Segurança de Sistemas de Informação",
+    "sigla": "SSI",
+    "icon": "fa-shield-halved",
+    "descricao": "Segurança, criptografia, controlo de acessos, capabilities e segurança aplicacional.",
+    "exames_count": 21,
+    "index_path": "exames/ssi/index.json"
+  },
+  {
+    "id": "tso",
+    "nome": "Tecnologias de Sistemas Operativos",
+    "sigla": "TSO",
+    "icon": "fa-gears",
+    "descricao": "Monitorização, observabilidade, eBPF, benchmarking, APIs de E/S modernas, deduplicação e escalonamento.",
+    "exames_count": 14,
+    "index_path": "exames/tso/index.json"
+  }
+]

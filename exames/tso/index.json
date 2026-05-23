@@ -1,0 +1,100 @@
+[
+  {
+    "id": "1_Recap",
+    "titulo": "Exame do Capítulo 1: Revisão de Sistemas Operativos (OS Recap)",
+    "descricao": "Exame de revisão geral abrangendo os princípios de design do SO, estados de processos, transições de privilégios (User/Kernel), escalonamento de CPU, paginação, tabelas multi-nível, TLB, hierarquia de memória, HDDs, SSDs e o layout simplificado de sistemas de ficheiros (VFS/VSFS).",
+    "path": "exames/tso/1_Recap.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "2_Observability",
+    "titulo": "Exame do Capítulo 2: Observabilidade de Sistemas",
+    "descricao": "Exame aprofundado com foco em conceitos de monitorização vs. observabilidade, debugging, profiling, os três pilares, pontos de recolha, transporte de dados, armazenamento e trade-offs.",
+    "path": "exames/tso/2_Observability.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "3_eBPF",
+    "titulo": "Exame do Capítulo 3: eBPF (Extended Berkeley Packet Filter)",
+    "descricao": "Exame abrangente focado em conceitos de arquitetura do eBPF, Verificador, JIT, Maps, Tracing Estático/Dinâmico, CO-RE, BTF e limitações.",
+    "path": "exames/tso/3_eBPF.json",
+    "perguntas_count": 31
+  },
+  {
+    "id": "4_Benchmarking",
+    "titulo": "Exame do Capítulo 4: Benchmarking de Sistemas",
+    "descricao": "Exame rigoroso e abrangente centrado na teoria de benchmarking, análise de workloads reais vs. sintéticos, metodologias experimentais, comportamento de latência e throughput, trade-offs e boas práticas estatísticas (benchmarking crimes).",
+    "path": "exames/tso/4_Benchmarking.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "5_FUSE",
+    "titulo": "Exame do Capítulo 5: File System in User Space (FUSE)",
+    "descricao": "Exame aprofundado e rigoroso focado na arquitetura FUSE, fluxo de pedidos de I/O em FUSE Passthrough, APIs low-level/high-level, use cases (cifragem, compressão, sistemas de rede) e os trade-offs de desempenho e correção (correctness).",
+    "path": "exames/tso/5_FUSE.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "6_DataReduction",
+    "titulo": "Exame do Capítulo 6: Redução e Encriptação de Dados",
+    "descricao": "Exame avançado focado na teoria e arquitetura de redução de dados (compressão lossless, deduplicação de bloco/ficheiro, Fixed vs Content-Defined Chunking, índices parciais/esparsos, CoW) e encriptação de armazenamento (AES-XTS).",
+    "path": "exames/tso/6_DataReduction.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "7_DataCaching",
+    "titulo": "Exame do Capítulo 7: Caching e Durabilidade de Dados",
+    "descricao": "Exame avançado focado na arquitetura de caches do sistema operativo (Page Cache, dentry/inode caches), substituição 2Q, falhas de consistência (lost/torn writes), chamadas de sincronização (fsync, fdatasync, sync), flags (O_SYNC, O_DIRECT) e journaling.",
+    "path": "exames/tso/7_DataCaching.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "8_ModernStorageAPIs",
+    "titulo": "Exame do Capítulo 8: APIs Modernas de Armazenamento",
+    "descricao": "Exame rigoroso e completo sobre APIs de I/O assíncronas de alta performance, comparando POSIX I/O, libaio, io_uring (SQ/CQ, SQPOLL/IOPOLL, linking, DRAIN) e SPDK (User-space NVMe driver, Actor Model, Reactors).",
+    "path": "exames/tso/8_ModernStorageAPIs.json",
+    "perguntas_count": 18
+  },
+  {
+    "id": "9_CPUScheduling",
+    "titulo": "Exame do Capítulo 9: Escalonamento de CPU",
+    "descricao": "Exame aprofundado sobre políticas de escalonamento de CPU (Lottery, Stride, CFS, EEVDF) e escalonamento multiprocessado (SQMS, MQMS, coerência e afinidade de cache, roubo de trabalho).",
+    "path": "exames/tso/9_CPUScheduling.json",
+    "perguntas_count": 31
+  },
+  {
+    "id": "ExameGlobal1",
+    "titulo": "Exame Global 1: Sistemas, E/S e Monitorização Avançada",
+    "descricao": "Exame integrado abrangendo eBPF, FUSE, Redução de Dados, Durabilidade, Escalonamento e APIs Modernas com perguntas cruzadas e cenários complexos.",
+    "path": "exames/tso/ExameGlobal1.json",
+    "perguntas_count": 12
+  },
+  {
+    "id": "ExameGlobal2",
+    "titulo": "Exame Global 2: Arquitetura de Caches, Desempenho e Concorrência",
+    "descricao": "Segundo exame global, com foco em concorrência de E/S, políticas de escalonamento (EEVDF), compressão/deduplicação e o impacto de profiling com eBPF.",
+    "path": "exames/tso/ExameGlobal2.json",
+    "perguntas_count": 12
+  },
+  {
+    "id": "ExameGlobal3",
+    "titulo": "Exame Global 3: Latência de Cauda, APIs Modernas e Otimizações de Hardware",
+    "descricao": "Terceiro exame global, abordando latência de cauda, buffers e zero-copy (io_uring/SPDK), amplificação de escrita (WAF), eBPF profiling, e benchmarking de armazenamento.",
+    "path": "exames/tso/ExameGlobal3.json",
+    "perguntas_count": 12
+  },
+  {
+    "id": "TSO_ExameTeoricoModelo",
+    "titulo": "Exame Teórico Modelo TSO",
+    "descricao": "Exame focado em conceitos teóricos, cobrindo Observabilidade, eBPF, APIs de E/S, FUSE, SPDK, Redução de Dados, Durabilidade e Escalonamento de CPU.",
+    "path": "exames/tso/TSO_ExameTeoricoModelo.json",
+    "perguntas_count": 30
+  },
+  {
+    "id": "TSO_TesteModelo",
+    "titulo": "Teste Modelo TSO",
+    "descricao": "Teste modelo completo cobrindo Observabilidade, eBPF, Benchmarking, APIs de E/S, Deduplicação e Escalonamento.",
+    "path": "exames/tso/TSO_TesteModelo.json",
+    "perguntas_count": 8
+  }
+]

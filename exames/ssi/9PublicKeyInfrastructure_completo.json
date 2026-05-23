@@ -3,14 +3,9 @@
   "descricao": "Base de dados super completa (35 questões) cobrindo certificação de chaves públicas, PGP e Web of Trust, infraestruturas PKI (CAs, Sub-CAs, cadeias de confiança), normas ASN.1 (DER/PEM), extensões críticas X.509v3, revogação (CRLs, OCSP, Pinning) e enquadramentos legais (eIDAS, QES, PAdES).",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "A criptografia de chave pública elimina totalmente o problema da autenticidade das chaves, uma vez que as chaves públicas podem ser distribuídas abertamente sem qualquer risco de segurança ou ataques Man-in-the-Middle.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "O PGP (Pretty Good Privacy), criado por Phil Zimmermann em 1991, foi alvo de uma disputa judicial nos EUA porque a criptografia forte era legalmente considerada como:",
@@ -39,14 +34,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O PGP fingerprint corresponde a uma versão reduzida da chave pública (gerada através de uma função de hash) que pode ser facilmente impressa ou trocada por canais físicos seguros para verificar a integridade da chave.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Numa Infraestrutura de Chaves Públicas (PKI), qual é a entidade responsável por emitir e assinar digitalmente a associação entre a identidade de um agente e a sua chave pública?",
@@ -62,14 +52,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um certificado digital atesta uma associação de identidade que pode ser verificada por qualquer pessoa que possua a chave pública da respetiva Autoridade de Certificação (CA).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Como funciona a validação numa cadeia de certificados (certificate chain)?",
@@ -111,14 +96,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No modelo de hierarquia de confiança de uma PKI, se duas sub-CAs (CAa e CAb) forem certificadas pela mesma Root CA, os utilizadores da CAa herdam automaticamente a confiança nos certificados emitidos pela CAb.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Para garantir a integridade física e o isolamento das chaves privadas das Root CAs, estas são habitualmente alojadas em dispositivos de hardware dedicados conhecidos como:",
@@ -160,14 +140,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A norma X.509 foi posteriormente adotada pela Netscape para o protocolo SSL (Secure Sockets Layer) em 1995 de forma a garantir a segurança das ligações HTTP (HTTPS).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No enquadramento do grupo de trabalho PKIX do IETF (RFC 5280), qual é o papel desempenhado pelas Registration Authorities (RAs)?",
@@ -269,14 +244,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A validação de um certificado de utilizador exige a validação da assinatura digital, a verificação da aplicabilidade (datas de validade, atributos de uso) e a garantia de que o certificado não foi revogado.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Identifique motivos legítimos para a revogação de um certificado digital antes da sua data de expiração programada:",
@@ -318,34 +288,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em comunidades pequenas ou fechadas (como o setor bancário), é comum gerir a revogação através de listas brancas de certificados válidos conhecidas como Trusted Service Provider Lists (TSL).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O mecanismo de 'Certificate Pinning' consiste em fazer com que uma aplicação, navegador ou servidor web controle e valide de forma estrita o certificado esperado para um serviço, mitigando riscos de CAs de terceiros comprometidas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O regulamento europeu eIDAS (electronic IDentification, Authentication and trust Services) visa normalizar transações eletrónicas e garantir a interoperabilidade legal de assinaturas digitais na UE.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Que padrão técnico harmoniza as assinaturas digitais em ficheiros PDF com o regulamento europeu eIDAS?",
@@ -374,54 +329,29 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um selo temporal criptográfico (Trusted Timestamping) associa o conteúdo de um documento a uma marca de tempo confiável fornecida por uma terceira entidade de confiança, a Time Stamping Authority (TSA).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A verificação de timestamps é importante porque permite provar que o certificado digital utilizado numa assinatura era inteiramente válido no momento exato em que o documento foi assinado, mesmo que o certificado tenha expirado posteriormente.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma assinatura eletrónica qualificada (QES) emitida e acreditada num determinado Estado-Membro da UE é reconhecida com valor legal idêntico em todos os restantes Estados-Membros.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A validação recursiva de certificados de uma cadeia termina sempre num certificado que é obrigatoriamente assinado pela Registration Authority (RA).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Os certificados de raiz auto-assinados (Self-Signed Certificates) são aqueles em que o emissor e o sujeito são a mesma entidade.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "De acordo com a norma do formato de certificados de chave pública X.509 v3, quais dos seguintes campos constam do cabeçalho assinado de um certificado?",

@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 5: File System in User Space (FUSE)",
+  "descricao": "Exame aprofundado e rigoroso focado na arquitetura FUSE, fluxo de pedidos de I/O em FUSE Passthrough, APIs low-level/high-level, use cases (cifragem, compressão, sistemas de rede) e os trade-offs de desempenho e correção (correctness).",
+  "perguntas": [
+    {
+      "pergunta": "O ecossistema FUSE (Filesystem in Userspace) é estruturado fundamentalmente em torno de que componentes principais para integrar um sistema de ficheiros em espaço de utilizador no kernel?",
+      "opcoes": [
+        "Um compilador GCC embutido no kernel e um daemon de background em Java.",
+        "O módulo de kernel FUSE (que regista o novo FS no VFS e gere o dispositivo especial /dev/fuse) e a biblioteca libfuse em espaço de utilizador (que trata da montagem e comunicação com o daemon).",
+        "O compilador JIT do eBPF e a tabela de inodes de user-space da biblioteca glibc.",
+        "O módulo LSM do kernel Linux e um interpretador de Python ligado ao VFS."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Através de que interface ou canal especial é que o módulo de kernel do FUSE comunica de forma síncrona/assíncrona com o daemon de espaço de utilizador para processar pedidos de I/O?",
+      "opcoes": [
+        "Através de sockets TCP locais na porta 5000.",
+        "Através do ficheiro de dispositivo especial /dev/fuse.",
+        "Através de buffers circulares da stack eBPF limitados a 512 bytes.",
+        "Através de chamadas diretas a ponteiros de funções da libc sem contexto."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quando uma aplicação executa uma chamada ao sistema de escrita (write()) num ficheiro situado dentro de um diretório montado via FUSE, que componente interceeta primeiro esta chamada e qual é o caminho percorrido pelo pedido?",
+      "opcoes": [
+        "O daemon libfuse interceeta diretamente a chamada e escreve no hardware de bloco sem intermediação do SO.",
+        "O VFS do kernel interceeta a chamada, encaminha-a para o módulo de kernel do FUSE, que a envia via /dev/fuse para o daemon FUSE em user-space; este executa a lógica e envia a resposta de volta pelo mesmo caminho inverso.",
+        "O compilador LLVM reescreve a chamada em tempo de execução para direcioná-la à placa de rede.",
+        "A chamada é enviada ao escalonador CFS, que suspende todas as threads até que o daemon termine."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quais são as diferenças fundamentais entre a API Low-level e a API High-level disponibilizadas pela biblioteca libfuse aos programadores?",
+      "opcoes": [
+        "A API High-level corre em kernel space e a Low-level corre exclusivamente no hardware do SSD.",
+        "A API Low-level é assíncrona e opera sobre a abstração de inodes, enquanto a API High-level é síncrona, construída sobre a low-level, e opera sobre nomes de ficheiros e caminhos (paths).",
+        "A API Low-level impede qualquer escrita física no disco, enquanto a API High-level suporta apenas criptografia de metadados.",
+        "A API High-level usa exclusivamente chamadas de cauda (tail calls) e a API Low-level usa function calls inline."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a finalidade da estrutura struct fuse_operations na implementação de um sistema de ficheiros em espaço de utilizador recorrendo à libfuse?",
+      "opcoes": [
+        "Definir os offsets de relocalização de metadados BTF no kernel local.",
+        "Conter uma tabela de ponteiros para funções que definem os comportamentos concretos do sistema de ficheiros (ex: init, read, write, mkdir, rename).",
+        "Alocar dinamicamente a memória RAM necessária para a cache de inodes do VFS.",
+        "Gerir a sincronização das threads do escalonador de CPU em user-space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Considere um FUSE Passthrough simples que redireciona pedidos de /mnt/fs para /back no mesmo disco. Qual é a principal fonte de degradação de performance associada a esta arquitetura em comparação com o acesso direto?",
+      "opcoes": [
+        "A duplicação física da capacidade dos dados no disco rígido devido ao espelhamento.",
+        "As sucessivas alternâncias de privilégio (context switches entre user-space e kernel-space) e as cópias de dados em memória necessárias para fazer passar as informações entre a aplicação, o kernel e o daemon FUSE.",
+        "A desativação obrigatória do compilador JIT e da paginação de memória no kernel do Linux.",
+        "A necessidade de usar cifragem assimétrica AES em todas as operações de leitura."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa solução FUSE de cifragem transparente de dados (ex: EncFS), como é feita a gestão e escrita dos dados no disco?",
+      "opcoes": [
+        "Os dados são cifrados pelo hardware do SSD e guardados em texto limpo no directório de montagem do utilizador.",
+        "A aplicação de utilizador escreve dados em texto limpo no ponto de montagem virtual; o daemon FUSE cifra estes dados na memória RAM de user-space e grava o conteúdo encriptado num diretório de background (ex: /back).",
+        "O módulo de kernel cifra a RAM física sem conhecimento do daemon de user-space.",
+        "O VFS bloqueia a leitura de qualquer ficheiro cujo inode não esteja cifrado com uma chave pública eBPF."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao desenhar um sistema de ficheiros FUSE estável e em conformidade com POSIX, que cuidado relativo à atomicidade da operação rename() deve ser tomado?",
+      "opcoes": [
+        "A operação rename() pode ser implementada recorrendo a um simples unlink seguido de um create, pois o VFS garante a atomicidade em user-space de forma automática.",
+        "Garantir que a operação rename() é atómica ao nível do sistema de ficheiros subjacente, para evitar que um crash a meio da operação deixe o sistema num estado corrompido ou inconsistente.",
+        "Usar obrigatoriamente a API low-level assíncrona, uma vez que a API high-level proíbe renomear ficheiros com nomes superiores a 16 bytes.",
+        "Desativar temporariamente as interrupções de hardware durante a execução do comando na controladora de flash."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual deve ser o comportamento correto da operação fsync() implementada num sistema de ficheiros FUSE para garantir a durabilidade dos dados?",
+      "opcoes": [
+        "Responder imediatamente à aplicação com sucesso sem realizar qualquer escrita física em disco para acelerar a latência.",
+        "Forçar a escrita física (flush) de todos os dados modificados e metadados associados ao ficheiro para o dispositivo de armazenamento permanente subjacente antes de retornar sucesso.",
+        "Libertar o inode na tabela de inodes mantendo o ficheiro aberto em modo read-only.",
+        "Sincronizar apenas o diretório pai do ficheiro, delegando a persistência dos dados ao Garbage Collector do SSD."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Além de cifragem de dados, quais são outras transformações típicas de armazenamento que podem ser facilmente implementadas na camada FUSE de forma transparente para as aplicações?",
+      "opcoes": [
+        "Tradução de endereços físicos para virtuais e eliminação de page faults no kernel.",
+        "Compressão de dados, deduplicação e encaminhamento de I/O para armazenamento na rede/nuvem (Remote File Systems).",
+        "Escalonamento CFS e alocação dinâmica de páginas de swap na controladora DMA.",
+        "Compilação JIT de programas eBPF e verificação estática de tipos de ponteiros."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como é que um cliente local consegue aceder a um servidor de armazenamento remoto (cloud/network storage) como se fosse um diretório local através de um FUSE daemon?",
+      "opcoes": [
+        "O daemon FUSE do cliente local interceeta as chamadas POSIX no ponto de montagem virtual e converte-as em pedidos de rede (ex: APIs REST, chamadas RPC) dirigidos ao servidor remoto, devolvendo a resposta ao kernel.",
+        "O VFS do cliente desativa a pilha TCP/IP e lê diretamente os transístores do servidor remoto via DMA de longa distância.",
+        "O eBPF compila um kprobe na placa de rede do servidor para simular a tabela de inodes localmente.",
+        "O cliente local deve descarregar o ficheiro completo em formato ELF antes de poder fazer um open()."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Que utilitário ou comando é normalmente utilizado para montar e iniciar a execução de um sistema de ficheiros construído com libfuse em espaço de utilizador?",
+      "opcoes": [
+        "run.py --build-only.",
+        "O próprio executável compilado do sistema de ficheiros FUSE, passando o diretório de montagem como argumento.",
+        "O comando gdb --mount-fuse.",
+        "O utilitário stress-ng --fuse-mode."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o papel principal do driver/módulo FUSE que reside no espaço do kernel?",
+      "opcoes": [
+        "Correr a lógica de cifragem transparente e compressão de dados.",
+        "Agir como uma ponte que expõe uma interface de sistema de ficheiros normalizada ao VFS e reencaminha esses pedidos para o espaço de utilizador via dispositivo de caracteres /dev/fuse.",
+        "Gerir as chamadas ao sistema de criação de processos fork() e exec().",
+        "Substituir o CFS do Linux por políticas de escalonamento cooperativo."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Porque é que implementar um sistema de ficheiros com FUSE é considerado significativamente mais simples e seguro do que implementá-lo no espaço de kernel do Linux?",
+      "opcoes": [
+        "Porque o FUSE elimina a necessidade de usar tabelas de inodes e bitmaps de blocos.",
+        "Porque o código corre como um processo em espaço de utilizador comum, permitindo usar ferramentas de depuração padrão (ex: gdb, valgrind), evitando pânicos de kernel (kernel panics) que crasham a máquina e reduzindo riscos de segurança de memória no SO.",
+        "Porque o compilador JIT do kernel valida e corrige automaticamente qualquer erro de ponteiro em C do programador.",
+        "Porque os programas FUSE não utilizam a stack de memória volátil, operando apenas na cache L1."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quando dizemos que um sistema de ficheiros FUSE é \"transparente\" para as aplicações, o que significa isto na prática?",
+      "opcoes": [
+        "Que as aplicações necessitam de ser compiladas com bibliotecas especiais FUSE para conseguirem ler e escrever no ponto de montagem.",
+        "Que as aplicações usam a API de E/S padrão do POSIX (ex: open(), read(), write()) exatamente da mesma forma como acederiam a um sistema de ficheiros nativo como ext4, sem necessidade de qualquer modificação no seu código fonte.",
+        "Que o código fonte das aplicações fica vísivel na pasta de montagem sob a forma de ficheiros de texto limpo.",
+        "Que o sistema de ficheiros corre exclusivamente na placa gráfica (GPU) de forma paralela."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva detalhadamente o fluxo completo de uma chamada de sistema de leitura (read()) iniciada por uma aplicação de utilizador num ficheiro localizado num sistema de ficheiros FUSE passthrough montado em /mnt/fs que aponta para /back. A sua resposta deve identificar todos os componentes envolvidos (App, VFS, Módulo Kernel FUSE, /dev/fuse, FUSE Daemon com libfuse, Ext4, Bloco de Disco) e explicar a transição entre espaços de utilizador e kernel.",
+      "solucao": "O fluxo completo da operação de leitura (`read()`) segue as seguintes fases consecutivas:\n\n1. **Início na Aplicação (User Space -> Kernel Space):** A aplicação de utilizador executa `read(fd, buf, size)` no ficheiro em `/mnt/fs/file.txt`. A chamada gera um trap, mudando o CPU para kernel mode, e o VFS interceeta a operação de leitura.\n2. **Encaminhamento no Kernel (Kernel Space):** O VFS identifica que `/mnt/fs` está montado sob o sistema de ficheiros FUSE e entrega a requisição ao módulo de kernel do FUSE. O módulo de kernel do FUSE cria um pedido de leitura estruturado e coloca-o numa fila de espera associada ao dispositivo especial `/dev/fuse`.\n3. **Transição para o Daemon FUSE (Kernel Space -> User Space):** O FUSE daemon (o processo de utilizador que implementa o sistema de ficheiros passthrough), que está bloqueado numa chamada de leitura em `/dev/fuse` via `libfuse`, acorda. O daemon lê o pedido estruturado do kernel a partir de `/dev/fuse` e descodifica-o (mudança de privilégio para user-space).\n4. **Execução da Lógica Passthrough (User Space -> Kernel Space):** A biblioteca `libfuse` invoca a função correspondente (ex: `read()` implementada no programa passthrough). O daemon passthrough traduz o caminho virtual `/mnt/fs/file.txt` para o caminho físico real em `/back/file.txt` e efetua uma nova chamada de leitura nativa no sistema de ficheiros subjacente (`read()` em `/back/file.txt`). O VFS interceeta este novo pedido e encaminha-o para o sistema de ficheiros nativo (ex: Ext4). O Ext4 e a camada de bloco realizam a leitura física dos dados no dispositivo de disco e devolvem os dados lidos ao buffer do FUSE Daemon em user-space.\n5. **Retorno do Resultado (User Space -> Kernel Space -> User Space):** O FUSE Daemon recebe os dados lidos e escreve a resposta (com os dados) de volta no dispositivo especial `/dev/fuse`. O módulo de kernel do FUSE recebe a resposta da fila de `/dev/fuse`, copia os dados para o buffer original da aplicação de utilizador e assinala o fim da operação ao VFS. A chamada de sistema `read()` original da App regressa com sucesso, e os dados são entregues em user-space."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Embora o FUSE ofereça imensa flexibilidade e facilidade de desenvolvimento, o seu uso acarreta um overhead significativo de desempenho em comparação com sistemas de ficheiros residentes no kernel. Analise detalhadamente as duas principais fontes de overhead no FUSE: (1) Mudanças de Contexto e Transições de Privilégio, e (2) Cópias de Memória adicionais.",
+      "solucao": "A degradação de desempenho no FUSE deve-se essencialmente a dois fatores arquiteturais:\n\n1. **Mudanças de Contexto (Context Switches) e Transições de Privilégio:** Num sistema de ficheiros nativo do kernel (ex: Ext4), um pedido `read()` envolve apenas duas transições de privilégio (User-to-Kernel via trap, e Kernel-to-User ao retornar) e nenhuma mudança de contexto de processo, pois o código corre diretamente no contexto do kernel thread. No FUSE, cada pedido exige uma alternância contínua entre processos: a App do utilizador bloqueia no kernel -> o CPU muda de contexto para correr o FUSE Daemon em user-space -> o FUSE Daemon efetua E/S e bloqueia -> o kernel processa a E/S física -> o CPU volta a mudar de contexto para o FUSE Daemon -> o FUSE Daemon responde e bloqueia -> o CPU muda de contexto de volta para a App. Este volume massivo de context switches degrada a performance de CPU devido à invalidação de caches de hardware (L1/L2, TLB).\n2. **Cópias de Memória Adicionais:** Numa escrita nativa no kernel, os dados são copiados apenas uma vez do buffer de user-space da App para o Page Cache do kernel. No FUSE, os dados têm de atravessar a barreira de espaço de endereçamento múltiplas vezes: do buffer da App para a memória do kernel -> da memória do kernel (via `/dev/fuse`) para o buffer de user-space do FUSE Daemon -> do FUSE Daemon de volta para o kernel para gravação no diretório de background (`/back`) e sistema de ficheiros nativo. Estas cópias extra de memória consomem imensa largura de banda de RAM, limitando o débito global do sistema."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao desenvolver um sistema de ficheiros baseado em FUSE que realiza caching agressivo em memória para mitigar o overhead de E/S, que problemas de consistência e correção (correctness) podem surgir quando múltiplos processos acedem concorrentemente a ficheiros? Aborde o papel do comando fsync() e as garantias necessárias para cumprir a semântica POSIX.",
+      "solucao": "**Problemas de Consistência (Coerência de Cache):**\nQuando um sistema de ficheiros FUSE utiliza caches em memória (tanto a nível do kernel como no próprio FUSE Daemon) para evitar idas ao disco ou ao Daemon, podem surgir problemas de consistência de dados:\n- Se a App A escrever dados que fiquem retidos no buffer cache do FUSE Daemon ou do kernel, e a App B (ou outro processo que aceda diretamente à pasta física `/back`) tentar ler o mesmo ficheiro, poderá ler dados desatualizados (stale data), violando a coerência.\n- Da mesma forma, se o SO atrasar a sincronização dos metadados (como o tamanho do ficheiro ou tempos de modificação mtime), diferentes processos verão estados inconsistentes do mesmo ficheiro.\n\n**Papel do fsync() e Semântica POSIX:**\nPara cumprir rigorosamente com a especificação POSIX e garantir a correção do sistema, o FUSE Daemon deve assegurar que:\n- A chamada **`fsync()`** força a sincronização síncrona. Quando a App invoca `fsync()`, o SO envia o pedido ao FUSE Daemon, e este deve forçar o flush físico de todas as páginas 'sujas' de dados na cache e dos metadados da estrutura `inode` subjacente para o disco.\n- As operações de modificação de namespace (como **`rename()`** e **`unlink()`**) devem ser atómicas no sistema de ficheiros de background para prevenir que uma interrupção súbita corrompa a integridade do sistema de diretórios. Se a implementação do FUSE quebrar estas semânticas fundamentais (ex: respondendo ao `fsync()` de forma assíncrona antes do flush real estar concluído no disco físico subjacente), põe em risco a integridade de aplicações que dependem de escrita fiável de dados, como as bases de dados."
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 6: Redução e Encriptação de Dados",
+  "descricao": "Exame avançado focado na teoria e arquitetura de redução de dados (compressão lossless, deduplicação de bloco/ficheiro, Fixed vs Content-Defined Chunking, índices parciais/esparsos, CoW) e encriptação de armazenamento (AES-XTS).",
+  "perguntas": [
+    {
+      "pergunta": "Qual é a principal limitação de performance associada à utilização de técnicas tradicionais de compressão sem perdas (lossless compression) num dispositivo de bloco ativamente atualizado por utilizadores concorrentes?",
+      "opcoes": [
+        "A perda irreversível de precisão de ponto flutuante em ficheiros de metadados do VFS.",
+        "A necessidade proibitiva de descomprimir os dados antigos, atualizar o conteúdo pretendido e voltar a comprimir todo o bloco para concluir qualquer alteração de dados escrita.",
+        "O facto de a compressão lossless exigir obrigatoriamente a desativação da paginação física no kernel.",
+        "O limite de tamanho imposto pelo Verificador eBPF à tabela de inodes de user-space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como se diferenciam os metadados de mapeamento na deduplicação ao nível de Dispositivo de Bloco em comparação com a deduplicação ao nível de Sistema de Ficheiros?",
+      "opcoes": [
+        "O dispositivo de bloco usa chaves criptográficas AES-GCM, enquanto o sistema de ficheiros usa Rabin Fingerprints.",
+        "O dispositivo de bloco mapeia números de blocos lógicos (LBLOCK) diretamente para blocos físicos (PBLOCK), enquanto o sistema de ficheiros gere uma receita de ficheiro (file recipe) mapeando offsets lógicos de cada ficheiro (inode) para blocos físicos.",
+        "O sistema de ficheiros opera sem qualquer estrutura de metadados em RAM graças ao uso de FUSE passthrough.",
+        "A deduplicação de bloco elimina apenas ficheiros inteiros duplicados, ao passo que o sistema de ficheiros opera apenas a nível de discos RAID."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que designa o problema de deslocamento de fronteira (boundary-shifting problem) na deduplicação de dados e como é que ele é mitigado?",
+      "opcoes": [
+        "A alteração dinâmica dos tempos de modificação (mtime) de um inode que invalida o swap space; mitigado via fsync().",
+        "O facto de a inserção ou eliminação de um único byte no início de um ficheiro alterar o alinhamento de todos os blocos subsequentes na técnica de Fixed-size chunking, impedindo a deduplicação; mitigado usando Variable-sized chunking (Content-Defined Chunking).",
+        "O desgaste físico desigual das células de transístores em SSDs; mitigado por algoritmos de wear-leveling na FTL.",
+        "A colisão de hashes criptográficos na tabela de indexação; mitigada recorrendo a algoritmos de encriptação determinística."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Na técnica de particionamento em tamanho variável (Content-Defined Chunking), como são definidas as fronteiras (boundaries) de cada chunk?",
+      "opcoes": [
+        "As fronteiras são fixadas a cada 4KB de dados contíguos de forma puramente determinística.",
+        "As fronteiras são definidas pelo próprio conteúdo do fluxo de dados através do cálculo de uma janela deslizante (ex: esquema Rabin Fingerprint) que identifica um padrão de assinatura específico.",
+        "O programador define offsets estáticos na estrutura struct fuse_operations durante o init.",
+        "A controladora FTL define as partições físicas com base no Garbage Collector."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual descreve corretamente o trade-off de desempenho e espaço entre a Deduplicação Inline e a Deduplicação Offline?",
+      "opcoes": [
+        "A deduplicação inline aumenta o espaço físico consumido na escrita temporária, mas reduz o overhead no caminho crítico de E/S.",
+        "A deduplicação inline interceeta e elimina duplicados antes da escrita no backend (evita escritas redundantes, mas adiciona latência no caminho crítico de I/O); a offline escreve primeiro e corre em background (reduz a latência de escrita, mas exige espaço temporário no disco).",
+        "A inline desativa o eBPF Verifier e a offline corre exclusivamente na cache de hardware L3.",
+        "A inline exige chaves criptográficas simétricas AES-XTS, ao passo que a offline opera sem índices de mapeamento."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Estime o consumo de memória RAM do índice de deduplicação na pior hipótese (todos os blocos são únicos) para um dispositivo de 1TB (2^40 bytes), com tamanho de chunk de 4KB (2^12 bytes) e tamanho de entrada no índice de 72 bytes (hash de 64 bytes e número de bloco de 8 bytes).",
+      "opcoes": [
+        "Cerca de 18 GiB de memória RAM.",
+        "Cerca de 512 MiB de memória RAM.",
+        "Cerca de 4 GB de espaço de swap no disco físico.",
+        "Exatamente 64 bytes por cada inode montado."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Como funciona um Índice Parcial (Partial Index) no contexto da deduplicação de dados e que propriedade das cargas de trabalho ele aproveita?",
+      "opcoes": [
+        "Mapeia apenas metade de cada bloco de disco e aproveita a localidade espacial.",
+        "Mantém apenas um subconjunto de assinaturas de chunks em memória (funcionando como uma cache com política de despejo ex: LRU), tirando partido da localidade temporal (onde duplicados tendem a surgir num curto intervalo de tempo).",
+        "Desativa a tabela de diretórios de páginas lineares usando o compilador JIT.",
+        "Encripta de forma determinística os metadados do VFS para contornar ataques de canal lateral."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "De que forma o Índice Esparso (Sparse Index) otimiza o consumo de memória RAM aproveitando a localidade espacial das cargas de trabalho?",
+      "opcoes": [
+        "Elimina por completo os blocos físicos de dados mantendo apenas os hashes no swap.",
+        "Mapeia apenas grupos de chunks contíguos; quando um bloco duplicado é identificado, as assinaturas de todos os blocos do mesmo grupo correspondente são trazidas do disco para a RAM, pois espera-se que blocos vizinhos reapareçam juntos.",
+        "Utiliza criptografia assimétrica baseada em Intel SGX para encriptar metadados em uso.",
+        "Substitui as assinaturas SHA-512 por offsets de 16 bits baseados em índices FTL."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Na deduplicação de dados, o que pode ocorrer se um bloco físico partilhado (com múltiplas referências lógicas) for diretamente modificado ou apagado sem um mecanismo de controlo de referências?",
+      "opcoes": [
+        "Os outros blocos lógicos que apontam para o mesmo bloco físico mantêm o seu conteúdo antigo intocado.",
+        "Ocorre perda ou corrupção de dados em todas as outras referências lógicas que partilham aquele bloco físico.",
+        "O sistema operativo desativa automaticamente as permissões de gravação de todos os inodes.",
+        "O Garbage Collector do SSD cria um sector órfão no swap space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que sucede quando uma aplicação executa uma operação de escrita numa secção de um ficheiro cujo bloco físico subjacente é partilhado (deduplicado)?",
+      "opcoes": [
+        "O SO subscreve diretamente o bloco físico partilhado em disco, atualizando todas as referências lógicas instantaneamente.",
+        "O SO implementa Copy-on-Write (CoW): o novo conteúdo é escrito num bloco físico não utilizado, e o mapeamento lógico desse processo é atualizado para apontar para o novo bloco, decrementando a referência do bloco partilhado original.",
+        "O VFS gera um erro de segmentação (Segmentation Fault) e aborta o daemon.",
+        "O bloco é encriptado via AES-XTS em RAM e depois reordenado pelo escalonador SPTF."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quando se combina deduplicação com técnicas de redundância e tolerância a falhas (ex: RAID 1, replicação), em que ordem devem ser aplicadas e qual é a justificação?",
+      "opcoes": [
+        "A replicação ocorre primeiro para duplicar todos os dados, e a deduplicação é aplicada depois no disco físico do RAID para eliminar essa mesma replicação.",
+        "A deduplicação deve ser aplicada primeiro (identificando e guardando apenas dados únicos), e só depois se replica esses dados únicos para garantir tolerância a falhas sem desperdício de escrita e espaço redundante.",
+        "Ambas ocorrem de forma síncrona na FTL recorrendo a TEEs de hardware.",
+        "A ordem é irrelevante uma vez que o dispositivo de bloco opera a nível de sectors lógicos lineares."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No contexto da encriptação de armazenamento ao nível do disco (Encryption at Rest), qual é a importância prática de um modo de cifra ser preservador de comprimento (length-preserving)?",
+      "opcoes": [
+        "Permite que o ficheiro cifrado tenha metade do tamanho do plaintext original para poupar espaço de bloco.",
+        "Garante que o texto cifrado (ciphertext) tem exatamente o mesmo tamanho em bytes do texto limpo (plaintext) original, evitando overhead de armazenamento com padding ou vetores de inicialização (IV) adicionais.",
+        "Impede a ocorrência de page faults durante a mudança de contexto do CPU.",
+        "Assegura que o número de referências lógicas do inode seja sempre igual a 1."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes opções descreve corretamente as propriedades do modo de encriptação de disco AES-XTS?",
+      "opcoes": [
+        "É um modo baseado em tweakable block cipher que é length-preserving, paralelo, e que produz diferentes ciphertexts para plaintexts idênticos sem requerer IVs que aumentem o tamanho, mas que não oferece garantias de integridade de dados.",
+        "É um algoritmo de cifra de fluxo assíncrono que duplica o tamanho do ficheiro e garante integridade absoluta através de assinaturas SHA-512.",
+        "Requer a desativação da cache de inodes e a execução exclusiva em modo cooperativo.",
+        "Cifra deterministicamente os blocos, permitindo que blocos cifrados iguais sejam deduplicados localmente sem intervenção de hardware."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Se um cliente encriptar os seus dados com algoritmos padrão antes de os enviar para um servidor cloud não confiável, como é que o servidor pode efetuar deduplicação global desses dados e que tecnologias resolvem este dilema?",
+      "opcoes": [
+        "O servidor consegue deduplicar facilmente porque as cifras padrão preservam a igualdade dos blocos físicos.",
+        "A encriptação padrão preenche o buffer de forma idêntica, mas para deduplicar globalmente necessita-se de encriptação determinística (content-preserving) ou de Ambientes de Execução Confiáveis (TEEs ex: Intel SGX) para decifrar e comparar hashes com segurança.",
+        "O VFS do servidor reescreve as chaves privadas do utilizador usando um kprobe do eBPF.",
+        "O cliente envia a sua chave privada simétrica no cabeçalho POSIX da chamada open()."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que caracteriza a técnica de Codificação Delta (Delta-encoding) quando combinada com a deduplicação de dados?",
+      "opcoes": [
+        "Encriptar a diferença de tempo de criação dos inodes para proteger a privacidade.",
+        "Identificar blocos/chunks semelhantes mas não idênticos e armazenar apenas a diferença (delta) entre eles em vez de gravar o bloco inteiro modificado, maximizando o ganho de redução de dados.",
+        "Duplicar a taxa de processamento do barramento SATA através de I/O merging.",
+        "Utilizar o Garbage Collector do SSD para reordenar os transístores de transição de estado."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare as estratégias de particionamento de dados (chunking) em tamanho fixo (Fixed-size chunking) e tamanho variável (Variable-sized / Content-defined chunking) no contexto de sistemas de deduplicação de dados. Na sua resposta, aborde a dimensão dos metadados gerados, a eficiência de redução de dados (deduplication gain), o problema do deslocamento de fronteira (boundary-shifting) e o overhead computacional.",
+      "solucao": "**Fixed-size Chunking (Tamanho Fixo):**\n- **Mecanismo:** Divide os dados em blocos de tamanho idêntico e estático (ex: 4KB).\n- **Metadados:** Gera um volume de metadados proporcional ao número de blocos (maior do que a deduplicação de ficheiro inteiro, mas simples de gerir em tabelas indexadas).\n- **Eficiência e Problema de Deslocamento de Fronteira:** O ganho de deduplicação é gravemente comprometido pelo **deslocamento de fronteira (boundary-shifting)**. Se um único byte for inserido no início de um ficheiro, todos os offsets subsequentes são deslocados em 1 byte. Consequentemente, as assinaturas (hashes) de todos os blocos de 4KB seguintes mudam completamente, impedindo que o sistema detete a correspondência com os blocos originais, apesar de o conteúdo ser quase idêntico.\n- **Overhead:** Apresenta overhead computacional muito baixo, requerendo apenas o cálculo simples de hashes de blocos pré-alinhados.\n\n**Variable-sized / Content-defined Chunking (Tamanho Variável):**\n- **Mecanismo:** As fronteiras dos blocos são determinadas pelo próprio conteúdo dos dados através de uma janela deslizante que avalia uma propriedade matemática (ex: Rabin Fingerprint). Quando a janela encontra um padrão específico, define a fronteira do bloco.\n- **Metadados:** Produz uma densidade de metadados semelhante à de tamanho fixo, pois o tamanho médio dos chunks pode ser regulado.\n- **Eficiência e Deslocamento:** Resolve de forma excelente o problema de deslocamento de fronteira. A inserção de um byte no início do ficheiro altera apenas o primeiro bloco. Logo após a inserção, a janela deslizante reencontra rapidamente os pontos de ancoragem (padrões) originais nos dados subsequentes, mantendo os blocos seguintes idênticos aos do ficheiro original, o que maximiza o ganho de deduplicação.\n- **Overhead:** O overhead de CPU é muito superior, pois exige computar a janela deslizante byte a byte ao longo de todo o fluxo de dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A eficiência de um motor de deduplicação depende fortemente do índice que mapeia as assinaturas (hashes) dos blocos para as suas localizações físicas. Analise o desafio de escalabilidade deste índice em memória RAM física e descreva como as abordagens de Índice Parcial (Partial Index) e Índice Esparso (Sparse Index) mitiga este problema de espaço em memória, detalhando que tipos de localidade exploram.",
+      "solucao": "**Desafio de Escalabilidade em RAM:**\nO tamanho do índice cresce proporcionalmente ao número de blocos únicos no sistema. Para um sistema com 1TB de dados e chunks de 4KB, existem $2^{28}$ blocos. Assumindo 72 bytes por entrada (hash SHA-512 de 64 bytes e 8 bytes para endereço físico de bloco), o índice completo consome cerca de 18 GiB de RAM. Em sistemas de armazenamento de escala petabyte, manter o índice inteiramente em RAM torna-se financeiramente e fisicamente inviável. Contudo, mantê-lo apenas no disco rígido destrói a performance de escrita devido à latência de E/S.\n\n**Mitigações:**\n\n1. **Índice Parcial (Partial Index):**\n   - **Mecanismo:** Apenas um subconjunto ativo de assinaturas de blocos é mantido na memória RAM (funcionando como uma cache com política de despejo, por exemplo, LRU).\n   - **Localidade Explorada:** Tira partido da **localidade temporal** das cargas de trabalho, onde blocos que foram escritos recentemente têm uma probabilidade muito elevada de reaparecer ou ser acedidos de forma repetida num curto intervalo de tempo.\n2. **Índice Esparso (Sparse Index):**\n   - **Mecanismo:** O índice mapeia apenas um subconjunto de assinaturas que representam grupos ou sequências de blocos (segmentos contíguos). Quando ocorre um hit de deduplicação num bloco pertencente a um grupo, o índice esparso carrega todas as assinaturas do mesmo grupo associado do disco para a RAM física.\n   - **Localidade Explorada:** Tira partido da **localidade espacial** das cargas de trabalho, assumindo que blocos que aparecem juntos num fluxo de dados original (data stream) tendem a reaparecer juntos em sequências ou fluxos futuros (ex: backups sucessivos de sistemas)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto de encriptação de armazenamento (Encryption at Rest), o modo AES-XTS é amplamente utilizado em detrimento de modos de cifra de transmissão clássicos como AES-CBC. Justifique esta escolha técnica com base nas propriedades de preservação de comprimento (length-preserving), suporte a paralelismo e comportamento de encriptação de blocos idênticos. Comente também a ausência de garantias de integridade neste modo.",
+      "solucao": "**Vantagens do AES-XTS para Armazenamento:**\n\n1. **Preservação de Comprimento (Length-preserving):**\n   - Modos de cifra clássicos de comunicação como o AES-CBC exigem padding (preenchimento de blocos) e/ou armazenamento de Vetores de Inicialização (IVs) únicos, o que faz com que o texto cifrado (ciphertext) resultante seja maior do que o texto limpo (plaintext) original.\n   - O AES-XTS é preservador de comprimento: o bloco cifrado tem exatamente o mesmo tamanho do bloco de plaintext. Isto é crucial para sistemas de ficheiros e dispositivos de bloco, onde os dados têm de encaixar com precisão milimétrica em setores físicos de tamanho fixo (ex: 512 bytes ou 4KB) sem desperdício de espaço.\n2. **Paralelismo:**\n   - O AES-CBC requer encadeamento de blocos de cifra, onde a encriptação de um bloco depende do resultado do bloco anterior, impossibilitando a paralelização.\n   - O AES-XTS opera de forma independente em cada bloco através de um vetor tweakable (função da posição do bloco no disco), permitindo ler e escrever diferentes blocos de forma puramente paralela, aproveitando múltiplos cores de CPU.\n3. **Blocos Idênticos:**\n   - Devido ao uso da função tweak baseada no endereço lógico do bloco de disco (offset/sector number), dois blocos que tenham exatamente o mesmo conteúdo em texto limpo mas que sejam gravados em localizações físicas distintas do disco produzirão ciphertexts completamente diferentes, ocultando padrões de dados de atacantes.\n\n**Ausência de Garantias de Integridade:**\nO AES-XTS garante apenas confidencialidade (privacidade dos dados). Ele não fornece proteção contra adulteração de dados (integrity). Um atacante com acesso físico ao disco que altere bits no ciphertext irá corromper a desencriptação do correspondente bloco (gerando dados aleatórios/lixo), mas o sistema de ficheiros poderá não detetar ativamente que os dados foram adulterados, a menos que se utilizem esquemas complementares de cifragem autenticada (como o AES-GCM) ou metadados de somas de controlo (checksums) externos no próprio sistema de ficheiros."
+    }
+  ]
+}

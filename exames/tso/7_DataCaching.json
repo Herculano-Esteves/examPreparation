@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 7: Caching e Durabilidade de Dados",
+  "descricao": "Exame avançado focado na arquitetura de caches do sistema operativo (Page Cache, dentry/inode caches), substituição 2Q, falhas de consistência (lost/torn writes), chamadas de sincronização (fsync, fdatasync, sync), flags (O_SYNC, O_DIRECT) e journaling.",
+  "perguntas": [
+    {
+      "pergunta": "Como funciona a política de substituição baseada em 2Q (Two-Queue) modificada que o Linux utiliza no Page Cache para evitar a inanição de cache devido a varrimentos sequenciais (scans)?",
+      "opcoes": [
+        "Quando uma página é acedida pela primeira vez, entra diretamente na fila Active e nunca é movida para a fila Inactive.",
+        "Páginas acedidas pela primeira vez entram na fila Inactive; se forem acedidas uma segunda vez, são promovidas para a fila Active (que detém ~2/3 do cache); as evicções são feitas a partir da fila Inactive, isolando assim varrimentos sequenciais de ficheiros gigantes.",
+        "O sistema envia as páginas diretamente para a área de swap sem passar pela memória RAM física.",
+        "As páginas são promovidas para a fila Active apenas se o seu inode pertencer a um FUSE daemon prioritário."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a diferença técnica fundamental entre um Lost Write e um Torn Write em cenários de falha de energia do sistema?",
+      "opcoes": [
+        "Um Lost Write ocorre quando o inode é apagado do disco, enquanto um Torn Write corrompe a tabela de partições GPT.",
+        "Um Lost Write refere-se à perda total dos dados em cache que nunca foram escritos no disco; um Torn Write ocorre quando apenas uma fração (ex: metade) de uma página ou sector de dados foi fisicamente gravada no disco antes da falha.",
+        "Um Lost Write é corrigível pelo utilitário fsck, enquanto um Torn Write exige a reinstalação do VFS.",
+        "O Lost Write afeta apenas o eBPF Verifier e o Torn Write afeta apenas o Garbage Collector do SSD."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que distingue um Linear Torn Write de um Non-linear Torn Write na perspetiva do agendamento de descargas do Page Cache pelo kernel?",
+      "opcoes": [
+        "O Linear refere-se a modificações em metadados, enquanto o Non-linear refere-se a dados binários puros de user-space.",
+        "No Linear Torn Write, o SO descarrega as páginas na ordem física correta mas falha a meio; no Non-linear Torn Write, o SO envia páginas fora de ordem (ex: descarrega a página final mas perde a página inicial), resultando em dados inconsistentes em disco.",
+        "O Linear ocorre apenas em dispositivos de fita magnética e o Non-linear em SSDs NVMe.",
+        "Ambos representam a mesma falha física, mas o Non-linear é resolvido com O_DIRECT síncrono."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a diferença operacional e de impacto em desempenho entre as chamadas ao sistema fsync() e fdatasync()?",
+      "opcoes": [
+        "fsync() grava apenas o Page Cache na memória RAM, enquanto fdatasync() acede diretamente ao swap space.",
+        "fsync() força a persistência de dados e todos os metadados modificados (mtime, ctime, etc.) do ficheiro; fdatasync() força a persistência dos dados e apenas dos metadados essenciais para ler o ficheiro (ex: tamanho do ficheiro), poupando escritas de metadados redundantes.",
+        "fdatasync() desativa as caches internas do controlador de disco físico.",
+        "fsync() corre em background sem bloquear a aplicação, ao passo que fdatasync() é síncrona."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao criar um novo ficheiro e invocar fsync() no seu file descriptor, porque é que os dados do ficheiro ainda podem desaparecer após uma falha de energia do sistema?",
+      "opcoes": [
+        "Porque o eBPF Verifier invalida o descritor de ficheiro se a chamada ocorrer antes de 5 segundos.",
+        "Porque a entrada de diretório que mapeia o nome do ficheiro para o seu inode reside apenas na cache de diretórios (dentry cache) em RAM; para garantir a persistência da existência do ficheiro, é necessário também abrir e fazer fsync() no diretório pai.",
+        "Porque a operação de sincronização exige o uso conjunto da flag O_DIRECT com criptografia AES-XTS.",
+        "Porque o Linux proíbe a escrita de novos ficheiros se o bitmap de blocos estiver vazio."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Relativamente ao comportamento da chamada fsync() no Linux em comparação com o macOS (OSx), que diferença de garantia física existe na pilha de armazenamento?",
+      "opcoes": [
+        "No Linux, fsync() não escreve os dados do Page Cache no disco, apenas no swap.",
+        "No Linux, fsync() garante o flush dos buffers do kernel e a sinalização/sincronização da cache volátil física do disco; no macOS, a chamada clássica fsync() apenas transfere os dados para o buffer do drive físico, não garantindo a escrita nos pratos/transístores a menos que se use F_FULLFSYNC.",
+        "No macOS, a chamada realiza compressão lossless automática antes de efetuar o sync.",
+        "No Linux, a chamada exige o suporte estrito de TEEs (Intel SGX) para descriptografar os dados do inode."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Que comportamento é garantido pelo sistema operativo ao abrir um ficheiro com as flags O_SYNC e O_DIRECT em simultâneo?",
+      "opcoes": [
+        "Os dados são lidos da cache do VFS e escritos assincronamente por threads de background do kernel.",
+        "O_DIRECT faz com que o I/O ignore as caches do sistema operativo (copiando via DMA diretamente dos buffers de utilizador para a controladora); O_SYNC garante que a operação de escrita só retorna à aplicação depois de fisicamente gravada no hardware de disco.",
+        "A encriptação AES-CBC é aplicada deterministicamente no VFS sem usar o Page Cache.",
+        "O limite de tamanho de stack é ignorado para permitir a escrita de blocos maiores que 512 bytes."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o aviso metodológico mais importante ao utilizar apenas a flag O_DIRECT para tentar obter escritas síncronas rápidas?",
+      "opcoes": [
+        "O_DIRECT obriga o sistema de ficheiros a apagar os metadados do inode após cada read.",
+        "O_DIRECT minimiza os efeitos de cache, mas não garante que os dados tenham sido transferidos e persistidos de forma segura e permanente no hardware físico do disco quando o write retorna; necessita de ser emparelhado com O_SYNC para dar essa garantia.",
+        "O_DIRECT duplica a latência por exigir descompressão lossless síncrona.",
+        "A flag proíbe o uso de ponteiros de memória alinhados em limites de 4KB."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No desenvolvimento de sistemas de ficheiros, que tipo de inconsistência de estado ocorre se um crash do sistema interromper as escritas de modo a que o inode atualizado aponte para um novo bloco de dados cujo conteúdo físico nunca chegou a ser escrito?",
+      "opcoes": [
+        "Ocorre um espaço orfão (space leak).",
+        "O inode passa a conter um ponteiro de lixo (garbage pointer), fazendo com que a aplicação leia dados antigos de outro ficheiro ou lixo residual do disco físico.",
+        "O bloco é desalocado e reatribuído automaticamente pelo Garbage Collector do SSD.",
+        "A tabela de diretórios passa a apontar para o swap space do kernel."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Se um crash ocorrer logo após o bitmap de blocos ter sido atualizado no disco (marcando um bloco como ocupado), mas antes de o respetivo inode e conteúdo do bloco terem sido persistidos, qual é a consequência?",
+      "opcoes": [
+        "Perda catastrófica de todos os ficheiros contidos no diretório raiz.",
+        "Ocorre uma fuga de espaço (space leak): o bloco fica indefinidamente marcado como ocupado no bitmap, mas não pertence a nenhum ficheiro e não pode ser reutilizado.",
+        "O bloco é cifrado com uma chave AES-XTS vazia.",
+        "O fsck repara instantaneamente a falha promovendo a tarefa no MLFQ."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Se os dados e o inode correspondente forem gravados em disco com sucesso, mas o bitmap de alocação de blocos não for atualizado antes do crash, que risco sério de integridade de dados surge?",
+      "opcoes": [
+        "O ficheiro torna-se permanentemente oculto e apenas legível pelo eBPF Verifier.",
+        "O bloco de dados, estando marcado como livre no bitmap, pode ser livremente sobrescrito e corrompido por operações de escrita subsequentes de outros ficheiros do sistema.",
+        "O sistema entra em inanição de CPU (starvation) na próxima inicialização.",
+        "Ocorre um Linear Torn Write que duplica o inode na dentry cache."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "A maioria dos sistemas de ficheiros modernos (como ext4) implementa por omissão apenas o Journaling de Metadados. Como é evitado o aparecimento de ponteiros de lixo (garbage pointers) nesta abordagem?",
+      "opcoes": [
+        "Gravando primeiro os metadados no journal e escrevendo os dados em background na RAM.",
+        "Escrevendo primeiro os dados do ficheiro no disco físico; só depois de confirmada a sua persistência é que as alterações de metadados correspondentes são registadas no journal.",
+        "Desativando permanentemente a flag O_DIRECT durante escritas em lote (batching).",
+        "Cifrando deterministicamente os blocos antes de atualizar os bitmaps no VFS."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como abordam os sistemas de ficheiros estruturados em log (LFS, ex: ZFS) a consistência em caso de falha e a eficiência de escrita?",
+      "opcoes": [
+        "Reescrevendo os blocos em cima do mesmo local físico (in-place) sob transações síncronas restritas.",
+        "Evitam a escrita in-place: gravam sempre novos dados e metadados sequencialmente numa área livre do disco (Copy-on-Write) e posteriormente atualizam os ponteiros de forma atómica.",
+        "Utilizando a biblioteca libfuse para desviar as operações de escrita para o espaço do utilizador.",
+        "Mantendo todo o espaço do disco comprimido através de algoritmos de substituição 2Q."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quando é que as páginas marcadas como sujas (dirty pages) no Page Cache do Linux são efetivamente descarregadas para o armazenamento físico pelas threads de background do kernel?",
+      "opcoes": [
+        "Exclusivamente quando o utilizador executa manualmente o utilitário fsck.",
+        "Periodicamente (ex: a cada 5 ou 30 segundos), quando a quantidade de páginas dirty excede um determinado limiar de memória, ou quando a memória física fica cheia.",
+        "Sempre que o escalonador CFS faz um context switch entre duas threads com a mesma prioridade.",
+        "Imediatamente após cada chamada à instrução trap de divisão por zero."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Desde a versão 2.4 do Kernel de Linux, qual é o estado de integração entre a Buffer Cache (cache de blocos de baixo nível) e a Page Cache?",
+      "opcoes": [
+        "Permanecem isoladas em diferentes regiões de memória física.",
+        "Foram unificadas, evitando a duplicação de dados em memória através da indexação de blocos do dispositivo físico diretamente em páginas geridas no Page Cache.",
+        "A Buffer Cache foi eliminada e substituída inteiramente pelo eBPF Map.",
+        "A VFS proíbe o uso da Page Cache sempre que a Buffer Cache está montada via FUSE."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique detalhadamente o funcionamento da política de substituição baseada em 2Q (Two-Queue) modificada que o Linux utiliza no seu Page Cache. Na sua resposta, aborde a divisão das filas (Active e Inactive), o fluxo de inserção e promoção de páginas e demonstre como este mecanismo resolve o problema de inanição de cache (thrashing) provocado por varrimentos sequenciais (sequential scans) de ficheiros muito grandes.",
+      "solucao": "**Mecanismo do 2Q Modificado:**\nA cache de páginas é dividida em duas listas baseadas em LRU:\n1. **Fila Inativa (Inactive List):** Contém páginas que foram acedidas recentemente mas que não foram necessariamente referenciadas de forma recorrente. Representa cerca de um terço do cache total.\n2. **Fila Ativa (Active List):** Contém páginas com múltiplas referências (páginas populares). Representa cerca de dois terços do cache total.\n\n**Fluxo de Inserção e Promoção:**\n- **Primeiro Acesso:** Quando uma página de ficheiro é lida pela primeira vez da memória física, é colocada no topo da **Fila Inativa**.\n- **Segundo Acesso:** Se a página na Fila Inativa for acedida uma segunda vez enquanto ainda reside nessa fila, ela é promovida para a **Fila Ativa**.\n- **Evicção:** Quando a memória fica cheia, o SO escolhe candidatos a evicção a partir do fundo da **Fila Inativa** (as menos recentemente usadas desta fila).\n- **Demissão:** Periodicamente, páginas no fundo da Fila Ativa (que caíram em desuso) são despromovidas para a Fila Inativa.\n\n**Resolução do Problema de Varrimento Sequencial (Scan Resiliency):**\nSe uma aplicação realizar um varrimento sequencial num array ou ficheiro gigante (maior que a RAM disponível) usando LRU simples, as páginas do varrimento entram em cache e expulsam todas as outras páginas ativas úteis do sistema. Como a leitura é sequencial, cada página do varrimento é acedida apenas uma única vez, resultando numa taxa de hits de 0% e na inanição (thrashing) de processos úteis interativos.\nCom o 2Q, as páginas lidas no varrimento entram exclusivamente na **Fila Inativa**. Como são acedidas apenas uma vez, nunca são promovidas para a Fila Ativa. A Fila Ativa (com os dois terços da memória contendo as páginas populares do sistema) permanece completamente intocada e protegida. O varrimento sequencial apenas recicla páginas dentro do espaço confinado da Fila Inativa, mantendo a estabilidade global e minimizando falhas de página desnecessárias."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto do desenvolvimento de sistemas de ficheiros, analise os problemas de inconsistência de metadados que podem ocorrer em caso de interrupção abrupta de energia durante a criação e escrita num ficheiro. Descreva detalhadamente as consequências de duas falhas específicas: (1) O inode é persistido no disco mas o bitmap de alocação de blocos e o bloco de dados não são escritos, e (2) Os dados e o inode correspondente são persistidos, mas o bitmap de blocos permanece inalterado.",
+      "solucao": "**Contexto da Inconsistência:**\nA criação e escrita num ficheiro exige três operações físicas distintas no disco: atualizar a estrutura do Inode, atualizar o Bitmap de alocação de blocos e escrever os Dados no bloco de dados físico. Como o disco apenas realiza escritas de forma sequencial (não atómica em lote), uma quebra de energia a meio das operações resulta em inconsistências.\n\n**Consequências das Falhas Específicas:**\n\n1. **Inode persistido, mas Bitmap de Blocos e Dados não escritos:**\n   - **Estado:** O inode do ficheiro aponta para um endereço de bloco de dados físico que foi registado como sendo seu proprietário, mas as escritas físicas do bloco de dados e do bitmap de blocos falharam.\n   - **Consequência:** O inode passa a conter um **ponteiro de lixo (garbage pointer)**. Quando a aplicação for reiniciada e tentar ler o ficheiro, lerá os dados residuais antigos que já estavam gravados naquele sector físico de disco (pertencentes a outros ficheiros antigos ou lixo de sistema), constituindo uma falha grave de integridade e privacidade de dados.\n2. **Dados e Inode persistidos, mas Bitmap de Blocos não atualizado:**\n   - **Estado:** O inode e os dados correspondentes estão gravados fisicamente em disco, mas o bitmap de alocação de blocos não foi atualizado, mantendo o bloco correspondente marcado como 'livre' (0).\n   - **Consequência:** O ficheiro parece estar correto no início. Contudo, como o bloco está livre no bitmap do sistema de ficheiros, qualquer operação de escrita subsequente (de outro processo ou novo ficheiro) poderá alocar esse mesmo bloco físico. Ao fazê-lo, a nova escrita irá sobrescrever e corromper de forma silenciosa e irreversível os dados do ficheiro original partilhado."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Aplicações críticas (como motores de bases de dados) necessitam de controlo estrito sobre quando os dados atingem fisicamente o suporte de armazenamento persistente. Discuta a importância e as garantias de durabilidade fornecidas pelas chamadas fsync() e fdatasync(), analise o comportamento de O_SYNC vs. O_DIRECT e explique por que razão a sincronização do diretório pai (parent directory) é frequentemente necessária para garantir a persistência de novos ficheiros.",
+      "solucao": "**Garantias de fsync() vs fdatasync():**\n- **`fsync(fd)`**: Força a gravação de todos os blocos de dados em cache (dirty pages) E de todos os metadados do inode (mtime, ctime, etc.) associados ao descritor de ficheiro para o disco. No Linux, também instrui a controladora a fazer o flush da cache volátil física da unidade de disco.\n- **`fdatasync(fd)`**: Força apenas o flush dos dados modificados do ficheiro. Evita a escrita síncrona de atualizações de metadados não essenciais (ex: alteração de tempo de acesso ctime/mtime), a menos que o metadado seja obrigatório para aceder ao dado no futuro (como a alteração da dimensão do ficheiro com `write()` de extensão). Isto proporciona uma aceleração significativa por evitar E/S de metadados.\n\n**Comportamento de O_SYNC vs O_DIRECT:**\n- **`O_SYNC`**: Flag de abertura que assegura que todas as operações de escrita (`write()`) na aplicação sejam síncronas. O write() só retorna após os dados e metadados correspondentes terem sido totalmente transferidos e gravados no disco físico (equivalente a chamar `fsync()` após cada `write()`).\n- **`O_DIRECT`**: Bypassa o Page Cache e o Buffer Cache do sistema operativo, realizando transferências diretas via DMA entre o buffer em user-space da aplicação e o driver de bloco. É útil para bases de dados que implementam a sua própria cache inteligente. Contudo, **`O_DIRECT` não garante a síncronia da escrita física** na controladora de disco; para ter essa garantia, deve ser combinado explicitamente com `O_SYNC`.\n\n**Importância da Sincronização do Diretório Pai:**\nAo criar um ficheiro novo (ex: `/mnt/fs/novo.db`) e efetuar `fsync()` no seu fd, o SO garante que o inode e os blocos de dados do ficheiro estão no disco. Contudo, o diretório pai (que contém a entrada que faz o mapeamento do nome do ficheiro `novo.db` para o seu i-number) permanece retido na RAM do VFS (Directory Cache). Se o sistema falhar nesse instante, o diretório pai não persistido não saberá da existência do ficheiro, tornando-o órfão e inacessível. Portanto, para garantir que um novo ficheiro sobrevive a falhas, a aplicação deve abrir o diretório pai em modo read-only e executar `fsync()` no descritor de ficheiro do diretório."
+    }
+  ]
+}

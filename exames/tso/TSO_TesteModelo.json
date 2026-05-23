@@ -1,0 +1,84 @@
+{
+  "titulo": "Teste Modelo TSO",
+  "descricao": "Teste modelo completo cobrindo Observabilidade, eBPF, Benchmarking, APIs de E/S, Deduplicação e Escalonamento.",
+  "perguntas": [
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre monitorização e observabilidade.",
+      "opcoes": [
+        "A monitorização é mais detalhada do que a observabilidade.",
+        "A monitorização ajuda a detetar que algo está errado, enquanto que a observabilidade ajuda a perceber o porquê.",
+        "A observabilidade ajuda a detetar que algo está errado, enquanto que a monitorização ajuda a perceber o porquê.",
+        "A monitorização e a observabilidade são complementares."
+      ],
+      "solucao": [
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Qual ou quais das seguintes afirmações descrevem corretamente o papel do verificador eBPF?",
+      "opcoes": [
+        "Compila o código C em bytecode eBPF.",
+        "Traduz o bytecode eBPF em código máquina nativo.",
+        "Analisa o programa eBPF antes da sua execução para garantir que é seguro para o kernel.",
+        "Carrega o programa eBPF para o hook pretendido via syscall."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) que descreve(m) corretamente o impacto do agrupamento de pedidos (batching) no desempenho de um sistema.",
+      "opcoes": [
+        "Melhora simultaneamente o débito e a latência.",
+        "Melhora a latência ao custo do débito.",
+        "Melhora o débito ao custo da latência.",
+        "Não tem qualquer impacto no débito nem na latência."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Indique a(s) afirmação(ões) corretas relativamente às diferenças entre as APIs POSIX, libaio e io_uring.",
+      "opcoes": [
+        "A API POSIX é assíncrona, enquanto que as APIs libaio e io_uring são síncronas.",
+        "A API POSIX é síncrona, enquanto que as APIs libaio e io_uring são assíncronas.",
+        "A API libaio usa polling para recolher o resultado de pedidos de E/S.",
+        "A API io_uring pode usar polling para recolher o resultado de pedidos de E/S."
+      ],
+      "solucao": [
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Escolha a(s) opção(ões) correta(s) sobre escalonamento de dados.",
+      "opcoes": [
+        "O algoritmo lottery ticketing não necessita de aleatoriedade na sua implementação.",
+        "O algoritmo lottery ticketing necessita de aleatoriedade na sua implementação.",
+        "O algoritmo de stride scheduling é probabilisticamente correto.",
+        "O algoritmo de stride scheduling é determinístico."
+      ],
+      "solucao": [
+        1,
+        3
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "“A frequência de recolha e o nível de detalhe recolhido por uma ferramenta de coleção de dados de observabilidade podem ter um impacto significativo no consumo de recursos e no desempenho do sistema.”\nConcorda com esta afirmação? Justifique a sua resposta com exemplos concretos.",
+      "solucao": "Sim, a afirmação é inteiramente correta.\n\n**Justificação e Exemplos:**\n1. **Frequência de Recolha (Sampling Rate):** Se recolhermos métricas ou traces com demasiada frequência (ex: a cada milissegundo em vez de a cada segundo), geramos um volume massivo de dados. Isto consome largura de banda de rede para transmissão, ciclos de CPU para processamento e espaço em disco/memória para armazenamento.\n2. **Nível de Detalhe (Granularidade):**\n   - **Tracing ao nível do utilizador/funções (uprobes):** Injetar sondas dinâmicas em funções de user-space executadas milhões de vezes por segundo (ex: chamadas simples de biblioteca) adiciona um overhead de context-switch e processamento drástico, degradando a performance da aplicação.\n   - **Logging exaustivo:** Guardar logs estruturados detalhados para cada micro-operação ou pedido HTTP bem-sucedido pode sobrecarregar o sistema de I/O de escrita em disco, competindo com a própria atividade produtiva da aplicação.\n\n**Mitigações:** Técnicas como amostragem (sampling), agregação de dados antes do envio e políticas de retenção estritas são usadas para equilibrar a visibilidade com o overhead de desempenho."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Imagine que pretende contabilizar o número total de chamadas ao sistema feitas por uma aplicação que efetua pedidos de E/S para um sistema de ficheiros que segue uma implementação FUSE passthrough. Note que a aplicação pode efetuar pedidos de E/S também em outros sistemas de ficheiros locais.\nDe que forma pode a tecnologia eBPF ser útil? Que abordagem seguiria para efetuar a contagem e que componentes/locais da stack de I/O escolheria para fazer tracing? Justifique a sua resposta.",
+      "solucao": "**Utilidade e Abordagem do eBPF:**\n\n1. **Como o eBPF é útil:** Permite injetar sondas seguras e de baixo overhead no kernel para monitorizar as syscalls em tempo real sem alterar o código da aplicação ou do sistema FUSE, nem requerer reinicializações.\n2. **Abordagem de Contagem:**\n   - Criar um programa eBPF que intercete as syscalls desejadas (ex: `sys_enter_write`, `sys_enter_read`, `sys_enter_open`, etc.).\n   - Usar um **eBPF Map** do tipo `BPF_MAP_TYPE_HASH` ou `BPF_MAP_TYPE_ARRAY` no kernel para armazenar a contagem por PID e tipo de syscall.\n   - O programa eBPF filtra pelo PID da aplicação alvo (`bpf_get_current_pid_tgid()`) para contar apenas as chamadas efetuadas por ela.\n3. **Componentes/Locais da Stack de I/O para Tracing:**\n   - **Interface de Syscalls (sys_enter):** Para contar todas as chamadas feitas pela aplicação. No entanto, isto não distingue para qual sistema de ficheiros o pedido é direcionado.\n   - **VFS (Virtual File System) ou Pontos de Entrada do FUSE:** Para filtrar apenas os pedidos ao FUSE passthrough, devemos fazer o tracing ao nível das funções do VFS (ex: `vfs_write`, `vfs_read`) ou usar os tracepoints do módulo de kernel `fuse` (ex: `/sys/kernel/debug/tracing/events/fuse`). Ao inspecionar o descritor de ficheiro ou o mount point do VFS associado ao diretório do FUSE passthrough (ex: `/mnt/fs`), conseguimos isolar e contar as operações direcionadas exclusivamente a este sistema de ficheiros em oposição a outros locais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Foi encarregue de implementar um sistema de deduplicação para discos SSD NVMe. Como requisito principal, é-lhe indicado que a sua solução deve manter a baixa latência (i.e., tempo de resposta) para pedidos de escrita e leitura que este tipo de discos oferece às aplicações. Tendo em conta este requisito, acha melhor optar por uma solução de deduplicação inline ou offline? Justifique a sua resposta, indicando concretamente os pontos fortes ou fracos destes desenhos que justificam a sua escolha.",
+      "solucao": "**Escolha: Deduplicação Offline.**\n\n**Justificação baseada no requisito de baixa latência em SSDs NVMe:**\n\n- Discos SSD NVMe são extremamente rápidos e oferecem altíssimo paralelismo e baixa latência.\n- **Desenho Inline (Inadequado para o requisito):**\n  - *Como funciona:* Identifica e elimina duplicados na *critical path* de escrita, antes de persistir os dados.\n  - *Pontos Fracos:* Exige calcular hashes criptográficos pesados (ex: SHA-256) e pesquisar no índice de deduplicação (que pode requerer acessos lentos a disco) a cada operação de escrita. Isto adiciona um overhead severo de CPU e memória que destrói a vantagem de baixa latência oferecida pelo NVMe.\n- **Desenho Offline (Ideal para o requisito):**\n  - *Como funciona:* Os dados são escritos diretamente no disco SSD NVMe com a máxima velocidade (latência nativa). O processo de deduplicação (pesquisa de duplicados e atualização de metadados) ocorre de forma assíncrona em background.\n  - *Pontos Fortes:* Remove todo o processamento pesado e acessos ao índice da critical path de escrita, preservando a baixa latência e a vazão rápida dos SSDs NVMe.\n  - *Pontos Fracos (Aceitáveis neste cenário):* Consome temporariamente mais espaço de armazenamento (até que a deduplicação ocorra) e exige concorrência acrescida nas threads de background, mas não degrada o tempo de resposta percebido pelas aplicações durante as escritas."
+    }
+  ]
+}

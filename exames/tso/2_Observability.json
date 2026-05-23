@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 2: Observabilidade de Sistemas",
+  "descricao": "Exame aprofundado com foco em conceitos de monitorização vs. observabilidade, debugging, profiling, os três pilares, pontos de recolha, transporte de dados, armazenamento e trade-offs.",
+  "perguntas": [
+    {
+      "pergunta": "Qual das seguintes afirmações descreve corretamente a diferença conceitual e prática entre Monitorização e Observabilidade?",
+      "opcoes": [
+        "A monitorização ajuda a investigar e responder ao porquê, como, quando e onde ocorreu um problema, enquanto a observabilidade apenas alerta que algo está errado.",
+        "A monitorização foca-se em detetar e alertar para problemas (que algo está errado), enquanto a observabilidade foca-se em investigar e compreender a causa raiz (o porquê, como, quando e onde algo correu mal).",
+        "A monitorização lida exclusivamente com dados em formato estruturado (JSON), ao passo que a observabilidade recolhe dados em texto limpo do kernel.",
+        "A monitorização e a observabilidade são termos sinónimos que partilham a mesma implementação prática na stack física."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual dos seguintes grupos de ferramentas de debugging é composto exclusivamente por rastreadores (Tracers) para acompanhar operações de chamadas ao sistema, chamadas de bibliotecas e funções do kernel?",
+      "opcoes": [
+        "gdb, jdb, pdb.",
+        "zlog, Log4j, journalctl.",
+        "strace, ltrace, ftrace.",
+        "top, htop, ps."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Se pretender detetar especificamente falhas de acesso a posições inválidas de memória (out-of-bounds) e memory leaks, e medir o número de falhas de cache (cache misses) ao nível de CPU, que ferramentas de profiling deve selecionar, respetivamente?",
+      "opcoes": [
+        "cProfile e gprof.",
+        "Valgrind e Perf.",
+        "strace e ltrace.",
+        "vmstat e free."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Considere que o seu sistema apresenta lentidão no acesso ao disco e desconfia de processos específicos. Que utilitários de monitorização de recursos em tempo real deve utilizar para obter, respetivamente, estatísticas detalhadas de E/S por processo, utilização global de memória virtual/sistema e ficheiros abertos por cada processo?",
+      "opcoes": [
+        "mpstat, free e df.",
+        "iotop, vmstat e lsof.",
+        "ss, ifconfig e nethogs.",
+        "ps, top e du."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Relativamente às métricas como pilar da observabilidade, qual das seguintes opções descreve as suas características e uso principal?",
+      "opcoes": [
+        "São registos estruturados em JSON que contêm mensagens descritivas detalhadas sobre erros de login.",
+        "São representações numéricas de dados medidos ao longo do tempo que refletem o desempenho e saúde do sistema, ajudando a compreender o que está a acontecer.",
+        "Gravam o fluxo e o caminho exato que as requisições fazem através de múltiplos serviços distribuídos.",
+        "São alertas dinâmicos baseados exclusivamente em eventos assíncronos do kernel."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No contexto dos três pilares, como são caracterizados os Logs e que pergunta ajudam fundamentalmente a responder quando ocorre um incidente?",
+      "opcoes": [
+        "São medições contínuas de latência e throughput; ajudam a responder quando o disco ficou cheio.",
+        "São registos cronológicos (timestamped) de eventos ocorridos no sistema (ex: falhas de login ou arranque de serviços); ajudam a responder porquê o problema aconteceu.",
+        "São grafos direcionados que detalham a travessia de pacotes na rede; ajudam a responder onde a rede falhou.",
+        "São buffers circulares no kernel que contam instruções executadas; ajudam a responder como a memória foi corrompida."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que é um Span no âmbito dos Traces distribuídos ou locais?",
+      "opcoes": [
+        "Um registo estático de uma variável guardado na stack de execução.",
+        "Uma métrica numérica agregada que avalia o rácio de CPU por processo.",
+        "Uma unidade lógica de trabalho que possui um nome de operação, um tempo de início e a duração dessa operação.",
+        "O intervalo de endereços físicos mapeado pelo VFS para E/S assíncrona."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual dos seguintes grupos de funções representa interceções típicas ao nível das bibliotecas de sistema (System Libraries) para analisar o comportamento de componentes partilhados em runtime?",
+      "opcoes": [
+        "open(), read(), write() via strace.",
+        "malloc()/free() em libc e pthread_create()/pthread_join() em libpthread.",
+        "Business logic e request handlers em Jaeger.",
+        "Cache misses e branch mispredictions via PMCs."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a diferença fundamental entre Tracepoints/USDT e Probes (kprobes/uprobes)?",
+      "opcoes": [
+        "Tracepoints/USDT são injetados dinamicamente em tempo de execução sem recompilação, enquanto Probes exigem a alteração do código fonte original.",
+        "Tracepoints/USDT são ganchos estáticos (static hooks) pré-definidos e estáveis no código, enquanto Probes são ganchos dinâmicos injetados em tempo de execução em localizações arbitrárias sem necessidade de recompilar.",
+        "Tracepoints correm exclusivamente em user-space, ao passo que Probes correm apenas no hardware físico da placa de rede.",
+        "Probes oferecem maior estabilidade a longo prazo ao longo de atualizações do kernel do que os Tracepoints."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes opções distingue corretamente o papel de um Agent e de um Collector no transporte de dados de observabilidade?",
+      "opcoes": [
+        "O Agent agrega e filtra dados de múltiplas máquinas distantes, enquanto o Collector apenas gera logs estruturados localmente.",
+        "O Agent corre localmente próximo da fonte de dados para os recolher e reencaminhar, enquanto o Collector agrega, processa (faz amostragem, filtragem, transformação) e encaminha os dados de múltiplos agentes para os backends.",
+        "O Agent armazena os dados de forma permanente em disco, ao passo que o Collector apenas exibe gráficos como o Grafana.",
+        "O Agent corre apenas em redes privadas e o Collector comunica exclusivamente com a Internet pública."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Se precisar de armazenar e pesquisar de forma eficiente dados de observabilidade do tipo métricas (valores numéricos de série temporal), que backend de armazenamento deve preferir?",
+      "opcoes": [
+        "Elasticsearch ou Loki.",
+        "Prometheus ou InfluxDB.",
+        "Jaeger ou Zipkin.",
+        "Valgrind ou Gdb."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao analisar um Flame Graph gerado por um profiler de CPU, o que representa a largura (eixo X) de cada bloco ou caixa no gráfico?",
+      "opcoes": [
+        "O tempo de execução absoluto da função em milissegundos.",
+        "A percentagem de tempo de CPU que aquela função e as suas sub-funções estiveram ativas (ou a frequência com que apareceram nas amostras).",
+        "A ordem cronológica em que as funções foram chamadas pela aplicação.",
+        "A quantidade de memória heap em bytes alocada por essa função específica."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "De que forma a técnica de amostragem (sampling) afeta os trade-offs de um sistema de observabilidade?",
+      "opcoes": [
+        "Aumenta a precisão dos dados em 100% à custa de maior consumo de CPU no kernel.",
+        "Permite processar apenas um subconjunto representativo de eventos (ex: 1 em cada 100), reduzindo o overhead de desempenho e armazenamento à custa de alguma perda de visibilidade de eventos raros ou isolados.",
+        "Agrupa vários pedidos de rede em lotes periódicos sem alterar o volume total de dados armazenados.",
+        "Desativa por completo a recolha de métricas de rede mantendo apenas os logs do sistema."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o principal benefício e o custo associado à técnica de agrupamento de pedidos (batching) no envio de dados de observabilidade?",
+      "opcoes": [
+        "Melhora a precisão das métricas ao custo de aumentar o espaço ocupado no disco rígido.",
+        "Melhora o débito de rede e reduz o número de conexões/overhead de E/S, ao custo de aumentar a latência na disponibilização dos dados (delay temporal).",
+        "Elimina a necessidade de usar agentes locais ao custo de requerer hardware de rede proprietário.",
+        "Aumenta a segurança de tipos do verificador ao custo de limitar a stack do eBPF a 512 bytes."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual dos seguintes constitui um dos principais desafios de implementar um sistema de observabilidade altamente detalhado (alta granularidade)?",
+      "opcoes": [
+        "A incapacidade de suportar formatos estruturados como JSON.",
+        "O elevado consumo de recursos de rede, CPU e armazenamento (custo financeiro e degradação de performance do sistema monitorizado).",
+        "A restrição física que impede o uso de ferramentas de visualização como o Grafana.",
+        "O facto de o compilador JIT não traduzir o bytecode em código máquina nativo."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distinga detalhadamente Monitorização de Observabilidade recorrendo à metáfora do icebergue. Explique em que circunstâncias cada abordagem é utilizada e por que razão a observabilidade se tornou crítica em arquiteturas modernas.",
+      "solucao": "**Diferença através da Metáfora do Icebergue:**\n\n1. **Monitorização (A ponta do icebergue - visível à superfície):**\n   - *Foco:* Responde à pergunta **'O que está a acontecer?'** ou **'O que está avariado?'**.\n   - *Funcionamento:* Recolhe métricas chave pré-definidas (ex: consumo de CPU, espaço em disco, códigos de erro HTTP 5xx) e dispara alertas quando ultrapassam limiares (thresholds) definidos.\n   - *Uso:* É reativa e serve para detetar anomalias conhecidas em sistemas estáticos e previsíveis.\n2. **Observabilidade (A parte submersa - invisível à superfície):**\n   - *Foco:* Responde a perguntas complexas como **'Porquê, como, quando e onde aconteceu?'** o problema.\n   - *Funcionamento:* Permite inferir o estado interno de um sistema analisando as suas saídas (outputs) através da correlação dos três pilares (Métricas, Logs e Traces).\n   - *Uso:* É proativa e destina-se a diagnosticar problemas novos, inesperados ou intermitentes (os chamados 'unknown unknowns').\n\n**Razão da Importância em Arquiteturas Modernas:**\nEm sistemas antigos e monolíticos, a monitorização de recursos era suficiente para diagnosticar falhas. Com a transição para sistemas distribuídos complexos (microserviços, cGroups, Kubernetes), os modos de falha tornaram-se altamente distribuídos e imprevisíveis. Uma requisição pode falhar devido à interação subtil entre dezenas de componentes. A observabilidade permite rastrear a execução fim-a-fim, identificar o ponto exato da falha e compreender as condições sistémicas que a provocaram."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A recolha exaustiva de dados de observabilidade pode causar um impacto severo no desempenho de um sistema de produção. Descreva três técnicas (de entre as discutidas na matéria) para mitigar estes problemas e explique o 'trade-off' inerente a cada uma delas.",
+      "solucao": "A recolha de dados de observabilidade em larga escala consome ciclos de CPU, largura de banda de rede e espaço de armazenamento. Para mitigar o overhead, utilizam-se as seguintes técnicas:\n\n1. **Amostragem (Sampling):**\n   - *Funcionamento:* Analisa-se apenas uma percentagem representativa das operações (ex: registar apenas 1 em cada 100 acessos bem-sucedidos ao disco ou 5% dos pedidos HTTP).\n   - *Trade-off:* Melhora drasticamente a performance de CPU e poupa armazenamento. Em contrapartida, perde-se visibilidade sobre eventos raros ou erros isolados que podem ocorrer em pedidos não amostrados.\n2. **Filtragem (Filtering):**\n   - *Funcionamento:* Descarta-se ativamente dados irrelevantes no ponto de recolha (ex: reter apenas logs do nível 'ERROR' ou 'WARNING', descartando 'INFO' e 'DEBUG').\n   - *Trade-off:* Poupa imenso espaço de armazenamento e reduz o tráfego de rede. Contudo, perde-se o contexto detalhado do que o sistema estava a fazer antes de o erro acontecer, dificultando a análise fina da causa raiz.\n3. **Agrupamento em Lote (Batching):**\n   - *Funcionamento:* Os agentes acumulam dados localmente na memória e enviam-nos em blocos periódicos maiores, em vez de enviar cada evento imediatamente pela rede.\n   - *Trade-off:* Melhora o débito de rede e reduz o número de operações de I/O por segundo (IOPS). Por outro lado, introduz um atraso temporal (latência), fazendo com que a visualização de dados nos dashboards perca o caráter estritamente imediato/real-time."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Indique quais são os 'Três Pilares da Observabilidade' e explique como é que um engenheiro de sistemas os correlaciona de forma integrada para resolver um incidente complexo de lentidão numa base de dados.",
+      "solucao": "Os Três Pilares da Observabilidade são **Métricas**, **Logs** e **Traces**:\n\n1. **Métricas (O quê):** São dados numéricos que refletem o desempenho do sistema ao longo do tempo. O engenheiro deteta no dashboard de visualização (ex: Grafana) um pico súbito na latência das queries e um consumo de CPU de 100% na base de dados.\n2. **Traces (Onde e Como):** São caminhos que documentam o fluxo de uma transação pelo sistema. O engenheiro correlaciona o pico de latência com os traces de transações lentas. Ao inspecionar os trace spans, verifica que o tempo excessivo é gasto especificamente dentro do span correspondente à execução de uma operação específica de escrita.\n3. **Logs (Porquê):** São registos detalhados de eventos. O engenheiro filtra os logs da base de dados correspondentes àquela janela temporal e ID de trace. Ao inspecionar as mensagens de erro ou logs de depuração, encontra um registo indicando falha na escrita do ficheiro de log de transações devido a contenção no disco ou bloqueio de tabela (lock contention).\n\n**Conclusão da Correlação:**\nA métrica revelou o sintoma (a latência elevada), o trace isolou a localização do gargalo (o span de escrita específico), e os logs forneceram o contexto causal detalhado (bloqueio de tabela/disco), permitindo resolver o incidente de forma precisa."
+    }
+  ]
+}

@@ -3,14 +3,9 @@
   "descricao": "Base de dados abrangente sobre vulnerabilidades Web e o OWASP Top 10, cobrindo injeções (SQLi, Command Injection, XSS), controlos de acesso, cookies, CSRF, SameSite, XS-Leaks, lógica de negócio e mecanismos de autenticação segura (FIDO2).",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "O uso de prepared statements (queries parametrizadas) garante proteção contra SQL Injection porque impede a alteração da estrutura lógica da query, mesmo que o input do utilizador contenha comandos SQL maliciosos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes estratégias é a mais robusta e recomendada para mitigar vulnerabilidades de injeção de comandos SQL (SQLi) no acesso a bases de dados?",
@@ -26,24 +21,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em SQL Injection cego (Blind SQLi) baseado no tempo, o atacante consegue inferir informações da base de dados medindo o tempo de resposta do servidor a queries condicionais que forçam atrasos (ex: SLEEP).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao utilizar uma biblioteca ORM (Object-Relational Mapping), a aplicação está inerentemente e totalmente protegida contra SQL Injection, uma vez que os ORMs não geram queries SQL dinâmicas sob qualquer circunstância.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Considere as diferenças entre Reflected XSS, Stored XSS e DOM-based XSS. Qual das seguintes afirmações é correta?",
@@ -59,14 +44,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A especificação de uma política de segurança de conteúdo (CSP) com a diretiva 'Content-Security-Policy: default-src \\'self\\'' impede a execução de quaisquer scripts embutidos (inline scripts) no código HTML da página.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O mecanismo de Subresource Integrity (SRI) permite ao browser mitigar que tipo de ameaça?",
@@ -82,24 +62,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A especificação Trusted Types do browser visa proteger contra DOM-based XSS através do bloqueio de atribuições diretas de strings não sanitizadas a recetores perigosos do DOM (como innerHTML), forçando o uso de objetos seguros previamente validados.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Vulnerabilidades do tipo IDOR (Insecure Direct Object Reference) ocorrem quando um sistema expõe uma referência a um objeto interno de base de dados (ex: ID no URL) e não valida se o utilizador autenticado tem permissão para aceder a esse recurso específico.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Para mitigar eficazmente vulnerabilidades de controlo de acesso que levam a IDOR, qual das seguintes abordagens deve ser adotada?",
@@ -128,24 +98,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A diretiva 'SameSite=Lax' em cookies de sessão impede o envio do cookie em qualquer transição de página cross-site (como carregar um link vindo de um email externo), obrigando o utilizador a reautenticar-se.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O cabeçalho HTTP 'Sec-Fetch-Site' indica ao servidor se o request foi originado a partir do mesmo domínio (same-origin), mesmo site (same-site) ou de um domínio diferente (cross-site), permitindo ao servidor rejeitar preventivamente chamadas indesejadas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes configurações de SameSite oferece a maior proteção contra CSRF e XS-Leaks, ao custo de não enviar o cookie em transições iniciadas por links externos (top-level navigations)?",
@@ -161,14 +121,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A chamada 'subprocess.run(cmd, shell=True)' em Python é segura contra Command Injection porque delega a execução ao interpretador do sistema operativo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Considere as seguintes chamadas em Python para executar um comando que lista ficheiros. Qual delas é segura contra command injection ao receber input direto não validado de um utilizador no argumento 'dirname'?",
@@ -184,24 +139,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao armazenar dados de sessão inteiramente no lado do cliente (client-side session management), o uso de criptografia simétrica com chave secreta mantida no servidor serve para garantir a confidencialidade dos dados armazenados nos cookies contra a leitura do utilizador.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Para garantir que os cookies de sessão de uma aplicação web não são lidos por scripts maliciosos no cliente (mitigando roubo de sessão via XSS), o programador deve configurar a flag 'HttpOnly' nesses cookies.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Que proteção confere a flag 'Secure' num cookie HTTP?",
@@ -217,14 +162,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Vulnerabilidades de 'Insecure Design' dizem respeito a falhas estruturais na arquitetura do sistema que não podem ser corrigidas por uma implementação perfeita do código existente, exigindo mudanças nos requisitos ou modelo de design.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual dos seguintes cenários constitui um exemplo de uma falha de lógica de negócio (Business Logic Flaw)?",
@@ -240,24 +180,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Efetuar a validação de regras de negócio apenas no frontend (como verificar se a idade do utilizador é superior a 18 anos através de JavaScript na página) é suficiente para garantir a segurança da aplicação, pois o browser do cliente impede o envio de dados que não cumpram esta condição.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A exposição pública de diretórios administrativos ocultos '.git' em ambiente de produção é uma falha grave de configuração de segurança (Security Misconfiguration) que permite a um atacante reconstruir todo o código-fonte da aplicação.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes ações contribui diretamente para a redução de vulnerabilidades de Security Misconfiguration?",
@@ -273,14 +203,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Para mitigar ataques baseados em carregamento de ficheiros maliciosos (File Uploads), o servidor deve confiar na extensão declarada pelo cliente ou no cabeçalho 'Content-Type' enviado no request para determinar a segurança do ficheiro.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Como funciona a técnica de Clickjacking?",
@@ -296,24 +221,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A diretiva de cabeçalho 'X-Frame-Options: deny' ou a diretiva CSP 'frame-ancestors \\'none\\'' protegem o website contra ataques de Clickjacking ao impedir que as suas páginas sejam renderizadas dentro de frames/iframes de outros domínios.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A autenticação com dois fatores (2FA) baseada em códigos temporários gerados por aplicação móvel (TOTP) protege totalmente o utilizador contra ataques de Phishing ativo de representantes intermédios (Man-in-the-Middle), pois a chave secreta de geração de tokens nunca é enviada ao atacante.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Qual das seguintes tecnologias de autenticação é resistente a Phishing (phishing-resistant) porque valida criptograficamente a origem do site e vincula a chave de autenticação ao domínio real da aplicação web no browser?",
@@ -329,34 +244,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade ShellShock (CVE-2014-6271) permitia injeção de comandos no interpretador de comandos Bash através de variáveis de ambiente maliciosas definidas via cabeçalhos HTTP em scripts CGI.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Os ataques do tipo XS-Leaks (Cross-Site Leaks) usam canais laterais no browser (como tempos de resposta ou contagem de frames) para extrair dados privados de um site legítimo, mesmo sem violar formalmente a Same Origin Policy (SOP).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O cabeçalho 'Cross-Origin-Opener-Policy: same-origin' isola o contexto de navegação da página de janelas que tenham sido abertas a partir dela, mitigando ataques de XS-Leaks e de falsificação de referências de janelas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     }
   ]
 }

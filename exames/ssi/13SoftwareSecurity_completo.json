@@ -3,14 +3,9 @@
   "descricao": "Base de dados abrangente sobre segurança de software, cobrindo vulnerabilidades de memória (buffer overflow, use-after-free, integer overflow, format strings), mitigações de compilação e OS (NX, ASLR, Canaries, RELRO, CFI), concorrência (TOCTOU), injeções, desserialização insegura e ciclo de vida de desenvolvimento seguro (SDL).",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "A distinção teórica entre 'CWE' (Common Weakness Enumeration) e 'CVE' (Common Vulnerabilities and Exposures) reside no facto de as fraquezas (CWE) existirem ao nível do design ou código-fonte independentemente do deployment, ao passo que as vulnerabilidades (CVE) representam instâncias dessas fraquezas associadas a um produto e versão específicos num contexto real.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Ao classificar uma vulnerabilidade crítica como a 'Log4Shell' (CVE-2021-44228) utilizando o CVSS v3.x, qual das seguintes métricas de Base justifica que o Scope (S) seja classificado como 'Changed' (C)?",
@@ -26,14 +21,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O cálculo do Base Score do CVSS v3.1 de 10.0 (Crítico) traduz-se automaticamente num risco comercial ou organizacional crítico idêntico para qualquer organização, uma vez que as métricas temporais e ambientais não afetam a pontuação de priorização final.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Compare as vulnerabilidades Heartbleed (CVE-2014-0160) e Log4Shell (CVE-2021-44228). Qual das seguintes opções descreve corretamente os seus impactos e categorias CWE respetivas?",
@@ -49,24 +39,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na arquitetura x86-64 (System V AMD64 ABI), a stack cresce de endereços altos para endereços baixos. No entanto, o preenchimento de arrays (buffers) dentro de um stack frame é efetuado de endereços baixos para endereços altos, o que possibilita que um buffer overflow sobrescreva o saved RBP e o return address (saved RIP).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A mitigação de hardware NX/XD (No-Execute / Data Execution Prevention) impede a execução de código em páginas de memória marcadas como escrita (Writable). Isto torna impossível qualquer tipo de ataque de execução de código (RCE) na stack, exceto se o atacante conseguir injetar e executar uma shellcode em páginas de memória não alocadas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Como funciona fundamentalmente a técnica de Return-Oriented Programming (ROP) para contornar a proteção NX/XD?",
@@ -82,14 +62,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A randomização do espaço de endereçamento (ASLR) impede que um atacante saiba os endereços absolutos de funções e variáveis na memória. Contudo, uma leitura fora de limites (CWE-125) pode permitir vazar um endereço da stack ou de uma biblioteca (como a libc), viabilizando o cálculo dos endereços de todos os outros gadgets através de offsets estáticos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O mecanismo de Stack Canary é uma defesa eficaz contra buffer overflows baseados na stack. Qual das seguintes afirmações sobre os limites e contorno desta mitigação é verdadeira?",
@@ -105,24 +80,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A compilação com a flag PIE (Position Independent Executable) permite que o próprio código binário principal (secção .text) seja carregado em endereços aleatórios na memória a cada execução, trabalhando em conjunto com o ASLR do sistema operativo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O mecanismo RELRO (Relocation Read-Only) completo (Full RELRO) protege a tabela Global Offset Table (GOT) marcando-a como totalmente read-only após a resolução inicial de todos os símbolos dinâmicos pelo linker, impedindo ataques que tentem sobrescrever endereços de funções importadas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Considere a função seguinte em C:\n\nvoid alloc_and_copy(unsigned short count, char *src) {\n    unsigned short size = count * 4;\n    char *buf = malloc(size);\n    if (buf) {\n        memcpy(buf, src, count * 4);\n    }\n}\n\nSe o tipo 'unsigned short' for representado por 16 bits (valor máximo 65535) e 'count' for igual a 20000, o que ocorre?",
@@ -138,14 +103,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Para mitigar vulnerabilidades de integer overflow (CWE-190) em operações de cálculo de tamanho de buffers, recomenda-se a utilização de funções com deteção de overflow (como '__builtin_mul_overflow' em compiladores modernos) e a validação prévia dos limites máximos das variáveis envolvidas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No contexto de vulnerabilidades de format string (CWE-134), qual o papel e perigo associados aos especificadores '%p' e '%n' quando injetados num input do utilizador executado diretamente por 'printf(user_input)'?",
@@ -161,24 +121,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A melhor forma de mitigar vulnerabilidades de format string (CWE-134) é garantir que o primeiro argumento das funções da família printf seja sempre uma string literal constante e nunca uma variável contendo dados fornecidos pelo utilizador (ex: preferir 'printf(\"%s\", user_input)' em vez de 'printf(user_input)').",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em ataques do tipo Use-After-Free (CWE-416), o atacante tenta manipular o alocador de memória do heap de modo a que uma nova estrutura de dados (controlada pelo atacante) ocupe exatamente a mesma zona de memória de um objeto que foi previamente libertado (free) mas que a aplicação ainda acede através de um dangling pointer.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes afirmações descreve corretamente a natureza e as mitigações recomendadas para Insecure Deserialisation (CWE-502)?",
@@ -194,14 +144,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A biblioteca 'pickle' em Python é segura para ler dados fornecidos por utilizadores desde que o ficheiro contendo o fluxo de bytes serializado seja assinado digitalmente com HMAC, impedindo adulteração antes do carregamento com 'pickle.loads()'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Considere o seguinte padrão de código vulnerável a TOCTOU (Time of Check to Time of Use):\n\nif (access(\"user_file\", W_OK) == 0) {\n    fd = open(\"user_file\", O_WRONLY);\n    write(fd, buffer, size);\n}\n\nQual das seguintes opções descreve uma mitigação correta e robusta?",
@@ -217,24 +162,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Num ataque de TOCTOU, o atacante tira partido de uma corrida crítica (race condition) para modificar um recurso do sistema de ficheiros (ex: criar um link simbólico para '/etc/passwd') precisamente no curto intervalo temporal que decorre entre a verificação de permissões do recurso (CHECK) e o acesso efetivo ao mesmo (USE).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade de Type Confusion (CWE-843) surge quando uma linguagem de programação sem segurança de tipos forte ou um compilador JIT trata um objeto alocado na memória como se fosse de um tipo diferente do original. Isto permite a um atacante aceder a campos e tabelas de despacho virtuais fora do alinhamento esperado, obtendo primitivas de leitura e escrita arbitrárias na memória.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Como funciona um ataque de Denial of Service por ReDoS (Regular Expression Denial of Service)?",
@@ -250,24 +185,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A modularidade e a separação de privilégios (Privilege Separation) em segurança de software baseiam-se na divisão do sistema em componentes isolados (processos distintos), cada um executando com o conjunto mínimo de privilégios necessários (least privilege). Desta forma, se um componente contiver um bug de RCE, o impacto (blast radius) fica restrito a esse domínio específico de execução.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao adotar programação defensiva, o uso de funções limitadas em tamanho como 'strncpy' e 'snprintf' elimina completamente a possibilidade de qualquer erro de execução, garantindo que o programa termina de forma segura com um aviso visível de truncagem.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "No âmbito do Secure Development Lifecycle (SDL), qual a ferramenta/técnica mais adequada para identificar proativamente vulnerabilidades de memória ou lógica num binário através de testes dinâmicos com inputs semi-aleatórios massivos gerados automaticamente?",
@@ -283,24 +208,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O Software Bill of Materials (SBOM) é um inventário formal e detalhado de todos os componentes de software, bibliotecas e dependências (incluindo transitivas) de uma aplicação. A sua utilidade principal é permitir que as equipas identifiquem rapidamente se a organização está exposta a uma nova vulnerabilidade crítica (CVE) acabada de divulgar em pacotes de terceiros.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ataques à cadeia de abastecimento (Supply Chain Attacks) direcionados a dependências de software ocorrem frequentemente quando atacantes comprometem ou publicam pacotes maliciosos com nomes semelhantes a bibliotecas populares (typosquatting) nos repositórios públicos (npm, PyPI, Maven), fazendo com que a aplicação legítima execute código malicioso durante o build ou runtime.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Em Python, qual das seguintes formas de executar um comando externo é considerada intrinsecamente vulnerável a Command Injection se receber o input direto não validado do utilizador na variável 'ip_address'?",
@@ -316,14 +231,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma falha de 'Insecure Design' (como a ausência de um mecanismo de autenticação multifator ou a falha na definição de limites de transações financeiras) pode ser totalmente corrigida por uma implementação impecável e sem bugs de código do algoritmo atual.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Qual foi a causa fundamental da vulnerabilidade Shellshock (CVE-2014-6271)?",
@@ -339,24 +249,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O mecanismo de Control-Flow Integrity (CFI) é uma técnica de compilação que visa impedir ataques de RCE monitorizando o fluxo de controlo de execução em tempo de execução, garantindo que os desvios e retornos de funções apenas se dirigem para alvos predefinidos no grafo de fluxo de controlo legítimo do programa.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao contrário dos overflows na stack, os buffer overflows no heap (CWE-122) não permitem que um atacante obtenha a execução de código arbitrário (RCE), visto que no heap não existem saved RBPs ou endereços de retorno para serem sobrescritos diretamente.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     }
   ]
 }

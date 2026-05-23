@@ -1,0 +1,301 @@
+{
+  "titulo": "Exame do Capítulo 9: Escalonamento de CPU",
+  "descricao": "Exame aprofundado sobre políticas de escalonamento de CPU (Lottery, Stride, CFS, EEVDF) e escalonamento multiprocessado (SQMS, MQMS, coerência e afinidade de cache, roubo de trabalho).",
+  "perguntas": [
+    {
+      "pergunta": "Qual é a principal desvantagem do algoritmo de Escalonamento por Loteamento (Lottery Scheduling) em comparação com abordagens determinísticas de partilha proporcional?",
+      "opcoes": [
+        "O facto de a distribuição real do CPU exigir um gerador de números aleatórios com complexidade de tempo na ordem de $O(\\log N)$, o que causa elevada latência de decisão.",
+        "A impossibilidade de reconfigurar o número total de bilhetes do sistema em tempo de execução sem reiniciar o escalonador e recalcular as frações globais.",
+        "O facto de a distribuição real do CPU poder divergir significativamente do rácio de bilhetes atribuído a cada processo em curtas janelas de tempo, exigindo muitas iterações para convergir.",
+        "O facto de a distribuição real do CPU divergir apenas a longo prazo devido ao efeito de descompensação estocástica cumulativa, embora a curto prazo seja extremamente precisa."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Na implementação do Lottery Scheduling usando uma lista ligada de processos prontos, que otimização simples de ordenação reduz o tempo médio de pesquisa do vencedor?",
+      "opcoes": [
+        "Ordenar a lista por ordem decrescente do número de bilhetes (do maior para o menor), pois isto maximiza a probabilidade de o contador acumulado ultrapassar o valor do bilhete vencedor logo nos primeiros nós da travessia.",
+        "Ordenar a lista por ordem crescente do número de bilhetes (do menor para o maior), pois isto minimiza o número médio de adições e comparações que o contador acumulado necessita de realizar.",
+        "Ordenar a lista com base no identificador do processo (PID), pois garante que a travessia na pesquisa do bilhete vencedor é feita com um padrão de acesso à memória sequencial e determinístico.",
+        "Ordenar a lista com base na ordem inversa de chegada dos processos (LIFO), pois os processos mais recentes têm maior probabilidade estatística de deter os bilhetes vencedores da lotaria."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Qual é o principal problema do Escalonamento por Passos (Stride Scheduling) ao introduzir dinamicamente um novo processo no sistema?",
+      "opcoes": [
+        "A dificuldade em recalcular os valores de 'stride' de todos os outros processos já em execução, visto que a soma total de passos no sistema deve obrigatoriamente manter-se constante.",
+        "A dificuldade em definir o valor inicial de 'pass' do novo processo: se for definido como 0, ele monopolizará o CPU até alcançar os restantes; se for definido como o valor atual máximo ou médio, poderá sofrer starvation ou injustiça.",
+        "A necessidade de reiniciar a contagem de todos os valores de 'pass' globais do sistema para zero, anulando a precisão da partilha proporcional acumulada até ao momento.",
+        "O facto de o valor de 'stride' do novo processo ter de ser diretamente proporcional ao número de bilhetes, provocando starvation imediata caso o novo processo tenha alta prioridade."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No Completely Fair Scheduler (CFS), como é determinado o incremento da variável vruntime de um processo em relação ao tempo físico real de execução no CPU?",
+      "opcoes": [
+        "O incremento do vruntime é inversamente proporcional ao peso (weight) derivado do valor nice do processo; processos com maior prioridade (nice negativo, maior peso) acumulam vruntime mais lentamente, executando por mais tempo.",
+        "O incremento do vruntime é diretamente proporcional ao peso (weight) derivado do valor nice do processo; processos com maior prioridade (nice negativo, maior peso) acumulam vruntime mais rapidamente, executando por mais tempo.",
+        "O incremento do vruntime é inversamente proporcional ao valor nice do processo; processos com nice negativo acumulam vruntime mais rapidamente, resultando numa execução prolongada antes de perderem o CPU.",
+        "O incremento do vruntime é constante para todas as tarefas prontas, sendo que a prioridade (nice) apenas dita a duração física (time-slice) atribuída a cada processo no início de cada latência alvo."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Qual é o propósito do parâmetro min_granularity no CFS do Linux, considerando a latência de escalonamento alvo (sched_latency)?",
+      "opcoes": [
+        "Garantir que a latência de escalonamento (sched_latency) é ajustada para valores máximos, evitando que o temporizador do sistema (timer interrupt) tenha de disparar com uma frequência excessiva sob elevada carga.",
+        "Garantir um tempo mínimo de execução física ininterrupta para cada processo, evitando que a fatia de tempo (time-slice) calculada dinamicamente divirja para valores infinitesimalmente pequenos e cause overhead excessivo de context switching sob elevada carga.",
+        "Definir o número mínimo de tarefas que devem estar presentes na árvore Red-Black antes de o CFS permitir a reavaliação de VRuntimes e a migração de threads para outros cores de CPU.",
+        "Impedir que tarefas com prioridade muito baixa (valores nice positivos elevados) recebam qualquer tempo de CPU se o time-slice calculado for inferior a este limite, forçando a sua exclusão da árvore."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No CFS, se um processo adormecer (sleep) durante um período muito longo e depois acordar, o seu vruntime estará muito atrasado. Como é que o CFS evita que este processo monopolize o CPU após acordar?",
+      "opcoes": [
+        "O CFS penaliza o processo que acorda adicionando uma taxa proporcional ao tempo de sono ao seu vruntime atual, garantindo que ele não monopolize a CPU à custa dos processos que correram ativamente.",
+        "O CFS ajusta o vruntime do processo que acorda ao valor mínimo de vruntime atualmente presente na árvore Red-Black (ou ligeiramente abaixo dele, dependendo de outras regras de latência), evitando a monopolização da CPU.",
+        "O CFS mantém o vruntime original intacto e suspende temporariamente os processos ativos na árvore Red-Black até que o processo acordado atinja o valor médio de vruntime del sistema.",
+        "O CFS redefine o vruntime de todos os processos atualmente ativos na árvore Red-Black para o valor do processo que acaba de acordar, assegurando a igualdade estrita imediata no escalonamento."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Que estrutura de dados equilibrada é utilizada pelo CFS do Linux para indexar os processos prontos de forma a escolher eficientemente e em tempo logarítmico o processo com menor vruntime?",
+      "opcoes": [
+        "Uma árvore AVL, que mantém um equilíbrio de altura mais estrito do que a Red-Black Tree, minimizando o custo de reequilíbrio durante as constantes inserções e remoções de processos.",
+        "Uma árvore Vermelho-Preto (Red-Black Tree), que organiza os processos prontos com base no seu vruntime, permitindo operações de inserção, remoção e pesquisa do menor vruntime em tempo logarítmico $O(\\log N)$.",
+        "Uma árvore B+ (B-Plus Tree), que otimiza a localidade de referência em memória cache e minimiza os cache misses ao agrupar múltiplos blocos de vruntime num único nó do escalonador.",
+        "Uma Heap Binária (Min-Heap), que permite obter o processo com o menor vruntime em tempo constante $O(1)$, embora a remoção e reinserção de nós demore tempo linear $O(N)$."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a principal diferença de filosofia de seleção entre o novo escalonador EEVDF (Linux 6.6+) e o clássico CFS?",
+      "opcoes": [
+        "O CFS escolhe a tarefa com o prazo virtual (Virtual Deadline) mais curto, enquanto o EEVDF seleciona primeiro as tarefas com lag >= 0 e depois escolhe a que tem o menor vruntime global.",
+        "O CFS seleciona sempre a tarefa com o menor vruntime global presente na árvore Red-Black, enquanto o EEVDF seleciona primeiro as tarefas elegíveis (lag >= 0) e, de seguida, escolhe aquela com o prazo virtual (Virtual Deadline) mais curto.",
+        "O CFS baseia a sua decisão no rácio de bilhetes estocásticos em cada quantum de tempo, ao passo que o EEVDF recorre a passagens determinísticas baseadas em stride para as tarefas elegíveis com lag positivo.",
+        "O CFS garante justiça absoluta a curto prazo escolhendo tarefas com maior lag absoluto, ao passo que o EEVDF prioriza a vazão (throughput) total do sistema ignorando a elegibilidade do lag em tarefas batch."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No EEVDF, o que é o 'lag' de um processo e como determina a elegibilidade de escalonamento?",
+      "opcoes": [
+        "A diferença entre o vruntime médio de todos os processos prontos e o vruntime individual do processo (lag = avg_vruntime - process_vruntime); um lag positivo indica que a tarefa correu menos tempo do que a sua quota justa.",
+        "A diferença entre o vruntime individual do processo e o vruntime médio do sistema (lag = process_vruntime - avg_vruntime); um lag positivo indica que a tarefa correu mais tempo do que a sua quota justa.",
+        "O tempo físico real acumulado de espera na fila de prontos em relação ao tempo estimado de turnaround; um lag positivo indica que a tarefa ultrapassou o seu quantum ideal.",
+        "O rácio entre o stride ideal e o pass value acumulado do processo; um lag positivo indica que o processo acumulou passagens mais lentamente do que o esperado determinístico."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Como é calculado o prazo virtual (Virtual Deadline) de um processo no escalonador EEVDF?",
+      "opcoes": [
+        "VirtualDeadline = TempoElegivel - (Timeslice * Peso), onde o tempo elegível é o vruntime do processo e o timeslice é fixo para todas as tarefas prontas.",
+        "VirtualDeadline = TempoElegivel + (Timeslice / Peso), onde o tempo elegível é o vruntime do processo e o timeslice pode ser customizado por processos sensíveis à latência.",
+        "VirtualDeadline = TempoElegivel + (Timeslice * Peso), onde o tempo elegível é o vruntime médio e o peso é diretamente proporcional ao valor nice.",
+        "VirtualDeadline = TempoElegivel - (Timeslice / Peso), onde o tempo elegível é a soma dos VRuntimes de todos os processos elegíveis e o peso é inversamente proporcional a nice."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No escalonamento multiprocessado, porque é que a coerência de cache (cache coherence) é um problema crítico quando um processo migra de CPU?",
+      "opcoes": [
+        "O overhead introduzido pelo escalonador ao varrer todas as caches L1, L2 e L3 de todos os processadores para recalcular e sincronizar o valor do vruntime global a cada interrupção de relógio.",
+        "A possibilidade de modificações em dados feitas por um processo executado no CPU 1 ficarem retidas na cache local do CPU 1 e não estarem visíveis quando o processo migrar e for executado no CPU 2, forçando o hardware a invalidar ou atualizar as caches.",
+        "A impossibilidade física de ler a memória principal (RAM) por parte do CPU 2 enquanto a cache local do CPU 1 contiver dados de processos que sofreram preemptividade no core anterior.",
+        "O conflito gerado pela sincronização simultânea de TLB e cache local em múltiplos cores, o que impede a execução de tarefas cooperativas com o mesmo identificador de grupo de processos (TGID)."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quais são os dois desafios críticos do escalonamento multiprocessado com fila única (Single-Queue Multiprocessor Scheduling - SQMS)?",
+      "opcoes": [
+        "A ocorrência de desequilíbrio de carga estrutural imediato devido à existência de apenas um CPU a atuar como master no escalonamento, e o excesso de consumo de memória para manter múltiplas cópias da fila única.",
+        "A contenção acrescida de locks devido ao acesso concorrente de múltiplas CPUs à fila única partilhada para obter processos prontos, e o fenómeno de bouncing (perda de afinidade de cache) quando os processos executam em CPUs diferentes em cada ativação.",
+        "A contenção de memória no barramento principal devido ao bloqueio físico de leitura da RAM, e a incapacidade do escalonador de aplicar políticas clássicas como Round-Robin em sistemas SMP.",
+        "A necessidade de usar locks distribuídos sem partilha de memória cache entre cores, e a duplicação dos blocos de controlo de processos (PCBs) a cada migração entre CPUs."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a principal fraqueza do escalonamento com múltiplas filas (Multi-Queue Multiprocessor Scheduling - MQMS) e como é mitigada?",
+      "opcoes": [
+        "A elevada contenção de trincas (locks) globais no caminho crítico, uma vez que todas as CPUs competem pela mesma fila de prontos; mitigado via eliminação de locks por filas individuais e escalonamento estático.",
+        "O desequilíbrio de carga (load imbalance), onde algumas CPUs podem ficar subutilizadas ou sem processos (idles) enquanto outras estão sobrecarregadas com longas filas de espera; mitigado via migração de processos e roubo de trabalho (work stealing).",
+        "A perda sistémica de afinidade de cache devido à migração determinística e aleatória de processos a cada fatia de tempo; mitigado desativando a cache L1 dos cores inativos.",
+        "A impossibilidade de definir políticas de escalonamento diferentes para cada fila de CPU; mitigado forçando todas as CPUs a adotar estritamente o Completely Fair Scheduler (CFS)."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No MQMS, qual é o trade-off associado ao roubo de trabalho (work stealing) entre filas de CPUs?",
+      "opcoes": [
+        "Sondar as outras filas muito frequentemente gera sobrecarga de sincronização (locking overhead) e contesta os locks das filas alheias; sondar muito raramente pode perpetuar graves desequilíbrios de carga e ineficiência dos cores de CPU.",
+        "Sondar as outras filas muito frequentemente garante afinidade de cache perfeita, mas causa starvation de tarefas batch; sondar raramente melhora o turnaround time geral, mas prejudica a taxa de roubos bem-sucedidos.",
+        "Sondar as outras filas muito frequentemente obriga à invalidação imediata de toda a memória TLB global; sondar raramente provoca bouncing de processos nos cores de CPU com menor largura de banda.",
+        "Sondar as outras filas muito frequentemente reduz a latência de resposta, mas impede o funcionamento do eBPF Verifier; sondar raramente anula a elegibilidade baseada em lag no escalonador BFS."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No Linux, qual é o intervalo permitido de valores 'nice' e como influenciam a prioridade do processo?",
+      "opcoes": [
+        "Varia entre -19 (prioridade mínima/menor peso) e +20 (prioridade máxima/maior peso), com o valor padrão 0. Valores positivos representam processos mais prioritários que recebem maiores fatias de tempo.",
+        "Varia entre -20 (prioridade máxima/maior peso) e +19 (prioridade mínima/menor peso), com o valor padrão 0. Valores negativos representam processos mais prioritários que recebem maiores fatias de tempo.",
+        "Varia entre -20 (prioridade mínima/menor peso) e +19 (prioridade máxima/maior peso), com o valor padrão 0. Valores negativos representam processos menos prioritários que acumulam vruntime mais lentamente.",
+        "Varia entre 0 (prioridade mínima) e 100 (prioridade máxima), com o valor padrão 50. Valores abaixo de 50 acumulam vruntime linearmente e valores acima acumulam exponencialmente."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como se comportam os algoritmos FCFS (First-Come, First-Served) e SJF/STCF (Shortest Job First / Shortest Time-to-Completion First) em termos de Turnaround Time médio?",
+      "opcoes": [
+        "O FCFS é altamente sensível à ordem de chegada dos processos (podendo sofrer do efeito Comboio), enquanto o SJF/STCF minimizam o tempo médio de turnaround, embora requeiram o conhecimento prévio dos tempos de execução.",
+        "O FCFS garante sempre o melhor tempo médio de turnaround devido à justiça de chegada, enquanto o SJF/STCF são otimizados exclusivamente para Response Time em sistemas interativos.",
+        "O FCFS minimiza o tempo médio de turnaround quando processos longos chegam primeiro, ao passo que o SJF/STCF oferecem o pior turnaround time por serem algoritmos estocásticos.",
+        "Ambos os algoritmos oferecem exatamente o mesmo tempo médio de turnaround em qualquer cenário, diferindo apenas na sua complexidade de implementação no escalonador."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Qual é o principal trade-off na escolha do tamanho do quantum (time slice) no algoritmo de escalonamento Round Robin (RR)?",
+      "opcoes": [
+        "Um quantum muito pequeno melhora o tempo de resposta (interatividade) mas aumenta o overhead devido a context switches frequentes; um quantum muito grande reduz o overhead mas aproxima o comportamento do RR ao do FCFS.",
+        "Um quantum muito pequeno reduz a contenção de locks na fila global de CPUs mas prejudica a coerência de cache; um quantum muito grande otimiza o turnaround time a curto prazo eliminando o efeito comboio.",
+        "Um quantum muito pequeno aumenta a probabilidade de starvation em tarefas interativas; um quantum muito grande obriga o CFS a reajustar o vruntime de tarefas batch ao mínimo da árvore Red-Black.",
+        "Um quantum muito pequeno força o uso de hardware de temporização de alta precisão no VFS; um quantum muito grande anula o filtro de elegibilidade lag no escalonador EEVDF."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No algoritmo MLFQ (Multi-Level Feedback Queue), como é que o escalonador descobre o comportamento de um processo para ajustar a sua prioridade dinamicamente sem conhecimento prévio do seu tempo de execução?",
+      "opcoes": [
+        "Se um processo consome toda a sua fatia de tempo no CPU sem bloquear por I/O, assume-se que é computacional (batch) e a sua prioridade é reduzida; se o processo liberta o CPU antes do fim da fatia de tempo (ex: espera por I/O), mantém-se na mesma prioridade ou esta é aumentada.",
+        "Se um processo realiza frequentes chamadas de sistema de escrita em disco, a sua prioridade é reduzida para evitar starvation; se consome apenas ciclos de CPU, a sua prioridade é aumentada para otimizar o turnaround time.",
+        "Através da monitorização estática dos seus metadados no ELF no momento do arranque, atribuindo prioridade máxima a tarefas que utilizem sockets ou drivers de rede.",
+        "O MLFQ monitoriza o lag do processo em relação à média do sistema: processos com lag positivo são movidos para as filas de menor prioridade e processos com lag negativo para as filas de maior prioridade."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No escalonador EEVDF, como é que uma tarefa sensível à latência (ex: reprodução de áudio ou interface gráfica) consegue obter prioridade de execução sobre tarefas batch?",
+      "opcoes": [
+        "A tarefa solicita fatias de tempo (timeslices) mais curtas ao escalonador; isto reduz o valor adicionado ao seu tempo elegível no cálculo do Virtual Deadline, resultando num prazo virtual anterior ao das tarefas batch.",
+        "A tarefa aumenta dinamicamente o seu valor de nice para valores positivos elevados; isto reduz o seu peso e faz com que o seu lag acumule muito mais rapidamente do que nas tarefas batch.",
+        "A tarefa é colocada numa fila dedicada de interrupções físicas de alta prioridade, contornando a árvore Red-Black de elegibilidade baseada em lag.",
+        "O EEVDF atribui-lhe um stride determinístico nulo, garantindo que o seu pass value permaneça inalterado ao longo de sucessivas ativações."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Qual é a proposta de design do escalonador alternativo BFS (Brain Fuck Scheduler) para sistemas Linux multiprocessados em termos de estrutura de filas e filosofia de escalonamento?",
+      "opcoes": [
+        "Utiliza uma única fila partilhada global para todos os processadores (SQMS) com o objetivo de simplificar o design e otimizar a partilha proporcional baseada nos princípios do EEVDF, sacrificando escalabilidade para muitos cores.",
+        "Utiliza múltiplas filas independentes por core de CPU (MQMS) cooperando via roubo de trabalho aleatório estocástico e baseando o seu veredicto no algoritmo de Lottery Scheduling.",
+        "Substitui inteiramente as interrupções de relógio por um sistema cooperativo em user-space onde cada thread cede voluntariamente a sua fatia através de eBPF maps.",
+        "Elimina a noção de virtual runtime e utiliza uma fila circular estática indexada pelo nice value, onde cada core efetua busy waiting para obter a tarefa."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo FCFS (First-Come, First-Served) garante um tempo de turnaround médio ótimo e constante, independentemente da ordem de chegada ou da duração dos processos no sistema.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A diferença fundamental entre o Shortest Job First (SJF) e o Shortest Time-to-Completion First (STCF) é que o STCF é preemptivo, permitindo interromper uma tarefa em execução se uma nova tarefa com menor tempo restante entrar na fila.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No MLFQ, o mecanismo de 'Priority Boost' (elevação periódica de prioridade de todos os processos para a fila máxima) serve para evitar starvation de processos intensivos em computação que tenham caído para as filas de menor prioridade ou que alteraram o seu comportamento.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Lottery Scheduling garante que, a curto prazo e logo após as primeiras fatias de tempo, a distribuição real de uso de CPU de cada processo corresponde exatamente à percentagem teórica de bilhetes que cada um detém.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No Completely Fair Scheduler (CFS) do Linux, um valor 'nice' positivo (ex: +10) aumenta o peso da tarefa, fazendo com que o seu vruntime acumule mais lentamente e garantindo mais tempo de CPU.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No escalonador EEVDF, uma tarefa só é considerada elegível para escalonamento se o seu 'lag' for negativo (lag < 0), o que indica que a tarefa correu mais tempo do que a sua quota justa do sistema.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A afinidade de cache (cache affinity) é uma técnica de otimização em que o escalonador tenta manter um processo no mesmo CPU para aproveitar o estado quente da cache de dados/instruções e da TLB.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A arquitetura de escalonamento MQMS (Multi-Queue Multiprocessor Scheduling) apresenta maior contenção de locks globais no caminho crítico comparativamente à arquitetura SQMS (Single-Queue), devido à necessidade de sincronização contínua entre as múltiplas filas.",
+      "solucao": 1
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare o Escalonamento por Loteamento (Lottery Scheduling) com o Escalonamento por Passos (Stride Scheduling). Aborde os conceitos de aleatoriedade versus determinismo, a facilidade de incorporação de novas tarefas no sistema e a precisão na garantia de partilha de recursos a curto prazo.",
+      "solucao": "**Lottery Scheduling (Loteamento):**\n- **Mecanismo:** É um algoritmo probabilístico baseado em aleatoriedade. Cada processo recebe um número de bilhetes proporcional à fatia de CPU desejada. A cada interrupção de relógio, o escalonador gera um número aleatório (vencedor da lotaria) e escolhe o processo que detém esse bilhete.\n- **Precisão a Curto Prazo:** A convergência para a proporção exata de bilhetes é apenas garantida a longo prazo (pela Lei dos Grandes Números). A curto prazo, a aleatoriedade pode causar desvios estatísticos significativos (ex: um processo com 25% de bilhetes ganhar 4 lotarias seguidas).\n- **Novas Tarefas:** É extremamente simples de incorporar novos processos. Basta adicioná-los à lista de processos ativos e incrementar o contador global de bilhetes.\n\n**Stride Scheduling (Passos):**\n- **Mecanismo:** É um algoritmo puramente determinístico. Cada processo recebe um valor de passo (stride), que é inversamente proporcional aos seus bilhetes (ex: $10000 / \\text{tickets}$). O escalonador mantém um contador de passagens (pass value) para cada processo e escolhe sempre o processo com o menor pass value para executar, incrementando o seu pass com o seu stride no final da execução.\n- **Precisão a Curto Prazo:** Altamente preciso a curto prazo. O rácio de CPU atribuído a cada processo converge quase de forma ideal logo após algumas fatias de tempo.\n- **Novas Tarefas:** Incorporar novos processos é complexo. Se um novo processo entrar e inicializarmos o seu pass value a 0, ele monopolizará o CPU, provocando starvation de todos os outros. Se inicializarmos o seu pass value com o valor máximo ou médio global, podemos causar starvation ao novo processo se o cálculo da média não for preciso."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O escalonador CFS foi substituído pelo EEVDF como escalonador padrão do Linux (versão 6.6+). Analise as diferenças fundamentais entre estes dois escalonadores de partilha proporcional baseados no conceito de virtual runtime (vruntime). Explique como o EEVDF utiliza os conceitos de lag e virtual deadline para melhorar a interatividade e a latência de processos sensíveis (interactive workloads) comparativamente ao CFS.",
+      "solucao": "**Diferenças Fundamentais e Limitações do CFS:**\n- **CFS (Completely Fair Scheduler):** Baseia-se na ideia de que todos os processos devem progredir de forma igualmente justa. O CFS armazena os processos prontos numa árvore Red-Black ordenada pelo seu `vruntime` (tempo virtual de CPU usado). A sua política de seleção é rígida: escolhe sempre o processo com o **menor vruntime global**. O CFS calcula dinamicamente o time-slice com base no peso derivado do Nice do processo e na latência alvo `sched_latency`. O principal problema do CFS é a reatividade: processos interativos que passam muito tempo bloqueados à espera de I/O acumulam pouco vruntime. Contudo, quando acordam, embora tenham menor vruntime, eles disputam o CPU de forma igual a outros processos intensivos de computação (batch), não garantindo prazos de latência curtos imediatos.\n\n**Inovação e Funcionamento do EEVDF (Earliest Eligible Virtual Deadline First):**\nO EEVDF baseia-se no algoritmo de Ion Stoica e introduz dois passos de decisão para otimizar a latência de tarefas interativas:\n1. **Filtro de Elegibilidade via Lag:** O EEVDF calcula o `vruntime` médio de todas as tarefas prontas. Define o **lag** de um processo como: $\\text{lag} = \\text{vruntime\\_médio} - \\text{vruntime\\_processo}$. Um processo só é considerado **elegível** para correr se o seu lag for $\\geq 0$ (o que indica que o processo recebeu menos tempo do que a média justa do sistema).\n2. **Seleção baseada em Virtual Deadline (VD):** Dentre os processos elegíveis, o EEVDF seleciona o processo com o **prazo virtual (Virtual Deadline) mais próximo**. O prazo virtual é calculado como: $\\text{VirtualDeadline} = \\text{vruntime\\_processo} + \\frac{\\text{timeslice\\_pedido}}{\\text{peso}}$. Tarefas sensíveis à latência (como interfaces gráficas ou áudio) podem pedir voluntariamente fatias de tempo (`timeslice`) muito pequenas ao escalonador. Ao fazê-lo, a divisão $\\text{timeslice} / \\text{peso}$ resulta num valor pequeno, projetando um Virtual Deadline muito anterior ao de tarefas batch (que usam fatias de tempo grandes). Isto permite-lhes saltar para a frente na execução e obter o CPU de imediato, garantindo melhor reatividade sem violar a justiça a longo prazo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A transição de escalonamento monoprocessador para multiprocessador introduz desafios complexos ao nível de caches de CPU. Discuta a relevância da afinidade de cache (cache affinity) no escalonamento e compare as arquiteturas de Escalonamento Multiprocessado com Fila Única (SQMS) e com Múltiplas Filas (MQMS), avaliando-as sob a perspetiva de contenção de trincas (locking overhead), afinidade e balanceamento de carga.",
+      "solucao": "**Afinidade de Cache (Cache Affinity):**\nQuando um processo executa num CPU, ele preenche a cache L1/L2 local do core e a TLB (Translation Lookaside Buffer) com as suas instruções e dados. Se o processo for interrompido e, posteriormente, escalonado para o mesmo CPU, a execução será extremamente rápida (cache hot). Se o processo migrar para outro CPU, a sua cache local estará fria (cache cold), obrigando o sistema a aceder à RAM lenta e gerando tráfego no barramento de coerência de cache para invalidar as cópias no CPU antigo. Por isso, manter a afinidade de cache é crucial para o desempenho.\n\n**Comparação de Arquiteturas:**\n\n1. **SQMS (Fila Única - Single-Queue Multiprocessor Scheduling):**\n   - **Estrutura:** Todos os processos prontos residem numa única fila global. Cada CPU livre acede a esta fila para escolher a próxima tarefa.\n   - **Contenção:** Muito elevada. Para retirar um processo, o CPU tem de adquirir um lock global. À medida que o número de cores de CPU aumenta, o overhead de disputa por este lock escala dramaticamente, arruinando a escalabilidade do sistema.\n   - **Afinidade:** Fraca por omissão. Processos tendem a saltar aleatoriamente entre cores disponíveis sempre que estes ficam livres. Implementar afinidade exige algoritmos complexos de filtragem na fila global.\n   - **Balanceamento:** Perfeito de forma natural, uma vez que não há CPUs ociosos se houver trabalho na fila única.\n2. **MQMS (Múltiplas Filas - Multi-Queue Multiprocessor Scheduling):**\n   - **Estrutura:** Cada CPU possui a sua própria fila de processos prontos independente.\n   - **Contenção:** Quase nula no caminho crítico. Cada CPU acede apenas à sua fila privada, eliminando a disputa por locks globais e permitindo escalabilidade linear com o número de cores.\n   - **Afinidade:** Excelente de forma nativa. O processo é colocado numa fila de um CPU e permanece a correr nesse CPU em fatias sucessivas, mantendo as caches locais hot.\n   - **Balanceamento:** Difícil. MQMS sofre inerentemente de desequilíbrio de carga (load imbalance), onde um CPU pode ficar sem tarefas (idle) e outro ter múltiplas tarefas em fila. Para mitigar isto, o escalonador tem de implementar técnicas de migração ativa e **roubo de trabalho (work stealing)**, onde um CPU idle espreita para as filas de outros cores e rouba processos. Isto reintroduz overhead de locking temporário nas filas externas, obrigando a um equilíbrio cuidadoso na frequência de sondagens."
+    }
+  ]
+}

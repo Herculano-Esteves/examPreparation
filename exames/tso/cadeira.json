@@ -1,0 +1,6 @@
+{
+  "nome": "Tecnologias de Sistemas Operativos",
+  "sigla": "TSO",
+  "icon": "fa-gears",
+  "descricao": "Monitorização, observabilidade, eBPF, benchmarking, APIs de E/S modernas, deduplicação e escalonamento."
+}

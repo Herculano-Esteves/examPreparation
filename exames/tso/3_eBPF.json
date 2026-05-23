@@ -1,0 +1,352 @@
+{
+  "titulo": "Exame do Capítulo 3: eBPF (Extended Berkeley Packet Filter)",
+  "descricao": "Exame abrangente focado em conceitos de arquitetura do eBPF, Verificador, JIT, Maps, Tracing Estático/Dinâmico, CO-RE, BTF e limitações.",
+  "perguntas": [
+    {
+      "pergunta": "Em que ano foi proposto o redesenho do BPF (estendendo-o para eBPF) e em que ano foi oficialmente integrado no kernel Linux, respetivamente?",
+      "opcoes": [
+        "Proposto em 1992, integrado em 2013.",
+        "Proposto em 2013, integrado em 2014.",
+        "Proposto em 2014, integrado em 2015.",
+        "Proposto em 2012, integrado em 2014."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quantos registadores virtuais possui a máquina virtual do eBPF e qual é a largura de bits de cada registador?",
+      "opcoes": [
+        "16 registadores de 32 bits.",
+        "11 registadores de 64 bits (R0 a R10).",
+        "12 registadores de 64 bits (R0 a R11).",
+        "10 registadores de 64 bits (R0 a R9)."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como é que o Verificador eBPF analisa a segurança de um programa antes de permitir a sua execução no kernel?",
+      "opcoes": [
+        "Executa dinamicamente o programa numa sandbox isolada no user-space e monitoriza o consumo de memória em tempo real.",
+        "Realiza uma análise estática do Grafo de Fluxo de Controlo (CFG) para identificar código inacessível e, de seguida, simula a execução para rastrear o estado dos registadores e da stack em todos os caminhos possíveis.",
+        "Traduz diretamente o bytecode para código de máquina nativo e executa um dry-run de teste direto no kernel com timeouts rígidos.",
+        "Utiliza assinaturas criptográficas geradas pelo compilador Clang/LLVM para validar se o bytecode foi criado em segurança."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o limite máximo de complexidade de instruções analisadas pelo Verificador eBPF para garantir a terminação do programa a partir da versão 5.2 do kernel Linux?",
+      "opcoes": [
+        "4 096 instruções.",
+        "65 536 instruções.",
+        "1 000 000 (1 milhão) de instruções.",
+        "10 000 000 (10 milhões) de instruções."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Relativamente à compilação Just-In-Time (JIT) do eBPF, qual das seguintes afirmações descreve corretamente o seu comportamento?",
+      "opcoes": [
+        "O compilador JIT traduz dinamicamente o bytecode eBPF em código de máquina instrução a instrução a cada execução do hook.",
+        "A tradução do bytecode para instruções de máquina nativas e específicas da arquitetura ocorre apenas uma vez, no momento em que o programa é carregado e aceite no kernel.",
+        "O compilador JIT corre no espaço de utilizador (user space) imediatamente antes de enviar as instruções nativas via chamada de sistema bpf.",
+        "O compilador JIT é acionado apenas quando o Verificador eBPF falha em provar a segurança estática do programa."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quais dos seguintes hooks ou pontos de anexo do eBPF são classificados especificamente como mecanismos de tracing dinâmico (dynamic tracing)?",
+      "opcoes": [
+        "Tracepoints e USDT (User-level Statically Defined Tracing).",
+        "Kprobes e Uprobes.",
+        "Sockets e XDP (eXpress Data Path).",
+        "LSM (Linux Security Modules) e CGroups."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes afirmações descreve corretamente o funcionamento e a finalidade dos eBPF Maps?",
+      "opcoes": [
+        "São alocados dentro da stack do programa eBPF e estão estritamente limitados a um tamanho máximo de 512 bytes.",
+        "São estruturas de dados residentes no kernel que permitem a persistência e a partilha de dados entre múltiplos programas eBPF, ou entre programas eBPF e aplicações no user space.",
+        "São armazenados inteiramente na memória RAM do espaço de utilizador (user space) e mapeados via mmap no kernel a cada execução de hook.",
+        "Não podem ser acedidos através de funções auxiliares (helper functions) a partir de programas eBPF, apenas via syscalls de utilizador."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao utilizar um Ring Buffer eBPF para transferir dados do kernel para o user-space, como é gerido o fluxo de dados e que problema pode ocorrer?",
+      "opcoes": [
+        "O programa no kernel lê os dados do ring buffer usando um ponteiro de leitura e o utilizador escreve usando um ponteiro de escrita; se o kernel for lento, ocorrem falhas de segmentação.",
+        "É uma estrutura de memória circular onde o programa eBPF no kernel escreve eventos via um write pointer e a aplicação no user-space consome os eventos via um read pointer; se o user-space não consumir os dados com rapidez suficiente, eventos novos são descartados.",
+        "É uma stack do tipo LIFO onde os dados são acumulados pelo kernel; se a stack exceder 512 bytes, o Verificador eBPF aborta o programa imediatamente.",
+        "Garante entrega fiável de 100% dos dados, bloqueando a execução do kernel caso o buffer de utilizador fique completamente cheio."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como é que um programa eBPF interage ou obtém informações do kernel Linux de forma segura?",
+      "opcoes": [
+        "Pode chamar diretamente qualquer função interna exposta nos símbolos do kernel (como as listadas em /proc/kallsyms).",
+        "Executa syscalls tradicionais do Linux (como read, write ou ioctl) a partir do contexto privilegiado do kernel.",
+        "Utiliza exclusivamente um conjunto restrito de funções auxiliares (helper functions) expostas e aprovadas pelo próprio kernel.",
+        "Comunica com o kernel através de sinais IPC standard do Unix como SIGUSR1 ou sockets IPC locais."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual é a principal diferença de comportamento entre uma chamada de função (function call) e uma chamada de cauda (tail call) no eBPF?",
+      "opcoes": [
+        "As function calls são usadas apenas para aceder a maps, ao passo que as tail calls servem unicamente para interagir com o user space.",
+        "As function calls forçam a duplicação física de código por inlining, enquanto as tail calls são usadas para permitir loops recursivos arbitrários.",
+        "As function calls invocam subrotinas e regressam ao ponto de chamada mantendo o contexto, enquanto as tail calls executam outro programa eBPF substituindo completamente o contexto de execução atual (sem retornar).",
+        "As tail calls acrescentam novas frames à stack até ao limite físico de 512 bytes, enquanto as function calls correm numa heap isolada."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "O que permite a tecnologia eBPF CO-RE (Compile Once – Run Everywhere) e qual a importância do formato BTF (BPF Type Format) nesse processo?",
+      "opcoes": [
+        "Permite compilar programas eBPF em código de máquina x86 e executá-los em arquiteturas ARM sem emulação de CPU.",
+        "Permite compilar o programa eBPF uma única vez em bytecode genérico e executá-lo em kernels com diferentes layouts de estruturas de dados, usando os metadados BTF do kernel local para relocalizar (ajustar) dinamicamente os offsets das estruturas.",
+        "Garante a compilação simultânea do código do user-space e do kernel-space num único ficheiro executável estático.",
+        "Permite que os programas eBPF corram no Windows e macOS sem a necessidade de um interpretador de bytecode no kernel."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes opções descreve uma das principais vantagens do uso do gerador de esqueletos (BPF skeleton) da biblioteca libbpf?",
+      "opcoes": [
+        "Traduz o código Rust em código C compatível com compiladores GCC antigos no kernel.",
+        "Garante que o Verificador eBPF ignora os limites de instruções ao carregar código assinado digitalmente pelo root.",
+        "Gera interfaces/estruturas em C que abstraem e simplificam o carregamento, anexo de hooks e a interação (como acesso a maps e variáveis globais) com o programa eBPF a partir do espaço de utilizador.",
+        "Permite aumentar o tamanho da stack do eBPF de 512 bytes para 4 MB em tempo de execução."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual é o limite de tamanho da stack de um programa eBPF (MAX_BPF_STACK) e como devem os programadores proceder se precisarem de gerir dados maiores?",
+      "opcoes": [
+        "O limite é de 512 bytes; deve contornar-se utilizando eBPF Maps para armazenar dados maiores.",
+        "O limite é de 4 096 bytes; deve contornar-se alocando memória dinâmica no kernel através de malloc/kmalloc.",
+        "O limite é de 512 kilobytes; deve contornar-se utilizando variáveis estáticas na heap do user-space.",
+        "O limite é de 64 bytes; deve contornar-se recorrendo a recursividade de chamadas de funções locais."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Qual é o tipo de programa eBPF (BPF_PROG_TYPE) indicado especificamente para interceptar chamadas ao sistema e operações de segurança ao nível da camada Linux Security Modules (LSM)?",
+      "opcoes": [
+        "BPF_PROG_TYPE_XDP",
+        "BPF_PROG_TYPE_KPROBE",
+        "BPF_PROG_TYPE_LSM",
+        "BPF_PROG_TYPE_SOCKET_FILTER"
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes funções auxiliares (helper functions) é utilizada para obter o ID do processo (PID) e o ID do grupo de threads (TGID) do processo que disparou o evento de execução do programa eBPF?",
+      "opcoes": [
+        "bpf_ktime_get_ns",
+        "bpf_get_current_pid_tgid",
+        "bpf_map_lookup_elem",
+        "bpf_get_current_comm"
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quando se realiza dynamic tracing com eBPF no espaço de utilizador (uprobes) vs. no espaço de kernel (kprobes), que cuidado de desempenho deve ser tomado?",
+      "opcoes": [
+        "Uprobes têm menor overhead geral do que kprobes porque não entram no espaço de kernel durante a execução do hook.",
+        "Instrumentar funções de user-space de frequência muito elevada com uprobes pode degradar severamente a performance da aplicação devido ao overhead de context-switch (trap) associado a cada invocação no kernel.",
+        "O Verificador eBPF rejeita automaticamente qualquer uprobe que seja acionado mais de 1000 vezes por segundo para evitar sobrecarga.",
+        "Kprobes exigem a recompilação completa do binário do kernel Linux para inserir instruções de interrupção em tempo de execução."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao recolher métricas agregadas de alta frequência em múltiplos cores de CPU usando eBPF Maps, qual é o cuidado de concorrência recomendado para evitar a contenção de cache (cache bounce) e race conditions?",
+      "opcoes": [
+        "Usar um mapa global partilhado e trancá-lo com mutexes normais de user-space a partir do programa eBPF.",
+        "Usar Per-CPU maps (ex: BPF_MAP_TYPE_PERCPU_HASH) onde cada core atualiza o seu próprio mapa local sem contenção, realizando a agregação final no user-space.",
+        "Confiar no JIT compiler, que lineariza e serializa automaticamente todos os acessos paralelos a mapas comuns.",
+        "Limitar a execução do programa eBPF à CPU 0 através de afinidade de processos definida na chamada bpf."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Porque é que o hook XDP (eXpress Data Path) do eBPF oferece um desempenho de processamento de pacotes e mitigação de DDoS muito superior aos socket filters tradicionais?",
+      "opcoes": [
+        "Porque corre inteiramente na placa de rede física (hardware da NIC), sem consumir qualquer ciclo de processamento da CPU principal.",
+        "Porque corre imediatamente após o driver de rede receber o pacote, permitindo descartar ou reencaminhar pacotes antes de o kernel alocar a estrutura complexa sk_buff e passar pelas camadas da stack TCP/IP.",
+        "Porque duplica a largura de banda do barramento PCIe del servidor usando canais de comunicação DMA bidirecionais exclusivos.",
+        "Porque o Verificador eBPF ignora todas as verificações de segurança para programas do tipo XDP, permitindo a execução de loops e escrita direta na RAM do kernel."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Um programador tenta carregar um programa eBPF que declara uma variável local do tipo 'char buffer[1024];' para formatar strings de logs. O que acontecerá quando o programa for analisado pelo Verificador?",
+      "opcoes": [
+        "O compilador JIT irá repartir o buffer automaticamente em 2 blocos de 512 bytes na heap do kernel.",
+        "O Verificador eBPF rejeitará o programa com um erro devido à stack local exceder o limite estrito de 512 bytes (MAX_BPF_STACK).",
+        "O buffer será alocado dinamicamente no espaço de utilizador através de uma chamada de sistema implícita.",
+        "O programa será carregado com sucesso, mas o kernel irá truncar silenciosamente a escrita no buffer para 512 bytes em tempo de execução."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No contexto de otimizações de sistemas operativos recentes (como sched_ext), de que forma pode o eBPF ser utilizado para otimizar o escalonamento de CPU?",
+      "opcoes": [
+        "Permite reescrever o código binário compilado do escalonador CFS diretamente na memória RAM sem reiniciar o sistema.",
+        "Permite que os programadores definam políticas de escalonamento personalizadas e dinâmicas injetando algoritmos eBPF diretamente nos pontos de decisão do escalonador do kernel.",
+        "Substitui por completo o escalonador do kernel por um algoritmo determinístico que corre exclusivamente em espaço de utilizador (user-space).",
+        "Permite que o hardware da CPU tome decisões autónomas de escalonamento baseado em redes neuronais embutidas no silício."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao desenvolver um programa eBPF para ler campos de estruturas internas do kernel (ex: ler caminhos de ficheiros a partir da task_struct), que cuidado de programação é obrigatório para que o programa seja aceite pelo Verificador?",
+      "opcoes": [
+        "Deve aceder diretamente aos membros utilizando a sintaxe padrão (ex: task->parent->pid), pois o verificador assume que todos os apontadores no kernel são sempre válidos.",
+        "Deve utilizar funções auxiliares de leitura segura como bpf_probe_read_kernel para ler os dados da memória do kernel, prevenindo falhas de página caso os apontadores sejam nulos ou inválidos.",
+        "Deve desativar temporariamente a proteção de escrita de memória do kernel através de um helper LSM antes de ler a estrutura.",
+        "Deve clonar a estrutura inteira para a stack do eBPF antes de realizar qualquer leitura ou comparação de dados."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a sequência cronológica e correta de etapas no workflow de desenvolvimento, carregamento e execução de um programa eBPF no kernel Linux?",
+      "opcoes": [
+        "Compilar o código C para instruções de máquina nativas no user space -> Carregar via bpf syscall -> Executar diretamente no kernel sem verificação estática.",
+        "Escrever o programa em C restrito -> Compilar para bytecode eBPF genérico usando Clang/LLVM -> Carregar o bytecode para o kernel via syscall bpf -> Validar a segurança com o Verificador -> Traduzir para instruções nativas pelo compilador JIT -> Anexar ao hook de evento (executando quando disparado).",
+        "Escrever o bytecode eBPF à mão -> Enviar ao kernel via socket TCP -> JIT-compilar -> Executar no user space -> Gravar os resultados de performance na stack limitada de 512 bytes.",
+        "Escrever em C padrão -> Compilar no kernel utilizando o GCC nativo -> Validar com o JIT compiler -> Executar periodicamente a cada milissegundo no CPU 0 sem intervenção de hooks."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Relativamente aos requisitos de privilégio para carregar programas eBPF no kernel Linux, qual das seguintes afirmações é verdadeira?",
+      "opcoes": [
+        "Qualquer utilizador sem privilégios pode carregar qualquer tipo de programa eBPF por defeito para garantir flexibilidade.",
+        "Historicamente, o carregamento de programas eBPF exigia privilégios de superutilizador (root) ou a capacidade CAP_SYS_ADMIN, embora kernels modernos tenham introduzido capacidades mais granulares como CAP_BPF e CAP_PERFMON.",
+        "Os programas eBPF são executados em modo utilizador (user-space), pelo que não requerem qualquer privilégio especial do sistema.",
+        "Apenas programas assinados digitalmente pela Red Hat ou Canonical podem ser carregados no kernel Linux."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes afirmações descreve corretamente as características do conjunto de instruções (ISA) da máquina virtual eBPF?",
+      "opcoes": [
+        "É baseado em instruções de 8 bits e utiliza um modelo de pilha (stack-based architecture) puro.",
+        "É uma arquitetura baseada em registadores de 64 bits (register-based architecture), que suporta operações aritméticas e lógicas de 32 e 64 bits e se mapeia de forma quase direta nas arquiteturas de CPU modernas (x86_64, ARM64).",
+        "Utiliza exclusivamente instruções SIMD de 512 bits para processamento acelerado de pacotes de rede.",
+        "Os opcodes do eBPF são proprietários e não estão documentados publicamente por motivos de segurança do kernel."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Porque é que os programas eBPF não podem fazer chamadas diretas a funções arbitrárias do kernel (como printk ou kmalloc) e têm de utilizar as eBPF Helper Functions?",
+      "opcoes": [
+        "Porque o compilador Clang/LLVM não é capaz de gerar instruções de salto (jump) para funções em espaço de kernel.",
+        "Para garantir a segurança e a portabilidade; as Helper Functions fornecem uma API controlada, segura e estável exposta pelo kernel que valida os argumentos e impede corrupção de memória.",
+        "Para permitir que o programa eBPF seja executado em user-space sempre que o kernel estiver ocupado.",
+        "Porque as funções Helper são mais rápidas por correrem diretamente em hardware de placa gráfica (GPU)."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que são pontos de trace USDT (User-level Statically Defined Tracing) e como é que o eBPF interage com eles?",
+      "opcoes": [
+        "São sondas dinâmicas colocadas em drivers de hardware proprietários controlados por firmware fechado.",
+        "São pontos de instrumentação estáticos inseridos voluntariamente no código fonte de aplicações em user-space (ex: bases de dados como PostgreSQL), que o eBPF pode intercetar de forma estável usando uprobes ligadas às localizações específicas compiladas no binário.",
+        "São mapas de eBPF especiais do tipo LIFO de alta velocidade para comunicação inter-processos.",
+        "São hooks de kernel que protegem a stack do eBPF contra estouros de memória."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a diferença de finalidade entre as funções auxiliares bpf_probe_read_user e bpf_probe_read_kernel?",
+      "opcoes": [
+        "bpf_probe_read_user serve para escrever dados no espaço de utilizador, enquanto bpf_probe_read_kernel serve para ler do espaço do kernel.",
+        "bpf_probe_read_user copia de forma segura dados localizados no espaço de endereçamento de utilizador do processo atual para a stack do eBPF; bpf_probe_read_kernel faz o mesmo para dados situados no espaço de endereçamento do kernel.",
+        "Não há qualquer diferença, ambas as funções lêem indistintamente de qualquer endereço de memória física do sistema sem validação de páginas.",
+        "Ambas servem para desativar a encriptação de disco local durante operações de benchmark."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique de que forma o mecanismo CO-RE (Compile Once - Run Everywhere) resolve o problema da portabilidade de programas eBPF entre diferentes versões do kernel Linux, comparando brevemente com a abordagem clássica do BCC (BPF Compiler Collection).",
+      "solucao": "O eBPF CO-RE (Compile Once - Run Everywhere) e o BCC abordam a portabilidade de formas radicalmente diferentes:\n\n1. **Abordagem Clássica (BCC):** O BCC compila o código fonte do programa eBPF em tempo de execução na máquina de destino. Para tal, necessita que o compilador Clang/LLVM e os cabeçalhos do kernel do sistema (kernel headers) estejam instalados em cada servidor de destino. Isto acarreta um elevado consumo de CPU/memória no arranque do programa e inviabiliza o seu uso em sistemas embebidos ou com restrições de espaço.\n2. **Abordagem CO-RE:** O programa eBPF é compilado apenas uma vez numa máquina de desenvolvimento em bytecode genérico. Durante o carregamento no kernel de destino:\n   - O ecossistema CO-RE utiliza os metadados do **BTF (BPF Type Format)** do kernel em execução para inspecionar os tipos e estruturas de dados reais.\n   - A biblioteca `libbpf` realiza **relocalizações**, reescrevendo os offsets de campos de estruturas no bytecode eBPF para que coincidam exatamente com o layout do kernel local.\n\nDesta forma, o CO-RE permite distribuir binários pré-compilados leves que correm instantaneamente em qualquer kernel compatível sem necessidade de toolchains locais ou cabeçalhos do kernel.",
+      "minha solucao": "O co-re permite que as estroturas usadas no codigo em c sejam corrigidas em tempo real para a maquina, assumindo uma maquina diferente em que este programa foi compilado, por exemplo, kernels diferentes podem ter uma struct em que a posição de duas variaveis estão em sitios diferentes. Sem o co-re o codigo noutra maquina diferente estaria errado pois não ia de acordo com a arquitetura dessa nova maquina, já com o co-re essa estrotura iria ser alterada para essa nova maquina permitindo assim uma correta execução do ebpf. As estroturas são alteradas em runtime dai não ser preciso de recompilar."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva os riscos de segurança de contornar a verificação estática do kernel e como o Verificador eBPF assegura a integridade do sistema operativo durante o processo de verificação. Foque a resposta nas garantias de terminação do programa, segurança de memória e segurança de tipos.",
+      "solucao": "Contornar a verificação de segurança permitiria que programas em espaço de kernel executassem loops infinitos (bloqueando o CPU/sistema), acedessem a posições de memória arbitrárias fora dos limites (podendo ler ou corromper dados confidenciais de outros processos) ou fizessem uso incorreto de apontadores (type safety).\n\nPara evitar estes riscos, o Verificador eBPF assegura a integridade do sistema executando dois passos fundamentais:\n1. **Análise do Grafo de Fluxo de Controlo (CFG):** Realiza uma análise estática para detetar e rejeitar código inacessível ou loops infinitos não limitados. O programa deve ter um fluxo de execução estritamente direcionado para a terminação.\n2. **Simulação da Execução (State Tracking):** O verificador simula a execução do programa instrução a instrução, inspecionando e registando o estado de todos os registadores virtuais e da stack.\n   - **Segurança de Memória:** Garante que qualquer acesso a apontadores ou maps é previamente verificado contra acessos fora de limites (out-of-bounds).\n   - **Segurança de Tipos:** Rastreia o tipo de dados contido em cada registador (ex: valor escalar, apontador de map, apontador de contexto de socket) impedindo a conversão ilegal de tipos ou a aritmética de apontadores arbitrária.\n   - **Limites de Execução:** Garante que o programa não excede um limite estrito de complexidade (ex: 1 milhão de instruções analisadas) para evitar ataques de negação de serviço ao próprio verificador.",
+      "minha solucao": "O verificador do ebpf tem diferentes metodos de verificaçaõ, que envolvem a simulação do programa e envolvem a criação de grafo de fluxo de controlo que permite determinar os estados possivés do programa. Isto impede loops infinitos pois em kernel isso não pode acontecer senão o cpu ia \"congelar\". Impede o uso de estroturas erradas em que apontem para locais proibidos ou que \"convertam\" tipos de forma incorreta. Também confirma o numero de instruções que não podem passar do 1000000. E garante que o programa não acede a memoria que este não tem permissão de aceder. qualquer um destes erros se acontececem em execução poderiam criar um kernel panic."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Analise o impacto de desempenho e os constrangimentos arquiteturais ao escolher entre tracing com kprobes (dynamic tracing) e tracepoints (static tracing). Indique qual escolheria para monitorizar chamadas de escrita (`write()`) de forma estável ao longo de diferentes atualizações do kernel Linux.",
+      "solucao": "**kprobes vs tracepoints:**\n\n1. **kprobes (Dynamic Tracing):**\n   - *Funcionamento:* Permite associar um hook a quase qualquer instrução ou função interna do kernel dinamicamente em tempo de execução.\n   - *Vantagem:* Extrema flexibilidade, permitindo depurar qualquer parte do kernel sem suporte prévio.\n   - *Desvantagem:* Depende do código fonte interno e das assinaturas específicas de funções do kernel, que mudam frequentemente entre versões do kernel Linux. Isto torna os programas eBPF muito instáveis e propensos a quebras em atualizações. Além disso, pode introduzir um overhead ligeiramente superior devido ao patch dinâmico de instruções.\n2. **tracepoints (Static Tracing):**\n   - *Funcionamento:* Pontos de tracing pré-definidos e inseridos explicitamente pelos programadores do kernel em locais chave.\n   - *Vantagem:* Estabilidade de API muito elevada (não mudam facilmente entre versões) e menor overhead.\n   - *Desvantagem:* Limitados apenas aos locais onde foram previamente colocados.\n\n**Escolha para Monitorizar Chamadas de Escrita:**\nPara monitorizar chamadas `write()` de forma estável a longo prazo, a melhor escolha é usar **tracepoints** (ex: `sys_enter_write` ou os tracepoints do subsistema de syscalls). Como as syscalls fazem parte da API estável exposta pelo kernel ao espaço de utilizador, os tracepoints correspondentes permanecem inalterados ao longo de atualizações do kernel, garantindo que o programa eBPF continue a funcionar sem alterações ou quebras."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva exaustivamente o ciclo de vida e workflow de um programa eBPF, detalhando cada fase desde a escrita do código fonte em espaço de utilizador até à sua execução em espaço de kernel desencadeada por eventos. Indique o papel do compilador (Clang/LLVM), da chamada de sistema (bpf syscall), do Verificador, do JIT Compiler e dos hooks/events.",
+      "solucao": "O ciclo de vida e workflow de um programa eBPF compreende as seguintes fases consecutivas:\n\n1. **Escrita e Compilação (User Space):** O programador escreve o código fonte do programa eBPF em C restrito (ou Rust). Usando o compilador Clang/LLVM, o código fonte é compilado em **bytecode eBPF** genérico e empacotado num ficheiro formato ELF.\n2. **Carregamento (User Space -> Kernel Space):** A aplicação de user space lê o ficheiro ELF e carrega o bytecode do programa eBPF para o kernel através da chamada de sistema **`bpf` (bpf syscall)**, normalmente mediada por uma biblioteca de carregamento (ex: `libbpf`).\n3. **Verificação (Kernel Space):** O **Verificador eBPF (eBPF Verifier)** analisa estaticamente o bytecode (via CFG e simulação de estados) para provar a sua segurança (verificando que termina, não possui loops infinitos, não acede a memória fora de limites e mantém segurança de tipos).\n4. **Compilação Just-In-Time (JIT) (Kernel Space):** Uma vez aprovado, o compilador **JIT** converte o bytecode eBPF genérico nas instruções nativas de máquina do processador (x86_64, ARM64, etc.), oferecendo desempenho equivalente a código compilado nativamente.\n5. **Anexo e Execução por Eventos (Kernel Space):** O programa eBPF é anexado a um **hook** (como kprobes, tracepoints ou XDP). Quando o evento ocorre no sistema (ex: tráfego de rede ou syscall), o programa é disparado de forma autónoma e segura."
+    }
+  ]
+}

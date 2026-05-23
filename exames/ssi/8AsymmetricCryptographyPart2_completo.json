@@ -69,14 +69,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A criptografia assimétrica, por si só, resolve a garantia de autenticidade das chaves públicas sem necessitar de terceiros de confiança ou canais seguros adicionais.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Qual é a principal diferença de capacidades de segurança entre um código MAC (simétrico) e uma Assinatura Digital (assimétrica)?",
@@ -105,34 +100,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No esquema de Assinatura RSA clássico sem hashing, um atacante pode falsificar uma assinatura escolhendo um valor aleatório de assinatura σ e calculando m = σ^e mod n, fazendo com que (σ, m) seja aceite como válido.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A assinatura RSA baseia-se na inversão de papéis do RSA de cifragem, sendo matematicamente definida por Sign(sk, m) = H(m)^d mod n e Ver(pk, (σ, m)) = (σ^e mod n) == H(m).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O esquema padrão RSA-PSS (Probabilistic Signature Scheme) adiciona aleatoriedade e preenchimento à mensagem antes de assinar, garantindo maior segurança do que a assinatura RSA determinística.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O algoritmo DSA (Digital Signature Standard) baseia a sua segurança no logaritmo discreto e necessita crucialmente de um parâmetro dinâmico para cada assinatura. Que parâmetro é este?",
@@ -187,14 +167,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No protocolo S/MIME, a ordem de operação 'Encrypt-then-Sign' permite que gateways intermédios validem a autoria/integridade do tráfego sem aceder à mensagem confidencial, mas não fornece não-repúdio do conteúdo original da mensagem.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No protocolo de acordo de chaves autenticado Station-to-Station (STS), por que razão os intervenientes assinam as suas chaves públicas efémeras (X e Y) e não a chave secreta K resultante?",
@@ -249,14 +224,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Criptografia Pós-Quântica (PQC) refere-se a algoritmos clássicos (que correm em computadores normais atuais) concebidos para resistir a ataques executados por adversários que possuam computadores quânticos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual é o principal problema matemático que Shor resolve, inutilizando o RSA e o logaritmo discreto?",
@@ -285,74 +255,39 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A norma FIPS 203 define o padrão ML-KEM (Module-Lattice-Based Key-Encapsulation Mechanism), anteriormente conhecido como CRYSTALS-Kyber.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A norma FIPS 204 define o padrão ML-DSA (Module-Lattice-Based Digital Signature Standard), anteriormente conhecido como CRYSTALS-Dilithium.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A norma FIPS 205 define o padrão SLH-DSA (Stateless Hash-Based Digital Signature Standard), anteriormente conhecido como SPHINCS+.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo Falcon é um esquema de assinaturas digitais quânticas-seguras baseado em reticulados (Fast Fourier Lattice-Based).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A transição para a Criptografia Pós-Quântica (PQC) é facilitada porque os novos algoritmos possuem chaves e assinaturas de tamanho mais pequeno do que o RSA.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O uso precoce de Esquemas Híbridos (combinando criptografia clássica com PQC) é recomendado porque protege contra potenciais falhas no design recente de algoritmos PQC e mantém compatibilidade com sistemas legados.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um esquema híbrido clássico-PQC garante que a comunicação é segura desde que pelo menos um dos dois esquemas combinados se mantenha seguro (segurança ao nível do melhor esquema).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Que desvantagem apresentam os esquemas híbridos clássico-PQC?",
@@ -368,34 +303,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A expressão matemática da verificação de assinatura RSA, Ver(pk, (σ, m)) = σ^e mod n == H(m), prova a autoria do documento porque apenas quem possui o expoente privado 'd' (alçapão) conseguiria gerar um σ que satisfizesse esta igualdade.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O teste de Kasiski aplica-se à decifração de assinaturas RSA-OAEP e assinaturas com curvas elípticas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Os computadores quânticos utilizam 'qubits' que permitem a sobreposição de estados físicos de informação, o que possibilita acelerações exponenciais na resolução de determinados problemas de fatorização.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Ao utilizar assinaturas digitais assimétricas baseadas em algoritmos como RSA ou ECDSA, que propriedades e processos se verificam?",

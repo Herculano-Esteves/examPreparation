@@ -98,24 +98,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A criptografia assimétrica tem pior desempenho computacional e exige premissas matemáticas de segurança mais fortes quando comparada com a criptografia simétrica.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O protocolo de acordo de chaves de Diffie e Hellman (1976) permite que duas partes concordem num segredo partilhado através de mensagens num canal público sem que um espião passivo consiga obter o segredo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Um protocolo de três passos (Three-pass protocol) com cifra simétrica permite enviar uma mensagem protegida sem acordo prévio de chave desde que a operação de cifragem seja:",
@@ -157,34 +147,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um 'Corpo' (Field) é uma estrutura algébrica de anel onde cada elemento não-nulo possui um inverso multiplicativo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Para um módulo 'n' composto (não primo), a estrutura (Zn, +, *) forma um Corpo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na aritmética modular de Zn, os elementos que possuem inverso multiplicativo (unidades) são aqueles cujo maior divisor comum com 'n' é igual a 1 (gcd(x, n) = 1).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "A função totiente de Euler (ϕ(n)) para n = p * q, onde p e q são primos distintos, é calculada como:",
@@ -226,84 +201,44 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em criptografia assimétrica, a propriedade de 'Forward Secrecy' garante que o comprometimento das chaves de longo prazo não compromete a confidencialidade das chaves de sessão efémeras de comunicações passadas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O conceito de 'Permutação de Sentido Único com Alçapão' (Trapdoor One-Way Permutation) refere-se a uma função fácil de calcular num sentido, difícil de inverter no sentido oposto, exceto se for conhecida uma informação especial (alçapão/trapdoor).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo de encriptação de ElGamal é uma extensão do acordo de chaves Diffie-Hellman para cifragem de chaves públicas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "No algoritmo de ElGamal, o criptograma resultante da cifragem de uma mensagem 'm' é composto por dois valores, o que duplica o tamanho do criptograma em relação ao texto claro.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo ElGamal é um algoritmo de encriptação determinístico.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A cifra de ElGamal apresenta propriedades de homomorfismo multiplicativo, o que significa que multiplicar dois criptogramas resulta no criptograma do produto das mensagens originais.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O criptossistema RSA baseia a sua segurança na dificuldade de resolver o problema matemático da fatorização de inteiros com fatores primos de grande dimensão.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "No RSA, a chave pública e a chave privada de Alice contêm em comum o valor do módulo 'n'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No RSA clássico, a encriptação de uma mensagem 'm' é realizada através da fórmula:",
@@ -332,14 +267,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No RSA clássico determinístico, encriptar a mesma mensagem com a mesma chave pública resulta sempre no mesmo criptograma, o que o torna vulnerável a ataques se o espaço de mensagens for pequeno.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Um tamanho de módulo RSA de 3072 bits fornece um nível de segurança computacional equivalente a uma chave simétrica de:",
@@ -368,14 +298,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Se um atacante ativo interceptar um criptograma RSA e tentar decifrá-lo, descobrir os fatores primos p e q do módulo n = p * q permitiria ao atacante reconstruir a chave privada 'd' de forma simples.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes opções representa uma tendência moderna de gestão descentralizada de chaves (DKMS)?",
@@ -391,24 +316,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A propriedade comutativa na cifragem assimétrica (ou acordo de chaves) é importante porque garante que a ordem de aplicação de operações por diferentes entidades não altera o resultado final da chave acordada.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "No Diffie-Hellman matemático real, o gerador 'g' é um elemento primitivo que gera um subgrupo de ordem prima 'q' dentro do grupo multiplicativo do corpo finito GF(p).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No contexto do protocolo de acordo de chaves Diffie-Hellman (DH) clássico, selecione as afirmações corretas sobre o seu funcionamento e segurança:",

@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 8: APIs Modernas de Armazenamento",
+  "descricao": "Exame rigoroso e completo sobre APIs de I/O assíncronas de alta performance, comparando POSIX I/O, libaio, io_uring (SQ/CQ, SQPOLL/IOPOLL, linking, DRAIN) e SPDK (User-space NVMe driver, Actor Model, Reactors).",
+  "perguntas": [
+    {
+      "pergunta": "Com a introdução de SSDs ultra-rápidos (ex: NVMe), porque é que a API POSIX tradicional (read/write) se tornou um gargalo de desempenho?",
+      "opcoes": [
+        "Porque o VFS proíbe o acesso a dispositivos com mais de 512 bytes.",
+        "Devido ao overhead considerável do tempo gasto no espaço do kernel, às cópias extra de dados entre user-space e kernel-space, e às interrupções de hardware que causam context switches dispendiosos.",
+        "Porque a API POSIX corre exclusivamente na FTL da placa de rede.",
+        "Porque o Linux desativa as interrupções de relógio durante as syscalls síncronas."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quais são as limitações críticas da API assíncrona clássica do Linux (libaio) que motivaram o desenvolvimento do io_uring?",
+      "opcoes": [
+        "A limitação em correr apenas em modo síncrono e a exigência de usar buffers de kernel.",
+        "O facto de não evitar verdadeiramente o bloqueio da thread em muitos cenários, o elevado overhead de chamadas de sistema e cópias, e a limitação de necessitar de E/S sem buffer (O_DIRECT).",
+        "A incapacidade de processar mais do que 3 exames em paralelo no compilador JIT.",
+        "A exigência de encriptação AES-XTS obrigatória em todas as requisições."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a estrutura arquitetural central utilizada pelo io_uring para permitir a comunicação eficiente de E/S entre a aplicação e o kernel sem transições sistemáticas de privilégio?",
+      "opcoes": [
+        "Duas tabelas de hashes em RAM segura geridas pelo eBPF Verifier.",
+        "Dois buffers circulares (ring buffers) mapeados na memória partilhada (mmap) entre user-space e kernel-space: a Submission Queue (SQ) e a Completion Queue (CQ).",
+        "Uma fila única de inodes sincronizada via fsync() após cada operação.",
+        "Um barramento PCIe virtualizado na controladora FTL do SSD."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Na arquitetura do io_uring, como se diferenciam a Submission Queue (SQ) e a Completion Queue (CQ)?",
+      "opcoes": [
+        "A SQ armazena os dados binários cifrados e a CQ armazena os blocos físicos de metadados.",
+        "A SQ é um anel de índices para um array de SQEs (que descrevem a operação de I/O, fd, buffer, etc.), enquanto a CQ é um anel de CQEs que descrevem o resultado final da operação.",
+        "A SQ opera no espaço de utilizador e a CQ opera no hardware físico do disco rígido.",
+        "A SQ serve apenas para leituras O_DIRECT e a CQ para escritas em lote."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Para que serve o campo user_data na estrutura SQE do io_uring?",
+      "opcoes": [
+        "Indicar ao kernel se a chave simétrica AES-XTS está correta.",
+        "Permitir que a aplicação identifique qual o pedido original que gerou um determinado evento de conclusão (CQE), uma vez que as conclusões no io_uring podem chegar fora de ordem e o kernel devolve este campo intacto no CQE.",
+        "Alocar o tamanho da stack do eBPF para 512 bytes.",
+        "Indicar o diretório pai que deve ser sincronizado com fsync()."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que sucede quando a aplicação define o flag IOSQE_IO_LINK num SQE (digamos, SQE N)?",
+      "opcoes": [
+        "O kernel liga o bloco a uma cadeia de redundância RAID 1.",
+        "Cria um encadeamento onde o SQE N+1 só começará a ser executado após a conclusão bem-sucedida do SQE N; se SQE N falhar, o SQE N+1 é automaticamente cancelado.",
+        "Duplica o quantum do time slice na fila ativa do 2Q cache.",
+        "Envia a requisição para processamento no TEE (Intel SGX) do FUSE daemon."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é a função da barreira de ordenação IOSQE_IO_DRAIN num pedido enviado ao io_uring?",
+      "opcoes": [
+        "Sincronizar o diretório pai no Page Cache a cada 5 segundos.",
+        "Impedir que esse SQE seja executado até que todos os SQEs anteriormente submetidos tenham terminado, e bloquear a execução de quaisquer SQEs posteriores até que ele próprio termine.",
+        "Limpar todas as caches (drop caches) do sistema operativo de forma assíncrona.",
+        "Libertar a memória RAM do índice de deduplicação na pior hipótese."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que caracteriza o modo de polling IORING_SETUP_IOPOLL no io_uring?",
+      "opcoes": [
+        "O programador deve usar a libc para monitorizar os sockets na porta 5000.",
+        "O kernel faz busy polling (sondagem ativa) ao dispositivo de hardware para detetar conclusões de E/S, eliminando a latência da interrupção clássica à custa de queimar ciclos de CPU.",
+        "Uma thread em background cifra os dados usando Rabin Fingerprints.",
+        "Os pedidos são retidos na Fila Inativa do cache de páginas até haver 32 exames."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Que vantagem e custo apresenta o modo IORING_SETUP_SQPOLL no io_uring?",
+      "opcoes": [
+        "Permite duplicar a stack do kernel gastando apenas 18 GiB de swap.",
+        "Permite realizar operações de E/S com zero chamadas ao sistema (zero-syscall I/O) porque uma thread dedicada do kernel pollia constantemente a SQ à procura de novos pedidos; no entanto, consome 100% de uso de um core de CPU dedicado.",
+        "Evita o uso do Page Cache mas exige o uso obrigatório de O_DIRECT e AES-CBC.",
+        "Garante atomicidade total na chamada rename() de sistemas FUSE."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual é o conceito central de arquitetura do SPDK (Storage Performance Development Kit) para atingir a performance máxima em SSDs NVMe?",
+      "opcoes": [
+        "Mover toda a pilha de armazenamento e os drivers do dispositivo de hardware diretamente para o espaço de utilizador (user-space), operando em modo polling e com acesso direto via DMA.",
+        "Compilar o código do sistema de ficheiros em bytecode eBPF executado em kernel space.",
+        "Duplicar as tabelas de diretórios de páginas lineares na controladora FTL.",
+        "Utilizar a API High-level síncrona da biblioteca libfuse."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Porque é que o SPDK rejeita a concorrência tradicional baseada em memória partilhada e que modelo utiliza em alternativa?",
+      "opcoes": [
+        "Rejeita a memória partilhada por motivos de segurança e encriptação AES-XTS, usando sockets TCP locais.",
+        "Porque a contenção de trincas (locks) e a degradação de cache degradam a performance com muitos cores; em alternativa, usa o Modelo de Atores (Actor Model), onde cada thread (reactor) possui o seu próprio queue pair da NVMe e a comunicação é feita por passagem de mensagens assíncronas.",
+        "Usa o escalonamento Round Robin forçando todas as tarefas para o estado Blocked.",
+        "Utiliza a Fila Inativa do cache de páginas unificada com a dentry cache."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O que designa a camada de Dispositivo de Bloco (bdev) e a utilização de bdevs virtuais (vbdevs) no ecossistema SPDK?",
+      "opcoes": [
+        "Um mecanismo do kernel Linux para gerir a swap partition física de SSDs.",
+        "Uma camada de abstração que unifica diferentes drivers e permite empilhar módulos virtuais (ex: criptografia, compressão) para customizar a pilha de E/S sem alterar a aplicação.",
+        "Uma controladora baseada em Rabin Fingerprints que elimina blocos órfãos no RAID 1.",
+        "O utilitário nativo de monitorização estatística equivalente ao dstat."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Quais são os principais inconvenientes ou limitações metodológicas no desenvolvimento e operação de aplicações utilizando o SPDK?",
+      "opcoes": [
+        "A limitação em correr apenas com discos HDD lentos e a falta de suporte para multi-threading.",
+        "O código assíncrono em C é complexo de programar, o polling de CPU gasta imensa energia, a interface exposta é de blocos (bdev) e não de ficheiros, e é impossível partilhar cores de CPU/SSDs com outras aplicações normais do SO.",
+        "A obrigatoriedade de ter todas as escritas duplicadas no swap space e a falta de suporte para DMA.",
+        "O facto de o eBPF Verifier bloquear a execução de qualquer reactor SPDK."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como é que o SPDK consegue realizar transferências de dados entre a RAM da aplicação e o SSD NVMe sem realizar cópias de dados intermediárias (zero-copy)?",
+      "opcoes": [
+        "Através de chamadas síncronas de VFS no diretório pai.",
+        "Aproveitando o suporte a DMA (Direct Memory Access), permitindo ao hardware NVMe ler/escrever diretamente na memória física da aplicação em user-space.",
+        "Usando o algoritmo 2Q de substituição de páginas para mapear os transístores flash.",
+        "Cifrando deterministicamente os blocos físicos de transição."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa carga típica de leitura aleatória em SSD rápido (dados de 2019 de Jens Axboe), como se compara o desempenho (IOPS) de io_uring (com e sem polling) vs. libaio?",
+      "opcoes": [
+        "O libaio atinge 1.7M IOPS, superando o io_uring por larga margem.",
+        "O libaio atinge cerca de 608k IOPS, enquanto o io_uring atinge 1.2M IOPS em modo normal e 1.7M IOPS em modo polling, demonstrando a superioridade da nova API.",
+        "Ambas as APIs têm a mesma performance devido à restrição física da controladora SATA.",
+        "O io_uring só funciona se a taxa de compressão for de 100% no VFS."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva detalhadamente a arquitetura de comunicação do io_uring baseada em filas circulares em memória partilhada (ring buffers). Na sua resposta, explique as funções específicas da Submission Queue (SQ), da Completion Queue (CQ) e do SQE Array, demonstrando como a configuração SQPOLL (Submission Queue Polling) permite realizar operações de E/S com zero chamadas ao sistema (zero-syscall I/O).",
+      "solucao": "**Arquitetura do io_uring:**\nO io_uring baseia-se em estruturas de dados partilhadas em memória entre o espaço de utilizador (user-space) e o espaço de kernel, mapeadas através de `mmap()`. Isto elimina a necessidade de copiar dados de pedidos de I/O em cada syscall.\n\nAs três estruturas principais são:\n1. **SQE Array (Submission Queue Entries Array):** Um array plano na memória partilhada que contém as entradas de submissão (SQEs). Cada SQE descreve detalhadamente uma operação de E/S (tipo de operação ex: read/write, file descriptor, endereço do buffer, offset e flags de ordenação).\n2. **Submission Queue (SQ - Fila de Submissão):** Um ring buffer (fila circular) cujos elementos são índices inteiros que apontam para posições no SQE Array. A aplicação adiciona índices a esta fila para submeter pedidos, e o kernel consome-os.\n3. **Completion Queue (CQ - Fila de Conclusão):** Um ring buffer cujos elementos são eventos de conclusão (CQEs). Cada CQE representa o resultado de um pedido processado pelo kernel, contendo o resultado da operação (bytes escritos/lidos ou código de erro) e o campo `user_data` (para associar a resposta ao pedido original).\n\n**Funcionamento do SQPOLL (Zero-Syscall I/O):**\nNo modo padrão de funcionamento, a aplicação insere SQEs na fila e tem de efetuar uma chamada de sistema (`io_uring_enter()`) para notificar o kernel de que há novos pedidos para processar. Com a flag **`IORING_SETUP_SQPOLL`** ativada na inicialização do io_uring, o kernel cria e executa uma thread dedicada em kernel-space que funciona em loop ativo (busy polling) a monitorizar a Submission Queue (SQ). A aplicação de utilizador simplesmente escreves os pedidos no SQE Array e atualiza o ponteiro de escrita (head/tail) da SQ diretamente na memória RAM partilhada. A thread de kernel deteta a alteração dos ponteiros na SQ, retira os pedidos e processa-os imediatamente no hardware, escrevendo as conclusões na CQ, tudo isto sem que a aplicação de utilizador tenha de efetuar uma única chamada ao sistema (syscall) de submissão. Isto permite atingir a máxima eficiência de I/O com zero-overhead de syscalls, à custa de dedicar permanentemente um core de CPU a essa thread de polling do kernel."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O SPDK foi desenhado para eliminar a contenção de recursos em arquiteturas multi-core modernas acedendo a SSDs NVMe de alto débito. Explique por que razão o modelo de concorrência clássico baseado em threads POSIX com memória partilhada e trincas (locks) falha na saturação deste hardware e descreva como o SPDK resolve este problema recorrendo ao Modelo de Atores (Actor Programming Model), reatores (reactors) e queue pairs da NVMe.",
+      "solucao": "**Falha do Modelo Clássico (Threads + Locks):**\nSSDs NVMe modernos conseguem processar milhões de operações de E/S por segundo (IOPS). No modelo de concorrência tradicional, múltiplas threads do sistema operativo tentam submeter pedidos concorrentemente para a mesma fila de hardware da controladora de armazenamento. Isto exige o uso de mecanismos de sincronização síncrona (locks/trincas e semáforos) no kernel para proteger as estruturas de dados partilhadas. Sob elevadas cargas de I/O, a contenção por estes locks escala drasticamente, fazendo com que as threads passem mais tempo bloqueadas a disputar trincas e a realizar mudanças de contexto (context switches) do que a realizar trabalho útil de E/S. Ocorre também uma perda massiva de localidade de cache de CPU.\n\n**Solução do SPDK (Actor Model & Reactors):**\nO SPDK resolve esta limitação eliminando por completo a partilha de dados e os locks na pilha de I/O:\n1. **Reactors:** O SPDK aloca e prende (affinity) permanentemente uma thread do utilizador a cada core de CPU ativo dedicado (reator). Estes reatores correm loops de polling ativos sem ceder o CPU.\n2. **Actors e Ausência de Locks:** A aplicação é estruturada como um conjunto de atores (tarefas leves e independentes em user-space que não partilham estado). A comunicação entre atores é puramente assíncrona através de passagem de mensagens escritas em filas de mensagens locais (message queues) sem concorrência.\n3. **Queue Pairs NVMe Dedicados:** O protocolo NVMe suporta nativamente múltiplas filas de submissão e conclusão de hardware independentes (queue pairs). O SPDK atribui um queue pair NVMe exclusivo a cada reator (core de CPU). Como cada core tem a sua própria fila NVMe de hardware dedicada e corre um ator independente, não existe qualquer necessidade de locks de sincronização para submeter ou ler conclusões de E/S. O sistema escala de forma puramente linear com o número de CPU cores."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare as três pilhas de E/S de armazenamento: POSIX I/O, io_uring e SPDK com base nos seguintes critérios: (1) Espaço de execução da pilha (Kernel vs. User-space), (2) Mecanismo de notificação de conclusão (Interrupção de hardware vs. Polling ativo), e (3) Custo de transição de privilégio (System Calls). Discuta um cenário ideal para a utilização do POSIX I/O e um cenário ideal para o SPDK.",
+      "solucao": "**Tabela Comparativa:**\n\n| Critério / API | POSIX I/O | io_uring | SPDK |\n| :--- | :--- | :--- | :--- |\n| **Espaço de Execução** | Kernel-space (através do VFS e drivers de bloco do kernel). | Kernel-space (mas interage via buffers mapeados em user/kernel). | User-space (toda a pilha de E/S e os drivers NVMe correm em espaço de utilizador). |\n| **Notificação de Conclusão** | Baseada em Interrupções de hardware (geradas pelo controlador do disco). | Misto. Suporta interrupções, mas também polling de kernel (IOPOLL). | Polling Ativo contínuo das filas NVMe pelas threads reactors de utilizador. |\n| **Custo de Syscalls** | Elevado. Pelo menos uma syscall (`read`/`write`) síncrona bloqueante por cada pedido. | Muito reduzido. Permite batching e zero-syscalls no modo SQPOLL. | Zero. Não utiliza nenhuma chamada ao sistema no caminho crítico de E/S. |\n\n**Cenários Ideais:**\n\n- **Cenário Ideal para POSIX I/O:**\nAplicações com cargas de E/S reduzidas ou esporádicas, ou sistemas com recursos de hardware severamente limitados (como dispositivos embebidos ou servidores partilhados). Como o POSIX I/O é baseado em interrupções, as threads da aplicação entram em estado de suspensão (Blocked) quando não há E/S ativa, libertando 100% dos recursos de CPU para outras tarefas do sistema operativo. O POSIX também é a escolha ideal quando a aplicação necessita de compatibilidade universal e simplicidade de desenvolvimento em detrimento de débito máximo.\n\n- **Cenário Ideal para SPDK:**\nSistemas de armazenamento dedicados de altíssimo desempenho (ex: servidores de bases de dados de grande escala, infraestruturas de armazenamento na cloud como NVMe-over-Fabrics ou virtualizadores de armazenamento). Nestes cenários, a aplicação necessita de extrair cada microsegundo de latência e o máximo de IOPS do hardware SSD NVMe. Os recursos de CPU (cores) podem ser dedicados exclusivamente ao SPDK para fazer polling contínuo sem restrições de consumo de energia, justificando o custo de queimar ciclos de CPU em troca de evitar por completo context switches e cópias de dados no kernel."
+    }
+  ]
+}

@@ -107,14 +107,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A construção CBC-MAC simples é vulnerável a ataques de extensão de comprimento quando aplicada a mensagens de tamanho variável.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Como é que o algoritmo CMAC (Cipher-based MAC) corrige a vulnerabilidade de extensão de comprimento do CBC-MAC?",
@@ -156,24 +151,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "As Funções de Hash Universais (Universal Hash Functions - UHFs) possuem uma propriedade de colisão muito mais fraca do que a resistência a colisões tradicional, bastando garantir que para duas mensagens distintas a probabilidade de colisão sob uma chave aleatória seja muito pequena.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma Função de Hash Universal (UHF) simples pode ser utilizada diretamente como um MAC seguro para autenticar múltiplas mensagens consecutivas com a mesma chave.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "A construção de Wegman-Carter fortalece uma UHF para permitir o seu uso como um MAC seguro multi-mensagem através de que mecanismo?",
@@ -202,14 +187,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A combinação ChaCha20-Poly1305 é em larga escala adotada em software porque corre a alta velocidade sem necessidade de instruções ou co-processadores de aceleração dedicados no hardware da CPU.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No âmbito da Cifragem Autenticada, a especificação AEAD (Authenticated Encryption with Associated Data) permite garantir que determinados dados adicionais (como cabeçalhos de pacotes IP ou números de sequência):",
@@ -264,14 +244,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo de operação Galois/Counter Mode (GCM) é uma cifra AEAD muito popular que combina a cifragem por blocos no modo CTR com uma função de hash universal (GHASH).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No AES-GCM, o valor do segredo de autenticação H (usado no GHASH) e a máscara final são derivados respetivamente por:",
@@ -287,44 +262,24 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo GCM perde a capacidade de paralelização inerente ao CTR mode devido ao processamento dos dados associados.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "No modo de operação OCB (Offset CodeBook) para AEAD, a cifragem e a autenticação ocorrem em simultâneo através da aplicação de um offset dinâmico antes e depois de cada chamada à cifra de blocos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo OCB é até 3 vezes mais rápido que o GCM em software, mas a sua adoção foi inicialmente dificultada por questões de patentes de propriedade intelectual.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao contrário do GCM (que usa apenas a encriptação do bloco no modo CTR), o modo OCB exige a implementação dos algoritmos de encriptação e de decriptação da cifra de blocos base no hardware.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O que acontece em termos de segurança se ocorrer a reutilização acidental de um Nonce (Nonce reuse) no modo GCM?",
@@ -340,44 +295,24 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No modo OCB, a reutilização do Nonce permite ao atacante extrair padrões do texto claro e realizar falsificações de blocos (block forgery) através de somas de XOR.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modo SIV (Synthetic Initialization Vector) resolve o perigo de reutilização de Nonce calculando o IV dinamicamente a partir do tag de autenticação da mensagem (MAC-then-Encrypt modificado).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Cifras em modo SIV (como o AES-GCM-SIV) são eficientes e streamable, processando os dados numa única passagem rápida pela CPU.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A construção baseada em esponja dupla (Duplex Sponge), como a utilizada pelo algoritmo Ascon, permite cifrar e autenticar dados integrando chaves e nonces no estado da esponja.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O Ascon foi selecionado em 2023 pelo NIST como o novo padrão internacional de criptografia para:",
@@ -406,24 +341,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No Ascon, os processos de cifragem e decifragem utilizam a mesma permutação interna de bits da esponja, o que reduz a área necessária em implementações de hardware.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A cifra de blocos clássica DES utiliza uma chave efetiva de 56 bits, o que a torna vulnerável a ataques de força bruta rápidos atualmente.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual o objetivo de utilizar o modo 3DES (Triple DES)?",
@@ -439,14 +364,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo AES foi padronizado no ano 2000 após um concurso internacional lançado pelo NIST, no qual foram avaliadas a segurança e o desempenho de várias submissões.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O tamanho de bloco no AES é fixo em:",
@@ -475,34 +395,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A transformação linear 'MixColumns' do AES realiza uma multiplicação de matrizes num corpo de Galois para espalhar a influência dos bytes de forma vertical.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O passo 'ShiftRows' do AES promove a difusão horizontal ao deslocar ciclicamente as linhas da matriz interna de 4x4 bytes por offsets de 0, 1, 2 e 3 bytes.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O passo 'SubBytes' é a única operação não-linear do AES, sendo a base do seu pilar de confusão.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No desenvolvimento de um programa criptográfico prático que utiliza a estratégia Encrypt-then-MAC (EtM) combinando o modo AES-CTR e o HMAC-SHA256, porque é necessário requisitar bytes adicionais à KDF (Key Derivation Function)? Selecione as razões corretas.",

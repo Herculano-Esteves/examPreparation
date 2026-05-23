@@ -3,108 +3,58 @@
   "descricao": "Segundo simulador de exame construído para refletir os moldes do exame modelo, avaliando permissões de ficheiros granulares (Sticky bits, SUID), mecanismos de hash, TLS, ECC e modos de operação AEAD.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
       "pergunta": "Sobre `/var/log/auth.log`, a flag 'S' (maiúscula) nas permissões de dono (owner) indica que o bit de SUID está ativo, mas o ficheiro não tem permissão base de execução atribuída ao dono.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
       "pergunta": "O utilizador `charlie` pode apagar quaisquer ficheiros pertencentes ao utilizador `alice` que se encontrem dentro da diretoria `shared_docs`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa política Mandatory Access Control (MAC), o dono do ficheiro tem total poder discricionário para delegar acessos a outros utilizadores do sistema, usando comandos arbitrários como o chmod.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
       "pergunta": "A execução do programa `backup_tool` por parte da utilizadora `alice` fará com que o processo execute transitoriamente com o grupo efetivo `staff`, em virtude do bit de SetGID ('s').",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma Access Control List (ACL) no Linux permite definir permissões granulares e individualizadas para utilizadores específicos, ultrapassando os limites restritos do modelo base clássico de UGO (User, Group, Other).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na avaliação da performance de um sistema de autenticação biométrica, o Crossover Error Rate (CER) é o ponto exato de calibração onde a taxa de falsos positivos cruza e iguala a taxa de falsos negativos, servindo frequentemente como métrica principal comparativa de precisão geral do sensor.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
       "pergunta": "O utilizador `bob` conseguiria invocar e executar com sucesso o programa `backup_tool` a partir do seu terminal.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O ficheiro `/etc/shadow` nos sistemas Linux centraliza o armazenamento dos hashes das passwords dos utilizadores locais, exigindo estritamente permissões que impossibilitam a sua leitura por utilizadores comuns e as limitam puramente ao utilizador root (e.g. root:shadow).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O modelo ABAC (Attribute-Based Access Control) fundamenta as suas avaliações de segurança baseando-se unicamente nas definições estáticas dos papéis organizacionais geridos pelos recursos humanos, negligenciando fatores como localização e propriedades do objeto.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O princípio do Menor Privilégio postula que cada componente de um sistema (seja utilizador ou processo) deve operar limitando os seus acessos unicamente aos recursos e privilégios exatos que lhe sejam estritamente necessários ao cumprimento rigoroso da sua função.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Descreva o mecanismo base pelo qual a componente de um modelo de Controlo de Acesso Baseado em Papéis (RBAC) atenua o problema de explosão combinatória na atribuição de permissões operacionais e cite o seu impacto prático na implementação de matrizes de separação de deveres nas corporações.",

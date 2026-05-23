@@ -1,0 +1,150 @@
+{
+  "titulo": "Exame Global 3: Latência de Cauda, APIs Modernas e Otimizações de Hardware",
+  "descricao": "Terceiro exame global, abordando latência de cauda, buffers e zero-copy (io_uring/SPDK), amplificação de escrita (WAF), eBPF profiling, e benchmarking de armazenamento.",
+  "perguntas": [
+    {
+      "pergunta": "Como pode o eBPF ser utilizado para calcular o Fator de Amplificação de Escrita (WAF - Write Amplification Factor) de um SSD sob um sistema FUSE?",
+      "opcoes": [
+        "Monitorizando as escritas solicitadas pela aplicação no VFS (através de sys_enter_write) e as escritas físicas enviadas para o driver do controlador NVMe (através de block_rq_issue), efetuando a divisão entre ambos os valores acumulados em mapas eBPF.",
+        "O eBPF calcula o WAF automaticamente medindo o número de bilhetes no Stride Scheduler do FUSE daemon.",
+        "O WAF pode ser deduzido intercetando a alocação de páginas sujas no Page Cache através do kprobe em add_to_page_cache_lru.",
+        "O eBPF é incapaz de medir o WAF porque as operações de limpeza interna (Garbage Collection) da controladora FTL do SSD ocorrem ao nível do hardware físico, sem visibilidade direta para o kernel Linux."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "pergunta": "Compare a arquitetura SPDK com a do io_uring no que toca à transferência de dados e custo de CPU.",
+      "opcoes": [
+        "O SPDK contorna completamente o kernel (kernel bypass) usando drivers em espaço de utilizador que fazem polling contínuo da controladora NVMe via DMA, consumindo 100% de CPU num core dedicado.",
+        "O io_uring mantém a execução no kernel-space, mas minimiza context switches usando anéis de memória partilhada (SQ/CQ) e suportando polling de kernel (IOPOLL/SQPOLL).",
+        "O io_uring exige o mapeamento de Hugepages em user-space exatamente igual ao SPDK para qualquer E/S básica síncrona.",
+        "Ambos permitem evitar cópias de dados entre o espaço do utilizador e o kernel durante as transferências de dados de E/S."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Selecione a(s) afirmação(ões) correta(s) sobre o impacto da consistência de metadados na amplificação de escrita do sistema de ficheiros subjacente:",
+      "opcoes": [
+        "O journaling físico de metadados (metadata journaling) exige escrever as alterações de metadados duas vezes (no jornal e na área real), o que aumenta a amplificação de escrita do dispositivo de bloco.",
+        "Sistemas Copy-on-Write (CoW) eliminam a necessidade de escrita dupla no jornal, mas podem causar fragmentação de blocos a longo prazo, aumentando a latência de leituras sequenciais.",
+        "Sistemas de Ficheiros Log-Structured (LFS) escrevem todas as atualizações (dados e metadados) sequencialmente num segmento contínuo, minimizando escritas aleatórias à custa de um processo dispendioso de limpeza de segmentos (segment cleaning).",
+        "O uso de O_DIRECT desativa o journaling do sistema de ficheiros subjacente."
+      ],
+      "solucao": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "pergunta": "Como se comporta o Escalonamento por Passos (Stride Scheduling) no balanceamento de E/S quando os bilhetes (tickets) de um processo são alterados dinamicamente?",
+      "opcoes": [
+        "O stride do processo é recalculado imediatamente de forma inversa aos novos bilhetes (ex: stride = 10000 / novos_bilhetes), alterando a inclinação de acumulação do pass value nos próximos turnos.",
+        "A alteração dinâmica de bilhetes obriga a repor o pass value de todos os processos do sistema para zero, causando monopolização temporária por processos batch.",
+        "Se os bilhetes aumentarem significativamente, o stride diminui, fazendo com que o pass value aumente mais devagar e o processo corra com maior frequência para recuperar o atraso.",
+        "O Stride Scheduling não suporta alteração dinâmica de bilhetes devido ao risco de colisão de Rabin Fingerprints."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "pergunta": "Que trade-offs e overheads de barramento surgem na cifragem transparente com AES-XTS implementada como um vbdev stackable no SPDK?",
+      "opcoes": [
+        "A criptografia é executada inteiramente em User-space pelas threads reactors, evitando context switches para o kernel e permitindo usar instruções de hardware (como Intel AES-NI).",
+        "Ao correr em User-space, os dados cifrados são transferidos por DMA de/para a placa física NVMe sem cópias adicionais no kernel.",
+        "A encriptação AES-XTS em User-space invalida o uso do Actor Model, forçando o uso de locks de memória partilhada.",
+        "O processo de encriptação acrescenta latência de processamento de CPU ao caminho crítico de E/S de cada bloco."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Ao desenhar benchmarks de armazenamento para sistemas OLTP (bases de dados transacionais), porque é que a latência média de E/S é uma métrica insuficiente e potencialmente enganadora?",
+      "opcoes": [
+        "A latência média esconde a latência de cauda (tail latency, ex: percentil 99 ou 99.9), que determina a consistência e o tempo de resposta percebido pelos utilizadores finais sob elevada carga concorrente.",
+        "Um SSD NVMe pode ter uma excelente latência média de 100 microsegundos, mas apresentar picos de latência de 50 milissegundos devido a ciclos de Garbage Collection na controladora FTL.",
+        "A média aritmética é matematicamente idêntica ao percentil 99.9 em cargas puramente aleatórias.",
+        "A latência de cauda é altamente influenciada por interrupções e bloqueios na pilha de software do sistema operativo (ex: disputa por locks no VFS)."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "No contexto da deduplicação de dados, o que caracteriza o 'shift effect' (efeito de deslocamento)?",
+      "opcoes": [
+        "É a perda de alinhamento de blocos causada por inserções ou remoções de dados: em esquemas de Fixed-Size Chunking, a alteração de 1 byte no início do ficheiro altera os limites e as assinaturas de todos os blocos seguintes, arruinando a deduplicação subsequente.",
+        "É mitigado usando Content-Defined Chunking (CDC), onde os limites de bloco são definidos por um Rabin Fingerprint deslizante.",
+        "Refere-se ao deslocamento físico dos setores magnéticos em discos HDD antigos.",
+        "É um bug de hardware exclusivo de SSDs NVMe ZNS."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Como se pode instrumentar a latência de escalonamento (tempo que uma tarefa passa no estado Ready antes de correr) usando eBPF?",
+      "opcoes": [
+        "Anexando programas eBPF aos tracepoints sched_wakeup (quando a tarefa passa a Ready) e sched_switch (quando o CPU começa a correr a tarefa), guardando o timestamp num mapa hash indexado pelo PID da tarefa.",
+        "Subtraindo o timestamp de sched_switch ao de sched_wakeup no evento correspondente e emitindo o resultado para o Ring Buffer.",
+        "O eBPF Verifier bloqueia qualquer kprobe na função sched_switch por motivos de segurança e integridade do escalonador.",
+        "Contabilizando o número de nice levels do processo no eBPF Map."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "De que forma a API de registo de buffers (io_uring_register / io_uring_register_buffers) otimiza o desempenho de E/S no io_uring?",
+      "opcoes": [
+        "Evita que o kernel Linux necessite de mapear e desmapear (pin/unpin) as páginas de memória física do utilizador em cada operação de E/S, acelerando o DMA.",
+        "Permite que o kernel e o SSD NVMe comuniquem em modo zero-copy total registando buffers de utilizador permanentes na controladora.",
+        "Força o uso de cache writeback para contornar o O_DIRECT.",
+        "Os buffers registados são automaticamente partilhados com outros processos sem necessidade de IPC."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Porque é que as bases de dados transacionais modernas preferem abrir os seus ficheiros com a flag O_DIRECT?",
+      "opcoes": [
+        "Para contornar o Page Cache do kernel, evitando a dupla duplicação de páginas em memória RAM (uma na cache do sistema operativo e outra no buffer pool gerido pelo próprio motor de base de dados).",
+        "Para garantir que a base de dados tem controlo absoluto sobre a ordem e o momento em que os dados são escritos no disco, permitindo garantir a consistência ACID via WAL (Write-Ahead Logging).",
+        "Para desativar a encriptação AES-XTS ao nível do hardware.",
+        "Porque o O_DIRECT melhora a latência de escritas pequenas agrupando-as na fila circular do eBPF."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique detalhadamente como o io_uring (através de buffer registration APIs) e o SPDK (via hugepages e alocação de memória física contígua) conseguem eliminar por completo as cópias de dados (zero-copy) entre o espaço do utilizador e o kernel durante as transferências de E/S de alto débito. Na sua resposta, aborde a necessidade de fixar/bloquear páginas na RAM (memory pinning) e o papel do DMA (Direct Memory Access) neste processo.",
+      "solucao": "**1. Mecanismo de Zero-Copy e DMA:**\n- Para efetuar transferências de dados de alto débito para dispositivos NVMe sem CPU intermediário, o hardware utiliza DMA (Direct Memory Access). O controlador NVMe lê ou escreve diretamente na memória física do sistema (RAM). No entanto, o hardware de DMA necessita de endereços de memória física e de garantir que a memória correspondente não se move e não é paginada para a swap a meio da transferência.\n\n**2. Abordagem do io_uring (Buffer Registration):**\n- Por defeito, em chamadas read/write assíncronas do io_uring, o kernel Linux tem de mapear o buffer de utilizador (user-space virtual memory), identificar as páginas físicas subjacentes, bloquear estas páginas na memória física (memory pinning) para que o kernel do SO não as envie para a swap, e depois submeter o DMA. Concluído o I/O, faz o unpin. Este processo de pin/unpin constante gera overhead considerável em IOPS elevados.\n- A API **`io_uring_register_buffers()`** resolve isto permitindo à aplicação registar previamente (e a longo prazo) um conjunto de buffers em memória. Ao fazê-lo, o kernel realiza o *memory pinning* uma única vez na inicialização. Quando os SQEs são submetidos indicando estes buffers registados, o kernel já tem os endereços físicos fixos prontos, efetuando o DMA sem qualquer overhead de mapeamento de memória ou cópias.\n\n**3. Abordagem do SPDK (Hugepages e Alocação DMA):**\n- O SPDK opera inteiramente em User-space (Kernel Bypass). Não recorrendo a chamadas ao sistema, o SPDK não pode pedir ao kernel para mapear ou fazer pin de buffers de utilizador clássicos a meio do caminho de dados.\n- Em vez disso, o SPDK depende de **Hugepages** (páginas de memória gigantes de 2MB ou 1GB) alocadas e fixadas (pinned) na inicialização do sistema através do kernel Linux. \n- O SPDK fornece APIs próprias de alocação de memória (ex: `spdk_dma_malloc()`) que alocam blocos dentro destas hugepages. Como esta memória já está fisicamente contígua, fixada na RAM e o SPDK conhece os seus endereços físicos de antemão, a aplicação escreve diretamente nestes buffers. O SPDK instrui a controladora NVMe a efetuar o DMA diretamente desses endereços físicos em User-space, atingindo o zero-copy absoluto e zero transições de privilégio."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A latência de cauda (tail latency, ex: percentil 99.9) é frequentemente ordens de grandeza superior à latência média em sistemas de armazenamento NVMe sob cargas concorrentes elevadas. Explique três causas fundamentais para a ocorrência de picos de latência de cauda (incluindo o Garbage Collection interno de SSDs, disputa por locks na pilha de software do SO, e atrasos no escalonador de CPU) e discuta como o eBPF pode ser empregue para diagnosticar e localizar a camada exata onde a latência de cauda é introduzida.",
+      "solucao": "**1. Três Causas Fundamentais da Latência de Cauda:**\n- **Garbage Collection (GC) na FTL do SSD:** SSDs não podem sobrescrever dados em células flash diretamente; necessitam de apagar blocos de flash inteiros. A FTL (Flash Translation Layer) executa rotinas internas de GC em background para mover páginas ativas e limpar blocos vazios. Sob forte carga de escritas, as operações de GC colidem com as escritas da aplicação, causando picos de latência física (de microsegundos para dezenas de milissegundos) que afetam as requisições que calham nesse momento.\n- **Disputa por Locks (Trincas) na Pilha de Software do SO:** Em sistemas concorrentes (multi-core), o acesso a estruturas de metadados partilhadas (como o cache de inodes do VFS ou buffers de filas em SQMS) exige a aquisição de locks. Sob concorrência extrema, dezenas de threads de CPU podem ficar bloqueadas à espera de uma trinca detida por um core lento ou por uma thread preemptada, gerando picos de latência que afetam a cauda da distribuição.\n- **Atrasos de Escalonamento de CPU (Runqueue Latency):** Se o escalonador de CPU (ex: CFS) não for reativo ou se a CPU estiver sobrecarregada, uma tarefa que completou a sua E/S e foi acordada (Ready) pode passar vários milissegundos na fila de prontos à espera que o CPU a escolha para executar. Isto aumenta o tempo total de resposta medido pela aplicação, mesmo que a E/S física no SSD tenha sido ultrarrápida.\n\n**2. Diagnóstico e Localização com eBPF:**\nO eBPF permite instrumentar o caminho completo de I/O em tempo real com baixo overhead para identificar o bottleneck:\n- **Passo 1: Medir a Latência Física do Hardware:** Colocamos programas eBPF nos tracepoints do subsistema de blocos (`block_rq_issue` e `block_rq_complete`). Se medirmos latências elevadas (percentil 99.9 elevado) nesta camada, o culpado é o SSD NVMe (ex: Garbage Collection ou saturação de filas do dispositivo).\n- **Passo 2: Medir o Tempo Gasto nas Chamadas de Sistema:** Colocamos eBPF em `sys_enter_write` / `sys_exit_write`. Ao subtrair a latência do dispositivo (calculada no Passo 1) à latência total da syscall, obtemos o tempo de overhead da pilha de software (VFS, sistema de ficheiros, FUSE). Se este valor for alto, o problema reside em locks na pilha de software.\n- **Passo 3: Medir a Latência de Escalonamento da CPU:** Instrumentamos as funções do escalonador (`sched_wakeup` e `sched_switch`). Se a tarefa passa muito tempo no estado Ready após o sinal de conclusão de E/S, o bottleneck é a latência de escalonamento do CPU. O eBPF permite assim construir uma árvore de latência precisa em tempo real."
+    }
+  ]
+}

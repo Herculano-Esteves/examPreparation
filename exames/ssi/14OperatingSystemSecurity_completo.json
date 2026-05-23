@@ -3,14 +3,9 @@
   "descricao": "Base de dados abrangente sobre segurança de sistemas operativos, cobrindo o TCB, hierarquias de confiança (Rings), isolamento de processos (tabela de páginas, NX, ASLR, KASLR, canários), side-channels (Spectre/Meltdown, KPTI), interface de syscalls e seccomp, modelos de privilégio (setuid, capabilities), segurança de containers (namespaces, cgroups), hypervisors, LSMs (AppArmor/SELinux) e hardening (Secure Boot, TPM).",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "O TCB (Trusted Computing Base) de um sistema inclui todo o hardware, firmware e software cuja corretude é essencial para garantir a segurança global do sistema. Num sistema operativo monolítico como o Linux, todas as linhas de código do kernel (cerca de 27 milhões) e drivers na Ring 0 fazem parte do TCB, o que contrasta com a abordagem de microkernels, que visa encolher o TCB movendo serviços para o Ring 3.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Considerando a hierarquia de privilégios de um sistema de computação moderno (Hypervisor, Kernel, User, Firmware), qual das seguintes opções descreve a relação de confiança correta entre as diferentes camadas?",
@@ -26,14 +21,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O isolamento de processos baseia-se primordialmente no uso de memória virtual. O utilizador (Ring 3) não consegue aceder diretamente à tabela de páginas (page table) nem mapear endereços físicos arbitrários porque a escrita na tabela de páginas é controlada e traduzida exclusivamente pelo hardware da MMU usando configurações geridas apenas pelo kernel em Ring 0.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "A implementação da política W^X (NX/DEP) visa mitigar a execução de shellcode na stack ou no heap. Qual é a principal limitação desta defesa e como é tipicamente contornada pelos atacantes?",
@@ -49,24 +39,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A randomização do espaço de endereçamento (ASLR) garante imunidade contra ROP porque, ao alterar a base da stack, heap e bibliotecas a cada execução, impede que um atacante consiga conhecer qualquer endereço de memória. No entanto, se o atacante obtiver uma vulnerabilidade de leak de informação (ex: CWE-125), a entropia do ASLR colapsa porque as distâncias (offsets) relativas entre funções permanecem fixas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O Kernel ASLR (KASLR) randomiza a base de carregamento do próprio kernel no boot. Para impedir que um atacante local com privilégios de utilizador comum descubra a base de endereçamento do kernel através de ponteiros expostos, o administrador do sistema deve configurar o parâmetro 'kernel.kptr_restrict=2'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Em relação ao funcionamento dos Stack Canaries do ponto de vista do sistema operativo, como é assegurado que o valor do canário seja imprevisível para cada execução de um processo?",
@@ -82,24 +62,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "As vulnerabilidades Spectre e Meltdown violam a garantia de isolamento de processos ao nível do software, explorando bugs no código do kernel Linux que liam mal os limites dos arrays em chamadas de sistema (syscalls).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A mitigação KPTI (Kernel Page-Table Isolation) foi desenvolvida para mitigar os ataques de canal lateral do tipo Meltdown, funcionando através da separação quase total das tabelas de páginas do espaço de utilizador e do kernel, mapeando o kernel apenas quando a CPU executa efetivamente em Ring 0.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Na arquitetura Linux x86-64, qual a sequência de passos básica que ocorre quando um programa de utilizador executa a instrução 'syscall'?",
@@ -115,14 +85,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Vulnerabilidades do tipo TOCTOU (Time of Check to Time of Use) podem ocorrer na interface de syscalls se o kernel validar um ponteiro fornecido pelo utilizador e, logo a seguir, a aplicação (noutra thread) modificar o mapeamento de memória desse ponteiro antes de o kernel ler ou escrever efetivamente no mesmo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Considere as diferenças entre os modos de operação do Seccomp (Secure Computing Mode) no Linux. Qual das seguintes afirmações é correta?",
@@ -138,24 +103,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Ao desenhar um perfil Seccomp para produção, uma abordagem baseada em blacklist (bloquear syscalls conhecidas como perigosas) é preferível a uma abordagem baseada em whitelist (permitir apenas as syscalls estritamente necessárias), uma vez que novas syscalls adicionadas ao kernel são bloqueadas por omissão nas blacklists.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade Dirty COW (CVE-2016-5195) foi uma falha crítica de controlo de acesso discricionário (DAC) que permitia a utilizadores sem privilégios contornar as permissões de ficheiros corrompendo a lógica do comando 'sudo'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Qual das seguintes opções descreve a principal limitação de segurança associada ao modelo de privilégios tradicional do Unix baseada em UIDs e no bit setuid?",
@@ -171,14 +126,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Para cumprir o princípio do menor privilégio (least privilege) em binários que necessitam de privilégios específicos do kernel (ex: 'ping' para abrir sockets ICMP raw), deve-se remover o bit setuid do executável e conceder apenas a Linux Capability estrita de que ele necessita (ex: 'cap_net_raw').",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Considere as seguintes Linux Capabilities e o seu respetivo nível de risco. Qual destas capabilities, se concedida incorretamente a um processo não confiável, é considerada equivalente a dar acesso root total imediato?",
@@ -194,24 +144,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A capability set 'Bounding' define o limite máximo de capabilities que um processo pode vir a adquirir. Se uma capability for removida do Bounding set, ela nunca mais poderá ser readquirida pelo processo ou pelos seus descendentes, mesmo que executem binários setuid.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade Dirty Pipe (CVE-2022-0847) demonstrou as limitações das Linux Capabilities: por ser um bug de segurança de memória interna do kernel (flag de buffer de pipe não inicializada), permitia a escrita em ficheiros protegidos (/etc/passwd) ignorando completamente qualquer restrição de privilégios ou capabilities aplicada ao processo.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Um serviço corre com UID=0 mas o seu runtime removeu todas as capabilities do seu Bounding set exceto 'CAP_NET_BIND_SERVICE'. Que ataque este processo ainda consegue realizar?",
@@ -227,14 +167,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um container Linux é fundamentalmente um conjunto de processos normais que partilham o mesmo kernel do host, cuja segurança e isolamento assentam na combinação de três pilares: namespaces (visão restrita), cgroups (recursos limitados) e capacidades/seccomp/LSM (privilégios reduzidos).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "No contexto da arquitetura de isolamento de containers, qual a diferença essencial entre o papel desempenhado pelos Linux Namespaces e pelos cgroups?",
@@ -250,24 +185,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O uso de User Namespaces em containers permite mapear o utilizador root do container (UID 0) para um utilizador sem privilégios (UID não zero) no host, mitigando o risco de um ataque de escape de container comprometer o sistema anfitrião com privilégios de root real.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "As Máquinas Virtuais (VMs) oferecem uma barreira de isolamento mais robusta do que os containers clássicos porque cada VM corre o seu próprio kernel sobre um Hypervisor (TCB reduzido, expondo apenas a API de virtualização), enquanto os containers expõem toda a interface de syscalls (~350) do kernel partilhado do host.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "De que forma um container malicioso executado com a flag '--privileged' ou com a capability 'CAP_SYS_ADMIN' pode escapar para o sistema operativo anfitrião?",
@@ -283,24 +208,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade runc (CVE-2019-5736) permitia escapar do container tirando partido de caminhos no '/proc' expostos pelo kernel partilhado para aceder e sobrescrever o binário executável do runc no host, demonstrando os riscos inerentes a modelos de partilha de kernel.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O framework Linux Security Modules (LSM), do qual fazem parte o AppArmor e o SELinux, permite implementar Mandatory Access Control (MAC). Nestes modelos, as regras de segurança são centralizadas e impostas globalmente pelo administrador, não podendo ser contornadas pelos utilizadores donos dos ficheiros, incluindo o próprio utilizador root (UID 0) se a política assim o determinar.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Qual das seguintes opções traduz a diferença metodológica na definição de regras entre o AppArmor e o SELinux no Linux?",
@@ -316,14 +231,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A configuração de segurança 'kernel.modules_disabled=1' impede a carga de novos módulos no kernel após o arranque. Esta configuração é temporária e pode ser desativada a qualquer momento pelo utilizador root mudando o valor da flag de volta para 0 no sysctl.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Como é estruturada a cadeia de confiança (Chain of Trust) no mecanismo de UEFI Secure Boot?",
@@ -339,24 +249,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O TPM (Trusted Platform Module) é um chip de hardware resistente a intrusões que grava medições do estado de arranque da máquina em Platform Configuration Registers (PCRs). A utilidade do remote attestation é provar criptograficamente a um servidor externo que a máquina arrancou com uma configuração de software de confiança e não adulterada.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Configurar 'kernel.randomize_va_space=2' ativa a randomização completa (ASLR) da stack, do base address de mmap (bibliotecas partilhadas) e do heap de cada processo recém-iniciado.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     }
   ]
 }

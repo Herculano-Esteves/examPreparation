@@ -3,119 +3,64 @@
   "descricao": "Simulador de exame.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
       "pergunta": "O utilizador `bob` pode apagar o ficheiro `readme.txt` localizado na diretoria `project`, assumindo apenas estas permissões e não as de `root`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
       "pergunta": "A execução do comando `chmod o-r readme.txt` pela utilizadora `alice` terminará em insucesso (erro de Permissão Negada) uma vez que a mesma não integra os grupos do sistema de administradores.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
       "pergunta": "Nas condições dadas pelo LS, o script `run.sh` pode ser corretamente lido e executado pela utilizadora `alice`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
       "pergunta": "A presença explícita do caractere `t` nas permissões da diretoria `project` assinala que a mesma integra o chamado bit restrito de exclusão (Sticky Bit), evitando desse modo que um utilizador que partilhe o acesso de escrita da diretoria elimine impunemente os ficheiros detidos por outros colegas.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
       "pergunta": "A execução explícita de `run.sh` por parte do próprio dono do ficheiro (`bob`) implica, automaticamente e via o kernel Linux, um aumento de permissões que confere leitura ao recurso sensível `shadow`.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma infraestrutura apoiada num modelo de controlo de acessos 'Mandatory Access Control' (MAC) estabelece que as regras de segurança são instanciadas por um administrador central (ou sistema operativo), inibindo que as mesmas sejam contornadas arbitrariamente mesmo pelos criadores originais do objeto ou donos dos ficheiros envolvidos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Nos parâmetros estatísticos de biometria e autenticação sem fios, um caso conhecido de falso aceite (False Acceptance Rate - FAR) é caracterizado pela negação do acesso a um utilizador inteiramente registado, válido e legítimo para consultar a infraestrutura.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A implementação e utilização ativa do protocolo SSL/TLS (versão TLSv1.3 e em diante) com uma chave recomendável de AES-256 e RSA-4096 disponibiliza na prática a almejada cifra com nível de Segurança Incondicional (absoluta ou perante base teórica informacional).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O mecanismo base na implementação de 'Salting' em bases de dados de credenciais assenta puramente na encriptação da password enviada via chave pública estática do utilizador e da chave privada do servidor, antes da submissão a um ciclo de cálculo algorítmico do respetivo Hash.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "No modelo de validação em cadeia de confiança PKI (Certificate Chain), é exigência das normas Web que a Autoridade de Certificação de topo (Root CA Certificate) não se possa auto-assinar a si mesma, mas antes, tenha que deter transversal e obrigatoriamente a assinatura de uma concorrente validada por outrem independente para obter validade operacional em browsers globalizados.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "escrita",
       "pergunta": "Descreva em poucas linhas o propósito estrutural do recurso a um parâmetro denominado 'Nonce' numa fase iterativa e mútua de autenticação 'Challenge-Response' (desafio-resposta). Aproveite para destacar uma vulnerabilidade direta subjacente (Replay Attack) caso a password do alvo fosse repetidamente transmitida de modo cifrado ou estaticamente encriptado e o uso de Nonces ou contadores esquecido.",
-      "opcoes": [
-        "percebido",
-        "não percebido"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": "Nonces em Challenge-Response e Replay Attacks:\n\n- Nonce (Number used Once): Número aleatório único gerado pelo servidor para cada sessão de autenticação, servindo como desafio (challenge).\n- Funcionamento: O cliente combina o nonce com o hash da sua password e envia a resposta (response). O servidor faz o mesmo cálculo localmente para verificar a autenticidade.\n- Risco de Replay Attack: Se não forem usados nonces ou contadores (estando a resposta cifrada sempre igual), um atacante passivo na rede pode interceptar a resposta do cliente legítimo e retransmiti-la posteriormente para o servidor (replay) para se autenticar sem saber a password real."
     },
     {
       "pergunta": "Tendo como contexto de análise os pormenores na construção de primitivas com o Electronic Codebook (ECB), qual destas sentenças consolida o pior argumento contra o seu uso para proteger canais volumosos de ficheiros vitais?",
@@ -222,14 +167,9 @@
       ]
     },
     {
+      "tipo": "escrita",
       "pergunta": "Aborde teoricamente a situação na qual tem por obrigação desenhar num alto nível e pseudo-forma uma comunicação de rede assente num handshake puro para os hosts do Alice e do Bob (ex: SSH). Descreva e expresse detalhadamente, numa ótica puramente defensiva, os passos para garantir e materializar primeiro a entrega entre as duas máquinas sem expor ao analista passivo/ativo intermédio de um segredo recíproco a nível assimétrico. E recorrendo de base a acordos primitivos base do ramo Diffie-Hellman demonstre numa listagem simples e organizada a implementação para afastar o MITM por inteiro pela adoção e vinculação por intermédio das certificações com long-term keys conhecidas a cada interveniente ou assinaturas digitais por validação PKI ou mútua de pares de endpoints na rede aberta.",
-      "opcoes": [
-        "percebido",
-        "não percebido"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": "DH Autenticado contra MITM (SSH/TLS):\n\n1. Handshake DH Básico (Confidencialidade): Alice e Bob geram chaves efêmeras e trocam os seus valores públicos correspondentes ($g^a \\pmod p$ e $g^b \\pmod p$) para calcular a chave de sessão secreta ($g^{ab} \\pmod p$).\n2. Assinaturas Digitais (Autenticação contra MITM): Para evitar que um intermediário (Eve) se interponha, Alice assina o seu parâmetro público DH ($g^a$) com a sua chave privada de longo termo (host key/certificado) e envia a assinatura a Bob. Bob faz o mesmo com $g^b$ e a sua chave privada correspondente.\n3. Validação: Ambos validam as assinaturas recebidas usando as respetivas chaves públicas de longo termo confiáveis (previamente conhecidas ou via certificados X.509 validados por CA). Se as assinaturas forem válidas, garante-se que a chave de sessão foi acordada com o destinatário legítimo e não com um intermediário."
     }
   ]
 }

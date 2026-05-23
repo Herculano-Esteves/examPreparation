@@ -100,14 +100,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No IPSec, o modo de encapsulamento 'Transporte' (Transport Mode) cifra e protege tanto o cabeçalho IP original como o payload do pacote.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Quais das seguintes funcionalidades de segurança são asseguradas pelo protocolo IPSec Authentication Header (AH)?",
@@ -201,14 +196,9 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No protocolo FIDO2, o par de chaves públicas/privadas gerado para cada serviço é denominado 'passkey'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Relativamente à segurança do padrão FIDO2 e ao uso de passkeys, identifique as afirmações corretas:",
@@ -226,24 +216,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "No FIDO2, a distinção prática entre 'Device-Bound Passkeys' e 'Synced Passkeys' é que as segundas podem ser sincronizadas entre múltiplos dispositivos do utilizador.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O padrão OAuth 2.0 é essencialmente um framework de autenticação de utilizadores finais.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Um JSON Web Token (JWT) é constituído tipicamente por três partes separadas por pontos (.). Quais são?",
@@ -271,24 +251,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Num JWT assimétrico, o emissor assina o token com a sua chave privada e o recetor valida a assinatura utilizando a chave pública correspondente do emissor, permitindo a separação de papéis.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A carga útil (payload) de um JWT padrão é codificada em Base64URL, o que significa que o seu conteúdo pode ser lido por qualquer pessoa que intersete o token, a menos que seja cifrado.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Relativamente aos tokens de acesso (Access Tokens) no OAuth 2.0, é correto afirmar que:",

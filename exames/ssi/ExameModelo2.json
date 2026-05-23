@@ -1,0 +1,175 @@
+{
+  "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI - OS & Network Security)",
+  "descricao": "Simulador de exame.",
+  "perguntas": [
+    {
+      "tipo": "boolean",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "pergunta": "A flag `--privileged` compromete o isolamento do container, concedendo acesso à maioria das Linux Capabilities e a dispositivos brutos do host.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "pergunta": "A montagem da socket do Docker (`/var/run/docker.sock`) dentro do container permite que o serviço web controle o daemon Docker do host e crie containers privilegiados.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "pergunta": "A flag `--net=host` isola completamente o container numa stack de rede virtual, impedindo o acesso externo às portas do serviço web exposto.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "pergunta": "O Docker (containerização a nível de SO) executa os seus bins sobre um micro-kernel isolado com hypervisor Type-1, suprimindo vulnerabilidades do kernel do host.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "pergunta": "Com as flags usadas, uma RCE no Nginx permitiria contornar a sandbox e obter controlo total do host (container escape).",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O mecanismo seccomp no Linux permite restringir proativamente as chamadas de sistema (syscalls) que um processo não privilegiado pode invocar, usando perfis de whitelist.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Namespaces e Cgroups no Linux têm funcionalidades idênticas e concorrentes: ambos servem apenas para limitar recursos computacionais (CPU, RAM, I/O).",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No modo de transporte do IPsec, o ESP cifra apenas o payload (camada superior), mantendo o cabeçalho IP original intacto para permitir encaminhamento transparente na Internet.",
+      "solucao": 0
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O ARP Spoofing ataca servidores DHCP e envenena a cache DNS global da root CA para redirecionar tráfego na Internet pública.",
+      "solucao": 1
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O ASLR (Address Space Layout Randomization) impede diretamente ataques de buffer overflow ao bloquear a injeção de buffers arbitrários na stack e heap.",
+      "solucao": 1
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a diferença fundamental entre os modelos de controlo de acesso DAC (Unix) e MAC (AppArmor/SELinux), destacando o valor acrescentado do MAC em segurança.",
+      "solucao": "Diferença entre DAC e MAC:\n\n- DAC (Discretionary Access Control): O acesso a recursos é baseado na identidade do utilizador/grupo e na propriedade (ownership) dos objetos. O dono de um ficheiro define as suas permissões (ex: chmod, chown). Se um processo do utilizador for comprometido, o atacante obtém todos os privilégios desse utilizador sobre os objetos dele.\n- MAC (Mandatory Access Control): As decisões de controlo de acesso são impostas pelo sistema (Kernel) com base em políticas de segurança globais invioláveis, independentemente do utilizador ou dono do ficheiro. Tecnologias como AppArmor e SELinux utilizam etiquetas/perfis para restringir ações específicas de processos (ex: ler caminhos específicos, chamadas de rede), mesmo se o processo correr como root."
+    },
+    {
+      "pergunta": "Qual é o principal objetivo do bit NX/XD (No-Execute) em CPUs x86_64?",
+      "opcoes": [
+        "A. Cifrar comunicação PCIe com AES-256 via TPM.",
+        "B. Forçar processos em containers para Ring 3 quando excedem overhead.",
+        "C. Impedir que páginas de memória marcadas como dados (ex: stack, heap) sejam executadas, bloqueando shellcodes injetados.",
+        "D. Gerar entropia para randomização ASLR.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual o principal ataque mitigado pelo DNSSEC?",
+      "opcoes": [
+        "A. Sniffing passivo de passwords em HTTP.",
+        "B. Ataques DDoS por amplificação de DNS.",
+        "C. Envenenamento de cache DNS (DNS spoofing/cache poisoning), garantindo a integridade autenticada das respostas DNS com assinaturas criptográficas.",
+        "D. Sequestro de rotas BGP.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "No iptables (Netfilter), qual o papel da cadeia FORWARD?",
+      "opcoes": [
+        "A. Modificar endereços (SNAT/DNAT) antes do roteamento.",
+        "B. Filtrar tráfego gerado localmente pelo próprio host (saída).",
+        "C. Filtrar pacotes em trânsito que entram por uma interface e saem por outra (reescrita de pacotes encaminhados pelo host como router/gateway).",
+        "D. Restringir túneis IPsec em modo GRE.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Qual a função dos Stack Canaries (Stack Cookies) nos compiladores?",
+      "opcoes": [
+        "A. Validar acessos a arrays no heap via malloc.",
+        "B. Valores aleatórios colocados entre buffers locais e o return address na stack; se corrompidos por um overflow, o programa aborta antes do retorno, impedindo a execução de shellcode.",
+        "C. Invocar proteções ROP/sigreturn.",
+        "D. Ofuscar strings em memória.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Como um processo em Ring 3 (espaço de utilizador) transita para Ring 0 (kernel) de forma segura e controlada em x86_64?",
+      "opcoes": [
+        "A. Através de uma instrução de sistema (syscall, int 0x80, sysenter) que ativa uma gate controlada, desencadeando uma context-switch protegida para handlers do kernel.",
+        "B. Invocando funções da libc.so que operam diretamente em Ring 0.",
+        "C. Gerando um SEGFAULT controlado.",
+        "D. Por chamadas diretas a IPC.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "O que caracteriza um ataque Return-Oriented Programming (ROP) em binários modernos?",
+      "opcoes": [
+        "A. Injeção de SQL em backend.",
+        "B. Injeção direta de shellcode na stack (clássico).",
+        "C. Reutilização de pequenos fragmentos de código executável já presente na memória (gadgets), cada um terminando em `ret`, para contornar a proteção NX (W^X) e executar código arbitrário sem injetar payloads na stack.",
+        "D. Reescrever o MBR/UEFI com rootkit.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Uma vulnerabilidade de Format String (ex: `printf(buffer)`) permite ao atacante fazer o quê?",
+      "opcoes": [
+        "A. Redirecionar rotas BGP.",
+        "B. Obter uma shell root no container.",
+        "C. Realizar leaks de memória (leitura arbitrária) via `%x`/`%p` e escrita arbitrária via `%n`, podendo corromper ponteiros ou desviar fluxo de execução.",
+        "D. Apenas DDoS.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "Os ataques Spectre e Meltdown exploram qual comportamento fundamental dos CPUs modernos?",
+      "opcoes": [
+        "A. Falhas nas permissões DAC (UGO).",
+        "B. Execução especulativa (Out-of-Order) e o impacto residual nos caches (timing attacks), permitindo ler memória privilegiada do kernel que não deveria ser acedida.",
+        "C. Injeção SQL.",
+        "D. Ataques ARP.",
+        "E. Nenhuma das anteriores."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como confinar uma aplicação legacy vulnerável em Linux usando namespaces, cgroups, AppArmor e seccomp para evitar container escape e RCE total?",
+      "solucao": "Contenção de Aplicação Legacy em Linux (Camadas de Segurança):\n\n1. Namespaces: Isola a visibilidade do sistema (PID: esconde outros processos; NET: isola a rede; MNT: restringe o sistema de ficheiros com chroot/pivot_root; IPC: restringe comunicações inter-processos).\n2. Control Groups (cgroups): Limita recursos físicos (CPU, Memória, I/O) para evitar ataques DoS por exaustão.\n3. AppArmor/SELinux: Aplica políticas de controlo de acesso mandatório (MAC) que definem exatamente quais ficheiros e portas de rede a aplicação pode aceder.\n4. Seccomp (Secure Computing Mode): Filtra chamadas de sistema (syscalls) permitidas, bloqueando syscalls perigosas comuns a exploits (ex: execve se desnecessária)."
+    }
+  ]
+}

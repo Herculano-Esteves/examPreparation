@@ -1,0 +1,201 @@
+{
+  "titulo": "Exame do Capítulo 4: Benchmarking de Sistemas",
+  "descricao": "Exame rigoroso e abrangente centrado na teoria de benchmarking, análise de workloads reais vs. sintéticos, metodologias experimentais, comportamento de latência e throughput, trade-offs e boas práticas estatísticas (benchmarking crimes).",
+  "perguntas": [
+    {
+      "pergunta": "Qual das seguintes opções descreve de forma rigorosa e completa os três elementos fundamentais que compõem o ecossistema de um benchmark de sistemas?",
+      "opcoes": [
+        "O código fonte do benchmark, a máquina virtual e o ficheiro JSON de resultados.",
+        "O workload (conjunto de pedidos), o ambiente experimental (hardware e software) e as métricas recolhidas para medir a performance, eficiência e/ou fiabilidade do SUT.",
+        "O compilador GCC, a memória RAM física e a latência de rede em milissegundos.",
+        "O utilitário dstat, a base de dados Postgres e as chaves primárias do user-space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao optar por utilizar traços (traces) de pedidos reais no benchmarking de sistemas operativos ou de armazenamento, qual constitui o principal desafio técnico de escalabilidade sem comprometer o realismo?",
+      "opcoes": [
+        "A dificuldade em converter ficheiros binários em formato de texto estruturado compatível com o Clang.",
+        "A complexidade e falta de garantias em conseguir escalar um trace com poucos pedidos (ex: 100) para milhões de operações mantendo as propriedades estatísticas e padrões de acesso temporais e espaciais realistas.",
+        "O facto de as traças de E/S exigirem a desativação permanente do Unified Page Cache do kernel.",
+        "A necessidade de correr as aplicações exclusivamente no CPU 0 para evitar o escalonamento CFS."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Numa carga de trabalho sintética (synthetic workload) desenhada para testar sistemas de armazenamento e caching, quais são os parâmetros chave de padrão de acesso que devem ser cuidadosamente configurados para simular com fidelidade a contenção real de recursos?",
+      "opcoes": [
+        "Apenas o tamanho dos pacotes de rede e a cor do ícone no Grafana.",
+        "As interfaces de programação, os tipos de operações (ex: read/write/mkdir), os padrões de acesso (ex: sequencial, aleatório, Zipfian) e a localidade temporal/espacial dos pedidos.",
+        "O compilador JIT e a velocidade do ventilador da CPU.",
+        "A taxa de relocalização de metadados BTF e o limite máximo de complexidade de instruções."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Considere as ferramentas Filebench, Stress-ng, OSBench e FIO. Que ferramenta deve escolher para testar, respetivamente: (1) criação de processos e alocação de memória no SO, (2) operações de E/S ao nível de bloco ou ficheiros, e (3) operações complexas de E/S de dados e metadados de sistemas de ficheiros?",
+      "opcoes": [
+        "Stress-ng, Filebench e OSBench.",
+        "OSBench, FIO e Filebench.",
+        "Filebench, OSBench e FIO.",
+        "FIO, OSBench e Stress-ng."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes afirmações descreve corretamente a relação entre Latência (L) e Throughput (T) e invalida a perspetiva ingénua de que L = 1/T?",
+      "opcoes": [
+        "A equação L = 1/T é sempre verdadeira porque os computadores processam instruções instantaneamente.",
+        "A igualdade L = 1/T só se verifica rigorosamente quando o sistema está 100% ocupado a executar exatamente uma única requisição de cada vez; em sistemas paralelos concorrentes, a latência e o throughput comportam-se de forma independente e não linear.",
+        "O throughput aumenta infinitamente à medida que a latência cresce linearmente com a carga.",
+        "O Verificador de eBPF impõe a igualdade L = 1/T para garantir a terminação de qualquer thread de E/S."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "À medida que a carga (load / taxa de chegada de pedidos) enviada para o System Under Test (SUT) aumenta continuamente, o que acontece tipicamente ao comportamento da latência dos pedidos?",
+      "opcoes": [
+        "A latência diminui exponencialmente devido à otimização automática do compilador JIT.",
+        "A latência mantém-se estritamente constante até atingir a capacidade nominal, decrescendo abruptamente depois do joelho (knee).",
+        "A latência tende a aumentar, acelerando drasticamente (crescimento não linear/exponencial) à medida que o sistema se aproxima da saturação e os pedidos começam a acumular-se em filas de espera.",
+        "A latência flutua de forma determinística entre 0 e 512 bytes consoante o tamanho da stack local."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "O que caracteriza o comportamento do Throughput de um sistema quando este ultrapassa a sua capacidade nominal (nominal capacity) e atinge a saturação total (saturation)?",
+      "opcoes": [
+        "O throughput continua a crescer de forma puramente linear, sem limites físicos.",
+        "O throughput atinge um limite máximo (planalto) e, se a carga continuar a aumentar excessivamente, tende a diminuir devido ao overhead de gestão de filas de espera e contenção de recursos (thrashing).",
+        "O throughput estabiliza a zero, forçando todos os processos a entrar em modo Ready.",
+        "O throughput duplica instantaneamente graças ao agrupamento em lote (batching) automático."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No desenho de otimizações de sistemas operativos e de rede, qual é o trade-off típico que ocorre ao implementar técnicas de agrupamento de pedidos (batching)?",
+      "opcoes": [
+        "Melhora tanto a latência como o throughput de forma simultânea e sem qualquer custo adicional.",
+        "Melhora o throughput global do sistema (reduzindo o número de interrupções e overhead de E/S), mas degrada a latência individual de cada pedido (uma vez que os primeiros pedidos têm de esperar na fila até o lote estar completo).",
+        "Reduz o consumo de CPU em 100% à custa de aumentar o desgaste físico de blocos de transístores flash.",
+        "Permite ultrapassar o limite estrito da stack de 512 bytes do eBPF em troca de diminuir a precisão da amostragem."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Ao realizar a avaliação de desempenho de um sistema operativo ou sistema de ficheiros, porque é obrigatório recolher múltiplas amostras de métricas e executar experiências repetidamente?",
+      "opcoes": [
+        "Porque o hardware e a stack de software (incluindo o próprio SO com caches e tarefas de background) exibem comportamentos não determinísticos que introduzem variação e outliers nas medições.",
+        "Porque o compilador LLVM reescreve o bytecode do benchmark de forma diferente a cada segundo.",
+        "Para forçar o Garbage Collector do SSD a reordenar os setores de forma síncrona.",
+        "Para garantir que o diretório de páginas (Page Directory) limpa a TLB após cada escrita de 16 bytes."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Para garantir a reprodutibilidade e a justiça entre diferentes execuções de um benchmark que avalia a performance de operações de escrita e leitura em disco, que cuidado metodológico crucial deve ser tomado relativamente ao OS Page Cache?",
+      "opcoes": [
+        "Deve ser mantido ativo e intocado durante todo o processo para garantir que as tabelas de inodes permaneçam na RAM de user-space.",
+        "Deve limpar-se ativamente a cache do sistema operativo (drop caches) antes de cada execução de teste, impedindo que resultados de testes anteriores sejam indevidamente servidos a partir da RAM física.",
+        "Deve reconfigurar-se o tamanho da stack para 4MB para absorver o tráfego da cache.",
+        "Deve forçar-se o escalonamento do benchmark em modo cooperativo de forma a anular o swap space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "De acordo com a literatura de engenharia de performance (ex: Gernot Heiser - Benchmarking Crimes), qual das seguintes opções descreve uma prática desonesta ou enviesada na apresentação de resultados?",
+      "opcoes": [
+        "Mostrar de forma clara e transparente tanto as vantagens como os pontos fracos e limites da solução proposta.",
+        "Omitir deliberadamente cargas de trabalho, métricas ou configurações de hardware/software onde a solução proposta apresenta desempenho inferior ao da concorrência (state of the art).",
+        "Usar desvio padrão e intervalos de confiança para quantificar a dispersão das medições de latência.",
+        "Comparar a solução proposta contra uma configuração baseline idêntica sob as mesmas condições."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual constitui um erro comum na sumarização de dados de performance quando se utilizam rácios ou melhorias relativas (speedup) entre múltiplos sistemas?",
+      "opcoes": [
+        "Apresentar a média geométrica ou harmónica para resumir rácios normalizados.",
+        "Utilizar a média aritmética simples para resumir rácios ou percentagens de melhoria, o que pode distorcer estatisticamente o ganho real de desempenho.",
+        "Exibir gráficos de barras com o desvio padrão representado graficamente.",
+        "Usar o CDF (Cumulative Distribution Function) para visualizar a distribuição de latências."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Se pretender recolher métricas detalhadas de recursos do sistema operativo (como CPU, memória, E/S de blocos e interrupções por segundo) em paralelo com a execução do benchmark, que utilitários nativos de Linux de monitorização estatística são recomendados?",
+      "opcoes": [
+        "Valgrind, gdb e cProfile.",
+        "dstat, iostat e pidstat.",
+        "zlog, Log4j e Fluentd.",
+        "Jaeger, Zipkin e OpenTelemetry."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Que categoria de métrica de observabilidade avalia especificamente a relação entre o trabalho útil realizado pelo sistema e os recursos consumidos nesse processo?",
+      "opcoes": [
+        "Métricas de Fiabilidade (Reliability).",
+        "Métricas de Eficiência (Efficiency).",
+        "Métricas de Latência (Latency).",
+        "Métricas de Disponibilidade (Availability)."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No jargão técnico de benchmarking de computadores, o que designa a sigla SUT?",
+      "opcoes": [
+        "System Utility Trace - o registo binário de comandos do utilizador.",
+        "System Under Test - o sistema ou componente de software/hardware que está a ser avaliado.",
+        "Single User Transition - o tempo de context-switch de user para kernel.",
+        "Static Unit Translator - a camada do compilador JIT que otimiza loops."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Discuta a relação típica de trade-off entre o Throughput e a Latência de um sistema sob teste. Na sua resposta, explique o impacto teórico de técnicas de agrupamento de pedidos (batching) em ambas as métricas e comente por que razão a igualdade Latência = 1 / Throughput não reflete o comportamento real de sistemas modernos.",
+      "solucao": "**Relação de Trade-off:**\nEm sistemas de computação, existe um trade-off clássico entre latência e throughput. Embora o objetivo ideal seja maximizar o throughput (débito de operações) e minimizar a latência (tempo de resposta), a maioria das otimizações arquiteturais beneficia uma métrica em detrimento da outra.\n\n**Impacto do Batching:**\nA técnica de agrupamento em lote (batching) é um exemplo típico deste trade-off.\n- **Throughput:** O batching melhora substancialmente o throughput global, pois reduz o overhead operacional (redução de transições de privilégio, menor número de E/S físicas no disco/rede e menor contenção de trincas/locks).\n- **Latência:** A latência individual dos pedidos é prejudicada. Um pedido que chegue no início de um novo lote terá de esperar em memória até que o lote fique cheio ou o temporizador expire para ser processado, aumentando a sua latência (tempo de resposta).\n\n**Falsidade da Relação Latência = 1 / Throughput:**\nA relação inversa simplista apenas é teoricamente válida se o sistema estiver a 100% de utilização e processar estritamente uma única requisição de cada vez de forma puramente sequencial (sem qualquer concorrência, paralelismo ou filas de espera). Em sistemas reais modernos (que usam multi-threading, múltiplos cores de CPU, pipeline de instruções e filas de espera), múltiplos pedidos são servidos concorrentemente. Portanto, o throughput pode aumentar significativamente (devido ao paralelismo) sem que a latência individual diminua na mesma proporção; de igual forma, se as filas de espera ficarem saturadas, a latência pode disparar exponencialmente enquanto o throughput se mantém constante ou diminui (thrashing)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao realizar o benchmarking de um novo sistema de ficheiros para Linux, a reprodutibilidade dos resultados é um fator crítico. Descreva a importância de controlar e caracterizar o ambiente experimental (hardware e software) e explique a necessidade de limpar as caches do sistema operativo (como o Page Cache) antes de iniciar cada medição de teste.",
+      "solucao": "**Importância do Ambiente Experimental:**\nA performance de um sistema sob teste (SUT) é profundamente afetada pelo hardware e software adjacentes. Se a caracterização do hardware (modelo de CPU, cores, velocidade e quantidade de RAM, tipo de SSD/HDD) e do software (versões do kernel, bibliotecas libc e do próprio compilador) não for rigorosamente registada e controlada, torna-se impossível a outros investigadores reproduzirem os mesmos resultados. Adicionalmente, pequenas variações de software (como atualizações de drivers de bloco) podem alterar radicalmente o comportamento de E/S de ficheiros.\n\n**Necessidade de Limpar o Page Cache (Drop Caches):**\nO Linux utiliza agressivamente a memória RAM livre para armazenar blocos de ficheiros recentemente acedidos (Page Cache) e metadados de inodes. Se um teste de benchmark ler ou escrever dados e um segundo teste for executado imediatamente a seguir sem limpar o Page Cache:\n- O segundo teste irá aceder aos dados diretamente a partir da memória RAM rápida (page cache hit) em vez de aceder ao dispositivo de armazenamento físico lento.\n- Isto mascara o verdadeiro desempenho de E/S do sistema de ficheiros e introduz uma distorção severa nas medições de performance, gerando conclusões erradas.\n\nPara mitigar este efeito e garantir a reprodutibilidade (avaliando a velocidade real de escrita/leitura física no dispositivo), o investigador deve forçar o esvaziamento das caches (ex: escrevendo `3` em `/proc/sys/vm/drop_caches` ou realizando um `sync`) antes do arranque de cada experiência."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A análise e apresentação de dados de benchmarking podem conter erros graves que invalidam a avaliação científica de uma solução. Defina o conceito de 'Benchmarking Crimes' (crimes de benchmarking) e descreva de que forma a escolha enviesada de baselines e o uso incorreto de estatísticas simples (ex: média aritmética vs. percentis) afetam a honestidade técnica do relatório de avaliação.",
+      "solucao": "**Conceito de 'Benchmarking Crimes':**\nEste termo (popularizado na comunidade científica por autores como Gernot Heiser) designa o conjunto de práticas incorretas, desonestas ou estatisticamente inválidas na conceção, execução ou apresentação de avaliações de performance de sistemas computacionais, frequentemente destinadas a inflacionar os benefícios de uma nova solução e ocultar as suas desvantagens.\n\n**Enviesamento na Escolha de Baselines:**\nUm crime de benchmarking comum é comparar a solução proposta contra baselines (sistemas de comparação) obsoletos, mal configurados ou desprovidos de otimizações padrão. Para que a comparação seja cientificamente honesta, a solução proposta deve ser comparada contra o estado da arte equivalente e configurado de forma otimizada sob as mesmas condições.\n\n**Uso Incorreto de Estatísticas (Média vs. Percentis):**\nResumir o comportamento da latência utilizando exclusivamente a **média aritmética** simples é problemático. A latência de sistemas reais costuma apresentar distribuições com cauda longa (long-tailed distribution), onde a grande maioria dos utilizadores experiencia latências baixas, mas alguns sofrem atrasos severos devido a Garbage Collection, interrupções ou contenção temporária. A média esconde completamente este comportamento e anula o efeito dos outliers. É imperativo analisar e apresentar percentis de cauda (ex: 95º, 99º ou 99.9º percentis) ou visualizar a distribuição completa (usando ECDFs ou histogramas) para expor de forma fidedigna a experiência de latência real sob cargas intensas."
+    }
+  ]
+}

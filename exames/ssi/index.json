@@ -3,147 +3,147 @@
     "id": "1AccessControlConcepts_completo",
     "titulo": "1. Conceitos de Controlo de Acesso e Segurança em Linux (Exame Alargado)",
     "descricao": "Base de dados super completa (50 questões) contendo casos práticos de permissões, V/F, ACLs estendidas, comandos umask/chmod/chown, capabilities de Linux e gestão de privilégios reais/efetivos.",
-    "path": "exames/1AccessControlConcepts_completo.json",
+    "path": "exames/ssi/1AccessControlConcepts_completo.json",
     "perguntas_count": 55
   },
   {
     "id": "2SecurityConcepts_completo",
     "titulo": "2. Conceitos Gerais de Segurança e Criptologia (Exame Completo)",
     "descricao": "Base de dados alargada (30 questões) com afirmações V/F e escolha múltipla sobre definições de segurança, CIA, história da criptologia, níveis de segurança, atacantes e Princípio de Kerckhoffs.",
-    "path": "exames/2SecurityConcepts_completo.json",
+    "path": "exames/ssi/2SecurityConcepts_completo.json",
     "perguntas_count": 34
   },
   {
     "id": "3SymmetricClassicCiphers_completo",
     "titulo": "3. Cifragem Simétrica e Cifras Clássicas (Exame Alargado)",
     "descricao": "Base de dados super completa (45 questões) com afirmações V/F e escolha múltipla sobre cifras clássicas, ataques estatísticos em português, e exploração de geradores aleatórios inseguros.",
-    "path": "exames/3SymmetricClassicCiphers_completo.json",
+    "path": "exames/ssi/3SymmetricClassicCiphers_completo.json",
     "perguntas_count": 49
   },
   {
     "id": "4ModernSymmetricCiphers_completo",
     "titulo": "4. Cifragem Simétrica Moderna e Modos de Operação (Exame Alargado)",
     "descricao": "Base de dados super completa (45 questões) cobrindo cifras por blocos modernas (AES, DES, 3DES), arquitetura detalhada do AES (SubBytes, ShiftRows, MixColumns, AddRoundKey), número de rondas, skips de passos e comparativos de modos (ECB, CBC, CFB, OFB, CTR).",
-    "path": "exames/4ModernSymmetricCiphers_completo.json",
+    "path": "exames/ssi/4ModernSymmetricCiphers_completo.json",
     "perguntas_count": 50
   },
   {
     "id": "5HashesAndMACs_completo",
     "titulo": "5. Funções de Hash, KDFs e Gestão de Chaves (Exame Completo)",
     "descricao": "Simulador de exame cobrindo propriedades de hash (pre-imagem, colisão), Birthday Paradox, Merkle-Damgård vs Sponge (SHA-2 vs SHA-3), KDFs (Argon2, PBKDF2, scrypt), gestão de chaves e Merkle Trees/Git.",
-    "path": "exames/5HashesAndMACs_completo.json",
+    "path": "exames/ssi/5HashesAndMACs_completo.json",
     "perguntas_count": 34
   },
   {
     "id": "6MACsAndAuthenticatedEncryption_completo",
     "titulo": "6. MACs e Cifragem Autenticada (Exame Alargado)",
     "descricao": "Base de dados super completa (45 questões) cobrindo funções MAC (HMAC, CBC-MAC, CMAC), ataques de extensão de comprimento, paradigmas de AEAD (EtM, MtE, EaM), cifras dedicadas (GCM, OCB, SIV, Ascon) e reuso de nonces.",
-    "path": "exames/6MACsAndAuthenticatedEncryption_completo.json",
+    "path": "exames/ssi/6MACsAndAuthenticatedEncryption_completo.json",
     "perguntas_count": 49
   },
   {
     "id": "7AsymmetricCryptographyPart1_completo",
     "titulo": "7. Criptografia Assimétrica - Parte 1 (Exame Alargado)",
     "descricao": "Base de dados super completa (35 questões) cobrindo distribuição de chaves, acordo de Diffie-Hellman, estruturas algébricas modulares, problemas matemáticos difíceis, ElGamal e criptossistema RSA (com cálculos de chave e padding OAEP).",
-    "path": "exames/7AsymmetricCryptographyPart1_completo.json",
+    "path": "exames/ssi/7AsymmetricCryptographyPart1_completo.json",
     "perguntas_count": 39
   },
   {
     "id": "8AsymmetricCryptographyPart2_completo",
     "titulo": "8. Criptografia Assimétrica - Parte 2 (Exame Alargado)",
     "descricao": "Base de dados super completa (35 questões) cobrindo curvas elípticas (ECC), cifragem híbrida (KEM/DEM), assinaturas digitais (RSA-PSS, DSA), vulnerabilidades reais (PS3, Wii), S/MIME, computação quântica (Shor, Grover) e normas PQC (ML-KEM, ML-DSA, SLH-DSA).",
-    "path": "exames/8AsymmetricCryptographyPart2_completo.json",
+    "path": "exames/ssi/8AsymmetricCryptographyPart2_completo.json",
     "perguntas_count": 38
   },
   {
     "id": "9PublicKeyInfrastructure_completo",
     "titulo": "9. Public Key Infrastructure (Exame Alargado)",
     "descricao": "Base de dados super completa (35 questões) cobrindo certificação de chaves públicas, PGP e Web of Trust, infraestruturas PKI (CAs, Sub-CAs, cadeias de confiança), normas ASN.1 (DER/PEM), extensões críticas X.509v3, revogação (CRLs, OCSP, Pinning) e enquadramentos legais (eIDAS, QES, PAdES).",
-    "path": "exames/9PublicKeyInfrastructure_completo.json",
+    "path": "exames/ssi/9PublicKeyInfrastructure_completo.json",
     "perguntas_count": 39
   },
   {
     "id": "10InternetProtocols_completo",
     "titulo": "10. Internet Protocols, Authentication & Authorization",
     "descricao": "Simulador de exames sobre IPSec, SSL/TLS, SSH, Challenge-Response, FIDO2, OAuth 2.0 e JWT.",
-    "path": "exames/10InternetProtocols_completo.json",
+    "path": "exames/ssi/10InternetProtocols_completo.json",
     "perguntas_count": 30
   },
   {
     "id": "11WebSecurityConcepts_completo",
     "titulo": "11. Web Security Concepts & Same Origin Policy",
     "descricao": "Simulador de exames sobre Web Attack Models, Same Origin Policy (SOP), CORS, SameSite e isolamento de Cookies.",
-    "path": "exames/11WebSecurityConcepts_completo.json",
+    "path": "exames/ssi/11WebSecurityConcepts_completo.json",
     "perguntas_count": 30
   },
   {
     "id": "12WebSecurityOWASPTop10_completo",
     "titulo": "12. Web Security & OWASP Top 10 (Exame Completo)",
     "descricao": "Base de dados abrangente sobre vulnerabilidades Web e o OWASP Top 10, cobrindo injeções (SQLi, Command Injection, XSS), controlos de acesso, cookies, CSRF, SameSite, XS-Leaks, lógica de negócio e mecanismos de autenticação segura (FIDO2).",
-    "path": "exames/12WebSecurityOWASPTop10_completo.json",
+    "path": "exames/ssi/12WebSecurityOWASPTop10_completo.json",
     "perguntas_count": 32
   },
   {
     "id": "13SoftwareSecurity_completo",
     "titulo": "13. Software Security (Exame Completo)",
     "descricao": "Base de dados abrangente sobre segurança de software, cobrindo vulnerabilidades de memória (buffer overflow, use-after-free, integer overflow, format strings), mitigações de compilação e OS (NX, ASLR, Canaries, RELRO, CFI), concorrência (TOCTOU), injeções, desserialização insegura e ciclo de vida de desenvolvimento seguro (SDL).",
-    "path": "exames/13SoftwareSecurity_completo.json",
+    "path": "exames/ssi/13SoftwareSecurity_completo.json",
     "perguntas_count": 32
   },
   {
     "id": "14OperatingSystemSecurity_completo",
     "titulo": "14. Operating System Security (Exame Completo)",
     "descricao": "Base de dados abrangente sobre segurança de sistemas operativos, cobrindo o TCB, hierarquias de confiança (Rings), isolamento de processos (tabela de páginas, NX, ASLR, KASLR, canários), side-channels (Spectre/Meltdown, KPTI), interface de syscalls e seccomp, modelos de privilégio (setuid, capabilities), segurança de containers (namespaces, cgroups), hypervisors, LSMs (AppArmor/SELinux) e hardening (Secure Boot, TPM).",
-    "path": "exames/14OperatingSystemSecurity_completo.json",
+    "path": "exames/ssi/14OperatingSystemSecurity_completo.json",
     "perguntas_count": 32
   },
   {
     "id": "ExameModelo",
     "titulo": "Exame de Avaliação Modelo (Teoria SSI)",
     "descricao": "Simulador de exame.",
-    "path": "exames/ExameModelo.json",
+    "path": "exames/ssi/ExameModelo.json",
     "perguntas_count": 18
   },
   {
     "id": "ExameModelo2",
     "titulo": "Exame de Avaliação Modelo 2 (Teoria SSI - OS & Network Security)",
     "descricao": "Simulador de exame.",
-    "path": "exames/ExameModelo2.json",
+    "path": "exames/ssi/ExameModelo2.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo3",
     "titulo": "Exame de Avaliação Modelo 3 (Teoria SSI)",
     "descricao": "Simulador de exame.",
-    "path": "exames/ExameModelo3.json",
+    "path": "exames/ssi/ExameModelo3.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo4",
     "titulo": "Exame de Avaliação Modelo 4 (Teoria SSI)",
     "descricao": "Simulador de exame.",
-    "path": "exames/ExameModelo4.json",
+    "path": "exames/ssi/ExameModelo4.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo5",
     "titulo": "Exame de Avaliação Modelo 5 (Teoria SSI - Web Security)",
     "descricao": "Simulador de exame.",
-    "path": "exames/ExameModelo5.json",
+    "path": "exames/ssi/ExameModelo5.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo6",
     "titulo": "Exame de Avaliação Modelo 6 (Parecido ao exame modelo)",
     "descricao": "Simulador de exame estruturado estritamente de acordo com os moldes do enunciado fornecido pelo utilizador, focado em Permissões Linux e Criptologia Fundamental.",
-    "path": "exames/ExameModelo6.json",
+    "path": "exames/ssi/ExameModelo6.json",
     "perguntas_count": 20
   },
   {
     "id": "ExameModelo7",
     "titulo": "Exame de Avaliação Modelo 7 (Parecido ao exame modelo)",
     "descricao": "Segundo simulador de exame construído para refletir os moldes do exame modelo, avaliando permissões de ficheiros granulares (Sticky bits, SUID), mecanismos de hash, TLS, ECC e modos de operação AEAD.",
-    "path": "exames/ExameModelo7.json",
+    "path": "exames/ssi/ExameModelo7.json",
     "perguntas_count": 20
   }
 ]

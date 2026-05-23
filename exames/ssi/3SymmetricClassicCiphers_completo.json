@@ -3,104 +3,54 @@
   "descricao": "Base de dados super completa (45 questões) com afirmações V/F e escolha múltipla sobre cifras clássicas, ataques estatísticos em português, e exploração de geradores aleatórios inseguros.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "Numa Cifra de Transposição pura, a frequência relativa de ocorrência de caracteres do criptograma permanece exatamente idêntica à do texto claro original.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na cifra One-Time Pad (OTP), a decifragem é realizada através da operação lógica AND bit a bit entre o criptograma e a chave secreta.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "De acordo com Claude Shannon, a cifra One-Time Pad garante segurança incondicional porque conhecer o criptograma não reduz a incerteza do adversário sobre o texto claro correspondente.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O cumprimento dos Postulados de Golomb garante que uma sequência numérica é criptograficamente segura e imprevisível para fins de cifra.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A entropia de Shannon de um dado de 6 faces equilibrado, selecionado uniformemente, é de exatamente 6 bits.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A Cifra de César é invulnerável a ataques de força bruta devido ao facto de realizar deslocamentos de letras de forma aleatória a cada caractere.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A Cifra de Vigenère utiliza uma palavra-passe periódica para intercalar múltiplos deslocamentos de César, tornando a análise de frequências simples mais difícil.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A cifra Enigma é um exemplo histórico de máquina de rotores que implementa uma substituição polialfabética extremamente complexa.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma sequência pseudo-aleatória determinística gerada por um PRNG diz-se criptograficamente segura se for computacionalmente indistinguível de uma distribuição uniforme por qualquer adversário PPT.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O espaço de chaves de uma cifra de Substituição Monoalfabética com o alfabeto inglês de 26 letras é de exatamente 2^26 chaves.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Considere a encriptação One-Time Pad de 4 bits. Se o texto claro for '1010' e a chave secreta for '1100', qual é o criptograma resultante?",
@@ -247,24 +197,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa Cifra de Substituição Monoalfabética, o histograma de ocorrência de caracteres do criptograma segue uma distribuição uniforme de 1/26 para todos os caracteres, eliminando a vantagem do atacante.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A combinação sistemática de substituições e permutações em rondas alternadas em cifras de blocos modernas (redes SP) visa garantir propriedades de difusão e confusão.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Se um utilizador lançar um dado equilibrado de 8 faces, a entropia associada a este evento de seleção uniforme é de:",
@@ -280,34 +220,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na análise de aleatoriedade, a autocorrelação mede a dependência estatística entre uma sequência de bits e uma versão deslocada da mesma sequência.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em cifras baseadas em hardware como a Enigma, o segredo da encriptação residia exclusivamente nos rotores intermutáveis, não havendo possibilidade de alterar a chave diariamente.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "No One-Time Pad, se um adversário passivo intercetar dois criptogramas diferentes cifrados com exatamente a mesma chave secreta (reutilização de chave), ele pode obter o XOR das duas mensagens originais.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "O tamanho de chave mínimo recomendado atualmente para cifras simétricas modernas para garantir que um ataque de força bruta seja computacionalmente inviável é de:",
@@ -323,24 +248,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "Na cifra de substituição monoalfabética, bigramas comuns da língua portuguesa como 'os' e 'es' tendem a ser mapeados nos mesmos bigramas correspondentes repetidos no criptograma.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um gerador de números pseudo-aleatórios (PRNG) é um processo puramente físico e não-determinístico que recolhe ruído de hardware para gerar bits aleatórios.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Numa simulação de ataque onde o gerador de números aleatórios de um One-Time Pad é substituído por um PRNG fraco cuja semente é inicializada com apenas 2 bytes (16 bits) de aleatoriedade, quantas chaves possíveis existem no espaço de busca do atacante?",
@@ -447,24 +362,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O módulo padrão 'random' do Python é adequado para gerar segredos criptográficos ou chaves do One-Time Pad.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Geradores de Números Pseudo-Aleatórios Criptograficamente Seguros (CSPRNG) garantem que a sua saída é imprevisível mesmo que os outputs passados tenham sido observados pelo adversário.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Na cifra de Vigenère, se a chave de cifragem for a palavra 'BACO', quais são os deslocamentos respetivos de César aplicados aos quatro primeiros caracteres do texto claro?",
@@ -493,24 +398,14 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O espaço de chaves de uma Cifra de César é de exatamente 26 chaves possíveis.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa cifra de Vigenère com chave de comprimento fixo a 4, o espaço de chaves possíveis é de 26^4 = 456.976 chaves.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Cifrar o texto claro 'AAA' com a cifra de Vigenère e a chave 'ABC' resulta no criptograma:",

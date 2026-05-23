@@ -1,0 +1,147 @@
+{
+  "titulo": "Exame Global 2: Arquitetura de Caches, Desempenho e Concorrência",
+  "descricao": "Segundo exame global, com foco em concorrência de E/S, políticas de escalonamento (EEVDF), compressão/deduplicação e o impacto de profiling com eBPF.",
+  "perguntas": [
+    {
+      "pergunta": "Ao avaliar o overhead de instrumentação com eBPF num benchmark de E/S com FIO, selecione a(s) afirmação(ões) correta(s):",
+      "opcoes": [
+        "Os tracepoints estáticos do kernel introduzem, de modo geral, menor overhead do que kprobes dinâmicos porque os tracepoints já estão integrados nas funções do kernel e usam pontos de chamada pré-compilados estáveis.",
+        "Anexar um programa eBPF a uma função crítica do escalonador de CPU (ex: pick_next_task_fair) pode introduzir uma latência mensurável no tempo de resposta das operações de E/S assíncronas do io_uring.",
+        "O eBPF elimina 100% de qualquer overhead no CPU porque os seus programas são compilados em código nativo de máquina pelo compilador JIT do kernel.",
+        "Os tracepoints e kprobes só podem ser disparados se a aplicação utilizar chamadas de sistema síncronas tradicionais do POSIX, sendo ignorados no caso do io_uring."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Como se comporta o uso de io_uring em modo SQPOLL com escritas O_DIRECT em comparação com o POSIX write() tradicional em SSDs NVMe?",
+      "opcoes": [
+        "O SQPOLL elimina o custo de transição de privilégio (syscalls) do caminho crítico de submissão, enquanto o O_DIRECT contorna o Page Cache do kernel, evitando cópias de dados adicionais na RAM.",
+        "O SQPOLL exige que a aplicação faça leituras síncronas na Completion Queue (CQ) antes de poder submeter novos blocos.",
+        "O uso conjunto de SQPOLL e O_DIRECT minimiza a latência e o consumo de CPU em comparação com o POSIX síncrono, permitindo que a aplicação consuma menos recursos de CPU num sistema com apenas 1 core.",
+        "Com SQPOLL e O_DIRECT, os dados de escrita são transferidos por DMA diretamente do buffer de user-space para o dispositivo físico de armazenamento."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "pergunta": "Se implementarmos uma pilha de deduplicação inline usando um sistema de ficheiros virtual em FUSE, selecione o(s) potencial(ais) problema(s) de arquitetura:",
+      "opcoes": [
+        "O tráfego duplo de dados entre espaço de utilizador (onde corre o daemon FUSE) e o kernel-space pode saturar o barramento de memória, reduzindo a taxa de E/S útil da deduplicação.",
+        "Se os metadados do índice de deduplicação crescerem além da memória RAM física disponível, o FUSE causará paginação (thrashing de swap), degradando gravemente a performance global.",
+        "A biblioteca libfuse proíbe qualquer operação que modifique o tamanho lógico do ficheiro em tempo de execução.",
+        "O FUSE é incapaz de ler ficheiros comprimidos por algoritmos sem perdas como o LZ4."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Considere o comportamento do escalonador EEVDF sob uma carga mista. O que acontece se uma thread de polling do SPDK correr na mesma CPU que uma tarefa interativa (sensível à latência) com Nice 0?",
+      "opcoes": [
+        "A thread do SPDK corre de forma contínua (100% CPU), mantendo o seu lag negativo (incompatível com elegibilidade); a tarefa interativa, ao acordar, terá lag positivo e será imediatamente escalonada.",
+        "O EEVDF impede a thread do SPDK de correr se houver qualquer tarefa com Nice menor do que zero no sistema.",
+        "A tarefa interativa pode pedir uma fatia de tempo (timeslice) pequena para obter um prazo virtual (Virtual Deadline) muito anterior ao da thread do SPDK, garantindo a sua execução rápida logo que fique pronta.",
+        "O EEVDF força ambas as tarefas a partilhar exatamente 50% do tempo de CPU a cada 1 ms, sem considerar os prazos virtuais."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "pergunta": "Porque é que o algoritmo de substituição de páginas 2Q é uma excelente escolha para gerir a cache do índice de deduplicação de um sistema de armazenamento?",
+      "opcoes": [
+        "Porque o 2Q protege o índice contra a poluição da cache provocada por varrimentos lineares sequenciais, impedindo que hashes de blocos lidos uma única vez desalojem hashes recorrentes da cache ativa.",
+        "Porque o 2Q cifra automaticamente os hashes mais antigos usando chaves AES-XTS convergentes.",
+        "Porque permite pesquisas em tempo O(1) sem necessidade de tabelas de hash ou árvores AVL.",
+        "Porque distingue páginas acedidas esporadicamente de páginas com acessos frequentes através da separação entre a fila FIFO (A1) e a fila LRU (Am)."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "pergunta": "Avalie o impacto da disputa por locks nas arquiteturas SQMS (fila única) e MQMS (múltiplas filas) sob cargas extremas de submissão de pedidos assíncronos no io_uring.",
+      "opcoes": [
+        "O SQMS gera elevada disputa no lock da fila única global quando múltiplas CPUs tentam concorrer pelas mesmas requisições de io_uring.",
+        "O MQMS distribui as submissões por filas locais a cada CPU, reduzindo a disputa por locks e aumentando a escalabilidade da pilha de E/S.",
+        "O MQMS nunca necessita de locks, mesmo quando um core de CPU tenta roubar tarefas de outra fila para balanceamento de carga.",
+        "O io_uring funciona apenas em arquiteturas SQMS, sendo incompatível com o escalonamento multi-fila."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Indique a(s) afirmação(ões) correta(s) sobre os níveis de privilégio (User vs. Kernel) e a evolução estrutural das pilhas de armazenamento modernas (FUSE e SPDK):",
+      "opcoes": [
+        "O FUSE move a lógica do sistema de ficheiros para o espaço de utilizador (User-space), mas as operações ainda transitam pelo kernel (VFS/FUSE Driver).",
+        "O SPDK move toda a pilha (drivers NVMe incluídos) para o User-space e contorna totalmente o kernel no caminho de dados (kernel bypass).",
+        "Tanto o FUSE como o SPDK reduzem o número de context switches em relação à API POSIX clássica.",
+        "O SPDK depende do driver de dispositivo e do escalonador de E/S de blocos do kernel Linux para gerir as suas submissões de DMA."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "Como podem os caches internos voláteis dos dispositivos físicos de armazenamento distorcer as medições num benchmark de E/S?",
+      "opcoes": [
+        "Se a aplicação não emitir comandos fsync() ou não usar flags como O_DIRECT/O_SYNC, as escritas são consideradas completas assim que chegam à RAM interna volátil do disco, inflacionando artificialmente as métricas de IOPS.",
+        "Se ocorrer um corte de energia abrupto durante o benchmark, os blocos confirmados na RAM interna que ainda não foram gravados nos transístores flash físicos serão perdidos (torn writes ou lost writes).",
+        "Os benchmarks de hardware são imunes a caches voláteis porque o barramento PCIe proíbe caches nos controladores NVMe.",
+        "O comando fsync() garante que a cache interna volátil do dispositivo físico é descarregada (flushed) para o meio não volátil."
+      ],
+      "solucao": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes técnicas com eBPF pode ser usada para monitorizar a eficácia do Page Cache do kernel Linux?",
+      "opcoes": [
+        "Anexar kprobes/kretprobes a funções internas como find_get_page ou add_to_page_cache_lru para contabilizar os hits e misses na cache de páginas.",
+        "Utilizar mapas eBPF do tipo BPF_MAP_TYPE_ARRAY para construir histogramas da latência de acesso aos blocos físicos na cache de páginas.",
+        "Forçar a exclusão imediata de páginas limpas da cache de páginas diretamente a partir do eBPF Verifier sem envolver o VFS.",
+        "Instalar filtros eBPF no eBPF Map da controladora FTL do SSD."
+      ],
+      "solucao": [
+        0,
+        1
+      ]
+    },
+    {
+      "pergunta": "No particionamento baseado em Rabin Fingerprints (Content-Defined Chunking), porque é que a escolha dos parâmetros da janela deslizante e da máscara (modulo/divisor) é crítica?",
+      "opcoes": [
+        "Se a máscara do divisor for mal escolhida (muito pequena), o tamanho médio dos blocos reduzirá drasticamente, criando milhões de blocos microscópicos e sobrecarregando a memória RAM com metadados do índice.",
+        "Se a janela deslizante for muito estreita, a probabilidade de colisão de impressões digitais de blocos diferentes aumenta, comprometendo a integridade matemática dos dados.",
+        "Rabin Fingerprints só funcionam se os dados forem encriptados previamente com AES-XTS.",
+        "A máscara determina a probabilidade matemática de encontrar um limite de bloco, fixando assim o tamanho médio teórico do bloco deduplicado."
+      ],
+      "solucao": [
+        0,
+        3
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique detalhadamente como o escalonador EEVDF do Linux consegue lidar com a coexistência de threads de polling de alta intensidade (como SPDK reactors ou threads SQPOLL do io_uring) e processos interativos clássicos de utilizador. Indique as razões matemáticas e algorítmicas (mencionando o cálculo do vruntime, lag e virtual deadline) pelas quais o EEVDF garante melhor reatividade e menores prazos de latência para os processos interativos do que o antigo escalonador CFS.",
+      "solucao": "**1. Coexistência de Polling Intensivo e Interatividade:**\n- Threads de polling (ex: SPDK ou io_uring SQPOLL) consomem continuamente o CPU (100% de utilização de core). Numa arquitetura clássica CFS, isto eleva rapidamente o seu `vruntime`, mas uma vez que nunca adormecem voluntariamente, elas mantêm-se a correr durante todo o seu time-slice e disputam agressivamente o processador com qualquer nova tarefa. \n- Tarefas interativas passam a maior parte do tempo bloqueadas à espera de eventos de utilizador (adormecidas). O seu `vruntime` real acumula muito devagar.\n\n**2. Diferença Algorítmica e Limitações do CFS:**\n- No **CFS**, a seleção é governada exclusivamente pela regra do *menor vruntime global*. Quando a tarefa interativa acorda, embora tenha um `vruntime` atualizado para o mínimo da árvore Red-Black, ela partilha o CPU de forma estritamente proporcional aos pesos (Nice). O CFS não tem noção de prazos (deadlines) ou sensibilidade à latência, forçando a tarefa interativa a esperar pelo fim do time-slice ou por preempção genérica baseada apenas em Nice.\n\n**3. Vantagem Matemática do EEVDF:**\nO EEVDF resolve isto introduzindo dois conceitos estruturais novos:\n- **Lag (Atraso):** Calculado como $\\text{lag}_i = V - v_i$, onde $V$ é o `vruntime` médio virtual de todas as tarefas ativas e $v_i$ é o do processo. Como as threads de polling correm sem parar, o seu $v_i$ cresce muito além da média, fazendo com que o seu lag seja negativo (ineligíveis). A tarefa interativa que acaba de acordar tem um $v_i$ menor do que a média, obtendo um lag positivo (elegível).\n- **Virtual Deadline (Prazo Virtual):** O EEVDF calcula o prazo virtual como: $\\text{VD}_i = e_i + \\frac{q_i}{w_i}$, onde $e_i$ é o tempo de elegibilidade (o seu $v_i$), $q_i$ é a fatia de tempo pedida (quantum/timeslice) e $w_i$ é o seu peso (definido pelo Nice). \n- A chave para a latência curta está no termo $q_i$ (timeslice). Tarefas interativas podem requisitar fatias de tempo curtas ($q_i$ pequeno), o que reduz drasticamente o valor do rácio $\\frac{q_i}{w_i}$. Consequentemente, o seu Virtual Deadline ($\\text{VD}_i$) é muito anterior ao de tarefas batch/polling (que pedem fatias de tempo grandes, $q_i$ elevado). O EEVDF escolhe a tarefa elegível com o *mais antigo (earliest) Virtual Deadline*, permitindo que a tarefa interativa prempte instantaneamente as threads de polling, garantindo latência delimitada e reatividade imediata."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Está a projetar uma pilha de armazenamento empresarial que deve disponibilizar simultaneamente compressão sem perdas (lossless com LZ4), deduplicação (ao nível do bloco com Rabin Fingerprints) e encriptação (com AES-XTS). Descreva a ordem ideal de execução destas três camadas na pilha de E/S. Justifique detalhadamente a sua resposta, explicando os impactos matemáticos e criptográficos no rácio de redução de dados e na segurança caso a ordem fosse alterada.",
+      "solucao": "**Ordem Ideal de Execução: 1º Compressão -> 2º Deduplicação -> 3º Encriptação**\n\n**1. Compressão antes da Deduplicação (LZ4 -> Deduplicação):**\n- A compressão LZ4 deve ser executada em primeiro lugar sobre os blocos originais para remover redundâncias internas de curto alcance dentro de cada bloco. Isto reduz o tamanho dos blocos a processar nas camadas seguintes, economizando largura de banda de E/S e espaço em disco.\n- Embora alguns autores sugiram deduplicar antes de comprimir para evitar alterar os hashes de blocos semelhantes comprimidos separadamente (se o compressor usar dicionários dinâmicos baseados no contexto), na prática, a compressão de blocos individuais isolados (como blocos de 4KB ou 8KB) é determinística e uniforme. Comprimir primeiro poupa memória na cache de deduplicação.\n\n**2. Deduplicação antes da Encriptação (Deduplicação -> AES-XTS):**\n- Esta é a regra mais crítica de todo o design de armazenamento. A deduplicação baseia-se em encontrar blocos de dados idênticos calculando e comparando as suas assinaturas criptográficas (ex: hashes SHA-256). \n- A encriptação moderna (como o AES-XTS) utiliza chaves criptográficas seguras que cifram os blocos de modo a que o output pareça ruído aleatório de alta entropia. O mesmo bloco original encriptado por utilizadores diferentes (ou mesmo pelo mesmo utilizador em setores diferentes usando o XTS tweak) resultará em blocos cifrados completamente distintos e pseudo-aleatórios.\n- Se a encriptação fosse executada *antes* da deduplicação, blocos originalmente idênticos passariam a ter conteúdos cifrados totalmente diferentes. A taxa de deduplicação cairia para zero, anulando qualquer capacidade de redução de dados do sistema.\n\n**3. Encriptação em último lugar (AES-XTS no final):**\n- A cifragem em último lugar garante que tanto os blocos de dados compactados e deduplicados como os metadados finais que serão persistidos no armazenamento físico estão completamente protegidos contra acessos não autorizados. Além disso, a encriptação de blocos pós-deduplicação protege o próprio índice e evita fugas de informação secundárias. Qualquer alteração desta ordem destrói a eficácia da redução de dados ou compromete a segurança criptográfica do sistema."
+    }
+  ]
+}

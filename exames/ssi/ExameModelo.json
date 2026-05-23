@@ -3,106 +3,56 @@
   "descricao": "Simulador de exame.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa política de controlo de acesso mandatório (MAC) é o administrador quem define as permissões associadas aos recursos dos utilizadores.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "As políticas de controlo de acesso baseado em papéis (RBAC) são computacionalmente mais exigentes do que as baseadas em atributos (ABAC).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em Linux, para um processo realizar uma operação sobre um ficheiro, necessita de ter permissão de execução (x) em todas as diretorias do caminho que é necessário atravessar para o alcançar, não sendo obrigatória a permissão de leitura (r) nessas diretorias intermédias.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em sistemas operativos como o Unix e o Linux, a flag de set-user-id (SUID) permite que um programa seja executado com um utilizador efetivo igual ao do dono do ficheiro.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em Linux, o comando sudo utiliza a flag set-user-id para permitir a executar a um utilizador normal a execução de comandos como utilizador root.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A representação octal do conjunto de permissões '-rw-r--r--' é 533.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Considere o excerto do início da página. O comando 'chmod exec script.sh' torna o ficheiro especificado executável.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ],
+      "solucao": 1,
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
     },
     {
+      "tipo": "boolean",
       "pergunta": "Considere o excerto do início da página. O utilizador 'teacher' possui permissões de leitura, escrita e execução sobre o ficheiro 'script.sh'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ],
+      "solucao": 1,
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
     },
     {
+      "tipo": "boolean",
       "pergunta": "Considere o excerto do início da página. Relativamente à diretoria 'utils', o utilizador 'hector' é capaz de mudar para essa diretoria (efetuar travessia).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ],
+      "solucao": 1,
       "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector"
     },
     {

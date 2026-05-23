@@ -3,144 +3,74 @@
   "descricao": "Base de dados alargada (30 questões) com afirmações V/F e escolha múltipla sobre definições de segurança, CIA, história da criptologia, níveis de segurança, atacantes e Princípio de Kerckhoffs.",
   "perguntas": [
     {
+      "tipo": "boolean",
       "pergunta": "Numa Função de Hash Criptográfica é sempre viável encontrar mensagens distintas que são mapeadas num mesmo valor de hash.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um Message Authentication Code (MAC) garante a confidencialidade e a integridade da mensagem.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "O algoritmo ChaCha20 é uma cifra por blocos autenticada.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um certificado X509 pressupõe uma relação de confiança na entidade responsável pela sua emissão (CA).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa assinatura digital, a chave pública do emissor é necessária para gerar a assinatura.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Numa cifra de chave pública, a chave pública do destinatário é necessária para cifrar a mensagem.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O Princípio de Kerckhoffs estabelece que a segurança de uma cifra deve assentar no segredo do algoritmo de cifragem em si.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A perda de Confidencialidade traduz-se na divulgação não autorizada de informação.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Um adversário passivo é aquele que consegue manipular (bloquear, inserir ou repetir) a informação no canal de comunicação.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A segurança incondicional (ou baseada em teoria da informação) assume um adversário com poder computacional limitado (classe PPT).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "De acordo com Gary McGraw, a segurança de software consiste em integrar práticas de segurança no processo de construção de software, e não em apenas adicionar funcionalidades de segurança no código.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "Uma técnica criptográfica é considerada quebrada se os seus objetivos de segurança forem comprometidos através de criptanálise.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "O nascimento da Criptografia como disciplina científica está associado aos trabalhos de Claude Shannon sobre Teoria da Informação publicados no pós-Segunda Guerra Mundial.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade 'Heartbleed' é classificada como uma falha ao nível do protocolo (protocol) e não ao nível da implementação (código).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Quais das seguintes propriedades de segurança são garantidas, respetivamente, pela cifragem de chave pública (primeira parte) e pelas assinaturas digitais (segunda parte)? Selecione todas as opções corretas.",
@@ -222,34 +152,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "A definição número 1 de Segurança - 'O sistema comporta-se como esperado' - é considerada completa para segurança informática porque especifica de forma detalhada o que o sistema deve e não deve fazer.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "Em criptografia teórica, o conceito de 'Security Proofs' (Provas de Segurança) garante que nenhum atacante limitado a capacidades 'X' pode quebrar o objetivo de segurança 'Y'.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A origem etimológica da palavra Criptografia provém da junção dos termos gregos 'Kryptós' (oculto) e 'Gráphein' (escrita).",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
       "pergunta": "Assinale o ano correto de introdução do padrão de cifra simétrica Advanced Encryption Standard (AES), que veio substituir o antigo Data Encryption Standard (DES):",
@@ -292,34 +207,19 @@
       ]
     },
     {
+      "tipo": "boolean",
       "pergunta": "O conceito de 'Cryptographic Protocol' (Protocolo Criptográfico) refere-se a especificações para troca de mensagens que combinam várias técnicas criptográficas para atingir objetivos complexos.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        0
-      ]
+      "solucao": 0
     },
     {
+      "tipo": "boolean",
       "pergunta": "A vulnerabilidade de hardware conhecida como 'Meltdown' é classificada como uma falha de nível de 'Esquema' (Scheme) no desenho matemático da criptografia.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
+      "tipo": "boolean",
       "pergunta": "A encriptação simétrica clássica utilizada no padrão móvel 2G GSM foi considerada extremamente segura até aos dias de hoje devido ao seu desenho público.",
-      "opcoes": [
-        "Verdadeiro",
-        "Falso"
-      ],
-      "solucao": [
-        1
-      ]
+      "solucao": 1
     },
     {
       "pergunta": "Um sistema cuja segurança depende de premissas não-testadas ou de segredo sobre a sua especificação (Security through Obscurity) viola o seguinte princípio fundamental:",

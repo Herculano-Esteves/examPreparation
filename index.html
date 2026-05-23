@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SSI - Simulador de Exames</title>
-    <!-- Favicon Purple Shield -->
-    <link class="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50 10 L85 25 V55 C85 75 50 90 50 90 C50 90 15 75 15 55 V25 Z%22 fill=%22%237C3AED%22/></svg>">
+    <link class="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22brownGrad%22 x1=%220%%22 y1=%220%%22 x2=%22100%%22 y2=%22100%%22><stop offset=%220%%22 stop-color=%22%238B5A2B%22 /><stop offset=%22100%%22 stop-color=%22%235C3A21%22 /></linearGradient></defs><polygon points=%2250,5 98,30 50,55 2,30%22 fill=%22url(%23brownGrad)%22 /><path d=%22M25,42 v20 c0,12 50,12 50,0 V42%22 fill=%22url(%23brownGrad)%22 /><path d=%22M50,30 L15,45 v25%22 stroke=%22%23D2B48C%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22 /><circle cx=%2215%22 cy=%2274%22 r=%227%22 fill=%22%23D2B48C%22 /></svg>">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- FontAwesome for beautiful icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- KaTeX for high-performance LaTeX math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
     <!-- Custom CSS stylesheet -->
     <link rel="stylesheet" href="static/style.css">
 </head>
@@ -24,19 +27,37 @@
         <!-- HEADER -->
         <header class="app-header">
             <div class="logo-area">
-                <i class="fa-solid fa-shield-halved app-logo-icon"></i>
+                <i id="app-logo-icon" class="fa-solid fa-graduation-cap app-logo-icon"></i>
                 <div class="logo-text">
-                    <h1>Teoria de SSI</h1>
-                    <span class="subtitle">Simulador de Exames</span>
+                    <h1 id="app-main-title">Simulador de Exames</h1>
+                    <span id="app-subtitle" class="subtitle">Ensino Superior</span>
                 </div>
             </div>
         </header>
 
         <!-- MAIN CONTENT AREA -->
         <main class="main-content">
+            <!-- STATE 0: CADEIRAS SCREEN -->
+            <section id="screen-cadeiras" class="screen active">
+                <h3 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Selecione uma Cadeira</h3>
+                <div id="cadeiras-grid" class="exams-grid">
+                    <!-- Dynamic Cadeira Cards Loaded from JSON will go here -->
+                    <div class="loading-state">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        <p>A carregar cadeiras...</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- STATE 1: MENU SCREEN -->
-            <section id="screen-menu" class="screen active">
-                <h3 class="section-title">Exames Disponíveis</h3>
+            <section id="screen-menu" class="screen">
+                <div class="menu-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 class="section-title" style="margin-bottom: 0;"><i class="fa-solid fa-folder-open"></i> Exames Disponíveis</h3>
+                    <button id="btn-back-cadeiras" class="btn-control btn-secondary" style="padding: 0.5rem 1.0rem; font-size: 0.85rem; height: auto;">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Voltar às Cadeiras</span>
+                    </button>
+                </div>
                 <div id="exams-grid" class="exams-grid">
                     <!-- Dynamic Exam Cards Loaded from API will go here -->
                     <div class="loading-state">
@@ -119,14 +140,7 @@
                     <h2>Exame Concluído!</h2>
                     <p id="results-exam-title">Título do Exame Terminado</p>
                     
-                    <div class="score-display">
-                        <div class="score-circle">
-                            <span id="score-percentage">100%</span>
-                        </div>
-                        <p id="score-detail">Acertou 5 de 5 perguntas na primeira tentativa!</p>
-                    </div>
-
-                    <button id="btn-back-menu" class="btn-control btn-primary">
+                    <button id="btn-back-menu" class="btn-control btn-primary" style="margin-top: 1.5rem;">
                         <i class="fa-solid fa-house"></i>
                         <span>Voltar ao Menu Principal</span>
                     </button>
