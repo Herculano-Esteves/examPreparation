@@ -1,0 +1,126 @@
+{
+  "titulo": "Exame de Estudo TSO 4 (Escolha Múltipla)",
+  "descricao": "Quarto exame de estudo de TSO, composto a 100% por perguntas de escolha múltipla cobrindo todos os módulos teóricos. As opções contêm pequenas diferenças de terminologia para avaliar de forma precisa o conhecimento do aluno.",
+  "perguntas": [
+    {
+      "pergunta": "Quando ocorre uma falha na TLB (TLB miss) num sistema com paginação de memória multi-nível, qual das seguintes sequências descreve corretamente a resposta do hardware ou do sistema operativo?",
+      "opcoes": [
+        "O processador suspende temporariamente a tradução de endereços virtuais, acede diretamente à memória física usando o endereço base do segmento e atualiza a TLB de forma assíncrona.",
+        "O controlador de memória (MMU) percorre a tabela de páginas multi-nível na memória física para traduzir o endereço virtual, carrega o mapeamento na TLB e repete a instrução original.",
+        "O kernel do SO gera uma interrupção de Page Fault (trap), aloca uma nova página física no disco, atualiza a TLB e repete a instrução original.",
+        "O controlador de memória (MMU) invalida a cache do processador (L1/L2), força o mapeamento direto no espaço de user-space e aborta o processo associado."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No profiling de aplicações, compare a abordagem por amostragem (sampling profiler) com a abordagem por instrumentação (instrumentation profiler) relativamente ao overhead gerado e ao impacto no desempenho do sistema.",
+      "opcoes": [
+        "Um sampling profiler injeta código em todas as funções, gerando um overhead proporcional à frequência com que as funções são executadas, enquanto um instrumentation profiler recolhe o estado periodicamente, gerando um overhead independente da frequência de execução das funções.",
+        "Um sampling profiler recolhe o estado do processador periodicamente (ex: a cada 1ms), gerando um overhead proporcional à frequência de amostragem, enquanto um instrumentation profiler injeta código em cada função, gerando um overhead proporcional à frequência com que as funções são executadas.",
+        "Um sampling profiler altera o binário compilado da aplicação para medir tempos exatos de execução, enquanto um instrumentation profiler corre em background utilizando tracepoints de kernel sem alterar o binário da aplicação.",
+        "Um sampling profiler gera um overhead nulo ao correr exclusivamente em placas de rede inteligentes (SmartNICs), enquanto um instrumentation profiler corre no kernel gerando contenção na Page Cache."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O formato BTF (BPF Type Format) é uma tecnologia essencial no ecossistema eBPF moderno. Qual das seguintes afirmações descreve corretamente a sua função?",
+      "opcoes": [
+        "O BTF encripta o bytecode eBPF em tempo de compilação para garantir que este não seja modificado de forma maliciosa pelo utilizador.",
+        "O BTF fornece metadados estruturados sobre os tipos de dados e layouts de memória do kernel, permitindo a depuração e a portabilidade do bytecode eBPF entre diferentes kernels.",
+        "O BTF compila dinamicamente programas eBPF em código nativo de máquina de forma a evitar a verificação de segurança estática pelo kernel.",
+        "O BTF atua como uma fila circular rápida (ring buffer) para transferir dados de eventos de trace do kernel-space para o user-space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Distinga o benchmarking ativo (active benchmarking) do benchmarking passivo (passive benchmarking) em termos de metodologia e objetivos experimentais.",
+      "opcoes": [
+        "O benchmarking ativo monitoriza silenciosamente o sistema em produção para analisar o comportamento real das aplicações, enquanto o benchmarking passivo injeta cargas de trabalho sintéticas controladas para testar os limites do sistema.",
+        "O benchmarking ativo injeta cargas de trabalho sintéticas controladas para testar os limites e a resposta do sistema sob stress, enquanto o benchmarking passivo monitoriza silenciosamente o sistema em produção para analisar o comportamento real das aplicações.",
+        "O benchmarking ativo calcula a média estatística de latência em sistemas virtuais, enquanto o benchmarking passivo foca-se exclusivamente na variabilidade estatística e na latência de cauda de sistemas físicos.",
+        "O benchmarking ativo desativa a cache de CPU para avaliar o throughput bruto da RAM, enquanto o benchmarking passivo ativa todas as caches multicamada para simular condições ideais de execução."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No desenvolvimento de sistemas de ficheiros FUSE em user-space, qual é a diferença fundamental entre a API de nível superior (high-level) e a API de nível inferior (low-level)?",
+      "opcoes": [
+        "A API high-level identifica os ficheiros através de caminhos de texto completos (file paths), enquanto a API low-level expõe diretamente inodes e requer que o programador implemente a pesquisa de diretórios (lookup).",
+        "A API high-level expõe diretamente inodes e requer que o programador implemente a pesquisa de diretórios, enquanto a API low-level identifica os ficheiros através de caminhos de texto completos (file paths).",
+        "A API high-level corre exclusivamente dentro do espaço de endereçamento do kernel do SO, enquanto a API low-level corre exclusivamente em user-space através de bibliotecas dinâmicas.",
+        "A API high-level utiliza locks automáticos de grão fino para garantir a concorrência multiprocesso, enquanto a API low-level opera de forma monothreaded sem suporte a chamadas assíncronas."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Em sistemas de deduplicação de dados, o efeito de deslocamento de limites (boundary shift) é um problema comum. Qual das seguintes opções descreve corretamente este fenómeno e como o mitigar?",
+      "opcoes": [
+        "O boundary shift ocorre quando a alteração de um único byte no início do ficheiro altera os hashes de todos os blocos de tamanho fixo subsequentes; mitiga-se utilizando Content-Defined Chunking (CDC) que encontra limites dinâmicos com base no conteúdo.",
+        "O boundary shift ocorre quando o Content-Defined Chunking falha ao calcular hashes criptográficos pesados; mitiga-se dividindo o ficheiro em blocos estáticos de tamanho fixo com alinhamento de setores físicos.",
+        "O boundary shift ocorre quando o índice de deduplicação é corrompido devido a escritas concorrentes em disco; mitiga-se desativando a deduplicação inline e correndo o processo exclusivamente offline em background.",
+        "O boundary shift ocorre quando a compressão sem perdas (lossless) aumenta o tamanho original do ficheiro; mitiga-se limitando a compressão a ficheiros de texto simples."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "Os sistemas de ficheiros modernos (como ext4) disponibilizam diferentes modos de journaling. Qual das seguintes opções descreve corretamente as garantias e o comportamento do modo padrão data=ordered?",
+      "opcoes": [
+        "Tanto os dados como os metadados são escritos no journal antes de serem persistidos no sistema de ficheiros principal, garantindo a máxima consistência ao custo do menor desempenho.",
+        "Apenas os metadados são registados no journal; os dados dos ficheiros são escritos no disco principal de forma assíncrona, existindo o risco de ficheiros recuperados conterem lixo após uma falha de energia.",
+        "Os dados dos ficheiros são escritos no disco principal antes de os metadados associados serem escritos no journal, garantindo que metadados nunca apontem para blocos não escritos.",
+        "O journal é totalmente desativado, escrevendo os dados e metadados diretamente no disco principal através de mecanismos de Copy-on-Write (CoW) assíncronos."
+      ],
+      "solucao": [
+        2
+      ]
+    },
+    {
+      "pergunta": "A API de E/S assíncrona clássica de Linux, libaio, possui limitações severas de design que motivaram a criação da io_uring. Selecione a opção que descreve corretamente as limitações da libaio.",
+      "opcoes": [
+        "A libaio é assíncrona apenas quando usada com a flag O_DIRECT e em sistemas de ficheiros que suportam E/S assíncrona; além disso, chamadas para operações de metadados (como criar ou estender ficheiros) bloqueiam a execução.",
+        "A libaio funciona exclusivamente com escritas em buffer (Page Cache) e bloqueia a execução quando utilizada em conjunto com a flag O_DIRECT.",
+        "A libaio exige que a aplicação utilize threads em user-space para realizar polling nas interrupções de hardware, consumindo 100% de CPU independentemente do volume de E/S.",
+        "A libaio não suporta operações de leitura, limitando a sua utilização prática a sistemas de backup offline e bases de dados do tipo write-only."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No SPDK (Storage Performance Development Kit), como é gerida a concorrência e a distribuição de tarefas de E/S entre múltiplos cores de CPU?",
+      "opcoes": [
+        "O SPDK utiliza uma fila global partilhada protegida por mutexes de grão fino e delega o escalonamento ao escalonador de CPU nativo do kernel do Linux.",
+        "O SPDK corre uma thread dedicada (Reactor) por core de CPU que executa um ciclo de polling ativo e comunica com outros cores de forma assíncrona através de filas sem locks (lockless ring buffers) seguindo o Actor Model.",
+        "O SPDK utiliza threads cooperativas que adormecem ativamente à espera de interrupções de hardware enviadas pela placa controladora NVMe.",
+        "O SPDK delega a concorrência ao VFS do kernel do Linux e desativa o modo polling sempre que a latência do dispositivo NVMe excede um limite pré-configurado."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "No escalonador EEVDF, como é gerido o lag de uma tarefa que entra em suspensão (adormece) e posteriormente acorda, de modo a evitar injustiças ou monopolização da CPU?",
+      "opcoes": [
+        "O lag acumulado é mantido indefinidamente e duplicado no momento em que a tarefa acorda, garantindo que tarefas que estiveram muito tempo inactivas corram de forma contínua.",
+        "O lag da tarefa é recalculado no momento do acordar e limitado (clipped) a um valor máximo e mínimo aceitáveis, evitando que a tarefa monopolize a CPU ou sofra de inanição devido a um lag excessivamente negativo.",
+        "O lag é totalmente ignorado e reposto a zero sempre que uma tarefa muda de estado de execução, assemelhando-se ao comportamento clássico do escalonador por lotaria.",
+        "O lag da tarefa determina o número de bilhetes (tickets) adicionais atribuídos dinamicamente para aumentar a probabilidade probabilística de escalonamento."
+      ],
+      "solucao": [
+        1
+      ]
+    }
+  ]
+}

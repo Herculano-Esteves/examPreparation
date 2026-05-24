@@ -14,7 +14,7 @@
     "sigla": "TSO",
     "icon": "fa-gears",
     "descricao": "Monitorização, observabilidade, eBPF, benchmarking, APIs de E/S modernas, deduplicação e escalonamento.",
-    "exames_count": 16,
+    "exames_count": 18,
     "index_path": "exames/tso/index.json"
   }
 ]

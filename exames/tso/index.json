@@ -77,6 +77,20 @@
     "perguntas_count": 10
   },
   {
+    "id": "ExameEstudo3",
+    "titulo": "Exame de Estudo TSO 3 (Perguntas de Escrita)",
+    "descricao": "Terceiro exame de estudo de TSO, composto a 100% por perguntas de resposta aberta (escrita) focadas em conceitos detalhados e arquiteturais de sistemas operativos, observabilidade, eBPF, FUSE e armazenamento.",
+    "path": "exames/tso/ExameEstudo3.json",
+    "perguntas_count": 8
+  },
+  {
+    "id": "ExameEstudo4",
+    "titulo": "Exame de Estudo TSO 4 (Escolha Múltipla)",
+    "descricao": "Quarto exame de estudo de TSO, composto a 100% por perguntas de escolha múltipla cobrindo todos os módulos teóricos. As opções contêm pequenas diferenças de terminologia para avaliar de forma precisa o conhecimento do aluno.",
+    "path": "exames/tso/ExameEstudo4.json",
+    "perguntas_count": 10
+  },
+  {
     "id": "ExameGlobal1",
     "titulo": "Exame Global 1: Sistemas, E/S e Monitorização Avançada",
     "descricao": "Exame integrado abrangendo eBPF, FUSE, Redução de Dados, Durabilidade, Escalonamento e APIs Modernas com perguntas cruzadas e cenários complexos.",
