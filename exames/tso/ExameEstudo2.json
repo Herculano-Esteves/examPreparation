@@ -1,0 +1,98 @@
+{
+  "titulo": "Exame de Estudo TSO 2",
+  "descricao": "Segundo exame de estudo rigoroso e completo sobre a matéria de TSO, abrangendo Caching (2Q), Completely Fair Scheduler (CFS), Stride Scheduling, SPDK (Reactors/Actors), Benchmarking Crimes, eBPF (CO-RE/BTF), EEVDF (lag/deadline) e encriptação AES-XTS.",
+  "perguntas": [
+    {
+      "pergunta": "A política de substituição de cache 2Q (Two-Queue) foi desenhada para superar as limitações do algoritmo LRU clássico. Indique qual das seguintes afirmações descreve corretamente o funcionamento e os benefícios do 2Q.",
+      "opcoes": [
+        "O 2Q divide a cache em duas filas principais (uma FIFO para referências únicas e outra LRU para acessos frequentes), reduzindo a poluição de cache causada por varrimentos lineares de dados que não são reutilizados.",
+        "O 2Q divide a cache em duas filas principais (uma LRU para referências únicas e outra FIFO para acessos frequentes), aumentando a poluição de cache causada por varrimentos lineares de dados que não são reutilizados.",
+        "O 2Q divide a cache em duas filas principais (uma FIFO para acessos frequentes e outra LRU para referências únicas), reduzindo a latência de acesso ao desativar o mecanismo de Page Cache do sistema operativo.",
+        "O 2Q divide a cache em duas filas principais (ambas FIFO com pesos estatísticos idênticos), garantindo que blocos lidos uma única vez permanecem indefinidamente na cache ativa."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "pergunta": "No escalonador CFS (Completely Fair Scheduler), como é calculado o progresso do tempo de execução virtual (vruntime) de uma tarefa em execução?",
+      "opcoes": [
+        "O vruntime progride proporcionalmente ao tempo físico de CPU consumido pela tarefa, multiplicado pela prioridade da tarefa.",
+        "O vruntime progride inversamente ao peso da tarefa: tarefas com maior peso (maior prioridade) têm o seu vruntime incrementado mais lentamente para o mesmo tempo físico de CPU consumido.",
+        "O vruntime progride proporcionalmente ao peso da tarefa: tarefas com maior peso (maior prioridade) têm o seu vruntime incrementado mais rapidamente para o mesmo tempo físico de CPU consumido.",
+        "O vruntime progride inversamente à latência de E/S da tarefa, garantindo que tarefas intensivas em cálculo computacional progridam mais rapidamente."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No algoritmo de escalonamento Stride Scheduling, o avanço do valor de 'pass' de um processo após correr uma fatia de tempo é diretamente proporcional ao número de bilhetes (tickets) que ele possui.",
+      "solucao": 1
+    },
+    {
+      "pergunta": "A arquitetura do SPDK (Storage Performance Development Kit) atinge desempenhos extremos de E/S ao implementar:",
+      "opcoes": [
+        "Drivers em kernel-space com interrupções de hardware otimizadas e locks de spin lock dinâmicos em CPUs dedicadas.",
+        "Drivers em user-space, polling ativo em vez de interrupções de hardware, e um modelo de execução sem locks (lockless) baseado no Actor Model e Reactors.",
+        "Drivers em user-space com interrupções assíncronas do kernel e locks de semáforo partilhados em filas globais.",
+        "Drivers em kernel-space que desativam o escalonamento de processos para permitir polling assíncrono em todas as CPUs."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Qual das seguintes práticas estatísticas constitui um exemplo de 'benchmarking crime'?",
+      "opcoes": [
+        "Apresentar a variabilidade e a latência de cauda (ex: percentil 99.9) juntamente com o throughput médio obtido.",
+        "Executar múltiplos testes com caches frias (cold cache) e reportar apenas a média dos melhores resultados selecionados após o aquecimento do sistema (warm cache) sem justificação ou transparência.",
+        "Especificar detalhadamente os parâmetros de configuração de hardware e as versões exatas de software utilizadas na experiência.",
+        "Comparar a performance utilizando a mesma ferramenta de workload sintético sob exatamente as mesmas restrições de E/S."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em sistemas de deduplicação com Content-Defined Chunking (CDC) utilizando Rabin Fingerprints, a janela móvel (sliding window) de bytes utilizada para calcular o hash determina o tamanho médio projetado para os blocos (chunks).",
+      "solucao": 1
+    },
+    {
+      "pergunta": "No contexto do eBPF, o mecanismo CO-RE (Compile Once - Run Everywhere) resolve o problema de portabilidade entre diferentes versões de kernel. Indique qual das seguintes opções explica corretamente como isso é alcançado.",
+      "opcoes": [
+        "O compilador converte o código do kernel para bytecode eBPF em runtime, eliminando a dependência do compilador Clang.",
+        "O compilador Clang gera tabelas de relocalização com base em metadados BTF (BPF Type Format), permitindo que o carregador de eBPF (libbpf) ajuste os offsets de structs em runtime de acordo com o kernel em execução.",
+        "O compilador Clang compila múltiplos binários nativos de máquina para todas as arquiteturas conhecidas do kernel, incorporando-os dentro do programa eBPF.",
+        "O verificador do eBPF emula o comportamento do VFS do kernel em runtime para reescrever as chamadas de memória da aplicação de user-space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a principal limitação do escalonador CFS em satisfazer aplicações interativas e sensíveis à latência, e demonstre como o escalonador EEVDF (Earliest Eligible Virtual Deadline First) aborda esta limitação através dos conceitos de lag e virtual deadline.",
+      "solucao": "**Limitação do CFS:**\nO CFS garante justiça absoluta no longo prazo ao selecionar sempre a tarefa com menor vruntime. No entanto, se uma tarefa interativa (ex: reprodução de áudio, interface gráfica) ficar suspensa aguardando E/S, o seu vruntime deixa de progredir. Ao acordar, ela tem um vruntime muito menor que as outras e corre. Mas se ela sofrer pequenas preempções frequentes, o CFS não distingue a sua necessidade urgente de baixa latência de uma tarefa de cálculo puro; a tarefa interativa tem de esperar até que a justiça seja restabelecida globalmente, podendo falhar fatias de tempo críticas.\n\n**Solução do EEVDF:**\n1. **Lag**: O EEVDF calcula o lag de cada tarefa, que mede a diferença entre o tempo de CPU que a tarefa devia ter recebido teoricamente de forma justa e o tempo físico que ela de facto consumiu. Se lag >= 0, a tarefa é considerada **elegível (eligible)** para correr.\n2. **Virtual Deadline**: Em vez de escolher simplesmente o menor vruntime, o EEVDF seleciona, entre as tarefas elegíveis (lag >= 0), aquela com a menor **Virtual Deadline** (prazo virtual). A Virtual Deadline é calculada com base na fatia de tempo pretendida (timeslice) dividida pelo peso do processo. Tarefas com timeslices menores (geralmente tarefas interativas ou que pedem pouca CPU de cada vez) obtêm prazos virtuais muito mais curtos, correndo primeiro e reduzindo drasticamente a sua latência sem violar as garantias de justiça a longo prazo."
+    },
+    {
+      "pergunta": "O modo de cifragem AES-XTS é amplamente utilizado para criptografia de discos e armazenamento em bloco. Qual das seguintes opções explica a utilidade do valor 'tweak' neste modo de operação?",
+      "opcoes": [
+        "O tweak atua como um salt dinâmico baseado na chave privada para aumentar a complexidade da cifragem simétrica de cada bloco físico.",
+        "O tweak garante que blocos de texto limpo idênticos cifrados em posições físicas diferentes do disco (ex: setores diferentes) resultem em blocos de texto cifrado distintos.",
+        "O tweak permite decifrar blocos individuais de dados em paralelo ao desativar o encadeamento de cifra de blocos (CBC) no kernel do Linux.",
+        "O tweak atua como um mecanismo de assinatura digital para verificar a integridade estrutural e evitar ataques de replay no sistema FUSE."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto da observabilidade e análise de performance de sistemas operacionais, descreva a diferença conceptual fundamental entre Tracing e Profiling. Dê um exemplo prático de aplicação ou ferramenta para cada um.",
+      "solucao": "**Diferença Conceptual:**\n\n1. **Tracing (Rastreio)**:\n   - *Conceito:* Focado em capturar eventos discretos específicos e bem definidos que ocorrem durante o ciclo de vida do sistema (ex: a entrada e saída de uma syscall, o início de uma escrita em disco, o envio de um pacote de rede). Cada registo de trace contém informação contextual exata (timestamp, PID, argumentos da chamada).\n   - *Exemplo de ferramenta:* Programas eBPF usando tracepoints no kernel (ex: sys_enter_execve), ou ferramentas como o strace e ftrace.\n\n2. **Profiling (Perfilagem)**:\n   - *Conceito:* Focado em analisar estatisticamente o consumo de recursos (como CPU ou memória) ao longo do tempo, tipicamente através de amostragem (sampling) periódica da stack de execução (ex: recolher a pilha de chamadas a cada 1 milissegundo). Permite identificar onde a aplicação passa a maior parte do tempo de execução.\n   - *Exemplo de ferramenta:* O utilitário perf do Linux (ex: perf record -g), ou a geração de Flame Graphs para analisar hotspots de CPU."
+    }
+  ]
+}

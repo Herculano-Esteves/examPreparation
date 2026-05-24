@@ -1,16 +1,18 @@
 // State Management
 const State = {
-    // Current active screen: 'cadeiras' | 'menu' | 'exam' | 'results'
+    // Current active screen: 'cadeiras' | 'menu' | 'exam' | 'results' | 'addCadeira' | 'addExame'
     currentScreen: 'cadeiras',
 
     // Loaded list of subjects (cadeiras)
     cadeiras: [],
+    localCadeiras: [],
 
     // Selected subject
     activeCadeira: null,
 
     // Loaded list of exams for active subject
     exams: [],
+    localExames: [],
 
     // Currently active exam
     activeExam: null,
@@ -22,6 +24,10 @@ const State = {
         revealed: false,      // true if option has been clicked
         firstAttemptCorrect: {} // tracks correct answers on first attempt: { questionIndex: boolean }
     },
+
+    // JSON Validation state
+    jsonValidationErrorLine: -1,
+    validatedExamData: null,
 
     // Getters for convenience
     get totalQuestions() {
@@ -40,7 +46,10 @@ const elements = {
         cadeiras: document.getElementById('screen-cadeiras'),
         menu: document.getElementById('screen-menu'),
         exam: document.getElementById('screen-exam'),
-        results: document.getElementById('screen-results')
+        results: document.getElementById('screen-results'),
+        addCadeira: document.getElementById('screen-add-cadeira'),
+        addExame: document.getElementById('screen-add-exame'),
+        settings: document.getElementById('screen-settings')
     },
     cadeirasGrid: document.getElementById('cadeiras-grid'),
     btnBackCadeiras: document.getElementById('btn-back-cadeiras'),
@@ -63,12 +72,15 @@ const elements = {
     btnCopy: document.getElementById('btn-copy'),
     btnBackMenu: document.getElementById('btn-back-menu'),
     resultsExamTitle: document.getElementById('results-exam-title'),
-    toast: document.getElementById('toast')
+    toast: document.getElementById('toast'),
+    btnSettings: document.getElementById('btn-settings')
 };
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
+    setupLocalCreationListeners();
+    loadLocalData();
     fetchCadeiras();
 });
 
@@ -100,6 +112,48 @@ function setupEventListeners() {
     elements.btnBackCadeiras.addEventListener('click', () => {
         transitionTo('cadeiras');
     });
+
+    if (elements.btnSettings) {
+        elements.btnSettings.addEventListener('click', () => {
+            State.previousScreenBeforeSettings = State.currentScreen;
+            transitionTo('settings');
+        });
+    }
+
+    const btnBackSettings = document.getElementById('btn-back-settings');
+    if (btnBackSettings) {
+        btnBackSettings.addEventListener('click', () => {
+            const backTarget = State.previousScreenBeforeSettings || 'cadeiras';
+            if (backTarget === 'settings') {
+                transitionTo('cadeiras');
+            } else {
+                transitionTo(backTarget);
+            }
+        });
+    }
+
+    const btnClearStorage = document.getElementById('btn-clear-storage');
+    if (btnClearStorage) {
+        btnClearStorage.addEventListener('click', () => {
+            if (confirm('Tem a certeza absoluta de que deseja apagar todas as cadeiras e exames criados localmente? Esta ação não pode ser desfeita.')) {
+                localStorage.removeItem('simulador_cadeiras_locais');
+                localStorage.removeItem('simulador_exames_locais');
+                
+                State.localCadeiras = [];
+                State.localExames = [];
+                
+                showToast('Todos os dados locais foram apagados!');
+                State.activeCadeira = null;
+                
+                document.getElementById('app-logo-icon').className = 'fa-solid fa-graduation-cap app-logo-icon';
+                document.getElementById('app-main-title').textContent = 'Simulador de Exames';
+                document.getElementById('app-subtitle').textContent = 'Ensino Superior';
+                
+                transitionTo('cadeiras');
+                renderCadeirasMenu();
+            }
+        });
+    }
 
     // Keyboard navigation (ArrowLeft / ArrowRight)
     document.addEventListener('keydown', (e) => {
@@ -141,12 +195,15 @@ async function fetchCadeiras() {
 
 // Render Cadeiras Menu List
 function renderCadeirasMenu() {
-    if (State.cadeiras.length === 0) {
+    loadLocalData();
+    const combinedCadeiras = [...State.cadeiras, ...State.localCadeiras];
+
+    if (combinedCadeiras.length === 0) {
         elements.cadeirasGrid.innerHTML = `
             <div class="error-state">
                 <i class="fa-solid fa-folder-open"></i>
                 <h3>Nenhuma cadeira disponível</h3>
-                <p>Por favor, configure o ficheiro 'exames/cadeiras.json'.</p>
+                <p>Por favor, adicione uma cadeira local ou configure o ficheiro 'exames/cadeiras.json'.</p>
             </div>
         `;
         return;
@@ -154,9 +211,10 @@ function renderCadeirasMenu() {
 
     elements.cadeirasGrid.innerHTML = '';
 
-    State.cadeiras.forEach(cadeira => {
+    combinedCadeiras.forEach(cadeira => {
         const card = document.createElement('div');
         card.className = 'exam-card';
+        const sigla = cadeira.sigla || cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5);
         card.innerHTML = `
             <div class="exam-card-header">
                 <div class="exam-icon-box">
@@ -164,7 +222,7 @@ function renderCadeirasMenu() {
                 </div>
                 <span class="question-count-badge">${cadeira.exames_count || 0} Exames</span>
             </div>
-            <h4>${escapeHTML(cadeira.sigla)}</h4>
+            <h4>${escapeHTML(sigla)} ${cadeira.isLocal ? '<span class="badge-local">Local</span>' : ''}</h4>
             <p style="font-weight: 500; margin-bottom: 0.2rem; color: #ffffff;">${escapeHTML(cadeira.nome)}</p>
             <p>${escapeHTML(cadeira.descricao)}</p>
             <div class="exam-card-footer">
@@ -179,6 +237,20 @@ function renderCadeirasMenu() {
 
         elements.cadeirasGrid.appendChild(card);
     });
+
+    // Card para adicionar nova cadeira
+    const addCard = document.createElement('div');
+    addCard.className = 'exam-card add-card';
+    addCard.innerHTML = `
+        <div class="add-card-content">
+            <i class="fa-solid fa-plus-circle add-icon"></i>
+            <span class="add-text">Adicionar Cadeira</span>
+        </div>
+    `;
+    addCard.addEventListener('click', () => {
+        transitionTo('addCadeira');
+    });
+    elements.cadeirasGrid.appendChild(addCard);
 }
 
 // Select a Cadeira
@@ -190,7 +262,8 @@ function selectCadeira(cadeira) {
         document.getElementById('app-logo-icon').className = `fa-solid ${cadeira.icon} app-logo-icon`;
     }
     document.getElementById('app-main-title').textContent = cadeira.nome;
-    document.getElementById('app-subtitle').textContent = `Simulador de Exames (${cadeira.sigla})`;
+    const sigla = cadeira.sigla || cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5);
+    document.getElementById('app-subtitle').textContent = `Simulador de Exames (${sigla})`;
 
     transitionTo('menu');
 }
@@ -205,51 +278,45 @@ async function fetchExams(indexPath) {
         </div>
     `;
 
-    try {
-        const response = await fetch(indexPath);
-        if (!response.ok) throw new Error('Não foi possível carregar os exames.');
+    let serverExams = [];
 
-        State.exams = await response.json();
-        renderExamsMenu();
-    } catch (error) {
-        console.error('Error fetching exams:', error);
-        elements.examsGrid.innerHTML = `
-            <div class="error-state">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <h3>Erro ao carregar exames</h3>
-                <p>${error.message}</p>
-                <button class="btn-control btn-primary" onclick="fetchExams('${indexPath}')" style="margin-top: 1rem;">Tentar Novamente</button>
-            </div>
-        `;
+    // Only load from server if not a local cadeira
+    if (State.activeCadeira && !State.activeCadeira.isLocal) {
+        try {
+            const response = await fetch(indexPath);
+            if (!response.ok) throw new Error('Não foi possível carregar os exames do servidor.');
+            serverExams = await response.json();
+        } catch (error) {
+            console.error('Error fetching exams from server:', error);
+        }
     }
+
+    // Load local exams for this active cadeira
+    loadLocalData();
+    const activeCadeiraId = State.activeCadeira ? State.activeCadeira.id : null;
+    const filteredLocalExames = State.localExames.filter(e => e.cadeira_id === activeCadeiraId);
+
+    // Combine
+    State.exams = [...serverExams, ...filteredLocalExames];
+    renderExamsMenu();
 }
 
 // Render Exams Menu List
 function renderExamsMenu() {
-    if (State.exams.length === 0) {
-        elements.examsGrid.innerHTML = `
-            <div class="error-state">
-                <i class="fa-solid fa-folder-open"></i>
-                <h3>Nenhum exame disponível</h3>
-                <p>Por favor, adicione ficheiros JSON na pasta 'exames'.</p>
-            </div>
-        `;
-        return;
-    }
-
     elements.examsGrid.innerHTML = '';
 
     State.exams.forEach(exam => {
         const card = document.createElement('div');
         card.className = 'exam-card';
+        const qCount = exam.perguntas_count || (exam.perguntas ? exam.perguntas.length : 0);
         card.innerHTML = `
             <div class="exam-card-header">
                 <div class="exam-icon-box">
                     <i class="fa-solid fa-file-invoice"></i>
                 </div>
-                <span class="question-count-badge">${exam.perguntas_count} Questões</span>
+                <span class="question-count-badge">${qCount} Questões</span>
             </div>
-            <h4>${escapeHTML(exam.titulo)}</h4>
+            <h4>${escapeHTML(exam.titulo)} ${exam.isLocal ? '<span class="badge-local">Local</span>' : ''}</h4>
             <p>${escapeHTML(exam.descricao)}</p>
             <div class="exam-card-footer">
                 <span>Começar Exame</span>
@@ -263,6 +330,20 @@ function renderExamsMenu() {
 
         elements.examsGrid.appendChild(card);
     });
+
+    // Card to add local exam
+    const addCard = document.createElement('div');
+    addCard.className = 'exam-card add-card';
+    addCard.innerHTML = `
+        <div class="add-card-content">
+            <i class="fa-solid fa-plus-circle add-icon"></i>
+            <span class="add-text">Adicionar Exame</span>
+        </div>
+    `;
+    addCard.addEventListener('click', () => {
+        transitionTo('addExame');
+    });
+    elements.examsGrid.appendChild(addCard);
 }
 
 // Shuffle options of a multiple-choice question in place (client-side only)
@@ -307,10 +388,15 @@ async function startExam(examId) {
     `;
 
     try {
-        const response = await fetch(examMeta.path);
-        if (!response.ok) throw new Error('Não foi possível carregar as questões deste exame.');
-
-        const examData = await response.json();
+        let examData;
+        if (examMeta.isLocal) {
+            // Local exam already has the preguntas
+            examData = examMeta;
+        } else {
+            const response = await fetch(examMeta.path);
+            if (!response.ok) throw new Error('Não foi possível carregar as questões deste exame.');
+            examData = await response.json();
+        }
 
         // Set active exam and reset state
         State.activeExam = {
@@ -754,4 +840,341 @@ function escapeHTML(str) {
             '"': '&quot;'
         }[tag] || tag)
     );
+}
+
+// JSON Validation instructions template to be copied to clipboard
+const JSON_INSTRUCTIONS = `Cria um exame no formato JSON seguindo este esquema exato:
+
+{
+  "titulo": "Título do Exame",
+  "descricao": "Descrição detalhada do exame",
+  "perguntas": [
+    {
+      "pergunta": "Texto da pergunta de escolha múltipla?",
+      "opcoes": [
+        "Opção A",
+        "Opção B",
+        "Opção C",
+        "Opção D"
+      ],
+      "solucao": [0]
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Texto da pergunta de Verdadeiro ou Falso?",
+      "solucao": 0
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Texto da pergunta de resposta aberta?",
+      "solucao": "Resolução esperada em formato Markdown."
+    }
+  ]
+}
+
+Regras:
+1. Para "tipo": "escolha_multipla" (padrão se omitido), a "solucao" é um array de índices de 0 a N (ex: [0] para A, [1] para B). Admite múltiplas opções corretas (ex: [0, 2]).
+2. Para "tipo": "boolean", a "solucao" deve ser 0 (Verdadeiro) ou 1 (Falso). Não tem o campo "opcoes".
+3. Para "tipo": "escrita", a "solucao" é uma string com a resposta explicada. Suporta formatação Markdown básica (**negrito**, \`código\` e equações em KaTeX $ ou $$). Não tem o campo "opcoes".
+
+[adicionar tema e informação: xxx]`;
+
+// Validate JSON code structure
+function validateExamJSON(jsonString) {
+    try {
+        const parsed = JSON.parse(jsonString);
+        
+        if (!parsed.titulo || typeof parsed.titulo !== 'string') {
+            return { valid: false, message: "O JSON deve conter um campo 'titulo' do tipo string." };
+        }
+        if (!parsed.descricao || typeof parsed.descricao !== 'string') {
+            return { valid: false, message: "O JSON deve conter um campo 'descricao' do tipo string." };
+        }
+        if (!parsed.perguntas || !Array.isArray(parsed.perguntas) || parsed.perguntas.length === 0) {
+            return { valid: false, message: "O JSON deve conter um array 'perguntas' não vazio." };
+        }
+        
+        for (let i = 0; i < parsed.perguntas.length; i++) {
+            const p = parsed.perguntas[i];
+            const qNum = i + 1;
+            
+            if (!p.pergunta || typeof p.pergunta !== 'string') {
+                return { valid: false, message: `Pergunta #${qNum}: Falta o campo 'pergunta' do tipo string.` };
+            }
+            
+            const tipo = p.tipo || 'escolha_multipla';
+            if (tipo === 'escrita') {
+                if (p.solucao === undefined || typeof p.solucao !== 'string') {
+                    return { valid: false, message: `Pergunta #${qNum} (escrita): A 'solucao' deve ser uma string com a explicação.` };
+                }
+            } else if (tipo === 'boolean') {
+                if (p.solucao === undefined || (p.solucao !== 0 && p.solucao !== 1)) {
+                    return { valid: false, message: `Pergunta #${qNum} (boolean): A 'solucao' deve ser 0 (Verdadeiro) ou 1 (Falso).` };
+                }
+            } else if (tipo === 'escolha_multipla') {
+                if (!p.opcoes || !Array.isArray(p.opcoes) || p.opcoes.length === 0) {
+                    return { valid: false, message: `Pergunta #${qNum} (escolha múltipla): O campo 'opcoes' deve ser um array com as alternativas.` };
+                }
+                if (!p.solucao || !Array.isArray(p.solucao) || p.solucao.length === 0) {
+                    return { valid: false, message: `Pergunta #${qNum} (escolha múltipla): O campo 'solucao' deve ser um array com os índices das respostas corretas.` };
+                }
+                for (let s of p.solucao) {
+                    if (s < 0 || s >= p.opcoes.length) {
+                        return { valid: false, message: `Pergunta #${qNum}: O índice da resposta ${s} está fora do limite das opções.` };
+                    }
+                }
+            } else {
+                return { valid: false, message: `Pergunta #${qNum}: Tipo '${tipo}' inválido. Use 'escolha_multipla', 'boolean' ou 'escrita'.` };
+            }
+        }
+        return { valid: true, data: parsed };
+    } catch (e) {
+        let lineNum = 1;
+        let charNum = 1;
+        let position = -1;
+        
+        const posMatch = e.message.match(/position\s+(\d+)/i);
+        const lineColMatch = e.message.match(/line\s+(\d+)\s+column\s+(\d+)/i);
+        
+        if (lineColMatch) {
+            lineNum = parseInt(lineColMatch[1], 10);
+            charNum = parseInt(lineColMatch[2], 10);
+        } else if (posMatch) {
+            position = parseInt(posMatch[1], 10);
+            const lines = jsonString.slice(0, position).split('\n');
+            lineNum = lines.length;
+            charNum = lines[lines.length - 1].length + 1;
+        } else {
+            // Incremental fallback to detect lines
+            for (let i = 1; i <= jsonString.length; i++) {
+                try {
+                    JSON.parse(jsonString.slice(0, i));
+                } catch (tempErr) {
+                    if (!tempErr.message.includes('end of JSON') && !tempErr.message.includes('EOF')) {
+                        const lines = jsonString.slice(0, i).split('\n');
+                        lineNum = lines.length;
+                        charNum = lines[lines.length - 1].length;
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return {
+            valid: false,
+            message: `Erro de sintaxe JSON: ${e.message}`,
+            line: lineNum,
+            column: charNum
+        };
+    }
+}
+
+// Local Storage Integration
+function loadLocalData() {
+    try {
+        const cadeirasRaw = localStorage.getItem('simulador_cadeiras_locais');
+        State.localCadeiras = cadeirasRaw ? JSON.parse(cadeirasRaw) : [];
+    } catch (e) {
+        console.error('Erro ao ler cadeiras locais:', e);
+        State.localCadeiras = [];
+    }
+
+    try {
+        const examesRaw = localStorage.getItem('simulador_exames_locais');
+        State.localExames = examesRaw ? JSON.parse(examesRaw) : [];
+    } catch (e) {
+        console.error('Erro ao ler exames locais:', e);
+        State.localExames = [];
+    }
+}
+
+function saveLocalCadeiras() {
+    localStorage.setItem('simulador_cadeiras_locais', JSON.stringify(State.localCadeiras));
+}
+
+function saveLocalExames() {
+    localStorage.setItem('simulador_exames_locais', JSON.stringify(State.localExames));
+}
+
+// Setup listeners for the local subject and exam creation forms
+function setupLocalCreationListeners() {
+    // Cadeira creation fields
+    const btnCancelCadeira = document.getElementById('btn-cancel-cadeira');
+    const btnSaveCadeira = document.getElementById('btn-save-cadeira');
+    const inputCadeiraNome = document.getElementById('cadeira-nome');
+    const inputCadeiraDesc = document.getElementById('cadeira-desc');
+    const iconGrid = document.getElementById('cadeira-icon-grid');
+    let selectedIcon = 'fa-laptop-code';
+
+    // Handle icon select clicks
+    if (iconGrid) {
+        iconGrid.querySelectorAll('.icon-option').forEach(opt => {
+            opt.addEventListener('click', () => {
+                iconGrid.querySelector('.icon-option.selected').classList.remove('selected');
+                opt.classList.add('selected');
+                selectedIcon = opt.getAttribute('data-icon');
+            });
+        });
+    }
+
+    if (btnCancelCadeira) {
+        btnCancelCadeira.addEventListener('click', () => {
+            inputCadeiraNome.value = '';
+            inputCadeiraDesc.value = '';
+            transitionTo('cadeiras');
+        });
+    }
+
+    if (btnSaveCadeira) {
+        btnSaveCadeira.addEventListener('click', () => {
+            const nome = inputCadeiraNome.value.trim();
+            const desc = inputCadeiraDesc.value.trim();
+            if (!nome || !desc) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            
+            const newCadeira = {
+                id: 'local_' + Date.now(),
+                nome: nome,
+                descricao: desc,
+                icon: selectedIcon,
+                exames_count: 0,
+                isLocal: true,
+                index_path: 'local'
+            };
+            
+            State.localCadeiras.push(newCadeira);
+            saveLocalCadeiras();
+            
+            inputCadeiraNome.value = '';
+            inputCadeiraDesc.value = '';
+            showToast('Cadeira local criada com sucesso!');
+            transitionTo('cadeiras');
+        });
+    }
+
+    // Exame creation fields
+    const btnCancelExame = document.getElementById('btn-cancel-exame');
+    const btnSubmitExam = document.getElementById('btn-submit-exam');
+    const btnCopyInst = document.getElementById('btn-copy-instructions');
+    const editorInput = document.getElementById('editor-code-input');
+    const editorLines = document.getElementById('editor-line-numbers');
+    const statusDiv = document.getElementById('validation-status');
+
+    if (btnCopyInst) {
+        btnCopyInst.addEventListener('click', () => {
+            navigator.clipboard.writeText(JSON_INSTRUCTIONS).then(() => {
+                showToast('Instruções copiadas com sucesso!');
+            }).catch(err => {
+                console.error('Falha ao copiar:', err);
+                alert('Erro ao copiar. Pode copiar manualmente da caixa de texto.');
+            });
+        });
+    }
+
+    if (btnCancelExame) {
+        btnCancelExame.addEventListener('click', () => {
+            editorInput.value = '';
+            statusDiv.innerHTML = 'Editor vazio. Aguardando JSON...';
+            statusDiv.className = 'validation-status empty';
+            State.jsonValidationErrorLine = -1;
+            State.validatedExamData = null;
+            if (editorLines) editorLines.innerHTML = '';
+            transitionTo('menu');
+        });
+    }
+
+    if (btnSubmitExam) {
+        btnSubmitExam.addEventListener('click', () => {
+            if (!State.validatedExamData) return;
+            if (!State.activeCadeira) {
+                alert('Erro: Nenhuma cadeira ativa selecionada.');
+                return;
+            }
+
+            const newExame = {
+                ...State.validatedExamData,
+                id: 'exam_local_' + Date.now(),
+                cadeira_id: State.activeCadeira.id,
+                isLocal: true
+            };
+
+            State.localExames.push(newExame);
+            saveLocalExames();
+
+            // Update exam count for local cadeira if applicable
+            if (State.activeCadeira.isLocal) {
+                const idx = State.localCadeiras.findIndex(c => c.id === State.activeCadeira.id);
+                if (idx !== -1) {
+                    State.localCadeiras[idx].exames_count = (State.localCadeiras[idx].exames_count || 0) + 1;
+                    saveLocalCadeiras();
+                }
+            }
+
+            editorInput.value = '';
+            statusDiv.innerHTML = 'Editor vazio. Aguardando JSON...';
+            statusDiv.className = 'validation-status empty';
+            State.jsonValidationErrorLine = -1;
+            State.validatedExamData = null;
+            if (editorLines) editorLines.innerHTML = '';
+
+            showToast('Exame local criado com sucesso!');
+            fetchExams(State.activeCadeira.index_path);
+            transitionTo('menu');
+        });
+    }
+
+    // Scroll synchronization and real-time syntax checking
+    if (editorInput && editorLines) {
+        editorInput.addEventListener('scroll', () => {
+            editorLines.scrollTop = editorInput.scrollTop;
+        });
+
+        editorInput.addEventListener('input', () => {
+            const lines = editorInput.value.split('\n');
+            const lineCount = Math.max(lines.length, 1);
+            
+            const result = validateExamJSON(editorInput.value.trim());
+            if (!editorInput.value.trim()) {
+                statusDiv.innerHTML = 'Editor vazio. Aguardando JSON...';
+                statusDiv.className = 'validation-status empty';
+                State.jsonValidationErrorLine = -1;
+                btnSubmitExam.disabled = true;
+                State.validatedExamData = null;
+                document.getElementById('exame-titulo').value = '';
+                document.getElementById('exame-desc').value = '';
+            } else if (result.valid) {
+                statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> JSON válido e estrutura correta!';
+                statusDiv.className = 'validation-status valid';
+                State.jsonValidationErrorLine = -1;
+                btnSubmitExam.disabled = false;
+                State.validatedExamData = result.data;
+                document.getElementById('exame-titulo').value = result.data.titulo || '';
+                document.getElementById('exame-desc').value = result.data.descricao || '';
+            } else {
+                let msg = result.message;
+                if (result.line) {
+                    msg += ` (Linha ${result.line})`;
+                    State.jsonValidationErrorLine = result.line;
+                } else {
+                    State.jsonValidationErrorLine = -1;
+                }
+                statusDiv.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
+                statusDiv.className = 'validation-status invalid';
+                btnSubmitExam.disabled = true;
+                State.validatedExamData = null;
+                document.getElementById('exame-titulo').value = '';
+                document.getElementById('exame-desc').value = '';
+            }
+
+            // Draw line numbers, highlight error line if any
+            let html = '';
+            for (let i = 1; i <= lineCount; i++) {
+                const isError = (i === State.jsonValidationErrorLine);
+                html += `<div class="line-number-item ${isError ? 'error-line' : ''}">${i}</div>`;
+            }
+            editorLines.innerHTML = html;
+        });
+    }
 }

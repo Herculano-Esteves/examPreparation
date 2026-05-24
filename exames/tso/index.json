@@ -63,6 +63,20 @@
     "perguntas_count": 31
   },
   {
+    "id": "ExameEstudo1",
+    "titulo": "Exame de Estudo TSO 1",
+    "descricao": "Primeiro exame de estudo rigoroso e completo sobre a matéria de TSO, abrangendo Observabilidade, eBPF, Benchmarking, FUSE, Deduplicação, Caching/Durabilidade, CPU Scheduling e APIs Modernas de E/S.",
+    "path": "exames/tso/ExameEstudo1.json",
+    "perguntas_count": 10
+  },
+  {
+    "id": "ExameEstudo2",
+    "titulo": "Exame de Estudo TSO 2",
+    "descricao": "Segundo exame de estudo rigoroso e completo sobre a matéria de TSO, abrangendo Caching (2Q), Completely Fair Scheduler (CFS), Stride Scheduling, SPDK (Reactors/Actors), Benchmarking Crimes, eBPF (CO-RE/BTF), EEVDF (lag/deadline) e encriptação AES-XTS.",
+    "path": "exames/tso/ExameEstudo2.json",
+    "perguntas_count": 10
+  },
+  {
     "id": "ExameGlobal1",
     "titulo": "Exame Global 1: Sistemas, E/S e Monitorização Avançada",
     "descricao": "Exame integrado abrangendo eBPF, FUSE, Redução de Dados, Durabilidade, Escalonamento e APIs Modernas com perguntas cruzadas e cenários complexos.",

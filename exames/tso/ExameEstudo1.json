@@ -1,0 +1,98 @@
+{
+  "titulo": "Exame de Estudo TSO 1",
+  "descricao": "Primeiro exame de estudo rigoroso e completo sobre a matéria de TSO, abrangendo Observabilidade, eBPF, Benchmarking, FUSE, Deduplicação, Caching/Durabilidade, CPU Scheduling e APIs Modernas de E/S.",
+  "perguntas": [
+    {
+      "pergunta": "Indique a afirmação correta relativamente aos trade-offs entre métricas, logs e traces num sistema de monitorização/observabilidade de alto desempenho.",
+      "opcoes": [
+        "Os logs possuem menor overhead de rede e armazenamento do que as métricas estruturadas, mas oferecem menor detalhe contextual sobre erros individuais.",
+        "As métricas estruturadas possuem menor overhead de rede e armazenamento do que os logs, mas oferecem menor detalhe contextual sobre erros individuais.",
+        "Os traces distribuídos possuem menor overhead de rede e armazenamento do que as métricas estruturadas, mas oferecem menor detalhe contextual sobre erros individuais.",
+        "As métricas estruturadas possuem maior overhead de rede e armazenamento do que os traces distribuídos, mas oferecem maior detalhe contextual sobre erros individuais."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "O verificador do eBPF (verifier) garante a segurança do kernel analisando estaticamente o programa antes deste ser carregado. Indique qual das seguintes afirmações descreve corretamente as regras de segurança validadas pelo verificador.",
+      "opcoes": [
+        "O verificador valida que o programa executa em tempo infinito, garante que todos os ponteiros de memória apontam para endereços válidos do user-space e impede acessos fora dos limites do stack do eBPF.",
+        "O verificador valida que o programa executa em tempo limitado com loops de terminação garantida, garante que todos os ponteiros de memória são desreferenciados com verificações prévias e impede acessos fora dos limites do stack do eBPF.",
+        "O verificador valida que o programa executa em tempo limitado sem loops de qualquer natureza, garante que todos os ponteiros de memória apontam diretamente para o espaço de endereçamento virtual do processo alvo e impede acessos fora dos limites do stack do eBPF.",
+        "O verificador valida que o programa executa em tempo infinito com loops assíncronos, garante que todos os ponteiros de memória são lidos dinamicamente em runtime e impede acessos fora dos limites do stack do eBPF."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O overhead de desempenho de intercetar funções de user-space usando uprobes é tipicamente inferior ao de intercetar funções do kernel usando kprobes, em virtude de não exigir uma transição de privilégios adicional (context switch).",
+      "solucao": 1
+    },
+    {
+      "pergunta": "Ao efetuar o benchmarking de um sistema de armazenamento, qual das seguintes opções descreve corretamente as limitações e características de workloads sintéticos quando comparados com workloads reais?",
+      "opcoes": [
+        "Workloads sintéticos reproduzem perfeitamente a variação temporal de acessos lógicos em produção, facilitando a identificação de anomalias estatísticas complexas em caches multicamada.",
+        "Workloads sintéticos facilitam o controlo de parâmetros experimentais e a reprodutibilidade dos testes, mas frequentemente falham em reproduzir os padrões reais de localidade temporal e espacial das aplicações.",
+        "Workloads sintéticos reproduzem fielmente os padrões de localidade espacial e temporal das aplicações, mas dificultam o controlo de parâmetros experimentais e a reprodutibilidade dos testes.",
+        "Workloads sintéticos aumentam a complexidade estatística do teste ao simular cenários dinâmicos de produção, eliminando a reprodutibilidade e a parametrização experimental."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "pergunta": "Considere a arquitetura do FUSE (File System in User Space). Indique qual das seguintes afirmações descreve corretamente o fluxo de um pedido de leitura (read) de dados através do FUSE em modo padrão (sem passthrough).",
+      "opcoes": [
+        "O pedido de leitura é feito pela aplicação à VFS, que o encaminha para o driver de kernel do FUSE, o qual muda o contexto para o daemon FUSE em user-space; o daemon processa o pedido e devolve os dados diretamente à aplicação sem passar pelo kernel.",
+        "O pedido de leitura é feito pela aplicação à VFS, que o encaminha para o driver de kernel do FUSE, o qual muda o contexto para o daemon FUSE em user-space; o daemon lê do disco, devolve ao driver do FUSE no kernel e o kernel copia para o buffer da aplicação.",
+        "O pedido de leitura é feito pela aplicação ao daemon FUSE em user-space, que muda o contexto para a VFS no kernel; a VFS lê do disco físico, devolve os dados diretamente ao daemon e este copia para a aplicação.",
+        "O pedido de leitura é feito pela aplicação ao driver de kernel do FUSE, que o processa internamente via eBPF Maps sem envolver a VFS nem alternar contextos com o daemon do FUSE em user-space."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O FUSE passthrough permite que o driver de kernel do FUSE reencaminhe diretamente operações de ficheiro (como leituras e escritas) para um sistema de ficheiros nativo inferior (underlying file system), eliminando a necessidade de alternar contextos com o daemon de user-space para essas operações específicas após a abertura do ficheiro.",
+      "solucao": 0
+    },
+    {
+      "pergunta": "Sobre as estratégias de fragmentação (chunking) em sistemas de deduplicação de dados, selecione a afirmação correta.",
+      "opcoes": [
+        "O Fixed-size Chunking é sensível à inserção ou remoção de bytes no início do ficheiro (boundary shift), resultando em taxas de deduplicação inferiores às do Content-Defined Chunking em workloads dinâmicos.",
+        "O Fixed-size Chunking é imune à inserção ou remoção de bytes no início do ficheiro (boundary shift), resultando em taxas de deduplicação superiores às do Content-Defined Chunking em workloads dinâmicos.",
+        "O Content-Defined Chunking é sensível à inserção ou remoção de bytes no início do ficheiro (boundary shift), resultando em taxas de deduplicação inferiores às do Fixed-size Chunking em workloads dinâmicos.",
+        "O Content-Defined Chunking possui menor custo computacional do que o Fixed-size Chunking, uma vez que não necessita de calcular impressões digitais ou hashes móveis (rolling hashes) para encontrar limites de blocos."
+      ],
+      "solucao": [
+        0
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare as chamadas ao sistema fsync() e fdatasync() em termos de garantias de durabilidade e desempenho. Explique detalhadamente qual delas oferece melhor desempenho e em que circunstâncias as garantias de consistência se diferenciam.",
+      "solucao": "fsync() e fdatasync() são usadas para forçar a sincronização de dados modificados na cache do sistema operativo (Page Cache) para o dispositivo de armazenamento persistente físico.\n\n**Diferenças e Garantias:**\n1. **fsync()**: Transmite para o disco tanto os blocos de dados modificados como todos os metadados associados ao ficheiro que sofreram alterações (ex: tamanho do ficheiro, timestamps de modificação, proprietário, permissões). Requer, por isso, duas operações de escrita no disco (uma para os dados e outra para a entrada do inode).\n2. **fdatasync()**: Apenas força a sincronização dos dados e dos metadados que sejam estritamente necessários para permitir a correta leitura posterior desses dados (ex: o tamanho do ficheiro, caso este tenha crescido). Ignora alterações secundárias como timestamps ou permissões.\n\n**Desempenho:**\nfdatasync() oferece melhor desempenho pois reduz o número de escritas e atualizações de metadados na tabela de inodes física, diminuindo o overhead de E/S e os reposicionamentos de cabeças ou commits de journaling desnecessários no disco."
+    },
+    {
+      "pergunta": "No escalonador EEVDF (Earliest Eligible Virtual Deadline First), um processo é considerado 'eligible' (elegível) se:",
+      "opcoes": [
+        "O seu tempo de execução virtual (vruntime) for igual ou superior ao vruntime médio do sistema (virtual time).",
+        "O seu tempo de execução virtual (vruntime) for igual ou inferior ao vruntime médio do sistema (virtual time).",
+        "A sua fatia de tempo virtual (timeslice) for superior ao lag acumulado ponderado pelo peso do processo.",
+        "A sua fatia de tempo virtual (timeslice) for inferior ao lag acumulado ponderado pelo peso do processo."
+      ],
+      "solucao": [
+        1
+      ]
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto da biblioteca io_uring em Linux, explique detalhadamente o modo SQPOLL (Submission Queue Polling). Como é que este modo atinge o conceito de zero-syscall E/S e quais são os trade-offs de recursos envolvidos?",
+      "solucao": "**Funcionamento do SQPOLL (Submission Queue Polling) em io_uring:**\n\n1. **Mecanismo Zero-Syscall**: No modo padrão da io_uring, a aplicação insere pedidos na Submission Queue (SQ) em user-space e faz uma chamada ao sistema (syscall io_uring_enter) para notificar o kernel. Com o SQPOLL ativado, o kernel cria uma thread dedicada em background (kthread). Esta thread de kernel efetua polling ativo na SQ da aplicação para recolher novos submetidos, processá-los e colocar os resultados na Completion Queue (CQ). Como a kthread de kernel lê diretamente os descritores da memória partilhada sem que o user-space precise de o sinalizar, o processo de user-space pode submeter múltiplos pedidos sem efetuar qualquer chamada ao sistema (Zero-Syscall).\n2. **Trade-offs de Recursos**:\n   - **Consumo de CPU**: A thread SQPOLL do kernel corre de forma contínua fazendo polling, consumindo 100% de um núcleo de CPU mesmo se a aplicação não estiver a fazer pedidos de E/S (a menos que atinja o tempo de timeout inativo configurado e entre em suspensão).\n   - **Desempenho**: Reduz substancialmente o custo de context-switch de chamadas ao sistema, melhorando drasticamente o throughput e reduzindo a latência de cauda em workloads de E/S intensivos."
+    }
+  ]
+}

@@ -33,6 +33,10 @@
                     <span id="app-subtitle" class="subtitle">Ensino Superior</span>
                 </div>
             </div>
+            <button id="btn-settings" class="btn-control btn-secondary" style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; height: auto;">
+                <i class="fa-solid fa-gear"></i>
+                <span>Definições</span>
+            </button>
         </header>
 
         <!-- MAIN CONTENT AREA -->
@@ -144,6 +148,116 @@
                         <i class="fa-solid fa-house"></i>
                         <span>Voltar ao Menu Principal</span>
                     </button>
+                </div>
+            </section>
+
+            <!-- STATE 4: ADD CADEIRA SCREEN -->
+            <section id="screen-add-cadeira" class="screen">
+                <div class="menu-header-bar" style="margin-bottom: 1.5rem;">
+                    <h3 class="section-title"><i class="fa-solid fa-plus-circle"></i> Adicionar Nova Cadeira</h3>
+                </div>
+                <div class="question-card">
+                    <div class="form-group">
+                        <label for="cadeira-nome">Nome da Cadeira</label>
+                        <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cadeira-desc">Descrição / Subtítulo</label>
+                        <input type="text" id="cadeira-desc" class="form-control" placeholder="Ex: Escalonamento, Processos e I/O" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Selecione um Ícone</label>
+                        <div class="icon-select-grid" id="cadeira-icon-grid">
+                            <div class="icon-option selected" data-icon="fa-laptop-code"><i class="fa-solid fa-laptop-code"></i></div>
+                            <div class="icon-option" data-icon="fa-shield-halved"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="icon-option" data-icon="fa-database"><i class="fa-solid fa-database"></i></div>
+                            <div class="icon-option" data-icon="fa-server"><i class="fa-solid fa-server"></i></div>
+                            <div class="icon-option" data-icon="fa-network-wired"><i class="fa-solid fa-network-wired"></i></div>
+                            <div class="icon-option" data-icon="fa-microchip"><i class="fa-solid fa-microchip"></i></div>
+                        </div>
+                    </div>
+                    <div class="exam-controls" style="margin-top: 2rem;">
+                        <button id="btn-cancel-cadeira" class="btn-control btn-secondary">
+                            <i class="fa-solid fa-xmark"></i>
+                            <span>Cancelar</span>
+                        </button>
+                        <button id="btn-save-cadeira" class="btn-control btn-primary">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Criar Cadeira</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATE 5: ADD EXAME SCREEN -->
+            <section id="screen-add-exame" class="screen">
+                <div class="menu-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 class="section-title" style="margin-bottom: 0;"><i class="fa-solid fa-file-circle-plus"></i> Adicionar Novo Exame</h3>
+                    <button id="btn-copy-instructions" class="btn-control btn-secondary" style="padding: 0.5rem 1.0rem; font-size: 0.85rem; height: auto;">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Instruções de JSON</span>
+                    </button>
+                </div>
+                <div class="question-card">
+                    <div class="form-group">
+                        <label for="exame-titulo">Título do Exame (Lido do JSON)</label>
+                        <input type="text" id="exame-titulo" class="form-control" placeholder="Será preenchido automaticamente..." readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="exame-desc">Descrição do Exame (Lido do JSON)</label>
+                        <input type="text" id="exame-desc" class="form-control" placeholder="Será preenchido automaticamente..." readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Código JSON do Exame</label>
+                        <div class="code-editor-wrapper">
+                            <div class="line-numbers" id="editor-line-numbers"></div>
+                            <textarea class="code-input" id="editor-code-input" placeholder="Cole o JSON do seu exame aqui..." spellcheck="false" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div id="validation-status" class="validation-status empty">
+                        Editor vazio. Aguardando JSON...
+                    </div>
+
+                    <div class="exam-controls">
+                        <button id="btn-cancel-exame" class="btn-control btn-secondary">
+                            <i class="fa-solid fa-xmark"></i>
+                            <span>Cancelar</span>
+                        </button>
+                        <button id="btn-submit-exam" class="btn-control btn-primary" disabled>
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            <span>Criar Exame</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATE 6: SETTINGS SCREEN -->
+            <section id="screen-settings" class="screen">
+                <div class="menu-header-bar" style="margin-bottom: 1.5rem;">
+                    <h3 class="section-title"><i class="fa-solid fa-gear"></i> Definições</h3>
+                </div>
+                <div class="question-card">
+                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Dados Locais</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">
+                        Todas as cadeiras e exames criados localmente são guardados apenas no seu browser (através do localStorage). Pode limpar esses dados para restaurar o estado original do simulador.
+                    </p>
+                    <div style="padding: 1rem; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 8px; margin-bottom: 2rem;">
+                        <h5 style="color: var(--danger); margin-bottom: 0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Zona de Perigo</h5>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
+                            Esta ação é irreversível e irá apagar permanentemente todos os exames e cadeiras locais criados.
+                        </p>
+                        <button id="btn-clear-storage" class="btn-control btn-danger" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Apagar Todos os Dados Locais</span>
+                        </button>
+                    </div>
+                    <div class="exam-controls">
+                        <button id="btn-back-settings" class="btn-control btn-secondary" style="width: 100%; justify-content: center;">
+                            <i class="fa-solid fa-chevron-left"></i>
+                            <span>Voltar</span>
+                        </button>
+                    </div>
                 </div>
             </section>
         </main>
