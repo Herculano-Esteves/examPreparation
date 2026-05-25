@@ -4,31 +4,31 @@
   "perguntas": [
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob\n```",
       "pergunta": "O utilizador `bob` pode apagar o ficheiro `readme.txt` localizado na diretoria `project`, assumindo apenas estas permissões e não as de `root`.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob\n```",
       "pergunta": "A execução do comando `chmod o-r readme.txt` pela utilizadora `alice` terminará em insucesso (erro de Permissão Negada) uma vez que a mesma não integra os grupos do sistema de administradores.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob\n```",
       "pergunta": "Nas condições dadas pelo LS, o script `run.sh` pode ser corretamente lido e executado pela utilizadora `alice`.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob\n```",
       "pergunta": "A presença explícita do caractere `t` nas permissões da diretoria `project` assinala que a mesma integra o chamado bit restrito de exclusão (Sticky Bit), evitando desse modo que um utilizador que partilhe o acesso de escrita da diretoria elimine impunemente os ficheiros detidos por outros colegas.",
       "solucao": 0
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrwxr-t  3 root   developers 4096 May 10 11:00 project\n-rw-r--r--  1 alice  developers  512 May 11 09:00 readme.txt\n-rwxr-x---  1 bob    bob_group   256 May 12 10:00 run.sh\n-rw-------  1 root   root       1024 May 13 14:00 shadow\n\n$ cat /etc/group\ndevelopers:x:1001:alice,bob\nbob_group:x:1002:bob\n```",
       "pergunta": "A execução explícita de `run.sh` por parte do próprio dono do ficheiro (`bob`) implica, automaticamente e via o kernel Linux, um aumento de permissões que confere leitura ao recurso sensível `shadow`.",
       "solucao": 1
     },

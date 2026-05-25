@@ -4,31 +4,31 @@
   "perguntas": [
     {
       "tipo": "boolean",
-      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n```\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest\n```",
       "pergunta": "A flag `--privileged` compromete o isolamento do container, concedendo acesso à maioria das Linux Capabilities e a dispositivos brutos do host.",
       "solucao": 0
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n```\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest\n```",
       "pergunta": "A montagem da socket do Docker (`/var/run/docker.sock`) dentro do container permite que o serviço web controle o daemon Docker do host e crie containers privilegiados.",
       "solucao": 0
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n```\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest\n```",
       "pergunta": "A flag `--net=host` isola completamente o container numa stack de rede virtual, impedindo o acesso externo às portas do serviço web exposto.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n```\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest\n```",
       "pergunta": "O Docker (containerização a nível de SO) executa os seus bins sobre um micro-kernel isolado com hypervisor Type-1, suprimindo vulnerabilidades do kernel do host.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest",
+      "cabecalho": "Considere a seguinte instrução de linha de comandos utilizada por um administrador DevOps para lançar um serviço Web num servidor de produção Linux:\n\n```\n$ docker run -d --name web-app \\\n    --privileged \\\n    --net=host \\\n    -v /var/run/docker.sock:/var/run/docker.sock \\\n    nginx:latest\n```",
       "pergunta": "Com as flags usadas, uma RCE no Nginx permitiria contornar a sandbox e obter controlo total do host (container escape).",
       "solucao": 0
     },

@@ -121,15 +121,31 @@ Used for open-ended or theoretical explanation questions. The user can type thei
 * **`tipo`**: Must be set to `"escrita"`.
 * **`solucao`**: A string containing the detailed official explanation. It fully supports **Markdown** formatting (e.g. bold text, blockquotes) and **KaTeX/LaTeX** equations (`$` for inline math, `$$` for block math).
 
-### Optional: Context Headers (`cabecalho`)
-For any of the three question types above, you can optionally include a `"cabecalho"` field. It will display in a formatted, code-friendly box immediately above the question text. This is useful for terminal logs, code snippets, or configuration files:
+### Optional Parameters
+
+#### 1. Context Headers (`cabecalho`)
+For any of the three question types, you can optionally include a `"cabecalho"` field. It will display immediately above the question text. 
+* To display standard, wrapping text paragraphs, write the header as a simple string.
+* To render **monospaced terminal logs, code snippets, or ASCII tables/diagrams** with strict alignment, wrap the block inside triple backticks (\`\`\`) in the JSON string (with literal `\n` characters):
 
 ```json
 {
   "tipo": "boolean",
-  "cabecalho": "$ ansible all -m ping\nnode1 | SUCCESS => {\n    \"changed\": false,\n    \"ping\": \"pong\"\n}",
-  "pergunta": "O comando ad-hoc acima confirma que o Ansible conseguiu autenticar-se e interagir com o módulo ping no host 'node1'.",
+  "cabecalho": "```\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n```",
+  "pergunta": "O ficheiro 'file.txt' pertence ao grupo 'admin'.",
   "solucao": 0
+}
+```
+
+#### 2. Answer Explanations (`explicacao`)
+For any question type, you can include an optional `"explicacao"` string field. When the user reveals the answer, the simulator displays this text alongside the correct option to support studying. It also supports basic markdown and KaTeX equations:
+
+```json
+{
+  "tipo": "boolean",
+  "pergunta": "A representação octal do conjunto de permissões '-rw-r--r--' é 533.",
+  "solucao": 1,
+  "explicacao": "Falso. As permissões correspondentes a `rw-` são $4 + 2 = 6$, e `r--` é $4$. A representação octal correta é **644**."
 }
 ```
 

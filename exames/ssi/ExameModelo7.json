@@ -4,13 +4,13 @@
   "perguntas": [
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n```\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie\n```",
       "pergunta": "Sobre `/var/log/auth.log`, a flag 'S' (maiúscula) nas permissões de dono (owner) indica que o bit de SUID está ativo, mas o ficheiro não tem permissão base de execução atribuída ao dono.",
       "solucao": 0
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n```\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie\n```",
       "pergunta": "O utilizador `charlie` pode apagar quaisquer ficheiros pertencentes ao utilizador `alice` que se encontrem dentro da diretoria `shared_docs`.",
       "solucao": 1
     },
@@ -21,7 +21,7 @@
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n```\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie\n```",
       "pergunta": "A execução do programa `backup_tool` por parte da utilizadora `alice` fará com que o processo execute transitoriamente com o grupo efetivo `staff`, em virtude do bit de SetGID ('s').",
       "solucao": 0
     },
@@ -37,7 +37,7 @@
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes do terminal:\n\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie",
+      "cabecalho": "Considere os excertos seguintes do terminal:\n\n```\n$ ls -l\ndrwxr-xr-x  3 root    wheel  1024 Apr 10 09:00  /var/log\n-rwSr--r--  1 root    admin  2048 Apr 10 09:15  /var/log/auth.log\n-rwxr-s---  1 admin   staff  5120 Apr 11 11:20  backup_tool\ndrwxrwxr-t  2 root    staff  4096 Apr 12 14:00  shared_docs\n\n$ cat /etc/group\nadmin:x:1001:alice,bob\nstaff:x:1002:alice,charlie\n```",
       "pergunta": "O utilizador `bob` conseguiria invocar e executar com sucesso o programa `backup_tool` a partir do seu terminal.",
       "solucao": 1
     },

@@ -435,7 +435,7 @@
       ]
     },
     {
-      "cabecalho": "Considere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U",
+      "cabecalho": "```\nConsidere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U\n```",
       "pergunta": "Com base na tabela de mapeamento do cabeçalho, qual é o criptograma da palavra 'BOM'?",
       "opcoes": [
         "KOP",
@@ -449,7 +449,7 @@
       ]
     },
     {
-      "cabecalho": "Considere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U",
+      "cabecalho": "```\nConsidere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U\n```",
       "pergunta": "Qual das seguintes afirmações sobre a força criptográfica deste sistema de cifragem é verdadeira?",
       "opcoes": [
         "É imune à análise de frequências por ser polialfabética.",
@@ -463,7 +463,7 @@
       ]
     },
     {
-      "cabecalho": "Considere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U",
+      "cabecalho": "```\nConsidere uma cifra de substituição monoalfabética com a seguinte tabela de mapeamento parcial do alfabeto:\nAlfabeto Limpo:    A B C D E F G H I J K L M N O P Q R S T U V W X Y Z\nAlfabeto Cifrado:  D K V Q F I B J W E Z H N O P X T R S Y C A G M L U\n```",
       "pergunta": "Se tentarmos decifrar a letra 'D' usando a tabela do cabeçalho, qual será o carácter correspondente no texto limpo?",
       "opcoes": [
         "A",

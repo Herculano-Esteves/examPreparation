@@ -3,7 +3,7 @@
   "descricao": "Base de dados super completa (50 questões) contendo casos práticos de permissões, V/F, ACLs estendidas, comandos umask/chmod/chown, capabilities de Linux e gestão de privilégios reais/efetivos.",
   "perguntas": [
     {
-      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
+      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n```\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie\n```",
       "pergunta": "O utilizador 'bob' tenta entrar no diretório 'docs' (executando 'cd docs'). O comando será executado com sucesso?",
       "opcoes": [
         "Sim, porque qualquer utilizador pertencente ao grupo 'security'.",
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
+      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n```\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie\n```",
       "pergunta": "O utilizador 'charlie' executa um processo para ler o ficheiro 'confidential.txt'. O kernel irá autorizar o acesso?",
       "opcoes": [
         "Não, porque apenas a proprietária 'alice' pode ler o ficheiro.",
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
+      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n```\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie\n```",
       "pergunta": "O executável 'backup_tool' tem o bit setuid ativo e pertence ao utilizador 'root'. Se o utilizador comum 'bob' executar este binário, qual será o UID efetivo (EUID) do processo?",
       "opcoes": [
         "O UID do utilizador 'root'.",
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
+      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n```\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie\n```",
       "pergunta": "O script 'archive.sh' tem o bit setgid ativo e pertence ao grupo 'backup'. O utilizador 'alice' executa este script. O processo correspondente corre com que GID efetivo (EGID)?",
       "opcoes": [
         "O GID do grupo 'managers'.",
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie",
+      "cabecalho": "Considere o seguinte cenário de permissões em Linux para responder às Questões 1 a 5:\n\n```\n$ ls -l\ndrwxr-x--- 2 alice security 4096 May 19 10:00 docs\n-rwsr-xr-x 1 root  root     8492 May 19 10:00 backup_tool\n-rwxr-sr-x 1 bob   backup   4120 May 19 10:00 archive.sh\n-rw-r----- 1 alice managers  300 May 19 10:00 confidential.txt\n\n$ cat /etc/group\nsecurity:x:1001:alice,bob\nmanagers:x:1002:bob,charlie\nbackup:x:1003:charlie\n```",
       "pergunta": "O utilizador 'charlie' tenta apagar o ficheiro 'confidential.txt' sabendo que tem permissão de escrita e execução no diretório onde o ficheiro se encontra. O que acontece?",
       "opcoes": [
         "A remoção é bem-sucedida, porque a permissão de escrita e execução no diretório pai permite criar, remover ou renomear qualquer entrada de ficheiro nele contida.",
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
+      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n```\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.\n```",
       "pergunta": "O utilizador 'bob' executa 'cd /var/shared/dir_x' e depois 'cat secret.txt'. Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque 'bob' é impedido de aceder aos ficheiros se não puder listar o diretório com 'ls'.",
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
+      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n```\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.\n```",
       "pergunta": "O utilizador 'bob' executa 'ls -l /var/shared/dir_r'. O que é que ele consegue ver?",
       "opcoes": [
         "Consegue ver a lista completa de ficheiros com os respetivos metadados (tamanhos, permissões, dono).",
@@ -101,7 +101,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
+      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n```\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.\n```",
       "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_rw' ('touch /var/shared/dir_rw/new.txt'). Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque apenas a dona 'alice' pode criar ficheiros em qualquer pasta.",
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
+      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n```\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.\n```",
       "pergunta": "O utilizador 'bob' tenta criar um novo ficheiro chamado 'new.txt' dentro de 'dir_wx' ('touch /var/shared/dir_wx/new.txt'). Esta operação é bem-sucedida?",
       "opcoes": [
         "Não, porque apenas a dona 'alice' pode criar ficheiros em qualquer pasta.",
@@ -129,7 +129,7 @@
       ]
     },
     {
-      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.",
+      "cabecalho": "Considere o seguinte Cenário de Permissões de Diretórios (Questões 6 a 10):\n\n```\n$ ls -l /var/shared\nd--x------ 2 alice managers 4096 May 19 10:00 dir_x\ndr--r----- 2 alice managers 4096 May 19 10:00 dir_r\ndrw-r----- 2 alice managers 4096 May 19 10:00 dir_rw\nd-wxr-x--- 2 alice managers 4096 May 19 10:00 dir_wx\ndr-xr-x--- 2 alice managers 4096 May 19 10:00 dir_rx\n\nDentro de 'dir_x' e 'dir_r' existe um ficheiro regular chamado 'secret.txt' (permissões -rw-r--r--) pertencente a 'alice'.\nO utilizador 'bob' pertence ao grupo 'managers'.\n```",
       "pergunta": "O utilizador 'bob' executa 'cd /var/shared/dir_rw'. O que acontece?",
       "opcoes": [
         "O comando funciona, mas 'bob' não poderá ler os ficheiros lá dentro.",
@@ -496,7 +496,7 @@
       ]
     },
     {
-      "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---",
+      "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n```\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---\n```",
       "pergunta": "Com base no cabeçalho apresentado, o utilizador 'developer' possui que nível de acesso efetivo ao diretório /var/shared/project?",
       "opcoes": [
         "Apenas leitura e travessia (r-x)",
@@ -510,7 +510,7 @@
       ]
     },
     {
-      "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---",
+      "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n```\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---\n```",
       "pergunta": "Com base no cabeçalho apresentado, se um utilizador que não seja o 'manager', nem o 'developer', nem pertença ao grupo 'staff' tentar aceder ao diretório, que permissões lhe serão aplicadas?",
       "opcoes": [
         "Permissões de 'other', ou seja, nenhum acesso (---)",
@@ -524,7 +524,7 @@
       ]
     },
     {
-      "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---",
+      "cabecalho": "Considere a saída do seguinte comando de listagem de permissões e ACLs estendidas em Linux:\n\n```\n$ getfacl /var/shared/project\n# file: /var/shared/project\n# owner: manager\n# group: staff\nuser::rwx\nuser:developer:r-x\ngroup::r-x\nmask::r-x\nother::---\n```",
       "pergunta": "Se o proprietário 'manager' executar o comando 'chmod 777 /var/shared/project', qual será o impacto na máscara (mask) de ACL do ficheiro?",
       "opcoes": [
         "A máscara será recalculada para 'rwx', permitindo que as permissões efetivas dos utilizadores e grupos nomeados (como 'user:developer') subam até ao seu limite máximo definido na ACL.",

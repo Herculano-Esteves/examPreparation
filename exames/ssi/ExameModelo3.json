@@ -4,31 +4,31 @@
   "perguntas": [
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie\n```",
       "pergunta": "O utilizador `alice` pode criar novos ficheiros na diretoria `containers`.",
       "solucao": 0
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie\n```",
       "pergunta": "A diretoria `containers` possui o bit de set-group-id (SGID) ativo, o que significa que os novos ficheiros criados dentro desta herdarão o grupo `docker`.",
       "solucao": 0
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie\n```",
       "pergunta": "O ficheiro `script.sh` pode ser modificado pelo utilizador `charlie`.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie\n```",
       "pergunta": "O ficheiro `tool` será executado com os privilégios do utilizador que o invocar, independentemente de quem for o invocador.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxr-s---  2 root   docker 4096 Apr  1 12:00 containers\n-rwxr-xr-x  1 alice  staff  1024 Apr  2 14:00 script.sh\n-rw-rw----  1 bob    staff  2048 Apr  3 09:30 data.txt\n-rwsr-xr-x  1 root   root   8192 Apr  4 10:00 tool\n\n$ cat /etc/group\ndocker:x:999:alice\nstaff:x:1000:alice,bob,charlie\n```",
       "pergunta": "A execução do comando `chmod g-s containers` pelo utilizador `root` removerá a capacidade de os utilizadores do grupo `docker` acederem ao conteúdo da diretoria.",
       "solucao": 1
     },

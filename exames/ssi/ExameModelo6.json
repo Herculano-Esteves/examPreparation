@@ -4,13 +4,13 @@
   "perguntas": [
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob\n```",
       "pergunta": "Considere o excerto do início da página. O utilizador `admin` pode escrever em qualquer ficheiro contido na diretoria `results`.",
       "solucao": 1
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob\n```",
       "pergunta": "Considere o excerto do início da página. Relativamente à diretoria `scripts`, o utilizador `bob` é capaz de mudar (`cd`) para essa diretoria.",
       "solucao": 1
     },
@@ -21,7 +21,7 @@
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob\n```",
       "pergunta": "Considere o excerto do início da página. A execução com sucesso do comando `chmod 744 plot.sh` torna o ficheiro `plot.sh` executável para todos os utilizadores.",
       "solucao": 1
     },
@@ -37,7 +37,7 @@
     },
     {
       "tipo": "boolean",
-      "cabecalho": "Considere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob",
+      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando `ls -l` e um fragmento do ficheiro `/etc/group`, respetivamente. Utilize a informação destes excertos para responder às questões que fazem referência ao mesmo.\n\n$ ls -l\ndrwxrw----  6 admin   eval  192  Mar  5 10:02  scripts\n-rw-r--r--  1 student ssl   2752 Feb 20 13:50  notes.txt\n-rw-rw-r--  1 teacher mai   1692 Feb 20 13:50  plot.sh\ndrwxrwxrwx  6 teacher eval  192  Mar  5 10:03  results\n\n$ cat /etc/group\nssl:x:991:teacher,student\neval:x:994:teacher,admin,bob\n```",
       "pergunta": "Considere o excerto do início da página. A execução com sucesso do comando `chmod o+x notes.txt` permite que o utilizador `bob` escreva no ficheiro `notes.txt`.",
       "solucao": 1
     },
