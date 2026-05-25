@@ -1,5 +1,14 @@
 [
   {
+    "id": "adi",
+    "nome": "Aprendizagem e Decisão Inteligentes",
+    "sigla": "ADI",
+    "icon": "fa-brain",
+    "descricao": "Aborda técnicas de Inteligência Artificial e Machine Learning, incluindo metodologias CRISP-DM/SEMMA, preparação de dados, redes neuronais artificiais, árvores de decisão e fluxos KNIME.",
+    "exames_count": 2,
+    "index_path": "exames/adi/index.json"
+  },
+  {
     "id": "ssi",
     "nome": "Segurança de Sistemas de Informação",
     "sigla": "SSI",

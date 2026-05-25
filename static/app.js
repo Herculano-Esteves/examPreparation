@@ -545,11 +545,17 @@ function renderFeedbackUI(q) {
         elements.feedbackTitle.textContent = isCorrect ? 'Resposta Correta!' : 'Resposta Incorreta!';
 
         const letters = correctList.map(val => String.fromCharCode(65 + val)).sort().join(', ');
+        let msg = '';
         if (correctList.length === 1) {
-            elements.feedbackMessage.textContent = `A resposta correta é a Alínea ${letters}.`;
+            msg = `A resposta correta é a Alínea ${letters}.`;
         } else {
-            elements.feedbackMessage.textContent = `As respostas corretas são as Alíneas: ${letters}.`;
+            msg = `As respostas corretas são as Alíneas: ${letters}.`;
         }
+
+        if (q.explicacao) {
+            msg += `<br><br><strong>Explicação / Justificação:</strong><br>${renderMarkdown(q.explicacao)}`;
+        }
+        elements.feedbackMessage.innerHTML = msg;
     }
 }
 
@@ -728,6 +734,10 @@ function copyQuestionToClipboard() {
         const correctLetters = correctList.map(val => String.fromCharCode(65 + val)).sort().join(', ');
 
         textToCopy += `\nAlíneas:\n${optionsText}\n\nResposta(s) Correta(s):\n${correctLetters}`;
+    }
+
+    if (q.explicacao) {
+        textToCopy += `\n\nExplicação / Justificação:\n${q.explicacao}`;
     }
 
     // Write to clipboard

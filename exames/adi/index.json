@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ExameADI1",
+    "titulo": "Exame ADI 1 (Época Normal 2023/2024)",
+    "descricao": "Exame completo da época normal de Aprendizagem e Decisão Inteligentes (ADI) cobrindo regressão, discretização, arquitetura de RNAs, árvores de decisão, Knime workflows de hold-out e análise do Titanic dataset.",
+    "path": "exames/adi/ExameADI1.json",
+    "perguntas_count": 31
+  },
+  {
+    "id": "ExameADI2",
+    "titulo": "Exame ADI 2 (Época de Recurso 2023/2024)",
+    "descricao": "Exame completo da época de recurso de Aprendizagem e Decisão Inteligentes (ADI) cobrindo métricas de classificação, regressão com targets discretos, desequilíbrio de classes, soft computing, redes neuronais artificiais, algoritmos de clustering, CRISP-DM e workflows Knime.",
+    "path": "exames/adi/ExameADI2.json",
+    "perguntas_count": 35
+  }
+]

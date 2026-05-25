@@ -1,0 +1,197 @@
+{
+  "titulo": "Exame ADI 1 (Época Normal 2023/2024)",
+  "descricao": "Exame completo da época normal de Aprendizagem e Decisão Inteligentes (ADI) cobrindo regressão, discretização, arquitetura de RNAs, árvores de decisão, Knime workflows de hold-out e análise do Titanic dataset.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "A resolução de problemas por aplicação de técnicas de Machine Learning envolve a identificação do tipo de problema em questão. Para problemas de regressão, dê 3 exemplos de métricas de qualidade, explicando o seu significado.",
+      "solucao": "1. **MAE (Mean Absolute Error / Erro Médio Absoluto)**: Média aritmética das diferenças absolutas entre as previsões do modelo e os valores reais. Mede a magnitude média do erro de forma linear simples.\n2. **MSE (Mean Squared Error / Erro Médio Quadrático)**: Média aritmética dos quadrados das diferenças entre previsões e valores reais. Penaliza fortemente erros de maior dimensão (outliers) devido à elevação ao quadrado.\n3. **RMSE (Root Mean Squared Error / Raiz do Erro Médio Quadrático)**: Raiz quadrada do MSE. Permite analisar o erro nas mesmas unidades do atributo target original, facilitando a interpretação física do desvio.\n4. **$R^2$ (R-squared / Coeficiente de Determinação)**: Indica a proporção da variabilidade dos dados reais que é explicável pelo modelo. Varia idealmente de 0 a 1."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No desenvolvimento de um projeto de Machine Learning, descreva as fases típicas de:\na) Indicação do tipo de problema do dataset analisado com base no tipo de dados do atributo target (ex: classificação vs regressão).\nb) Identificação da relação entre as técnicas aplicadas e os resultados práticos pretendidos.",
+      "solucao": "a) **Identificação do tipo de problema**: Se o atributo *target* (variável a prever) for **discreto ou categórico** (ex: Sobreviveu/Não Sobreviveu, Tipo de Cliente), o problema é de **classificação**. Se o atributo *target* for **contínuo ou numérico** (ex: preço, salário, temperatura), trata-se de um problema de **regressão**.\n\nb) **Relação entre técnicas e resultados**: A escolha das técnicas de ML deve adequar-se ao tipo de problema. Para classificação, utilizam-se técnicas como Árvores de Decisão, Regressão Logística ou Multi-Layer Perceptrons, cujo resultado visa prever classes qualitativas exatas. Para regressão, aplicam-se modelos como Regressão Linear, Regressores de Árvore ou Redes Neuronais com outputs contínuos, visando prever um valor quantitativo que minimiza o desvio estatístico face ao target real."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Considere a distribuição dos dados de um atributo contínuo com assimetria positiva, em que no eixo xx' estão representados os valores do atributo e no eixo yy' a sua frequência. Havendo a intenção de discretizar este atributo, explique as consequências de serem utilizadas estratégias de discretização de igual altura (equal frequency binning) e de igual largura (equal width binning).",
+      "solucao": "1. **Igual Altura (Equal Frequency Binning)**:\n   - *Mecanismo*: Divide os dados em intervalos (bins) contendo o mesmo número aproximado de registos.\n   - *Consequência com assimetria positiva*: Visto que os dados estão concentrados à esquerda (valores baixos), os intervalos nesta zona serão muito estreitos, enquanto na cauda à direita (valores altos e esparsos) os intervalos serão extremamente largos. Isto preserva a representatividade estatística em termos de contagem por bloco, mas pode agrupar sob uma mesma categoria dados muito distantes na cauda.\n2. **Igual Largura (Equal Width Binning)**:\n   - *Mecanismo*: Divide a gama de valores ($Max - Min$) em intervalos com a mesma amplitude física.\n   - *Consequência com assimetria positiva*: Devido à cauda longa à direita, a grande maioria dos registos concentrar-se-á em apenas um ou dois intervalos à esquerda. Os restantes intervalos à direita ficarão quase vazios ou com baixíssima frequência, resultando em categorias desequilibradas e com pouca capacidade discriminatória para modelos de Machine Learning."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Numa Rede Neuronal Artificial, um neurónio é a ______________________________________ de composição da rede, o axónio é __________________________________________________ e a sinapse é _________________________________ entre ______________________ e ______________________.",
+      "solucao": "As palavras em falta são:\n1. **unidade básica** (ou elemento de processamento)\n2. **o canal de transmissão do sinal de saída do neurónio** (ou via de propagação do sinal)\n3. **a ligação / conexão**\n4. **um neurónio**\n5. **outro neurónio** (ou entre neurónio emissor e neurónio recetor)\n\n*Explicação*: Um neurónio artificial é o elemento processador básico numa rede. O axónio descreve a via pela qual o sinal de saída é propagado a jusante na rede. As sinapses representam as conexões físicas entre os neurónios, às quais estão associados pesos sinápticos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Em Machine Learning a regressão linear é uma técnica para previsão de ______________________________ e a regressão logística é uma técnica para previsão de _____________________________.",
+      "solucao": "As palavras em falta são:\n1. **valores numéricos contínuos**\n2. **valores discretos / categóricos (probabilidades de classes)**\n\n*Explicação*: A regressão linear ajusta uma reta (ou hiperplano) para mapear entradas para uma variável dependente numérica contínua. Por outro lado, a regressão logística estima a probabilidade de pertença a categorias utilizando a função logística (sigmoide) para mapear o output para o intervalo $[0, 1]$, resolvendo problemas de classificação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma Árvore de Decisão é um grafo hierarquizado em que um ________________________ testa um atributo do dataset, cada ____________________ identifica uma alternativa do teste e cada _______________________ representa uma decisão.",
+      "solucao": "As palavras em falta são:\n1. **nó interno (ou nó de teste)**\n2. **ramo (ou aresta / alternativa)**\n3. **folha (ou nó terminal)**\n\n*Explicação*: A estrutura de uma árvore de decisão é composta por nós de decisão internos que dividem os dados com base num atributo, ramos correspondentes aos resultados de cada teste, e folhas que contêm a classe final prevista ou valor final atribuído."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num paradigma da aprendizagem com supervisão é possível construir uma relação entre os valores _________________ e os valores __________________, uma vez que _________________ utilizados para a aprendizagem ___________________ informações sobre os resultados pretendidos.",
+      "solucao": "As palavras em falta são:\n1. **de entrada (atributos / features)**\n2. **de saída (target / classe / rótulos)**\n3. **os dados (exemplos)**\n4. **contêm (incorporam / disponibilizam)**\n\n*Explicação*: Na aprendizagem supervisionada, o modelo aprende a função de mapeamento de entradas (features) para saídas (targets) porque o conjunto de dados de treino já inclui a resposta correta para cada registo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Machine Learning é um paradigma de computação em que a characteristic essencial do sistema se revela pela sua capacidade de aprender com a experiência de modo autónomo e independente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. No Machine Learning, o sistema não é explicitamente programado com regras lógicas rígidas para resolver um problema. Em vez disso, aprende a partir de dados (experiência) para extrair padrões e tomar decisões de forma autónoma."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma metodologia para análise de dados (ex: CRISP-DM ou SEMMA) define quais as técnicas concretas de Machine Learning que deverão ser utilizadas no desenvolvimento do projeto.",
+      "solucao": 1,
+      "explicacao": "Falso. As metodologias (como CRISP-DM e SEMMA) estruturam o *processo* e as etapas lógicas de desenvolvimento (compreensão de negócio, preparação de dados, avaliação, etc.). Elas não impõem quais algoritmos ou técnicas de Machine Learning devem ser utilizados, cabendo ao cientista de dados fazer essa seleção com base nas características do problema."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na fase de preparação de dados, a discretização de igual altura transforma um atributo numérico em categórico, e a discretização de igual largura transforma um atributo categórico em numérico.",
+      "solucao": 1,
+      "explicacao": "Falso. Ambos os métodos (igual altura e igual largura) são técnicas de discretização, o que significa que ambos transformam atributos **numéricos** em atributos **categóricos**. Nenhum deles transforma categóricos em numéricos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Técnicas de Machine Learning baseadas em Árvores de Decisão são utilizadas para a resolução de problemas de regressão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As Árvores de Decisão podem ser usadas tanto para classificação (prever classes categóricas) como para regressão (prever valores contínuos), caso em que a previsão de cada folha é a média ou mediana das observações de treino contidas nessa partição."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O treino de uma Rede Neuronal Artificial corresponde à aplicação de regras de aprendizagem que visam fazer variar os pesos das ligações entre neurónios.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O treino consiste na otimização dos pesos sinápticos e dos bias da rede. Através de algoritmos como backpropagation e descida de gradiente, os pesos variam de forma a minimizar o erro entre a previsão da rede e os valores reais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Numa Rede Neuronal Artificial feedforward podem existir ligações entre os neurónios de uma mesma camada intermédia.",
+      "solucao": 1,
+      "explicacao": "Falso. Numa rede neuronal *feedforward* (como o Multi-Layer Perceptron), os neurónios estão organizados em camadas independentes e o fluxo de informação desloca-se apenas unidirecionalmente para a frente (da entrada para a saída). Não existem conexões laterais entre neurónios da mesma camada nem conexões que voltem para trás."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. As células vazias (como na coluna Cabin ou o valor de Age na linha 6) representam missing values.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As células em branco num dataset representam ausência de dados para esse registo e atributo, o que constitui tecnicamente um *missing value* (valor em falta) que requer tratamento na fase de preparação de dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. Os dados da coluna PassengerId representam conhecimento com relevância analítica direta para o modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. A coluna PassengerId é um identificador numérico sequencial (chave primária) que serve apenas para distinguir os registos. Não contém qualquer padrão comportamental ou informacional útil para correlacionar com a sobrevivência, devendo ser removida na fase de preparação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. Não é possível preencher as células vazias da coluna Cabin por se tratar de um atributo alfanumérico.",
+      "solucao": 1,
+      "explicacao": "Falso. É possível tratar e preencher valores em falta de atributos alfanuméricos/categóricos (ex: substituindo por um valor constante como 'Desconhecido', imputando a moda ou usando modelos preditivos auxiliares para estimar a cabine)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. Não é possível discretizar os dados da coluna Age por conter células vazias.",
+      "solucao": 1,
+      "explicacao": "Falso. Pode-se discretizar a idade contendo missing values. Para tal, basta tratar primeiro o missing value (ex: imputando a média/mediana das idades) ou, alternativamente, definir uma categoria explícita chamada 'Desconhecido' para os valores em falta durante a discretização."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. Apesar de a coluna Pclass estar preenchida com números (1, 2, 3), representa conhecimento categórico.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Pclass representa a classe do bilhete do passageiro (1ª, 2ª ou 3ª classe). Embora codificada numericamente, é uma variável categórica ordinal, pois indica uma categoria qualitativa com uma ordem lógica, e não uma quantidade contínua na qual façam sentido operações como somas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. Os dados da coluna Sex representam conhecimento binário.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A coluna Sex possui apenas duas categorias mutuamente exclusivas ('male' e 'female'), o que a classifica formalmente como um atributo binário (ou dicotómico)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, as técnicas de segmentação (clustering) são técnicas usadas para construir modelos para previsão de resultados contínuos.",
+      "solucao": 1,
+      "explicacao": "Falso. A previsão de valores numéricos contínuos é o objetivo das técnicas de regressão (ex: Regressão Linear). O clustering é uma técnica não supervisionada cujo objetivo é agrupar instâncias com base na sua similaridade/distância."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, as técnicas de segmentação (clustering) seguem um paradigma de aprendizagem por reforço.",
+      "solucao": 1,
+      "explicacao": "Falso. O clustering enquadra-se no paradigma de aprendizagem não supervisionada. A aprendizagem por reforço é um paradigma diferente, baseado na interação com um ambiente através de recompensas e penalizações."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, as técnicas de segmentação (clustering) são técnicas de aprendizagem automática.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O clustering é uma das áreas fundamentais do Machine Learning (aprendizagem automática), focado na descoberta de estruturas ocultas ou agrupamentos nos dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, as técnicas de segmentação (clustering) seguem um paradigma de aprendizagem supervisionada.",
+      "solucao": 1,
+      "explicacao": "Falso. As técnicas de clustering são não supervisionadas, uma vez que operam sobre dados sem rótulos (labels) pré-definidos ou respostas corretas conhecidas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, as técnicas de segmentação (clustering) são técnicas usadas para construir modelos de classificação.",
+      "solucao": 1,
+      "explicacao": "Falso. A classificação é uma tarefa de aprendizagem supervisionada para prever rótulos de classe pré-existentes. O clustering agrupa dados com base em distâncias sem usar ou tentar prever classes rotuladas previamente."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, as técnicas de segmentação (clustering) seguem um paradigma de aprendizagem não supervisionada.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O clustering não requer variáveis alvo (targets) ou rótulos nos dados de treino, caracterizando assim o paradigma da aprendizagem não supervisionada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| [X] Relative [%]: 70.0                                       |\n| [ ] Absolute [rows]: 1000                                    |\n|                                                              |\n| Partition Method:                                            |\n| [ ] Take first      [X] Draw randomly       [ ] Stratified   |\n|                                                              |\n| Options:                                                     |\n| [X] Use random seed: 12345                                   |\n+--------------------------------------------------------------+",
+      "pergunta": "O nodo Partitioning configurado de acordo com a janela acima implementa uma estratégia de validação de modelos denominada cross validation.",
+      "solucao": 1,
+      "explicacao": "Falso. O nodo 'Partitioning' realiza uma partição simples dos dados (neste caso, 70% para uma partição e 30% para a outra), o que serve para implementar a validação por Hold-out. A validação cruzada (Cross Validation) exige ciclos iterativos que dividem os dados em K folds e não é configurada através de um único particionamento estático."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| [X] Relative [%]: 70.0                                       |\n| [ ] Absolute [rows]: 1000                                    |\n|                                                              |\n| Partition Method:                                            |\n| [ ] Take first      [X] Draw randomly       [ ] Stratified   |\n|                                                              |\n| Options:                                                     |\n| [X] Use random seed: 12345                                   |\n+--------------------------------------------------------------+",
+      "pergunta": "A configuração do nodo Partitioning ilustrada na janela acima é adequada para permitir a replicabilidade das experiências.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como a opção 'Use random seed' está ativada com a semente '12345', a seleção aleatória dos registos será exatamente idêntica em todas as execuções do workflow. Isto garante a repetibilidade e a replicabilidade dos resultados experimentais."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| [X] Relative [%]: 70.0                                       |\n| [ ] Absolute [rows]: 1000                                    |\n|                                                              |\n| Partition Method:                                            |\n| [ ] Take first      [X] Draw randomly       [ ] Stratified   |\n|                                                              |\n| Options:                                                     |\n| [X] Use random seed: 12345                                   |\n+--------------------------------------------------------------+",
+      "pergunta": "Na janela de configuração do KNIME mostrada acima, a opção «Draw randomly» é incompatível com a opção «Use random seed».",
+      "solucao": 1,
+      "explicacao": "Falso. Ambas as opções são perfeitamente compatíveis e devem ser usadas em conjunto. A opção 'Draw randomly' define que a amostragem é aleatória, enquanto 'Use random seed' garante que essa aleatoriedade segue uma sequência pseudo-aleatória fixa para permitir repetibilidade."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| [X] Relative [%]: 70.0                                       |\n| [ ] Absolute [rows]: 1000                                    |\n|                                                              |\n| Partition Method:                                            |\n| [ ] Take first      [X] Draw randomly       [ ] Stratified   |\n|                                                              |\n| Options:                                                     |\n| [X] Use random seed: 12345                                   |\n+--------------------------------------------------------------+",
+      "pergunta": "A opção «Relative [%]» na configuração do nodo Partitioning do KNIME tem de ser obrigatoriamente um valor superior a 50.",
+      "solucao": 1,
+      "explicacao": "Falso. O valor do parâmetro 'Relative [%]' pode ser configurado com qualquer percentagem válida entre 0 e 100, dependendo dos objetivos do utilizador (ex: pode-se particionar com 30% ou 10% se pretendido)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| [X] Relative [%]: 70.0                                       |\n| [ ] Absolute [rows]: 1000                                    |\n|                                                              |\n| Partition Method:                                            |\n| [ ] Take first      [X] Draw randomly       [ ] Stratified   |\n|                                                              |\n| Options:                                                     |\n| [X] Use random seed: 12345                                   |\n+--------------------------------------------------------------+",
+      "pergunta": "O nodo Partitioning configurado da forma ilustrada acima implementa uma estratégia de treino designada hold-out validation.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O hold-out consiste em separar o dataset em subconjuntos disjuntos (normalmente treino e teste) para treinar o modelo numa fração e testá-lo na restante. O particionamento em 70% e 30% implementa precisamente este método."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| [X] Relative [%]: 70.0                                       |\n| [ ] Absolute [rows]: 1000                                    |\n|                                                              |\n| Partition Method:                                            |\n| [ ] Take first      [X] Draw randomly       [ ] Stratified   |\n|                                                              |\n| Options:                                                     |\n| [X] Use random seed: 12345                                   |\n+--------------------------------------------------------------+",
+      "pergunta": "Quando assinalada, a opção «Stratified sampling» cria uma nova amostra do dataset designada «label».",
+      "solucao": 1,
+      "explicacao": "Falso. A amostragem estratificada (Stratified sampling) não cria colunas ou amostras com novos nomes. Em vez disso, garante que a proporção das classes do atributo target selecionado seja mantida de forma idêntica tanto no conjunto de treino como no de teste (evitando desequilíbrio na divisão)."
+    }
+  ]
+}
