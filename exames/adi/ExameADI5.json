@@ -1,0 +1,132 @@
+{
+  "titulo": "Exame Específico de KNIME (Verdadeiro ou Falso)",
+  "descricao": "Exame temático composto exclusivamente por questões de Verdadeiro ou Falso (booleanas) focadas na configuração, utilidade e fluxos de trabalho (workflows) de nós KNIME para preparação de dados, modelação e avaliação.",
+  "perguntas": [
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Scorer» no KNIME é adequado para avaliar o desempenho de modelos de regressão, calculando métricas de erro como o MAE (Erro Médio Absoluto) e o R-Quadrado ($R^2$).",
+      "solucao": 1,
+      "explicacao": "Falso. O nodo 'Scorer' destina-se a problemas de classificação (calcula a matriz de confusão, exatidão, precisão, etc.). Para avaliar modelos de regressão, o nodo correto é o 'Numeric Scorer'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Normalizer» do KNIME suporta três estratégias de escala: normalização Min-Max, padronização Z-Score (Gaussian) e normalização por escala decimal (Decimal Scaling).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O diálogo de configuração do nodo 'Normalizer' oferece exatamente estas três opções clássicas de preparação de dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No nodo «Missing Value» do KNIME, configurar um atributo com a opção 'Remove Row' remove do dataset todas as colunas que contenham pelo menos um valor em falta.",
+      "solucao": 1,
+      "explicacao": "Falso. A opção 'Remove Row' elimina a linha (registo/instância) inteira onde ocorre o valor em falta, não afetando a estrutura de colunas do dataset."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No KNIME, o nodo «SMOTE» deve ser colocado imediatamente antes do nodo de particionamento (Partitioning) para garantir que os exemplos sintéticos sejam criados sobre todo o conjunto de dados original.",
+      "solucao": 1,
+      "explicacao": "Falso. O SMOTE deve ser aplicado apenas sobre os dados de treino (a jusante do Partitioning). Aplicá-lo antes do particionamento provoca data leakage (fuga de informação), uma vez que dados sintéticos criados com base nas instâncias de teste seriam incorporados no treino, enviesando a avaliação do modelo."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Clustering Workflow                                                     |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer]                                                                  |\n|      │                                                                        |\n|      ├────────────────────────(Data)───────────────────────┐                  |\n|      ▼                                                     ▼                  |\n|  [K-Means] ──► (Cluster Centers/PMML) ──────────────► [Cluster Assigner]      |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo de clustering acima, o nodo «K-Means» calcula as coordenadas dos centroids e o nodo «Cluster Assigner» usa essa informação para associar os dados originais aos clusters correspondentes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O K-Means induz o agrupamento e emite o modelo (centroids) no seu porto de saída superior. O 'Cluster Assigner' recebe os dados e o modelo e atribui a cada linha o ID do cluster mais próximo."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Clustering Workflow                                                     |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer]                                                                  |\n|      │                                                                        |\n|      ├────────────────────────(Data)───────────────────────┐                  |\n|      ▼                                                     ▼                  |\n|  [K-Means] ──► (Cluster Centers/PMML) ──────────────► [Cluster Assigner]      |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo de clustering acima, a presença do nodo «Normalizer» é facultativa e desnecessária porque o algoritmo K-Means é imune a diferenças de escala ou unidades dos atributos do dataset.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means baseia-se em cálculos de distância geométrica (geralmente Euclidiana). Se os dados não forem normalizados, os atributos com maior amplitude numérica dominarão os cálculos de distância, tornando o clustering incorreto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Clustering Workflow                                                     |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer]                                                                  |\n|      │                                                                        |\n|      ├────────────────────────(Data)───────────────────────┐                  |\n|      ▼                                                     ▼                  |\n|  [K-Means] ──► (Cluster Centers/PMML) ──────────────► [Cluster Assigner]      |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo de clustering acima, o nodo «K-Means» consegue deduzir de forma inteiramente automática o valor ideal de 'k' (número de clusters) sem intervenção do utilizador.",
+      "solucao": 1,
+      "explicacao": "Falso. O algoritmo K-Means exige que o utilizador configure e fixe previamente o parâmetro 'k' (número de clusters) antes de executar."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Decision Tree Evaluation Workflow                                       |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Treino)──► [Decision Tree Learner]                      |\n|      │                                    │ (Model)                           |\n|      │                                    ▼                                   |\n|      └───(30% Teste)───────────► [Decision Tree Predictor]                    |\n|                                           │                                   |\n|                                           ├────────► [Scorer]                 | \n|                                           │                                   |\n|                                           └────────► [ROC Curve]              |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo acima, o porto de saída do nodo «Decision Tree Learner» transmite uma tabela com as previsões efetuadas sobre os dados de treino.",
+      "solucao": 1,
+      "explicacao": "Falso. O porto de saída superior do Learner transmite o modelo de decisão construído (ficheiro PMML), que descreve a estrutura física da árvore induzida, e não uma tabela de previsões."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Decision Tree Evaluation Workflow                                       |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Treino)──► [Decision Tree Learner]                      |\n|      │                                    │ (Model)                           |\n|      │                                    ▼                                   |\n|      └───(30% Teste)───────────► [Decision Tree Predictor]                    |\n|                                           │                                   |\n|                                           ├────────► [Scorer]                 | \n|                                           │                                   |\n|                                           └────────► [ROC Curve]              |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo acima, o nodo «ROC Curve» é alimentado com as classes originais e as probabilidades estimadas resultantes do «Decision Tree Predictor» aplicadas sobre os dados de teste (30%).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Predictor aplica o modelo sobre a partição de teste e anexa a classe prevista e as probabilidades. O ROC Curve utiliza esta informação para traçar a curva e calcular a área sob a mesma (AUC)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Decision Tree Evaluation Workflow                                       |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Treino)──► [Decision Tree Learner]                      |\n|      │                                    │ (Model)                           |\n|      │                                    ▼                                   |\n|      └───(30% Teste)───────────► [Decision Tree Predictor]                    |\n|                                           │                                   |\n|                                           ├────────► [Scorer]                 | \n|                                           │                                   |\n|                                           └────────► [ROC Curve]              |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Se alterarmos a semente aleatória (random seed) nas configurações do nodo «Partitioning», o modelo final gerado pelo «Decision Tree Learner» manter-se-á rigorosamente inalterado.",
+      "solucao": 1,
+      "explicacao": "Falso. Alterar a semente altera as linhas que são distribuídas para treino (70%) e teste (30%). O Learner será induzido com dados diferentes, gerando uma árvore de decisão diferente."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Color Manager» adiciona propriedades visuais de cor aos dados baseando-se nas classes de uma coluna categórica, afetando a visualização gráfica dos nodos a jusante mas sem alterar o modelo matemático final.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O 'Color Manager' serve apenas para fins de parametrização estética das cores dos registos na interface e gráficos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No nodo «Numeric Outliers» do KNIME, é possível configurar a deteção de outliers com base em múltiplos da amplitude interquartílica (IQR) ou baseando-se no desvio padrão (Z-Score).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ambas as heurísticas estão disponíveis e implementadas no nó Numeric Outliers."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Rule Engine» permite injetar lógica do tipo conditional (IF-THEN) para criar ou substituir valores em novas colunas com base nos valores das colunas existentes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Rule Engine é um nó de transformação flexível que suporta lógica booleana condicional."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Concatenate» no KNIME é usado para combinar colunas adicionais de duas tabelas diferentes com base numa correspondência de chaves de identificação (equivalente ao JOIN do SQL).",
+      "solucao": 1,
+      "explicacao": "Falso. O nó que faz Join de colunas é o 'Joiner'. O 'Concatenate' junta as linhas (registos) de duas tabelas com colunas semelhantes (equivalente ao UNION do SQL)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Column Filter» serve para remover registos (linhas) da tabela com base em critérios de filtragem sobre os valores dos dados.",
+      "solucao": 1,
+      "explicacao": "Falso. O Column Filter remove ou mantém colunas (atributos). Para filtrar linhas (registos), o nó correto é o 'Row Filter'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nodos de ciclo (como o 'Group Loop Start' e 'Loop End') são obrigatórios e necessários no KNIME para executar fluxos simples de hold-out linear.",
+      "solucao": 1,
+      "explicacao": "Falso. Fluxos simples de hold-out requerem apenas uma divisão simples de dados e treino, não necessitando de loops. Os loops de validação cruzada (como X-Partitioner) é que usam estruturas cíclicas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Equal Size Sampling» pode ser configurado no KNIME como uma estratégia de undersampling para balancear datasets com desequilíbrio de classes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó extrai amostras de tamanho uniforme para todas as classes do target com base no tamanho da menor classe, implementando undersampling."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No diálogo de configuração do «Decision Tree Learner», o parâmetro 'Min number of records per node' define a profundidade vertical máxima da árvore.",
+      "solucao": 1,
+      "explicacao": "Falso. Define o número mínimo de registos que devem estar associados a uma partição para que o algoritmo tente efetuar uma nova divisão (split)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O nodo «Numeric Scorer» do KNIME gera uma matriz de confusão e calcula métricas como a sensibilidade (Recall) e a medida F1 (F-measure).",
+      "solucao": 1,
+      "explicacao": "Falso. O 'Numeric Scorer' calcula métricas de erro de regressão (MAE, MSE, RMSE, R^2). Matrizes de confusão e métricas associadas como F1 e Recall são fornecidas pelo nó 'Scorer'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No KNIME, a cor amarela num sinal luminoso na base de um nó indica que o mesmo foi executado com sucesso e contém dados ou modelos prontos a serem visualizados.",
+      "solucao": 1,
+      "explicacao": "Falso. Um nó amarelo significa que está devidamente configurado e pronto a ser executado. A cor verde é a que indica execução completa com sucesso."
+    }
+  ]
+}

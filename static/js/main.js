@@ -1,16 +1,14 @@
-import { State, elements } from './state.js';
-import { JSON_INSTRUCTIONS, showToast } from './utils.js';
-import { loadLocalData, saveLocalCadeiras, saveLocalExames } from './storage.js';
+import { State } from './state.js';
+import { elements } from './elements.js';
+import { JSON_INSTRUCTIONS } from './constants.js';
+import { showToast } from './utils.js';
+import { loadLocalData, saveLocalCadeiras, saveLocalExames, clearAllLocalData } from './storage.js';
 import { validateExamJSON } from './validation.js';
-import { 
-    fetchCadeiras, 
-    renderCadeirasMenu, 
-    fetchExams,
-    prevQuestion, 
-    nextQuestion, 
-    copyQuestionToClipboard,
-    transitionTo
-} from './renderer.js';
+import { transitionTo } from './navigation.js';
+import { fetchCadeiras, renderCadeirasMenu } from './cadeiras.js';
+import { fetchExams } from './exams.js';
+import { prevQuestion, nextQuestion } from './question.js';
+import { copyQuestionToClipboard } from './clipboard.js';
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
@@ -70,11 +68,7 @@ function setupEventListeners() {
     if (btnClearStorage) {
         btnClearStorage.addEventListener('click', () => {
             if (confirm('Tem a certeza absoluta de que deseja apagar todas as cadeiras e exames criados localmente? Esta ação não pode ser desfeita.')) {
-                localStorage.removeItem('simulador_cadeiras_locais');
-                localStorage.removeItem('simulador_exames_locais');
-                
-                State.localCadeiras = [];
-                State.localExames = [];
+                clearAllLocalData(State);
                 
                 showToast('Todos os dados locais foram apagados!', elements);
                 State.activeCadeira = null;

@@ -1,5 +1,23 @@
+/**
+ * utils.js
+ * --------
+ * Pure utility functions with no module-level side effects.
+ * No DOM references, no State — importable from any module safely.
+ *
+ * JSON_INSTRUCTIONS was moved to constants.js (MOD-04) because it is a
+ * static content string, not a utility function.
+ */
+
+/**
+ * Escape special HTML characters to prevent XSS.
+ * Returns an empty string for null / undefined input (BUG-05 fix).
+ *
+ * @param {*} str
+ * @returns {string}
+ */
 export function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g,
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>'"]/g,
         tag => ({
             '&': '&amp;',
             '<': '&lt;',
@@ -10,14 +28,30 @@ export function escapeHTML(str) {
     );
 }
 
+/**
+ * Minimal Markdown renderer supporting:
+ *  - Fenced code blocks (``` ... ```) → <pre><code>
+ *  - **bold** → <strong>
+ *  - `inline code` → <code>
+ *  - Newlines → <br> (unless isPreformatted is true)
+ *
+ * Note: escapeHTML is applied BEFORE markdown substitution so that
+ * `<` and `>` inside normal text are always escaped, while the HTML
+ * tags injected by the regex replacements are trusted and safe.
+ *
+ * @param {string} text
+ * @param {boolean} isPreformatted - If true, newlines are preserved as-is
+ * @returns {string} HTML string
+ */
 export function renderMarkdown(text, isPreformatted = false) {
-    if (!text) return "";
-    
-    const parts = text.split("```");
-    let result = "";
-    
+    if (!text) return '';
+
+    const parts = text.split('```');
+    let result = '';
+
     for (let i = 0; i < parts.length; i++) {
         if (i % 2 === 1) {
+            // Inside a fenced code block — preserve whitespace, escape HTML
             result += '<pre class="code-block"><code>' + escapeHTML(parts[i].trim()) + '</code></pre>';
         } else {
             let partText = escapeHTML(parts[i]);
@@ -32,50 +66,17 @@ export function renderMarkdown(text, isPreformatted = false) {
     return result;
 }
 
+/**
+ * Display a brief toast notification.
+ * The toast element is shown for 2.5 s then hidden automatically.
+ *
+ * @param {string} message
+ * @param {{ toast: HTMLElement }} elements - Must contain a .toast element with a <span> child
+ */
 export function showToast(message, elements) {
     elements.toast.querySelector('span').textContent = message;
     elements.toast.classList.add('show');
-
     setTimeout(() => {
         elements.toast.classList.remove('show');
     }, 2500);
 }
-
-export const JSON_INSTRUCTIONS = `Cria um exame no formato JSON seguindo este esquema exato:
-
-{
-  "titulo": "Título do Exame",
-  "descricao": "Descrição detalhada do exame",
-  "perguntas": [
-    {
-      "pergunta": "Texto da pergunta de escolha múltipla?",
-      "opcoes": [
-        "Opção A",
-        "Opção B",
-        "Opção C",
-        "Opção D"
-      ],
-      "solucao": [0],
-      "explicacao": "Uma explicação opcional útil para justificar a opção correta."
-    },
-    {
-      "tipo": "boolean",
-      "cabecalho": "\`\`\`\\n$ ls -la\\ndrwxr-xr-x 2 user group 4096 utils\\n\`\`\`",
-      "pergunta": "Texto da pergunta de Verdadeiro ou Falso?",
-      "solucao": 0,
-      "explicacao": "Mais uma explicação opcional que apoia a decisão."
-    },
-    {
-      "tipo": "escrita",
-      "pergunta": "Texto da pergunta de resposta aberta?",
-      "solucao": "Resolução esperada em formato Markdown."
-    }
-  ]
-}
-
-Regras:
-1. Para "tipo": "escolha_multipla" (padrão se omitido), a "solucao" é um array de índices de 0 a N (ex: [0] para A, [1] para B). Admite múltiplas opções corretas (ex: [0, 2]).
-2. Para "tipo": "boolean", a "solucao" deve ser 0 (Verdadeiro) ou 1 (Falso). Não tem o campo "opcoes".
-3. Para "tipo": "escrita", a "solucao" é uma string com a resposta explicada. Suporta formatação Markdown básica (**negrito**, \`código\` e equações em KaTeX $ ou $$). Não tem o campo "opcoes".
-4. O campo "explicacao" é opcional em qualquer tipo de pergunta e é exibido na revelação da resposta.
-5. O campo "cabecalho" é opcional e suporta blocos de código formatados com três crases (\`\`\`) para manter alinhamento em tabelas/comandos.`;

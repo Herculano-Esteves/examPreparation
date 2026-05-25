@@ -33,11 +33,33 @@
                     <span id="app-subtitle" class="subtitle">Ensino Superior</span>
                 </div>
             </div>
-            <button id="btn-settings" class="btn-control btn-secondary" style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; height: auto;">
+            <button id="btn-settings" class="btn-control btn-secondary btn-pill">
                 <i class="fa-solid fa-gear"></i>
                 <span>Definições</span>
             </button>
         </header>
+
+        <!-- EXAM TOP BAR: Lives OUTSIDE #screen-exam so it is controlled
+             directly by body.layout-exam CSS and appears INSTANTLY with no
+             timer dependency. Content is populated by startExam() before
+             transitionTo('exam') is called. -->
+        <div class="exam-top-bar" id="exam-top-bar" aria-hidden="true">
+            <div class="exam-top-bar-left">
+                <div class="exam-logo-box">
+                    <i id="exam-subject-icon" class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="exam-title-group">
+                    <h2 id="current-exam-title">Título do Exame</h2>
+                    <div class="exam-progress-inline">
+                        <span id="question-counter">Questão 1 de 10</span>
+                        <div class="progress-bar-bg-mini">
+                            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                        </div>
+                        <span id="progress-percentage">10%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- MAIN CONTENT AREA -->
         <main class="main-content">
@@ -55,9 +77,9 @@
 
             <!-- STATE 1: MENU SCREEN -->
             <section id="screen-menu" class="screen">
-                <div class="menu-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3 class="section-title" style="margin-bottom: 0;"><i class="fa-solid fa-folder-open"></i> Exames Disponíveis</h3>
-                    <button id="btn-back-cadeiras" class="btn-control btn-secondary" style="padding: 0.5rem 1.0rem; font-size: 0.85rem; height: auto;">
+                <div class="menu-header-bar">
+                    <h3 class="section-title"><i class="fa-solid fa-folder-open"></i> Exames Disponíveis</h3>
+                    <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm">
                         <i class="fa-solid fa-arrow-left"></i>
                         <span>Voltar às Cadeiras</span>
                     </button>
@@ -71,27 +93,8 @@
                 </div>
             </section>
 
-            <!-- STATE 2: EXAM SCREEN -->
+            <!-- STATE 2: EXAM SCREEN (only contains the split pane now) -->
             <section id="screen-exam" class="screen">
-                
-                <!-- TOP HEADER (Spans left to right) -->
-                <div class="exam-top-bar">
-                    <div class="exam-top-bar-left">
-                        <div class="exam-logo-box">
-                            <i id="exam-subject-icon" class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <div class="exam-title-group">
-                            <h2 id="current-exam-title">Título do Exame</h2>
-                            <div class="exam-progress-inline">
-                                <span id="question-counter">Questão 1 de 10</span>
-                                <div class="progress-bar-bg-mini">
-                                    <div id="progress-bar-fill" class="progress-bar-fill"></div>
-                                </div>
-                                <span id="progress-percentage">10%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="exam-split-container">
                     
@@ -161,16 +164,15 @@
                     <h2>Exame Concluído!</h2>
                     <p id="results-exam-title">Título do Exame Terminado</p>
                     
-                    <button id="btn-back-menu" class="btn-control btn-primary" style="margin-top: 1.5rem;">
+                    <button id="btn-back-menu" class="btn-control btn-primary btn-results-back">
                         <i class="fa-solid fa-house"></i>
                         <span>Voltar ao Menu Principal</span>
                     </button>
                 </div>
             </section>
 
-            <!-- STATE 4: ADD CADEIRA SCREEN -->
             <section id="screen-add-cadeira" class="screen">
-                <div class="menu-header-bar" style="margin-bottom: 1.5rem;">
+                <div class="menu-header-bar">
                     <h3 class="section-title"><i class="fa-solid fa-plus-circle"></i> Adicionar Nova Cadeira</h3>
                 </div>
                 <div class="question-card">
@@ -193,7 +195,7 @@
                             <div class="icon-option" data-icon="fa-microchip"><i class="fa-solid fa-microchip"></i></div>
                         </div>
                     </div>
-                    <div class="exam-controls" style="margin-top: 2rem;">
+                    <div class="exam-controls exam-controls-spaced">
                         <button id="btn-cancel-cadeira" class="btn-control btn-secondary">
                             <i class="fa-solid fa-xmark"></i>
                             <span>Cancelar</span>
@@ -208,9 +210,9 @@
 
             <!-- STATE 5: ADD EXAME SCREEN -->
             <section id="screen-add-exame" class="screen">
-                <div class="menu-header-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3 class="section-title" style="margin-bottom: 0;"><i class="fa-solid fa-file-circle-plus"></i> Adicionar Novo Exame</h3>
-                    <button id="btn-copy-instructions" class="btn-control btn-secondary" style="padding: 0.5rem 1.0rem; font-size: 0.85rem; height: auto;">
+                <div class="menu-header-bar">
+                    <h3 class="section-title"><i class="fa-solid fa-file-circle-plus"></i> Adicionar Novo Exame</h3>
+                    <button id="btn-copy-instructions" class="btn-control btn-secondary btn-sm">
                         <i class="fa-solid fa-circle-info"></i>
                         <span>Instruções de JSON</span>
                     </button>
@@ -251,26 +253,26 @@
 
             <!-- STATE 6: SETTINGS SCREEN -->
             <section id="screen-settings" class="screen">
-                <div class="menu-header-bar" style="margin-bottom: 1.5rem;">
+                <div class="menu-header-bar">
                     <h3 class="section-title"><i class="fa-solid fa-gear"></i> Definições</h3>
                 </div>
                 <div class="question-card">
-                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Dados Locais</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">
+                    <h4 class="settings-section-title">Dados Locais</h4>
+                    <p class="settings-description">
                         Todas as cadeiras e exames criados localmente são guardados apenas no seu browser (através do localStorage). Pode limpar esses dados para restaurar o estado original do simulador.
                     </p>
-                    <div style="padding: 1rem; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); border-radius: 8px; margin-bottom: 2rem;">
-                        <h5 style="color: var(--danger); margin-bottom: 0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Zona de Perigo</h5>
-                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
+                    <div class="danger-zone">
+                        <h5 class="danger-zone-title"><i class="fa-solid fa-triangle-exclamation"></i> Zona de Perigo</h5>
+                        <p class="danger-zone-desc">
                             Esta ação é irreversível e irá apagar permanentemente todos os exames e cadeiras locais criados.
                         </p>
-                        <button id="btn-clear-storage" class="btn-control btn-danger" style="width: 100%; justify-content: center;">
+                        <button id="btn-clear-storage" class="btn-control btn-danger btn-full">
                             <i class="fa-solid fa-trash-can"></i>
                             <span>Apagar Todos os Dados Locais</span>
                         </button>
                     </div>
                     <div class="exam-controls">
-                        <button id="btn-back-settings" class="btn-control btn-secondary" style="width: 100%; justify-content: center;">
+                        <button id="btn-back-settings" class="btn-control btn-secondary btn-full">
                             <i class="fa-solid fa-chevron-left"></i>
                             <span>Voltar</span>
                         </button>

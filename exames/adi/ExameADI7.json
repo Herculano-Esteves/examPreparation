@@ -1,0 +1,121 @@
+{
+  "titulo": "Exame ADI 7 (Cobertura Integral e Consolidação)",
+  "descricao": "Exame focado na cobertura a 100% de tópicos teóricos avançados da matéria de ADI, incluindo escalas de atributos, limitações do Perceptron simples (XOR), regras clássicas de aprendizagem de RNAs (Hebbian, Delta, etc.), variantes de árvores de decisão (CART, CHAID, J48 Weka) e mapeamento CRISP-DM vs SEMMA.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "O Perceptron simples (monocamada) tem limitações no tipo de problemas que consegue resolver. Explique o conceito de separabilidade linear, detalhando o porquê de o Perceptron conseguir modelar as funções lógicas AND e OR, mas falhar na função lógica XOR. Como é que este problema foi solucionado nas redes neuronais modernas?",
+      "solucao": "1. **Separabilidade Linear**: Um problema de classificação é linearmente separável se os exemplos das diferentes classes puderem ser completamente separados no espaço de atributos por uma linha reta (em 2D), um plano (em 3D) ou um hiperplano (em dimensões superiores).\n\n2. **Resolução de AND e OR**: As tabelas de verdade de AND e OR são linearmente separáveis. É possível desenhar uma única reta que separe os outputs '0' dos outputs '1' no plano cartesiano cujos eixos são as entradas $x_1$ e $x_2$. Portanto, um Perceptron simples (que calcula uma combinação linear das entradas $z = w_1 x_1 + w_2 x_2 + b$ seguida de um limiar/step) consegue convergir para pesos que resolvem estas funções.\n\n3. **Falha no XOR**: O XOR (Ou Exclusivo) devolve '1' se e só se as entradas forem diferentes (i.e., (0,1) e (1,0)). Se desenharmos estes pontos no plano cartesiano, os outputs '1' encontram-se em cantos opostos de um quadrado e os outputs '0' (0,0 e 1,1) no outro par de cantos opostos. É impossível traçar uma reta única que separe os pontos de classe '1' dos de classe '0'. Como o Perceptron simples induz uma fronteira de decisão estritamente linear, ele falha a modelar o XOR.\n\n4. **Resolução Moderna**: O problema foi solucionado introduzindo camadas escondidas/ocultas (Multi-layer Perceptron - MLP) com funções de ativação não lineares (como a sigmoide, tanh ou ReLU). As camadas intermédias realizam uma transformação não linear do espaço original, projetando os pontos num novo espaço onde as classes passam a ser linearmente separáveis na camada de saída. O treino destas redes tornou-se possível com a introdução do algoritmo de *Backpropagation*."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto do treino de Redes Neuronais Artificiais, compare as seguintes regras de modificação de pesos sinápticos, indicando se são supervisionadas ou não supervisionadas:\na) Hebbian Learning Rule\nb) Perceptron Learning Rule\nc) Widrow-Hoff Learning Rule (Delta Rule)\nd) Competitive Learning Rule",
+      "solucao": "a) **Hebbian Learning Rule (Não Supervisionada)**: Baseada no postulado biológico de Donald Hebb (1949). O ajuste é feito segundo o princípio de que 'neurónios que disparam juntos, ligam-se mais fortemente'. Se dois neurónios adjacentes sofrem variação de ativação no mesmo sentido, o peso da sinapse aumenta; se variarem em sentidos opostos, diminui; se não houver variação, mantém-se. Não requer indicação externa de erro ou target.\n\nb) **Perceptron Learning Rule (Supervisionada)**: Inicializa os pesos de forma aleatória. Os inputs são propagados e o output obtido é comparado com o target pretendido. O ajuste do peso é diretamente proporcional ao erro discreto obtido ($Target - Output$) multiplicado pelo sinal de entrada correspondente e por uma taxa de aprendizagem.\n\nc) **Widrow-Hoff Learning Rule / Delta Rule (Supervisionada)**: Semelhante ao Perceptron, mas calcula o erro com base na saída linear (antes de aplicar a função de transferência binária/limiar). Minimiza o erro médio quadrático do sinal contínuo através da descida do gradiente, sendo a base conceitual do posterior backpropagation.\n\nd) **Competitive Learning Rule (Não Supervisionada)**: Também chamada de 'Winner-Take-All'. Os neurónios da camada de saída competem entre si pela representação dos padrões de entrada. Apenas o neurónio que produzir o maior valor de saída (o vencedor) é que tem permissão para ajustar e atualizar os pesos das suas sinapses, tornando-se ainda mais sensível a esse padrão ou padrões semelhantes no futuro."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva as características distintivas das seguintes variantes de algoritmos de Árvores de Decisão:\na) J48 (dentro da plataforma Weka)\nb) CART (Classification and Regression Trees)\nc) CHAID (Chi-square Automatic Interaction Detection)",
+      "solucao": "a) **J48**: É a implementação direta, open-source e escrita em Java, do algoritmo C4.5 de Ross Quinlan dentro da plataforma WEKA. Caracteriza-se por suportar tanto atributos categóricos como contínuos (encontrando limites numéricos dinâmicos), lidar com valores em falta (missing values) e utilizar o critério de Ganho de Rácio (Gain Ratio) com técnicas avançadas de pós-poda (post-pruning).\n\nb) **CART**: Proposto por Leo Breiman, opera divisões estritamente binárias em cada nó interno (cada nó é dividido em exatamente dois ramos). O mesmo algoritmo básico é capaz de induzir árvores de classificação (usando o índice de impureza Gini) e árvores de regressão (usando a minimização da soma dos desvios quadráticos face à média dos nós).\n\nc) **CHAID**: Proposto por Kass, realiza divisões multi-nível (um nó pode ser dividido em múltiplos ramos correspondentes a categorias individuais ou intervalos). Utiliza testes estatísticos de Qui-Quadrado ($\\chi^2$) como critério de split para atributos categóricos (e testes F para numéricos) para determinar a significância estatística de uma divisão. É amplamente utilizado em estudos de marketing para segmentação de mercado e bases de dados muito grandes, interrompendo o crescimento da árvore antes de necessitar de poda (pré-poda)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A nível conceptual, estabeleça a equivalência ou correspondência direta entre as fases do ciclo de vida CRISP-DM e as etapas do processo SEMMA, identificando quais as fases de uma metodologia que não possuem equivalente direto na outra.",
+      "solucao": "As equivalências diretas são as seguintes:\n\n1. **Business Understanding (CRISP-DM)** $\\rightarrow$ **Sem equivalente direto em SEMMA**. O SEMMA assume que os objetivos de negócio já se encontram definidos à partida.\n2. **Data Understanding (CRISP-DM)** $\\rightarrow$ **Explore (SEMMA)**. Ambas as fases envolvem a exploração estatística, visualização de distribuições, deteção de anomalias e análise inicial de correlações.\n3. **Data Preparation (CRISP-DM)** $\\rightarrow$ **Sample & Modify (SEMMA)**. O *Sample* trata da amostragem e partição, enquanto o *Modify* trata da limpeza, imputação de missing values, normalização e engenharia de novos atributos.\n4. **Modeling (CRISP-DM)** $\\rightarrow$ **Model (SEMMA)**. Em ambas as etapas aplicam-se os algoritmos de modelação preditiva e descritiva (redes neuronais, árvores, etc.).\n5. **Evaluation (CRISP-DM)** $\\rightarrow$ **Assess (SEMMA)**. Ambas as fases visam comparar os resultados dos modelos através de métricas de qualidade (accuracy, Kappa, MSE) e curvas de desempenho (ROC).\n6. **Deployment (CRISP-DM)** $\\rightarrow$ **Sem equivalente direto em SEMMA**. O SEMMA foca-se no ciclo técnico e termina na fase de avaliação da qualidade, deixando a integração em produção fora do seu escopo formal."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No âmbito de Redes Neuronais Recorrentes (RNN) para dados sequenciais, compare as arquiteturas LSTM (Long Short-Term Memory) e GRU (Gated Recurrent Unit), identificando os 'gates' (portas) que compõem cada uma destas unidades e o impacto estrutural dessa diferença.",
+      "solucao": "1. **LSTM (Long Short-Term Memory)**:\n   - Caracteriza-se por manter um estado de célula ($c_t$) separado do estado escondido ($h_t$).\n   - É composta por 3 portas (gates):\n     * **Forget Gate (Porta de Esquecimento)**: Decide que informação do estado anterior da célula deve ser descartada.\n     * **Input/Update Gate (Porta de Entrada)**: Decide que nova informação das entradas atuais deve ser guardada no estado da célula.\n     * **Output Gate (Porta de Saída)**: Decide o valor do próximo estado escondido ($h_t$) com base no estado de célula atualizado.\n\n2. **GRU (Gated Recurrent Unit)**:\n   - É uma variante simplificada da LSTM que não possui um estado de célula separado; usa apenas o estado escondido ($h_t$) para fluir a informação.\n   - É composta por apenas 2 portas:\n     * **Reset Gate (Porta de Reset)**: Decide quanta da informação do estado escondido anterior deve ser esquecida.\n     * **Update Gate (Porta de Atualização)**: Atua como uma combinação das portas de esquecimento e entrada da LSTM, determinando quanto do estado anterior deve ser mantido e quanto do novo candidato de estado deve ser adicionado.\n\n3. **Impacto Estrutural**: A GRU tem menos parâmetros para treinar (visto que tem uma porta a menos e dispensa o estado de célula), o que a torna computacionalmente mais rápida de treinar e menos propensa a sobreajuste em datasets pequenos. Contudo, em sequências muito longas e complexas, a LSTM pode reter informações de forma mais eficiente devido ao canal dedicado do estado de célula."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um atributo que represente a classificação de satisfação do cliente como 'Muito Satisfeito', 'Satisfeito' ou 'Insatisfeito' é considerado do tipo nominal, pois não é possível efetuar operações matemáticas entre os valores.",
+      "solucao": 1,
+      "explicacao": "Falso. Este atributo é do tipo **ordinal** porque as categorias possuem uma ordenação natural implícita (Muito Satisfeito > Satisfeito > Insatisfeito), embora a distância numérica exata entre as categorias não seja quantificável."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A temperatura medida em graus Celsius é classificada como uma escala de intervalo (intervalar), porque é possível calcular a distância matemática entre duas medições, mas não possui um zero absoluto real que represente a ausência da grandeza.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O valor 0°C é uma convenção (ponto de congelação da água) e não significa ausência de calor. Deste modo, não podemos afirmar matematicamente que 20°C é o dobro do calor de 10°C, apenas que dista 10 unidades de intervalo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Atributos representados em escalas de rácio (ratio), tais como o Salário Mensal ou a Idade de uma pessoa, possuem um ponto zero absoluto real que representa a ausência física da variável, permitindo fazer afirmações de proporção como 'o salário A é o dobro do salário B'.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A escala de rácio (ou razão) possui todas as características de uma escala de intervalo e acrescenta um ponto zero verdadeiro e não arbitrário, validando a multiplicação e divisão direta entre valores."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O ID do Cliente (ex: 'Cli_9024') e o Nome Completo são atributos classificados como ordinais devido à ordem alfabética com que podem ser representados.",
+      "solucao": 1,
+      "explicacao": "Falso. O ID e o Nome são atributos **nominais** (ou identificadores únicos). A capacidade de os colocar em ordem alfabética é uma propriedade técnica de ordenação de strings, mas semanticamente os dados não possuem hierarquia qualitativa própria."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A distinção principal entre atributos categóricos nominais e binários reside no facto de os atributos binários estarem restritos a apenas duas categorias (ex: Sim/Não, 0/1), as quais podem ser simétricas ou assimétricas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O atributo binário é um caso especial de nominal com cardinalidade 2. Diz-se assimétrico se os dois estados não tiverem o mesmo valor informativo (ex: teste médico positivo é mais relevante do que negativo)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A fase de 'Business Understanding' na metodologia CRISP-DM foca-se na identificação inicial de missing values e inconsistências de dados na base de dados.",
+      "solucao": 1,
+      "explicacao": "Falso. A fase de 'Business Understanding' foca-se na definição de objetivos de negócio, avaliação da situação atual e conversão desses objetivos em metas de data mining. A identificação de missing values e exploração inicial de distribuições é realizada na fase seguinte, 'Data Understanding'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A etapa de 'Modify' na metodologia SEMMA é a equivalente direta à fase de 'Modeling' da metodologia CRISP-DM, uma vez que é aí que os algoritmos de machine learning modificam os pesos do modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. A etapa 'Modify' do SEMMA corresponde à parte da fase de **'Data Preparation'** do CRISP-DM (envolve criação de variáveis, transformações, imputações). O equivalente direto de 'Modeling' (CRISP-DM) no SEMMA é a etapa **'Model'**."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Tanto o CRISP-DM como o SEMMA partilham uma filosofia iterativa e cíclica, em que os resultados obtidos numa determinada fase podem forçar o regresso a uma fase anterior de tratamento de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Projetos de data mining não são lineares; a avaliação de um modelo pode revelar a necessidade de novas transformações de dados ou até de redefinir a amostra."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia SEMMA inclui uma fase dedicada à integração e aplicação do modelo preditivo em ambiente de produção (Deployment), muito semelhante à fase final do CRISP-DM.",
+      "solucao": 1,
+      "explicacao": "Falso. O SEMMA termina na fase 'Assess' (avaliação de qualidade do modelo) e não contém nenhuma fase equivalente ao 'Deployment' do CRISP-DM."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A fase de 'Data Understanding' do CRISP-DM mapeia-se diretamente para a etapa 'Explore' do SEMMA, uma vez que ambas se dedicam à análise descritiva e exploração visual dos dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ambas as etapas visam familiarizar o cientista de dados com a informação disponível, identificando correlações estatísticas e padrões óbvios nos dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo de treino clássico do Perceptron simples atualiza os pesos sinápticos apenas quando a rede comete um erro de classificação sobre o exemplo apresentado.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Se a saída prevista pelo Perceptron for igual à saída desejada (erro = 0), a variação dos pesos $\\Delta w$ será nula, mantendo os pesos inalterados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regra de aprendizagem de Hebb (Hebbian Learning) é considerada supervisionada porque necessita do cálculo da diferença entre a saída obtida e a saída correta (erro) para aplicar o gradiente.",
+      "solucao": 1,
+      "explicacao": "Falso. A regra de Hebb é uma técnica **não supervisionada**. Ajusta os pesos puramente com base na correlação temporal das atividades de ativação dos neurónios adjacentes, sem qualquer noção de 'alvo' ou 'erro'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A diferença essencial entre a regra do Perceptron e a regra de Widrow-Hoff (Delta Rule) é que a primeira usa um erro discreto baseado no output com limiar, enquanto a segunda calcula o erro linear contínuo antes da função de ativação binária.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regra Delta baseia-se na saída contínua do somador linear, aplicando mínimos quadrados para aproximar gradualmente a saída ao target antes da binarização."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No Competitive Learning (aprendizagem competitiva), todos os neurónios da camada de saída sofrem uma pequena atualização dos seus pesos sinápticos proporcional à sua distância ao exemplo de entrada.",
+      "solucao": 1,
+      "explicacao": "Falso. No Competitive Learning clássico, aplica-se o princípio 'Winner-Take-All': apenas o neurónio com maior ativação (vencedor) atualiza os seus pesos. Os restantes neurónios não sofrem qualquer modificação."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma das razões para o declínio histórico das redes neuronais artificiais nos anos 70 foi a demonstração formal de que um Perceptron monocamada era matematicamente incapaz de resolver o problema lógico do XOR por este não ser linearmente separável.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A publicação do livro 'Perceptrons' por Marvin Minsky e Seymour Papert em 1969 demonstrou esta limitação, iniciando o chamado 'inverno da IA' conexionista."
+    }
+  ]
+}

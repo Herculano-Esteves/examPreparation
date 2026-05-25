@@ -83,8 +83,8 @@
       "tipo": "boolean",
       "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Cross-Validation Loop Workflow                                          |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [X-Partitioner] ──(Folds)──► [Logistic Regression Learner]                    |\n|      │                                     │ (Model)                          |\n|      │                                     ▼                                  |\n|      └──────────(Test)─────► [Logistic Regression Predictor]                  |\n|                                            │                                  |\n|                                            ▼                                  |\n|                              [X-Aggregator]                                   |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
       "pergunta": "Considere o workflow KNIME acima. É usado o nodo «X-Partitioner» para garantir a repetibilidade das experiências.",
-      "solucao": 0,
-      "explicacao": "Verdadeiro. Para garantir que os folds da validação cruzada sejam gerados de forma idêntica em futuras execuções, o nodo 'X-Partitioner' deve ser configurado com uma semente aleatória (random seed) estável."
+      "solucao": 1,
+      "explicacao": "Falso. A sua função principal não é garantir a repetibilidade, mas sim dividir o conjunto de dados original em subconjuntos (chamados folds ou partições) para que o modelo possa ser treinado e testado de forma robusta e imparcial."
     },
     {
       "tipo": "boolean",
@@ -202,8 +202,8 @@
       "tipo": "boolean",
       "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Hold-Out Partitioning Workflow                                          |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(Partition 1: 70%)──► [RProp MLP Learner]                    |\n|      │                                      │ (Model)                         |\n|      │                                      ▼                                 |\n|      └───(Partition 2: 30%)──────────► [Multi Layer Perceptron Predictor]     |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
       "pergunta": "A configuração do nodo «Partitioning» garante a repetibilidade dos modelos criados pelo nodo «RProp MLP Learner».",
-      "solucao": 0,
-      "explicacao": "Verdadeiro. Se o nodo 'Partitioning' estiver configurado com uma semente aleatória ('random seed') fixa e estável, as partições serão sempre idênticas nas várias execuções, o que garante a repetibilidade das experiências."
+      "solucao": 1,
+      "explicacao": "Falso. Mesmo que fixes a semente (static seed) no nó Partitioning para garantir que a divisão dos dados (70% para treino e 30% para teste) é sempre rigorosamente a mesma, isso não controla a aleatoriedade interna do algoritmo da Rede Neuronal."
     },
     {
       "tipo": "boolean",

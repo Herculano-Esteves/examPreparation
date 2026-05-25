@@ -47,8 +47,6 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
     overflow-x: hidden;
     position: relative;
     line-height: 1.6;
@@ -83,6 +81,7 @@ body {
 .app-container {
     width: 100%;
     max-width: 960px;
+    margin: 0 auto;
     padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
@@ -437,7 +436,7 @@ body {
     font-size: 0.95rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
-    white-space: pre-wrap;
+    /* white-space: pre-wrap removed — conflicts with HTML content (<pre>, <br>, <strong>, etc.) */
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     border-right: 1px solid rgba(255, 255, 255, 0.05);
@@ -470,6 +469,7 @@ body {
 .question-cabecalho.hidden {
     display: none;
 }
+
 
 .question-text {
     font-size: 1.35rem;
@@ -1084,6 +1084,13 @@ body.layout-exam .app-header {
     display: none;
 }
 
+/* exam-top-bar lives outside #screen-exam; it is shown/hidden purely by CSS.
+   No JS timer needed — it appears the instant layout-exam is applied to body. */
+body.layout-exam .exam-top-bar {
+    display: flex;
+    aria-hidden: false; /* accessibility: visible now */
+}
+
 body.layout-exam .main-content {
     flex-grow: 1;
     display: flex;
@@ -1091,7 +1098,9 @@ body.layout-exam .main-content {
     overflow: hidden;
 }
 
-body.layout-exam #screen-exam {
+/* #screen-exam is now only the split-pane container (no top-bar inside).
+   Specificity (1,2,1) wins over .screen.active (0,2,0) to enforce display:flex. */
+body.layout-exam #screen-exam.active {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -1103,9 +1112,11 @@ body.layout-exam .app-footer {
     display: none;
 }
 
-/* Exam Screen Header Bar (Spans full horizontal view) */
+/* Exam Screen Header Bar.
+   Hidden by default (it lives outside #screen-exam in the DOM).
+   Shown via body.layout-exam .exam-top-bar rule above. */
 .exam-top-bar {
-    display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     background: rgba(10, 8, 22, 0.95);
@@ -1165,17 +1176,7 @@ body.layout-exam .app-footer {
     overflow: hidden;
 }
 
-.exam-top-bar-right {
-    max-width: 40%;
-    text-align: right;
-}
-
-.exam-top-bar-right p {
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin: 0;
-}
+/* Removed unused .exam-top-bar-right blocks */
 
 /* Split Pane Grid Layout - 50/50 division with unified transparent backgrounds */
 .exam-split-container {
@@ -1206,6 +1207,15 @@ body.layout-exam .app-footer {
     flex-grow: 1;
     overflow-y: auto;
     padding-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Safe vertical centering for scrollable flex containers */
+.exam-left-scroll-content::before, .exam-right-scroll-content::before,
+.exam-left-scroll-content::after, .exam-right-scroll-content::after {
+    content: '';
+    margin: auto;
 }
 
 /* Custom Scrollbar for left pane and right pane */
@@ -1289,20 +1299,17 @@ body.layout-exam .app-footer {
     body.layout-exam .main-content {
         overflow: auto;
     }
-    body.layout-exam #screen-exam {
+    body.layout-exam #screen-exam.active {
         height: auto;
         overflow: auto;
     }
-    .exam-top-bar {
+    body.layout-exam .exam-top-bar {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
         padding: 1.5rem 1.2rem;
     }
-    .exam-top-bar-right {
-        max-width: 100%;
-        text-align: left;
-    }
+
     .exam-split-container {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -1319,3 +1326,124 @@ body.layout-exam .app-footer {
 
 
 
+
+/* ==========================================
+   CSS-02 MIGRATION: Classes replacing inline styles
+   ========================================== */
+
+/* MENU HEADER BAR — flex layout used across all screen headers */
+.menu-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Keep .section-title margin-bottom: 0 when inside .menu-header-bar
+   (previously done with inline style="margin-bottom: 0") */
+.menu-header-bar .section-title {
+    margin-bottom: 0;
+}
+
+/* BUTTON VARIANTS */
+
+/* Pill-shaped small button (e.g. Settings button in header) */
+.btn-pill {
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    height: auto;
+}
+
+/* Small button (e.g. Back to Cadeiras, Copy Instructions) */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    height: auto;
+}
+
+/* Full-width centered button (e.g. Clear storage, Back in settings) */
+.btn-full {
+    width: 100%;
+    justify-content: center;
+}
+
+/* RESULTS SCREEN — back button top margin */
+.btn-results-back {
+    margin-top: 1.5rem;
+}
+
+/* ADD CADEIRA / ADD EXAME — controls with top spacing */
+.exam-controls-spaced {
+    margin-top: 2rem;
+}
+
+/* CADEIRA CARD — name paragraph */
+.cadeira-card-nome {
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    color: #ffffff;
+}
+
+/* SETTINGS SCREEN */
+.settings-section-title {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.settings-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* DANGER ZONE (Settings) */
+.danger-zone {
+    padding: 1rem;
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.danger-zone-title {
+    color: var(--danger);
+    margin-bottom: 0.5rem;
+}
+
+.danger-zone-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+/* WRITTEN QUESTION UI */
+.written-answer-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.written-answer-textarea {
+    width: 100%;
+    min-height: 120px;
+    cursor: text;
+    background-color: rgba(0, 0, 0, 0.15);
+    resize: vertical;
+}
+
+.written-answer-textarea.disabled-textarea {
+    opacity: 0.7;
+    cursor: default;
+}
+
+/* Reveal answer button in written questions */
+.btn-reveal {
+    margin-top: 1rem;
+}
+
+/* Confirm answer button in multiple-choice questions */
+.btn-confirm-answer {
+    margin-top: 1.2rem;
+}

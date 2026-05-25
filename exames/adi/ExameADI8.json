@@ -1,0 +1,741 @@
+{
+  "titulo": "Exame Específico de Análise de Nós KNIME (Baseado no Projeto)",
+  "descricao": "Exame temático exaustivo composto por 105 questões de Verdadeiro ou Falso (booleanas), organizadas em grupos de 5 perguntas para cada um dos 21 nós e técnicas de pré-processamento, modelação e avaliação KNIME utilizados no projeto prático.",
+  "perguntas": [
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 1: Statistics Node",
+      "pergunta": "O nodo «Statistics» no KNIME apresenta estatísticas descritivas básicas para colunas numéricas (como valores mínimo, máximo, média e desvio padrão) e categóricas (como frequências e contagem de valores em falta).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó 'Statistics' calcula e exibe de forma centralizada as métricas de dispersão, centralidade e qualidade de dados de todas as colunas da tabela."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 1: Statistics Node",
+      "pergunta": "O nodo «Statistics» permite preencher e imputar de forma automática os valores em falta diretamente no seu diálogo de configuração, utilizando a mediana ou a média.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó 'Statistics' serve apenas para visualização e cálculo de estatísticas descritivas (modo leitura). Para imputar ou alterar valores, deve-se usar o nó 'Missing Value' ou outros nós de transformação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 1: Statistics Node",
+      "pergunta": "O nodo «Statistics» gera representações visuais na sua vista interativa, exibindo um mini-histograma para atributos numéricos e um gráfico de barras para atributos nominais.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó fornece histogramas para variáveis numéricas contínuas e diagramas de barras para a frequência de categorias de variáveis categóricas/nominais."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 1: Statistics Node",
+      "pergunta": "Na aba de estatísticas nominais do nodo «Statistics», uma variável como «random_notes» com conteúdo em texto livre e sem padronização apresentará uma elevada quantidade de categorias únicas (values).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Uma variável de texto livre ou ruído tem cardinalidade muito elevada, o que pode ser verificado no sumário estatístico nominal como uma contagem excessiva de categorias únicas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 1: Statistics Node",
+      "pergunta": "O desvio padrão (standard deviation) calculado pelo nodo «Statistics» para os atributos de radiação é uma métrica de tendência central, tal como a média e a mediana.",
+      "solucao": 1,
+      "explicacao": "Falso. O desvio padrão é uma métrica de dispersão (indica o quão dispersos os dados estão em torno da média). A média e a mediana são métricas de tendência central."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 2: Missing Value Node",
+      "pergunta": "O nodo «Missing Value» no KNIME permite definir uma estratégia de imputação padrão aplicável a todos os atributos de um determinado tipo (ex: Double, String), bem como definir estratégias individuais personalizadas coluna a coluna.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A configuração do nó possui as abas 'Number (Double)', 'Number (Integer)' e 'String' para regras gerais por tipo de dados, e a aba 'Individual' para configurações personalizadas coluna a coluna."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 2: Missing Value Node",
+      "pergunta": "Substituir valores em falta com a estratégia 'Mean' (média) num atributo numérico do dataset de saúde reduz o desvio padrão global dessa coluna.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ao preencher os nulos com a média exata do conjunto, estamos a concentrar mais registos na média e a reduzir a dispersão relativa (desvio padrão) dos dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 2: Missing Value Node",
+      "pergunta": "Ao selecionar a opção 'Remove Row' para a coluna «Age» no nodo «Missing Value», se existirem 4500 valores nulos num dataset de 30000 registos, a tabela de saída conterá exatamente 0 linhas.",
+      "solucao": 1,
+      "explicacao": "Falso. A opção 'Remove Row' remove apenas as linhas onde a variável 'Age' está em falta (nulos), resultando numa tabela de saída com 25500 registos, e não 0."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 2: Missing Value Node",
+      "pergunta": "Imputar valores em falta categóricos com um valor fixo como 'NA' no nodo «Missing Value» cria uma nova categoria explícita, o que permite que algoritmos baseados em árvores capturem padrões associados à ausência da informação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ao converter os nulos na string 'NA', a ausência de dados é tratada como uma classe válida de informação durante a indução do modelo."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 2: Missing Value Node",
+      "pergunta": "A técnica de 'Linear Interpolation' (interpolação linear) do nodo «Missing Value» é adequada e aplicável para preencher nulos em colunas qualitativas nominais como «Medical Condition».",
+      "solucao": 1,
+      "explicacao": "Falso. A interpolação linear calcula valores numéricos intermédios com base nas linhas adjacentes. Não faz sentido matemático calcular uma interpolação para dados qualitativos textuais."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 3: Java Snippet Node",
+      "pergunta": "O nodo «Java Snippet» permite implementar expressões matemáticas complexas escritas em código Java para imputar valores em falta, tais como a fórmula de consistência: `precipitation = rain + snowfall`.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó Java Snippet é ideal para aplicar lógica matemática condicional e aritmética customizada baseada em múltiplos atributos da mesma linha."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 3: Java Snippet Node",
+      "pergunta": "Dentro da área de edição de código do nodo «Java Snippet», as colunas do dataset são referenciadas através de variáveis especiais em formato demarcado por cifrões (ex: `$precipitation$`).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A sintaxe padrão do KNIME para ler e escrever em colunas no Java Snippet utiliza `$Nome_da_Coluna$`."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 3: Java Snippet Node",
+      "pergunta": "O nodo «Java Snippet» processa a tabela de dados num fluxo linha-a-linha (row-by-row), aplicando a mesma lógica de forma isolada a cada registo sem aceder diretamente aos registos das linhas seguintes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Java Snippet corre a lógica para cada linha separadamente, atuando como um iterador sequencial de registos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 3: Java Snippet Node",
+      "pergunta": "Para efetuar operações estatísticas globais sobre uma coluna inteira (como calcular a média de todas as linhas), o «Java Snippet» é o nodo nativo mais direto e eficiente no KNIME.",
+      "solucao": 1,
+      "explicacao": "Falso. O Java Snippet corre em isolamento por linha. Para calcular médias globais de colunas, devem usar-se nós como 'GroupBy', 'Math Formula' (com colmean) ou 'Statistics'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 3: Java Snippet Node",
+      "pergunta": "No «Java Snippet», se um atributo nominal estiver em falta (missing), o KNIME inicializa a correspondente variável de entrada como um objeto Java com valor `null`.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As colunas de texto em falta (Strings) são representadas como referências 'null' em Java, devendo o programador precaver NullPointerExceptions."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 4: Column Filter Node",
+      "pergunta": "O nodo «Column Filter» do KNIME pode ser configurado de forma dinâmica para incluir ou excluir colunas com base em padrões de nomes (usando Wildcards ou expressões regulares) ou pelo seu tipo de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A opção 'Wildcard/RegEx Selection' ou 'Type Selection' permite um comportamento dinâmico que resiste a alterações na estrutura de colunas à entrada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 4: Column Filter Node",
+      "pergunta": "A remoção de atributos como «random_notes» e «noise_col» com o nodo «Column Filter» é recomendada porque estas colunas não contêm informação preditiva e apenas aumentam a pegada de memória e complexidade dos modelos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Filtrar ruído ajuda a evitar overfitting e reduz o consumo de recursos na modelação preditiva."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 4: Column Filter Node",
+      "pergunta": "O nodo «Column Filter» permite filtrar e descartar registos (linhas) da tabela com base no facto de as células conterem valores numéricos nulos.",
+      "solucao": 1,
+      "explicacao": "Falso. O Column Filter manipula apenas as colunas (atributos). A filtragem de registos (linhas) é efetuada por nós como 'Row Filter' ou 'Missing Value'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 4: Column Filter Node",
+      "pergunta": "Ao excluir colunas no nodo «Column Filter», essas colunas são permanentemente eliminadas do ficheiro de dados original guardado no disco rígido do computador.",
+      "solucao": 1,
+      "explicacao": "Falso. O processamento do KNIME é efetuado em memória. Excluir uma coluna apenas a remove do fluxo de dados em curso (a jusante), mantendo os dados originais do disco intactos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 4: Column Filter Node",
+      "pergunta": "O nodo «Column Filter» permite alterar a ordenação visual e física das colunas na tabela de dados que é propagada para os nodos seguintes do fluxo.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Na aba de configuração manual do Column Filter, é possível arrastar as colunas para reordenar a sua posição na tabela resultante."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 5: Row Filter & Rule-based Row Filter Nodes",
+      "pergunta": "O nodo «Rule-based Row Filter» utiliza regras booleanas (ex: `$Oxygen Saturation$ > 100 => FALSE`) onde o resultado de cada linha determina se a mesma é mantida ou excluída da tabela.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó avalia as condições sequencialmente; a primeira regra que avaliar para verdadeiro dita o destino da linha com base na configuração do nó (keep/exclude)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 5: Row Filter & Rule-based Row Filter Nodes",
+      "pergunta": "O nodo «Row Filter» padrão limita a filtragem a condições de um único atributo por nodo, ao passo que o «Rule-based Row Filter» permite combinar múltiplas condições lógicas sobre atributos diferentes no mesmo nodo.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Row Filter clássico foca-se numa única coluna. Lógicas mais complexas e multi-coluna requerem o Rule-based Row Filter."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 5: Row Filter & Rule-based Row Filter Nodes",
+      "pergunta": "O nodo «Rule-based Row Filter» preenche automaticamente com o valor zero (0) todas as células vazias que não correspondam a nenhuma das regras de filtragem definidas.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó serve exclusivamente para filtrar linhas (linhas que entram vs saem). Não altera nem imputa valores dentro das células da tabela."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 5: Row Filter & Rule-based Row Filter Nodes",
+      "pergunta": "O nodo «Row Filter» pode ser configurado para manter apenas as linhas onde um determinado atributo nominal apresenta valores em falta (missing values).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A opção 'only missing values matching' do Row Filter permite isolar registos contendo nulos para uma coluna selecionada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 5: Row Filter & Rule-based Row Filter Nodes",
+      "pergunta": "O output do nodo «Row Filter» possui sempre a mesma estrutura de colunas da sua tabela de entrada, modificando apenas o número de linhas (registos).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Nós de filtragem de linhas reduzem ou filtram registos, mas mantêm o esquema (colunas) da tabela original."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 6: Rule Engine Node",
+      "pergunta": "O nodo «Rule Engine» serve para modificar o conteúdo de uma coluna existente ou criar uma nova coluna com base num conjunto de regras condicionais do tipo IF-THEN.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Rule Engine avalia expressões lógicas e atribui valores a uma coluna destino com base no resultado dessas avaliações."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 6: Rule Engine Node",
+      "pergunta": "Ao contrário do «Rule-based Row Filter» que remove linhas que não cumprem as condições, o nodo «Rule Engine» mantém rigorosamente a mesma quantidade de linhas da tabela original.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Rule Engine opera ao nível do valor das células em cada linha, não adicionando nem removendo qualquer registo da tabela."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 6: Rule Engine Node",
+      "pergunta": "Para mapear doentes sem diagnóstico (NA) com tempo de internamento superior a 9 dias para a categoria «Cancer», a regra no «Rule Engine» deve ser escrita como: `$Medical Condition$ = \"NA\" AND $LengthOfStay$ > 9 => \"Cancer\"`.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta expressão combina uma condição lógica AND sobre atributos nominais e numéricos para atribuir o valor string 'Cancer'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 6: Rule Engine Node",
+      "pergunta": "O nodo «Rule Engine» suporta a execução de funções matemáticas complexas nas suas regras, tais como cálculo de logaritmos, raízes quadradas e exponenciais.",
+      "solucao": 1,
+      "explicacao": "Falso. O Rule Engine suporta apenas lógica condicional e operadores básicos. Cálculos matemáticos avançados devem ser efetuados usando o nó 'Math Formula' ou 'Java Snippet'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 6: Rule Engine Node",
+      "pergunta": "Se nenhuma das regras listadas no nodo «Rule Engine» for verdadeira para um determinado registo, o nodo atribui um valor em falta (nulo) a essa linha, a menos que exista uma regra por defeito (ex: `TRUE => $coluna$`).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Caso não haja correspondência em nenhuma regra, o output padrão é o valor em falta (?), a menos que seja definido um comportamento default na última linha com a condição 'TRUE =>'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 7: Number to String Node",
+      "pergunta": "O nodo «Number to String» converte colunas numéricas em categóricas/nominais, o que é um passo necessário quando variáveis numéricas codificadas (como Smoking e Alcohol: 0/1) devem ser interpretadas como classes por classificadores.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A conversão de tipo evita que o classificador interprete as classes binárias como valores quantitativos em escala contínua."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 7: Number to String Node",
+      "pergunta": "A aplicação do nodo «Number to String» à variável «Smoking» altera o seu tipo de Double ou Integer para String, transformando os valores 0 e 1 em cadeias de caracteres (\"0\" e \"1\").",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A conversão de tipo de dados afeta o formato interno com que a variável é propagada, passando a ser tratada como textual."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 7: Number to String Node",
+      "pergunta": "O nodo «Number to String» permite definir símbolos monetários e formatação personalizada de casas decimais para as strings geradas a partir de números.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó apenas realiza uma conversão direta de tipo de dados. Lógicas de formatação textual avançadas requerem o nó 'String Manipulation' ou 'String Replacer'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 7: Number to String Node",
+      "pergunta": "Se tentarmos treinar determinados classificadores KNIME com uma coluna alvo numérica (Double) sem efetuar previamente a conversão com o «Number to String», o nodo do algoritmo de classificação dará erro ou assumirá uma tarefa de regressão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Classificadores exigem que a variável dependente (target) seja do tipo nominal (String). Caso contrário, não executam ou assumem regressão."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 7: Number to String Node",
+      "pergunta": "O nodo «Number to String» realiza a normalização automática min-max dos valores numéricos antes de os converter para o formato de caracteres.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó não altera os valores matemáticos originais, limitando-se a converter a representação do tipo de dados da coluna para texto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 8: Numeric Outliers Node",
+      "pergunta": "O nodo «Numeric Outliers» calcula a amplitude interquartílica (IQR) de colunas numéricas e permite substituir valores extremos por nulos, eliminá-los (remove row) ou limitar os valores ao limite aceitável mais próximo (capping).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Estas são as estratégias de tratamento padrão disponibilizadas pelas configurações do nó 'Numeric Outliers'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 8: Numeric Outliers Node",
+      "pergunta": "No projeto relatado, a remoção de outliers provou ser sempre benéfica para o desempenho de todos os modelos, elevando a exatidão geral em relação aos dados originais.",
+      "solucao": 1,
+      "explicacao": "Falso. O relatório indica que sem o nó de tratamento de outliers a exatidão era superior, evidenciando que a remoção de valores extremos pode, por vezes, descartar informação preditiva útil."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 8: Numeric Outliers Node",
+      "pergunta": "O nodo «Numeric Outliers» permite selecionar múltiplos atributos numéricos em simultâneo nas suas configurações, calculando limites estatísticos individuais para cada um deles.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É possível definir múltiplas colunas numéricas para tratamento no painel do nó, aplicando a lógica a cada uma de forma autónoma."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 8: Numeric Outliers Node",
+      "pergunta": "O cálculo padrão de outliers efetuado pelo nodo baseia-se na regra estatística clássica: valores superiores a $Q3 + 1.5 \\times IQR$ ou inferiores a $Q1 - 1.5 \\times IQR$.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O valor multiplicador de IQR padrão é 1.5, correspondente ao habitual diagrama de caixa (boxplot)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 8: Numeric Outliers Node",
+      "pergunta": "O nodo «Numeric Outliers» consegue detetar anomalias e outliers em atributos nominais, agrupando as categorias de menor frequência absoluta.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó lida exclusivamente com colunas numéricas (Double, Integer) devido à natureza matemática dos cálculos de quartis."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 9: Linear Correlation & Rank Correlation Nodes",
+      "pergunta": "O nodo «Linear Correlation» avalia relações de natureza linear (coeficiente de Pearson), enquanto o nodo «Rank Correlation» avalia relações ordinais e não-lineares baseadas em ranks (coeficiente de Spearman).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Pearson mede a correlação linear clássica; Spearman avalia relações monotónicas independentemente de serem estritamente lineares."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 9: Linear Correlation & Rank Correlation Nodes",
+      "pergunta": "Os coeficientes de correlação gerados por estes nodos variam entre -1.0 (relação inversa perfeita) e 1.0 (relação direta perfeita), sendo que um valor próximo de 0 indica ausência de relação linear/ordinal.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Estes são os intervalos estatísticos convencionais das métricas de correlação linear e de rank."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 9: Linear Correlation & Rank Correlation Nodes",
+      "pergunta": "A matriz de «Rank Correlation» do segundo dataset do projeto apresentava cores escuras, evidenciando uma correlação de forte intensidade entre os fatores de estilo de vida e dados clínicos dos doentes.",
+      "solucao": 1,
+      "explicacao": "Falso. O relatório indica que o gráfico tinha tons claros ('tons bastante claros'), o que significa a inexistência de correlações fortes entre os dados clínicos e o estilo de vida."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 9: Linear Correlation & Rank Correlation Nodes",
+      "pergunta": "Se duas variáveis independentes apresentarem uma correlação linear muito forte (ex: 0.98), o procedimento adequado consiste em manter ambas no treino para dar maior estabilidade ao modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. Correlações muito elevadas indicam colinearidade e redundância de informação. É recomendada a exclusão de uma delas com o 'Column Filter' para simplificar o modelo."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 9: Linear Correlation & Rank Correlation Nodes",
+      "pergunta": "A visualização de correlações no KNIME permite filtrar registos nulos (missing values) para evitar distorções no cálculo dos coeficientes de correlação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Por defeito, os nós de correlação ignoram ou removem temporariamente linhas com valores nulos para permitir o cálculo correto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 10: X-Partitioner & X-Aggregator Nodes",
+      "pergunta": "Os nodos «X-Partitioner» e «X-Aggregator» operam como delimitadores de um ciclo (loop) de validação cruzada (Cross-Validation), processando os folds iterativamente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O X-Partitioner inicia a divisão e o ciclo; o X-Aggregator recebe as previsões e fecha o ciclo, compilando os resultados consolidados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 10: X-Partitioner & X-Aggregator Nodes",
+      "pergunta": "O nodo «X-Partitioner» suporta a opção de amostragem estratificada (stratified sampling), o que garante que a proporção das classes do target seja mantida estável em cada um dos folds de treino e validação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A amostragem estratificada é vital para problemas com classes desequilibradas para evitar folds sem exemplos de uma das classes."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 10: X-Partitioner & X-Aggregator Nodes",
+      "pergunta": "O porto de saída superior do nodo «X-Partitioner» emite o conjunto de treino correspondente ao fold ativo, enquanto o porto inferior emite o respetivo conjunto de teste/validação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A estrutura física de portos do X-Partitioner separa os dados de treino (porto de cima) dos de validação (porto de baixo)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 10: X-Partitioner & X-Aggregator Nodes",
+      "pergunta": "Configurar o nodo «X-Partitioner» para uma validação de 10-folds faz com que a totalidade das ligações a jusante no fluxo de modelação execute exatamente uma única vez.",
+      "solucao": 1,
+      "explicacao": "Falso. Um loop de 10-folds executa todo o fluxo interno exatamente 10 vezes (uma iteração para cada partição de teste diferente)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 10: X-Partitioner & X-Aggregator Nodes",
+      "pergunta": "O nodo «X-Aggregator» é responsável por recolher as previsões feitas pelo classificador sobre cada fold de teste e compilar uma tabela agregada final com as previsões para todas as linhas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O X-Aggregator unifica as previsões obtidas ao longo de todas as iterações do ciclo de validação cruzada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 11: Optimization Loop Nodes",
+      "pergunta": "O nodo «Parameter Optimization Loop Start» permite definir hiperparâmetros a otimizar (ex: profundidade da árvore) e as respetivas gamas de variação, enquanto o «Parameter Optimization Loop End» calcula o erro e define o passo seguinte da pesquisa.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Estes dois nós criam um ciclo que procura sistematicamente a melhor combinação de hiperparâmetros com base numa métrica de desempenho."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 11: Optimization Loop Nodes",
+      "pergunta": "As estratégias de pesquisa suportadas pelos ciclos de otimização de parâmetros incluem metodologias exaustivas (Brute Force) e otimizações heurísticas (Random Search ou Hillclimbing).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A Brute Force avalia todas as combinações; as heurísticas permitem poupar tempo de computação pesquisando apenas frações do espaço."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 11: Optimization Loop Nodes",
+      "pergunta": "Ao finalizar a sua execução, o nodo «Parameter Optimization Loop End» devolve os melhores valores de hiperparâmetros encontrados sob a forma de variáveis de fluxo (flow variables).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Os parâmetros ideais são exportados como flow variables para poderem reconfigurar e treinar o modelo final."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 11: Optimization Loop Nodes",
+      "pergunta": "No fluxo KNIME, o nodo «Parameter Optimization Loop Start» deve ser obrigatoriamente posicionado imediatamente a seguir à saída de dados do nodo «X-Aggregator».",
+      "solucao": 1,
+      "explicacao": "Falso. O ciclo de otimização deve envolver todo o processo de treino e teste. Logo, o 'Start' de otimização é colocado antes do 'X-Partitioner', e o 'End' é colocado depois do 'X-Aggregator'."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 11: Optimization Loop Nodes",
+      "pergunta": "A utilização de um ciclo de otimização de parâmetros sobre o conjunto de teste de validação cruzada elimina qualquer possibilidade de sobreajuste (overfitting) dos hiperparâmetros do modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. Se otimizarmos os hiperparâmetros avaliando-os contra o mesmo conjunto de validação, podemos criar overfitting de hiperparâmetros. É ideal ter uma partição externa isolada (hold-out) para o teste final independente."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 12: SMOTE Node",
+      "pergunta": "O nodo «SMOTE» cria amostras artificiais/sintéticas para a classe menos representada (minoritária) a partir de interpolações lógicas das instâncias vizinhas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O SMOTE gera pontos sintéticos na vizinhança dos pontos existentes da classe minoritária para equilibrar as classes."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 12: SMOTE Node",
+      "pergunta": "No projeto, a aplicação do nodo «SMOTE» resultou numa melhoria generalizada e expressiva de exatidão (accuracy) em todos os modelos e tratamentos de dados.",
+      "solucao": 1,
+      "explicacao": "Falso. O relatório aponta que o SMOTE teve efeito neutro ou ligeiramente prejudicial, pois a dimensão reduzida da classe 'Low Production' limitou a geração de dados sintéticos representativos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 12: SMOTE Node",
+      "pergunta": "O nodo «SMOTE» no KNIME exige que a coluna alvo (target) selecionada esteja configurada no tipo categórico/nominal (String).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A sobreamostragem depende da identificação de categorias discretas (classes) para saber qual é a classe minoritária a expandir."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 12: SMOTE Node",
+      "pergunta": "Para encontrar instâncias vizinhas e gerar dados sintéticos intermediários, o algoritmo interno do nodo «SMOTE» utiliza o classificador k-Nearest Neighbors (k-NN).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O algoritmo SMOTE seleciona vizinhos da mesma classe recorrendo ao k-NN para traçar segmentos lineares onde cria as novas instâncias."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 12: SMOTE Node",
+      "pergunta": "Para evitar fugas de informação (data leakage), o nodo «SMOTE» deve ser ligado na partição de treino (saída superior do X-Partitioner) e nunca antes da divisão dos dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Se aplicado antes do particionador, o SMOTE criará instâncias sintéticas baseadas no conjunto de teste que serão incorporadas no treino, corrompendo a validação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 13: Normalizer Node",
+      "pergunta": "O nodo «Normalizer» permite redimensionar atributos numéricos aplicando transformações como Min-Max (escala para um intervalo fixo como [0, 1]) ou Z-Score (média 0 e desvio padrão 1).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O normalizador oferece normalização clássica Min-Max e padronização Gaussiana (Z-Score)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 13: Normalizer Node",
+      "pergunta": "De acordo com os resultados do projeto, a normalização de dados foi benéfica para a Regressão Logística, mas revelou um impacto manifestamente negativo no Naive Bayes e no PNN.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Modelos estatísticos como Naive Bayes e PNN são prejudicados quando a distribuição de probabilidade ou distância geométrica original é distorcida por normalização Min-Max."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 13: Normalizer Node",
+      "pergunta": "O porto de saída inferior (segundo porto) do nodo «Normalizer» exporta um modelo de transformação PMML que pode ser aplicado aos dados de teste futuros usando o nodo «Normalizer Apply».",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Isto garante que a mesma escala (mesmos mínimos e máximos do treino) seja aplicada uniformemente aos dados de teste sem data leakage."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 13: Normalizer Node",
+      "pergunta": "Modelos baseados em Árvores de Decisão exigem que todos os atributos numéricos estejam normalizados para que os cálculos de entropia sejam válidos.",
+      "solucao": 1,
+      "explicacao": "Falso. As Árvores de Decisão avaliam cada atributo individualmente no split (são invariantes à escala). A normalização não tem impacto no desempenho de árvores."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 13: Normalizer Node",
+      "pergunta": "A normalização do tipo Min-Max é robusta à presença de valores extremos (outliers) na amostra de dados.",
+      "solucao": 1,
+      "explicacao": "Falso. A normalização Min-Max calcula $(x - Min)/(Max - Min)$. Se existirem outliers muito elevados, a esmagadora maioria dos valores normais será comprimida num pequeno intervalo próximo de zero."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 14: Decision Tree Learner & Predictor",
+      "pergunta": "O nodo «Decision Tree Learner» no KNIME suporta critérios estatísticos de divisão como Gini Index e Gain Ratio para a seleção do atributo de split.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As configurações do nó Learner permitem selecionar a métrica de impureza que guia a indução da árvore."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 14: Decision Tree Learner & Predictor",
+      "pergunta": "No projeto, a melhor configuração alcançada para o modelo de árvore de decisão baseou-se na seleção do critério «Gain Ratio» e no recurso a técnicas de pós-poda (pruning).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O relatório indica que o Gain Ratio e a poda permitiram obter o melhor equilíbrio e desempenho para a Decision Tree."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 14: Decision Tree Learner & Predictor",
+      "pergunta": "O nodo «Decision Tree Predictor» emite apenas o nome da classe prevista pela árvore, não disponibilizando no output as probabilidades calculadas para cada classe.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó Predictor pode anexar à tabela as colunas contendo as probabilidades individuais estimadas para cada uma das classes do target."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 14: Decision Tree Learner & Predictor",
+      "pergunta": "A aplicação de pós-poda (pruning) numa árvore de decisão reduz a complexidade estrutural do modelo com o propósito de diminuir o risco de overfitting.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A poda remove ramos de baixa relevância estatística, melhorando a capacidade de generalização da árvore em dados de teste."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 14: Decision Tree Learner & Predictor",
+      "pergunta": "O nodo «Decision Tree Learner» disponibiliza configurações de processamento paralelo para acelerar a indução da árvore através de múltiplos processadores (threads).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É possível aumentar as threads nas opções do nó para otimizar o tempo de computação em grandes volumes de dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 15: Random Forest Learner & Predictor",
+      "pergunta": "O nodo «Random Forest Learner» gera um conjunto de árvores de decisão em paralelo, combinando bagging de registos com a seleção aleatória de subconjuntos de atributos em cada nó de split.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A Random Forest baseia-se no método de amostragem de dados e atributos para garantir a diversidade e independência entre as árvores geradas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 15: Random Forest Learner & Predictor",
+      "pergunta": "No projeto, a melhor parametrização da Random Forest utilizou o critério de split «Information Gain» associado a um conjunto final composto por 102 árvores.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta foi a configuração final descrita no relatório prático que gerou os resultados ideais do ensemble."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 15: Random Forest Learner & Predictor",
+      "pergunta": "A redução do parâmetro «minimum child node size» (tamanho mínimo do nó filho) de 5 para 3 faz com que as árvores induzidas fiquem mais curtas e menos ramificadas.",
+      "solucao": 1,
+      "explicacao": "Falso. Diminuir o tamanho mínimo exigido nas folhas permite que a árvore cresça mais e faça mais divisões detalhadas, aumentando a sua profundidade."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 15: Random Forest Learner & Predictor",
+      "pergunta": "O modelo Random Forest é estatisticamente menos sensível a outliers do que uma única árvore de decisão clássica, devido ao efeito de agregação por média/maioria das suas múltiplas árvores.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A média das previsões diminui o impacto de decisões isoladas influenciadas por valores atípicos em subconjuntos de dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 15: Random Forest Learner & Predictor",
+      "pergunta": "O nodo «Random Forest Predictor» necessita obrigatoriamente que a tabela de teste de entrada contenha a coluna target real preenchida para efetuar as previsões.",
+      "solucao": 1,
+      "explicacao": "Falso. Para prever a classe, o Predictor apenas necessita dos atributos preditores. O target real só é necessário mais à frente no Scorer para calcular o erro."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 16: Tree Ensemble Learner & Predictor",
+      "pergunta": "O nodo «Tree Ensemble Learner» no KNIME é um modelador genérico de conjuntos de árvores que permite definir dinamicamente o rácio de amostragem de dados, atributos e o critério de split das árvores.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó Tree Ensemble é flexível e permite configurar variantes de bagging e random forest sob diferentes combinações."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 16: Tree Ensemble Learner & Predictor",
+      "pergunta": "No projeto, o Tree Ensemble revelou-se um modelo consistente, cujo desempenho dependeu maioritariamente da qualidade dos dados à entrada e do critério de divisão «Gain Ratio».",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Gain Ratio e a qualidade do pré-processamento de dados foram os fatores determinantes na performance deste ensemble no projeto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 16: Tree Ensemble Learner & Predictor",
+      "pergunta": "O nodo «Tree Ensemble Learner» do KNIME suporta apenas tarefas de modelação de classificação, sendo incapaz de realizar tarefas de regressão numérica.",
+      "solucao": 1,
+      "explicacao": "Falso. O nó suporta de forma nativa tarefas de classificação (categórico) e regressão (numérico), alterando a sua saída conformemente."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 16: Tree Ensemble Learner & Predictor",
+      "pergunta": "Aumentar indefinidamente a quantidade de árvores numa Tree Ensemble assegura melhorias constantes de performance, sem qualquer impacto no custo computacional de treino e teste.",
+      "solucao": 1,
+      "explicacao": "Falso. O ganho de desempenho atinge um patamar estável (diminishing returns). Contudo, o consumo de memória e tempo de treino crescem linearmente com o número de árvores."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 16: Tree Ensemble Learner & Predictor",
+      "pergunta": "No projeto, a combinação conjunta de SMOTE e Normalização sobre a primeira preparação de dados produziu melhorias progressivas de exatidão no modelo de Tree Ensemble.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O relatório indica que no 1º tratamento, ao contrário de outros modelos, a aplicação de SMOTE e normalização em conjunto registou a melhor exatidão para o Tree Ensemble."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 17: Naive Bayes Learner & Predictor",
+      "pergunta": "O classificador «Naive Bayes» baseia-se na suposição de independência estatística condicional entre todos os atributos do dataset em relação à classe alvo.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta é a premissa 'ingénua' (naive) do classificador que simplifica o cálculo da probabilidade a posteriori."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 17: Naive Bayes Learner & Predictor",
+      "pergunta": "No projeto, o Naive Bayes revelou-se altamente sensível à normalização de dados, obtendo uma degradação severa que deitou a exatidão abaixo dos 30% em todas as preparações.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Naive Bayes foi o modelo mais prejudicado pela normalização de dados no projeto, devido à alteração nas distribuições estatísticas das variáveis preditoras."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 17: Naive Bayes Learner & Predictor",
+      "pergunta": "O treino do modelo no nodo «Naive Bayes Learner» é computacionalmente muito lento comparativamente ao treino de modelos como MLP e Random Forest.",
+      "solucao": 1,
+      "explicacao": "Falso. O Naive Bayes é um dos algoritmos mais rápidos a treinar, pois calcula apenas contagens e frequências num único passo (não iterativo)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 17: Naive Bayes Learner & Predictor",
+      "pergunta": "O nodo «Naive Bayes Learner» consegue lidar com atributos numéricos contínuos assumindo uma distribuição normal (Gaussiana) para a estimação de probabilidades.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O KNIME ajusta uma função de densidade probabilística Gaussiana para mapear variáveis contínuas no Naive Bayes."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 17: Naive Bayes Learner & Predictor",
+      "pergunta": "O Naive Bayes é adequado para modelar dados caracterizados por forte correlação e dependência complexa não-linear entre os seus atributos.",
+      "solucao": 1,
+      "explicacao": "Falso. Devido à sua premissa de independência de atributos, o Naive Bayes perde capacidade preditiva se existirem dependências fortes e relações não-lineares cruzadas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 18: Logistic Regression Learner & Predictor",
+      "pergunta": "O classificador «Logistic Regression Learner» estima a probabilidade de pertença a cada classe do target recorrendo à aplicação de funções sigmoides/logísticas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regressão logística mapeia a combinação linear de atributos num intervalo de probabilidades de 0 a 1 usando a função logística."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 18: Logistic Regression Learner & Predictor",
+      "pergunta": "No projeto, a configuração do resolvedor (solver) com a opção «Iteratively reweighted least squares» obteve resultados superiores aos da opção «Stochastic average gradient».",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta otimização de solver foi crucial para obter melhor desempenho na regressão logística do projeto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 18: Logistic Regression Learner & Predictor",
+      "pergunta": "Para prever as 3 classes do target do projeto, o nodo «Logistic Regression Learner» teve de ser configurado para suportar modelação multiclasse (ex: multinomial ou One-vs-Rest).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regressão logística básica é binária; cenários com mais do que duas classes exigem esquemas de generalização multiclasse."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 18: Logistic Regression Learner & Predictor",
+      "pergunta": "A normalização de dados numéricos teve um impacto manifestamente nocivo e indesejado na exatidão obtida pela Regressão Logística no projeto.",
+      "solucao": 1,
+      "explicacao": "Falso. O relatório indica que a aplicação de normalização trouxe uma melhoria significativa no desempenho da Regressão Logística."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 18: Logistic Regression Learner & Predictor",
+      "pergunta": "Como a Regressão Logística assume fronteiras de decisão lineares, ela apresenta dificuldades na modelagem de relações complexas e fortemente não-lineares.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A linearidade inerente limita o modelo quando a separabilidade das classes exige limites geométricos complexos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 19: Gradient Boosted Trees Learner & Predictor",
+      "pergunta": "O nodo «Gradient Boosted Trees Learner» constrói as suas árvores de forma sequencial, onde cada árvore subsequente é induzida para corrigir os resíduos (erros) gerados pela árvore anterior.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Este é o princípio de boosting do algoritmo, minimizando a função de perda através de descida do gradiente no treino das árvores consecutivas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 19: Gradient Boosted Trees Learner & Predictor",
+      "pergunta": "No projeto, o modelo de Gradient Boosted Trees obteve o seu melhor resultado quando treinado sob os dados do terceiro tratamento em associação com o tratamento de outliers.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta combinação robusta permitiu o melhor desempenho do regressor/classificador no projeto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 19: Gradient Boosted Trees Learner & Predictor",
+      "pergunta": "O Gradient Boosted Trees é considerado um modelo de classificação bastante robusto cujos resultados são imunes a alterações nas configurações de hiperparâmetros.",
+      "solucao": 1,
+      "explicacao": "Falso. O modelo é altamente sensível a hiperparâmetros como a taxa de aprendizagem (learning rate / shrinkage), número de árvores e profundidade máxima."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 19: Gradient Boosted Trees Learner & Predictor",
+      "pergunta": "Semelhante à Random Forest, o nodo «Gradient Boosted Trees Learner» constrói todas as suas árvores de forma paralela e independente para otimizar os CPU threads.",
+      "solucao": 1,
+      "explicacao": "Falso. Como cada árvore depende dos erros da anterior, a indução em boosting é intrinsecamente sequencial e não pode ser totalmente paralelizada como a Random Forest."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 19: Gradient Boosted Trees Learner & Predictor",
+      "pergunta": "A quantidade de dados disponíveis revelou-se um fator com elevado impacto na melhoria de performance dos Gradient Boosted Trees no projeto.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O relatório indica que o modelo melhorou significativamente à medida que o tamanho dos dados aumentava."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 20: MLP Learner (Multi Layer Perceptron)",
+      "pergunta": "O nodo «RProp MLP Learner» do KNIME treina um perceptrão multicamada utilizando o algoritmo de retropropagação resiliente (RProp) para a atualização dos pesos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O RProp é uma variação eficiente do backpropagation convencional implementada no nó MLP do KNIME."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 20: MLP Learner (Multi Layer Perceptron)",
+      "pergunta": "No projeto, o MLP Learner destacou-se como o modelo preditivo mais eficiente, atingindo a exatidão mais elevada com o menor custo computacional.",
+      "solucao": 1,
+      "explicacao": "Falso. O MLP Learner obteve os resultados mais baixos e revelou ser um modelo com tempo de treino moroso, não justificando o seu custo computacional face aos outros modelos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 20: MLP Learner (Multi Layer Perceptron)",
+      "pergunta": "Sendo uma rede neuronal com funções de ativação não lineares, o MLP consegue induzir fronteiras de decisão complexas e não-lineares entre as classes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As camadas ocultas com ativações sigmoides/RProp conferem ao MLP a capacidade de aproximar fronteiras complexas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 20: MLP Learner (Multi Layer Perceptron)",
+      "pergunta": "O aumento no número de camadas escondidas e de neurónios por camada no MLP Learner resulta numa diminuição correspondente no tempo total de treino do modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. Redes maiores possuem mais parâmetros e exigem mais cálculos de gradientes, o que aumenta o tempo de computação necessário para treinar."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 20: MLP Learner (Multi Layer Perceptron)",
+      "pergunta": "Na versão final do projeto, os hiperparâmetros da rede MLP foram fixados com 9 camadas ocultas e um limite máximo de 99 neurónios por camada.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta foi a configuração escolhida para equilibrar consumo de recursos e qualidade das previsões."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 21: PNN Learner (Probabilistic Neural Network)",
+      "pergunta": "O nodo «PNN Learner» induz uma rede neuronal probabilística baseada na estimação de densidade de probabilidade (KDE) e na aplicação direta da regra de decisão de Bayes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O PNN usa uma camada de padrões para aproximar as PDF de cada classe e efetuar a classificação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 21: PNN Learner (Probabilistic Neural Network)",
+      "pergunta": "O modelo PNN é extremamente sensível à normalização de dados, pois a alteração na escala dos atributos distorce a estrutura geométrica das densidades originais.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como o PNN estima distâncias de vizinhança Gaussiana para as PDF, a normalização altera drasticamente os cálculos e degrada os resultados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 21: PNN Learner (Probabilistic Neural Network)",
+      "pergunta": "O treino do nodo «PNN Learner» é um processo altamente iterativo, exigindo a afinação de épocas de aprendizagem equivalentes ao do MLP.",
+      "solucao": 1,
+      "explicacao": "Falso. O treino da PNN é imediato (não iterativo). O nó simplesmente armazena os padrões das instâncias de treino na sua estrutura de pesos sinápticos num único passo."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 21: PNN Learner (Probabilistic Neural Network)",
+      "pergunta": "No projeto, a aplicação da técnica SMOTE associada ao PNN Learner obteve uma melhoria expressiva na precisão do modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. O relatório indica que o SMOTE teve um impacto neutro e não trouxe qualquer melhoria ao modelo PNN."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "Grupo 21: PNN Learner (Probabilistic Neural Network)",
+      "pergunta": "O classificador PNN calcula a distância entre o exemplo de teste e as instâncias armazenadas no treino, suavizando o cálculo com um parâmetro de dispersão (kernel width/theta).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O parâmetro de suavização ajusta o raio de influência Gaussiana das instâncias padrão durante a previsão."
+    }
+  ]
+}

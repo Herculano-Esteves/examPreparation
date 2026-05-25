@@ -12,5 +12,47 @@
     "descricao": "Exame completo da época de recurso de Aprendizagem e Decisão Inteligentes (ADI) cobrindo métricas de classificação, regressão com targets discretos, desequilíbrio de classes, soft computing, redes neuronais artificiais, algoritmos de clustering, CRISP-DM e workflows Knime.",
     "path": "exames/adi/ExameADI2.json",
     "perguntas_count": 35
+  },
+  {
+    "id": "ExameADI3",
+    "titulo": "Exame ADI 3 (Época de Exame Especial 2023/2024)",
+    "descricao": "Exame completo de época especial de Aprendizagem e Decisão Inteligentes (ADI) abrangendo métricas de distância (SMC e Jaccard), avaliação com matriz de confusão, regras de associação (Lift, Leverage e Convicção), algoritmos C4.5 e arquiteturas RNN/LSTM.",
+    "path": "exames/adi/ExameADI3.json",
+    "perguntas_count": 31
+  },
+  {
+    "id": "ExameADI4",
+    "titulo": "Exame ADI 4 (Época Especial de Outubro 2023/2024)",
+    "descricao": "Exame completo de época especial de ADI abrangendo cálculo de entropia e ganho de informação, métricas de regressão (MAE, MSE, RMSE), workflows KNIME de regras de associação, normalização de dados e técnicas de clustering (K-Means vs K-Medoids).",
+    "path": "exames/adi/ExameADI4.json",
+    "perguntas_count": 31
+  },
+  {
+    "id": "ExameADI5",
+    "titulo": "Exame Específico de KNIME (Verdadeiro ou Falso)",
+    "descricao": "Exame temático composto exclusivamente por questões de Verdadeiro ou Falso (booleanas) focadas na configuração, utilidade e fluxos de trabalho (workflows) de nós KNIME para preparação de dados, modelação e avaliação.",
+    "path": "exames/adi/ExameADI5.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameADI6",
+    "titulo": "Exame Específico de Conceitos Gerais (Verdadeiro ou Falso)",
+    "descricao": "Exame temático composto exclusivamente por questões de Verdadeiro ou Falso (booleanas) focadas na teoria geral de Machine Learning, abordando preparação de dados, redes neuronais, métricas e clustering.",
+    "path": "exames/adi/ExameADI6.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameADI7",
+    "titulo": "Exame ADI 7 (Cobertura Integral e Consolidação)",
+    "descricao": "Exame focado na cobertura a 100% de tópicos teóricos avançados da matéria de ADI, incluindo escalas de atributos, limitações do Perceptron simples (XOR), regras clássicas de aprendizagem de RNAs (Hebbian, Delta, etc.), variantes de árvores de decisão (CART, CHAID, J48 Weka) e mapeamento CRISP-DM vs SEMMA.",
+    "path": "exames/adi/ExameADI7.json",
+    "perguntas_count": 20
+  },
+  {
+    "id": "ExameADI8",
+    "titulo": "Exame Específico de Análise de Nós KNIME (Baseado no Projeto)",
+    "descricao": "Exame temático exaustivo composto por 105 questões de Verdadeiro ou Falso (booleanas), organizadas em grupos de 5 perguntas para cada um dos 21 nós e técnicas de pré-processamento, modelação e avaliação KNIME utilizados no projeto prático.",
+    "path": "exames/adi/ExameADI8.json",
+    "perguntas_count": 105
   }
 ]

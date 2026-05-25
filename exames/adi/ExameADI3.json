@@ -1,0 +1,207 @@
+{
+  "titulo": "Exame ADI 3 (Época de Exame Especial 2023/2024)",
+  "descricao": "Exame completo de época especial de Aprendizagem e Decisão Inteligentes (ADI) abrangendo métricas de distância (SMC e Jaccard), avaliação com matriz de confusão, regras de associação (Lift, Leverage e Convicção), algoritmos C4.5 e arquiteturas RNN/LSTM.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "No âmbito da descoberta de Regras de Associação, são utilizadas várias medidas de interesse para avaliar as regras geradas (ex: Antecedente -> Consequente). Explique conceitualmente o significado de:\na) Lift (correlação);\nb) Convicção (conviction);\nc) Potência (leverage).\nAdicionalmente, dissemelhe a forma como o Lift e o Leverage se comportam em relação à frequência absoluta das transações no dataset.",
+      "solucao": "a) **Lift**: Mede a força da regra em termos de dependência estatística. Um valor igual a 1 indica independência entre antecedente (A) e consequente (C). Valores superiores a 1 indicam que a ocorrência de A potencia a ocorrência de C. Valores inferiores a 1 sugerem que os itens são substitutos (influência negativa).\n\nb) **Convicção**: Mede o grau de implicação lógica da regra, avaliando a expectativa de o antecedente ocorrer sem o consequente (ou seja, a taxa de erro esperado se a regra fosse pura coincidência). Um valor de 1 indica ausência de relação; valores elevados (até infinito) indicam forte implicação.\n\nc) **Leverage (Potência)**: Mede a diferença entre a probabilidade de ocorrência conjunta de A e C e a ocorrência esperada se fossem estatisticamente independentes. Mede a proporção de transações adicionais que co-ocorrem acima do esperado.\n\n**Diferença entre Lift e Leverage**:\n- O **Lift** é uma medida de correlação relativa. Tende a favorecer e destacar regras com associações muito fortes, mesmo que envolvam itens raros (com baixo suporte).\n- O **Leverage** é uma medida absoluta. Dá maior importância e prioridade a relações que possuem forte suporte nos dados (itens frequentes), sendo mais influenciado pelo volume de transações."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo C4.5 foi proposto por Ross Quinlan como uma evolução direta do ID3 para mitigar várias das suas limitações estruturais. Identifique e explique detalhadamente as 4 principais melhorias introduzidas pelo C4.5 em relação ao seu predecessor.",
+      "solucao": "As 4 principais melhorias são:\n1. **Tratamento de atributos contínuos**: Enquanto o ID3 exige atributos discretos, o C4.5 cria partições dinâmicas definindo um limite (*threshold*) ótimo ($A \\le \\theta$ vs $A > \\theta$) com base no maior ganho de informação.\n2. **Tratamento de valores em falta (missing values)**: O C4.5 lida com dados em falta ao ignorar estes registos nos cálculos de ganho de informação de um determinado atributo ou ao distribuir proporcionalmente o peso do exemplo pelos ramos correspondentes.\n3. **Atribuição de pesos aos atributos**: Permite ponderar atributos de acordo com a sua relevância ou custo de aquisição, ajustando o critério de seleção do nó.\n4. **Poda da árvore (Pruning)**: Resolve o problema do sobreajuste (*overfitting*). O C4.5 realiza uma poda pós-indução (*post-pruning*), analisando subárvores e substituindo ramos redundantes ou que acrescentem pouca qualidade por nós folha."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As Redes Neuronais Artificiais (RNAs) dividem-se em múltiplos paradigmas estruturais. Compare as Redes Neuronais Feedforward (como o Multi-Layer Perceptron - MLP) com as Redes Neuronais Recorrentes (RNN) respondendo aos seguintes tópicos:\na) Diferença estrutural no fluxo de informação e existência de ciclos/retroalimentação.\nb) Limitação das RNNs simples na captura de dependências temporais longas e indicação de duas arquiteturas de extensão (redes complexas) criadas para resolver esse problema.",
+      "solucao": "a) **Diferença Estrutural**:\n   - **MLP (Feedforward)**: A informação flui estritamente num único sentido (da camada de entrada para a camada de saída). Não existem ciclos, conexões laterais entre neurónios da mesma camada nem retroalimentação.\n   - **RNN (Recorrentes)**: Contêm ciclos de retroalimentação (feedback loops), permitindo que a saída de um neurónio num instante de tempo seja reinserida como entrada no instante seguinte. Isto cria uma 'memória interna' adequada para sequências.\n\nb) **Limitação e Extensões**:\n   - **Limitação**: As RNNs clássicas sofrem com o problema do **desvanecimento ou explosão do gradiente** (vanishing/exploding gradient) quando treinadas com sequências longas. Os gradientes diminuem exponencialmente ao longo do tempo, impedindo a rede de aprender dependências de longo prazo.\n   - **Arquiteturas de Extensão**: Para mitigar isto, foram desenhadas as arquiteturas **LSTM (Long Short-Term Memory)** e **GRU (Gated Recurrent Unit)**, que utilizam mecanismos de portas (gates) para controlar o fluxo de informação e manter a memória ativa por mais tempo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No algoritmo Apriori, o princípio basilar dita que se um conjunto de itens (itemset) é frequente, então todos os seus subconjuntos são necessariamente frequentes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta propriedade de monotonicidade garante que se {pão, leite} é frequente, então os subconjuntos {pão} e {leite} também são frequentes, permitindo otimizar a procura de itemsets."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Segundo o princípio complementar do algoritmo Apriori, se um itemset não é frequente, ao adicionar-lhe um novo atributo (superconjunto), a frequência da associação resultante poderá ser superior ao itemset original.",
+      "solucao": 1,
+      "explicacao": "Falso. O princípio complementar garante que nenhum superconjunto de um itemset não frequente pode ser frequente. Se $V$ não é frequente, $V \\cup \\{A\\}$ será necessariamente igual ou menos frequente, permitindo podar o espaço de pesquisa."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um padrão frequente máximo (Maxpattern) define-se como um itemset frequente em que nenhum dos seus superconjuntos imediatos é considerado frequente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Maxpattern representa a fronteira dos itemsets frequentes, ou seja, um padrão frequente tal que qualquer super-padrão contendo-o deixa de ter o suporte mínimo exigido."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo de clustering DBSCAN exige a definição prévia do número de segmentos 'k' a extrair do conjunto de dados.",
+      "solucao": 1,
+      "explicacao": "Falso. O DBSCAN é um algoritmo baseado em densidade que descobre o número de clusters dinamicamente com base nos parâmetros de densidade local (Epsilon e MinPts), ao contrário do K-Means."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo CURE (Clustering Using Representatives) utiliza um único ponto central (centroid) para representar cada cluster na sua totalidade.",
+      "solucao": 1,
+      "explicacao": "Falso. O CURE caracteriza-se por usar múltiplos pontos representativos dispersos para cada cluster, o que lhe permite identificar e modelar clusters com formas não esféricas/regulares."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No contexto de clustering, o método BIRCH constrói uma árvore estruturada designada por Clustering Feature Tree (CF Tree) que resume as características estocásticas dos dados para processar eficientemente grandes datasets.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O BIRCH utiliza as estruturas CF (Clustering Feature) e CF Tree para resumir a informação dos dados de forma hierárquica e incremental, minimizando acessos a disco."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na validação cruzada leave-one-out (LOOCV), o número de iterações/folds (k) é exatamente igual ao número de instâncias (N) do conjunto de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A LOOCV é um caso particular de K-fold Cross Validation onde $k = N$. Em cada iteração, $N-1$ instâncias servem para treino e apenas 1 instância serve para teste."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na preparação de dados, a normalização por min-max altera a distribuição original dos dados, convertendo-a obrigatoriamente numa distribuição normal com média 0 e desvio padrão 1.",
+      "solucao": 1,
+      "explicacao": "Falso. A normalização min-max apenas escala linearmente os dados para um intervalo fixo (geralmente $[0, 1]$), mantendo a forma da distribuição original. O método que converte os dados para terem média 0 e desvio padrão 1 é a padronização (z-score)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Numa Rede Neuronal Artificial, a sinapse representa a via de propagação unidirecional do sinal final processado por um neurónio para os neurónios seguintes.",
+      "solucao": 1,
+      "explicacao": "Falso. A via de propagação do sinal de saída é o **axónio**. As sinapses são as conexões/ligações ponderadas (com pesos sinápticos) que transmitem e modulam os sinais de entrada vindos de outros neurónios."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na fase de modelação com Knime, o nodo 'Logistic Regression Learner' é inadequado para criar um classificador binário.",
+      "solucao": 1,
+      "explicacao": "Falso. A regressão logística (Logistic Regression) é, apesar do nome 'regressão', uma técnica clássica e muito utilizada para criar modelos de classificação discreta (binária ou multiclasse)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------+-----------------------------+\n| Trans | Itens Comprados             |\n+-------+-----------------------------+\n| T1    | Pão, Leite, Café            |\n| T2    | Pão, Leite, Manteiga        |\n| T3    | Leite, Manteiga             |\n| T4    | Pão, Café                   |\n| T5    | Pão, Leite, Manteiga, Café  |\n+-------+-----------------------------+\n```",
+      "pergunta": "Considere o dataset de transações acima. O suporte absoluto do itemset {Pão, Leite} é igual a 3.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O itemset {Pão, Leite} co-ocorre nas transações T1, T2 e T5, perfazendo um suporte absoluto de 3 transações (ou 60% de suporte relativo)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------+-----------------------------+\n| Trans | Itens Comprados             |\n+-------+-----------------------------+\n| T1    | Pão, Leite, Café            |\n| T2    | Pão, Leite, Manteiga        |\n| T3    | Leite, Manteiga             |\n| T4    | Pão, Café                   |\n| T5    | Pão, Leite, Manteiga, Café  |\n+-------+-----------------------------+\n```",
+      "pergunta": "Considere o dataset de transações acima. A confiança da regra Manteiga -> Leite é igual a 100%.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Manteiga surge nas transações T2, T3 e T5 (total = 3). Em todas estas três transações, o Leite também foi comprado. Assim, a confiança é $3/3 = 100\\%$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------+-----------------------------+\n| Trans | Itens Comprados             |\n+-------+-----------------------------+\n| T1    | Pão, Leite, Café            |\n| T2    | Pão, Leite, Manteiga        |\n| T3    | Leite, Manteiga             |\n| T4    | Pão, Café                   |\n| T5    | Pão, Leite, Manteiga, Café  |\n+-------+-----------------------------+\n```",
+      "pergunta": "Considere o dataset de transações acima. A regra Pão -> Leite apresenta um Lift inferior a 1, o que sugere que os produtos se comportam como substitutos neste dataset.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O suporte de Pão é $4/5 = 0.8$, de Leite é $4/5 = 0.8$, e de {Pão, Leite} é $3/5 = 0.6$. O Lift é $0.6 / (0.8 \\times 0.8) = 0.6 / 0.64 = 0.9375$. Como Lift < 1, há uma correlação negativa implícita."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------+-----------------------------+\n| Trans | Itens Comprados             |\n+-------+-----------------------------+\n| T1    | Pão, Leite, Café            |\n| T2    | Pão, Leite, Manteiga        |\n| T3    | Leite, Manteiga             |\n| T4    | Pão, Café                   |\n| T5    | Pão, Leite, Manteiga, Café  |\n+-------+-----------------------------+\n```",
+      "pergunta": "Considere o dataset de transações acima. A regra Manteiga -> Leite apresenta um Leverage (Potência) igual a 0.12.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Leverage é dado por $Sup(A, C) - Sup(A) \\times Sup(C)$. Para Manteiga -> Leite: $0.6 - (0.6 \\times 0.8) = 0.6 - 0.48 = 0.12$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------+-----------------------------+\n| Trans | Itens Comprados             |\n+-------+-----------------------------+\n| T1    | Pão, Leite, Café            |\n| T2    | Pão, Leite, Manteiga        |\n| T3    | Leite, Manteiga             |\n| T4    | Pão, Café                   |\n| T5    | Pão, Leite, Manteiga, Café  |\n+-------+-----------------------------+\n```",
+      "pergunta": "Considere o dataset de transações acima. A amplitude (Coverage) da regra Café -> Pão é de 40%.",
+      "solucao": 1,
+      "explicacao": "Falso. A amplitude (Coverage) de uma regra $A \\rightarrow C$ é o suporte do antecedente $Sup(A)$. Neste caso, o antecedente é Café, cujo suporte é $3/5 = 60\\%$, e não 40%."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------+-----------------------------+\n| Trans | Itens Comprados             |\n+-------+-----------------------------+\n| T1    | Pão, Leite, Café            |\n| T2    | Pão, Leite, Manteiga        |\n| T3    | Leite, Manteiga             |\n| T4    | Pão, Café                   |\n| T5    | Pão, Leite, Manteiga, Café  |\n+-------+-----------------------------+\n```",
+      "pergunta": "Considere o dataset de transações acima. O itemset {Pão, Leite, Manteiga, Café} representa um itemset frequente se o suporte mínimo relativo exigido for de 30%.",
+      "solucao": 1,
+      "explicacao": "Falso. O itemset {Pão, Leite, Manteiga, Café} surge apenas na transação T5, correspondendo a um suporte relativo de $1/5 = 20\\%$. Se o suporte mínimo relativo for 30%, este itemset não é frequente."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-----------------+-----------------------+\n|                 | Classe Real           |\n| Previsão Modelo | Positiva  | Negativa  |\n+-----------------+-----------+-----------+\n| Positiva (Pre)  | TP = 40   | FP = 10   |\n| Negativa (Pre)  | FN = 15   | TN = 135  |\n+-----------------+-----------+-----------+\n```",
+      "pergunta": "Considere a matriz de confusão acima obtida para um classificador. A exatidão (Accuracy) global do modelo é de 87.5%.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A exatidão é dada por $(TP + TN) / Total = (40 + 135) / 200 = 175 / 200 = 0.875$ (ou $87.5\\%$)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-----------------+-----------------------+\n|                 | Classe Real           |\n| Previsão Modelo | Positiva  | Negativa  |\n+-----------------+-----------+-----------+\n| Positiva (Pre)  | TP = 40   | FP = 10   |\n| Negativa (Pre)  | FN = 15   | TN = 135  |\n+-----------------+-----------+-----------+\n```",
+      "pergunta": "Considere a matriz de confusão acima. A precisão (Precision) do modelo relativamente à classe positiva é de 80.0%.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A precisão é dada por $TP / (TP + FP) = 40 / (40 + 10) = 40 / 50 = 0.8$ (ou $80.0\\%$)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-----------------+-----------------------+\n|                 | Classe Real           |\n| Previsão Modelo | Positiva  | Negativa  |\n+-----------------+-----------+-----------+\n| Positiva (Pre)  | TP = 40   | FP = 10   |\n| Negativa (Pre)  | FN = 15   | TN = 135  |\n+-----------------+-----------+-----------+\n```",
+      "pergunta": "Considere a matriz de confusão acima. A sensibilidade (Recall) do modelo para a classe positiva é de aproximadamente 72.7%.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A sensibilidade/revogação (Recall) é calculada por $TP / (TP + FN) = 40 / (40 + 15) = 40 / 55 \\approx 0.7272$ (ou $72.7\\%$)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-----------------+-----------------------+\n|                 | Classe Real           |\n| Previsão Modelo | Positiva  | Negativa  |\n+-----------------+-----------+-----------+\n| Positiva (Pre)  | TP = 40   | FP = 10   |\n| Negativa (Pre)  | FN = 15   | TN = 135  |\n+-----------------+-----------+-----------+\n```",
+      "pergunta": "Considere a matriz de confusão acima. A taxa de falsos positivos (FPR) do modelo é de 10.0%.",
+      "solucao": 1,
+      "explicacao": "Falso. A taxa de falsos positivos (FPR) mede a proporção de casos negativos reais incorretamente previstos como positivos: $FP / (FP + TN) = 10 / (10 + 135) = 10 / 145 \\approx 6.9\\%$. O valor de 10% seria se dividíssemos apenas pelo número de previsões positivas, o que está errado."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-----------------+-----------------------+\n|                 | Classe Real           |\n| Previsão Modelo | Positiva  | Negativa  |\n+-----------------+-----------+-----------+\n| Positiva (Pre)  | TP = 40   | FP = 10   |\n| Negativa (Pre)  | FN = 15   | TN = 135  |\n+-----------------+-----------+-----------+\n```",
+      "pergunta": "Considere a matriz de confusão acima. O F1-Score do modelo é inferior a 70%.",
+      "solucao": 1,
+      "explicacao": "Falso. O F1-Score é a média harmónica da precisão (0.80) e do recall (0.727): $2 \\times (0.80 \\times 0.727) / (0.80 + 0.727) = 1.1632 / 1.527 \\approx 76.17\\%$. Este valor é claramente superior a 70%."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-----------------+-----------------------+\n|                 | Classe Real           |\n| Previsão Modelo | Positiva  | Negativa  |\n+-----------------+-----------+-----------+\n| Positiva (Pre)  | TP = 40   | FP = 10   |\n| Negativa (Pre)  | FN = 15   | TN = 135  |\n+-----------------+-----------+-----------+\n```",
+      "pergunta": "A matriz de confusão acima refere-se a um modelo preditivo que foi treinado recorrendo a estratégias de aprendizagem não supervisionada.",
+      "solucao": 1,
+      "explicacao": "Falso. Matrizes de confusão e métricas de erro associadas a classes reais positivas/negativas exigem dados rotulados e pertencem estritamente ao paradigma de Aprendizagem Supervisionada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------+--------+--------+--------+\n| Objeto | Febre  | Tosse  | Dor    |\n+--------+--------+--------+--------+\n| O1     | 1      | 0      | 0      |\n| O2     | 1      | 1      | 0      |\n| O3     | 0      | 1      | 1      |\n+--------+--------+--------+--------+\n```",
+      "pergunta": "Considere os dados binários assimétricos acima. A distância Simple Matching Coefficient (SMC) entre os objetos O1 e O2 é igual a 1/3 (ou aproximadamente 0.333).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A distância SMC é dada por $(b + c) / (a + b + c + d)$. Entre O1 e O2: matches são na Febre (ambos 1) e na Dor (ambos 0). Mismatch na Tosse. Assim, $b+c = 1$ e $a+b+c+d = 3$. Distância SMC = $1/3$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------+--------+--------+--------+\n| Objeto | Febre  | Tosse  | Dor    |\n+--------+--------+--------+--------+\n| O1     | 1      | 0      | 0      |\n| O2     | 1      | 1      | 0      |\n+--------+--------+--------+--------+\n| O3     | 0      | 1      | 1      |\n+--------+--------+--------+--------+\n```",
+      "pergunta": "Considere os dados binários assimétricos acima. A distância de Jaccard entre os objetos O1 e O2 é igual a 0.5.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A distância de Jaccard ignora a co-ocorrência de zeros (d). A fórmula é $(b + c) / (a + b + c)$. Para O1 e O2: $a = 1$ (Febre=1), $b = 0$, $c = 1$ (Tosse). Assim, a distância é $1 / (1 + 0 + 1) = 0.5$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------+--------+--------+--------+\n| Objeto | Febre  | Tosse  | Dor    |\n+--------+--------+--------+--------+\n| O1     | 1      | 0      | 0      |\n| O2     | 1      | 1      | 0      |\n| O3     | 0      | 1      | 1      |\n+--------+--------+--------+--------+\n```",
+      "pergunta": "Considere os dados binários assimétricos acima. A distância Simple Matching Coefficient (SMC) entre os objetos O2 e O3 é exatamente igual à sua distância de Jaccard.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Para O2 e O3, não existem co-ocorrências de zeros ($d = 0$). Na Febre (1 vs 0), na Tosse (1 vs 1, match), na Dor (0 vs 1). Visto que $d = 0$, a distância SMC $(b+c)/(a+b+c+d)$ é $2/3$ e a distância de Jaccard $(b+c)/(a+b+c)$ é também $2/3$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------+--------+--------+--------+\n| Objeto | Febre  | Tosse  | Dor    |\n+--------+--------+--------+--------+\n| O1     | 1      | 0      | 0      |\n| O2     | 1      | 1      | 0      |\n| O3     | 0      | 1      | 1      |\n+--------+--------+--------+--------+\n```",
+      "pergunta": "Considere os dados binários assimétricos acima. A distância de Jaccard entre O1 e O3 é menor do que a distância de Jaccard entre O1 e O2.",
+      "solucao": 1,
+      "explicacao": "Falso. O1 e O3 não partilham qualquer atributo ativo ($a = 0$). Assim, a distância de Jaccard entre O1 e O3 é de $3/3 = 1.0$ (distância máxima), que é superior à distância entre O1 e O2 ($0.5$)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------+--------+--------+--------+\n| Objeto | Febre  | Tosse  | Dor    |\n+--------+--------+--------+--------+\n| O1     | 1      | 0      | 0      |\n| O2     | 1      | 1      | 0      |\n| O3     | 0      | 1      | 1      |\n+--------+--------+--------+--------+\n```",
+      "pergunta": "Se considerarmos os sintomas Febre, Tosse e Dor como atributos binários simétricos, a distância SMC passa a ser não-invariante.",
+      "solucao": 1,
+      "explicacao": "Falso. A similaridade calculada com base em atributos simétricos designa-se por similaridade invariante (onde a presença ou ausência têm o mesmo significado), tal como é medido pelo SMC. O Jaccard é não-invariante por focar apenas na presença."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------+--------+--------+--------+\n| Objeto | Febre  | Tosse  | Dor    |\n+--------+--------+--------+--------+\n| O1     | 1      | 0      | 0      |\n| O2     | 1      | 1      | 0      |\n| O3     | 0      | 1      | 1      |\n+--------+--------+--------+--------+\n```",
+      "pergunta": "Ao aplicar um algoritmo de agrupamento hierárquico aglomerativo (AGNES) sobre O1, O2 e O3 utilizando a distância de Jaccard, o primeiro agrupamento a realizar-se une os objetos O1 e O2.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O algoritmo AGNES adota uma estratégia bottom-up e agrupa iterativamente os elementos mais próximos (menor distância). Como $d(O1, O2) = 0.5$, $d(O2, O3) = 0.67$ e $d(O1, O3) = 1.0$, o par mais próximo é (O1, O2) com a distância mínima de 0.5."
+    }
+  ]
+}

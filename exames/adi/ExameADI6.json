@@ -1,0 +1,126 @@
+{
+  "titulo": "Exame Específico de Conceitos Gerais (Verdadeiro ou Falso)",
+  "descricao": "Exame temático composto exclusivamente por questões de Verdadeiro ou Falso (booleanas) focadas na teoria geral de Machine Learning, abordando preparação de dados, redes neuronais, métricas e clustering.",
+  "perguntas": [
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem não supervisionada caracteriza-se pela utilização de conjuntos de dados em que cada registo possui a resposta/rótulo (target) predefinido, permitindo estimar a exatidão do modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. O paradigma que utiliza dados rotulados (com target) é a Aprendizagem Supervisionada. A aprendizagem não supervisionada (como clustering) lida com dados sem rótulo prévio para descobrir padrões e estruturas ocultas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Modelos de Machine Learning com elevada complexidade estrutural tendem a apresentar baixo viés (bias) nos dados de treino e elevado sobreajuste (overfitting) nos dados de teste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Um modelo complexo (como uma árvore de decisão muito profunda) consegue memorizar os dados de treino quase perfeitamente (baixo viés), mas tem pior capacidade de generalização por modelar o ruído (overfitting)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A discretização (binning) de um atributo numérico contínuo reduz a granularidade original da informação, simplificando os dados em detrimento da precisão exata das medidas geométricas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A discretização converte valores numéricos exatos em intervalos categóricos, o que resulta inevitavelmente numa perda de detalhe (perda de informação)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo de retropropagação (backpropagation) em Redes Neuronais Artificiais atualiza os pesos sinápticos propagando o sinal de erro da camada de entrada até à camada de saída.",
+      "solucao": 1,
+      "explicacao": "Falso. O backpropagation funciona no sentido inverso ao fluxo feedforward: calcula os gradientes e retropropaga o erro partindo da camada de saída de volta para as camadas ocultas e, finalmente, para a entrada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O suporte de uma regra de associação mede a percentagem de transações que contêm o antecedente juntamente com o consequente, refletindo o grau de certeza da regra.",
+      "solucao": 1,
+      "explicacao": "Falso. O suporte reflete a utilidade/frequência absoluta da regra no dataset. A métrica que reflete a certeza (probabilidade de comprar o consequente dado que comprou o antecedente) é a **confiança**."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Para atributos nominais com mais do que duas categorias, a distância por matching simples corresponde ao rácio entre o número de atributos sem correspondência e o número total de atributos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A distância de matching simples é dada por $d(i, j) = (p - m) / p$, onde $p$ é o total de atributos nominais e $m$ é o número de correspondências (matches)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma das limitações do algoritmo K-Means reside no facto de a partição final obtida para os clusters ser dependente da inicialização aleatória dos centroids.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como o K-Means converge para ótimos locais, diferentes posições iniciais dos centroids podem produzir agrupamentos finais distintos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na metodologia CRISP-DM, a fase de Modelação (Modeling) ocorre imediatamente antes da fase de Preparação de Dados (Data Preparation).",
+      "solucao": 1,
+      "explicacao": "Falso. A Preparação de Dados antecede obrigatoriamente a Modelação, uma vez que os modelos necessitam dos dados limpos, normalizados e devidamente particionados para poderem ser treinados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A função de ativação sigmoide mapeia qualquer valor de entrada real para um intervalo fechado de $[-1, 1]$.",
+      "solucao": 1,
+      "explicacao": "Falso. A função sigmoide mapeia valores reais para o intervalo aberto de $]0, 1[$. A função que mapeia para $[-1, 1]$ é a tangente hiperbólica (tanh)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A técnica SMOTE combate o desequilíbrio de classes efetuando a duplicação direta e cópia aleatória de instâncias da classe minoritária.",
+      "solucao": 1,
+      "explicacao": "Falso. O SMOTE cria novas instâncias sintéticas por interpolação linear entre instâncias vizinhas da classe minoritária, não se limitando a copiar ou duplicar registos existentes."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo K-Medoids é computacionalmente mais leve e apresenta melhor escalabilidade para datasets de grandes dimensões do que o K-Means.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Medoids é mais robusto a ruídos mas é muito mais exigente computacionalmente, tendo pior escalabilidade para datasets massivos devido à complexidade da pesquisa de medoids."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um valor de Lift inferior a 1.0 numa regra de associação indica que a presença do antecedente tem uma influência negativa na presença do consequente (produtos substitutos).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Lift < 1 indica que a ocorrência do antecedente e consequente são menos frequentes do que se fossem independentes, atuando de forma negativa um sobre o outro."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A poda de uma árvore de decisão (tree pruning) reduz a profundidade do modelo, o que invariavelmente degrada o desempenho do classificador em dados de teste futuros.",
+      "solucao": 1,
+      "explicacao": "Falso. A poda reduz o sobreajuste (overfitting), o que tipicamente **melhora** a exatidão e generalização sobre dados de teste novos, embora possa reduzir a precisão nos dados de treino."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O particionamento por hold-out garante a repetibilidade das experiências mesmo que os dados sejam baralhados e divididos aleatoriamente em cada execução.",
+      "solucao": 1,
+      "explicacao": "Falso. Divisões aleatórias puras sem a fixação de uma semente (random seed) geram conjuntos de treino e teste diferentes a cada execução, inviabilizando a replicabilidade exata."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A seleção de atributos (feature selection) é uma tarefa típica de aprendizagem supervisionada uma vez que as relações de dependência estatística são calculadas unicamente sobre os preditores.",
+      "solucao": 1,
+      "explicacao": "Falso. A seleção de atributos visa analisar a estrutura interna dos dados e a redundância entre variáveis, sendo uma tarefa não supervisionada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No algoritmo DBSCAN, ao diminuir o parâmetro de distância Epsilon, a restrição de densidade local para formar um cluster torna-se mais severa.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Diminuir o Epsilon reduz o raio de vizinhança. Deste modo, menos pontos serão classificados como vizinhos sob o mesmo raio, exigindo maior densidade física e facilitando a classificação de pontos como ruído (noise)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Soft Computing distingue-se do Hard Computing pela sua intolerância à imprecisão, incerteza e verdade parcial.",
+      "solucao": 1,
+      "explicacao": "Falso. O Soft Computing baseia-se na **tolerância** à imprecisão, incerteza e verdade parcial para aproximar o raciocínio humano flexível, ao contrário do Hard Computing que exige precisão binária absoluta."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em árvores de decisão para regressão, o valor de previsão armazenado em cada nó folha corresponde à moda das classes das instâncias correspondentes.",
+      "solucao": 1,
+      "explicacao": "Falso. Em árvores de regressão, o target é numérico contínuo. O valor atribuído às folhas é a média (ou mediana) das instâncias nessa folha. A moda é usada em árvores de classificação."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na validação cruzada (Cross-Validation), a estimativa de erro global corresponde ao menor erro obtido entre os k folds avaliados.",
+      "solucao": 1,
+      "explicacao": "Falso. A estimativa final de desempenho ou erro é dada pela **média** dos erros obtidos em todos os k folds, garantindo uma estimativa de erro imparcial."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As extensões do algoritmo Apriori, como itemsets fechados frequentes (closed itemsets), visam aumentar substancialmente a quantidade de regras geradas.",
+      "solucao": 1,
+      "explicacao": "Falso. Estas extensões servem para comprimir a representação do conhecimento extraído e eliminar regras redundantes, **reduzindo** a quantidade total de regras."
+    }
+  ]
+}

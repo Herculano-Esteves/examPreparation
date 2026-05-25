@@ -1,0 +1,207 @@
+{
+  "titulo": "Exame ADI 4 (Época Especial de Outubro 2023/2024)",
+  "descricao": "Exame completo de época especial de ADI abrangendo cálculo de entropia e ganho de informação, métricas de regressão (MAE, MSE, RMSE), workflows KNIME de regras de associação, normalização de dados e técnicas de clustering (K-Means vs K-Medoids).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto do desenvolvimento de modelos preditivos, explique detalhadamente a utilidade e a diferença prática entre:\na) Conjunto de Treino;\nb) Conjunto de Validação;\nc) Conjunto de Teste.\nAdicionalmente, justifique a utilidade prática de recorrer a uma estratégia de validação Leave-One-Out Cross Validation (LOOCV) em detrimento de uma hold-out tradicional, relacionando com o tamanho do dataset.",
+      "solucao": "a) **Diferenças Práticas**:\n   - **Treino**: Subconjunto de dados utilizado pelo algoritmo para ajustar os parâmetros do modelo (ex: pesos das sinapses em RNAs ou divisões em Árvores de Decisão). É onde o modelo aprende os padrões.\n   - **Validação**: Subconjunto de dados usado para avaliar o desempenho do modelo de forma independente durante a fase de treino. Serve para afinar hiperparâmetros (como número de épocas, taxa de aprendizagem ou profundidade máxima) e evitar overfitting.\n   - **Teste**: Subconjunto de dados mantido inteiramente oculto do modelo durante todo o ciclo de treino e afinação de hiperparâmetros. É usado uma única vez no final para fornecer uma estimativa imparcial e realista da capacidade de generalização do modelo final em ambiente real.\n\nb) **Validação LOOCV vs Hold-Out**:\n   - Numa estratégia de **Hold-Out**, dividimos os dados em proporções fixas (ex: 70/30). Se o dataset for muito pequeno (baixo número de instâncias $N$), reservar 30% dos dados para teste reduz significativamente a quantidade de dados disponíveis para o modelo aprender no treino, o que resulta num modelo sub-ótimo e numa estimativa de erro altamente instável (alto viés).\n   - A **LOOCV** mitiga este problema ao treinar o modelo $N$ vezes, utilizando $N-1$ instâncias para treino e apenas 1 para teste em cada iteração. Isto maximiza a quantidade de dados usados para o treino do modelo em cada passo, reduzindo o viés da estimativa do erro final (que é a média dos erros individuais)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os algoritmos de clustering (segmentação) permitem encontrar padrões intrínsecos sem supervisão. Responda aos seguintes pontos:\na) Diferencie os métodos K-Means e K-Medoids em termos da sua representatividade de centro e sensibilidade a outliers/ruído.\nb) Compare as abordagens AGNES e DIANA de segmentação hierárquica no que toca à sua estratégia de indução da árvore de clusters.",
+      "solucao": "a) **K-Means vs K-Medoids**:\n   - **K-Means**: Cada cluster é representado por um centroide (que é a média matemática das coordenadas de todos os pontos no cluster). Como o centroide é uma média, é extremamente sensível a *outliers* (valores extremos), que podem puxar o centroide para fora do agrupamento natural de dados.\n   - **K-Medoids**: Cada cluster é representado por um *medoid*, que é um dos próprios objetos reais do dataset mais próximo do centro do cluster. Como se baseia em instâncias reais e minimiza a soma das distâncias em vez de calcular médias quadráticas, é muito mais robusto à presença de ruído e outliers.\n\nb) **AGNES vs DIANA**:\n   - **AGNES (Agglomerative Nesting)**: Adota uma estratégia **bottom-up** (aglomerativa). Começa com cada objeto a constituir o seu próprio cluster unitário e, em cada iteração sucessiva, junta os dois clusters que apresentam a menor distância (maior similaridade), até que todos os objetos estejam num único cluster global.\n   - **DIANA (Divisive Analysis)**: Adota uma estratégia **top-down** (divisiva). Começa com todos os objetos agrupados num único cluster gigante e, a cada passo iterativo, subdivide o cluster em segmentos menores maximizando a distância entre elementos, até que cada objeto constitua um cluster atómico."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A preparação de dados e as metodologias de modelação são cruciais em projetos de Business Intelligence e Machine Learning.\na) Compare a normalização Min-Max com a padronização Z-Score, indicando a fórmula e o intervalo de saída de cada uma.\nb) Defina 'Soft Computing' no contexto da Lógica Difusa (Fuzzy Logic), explicando de que forma ela difere do paradigma tradicional 'Hard Computing' baseado na lógica booleana.",
+      "solucao": "a) **Min-Max vs Z-Score**:\n   - **Normalização Min-Max**: Redimensiona os dados para um intervalo fixo (normalmente $[0, 1]$). A fórmula é: $x_{new} = \\frac{x - min(x)}{max(x) - min(x)}$. É sensível a outliers (que comprimem os dados normais num intervalo minúsculo).\n   - **Padronização Z-Score**: Ajusta os dados de modo a terem média 0 e desvio padrão 1. A fórmula é: $x_{new} = \\frac{x - \\mu}{\\sigma}$, onde $\\mu$ é a média e $\\sigma$ o desvio padrão. O intervalo de saída não é limitado, estendendo-se teoricamente de $-\\infty$ a $+\\infty$. É mais adequada quando existem outliers.\n\nb) **Soft Computing e Lógica Difusa**:\n   - A **Lógica Difusa (Fuzzy Logic)** enquadra-se no paradigma do *Soft Computing*, caracterizando-se pela tolerância à imprecisão, incerteza e verdade parcial. Ao contrário da lógica booleana clássica (*Hard Computing*), que exige precisão binária estrita (verdadeiro ou falso, 0 ou 1), a Lógica Difusa permite valores de pertença intermédios representados no intervalo contínuo $[0, 1]$ (ex: um cliente pode ser 0.7 'jovem' e 0.3 'adulto'). Isto permite modelar a ambiguidade e o raciocínio humano de forma mais realista."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia CRISP-DM é um padrão da indústria para análise de dados que divide o ciclo de vida do projeto em seis etapas consecutivas e iterativas, começando por Business Understanding e terminando em Deployment.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O CRISP-DM define exatamente as 6 fases: 1. Business Understanding, 2. Data Understanding, 3. Data Preparation, 4. Modeling, 5. Evaluation e 6. Deployment."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia SEMMA difere da CRISP-DM por incluir fases dedicadas explicitamente à compreensão de negócio e ao deployment dos modelos preditivos.",
+      "solucao": 1,
+      "explicacao": "Falso. O SEMMA (proposto pelo SAS Institute) é focado na modelação estatística e preparação técnica (Sample, Explore, Modify, Model, Assess). Não possui as etapas iniciais de negócio (Business Understanding) nem finais de implementação (Deployment) presentes no CRISP-DM."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Numa Rede Neuronal Artificial feedforward do tipo MLP, a função de ativação linear é a mais adequada para ser utilizada nas camadas intermédias para modelar relações não lineares complexas nos dados.",
+      "solucao": 1,
+      "explicacao": "Falso. A função de ativação linear não introduz não-linearidade. Uma rede MLP com apenas ativações lineares nas camadas intermédias equivale a um modelo de regressão linear simples, incapaz de modelar relações não lineares. Devem usar-se funções como Sigmoide, Tanh ou ReLU."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O método SMOTE é uma técnica de oversampling que duplica exatamente as instâncias da classe minoritária no dataset para combater o desequilíbrio de classes.",
+      "solucao": 1,
+      "explicacao": "Falso. O SMOTE (Synthetic Minority Over-sampling Technique) não duplica registos existentes. Em vez disso, cria instâncias sintéticas novas através da interpolação linear entre instâncias vizinhas da classe minoritária."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na fase de preparação de dados, uma correlação linear nula (próxima de 0) entre duas variáveis garante que não existe qualquer relação de dependência funcional entre elas.",
+      "solucao": 1,
+      "explicacao": "Falso. Uma correlação próxima de 0 indica apenas a ausência de uma relação linear. As variáveis podem ter uma forte dependência não linear (ex: quadrática ou sinusoidal), que não é detetada por coeficientes de correlação linear como o de Pearson."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A discretização por igual largura (equal width binning) divide o domínio de um atributo contínuo de forma a garantir que todos os intervalos gerados contenham exatamente o mesmo número de instâncias.",
+      "solucao": 1,
+      "explicacao": "Falso. O método que garante o mesmo número de instâncias por intervalo é a discretização por igual altura (equal frequency binning). A discretização por igual largura divide a amplitude de valores em subintervalos de tamanho igual, o que pode levar a contagens de dados muito desequilibradas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No KNIME, o nodo 'Stratified sampling' numa configuração de hold-out garante que as proporções das classes do target nos conjuntos de treino e teste sejam mantidas semelhantes às do dataset original.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A amostragem estratificada divide os dados de modo a replicar a distribuição das classes do target em cada partição gerada, evitando enviesamento."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O erro absoluto médio (MAE) é mais sensível a grandes desvios/outliers do que o erro médio quadrático (MSE), devido a não elevar as diferenças ao quadrado.",
+      "solucao": 1,
+      "explicacao": "Falso. O MSE e o RMSE dão um peso muito superior a grandes erros por elevarem os desvios ao quadrado. O MAE trata todos os erros de forma linear, sendo por isso mais robusto (menos influenciado) por outliers."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A técnica de One-Hot Encoding é usada para transformar um atributo nominal em múltiplas colunas binárias, permitindo a sua utilização em algoritmos que requerem entradas estritamente numéricas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O One-Hot Encoding cria uma variável binária (0 ou 1) para cada categoria possível do atributo nominal, mapeando dados qualitativos para um formato utilizável por modelos matemáticos como RNAs."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Numa Rede Neuronal MLP, os bias servem para ajustar o limiar de ativação dos neurónios, permitindo deslocar a curva da função de ativação para a esquerda ou para a direita.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O bias funciona como um termo de interceção, permitindo ao neurónio ajustar a sua ativação independentemente do valor absoluto das features de entrada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-----------+--------+\n| ID | Estudante | Compra |\n+----+-----------+--------+\n| 1  | Sim       | Sim    |\n| 2  | Sim       | Sim    |\n| 3  | Sim       | Sim    |\n| 4  | Sim       | Não    |\n| 5  | Não       | Não    |\n| 6  | Não       | Não    |\n| 7  | Não       | Sim    |\n| 8  | Não       | Não    |\n+----+-----------+--------+\n```",
+      "pergunta": "Considere o dataset acima em que pretendemos classificar o target Compra. A entropia original do dataset S relativamente à variável Compra é igual a 1.0.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O dataset tem 8 exemplos, dos quais 4 são 'Sim' e 4 são 'Não' para o target Compra. Sendo as proporções iguais (50% cada), a entropia é máxima e igual a 1.0."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-----------+--------+\n| ID | Estudante | Compra |\n+----+-----------+--------+\n| 1  | Sim       | Sim    |\n| 2  | Sim       | Sim    |\n| 3  | Sim       | Sim    |\n| 4  | Sim       | Não    |\n| 5  | Não       | Não    |\n| 6  | Não       | Não    |\n| 7  | Não       | Sim    |\n| 8  | Não       | Não    |\n+----+-----------+--------+\n```",
+      "pergunta": "Considere o dataset acima. Para o subconjunto de dados correspondente a Estudante = Sim, a entropia local do target Compra é de aproximadamente 0.811.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Para Estudante = Sim, temos 4 instâncias com as decisões [Sim, Sim, Sim, Não] (3 Positivos, 1 Negativo). A entropia é $-0.75 \\times \\log_2(0.75) - 0.25 \\times \\log_2(0.25) \\approx 0.311 + 0.5 = 0.811$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-----------+--------+\n| ID | Estudante | Compra |\n+----+-----------+--------+\n| 1  | Sim       | Sim    |\n| 2  | Sim       | Sim    |\n| 3  | Sim       | Sim    |\n| 4  | Sim       | Não    |\n| 5  | Não       | Não    |\n| 6  | Não       | Não    |\n| 7  | Não       | Sim    |\n| 8  | Não       | Não    |\n+----+-----------+--------+\n```",
+      "pergunta": "Considere o dataset acima. O Ganho de Informação do atributo Estudante é aproximadamente de 0.189.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Ganho é $Entropy(S) - (4/8 \\times Entropy(S_{Sim}) + 4/8 \\times Entropy(S_{Não}))$. Como $Entropy(S_{Sim}) = Entropy(S_{Não}) = 0.811$, temos Ganho = $1.0 - (0.5 \\times 0.811 + 0.5 \\times 0.811) = 1.0 - 0.811 = 0.189$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-----------+--------+\n| ID | Estudante | Compra |\n+----+-----------+--------+\n| 1  | Sim       | Sim    |\n| 2  | Sim       | Sim    |\n| 3  | Sim       | Sim    |\n| 4  | Sim       | Não    |\n| 5  | Não       | Não    |\n| 6  | Não       | Não    |\n| 7  | Não       | Sim    |\n| 8  | Não       | Não    |\n+----+-----------+--------+\n```",
+      "pergunta": "Considere o dataset acima. O atributo Estudante seria preferível a um hipotético atributo com Ganho de Informação de 0.35 para figurar na raiz da árvore de decisão.",
+      "solucao": 1,
+      "explicacao": "Falso. Na construção de árvores de decisão (como ID3), prefere-se o atributo que apresentar o maior Ganho de Informação. Como o Estudante tem ganho de 0.189, um atributo com ganho de 0.35 seria selecionado de preferência para a raiz."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-----------+--------+\n| ID | Estudante | Compra |\n+----+-----------+--------+\n| 1  | Sim       | Sim    |\n| 2  | Sim       | Sim    |\n| 3  | Sim       | Sim    |\n| 4  | Sim       | Não    |\n| 5  | Não       | Não    |\n| 6  | Não       | Não    |\n| 7  | Não       | Sim    |\n| 8  | Não       | Não    |\n+----+-----------+--------+\n```",
+      "pergunta": "Se todos os registos correspondentes a Estudante = Não fossem da classe Compra = Não, o Ganho de Informação do atributo Estudante seria igual a 1.0.",
+      "solucao": 1,
+      "explicacao": "Falso. Se Estudante=Não tivesse apenas 'Não' (Entropia = 0), a entropia relativa seria $0.5 \\times 0.811 + 0.5 \\times 0 = 0.4055$. O Ganho seria $1.0 - 0.4055 = 0.5945$ (e não 1.0). O ganho só seria 1.0 se Estudante=Sim também fosse perfeitamente puro (Entropia = 0)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-----------+--------+\n| ID | Estudante | Compra |\n+----+-----------+--------+\n| 1  | Sim       | Sim    |\n| 2  | Sim       | Sim    |\n| 3  | Sim       | Sim    |\n| 4  | Sim       | Não    |\n| 5  | Não       | Não    |\n| 6  | Não       | Não    |\n| 7  | Não       | Sim    |\n| 8  | Não       | Não    |\n+----+-----------+--------+\n```",
+      "pergunta": "O algoritmo C4.5 não poderia ser aplicado sobre este dataset por conter atributos com classes desequilibradas.",
+      "solucao": 1,
+      "explicacao": "Falso. O C4.5 pode ser perfeitamente aplicado a qualquer distribuição de classes e datasets discretos, sendo aliás tolerante a distribuições desequilibradas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-------------+------------------+\n| ID | Real (y)    | Previsto (y_hat) |\n+----+-------------+------------------+\n| 1  | 10.0        | 12.0             |\n| 2  | 15.0        | 14.0             |\n| 3  | 20.0        | 20.0             |\n| 4  | 8.0         | 12.0             |\n+----+-------------+------------------+\n```",
+      "pergunta": "Considere o conjunto de previsões do modelo de regressão acima. O erro absoluto médio (MAE) do modelo é de 1.75.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Os erros absolutos são: $|10 - 12| = 2$, $|15 - 14| = 1$, $|20 - 20| = 0$ e $|8 - 12| = 4$. A soma é $2 + 1 + 0 + 4 = 7$. MAE = $7 / 4 = 1.75$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-------------+------------------+\n| ID | Real (y)    | Previsto (y_hat) |\n+----+-------------+------------------+\n| 1  | 10.0        | 12.0             |\n| 2  | 15.0        | 14.0             |\n| 3  | 20.0        | 20.0             |\n| 4  | 8.0         | 12.0             |\n+----+-------------+------------------+\n```",
+      "pergunta": "Considere o conjunto de previsões acima. O erro médio quadrático (MSE) do modelo é igual a 5.25.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Os erros quadráticos são: $2^2 = 4$, $1^2 = 1$, $0^2 = 0$ e $4^2 = 16$. A soma é $4 + 1 + 0 + 16 = 21$. O MSE é $21 / 4 = 5.25$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-------------+------------------+\n| ID | Real (y)    | Previsto (y_hat) |\n+----+-------------+------------------+\n| 1  | 10.0        | 12.0             |\n| 2  | 15.0        | 14.0             |\n| 3  | 20.0        | 20.0             |\n| 4  | 8.0         | 12.0             |\n+----+-------------+------------------+\n```",
+      "pergunta": "Considere o conjunto de previsões acima. A raiz quadrada do erro médio quadrático (RMSE) é de aproximadamente 2.29.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O RMSE é a raiz quadrada do MSE: $\\sqrt{5.25} \\approx 2.291$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-------------+------------------+\n| ID | Real (y)    | Previsto (y_hat) |\n+----+-------------+------------------+\n| 1  | 10.0        | 12.0             |\n| 2  | 15.0        | 14.0             |\n| 3  | 20.0        | 20.0             |\n| 4  | 8.0         | 12.0             |\n+----+-------------+------------------+\n```",
+      "pergunta": "Se na linha 4 a previsão do modelo fosse 8.0 (erro nulo), o MSE resultante do modelo passaria a ser igual a 1.25.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Com a previsão da linha 4 a ser 8.0, o seu erro seria 0. A soma dos erros quadráticos seria $4 + 1 + 0 + 0 = 5$. O MSE seria $5 / 4 = 1.25$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-------------+------------------+\n| ID | Real (y)    | Previsto (y_hat) |\n+----+-------------+------------------+\n| 1  | 10.0        | 12.0             |\n| 2  | 15.0        | 14.0             |\n| 3  | 20.0        | 20.0             |\n| 4  | 8.0         | 12.0             |\n+----+-------------+------------------+\n```",
+      "pergunta": "As métricas de qualidade MAE, MSE e RMSE calculadas a partir deste dataset consideram e ponderam o sentido (direção positiva ou negativa) do desvio das previsões.",
+      "solucao": 1,
+      "explicacao": "Falso. Tanto o cálculo do valor absoluto (MAE) como a elevação ao quadrado (MSE/RMSE) anulam os sinais negativos dos desvios, tornando estas métricas indiferentes à direção dos erros."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+----+-------------+------------------+\n| ID | Real (y)    | Previsto (y_hat) |\n+----+-------------+------------------+\n| 1  | 10.0        | 12.0             |\n| 2  | 15.0        | 14.0             |\n| 3  | 20.0        | 20.0             |\n| 4  | 8.0         | 12.0             |\n+----+-------------+------------------+\n```",
+      "pergunta": "O coeficiente de determinação R-quadrado ($R^2$) para um ajuste perfeito assume o valor de 0.",
+      "solucao": 1,
+      "explicacao": "Falso. O coeficiente $R^2$ assume o valor de 1.0 para um ajuste perfeito (quando as previsões coincidem exatamente com todos os valores reais)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                              |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Bit Vector] ──► [Association Rule Learner]                            |\n|                                 │                                             |\n|                                 ▼                                             | \n|                      [Association Rule Predictor]                             |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Create Bit Vector» serve para converter conjuntos ou listas de itens numa representação binária apropriada para a indução de regras de associação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O algoritmo de regras de associação exige que os dados estejam em formato binário de presença/ausência (vetores de bits), o que é efetuado por este nó."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                              |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Bit Vector] ──► [Association Rule Learner]                            |\n|                                 │                                             |\n|                                 ▼                                             |\n|                      [Association Rule Predictor]                             |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Association Rule Learner» extrai regras de associação a partir dos dados com base em parâmetros como suporte mínimo e confiança mínima configurados pelo utilizador.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O nó Learner executa algoritmos como o Apriori utilizando os limiares de suporte e confiança para extrair as regras válidas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                              |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Bit Vector] ──► [Association Rule Learner]                            |\n|                                 │                                             |\n|                                 ▼                                             |\n|                      [Association Rule Predictor]                             |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o fluxo está incorreto porque o nodo «Association Rule Predictor» deveria alimentar o nodo «Association Rule Learner».",
+      "solucao": 1,
+      "explicacao": "Falso. O Learner é que constrói o modelo/regras e passa-as para o Predictor, para que este possa aplicar tais regras e fazer previsões ou recomendações em novos conjuntos de dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                              |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Bit Vector] ──► [Association Rule Learner]                            |\n|                                 │                                             |\n|                                 ▼                                             |\n|                      [Association Rule Predictor]                             |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "O fluxo KNIME acima representa um ciclo de validação cruzada para estimar a estabilidade do erro de classificação.",
+      "solucao": 1,
+      "explicacao": "Falso. O fluxo destina-se à descoberta de regras de associação (aprendizagem não supervisionada/descritiva) e não à classificação preditiva ou estimativa de erro por validação cruzada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                              |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Bit Vector] ──► [Association Rule Learner]                            |\n|                                 │                                             |\n|                                 ▼                                             |\n|                      [Association Rule Predictor]                             |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "A extração de regras de associação representada no workflow acima assenta no paradigma de aprendizagem por reforço.",
+      "solucao": 1,
+      "explicacao": "Falso. A descoberta de regras de associação é uma técnica típica de Aprendizagem Não Supervisionada (e não aprendizagem por reforço)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                              |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Bit Vector] ──► [Association Rule Learner]                            |\n|                                 │                                             |\n|                                 ▼                                             |\n|                      [Association Rule Predictor]                             |\n|                                                                               |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Se o output do nodo «Association Rule Learner» for uma lista vazia, isso significa necessariamente que o ficheiro lido pelo «Table Reader» não contém quaisquer transações.",
+      "solucao": 1,
+      "explicacao": "Falso. Um output vazio do Learner pode dever-se simplesmente a regras de filtragem demasiado exigentes (como limiares de suporte mínimo ou confiança configurados muito altos), impossibilitando a validação de regras com os dados lidos."
+    }
+  ]
+}
