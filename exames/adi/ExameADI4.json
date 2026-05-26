@@ -1,5 +1,5 @@
 {
-  "titulo": "Exame ADI 4 (Época Especial de Outubro 2023/2024)",
+  "titulo": "Exame ADI 4",
   "descricao": "Exame completo de época especial de ADI abrangendo cálculo de entropia e ganho de informação, métricas de regressão (MAE, MSE, RMSE), workflows KNIME de regras de associação, normalização de dados e técnicas de clustering (K-Means vs K-Medoids).",
   "perguntas": [
     {

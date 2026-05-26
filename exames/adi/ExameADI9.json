@@ -1,0 +1,206 @@
+{
+  "titulo": "Exame ADI 9 (Preenchimento de Espaços)",
+  "descricao": "Exame temático composto exclusivamente por 40 questões do tipo escrita/preenchimento de espaços em frases (cloze tests), cobrindo todo o programa da UC: preparação de dados, árvores de decisão, regressão, avaliação de modelos, redes neuronais, segmentação, regras de associação e metodologias.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "No desenvolvimento de modelos preditivos, se o atributo alvo (target) for do tipo categórico discreto, o problema classifica-se como de __________________________, enquanto se o atributo for contínuo numérico, trata-se de um problema de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **classificação**\n2. **regressão**\n\n*Explicação*: A classificação lida com a atribuição de rótulos a classes discretas (ex: sim/não), enquanto a regressão estima valores numéricos contínuos (ex: temperatura, preço)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Um atributo que represente a temperatura em graus Celsius está na escala de __________________________, pois não possui um zero absoluto real. Já a idade de um paciente está na escala de __________________________, na qual o valor zero representa a ausência física da grandeza.",
+      "solucao": "As palavras em falta são:\n1. **intervalo** (ou intervalar)\n2. **rácio** (ou razão)\n\n*Explicação*: A escala de intervalo possui distâncias mensuráveis entre valores mas o zero é arbitrário. A escala de rácio possui um zero absoluto real, permitindo proporções."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A discretização por __________________________ divide a amplitude de valores em bins de mesmo tamanho físico, podendo concentrar quase todos os registos num único bin se houver forte assimetria positiva. Por outro lado, a discretização por __________________________ garante que cada bin contenha aproximadamente a mesma quantidade de registos.",
+      "solucao": "As palavras em falta são:\n1. **igual largura** (equal width)\n2. **igual altura** (equal frequency)\n\n*Explicação*: A discretização de igual largura divide o intervalo (Max - Min) em k partes iguais. A discretização de igual altura ajusta os limites dos bins para que cada um receba N/k registos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para medir a relação entre variáveis contínuas, o Coeficiente de Correlação de __________________________ avalia a dependência estritamente linear, ao passo que o Coeficiente de Correlação de __________________________ baseia-se em ranks e é adequado para relações monotónicas não-lineares.",
+      "solucao": "As palavras em falta são:\n1. **Pearson**\n2. **Spearman**\n\n*Explicação*: Pearson mede o grau de associação linear entre duas variáveis contínuas. Spearman avalia o relacionamento monotónico ordinal usando as posições (ranks) relativas dos dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Em dados binários simétricos, a similaridade entre objetos deve ser medida através do coeficiente __________________________, que contabiliza as co-ausências (0-0). Em atributos binários assimétricos, onde a ausência mútua de um traço não indica similaridade, utiliza-se o coeficiente de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **SMC** (Simple Matching Coefficient)\n2. **Jaccard**\n\n*Explicação*: O SMC divide a soma de todas as correspondências (1-1 e 0-0) pelo total de atributos. O Jaccard ignora co-ausências (0-0) no denominador e numerador."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O classificador Naive Bayes baseia-se na suposição \"ingénua\" de que todos os atributos são __________________________ entre si, dado o rótulo da classe. Para lidar com atributos numéricos contínuos, assume tipicamente uma distribuição __________________________ para estimar as probabilidades.",
+      "solucao": "As palavras em falta são:\n1. **independentes**\n2. **Gaussiana** (ou normal)\n\n*Explicação*: O Naive Bayes simplifica o cálculo da probabilidade condicional assumindo independência total entre as features. Para atributos numéricos, usa a PDF Gaussiana."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na estrutura de uma árvore de decisão, o primeiro nó de teste no topo chama-se nó __________________________, cada nó intermédio representa uma __________________________ sobre um atributo, e os nós terminais são as __________________________, que indicam a decisão final.",
+      "solucao": "As palavras em falta são:\n1. **raiz**\n2. **divisão** (ou partição / decisão)\n3. **folhas** (ou nós folha)\n\n*Explicação*: A árvore estende-se a partir do nó raiz, bifurca-se em nós internos que dividem os dados, e culmina nas folhas com as previsões de classe ou valor."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo ID3 utiliza o critério de __________________________ como métrica para selecionar o melhor atributo de split, apresentando um enviesamento a favor de atributos com muitos valores únicos. Para contornar esta limitação, o C4.5 introduziu o critério de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **Ganho de Informação** (Information Gain)\n2. **Ganho de Rácio** (Gain Ratio)\n\n*Explicação*: O Ganho de Informação tende a preferir atributos de alta cardinalidade (ex: ID). O Ganho de Rácio normaliza esta métrica dividindo-a pela informação intrínseca (split info) do atributo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo CART gera sempre árvores com divisões estritamente __________________________, aplicando o índice de __________________________ como métrica de impureza para tarefas de classificação.",
+      "solucao": "As palavras em falta são:\n1. **binárias**\n2. **Gini**\n\n*Explicação*: Diferente do C4.5, o CART gera apenas splits de dois ramos (binários) e avalia a impureza através do índice Gini em vez da entropia."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo CHAID difere do CART e C4.5 por realizar partições __________________________ e utilizar testes de significância estatística de __________________________ como critério de paragem e divisão de atributos nominais.",
+      "solucao": "As palavras em falta são:\n1. **multi-nível** (ou multi-vias / não-binárias)\n2. **Qui-Quadrado** (Chi-square / $\\chi^2$)\n\n*Explicação*: O CHAID permite dividir um nó em múltiplos ramos e baseia-se na significância do teste de Qui-Quadrado para avaliar o split de variáveis categóricas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para controlar a complexidade das árvores de decisão, a técnica de __________________________ interrompe a ramificação da árvore antes que esta atinja o crescimento máximo, enquanto a __________________________ remove ramos já criados após a indução completa do modelo.",
+      "solucao": "As palavras em falta são:\n1. **pré-poda** (pre-pruning)\n2. **pós-poda** (post-pruning)\n\n*Explicação*: A pré-poda usa limites como profundidade máxima ou suporte mínimo nos nós. A pós-poda atua a posteriori, substituindo subárvores por folhas ou ramos mais simples com base no erro."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na técnica de Cross-Validation (validação cruzada), os dados são particionados em K subconjuntos disjuntos designados por __________________________; a cada iteração, K-1 subconjuntos são utilizados para o conjunto de __________________________ e o restante é usado como conjunto de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **folds**\n2. **treino**\n3. **validação** (ou teste)\n\n*Explicação*: O K-Fold Cross-Validation divide o dataset em K folds. O modelo treina em K-1 folds e valida no fold restante, repetindo este processo K vezes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O método de validação Leave-One-Out (LOOCV) representa um caso extremo de K-Fold Cross-Validation onde o número K de partições é igual a __________________________, fazendo com que em cada iteração a validação ocorra em apenas __________________________.",
+      "solucao": "As palavras em falta são:\n1. **N** (ou número total de registos / instâncias)\n2. **um exemplo** (ou um registo / uma linha)\n\n*Explicação*: No LOOCV, se temos N exemplos, o modelo é treinado N vezes. Cada iteração usa N-1 exemplos para treino e apenas 1 exemplo isolado para validação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na análise de uma matriz de confusão para classificação binária, um __________________________ ocorre quando o modelo prevê a classe positiva para uma instância que na realidade é negativa, ao passo que um __________________________ ocorre quando o modelo prevê a classe negativa para uma instância que é positiva.",
+      "solucao": "As palavras em falta são:\n1. **Falso Positivo** (FP)\n2. **Falso Negativo** (FN)\n\n*Explicação*: Um Falso Positivo (erro de Tipo I) indica que o modelo previu incorretamente a presença da classe alvo. Um Falso Negativo (erro de Tipo II) indica que o modelo falhou a detetar a classe alvo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Em métricas de classificação, a __________________________ mede a proporção de previsões positivas corretas em relação a todas as previsões positivas feitas pelo modelo, enquanto a __________________________ (sensibilidade) mede a proporção de positivos reais identificados pelo modelo.",
+      "solucao": "As palavras em falta são:\n1. **precisão** (precision)\n2. **recal** (recall / revocação)\n\n*Explicação*: Precisão foca-se na qualidade do output positivo previsto ($TP / (TP + FP)$). O Recall (ou Sensibilidade) foca-se na cobertura de exemplos positivos reais ($TP / (TP + FN)$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O F1-Score é calculado como a média __________________________ entre a Precisão e o Recall. Já a métrica estatística __________________________ avalia a concordância do classificador ajustada para a probabilidade de acerto ao acaso.",
+      "solucao": "As palavras em falta são:\n1. **harmónica**\n2. **Cohen's Kappa** (ou coeficiente Kappa)\n\n*Explicação*: O F1-Score usa a média harmónica para penalizar valores baixos desequilibrados. O Kappa avalia o desempenho compensando os acertos fortuitos que ocorreriam por mero palpite aleatório."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O gráfico da curva ROC representa no eixo das ordenadas (yy') a __________________________ (ou taxa de verdadeiros positivos) e no eixo das abcissas (xx') a taxa de falsos positivos, a qual corresponde matematicamente a 1 menos a __________________________.",
+      "solucao": "As palavras em falta são:\n1. **sensibilidade** (recall / TPR)\n2. **especificidade** (TNR)\n\n*Explicação*: A curva ROC plota a Sensibilidade ($TPR$) contra $1 - Especificidade$ ($FPR$), ilustrando o compromisso entre a deteção correta e os falsos alarmes para diferentes thresholds."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Relativamente a métricas de regressão, o __________________________ calcula o desvio médio linear simples face aos valores reais, sendo mais robusto a outliers. Em contrapartida, o __________________________ calcula a média dos erros quadráticos, penalizando severamente desvios de grande magnitude.",
+      "solucao": "As palavras em falta são:\n1. **MAE** (Erro Médio Absoluto)\n2. **MSE** (Erro Médio Quadrático)\n\n*Explicação*: O MAE soma os valores absolutos dos desvios. O MSE eleva os desvios ao quadrado antes de somar, tornando o modelo altamente sensível a outliers ou erros pontuais grandes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O Coeficiente de Determinação (representado por __________________________) indica a proporção de variabilidade do atributo target que é explicada pelo modelo de regressão, variando idealmente no intervalo entre __________________________.",
+      "solucao": "As palavras em falta são:\n1. **R^2** (ou R-squared)\n2. **0 e 1**\n\n*Explicação*: O $R^2$ avalia a qualidade do ajuste linear. Um valor de 1 indica um ajuste perfeito (toda a variabilidade é explicada); um valor de 0 indica que o modelo não é melhor do que prever a média."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo Random Forest utiliza o conceito de __________________________ (bagging) para gerar árvores independentes em paralelo com amostras Bootstrap, introduzindo aleatoriedade adicional através da seleção de um subconjunto aleatório de __________________________ a cada divisão de nó.",
+      "solucao": "As palavras em falta são:\n1. **agregação por bootstrap** (ou bootstrap aggregating)\n2. **atributos** (ou features / variáveis)\n\n*Explicação*: O bagging gera conjuntos independentes por amostragem com reposição das linhas. A Random Forest adiciona a isso a seleção aleatória de um subconjunto de atributos para reduzir a correlação entre as árvores."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No modelo Gradient Boosted Trees, o treino das árvores é efetuado de forma __________________________, onde cada nova árvore é induzida para prever os __________________________ gerados pela árvore anterior, minimizando a perda global por descida do gradiente.",
+      "solucao": "As palavras em falta são:\n1. **sequencial** (ou consecutiva)\n2. **resíduos** (ou erros / gradientes)\n\n*Explicação*: Ao contrário de modelos em paralelo como a Random Forest, o Boosting treina árvores sequencialmente, onde cada árvore tenta corrigir os desvios (resíduos) acumulados até ao momento."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo Apriori baseia-se na propriedade de que qualquer subconjunto de um itemset frequente deve ser também __________________________. Por consequência, se um itemset for infrequente, todos os seus superconjuntos serão também __________________________.",
+      "solucao": "As palavras em falta são:\n1. **frequente**\n2. **infrequentes** (ou não frequentes)\n\n*Explicação*: O princípio Apriori reduz o espaço de pesquisa removendo candidatos com base na propriedade antimonotónica do suporte: se um padrão falha no suporte mínimo, qualquer extensão dele também falhará."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma Regra de Associação possui Lift igual a 1 se o antecedente e o consequente forem __________________________. Se o Lift for superior a 1, a regra indica uma dependência __________________________ entre os dois conjuntos de itens.",
+      "solucao": "As palavras em falta são:\n1. **independentes**\n2. **positiva** (ou associação benéfica)\n\n*Explicação*: O Lift mede o desvio da independência. Lift = 1 significa que a probabilidade conjunta é apenas o produto das probabilidades individuais. Lift > 1 indica que a ocorrência conjunta é mais provável do que ao acaso."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A medida de interesse de __________________________ é definida como a probabilidade de a regra de associação cometer um erro caso o antecedente e o consequente fossem independentes, dividida pela probabilidade real observada de a regra prever incorretamente.",
+      "solucao": "As palavras em falta são:\n1. **convicção** (conviction)\n\n*Explicação*: A Convicção avalia o grau de implicação lógica. Valores elevados de Convicção indicam que o consequente é altamente dependente do antecedente (uma convicção infinita denota uma regra lógica perfeita)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A medida de interesse __________________________ (potência) calcula a diferença entre o suporte conjunto observado de A e C e o suporte esperado sob a hipótese de independência, favorecendo regras com elevados valores de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **leverage**\n2. **suporte**\n\n*Explicação*: O Leverage ($Sup(A,C) - Sup(A) \\times Sup(C)$) quantifica a proporção de exemplos cobertos em excesso face ao acaso, preferindo padrões frequentes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo K-Means é um método de segmentação do tipo __________________________. Em cada iteração, os pontos são associados ao centróide mais próximo e estes centróides são atualizados calculando a __________________________ de todas as coordenadas dos pontos pertencentes a esse cluster.",
+      "solucao": "As palavras em falta são:\n1. **particionamento** (ou particional)\n2. **média** (ou média aritmética)\n\n*Explicação*: O K-Means divide as instâncias em K partições exclusivas. Os protótipos (centróides) são atualizados recalculando o vetor médio de todos os dados do cluster."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo K-Medoids difere do K-Means pois os protótipos de cada cluster devem ser obrigatoriamente __________________________. Esta característica torna o K-Medoids mais robusto à presença de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **pontos reais do dataset** (ou medoids / objetos reais)\n2. **outliers** (ou valores extremos)\n\n*Explicação*: O K-Medoids define o centro como o objeto mais central da partição. Como minimiza a soma das distâncias absolutas em vez das distâncias quadráticas, é menos influenciado por ruídos extremos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo AGNES adota uma estratégia de clustering hierárquico __________________________, iniciando a árvore com cada ponto como um cluster individual. Já o algoritmo DIANA segue uma abordagem __________________________, onde o dataset completo constitui o cluster inicial a ser dividido sucessivamente.",
+      "solucao": "As palavras em falta são:\n1. **aglomerativa** (bottom-up)\n2. **divisiva** (top-down)\n\n*Explicação*: AGNES agrupa progressivamente os clusters mais próximos. DIANA funciona no sentido oposto, partindo a base de dados recursivamente em sub-clusters."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No clustering hierárquico, a distância entre clusters pode ser calculada por __________________________ (que mede a distância entre os dois pontos mais próximos), por Complete Linkage (entre os pontos mais distantes) ou por __________________________ (entre as médias dos pontos).",
+      "solucao": "As palavras em falta são:\n1. **Single Linkage** (ligação simples)\n2. **Average Linkage** (ligação média)\n\n*Explicação*: O Single Linkage define a proximidade pela menor distância ponto-a-ponto entre clusters. O Average Linkage define-a pela distância média entre todos os pares de pontos dos dois clusters."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo DBSCAN é baseado no conceito de __________________________ dos dados. Ele classifica os pontos em três categorias: pontos __________________________ (que contêm pelo menos MinPts na vizinhança Eps), pontos de fronteira (border) e pontos de ruído (noise).",
+      "solucao": "As palavras em falta são:\n1. **densidade**\n2. **core** (ou centrais)\n\n*Explicação*: O DBSCAN agrupa dados com base na densidade local. Pontos 'core' possuem vizinhanças densas; pontos 'border' estão próximos de pontos core mas têm vizinhança esparsa; 'noise' são outliers."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Historicamente, o Perceptron simples (monocamada) falha a resolver problemas que não apresentem __________________________. Um exemplo clássico desta limitação teórica é a incapacidade de modelar a porta lógica __________________________.",
+      "solucao": "As palavras em falta são:\n1. **separabilidade linear** (ou fronteiras lineares)\n2. **XOR** (ou ou-exclusivo)\n\n*Explicação*: O Perceptron monocamada apenas consegue classificar dados que possam ser separados por uma reta ou plano. A porta lógica XOR requer pelo menos uma camada oculta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num neurónio artificial, os valores de entrada são multiplicados pelos respetivos __________________________ e adicionados a um termo independente chamado __________________________; esta soma linear é posteriormente processada por uma função de __________________________ para gerar o output.",
+      "solucao": "As palavras em falta são:\n1. **pesos** (ou pesos sinápticos)\n2. **bias** (ou limiar / limiar de ativação)\n3. **ativação** (ou transferência)\n\n*Explicação*: O neurónio calcula a soma ponderada dos inputs $z = \\sum(w_i x_i) + b$, aplicando de seguida a função de ativação (ex: Sigmoide, ReLU) para obter o sinal final."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo de Backpropagation treina redes neuronais propagando o sinal de entrada na direção feedforward e, posteriormente, propagando os __________________________ na direção contrária para atualizar os pesos através do cálculo dos __________________________ locais.",
+      "solucao": "As palavras em falta são:\n1. **erros** (ou sinais de erro)\n2. **gradientes**\n\n*Explicação*: O backpropagation calcula a discrepância entre a previsão e a resposta real no output e retropropaga essa informação para atualizar os pesos usando a derivada (gradiente)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regra de Hebb (Hebbian Learning) baseia-se no princípio biológico de que a ligação sináptica entre dois neurónios aumenta se ambos estiverem __________________________ no mesmo momento, constituindo uma abordagem de treino __________________________.",
+      "solucao": "As palavras em falta são:\n1. **ativos** (ou estimulados / a disparar)\n2. **não supervisionada**\n\n*Explicação*: A regra Hebbian postula que se neurónios emissores e recetores disparam simultaneamente, a sua conexão fortalece. É um algoritmo não supervisionado, sem rotulagem de erros."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A Regra Delta (ou regra de Widrow-Hoff) baseia-se na minimização do erro quadrático através da descida do __________________________. Ao contrário do Perceptron clássico, ela calcula a variação com base na saída linear __________________________ da aplicação da função de transferência binária.",
+      "solucao": "As palavras em falta são:\n1. **gradiente**\n2. **antes** (ou previamente a)\n\n*Explicação*: A regra Delta aproxima o sinal contínuo antes da binarização do output, aplicando derivadas parciais para atualizar os pesos na direção do menor erro quadrático."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No paradigma de treino por Aprendizagem Competitiva (Competitive Learning), também designado por Winner-Take-All, apenas o neurónio da camada de saída com o maior valor de ativação é selecionado como vencedor, sendo o único a __________________________.",
+      "solucao": "As palavras em falta são:\n1. **atualizar os seus pesos** (ou modificar as suas sinapses)\n2. **não supervisionada**\n\n*Explicação*: Os neurónios competem; o vencedor atualiza os seus coeficientes sinápticos aproximando-se do padrão de entrada, enquanto os pesos dos restantes neurónios permanecem congelados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As unidades LSTM mantêm o fluxo de informações através de um canal dedicado chamado estado de __________________________, cuja retenção e descarte de dados são controlados por três portas: a porta de esquecimento (forget), a porta de entrada (input) e a porta de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **célula** (cell state)\n2. **saída** (output gate)\n\n*Explicação*: O estado de célula flui a longo prazo na rede. O forget gate descarta o obsoleto, o input gate guarda novas entradas, e o output gate decide o valor propagado ao estado escondido."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A unidade GRU simplifica a estrutura da LSTM ao fundir o estado de célula com o estado escondido, utilizando apenas duas portas: a porta de __________________________ (reset) e a porta de __________________________ (update).",
+      "solucao": "As palavras em falta são:\n1. **reset**\n2. **atualização** (update)\n\n*Explicação*: A GRU reduz o custo computacional combinando gates e eliminando a memória de célula independente, gerindo a informação via reset e update gates."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na metodologia CRISP-DM, os objetivos e requisitos gerais do projeto são convertidos em objetivos técnicos de mineração de dados na fase de __________________________, enquanto a entrega final da solução é planeada na fase de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **Business Understanding** (Compreensão do Negócio)\n2. **Deployment** (Implementação / Instalação)\n\n*Explicação*: O ciclo inicia em Business Understanding (compreensão das metas do negócio e tradução em metas de dados) e termina em Deployment (disponibilização do modelo)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A metodologia SEMMA divide-se em 5 fases sequenciais: Sample (Amostragem), __________________________ (Exploração visual/estatística), Modify (Modificação/Preparação), Model (Modelação) e __________________________ (Avaliação).",
+      "solucao": "As palavras em falta são:\n1. **Explore**\n2. **Assess**\n\n*Explicação*: SEMMA é um acrónimo que define as fases: Sample (amostragem), Explore (procura de anomalias e relações), Modify (limpeza/transformação), Model (algoritmos) e Assess (avaliação de modelos)."
+    }
+  ]
+}

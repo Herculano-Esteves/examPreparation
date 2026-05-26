@@ -1,0 +1,206 @@
+{
+  "titulo": "Exame ADI 10 (Preenchimento de Espaços - Parte 2)",
+  "descricao": "Segunda parte do exame temático de preenchimento de espaços em frases (cloze tests), contendo mais 40 questões desafiadoras. Cobre normalizações, funções de ativação de RNAs, detalhes matemáticos de métricas de avaliação, regras de clustering e regras de associação.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "A normalização do tipo __________________________ redimensiona os valores de forma a ficarem estritamente contidos num intervalo fixo como [0, 1], enquanto a normalização do tipo __________________________ (padronização) transforma os dados para que passem a ter média igual a 0 e desvio padrão igual a 1.",
+      "solucao": "As palavras em falta são:\n1. **Min-Max** (ou mínimo-máximo)\n2. **Z-Score** (ou padronização Z)\n\n*Explicação*: A normalização Min-Max mapeia os dados linearmente para [0,1] (ou outro intervalo). A normalização Z-Score subtrai a média e divide pelo desvio padrão, adaptando os dados para uma distribuição Gaussiana padrão."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ocorre __________________________ de dados (data leakage) quando informação do conjunto de teste/validação é inadvertidamente utilizada durante o processo de treino do modelo, resultando em estimativas de desempenho excessivamente __________________________ que não se confirmam em produção.",
+      "solucao": "As palavras em falta são:\n1. **fuga** (ou data leakage / vazamento)\n2. **otimistas** (ou elevadas / inflacionadas)\n\n*Explicação*: O data leakage ocorre, por exemplo, ao aplicar normalização ou imputações globais ao dataset completo antes de realizar a divisão em treino e teste."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A codificação de atributos categóricos por __________________________ converte classes com hierarquia explícita em valores inteiros ordenados. Já a codificação por __________________________ cria uma nova coluna binária (0 ou 1) para cada categoria existente na variável original.",
+      "solucao": "As palavras em falta são:\n1. **Ordinal Encoding** (codificação ordinal)\n2. **One-Hot Encoding** (codificação one-hot)\n\n*Explicação*: O Ordinal Encoding preserva a ordem (ex: Baixo=1, Médio=2, Alto=3). O One-Hot Encoding gera variáveis binárias fictícias (dummy variables) independentes para cada classe."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diz-se que um modelo sofre de __________________________ se apresentar elevado erro tanto no conjunto de treino como no de validação devido a uma complexidade insuficiente. Inversamente, sofre de __________________________ se apresentar exatidão perfeita no treino mas baixo desempenho nos dados de teste.",
+      "solucao": "As palavras em falta são:\n1. **underfitting** (subajuste)\n2. **overfitting** (sobreajuste)\n\n*Explicação*: Underfitting indica incapacidade de capturar os padrões fundamentais. Overfitting indica que o modelo decorou o ruído específico dos dados de treino, falhando na generalização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O cálculo do Ganho de Informação consiste na subtração entre a __________________________ do nó pai e a média ponderada das __________________________ dos nós filhos obtidos após a partição dos dados.",
+      "solucao": "As palavras em falta são:\n1. **entropia**\n2. **entropias**\n\n*Explicação*: $Ganho(A) = Entropia(Pai) - \\sum(w_i \\times Entropia(Filho_i))$. Mede a redução da impureza (entropia) resultante da divisão pelo atributo A."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num sistema binário (duas classes) com probabilidades p e 1-p, a Entropia máxima é igual a 1 quando p é igual a __________________________, indicando incerteza máxima. A entropia mínima é igual a __________________________ quando p é igual a 0 ou 1.",
+      "solucao": "As palavras em falta são:\n1. **0.5** (ou metade / 50%)\n2. **0** (ou zero)\n\n*Explicação*: Com p = 0.5, a distribuição é perfeitamente equilibrada e uniforme (incerteza máxima = 1 bit). Com p = 0 ou 1, o sistema é totalmente puro e determinístico (incerteza nula = 0 bits)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao construir uma árvore de regressão usando o algoritmo CART, o valor previsto atribuído a um nó folha terminal corresponde à __________________________ dos valores do target das instâncias contidas nessa folha.",
+      "solucao": "As palavras em falta são:\n1. **média** (ou média aritmética)\n\n*Explicação*: Ao contrário de árvores de classificação (que usam a moda/classe maioritária), as árvores de regressão predizem valores numéricos contínuos calculando a média das instâncias associadas à folha."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No particionamento Hold-Out, o conjunto de dados é dividido em subconjuntos disjuntos: o de __________________________ (usado para ajustar os pesos ou regras) e o de __________________________ (utilizado para avaliar a capacidade de generalização do modelo final).",
+      "solucao": "As palavras em falta são:\n1. **treino**\n2. **teste** (ou validação)\n\n*Explicação*: O Hold-Out clássico separa a base de dados em proporções como 70/30 ou 80/20, de modo a simular a performance do classificador em dados futuros nunca vistos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A amostragem do tipo __________________________ seleciona instâncias de forma totalmente aleatória, podendo desequilibrar classes minoritárias nas partições. Já a amostragem __________________________ garante a preservação exata da distribuição de classes nas partições de treino e teste.",
+      "solucao": "As palavras em falta são:\n1. **aleatória simples** (random sampling)\n2. **estratificada** (stratified sampling)\n\n*Explicação*: A amostragem estratificada divide o dataset em estratos (classes) e retira amostras proporcionais de cada um, mantendo a proporção de classes estável nos conjuntos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na avaliação com a matriz de confusão, a Sensibilidade (Recall) é a taxa de verdadeiros positivos, enquanto a __________________________ mede a taxa de verdadeiros negativos, calculando a proporção de negativos reais corretamente identificados.",
+      "solucao": "As palavras em falta são:\n1. **especificidade** (specificity / TNR)\n\n*Explicação*: A Especificidade avalia a capacidade do modelo em evitar falsos alarmes, sendo calculada como $TN / (TN + FP)$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A exatidão (accuracy) pode ser uma métrica enganadora se o conjunto de dados for fortemente __________________________. Nesses cenários, a métrica __________________________ avalia o desempenho compensando o acerto casual (acordo ao acaso).",
+      "solucao": "As palavras em falta são:\n1. **desequilibrado** (imbalanced / assimétrico)\n2. **Cohen's Kappa** (ou coeficiente Kappa)\n\n*Explicação*: Em datasets desequilibrados (ex: 99% classe A, 1% classe B), um modelo ingénuo que preveja sempre a classe A terá 99% de exatidão. O Kappa corrige isto."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica AUC mede a área sob a curva ROC. Um classificador perfeito apresentará um valor de AUC igual a __________________________, ao passo que um classificador puramente aleatório (sem capacidade discriminatória) apresentará um valor de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **1.0** (ou um)\n2. **0.5** (ou metade / zero vírgula cinco)\n\n*Explicação*: AUC = 1.0 indica separação perfeita entre classes (ROC encosta no canto superior esquerdo). AUC = 0.5 indica que a curva coincide com a diagonal de palpite aleatório."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica RMSE eleva os desvios individuais ao quadrado antes de efetuar a média e extrair a raiz, o que a torna mais __________________________ a outliers do que o MAE, que calcula uma média linear simples dos erros absolutos.",
+      "solucao": "As palavras em falta são:\n1. **sensível** (ou penalizadora)\n\n*Explicação*: Ao elevar os erros individuais ao quadrado, o RMSE dá um peso desproporcionalmente maior aos erros grandes (outliers), elevando a métrica final."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Se um modelo de regressão apresentar um Coeficiente de Determinação (R^2) com valor __________________________, isso significa que o seu desempenho preditivo é pior do que o de um modelo simples que se limite a prever constantemente a média dos dados reais.",
+      "solucao": "As palavras em falta são:\n1. **negativo** (ou menor do que zero)\n\n*Explicação*: Embora o $R^2$ ideal varie de 0 a 1, ele pode ser negativo se a soma dos erros quadráticos do modelo for superior à variância total do atributo target."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma Rede Neuronal Artificial com arquitetura do tipo MLP possui, além das camadas de entrada e saída, uma ou mais camadas __________________________, equipadas com funções de ativação não-lineares para aproximar qualquer função complexa.",
+      "solucao": "As palavras em falta são:\n1. **escondidas** (ou ocultas / intermédias)\n\n*Explicação*: As camadas escondidas operam transformações não-lineares do espaço de entrada, permitindo à MLP mapear fronteiras de decisão complexas (Teorema da Aproximação Universal)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A função de ativação __________________________ mapeia qualquer valor de entrada para o intervalo [0, 1], assemelhando-se a uma curva em forma de S, sendo muito utilizada na camada de saída para tarefas de classificação binária.",
+      "solucao": "As palavras em falta são:\n1. **sigmoide** (ou logística)\n\n*Explicação*: A sigmoide $\\sigma(z) = 1 / (1 + e^{-z})$ restringe as saídas no intervalo aberto $(0, 1)$, permitindo interpretar o output do neurónio como uma probabilidade."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A função de ativação do tipo Tangente Hiperbólica (tanh) difere da função sigmoide por projetar os outputs no intervalo de __________________________, permitindo que as ativações da rede tenham média próxima de zero.",
+      "solucao": "As palavras em falta são:\n1. **-1 a 1**\n\n*Explicação*: A função $tanh(z)$ varia entre -1 e +1. Por ser simétrica em relação à origem, facilita a convergência de algoritmos de otimização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A função de ativação ReLU (Rectified Linear Unit) devolve o valor 0 para qualquer entrada negativa, e devolve __________________________ para qualquer entrada positiva, ajudando a mitigar o problema do desaparecimento do gradiente.",
+      "solucao": "As palavras em falta são:\n1. **o próprio valor de entrada** (ou a entrada / x)\n\n*Explicação*: A fórmula da ReLU é $f(x) = max(0, x)$. Para valores positivos, o seu gradiente é constante e igual a 1, o que evita que o gradiente desapareça em redes muito profundas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No treino de RNAs, a __________________________ determina a magnitude dos passos dados na atualização dos pesos em direção ao mínimo da função de custo. Se este parâmetro for demasiado elevado, o algoritmo pode __________________________ e falhar a convergência.",
+      "solucao": "As palavras em falta são:\n1. **taxa de aprendizagem** (learning rate / alpha)\n2. **oscilar** (ou divergir)\n\n*Explicação*: A taxa de aprendizagem escala o gradiente de atualização dos pesos. Se for muito grande, o passo ultrapassa o ponto ideal, gerando instabilidade estatística e impedindo a otimização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Durante a descida do gradiente no treino de uma MLP, a rede pode ficar presa em mínimos __________________________, que correspondem a vales locais de erro, em vez de convergir para o mínimo __________________________, que representa a melhor solução global possível.",
+      "solucao": "As palavras em falta são:\n1. **locais**\n2. **global**\n\n*Explicação*: O gradiente aponta no sentido do declive mais íngreme. Em superfícies de custo não-convexas, o algoritmo pode estabilizar num vale de erro local de onde não consegue sair apenas com a descida clássica."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regra de treino Hebbiana segue o postulado clássico: \"neurónios que disparam juntos, __________________________\", indicando que a força de ligação é fortalecida se houver __________________________ na atividade temporal das células adjacentes.",
+      "solucao": "As palavras em falta são:\n1. **ligam-se mais fortemente** (ou aumentam a sua ligação)\n2. **sincronismo** (ou correlação / co-ativação)\n\n*Explicação*: O treino Hebbian postula que a sinapse aumenta de peso se o neurónio pré-sináptico e o pós-sináptico estiverem ativos concorrentemente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na Aprendizagem Competitiva, os neurónios da camada de saída competem pela ativação. O neurónio com maior ativação é o vencedor e atualiza os seus pesos de forma a aproximar-se __________________________, enquanto os pesos dos restantes neurónios permanecem __________________________.",
+      "solucao": "As palavras em falta são:\n1. **do padrão de entrada** (ou do vetor de entrada)\n2. **inalterados** (ou congelados)\n\n*Explicação*: O modelo de competição Winner-Take-All atualiza apenas o neurónio mais semelhante ao vetor apresentado, especializando-o gradualmente na representação daquele tipo de padrão."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A Regra Delta (Delta Rule) atualiza os pesos calculando a diferença entre o target desejado e o output do somador linear __________________________ da aplicação da função limiar de ativação, minimizando a soma dos __________________________ através da descida do gradiente.",
+      "solucao": "As palavras em falta são:\n1. **antes**\n2. **erros quadráticos** (ou desvios quadráticos)\n\n*Explicação*: A regra Delta (Widrow-Hoff) aplica regressão linear ao somador contínuo para ajustar os pesos baseando-se no declive local antes da binarização discreta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A porta de esquecimento (forget gate) de uma célula LSTM é controlada por uma função de ativação sigmoide, cujo output perto de __________________________ indica descarte total da informação contida no estado da célula anterior, e perto de 1 indica retenção completa.",
+      "solucao": "As palavras em falta são:\n1. **0** (ou zero)\n\n*Explicação*: O forget gate decide quanta informação antiga limpar do estado interno da célula. Um valor de saída igual a 0 apaga o histórico; um valor de 1 mantém o histórico intacto."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diferente da LSTM que possui três portas e um canal interno de célula separado, a unidade GRU possui apenas __________________________ portas e gere a memória fluindo a informação diretamente no estado __________________________.",
+      "solucao": "As palavras em falta são:\n1. **duas**\n2. **escondido** (hidden state)\n\n*Explicação*: A GRU simplifica a LSTM fundindo o estado de célula com o estado escondido, usando apenas o reset gate e o update gate para controlar o fluxo de informação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na metodologia CRISP-DM, a fase de __________________________ antecede a fase de Modelação (Modeling). É nela que são realizadas tarefas de limpeza de dados, engenharia de atributos, normalização e __________________________ de dados em falta.",
+      "solucao": "As palavras em falta são:\n1. **Data Preparation** (Preparação dos Dados)\n2. **imputação** (ou preenchimento)\n\n*Explicação*: A fase Data Preparation recolhe o output de Data Understanding e transforma os dados (limpeza, normalização, balanceamento) preparando-os para o treino dos modelos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A fase final do ciclo de vida CRISP-DM chama-se __________________________, a qual visa planear a aplicação prática do modelo preditivo em produção, não possuindo equivalente direto no processo __________________________.",
+      "solucao": "As palavras em falta são:\n1. **Deployment** (Implementação)\n2. **SEMMA**\n\n*Explicação*: O CRISP-DM cobre a fase de negócio e entrega (Deployment). O SEMMA termina em Assess (avaliação técnica do modelo), sem formalizar a colocação em ambiente real."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na metodologia SEMMA, a fase de __________________________ envolve a análise estatística preliminar e visualização das distribuições dos atributos, correspondendo à fase de __________________________ do ciclo CRISP-DM.",
+      "solucao": "As palavras em falta são:\n1. **Explore** (Exploração)\n2. **Data Understanding** (Compreensão dos Dados)\n\n*Explicação*: Explore (SEMMA) e Data Understanding (CRISP-DM) focam-se no diagnóstico de missing values, deteção visual de anomalias e cálculo de correlações."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo K-Means é conhecido por ser altamente sensível à inicialização dos centróides, pelo que é recomendável testar com diferentes sementes (random seeds) e utilizar técnicas como __________________________ para posicionar os protótipos iniciais de forma mais dispersa.",
+      "solucao": "As palavras em falta são:\n1. **K-Means++**\n\n*Explicação*: O K-Means++ escolhe o primeiro centróide de forma aleatória e seleciona os centróides seguintes com probabilidades proporcionais à distância dos pontos aos centróides já existentes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo K-Medoids realiza a otimização de clusters trocando iterativamente pontos normais por protótipos reais (medoids). Esta etapa de substituição é a base do algoritmo clássico __________________________ (Partitioning Around Medoids).",
+      "solucao": "As palavras em falta são:\n1. **PAM**\n\n*Explicação*: O algoritmo PAM é a implementação clássica mais utilizada de K-Medoids, otimizando o agrupamento por pesquisa exaustiva de trocas de objetos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Em clustering hierárquico aglomerativo, a distância calculada com base no ponto mais distante de cada par de clusters chama-se __________________________ linkage (ligação completa), ao passo que a distância baseada na média dos pares de pontos chama-se __________________________ linkage.",
+      "solucao": "As palavras em falta são:\n1. **Complete** (completa)\n2. **Average** (média)\n\n*Explicação*: Complete Linkage define a distância pela maior distância ponto-a-ponto inter-cluster. Average Linkage calcula a distância média global entre todos os pares cruzados de pontos dos dois clusters."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo DBSCAN requer a afinação de dois hiperparâmetros fundamentais: __________________________ (que especifica o raio físico da vizinhança de um ponto) e __________________________ (que indica a contagem mínima de instâncias para formar uma região densa).",
+      "solucao": "As palavras em falta são:\n1. **Eps** (Epsilon)\n2. **MinPts** (Minimum Points)\n\n*Explicação*: O raio Eps define a área de busca ao redor do ponto. O MinPts indica quantos pontos (incluindo o próprio) devem estar nesse raio para que a vizinhança seja considerada densa."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas Regras de Associação, a Confiança de uma regra (A -> C) é calculada dividindo o suporte conjunto do antecedente e consequente pelo __________________________, representando a probabilidade condicional P(C|A).",
+      "solucao": "As palavras em falta são:\n1. **suporte do antecedente** (ou Sup(A))\n\n*Explicação*: $Confiança(A \\rightarrow C) = Sup(A \\cup C) / Sup(A)$. Mede a percentagem de transações contendo o antecedente que também contêm o consequente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O __________________________ de uma regra de associação (A -> C) é calculado dividindo o suporte conjunto observado de A e C pelo produto das probabilidades de ocorrência individuais de A e C.",
+      "solucao": "As palavras em falta são:\n1. **Lift**\n\n*Explicação*: $Lift(A \\rightarrow C) = Sup(A \\cup C) / (Sup(A) \\times Sup(C))$. Mede a força da regra avaliando o desvio em relação à independência estatística mútua."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O Leverage de uma regra de associação calcula a diferença matemática entre o suporte conjunto observado e o suporte esperado caso o antecedente e o consequente fossem independentes. A fórmula é: $Leverage(A \\rightarrow C) = $ __________________________.",
+      "solucao": "As palavras em falta são:\n1. **Sup(A,C) - Sup(A) * Sup(C)** (ou Sup(A,C) - Sup(A) x Sup(C))\n\n*Explicação*: O Leverage quantifica a diferença direta de suporte absoluto obtida pela regra face à premissa de que A e C ocorrem independentemente no dataset."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A etapa de geração de regras de associação no algoritmo Apriori opera a partir de um conjunto pré-calculado de __________________________, filtrando depois as associações que cumpram um limiar mínimo de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **itemsets frequentes** (ou padrões frequentes)\n2. **confiança**\n\n*Explicação*: O Apriori divide o problema em dois passos: primeiro, encontra os conjuntos frequentes que cumprem o minsup; segundo, extrai desses conjuntos as regras que satisfazem o minconf."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para prever a classe de um novo elemento num classificador K-Nearest Neighbors (k-NN), o modelo calcula a __________________________ a todos os registos do conjunto de treino e atribui a classe maioritária dos K vizinhos mais próximos.",
+      "solucao": "As palavras em falta são:\n1. **distância** (ou métrica de distância / distância geométrica)\n\n*Explicação*: O k-NN é um classificador baseado em instâncias que calcula distâncias geométricas (ex: Euclidiana) para classificar o novo registo por votação maioritária."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma das técnicas para tratar o problema de classes desequilibradas sem criar registos sintéticos é a subamostragem (under-sampling), que consiste em remover de forma aleatória ou seletiva exemplos pertencentes à classe __________________________.",
+      "solucao": "As palavras em falta são:\n1. **maioritária** (ou dominante / mais frequente)\n\n*Explicação*: O under-sampling remove instâncias da classe maioritária para reduzir a assimetria e permitir que o classificador aprenda melhor os padrões da classe minoritária sem ser dominado."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No KNIME, o ciclo de otimização de hiperparâmetros requer obrigatoriamente um nó de início denominado Parameter Optimization Loop Start e um nó de fim denominado __________________________, que monitoriza a performance de cada iteração.",
+      "solucao": "As palavras em falta são:\n1. **Parameter Optimization Loop End**\n\n*Explicação*: O nó Loop End recolhe o erro ou exatidão de cada fold/validação e indica ao Loop Start a direção da pesquisa dos hiperparâmetros na próxima iteração."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No âmbito do agrupamento baseado em densidade, pontos que se encontram dentro do raio Eps de um ponto core mas que não possuem MinPts na sua própria vizinhança são classificados como pontos de __________________________.",
+      "solucao": "As palavras em falta são:\n1. **fronteira** (ou border)\n\n*Explicação*: Pontos 'border' no DBSCAN pertencem ao cluster denso por estarem no raio Eps de um ponto core, mas eles próprios não conseguem iniciar novos agrupamentos por falta de densidade local."
+    }
+  ]
+}

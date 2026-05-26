@@ -1,5 +1,5 @@
 {
-  "titulo": "Exame ADI 3 (Época de Exame Especial 2023/2024)",
+  "titulo": "Exame ADI 3",
   "descricao": "Exame completo de época especial de Aprendizagem e Decisão Inteligentes (ADI) abrangendo métricas de distância (SMC e Jaccard), avaliação com matriz de confusão, regras de associação (Lift, Leverage e Convicção), algoritmos C4.5 e arquiteturas RNN/LSTM.",
   "perguntas": [
     {

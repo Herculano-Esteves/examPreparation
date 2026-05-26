@@ -7,6 +7,13 @@
     "perguntas_count": 31
   },
   {
+    "id": "ExameADI10",
+    "titulo": "Exame ADI 10 (Preenchimento de Espaços - Parte 2)",
+    "descricao": "Segunda parte do exame temático de preenchimento de espaços em frases (cloze tests), contendo mais 40 questões desafiadoras. Cobre normalizações, funções de ativação de RNAs, detalhes matemáticos de métricas de avaliação, regras de clustering e regras de associação.",
+    "path": "exames/adi/ExameADI10.json",
+    "perguntas_count": 40
+  },
+  {
     "id": "ExameADI2",
     "titulo": "Exame ADI 2 (Época de Recurso 2023/2024)",
     "descricao": "Exame completo da época de recurso de Aprendizagem e Decisão Inteligentes (ADI) cobrindo métricas de classificação, regressão com targets discretos, desequilíbrio de classes, soft computing, redes neuronais artificiais, algoritmos de clustering, CRISP-DM e workflows Knime.",
@@ -15,14 +22,14 @@
   },
   {
     "id": "ExameADI3",
-    "titulo": "Exame ADI 3 (Época de Exame Especial 2023/2024)",
+    "titulo": "Exame ADI 3",
     "descricao": "Exame completo de época especial de Aprendizagem e Decisão Inteligentes (ADI) abrangendo métricas de distância (SMC e Jaccard), avaliação com matriz de confusão, regras de associação (Lift, Leverage e Convicção), algoritmos C4.5 e arquiteturas RNN/LSTM.",
     "path": "exames/adi/ExameADI3.json",
     "perguntas_count": 31
   },
   {
     "id": "ExameADI4",
-    "titulo": "Exame ADI 4 (Época Especial de Outubro 2023/2024)",
+    "titulo": "Exame ADI 4",
     "descricao": "Exame completo de época especial de ADI abrangendo cálculo de entropia e ganho de informação, métricas de regressão (MAE, MSE, RMSE), workflows KNIME de regras de associação, normalização de dados e técnicas de clustering (K-Means vs K-Medoids).",
     "path": "exames/adi/ExameADI4.json",
     "perguntas_count": 31
@@ -54,5 +61,12 @@
     "descricao": "Exame temático exaustivo composto por 105 questões de Verdadeiro ou Falso (booleanas), organizadas em grupos de 5 perguntas para cada um dos 21 nós e técnicas de pré-processamento, modelação e avaliação KNIME utilizados no projeto prático.",
     "path": "exames/adi/ExameADI8.json",
     "perguntas_count": 105
+  },
+  {
+    "id": "ExameADI9",
+    "titulo": "Exame ADI 9 (Preenchimento de Espaços)",
+    "descricao": "Exame temático composto exclusivamente por 40 questões do tipo escrita/preenchimento de espaços em frases (cloze tests), cobrindo todo o programa da UC: preparação de dados, árvores de decisão, regressão, avaliação de modelos, redes neuronais, segmentação, regras de associação e metodologias.",
+    "path": "exames/adi/ExameADI9.json",
+    "perguntas_count": 40
   }
 ]
