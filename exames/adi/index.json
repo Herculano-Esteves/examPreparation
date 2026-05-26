@@ -8,10 +8,10 @@
   },
   {
     "id": "ExameADI10",
-    "titulo": "Exame ADI 10 (Preenchimento de Espaços - Parte 2)",
-    "descricao": "Segunda parte do exame temático de preenchimento de espaços em frases (cloze tests), contendo mais 40 questões desafiadoras. Cobre normalizações, funções de ativação de RNAs, detalhes matemáticos de métricas de avaliação, regras de clustering e regras de associação.",
+    "titulo": "Exame ADI 10 (Preenchimento de Espaços - Matéria de Exames 1 e 2)",
+    "descricao": "Exame temático composto por 43 questões de preenchimento de espaços em frases (cloze tests), focadas exclusivamente na matéria abordada nos Exames ADI 1 e ADI 2. Cobre regressão, classificação, Titanic dataset, discretização, desequilíbrio de classes, RNAs (MLP) e workflows KNIME de hold-out e cross-validation.",
     "path": "exames/adi/ExameADI10.json",
-    "perguntas_count": 40
+    "perguntas_count": 43
   },
   {
     "id": "ExameADI2",
