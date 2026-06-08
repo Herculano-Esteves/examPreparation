@@ -1,0 +1,253 @@
+{
+  "titulo": "Regressao - Treino",
+  "descricao": "Exame temático focado em Técnicas de Regressão da UC de ADI, cobrindo regressão linear simples (intercept, slope, resíduos, mínimos quadrados), regressão linear múltipla, regressão polinomial múltipla, árvores de regressão e regressão logística para classificação.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "O que é a regressão sob o ponto de vista estatístico e qual o seu principal objetivo analítico?",
+      "solucao": "A regressão é um procedimento estatístico que determina a equação matemática para a reta ou curva que melhor se ajusta a um conjunto específico de dados. O seu principal objetivo analítico é avaliar quão bem uma ou mais variáveis independentes conseguem prever ou explicar o comportamento de uma variável dependente (alvo)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Considere a equação da regressão linear simples $Y_i = \\beta_0 + \\beta_1 X_i + \\epsilon_i$. Explique detalhadamente o significado físico e matemático de cada um dos parâmetros $\\beta_0$, $\\beta_1$ e $\\epsilon_i$.",
+      "solucao": "Na equação da reta:\n- $\\beta_0$ representa o **intercept** (ordenada na origem), correspondendo ao valor esperado de $Y$ quando $X = 0$.\n- $\\beta_1$ representa o **slope** (declive ou inclinação da reta), indicando o impacto marginal no valor de $Y$ por cada unidade acrescida em $X$ (calculado por $\\Delta y / \\Delta x$).\n- $\\epsilon_i$ representa o **erro residual** ou termo de erro aleatório da observação $i$, quantificando o desvio entre o valor real observado e a previsão da reta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva o funcionamento do método dos mínimos quadrados (Ordinary Least Squares - OLS) para a determinação dos coeficientes de uma regressão.",
+      "solucao": "O método dos mínimos quadrados procura estimar os parâmetros ótimos ($\\beta$) minimizando a soma dos erros residuais ao quadrado. O erro residual ($r_i$) para cada observação é a diferença entre o valor real observado ($y_i$) e o valor previsto pela função ajustada ($f(x_i, \\beta)$). O método calcula a função de custo $S = \\sum_{i=1}^n r_i^2$ e determina os coeficientes que minimizam este somatório, garantindo a reta com o melhor ajuste global."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O que diferencia a regressão linear múltipla da regressão linear simples e o que representam os parâmetros $a_i$ na equação $y = a_1 x_1 + a_2 x_2 + \\dots + a_n x_n + b + \\epsilon$?",
+      "solucao": "A regressão linear múltipla estende a simples ao determinar o efeito conjunto de várias variáveis independentes ($x_1, x_2, \\dots$) sobre uma variável dependente ($y$), em vez de apenas uma. Os parâmetros $a_i$ (coeficientes de regressão) representam a contribuição independente e marginal de cada variável explicativa $x_i$ para o valor previsto de $y$, assumindo que todas as outras variáveis independentes se mantêm constantes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto da regressão polinomial múltipla, explique como as variáveis independentes são combinadas, fornecendo um exemplo de equação, e clarifique a relação desta técnica com a regressão linear.",
+      "solucao": "Na regressão polinomial múltipla, as variáveis independentes são combinadas através de termos polinomiais (potências e interações dos atributos originais). Um exemplo de equação com duas variáveis é $y = a_1 x_1 + a_2 x_1^2 + a_3 x_2 + a_4 x_2^2 + a_5 x_1 x_2 + b + \\epsilon$. Apesar da relação curvilínea no espaço físico dos dados, a regressão polinomial é classificada como um caso particular da regressão linear, pois a relação matemática é estritamente linear em relação aos parâmetros/coeficientes ($a_i$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare a regressão linear simples com a regressão logística no que diz respeito à natureza da variável dependente que cada uma visa prever.",
+      "solucao": "A regressão linear (bem como a múltipla ou polinomial) é utilizada para prever uma variável dependente contínua (ex: salário, temperatura). Em contrapartida, a regressão logística é utilizada para prever uma variável dependente de natureza discreta/categórica (ex: sim/não, doente/são), funcionando como uma técnica de classificação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Por que razão a aplicação direta de uma função linear de regressão falha em produzir bons resultados na previsão de uma variável dependente binária?",
+      "solucao": "A aplicação de uma regressão linear a um alvo binário ($0$ ou $1$) produz previsões contínuas que podem ultrapassar os limites físicos do problema, gerando probabilidades inferiores a $0$ ou superiores a $1$, o que não tem validade estatística. Além disso, a relação reta não se ajusta bem à transição abrupta característica de classes binárias, necessitando de uma modelação em curva S."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como a regressão logística contorna o problema de previsão contínua fora de limites para alvos binários e que tipo de linha/curva é adotada?",
+      "solucao": "A regressão logística substitui a reta linear de regressão por uma curva logística em formato S (função sigmoide). Esta função matemática restringe os outputs previstos ao intervalo estrito $[0; 1]$, o que permite interpretar a saída do modelo como a probabilidade de a instância pertencer à classe de interesse."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Qual a utilidade do patamar de definição (threshold) na classificação por regressão logística e dê um exemplo de aplicação prática.",
+      "solucao": "Como a saída da curva de regressão logística é uma probabilidade contínua entre $0$ e $1$, o patamar de definição (threshold) serve para binarizar esta saída em categorias discretas. Por exemplo, adotando um threshold de $0.5$, se a probabilidade estimada for superior ou igual a $0.5$, o modelo classifica o caso como 'SIM' (ou 'SÃO'); caso contrário, classifica como 'NÃO' (ou 'DOENTE')."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como se caracterizam as folhas de uma Árvore de Decisão quando esta é aplicada a um problema de regressão em vez de classificação?",
+      "solucao": "Num problema de classificação, as folhas da árvore representam classes discretas (ex: SIM/NÃO). Num problema de regressão, as folhas identificam intervalos de valores contínuos (ex: `[5, 9]€`) ou valores numéricos exatos (médias dos exemplos na folha), representando a estimativa numérica contínua do atributo de decisão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As técnicas de regressão linear e logística enquadram-se na aprendizagem não supervisionada, visto calcularem os coeficientes dinamicamente.",
+      "solucao": 1,
+      "explicacao": "Falso. As técnicas de regressão são supervisionadas, pois o treino baseia-se na presença de uma variável dependente (target) com soluções conhecidas na amostra."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na equação $Y = \\beta_0 + \\beta_1 X + \\epsilon$, o coeficiente $\\beta_1$ representa o intercept, ou seja, o valor de $Y$ quando $X$ é zero.",
+      "solucao": 1,
+      "explicacao": "Falso. O intercept é o $\\beta_0$. O $\\beta_1$ representa o slope (declive ou inclinação da reta)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O resíduo para uma dada observação é definido matematicamente como a diferença entre o valor verdadeiro observado ($y_i$) e o valor previsto ($f(x_i, \\beta)$).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O resíduo representa o erro individual da estimativa, expressando-se por $r_i = y_i - f(x_i, \\beta)$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O método dos mínimos quadrados tem como objetivo maximizar a soma dos resíduos ao quadrado para afastar a reta de valores extremos.",
+      "solucao": 1,
+      "explicacao": "Falso. O método visa **minimizar** (e não maximizar) a soma dos quadrados dos resíduos para encontrar a reta que melhor se ajusta globalmente aos pontos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regressão múltipla destina-se a prever simultaneamente múltiplas variáveis dependentes combinadas.",
+      "solucao": 1,
+      "explicacao": "Falso. A regressão múltipla prevê uma **única** variável dependente ($y$) a partir de **múltiplas** variáveis independentes ($x_i$)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os parâmetros $a_i$ na regressão linear múltipla refletem a contribuição independente de cada variável $x_i$ para o valor final da variável dependente $y$.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Cada coeficiente indica a alteração esperada em $y$ por unidade de alteração em $x_i$, isolando o efeito das restantes variáveis explicativas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Apesar de incluir potências ou interações de atributos, a regressão polinomial é considerada matematicamente um caso particular da regressão linear.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regressão polinomial é linear nos seus parâmetros/coeficientes, embora seja não-linear nos atributos físicos de entrada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma árvore de decisão apenas pode ser aplicada a problemas de classificação com atributos discretos, sendo inadequada para prever valores contínuos.",
+      "solucao": 1,
+      "explicacao": "Falso. Uma árvore de decisão pode prever variáveis contínuas (problemas de regressão), sendo as folhas intervalos ou médias de valores."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Apesar do nome 'regressão', a regressão logística é na verdade uma técnica aplicada a problemas de classificação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regressão logística estima a probabilidade de ocorrência de classes categóricas discretas (ex: sim/não), servindo de classificador."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regressão linear tradicional é ideal para estimar variáveis binárias discretas porque a reta ajusta-se naturalmente a transições bruscas.",
+      "solucao": 1,
+      "explicacao": "Falso. A reta de regressão linear fornece previsões contínuas fora de $[0;1]$ e não acompanha a distribuição de dados discretos binários."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regressão logística resolve o problema de prever alvos discretos substituindo a reta de regressão por uma curva em S.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Substitui a linha reta por uma curva logística (sigmoide) restringindo as estimativas ao intervalo de probabilidade $[0; 1]$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na regressão logística, o patamar de definição (threshold) serve para converter a probabilidade contínua estimada em classes discretas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O limiar de decisão define o ponto a partir do qual a instância é mapeada para a classe positiva (ex: probabilidade $\\ge 0.5 \\implies$ SIM)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regressão logística serve unicamente para classificação binária de duas classes (ex: SIM/NÃO), impossibilitando a classificação de três ou mais classes.",
+      "solucao": 1,
+      "explicacao": "Falso. A regressão logística também pode resolver problemas de classificação múltipla com três ou mais classes (como Vinho: Branco/Rosé/Tinto)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A previsão de sobrevivência de passageiros do Titanic (SIM/NÃO) é um clássico problema de regressão numérica.",
+      "solucao": 1,
+      "explicacao": "Falso. Sobrevivência (SIM/NÃO) é um problema de classificação binária (variável discreta), embora possa ser resolvido usando regressão logística."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O declive ($\\beta_1$) da reta de regressão mede a taxa de variação de Y por unidade de X e calcula-se matematicamente pelo rácio $\\Delta y / \\Delta x$.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O declive representa a inclinação da reta, quantificada pela variação vertical a dividir pela variação horizontal correspondente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão determina a equação para a reta ou curva que melhor se ajusta aos dados para avaliar se uma variável ____________ prevê outra variável ____________.",
+      "solucao": "As palavras em falta são:\n1. **independente**\n2. **dependente**\n\n*Explicação*: O modelo avalia a relação direcional de causa-efeito, onde os preditores (variáveis independentes) estimam o target (variável dependente)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão linear simples prevê o valor de um resultado ____________, com base no valor de uma variável de previsão ____________.",
+      "solucao": "As palavras em falta são:\n1. **Y** (ou dependente)\n2. **X** (ou independente)\n\n*Explicação*: No caso simples, lida-se com uma única feature preditora $X$ a mapear uma única saída numérica real $Y$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na equação da reta $Y_i = \\beta_0 + \\beta_1 X_i + \\epsilon_i$, $\\beta_0$ é designado por ____________ e $\\beta_1$ representa o ____________ da reta.",
+      "solucao": "As palavras em falta são:\n1. **intercept** (ou ordenada na origem)\n2. **slope** (ou declive / inclinação)\n\n*Explicação*: O intercept localiza a interseção no eixo vertical Y, e o slope define a direção e taxa de inclinação da linha reta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O resíduo ($ri$) é a diferença matemática obtida subtraindo o valor ____________, denotado por $f(xi, \\beta)$, ao valor ____________, denotado por $yi$.",
+      "solucao": "As palavras em falta são:\n1. **previsto** (ou estimado / linha ajustada)\n2. **verdadeiro** (ou observado)\n\n*Explicação*: O resíduo calcula o desvio individual: $r_i = y_i - f(x_i, \\beta)$, medindo a inexatidão local do modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O método dos mínimos quadrados calcula os parâmetros ideais minimizando a soma designada por S, que equivale ao somatório dos ____________ ao ____________.",
+      "solucao": "As palavras em falta são:\n1. **resíduos** (ou erros)\n2. **quadrado**\n\n*Explicação*: A minimização do erro global faz-se elevando cada desvio individual ao quadrado para eliminar sinais negativos, minimizando $S = \\sum r_i^2$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão linear múltipla combina linearmente várias variáveis independentes com a equação $y = a_1 x_1 + a_2 x_2 + \\dots + a_n x_n + b + \\epsilon$, onde $b$ representa o ____________ e $\\epsilon$ representa o ____________.",
+      "solucao": "As palavras em falta são:\n1. **intercept** (ou ordenada na origem / constante)\n2. **erro** (ou resíduo / erro residual)\n\n*Explicação*: $b$ é a constante linear que fixa a origem multidimensional, e $\\epsilon$ é o termo de erro para ajustar os desvios aleatórios."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na regressão polinomial múltipla, os atributos são combinados de forma polinomial, sendo esta técnica classificada como um caso particular da regressão ____________.",
+      "solucao": "As palavras em falta são:\n1. **linear**\n\n*Explicação*: Como a relação continua a ser linear nos seus parâmetros/coeficientes ($a_i$), a regressão polinomial é resolvida e classificada sob o paradigma linear."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A diferença essencial reside na variável dependente: a regressão linear é usada se a variável for ____________, e a regressão logística se for ____________.",
+      "solucao": "As palavras em falta são:\n1. **contínua**\n2. **discreta** (ou categórica)\n\n*Explicação*: Variáveis quantitativas contínuas pedem regressão linear; variáveis qualitativas ou discretas categóricas requerem regressão logística (classificador)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão logística permite resolver problemas de classificação como, por exemplo, prever a concessão de um ____________ (SIM/NÃO) ou o ____________ de um doente.",
+      "solucao": "As palavras em falta são:\n1. **empréstimo**\n2. **diagnóstico** (ou estado)\n\n*Explicação*: Empréstimo e diagnóstico médico constituem classes discretas típicas resolvidas com regressão logística a partir de features de risco."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para modelar a probabilidade binária, a regressão logística substitui a reta linear por uma ____________ de formato ____________.",
+      "solucao": "As palavras em falta são:\n1. **curva** (ou curva de regressão logística)\n2. **S** (ou sigmoide / sigmoidal)\n\n*Explicação*: A função sigmoide desenha uma curva em 'S' que comprime qualquer output real infinito para a escala fechada de probabilidade $[0; 1]$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para obter uma previsão binária a partir da regressão logística, o analista define um ____________ para segmentar as classes.",
+      "solucao": "As palavras em falta são:\n1. **patamar de definição** (ou limiar de decisão / limiar)\n\n*Explicação*: O threshold serve de fronteira probabilística: valores acima pertencem a uma classe, valores abaixo pertencem à classe complementar."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Numa Árvore de Decisão para regressão, as folhas identificam ____________ ou conjuntos de valores contínuos.",
+      "solucao": "As palavras em falta são:\n1. **médias** (ou valores médios)\n\n*Explicação*: Ao invés de uma classe nominal, a folha de uma árvore de regressão devolve um valor numérico único que corresponde à média dos valores da variável alvo dos objetos contidos nesse nó."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A classificação de imagens em categorias como 'laranja', 'kiwi' ou 'romã' constitui um exemplo de classificação ____________.",
+      "solucao": "As palavras em falta são:\n1. **múltipla** (ou multinomial / multiclasse)\n\n*Explicação*: Ao ultrapassar duas classes discretas possíveis, a tarefa é designada por classificação múltipla ou multinomial."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O erro residual $r_i$ é a diferença entre a observação real $y_i$ e a linha ajustada denotada pela função ____________.",
+      "solucao": "As palavras em falta são:\n1. **f(xi, beta)** (ou f(xi, 𝛽))\n\n*Explicação*: A linha reta ou curva de previsão estimada é descrita formalmente pela função linear ajustada $f(x_i, \\beta)$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na regressão múltipla, os coeficientes $a_i$ refletem a contribuição ____________ de cada variável independente para a variável alvo.",
+      "solucao": "As palavras em falta são:\n1. **independente**\n\n*Explicação*: O coeficiente mede o impacto isolado da variável $x_i$, garantindo que as restantes variáveis explicativas são mantidas constantes."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nModelo A: Yi = 35.2 + 1.8 * Xi\nModelo B: y = 2.5 * x1 + 1.2 * x2 - 0.5 * x3 + 15.0\nModelo C: y = 1.4 * x1 + 0.8 * x1^2 - 2.1 * x2 + 5.0\n```",
+      "pergunta": "Analise os três modelos de regressão apresentados no cabeçalho. Identifique a classificação exata de cada um dos modelos (A, B e C) e justifique por que razão o Modelo C continua a ser enquadrado no paradigma linear.",
+      "solucao": "As classificações exatas são:\n- **Modelo A**: Regressão Linear Simples (uma variável independente $X$ e relação linear).\n- **Modelo B**: Regressão Linear Múltipla (três variáveis independentes $x_1, x_2, x_3$ combinadas linearmente).\n- **Modelo C**: Regressão Polinomial Múltipla (inclui termos quadráticos $x_1^2$ e interações).\nO Modelo C é enquadrado no paradigma linear porque a linearidade em regressão refere-se aos **parâmetros/coeficientes** ($a_i$) e não às variáveis independentes ($x_i$). Como a equação é linear em relação a 1.4, 0.8 e -2.1, trata-se estatisticamente de um modelo linear."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nObservação Real: yi = 18.0\nModelo Ajustado: f(xi, beta) = 15.5\nFórmula do Resíduo: ri = yi - f(xi, beta)\n```",
+      "pergunta": "Com base nos dados fornecidos no cabeçalho, o resíduo ri calculado para esta observação é de -2.5.",
+      "solucao": 1,
+      "explicacao": "Falso. O resíduo calcula-se subtraindo o valor previsto ao valor real: $r_i = y_i - f(x_i, \\beta) = 18.0 - 15.5 = 2.5$ (e não -2.5)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nProblema 1: Estimar o preço de venda de uma moradia com base na área útil.\nProblema 2: Prever se um cliente irá cancelar a subscrição (Sim/Não).\nProblema 3: Prever o custo de faturação mensal de eletricidade.\n```",
+      "pergunta": "Considere os problemas acima. O Problema 1 e o Problema 3 resolvem-se recorrendo a técnicas de regressão ____________, enquanto o Problema 2 deve ser resolvido através de regressão ____________.",
+      "solucao": "As palavras em falta são:\n1. **linear** (ou múltipla)\n2. **logística**\n\n*Explicação*: Os problemas 1 e 3 visam prever uma variável contínua (preço e custo em euros), exigindo regressão linear/múltipla. O problema 2 visa prever uma variável discreta categórica (Sim/Não), constituindo uma tarefa de classificação resolvida por regressão logística."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n                  [HORAS]\n                 /       \\\n             <= 13h     > 13h\n              /             \\\n          [ONDE]          [CUSTO]\n          /    \\             /\n      Rest.   Cant.       [5, 9]€\n       /         \\\n     >10€       <5€\n```",
+      "pergunta": "Com base na árvore acima, a previsão de custo para uma refeição efetuada às 12h30 na Cantina será menor que 5€.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Para a instância: 1. Raiz é HORAS = 12h30 (<= 13h), descemos para a esquerda até ao nó ONDE. 2. O local é Cantina, descemos para a direita até ao nó folha terminal `<5€`, que corresponde a um valor menor que 5€."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nProblema: Prever o tipo de Vinho (Branco, Rosé ou Tinto) a partir da acidez.\nSolução Probabilística estimada:\n- P(Branco) = 0.65\n- P(Rosé)   = 0.10\n- P(Tinto)  = 0.25\n```",
+      "pergunta": "O problema acima enquadra-se na classificação ____________. Utilizando a solução probabilística do cabeçalho e escolhendo a classe com maior probabilidade, o vinho será classificado como ____________.",
+      "solucao": "As palavras em falta são:\n1. **múltipla** (ou multinomial / multiclasse)\n2. **Branco**\n\n*Explicação*: Como existem três classes possíveis (Branco, Rosé, Tinto), a classificação é múltipla ou multinomial. A maior probabilidade estimada pelo modelo é P(Branco) = 0.65, classificando o vinho como Branco."
+    }
+  ]
+}

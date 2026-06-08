@@ -1,0 +1,253 @@
+{
+  "titulo": "Preparacao de Dados - Treino",
+  "descricao": "Exame temático focado na Preparação de Dados (Pré-processamento) da UC de ADI, baseado nas tarefas de discretização (igual largura/altura), limpeza (missing values), integração, transformação (normalização Min-Max, Z-score, outliers) e redução de dados.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique qual é o principal objetivo da preparação de dados e como este processo auxilia o analista ('prepara o preparador').",
+      "solucao": "O principal objetivo da preparação de dados consiste em transformar os datasets por forma a que a informação neles contida esteja adequadamente exposta à ferramenta de análise de dados. Além disso, a preparação 'também prepara o preparador' pois o analista, ao limpar e manipular os dados, adquire uma compreensão profunda do domínio, o que o ajuda a selecionar e parametrizar os modelos de análise mais adequados para resolver o problema."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique como a análise estatística dos aviões da Marinha dos EUA por Abraham Wald na Segunda Guerra Mundial ilustra a importância da qualidade dos dados e do viés de sobrevivência.",
+      "solucao": "A Marinha pretendia blindar os aviões com base nos locais mais fustigados por tiros nos aviões que regressavam (pontas das asas, corpo central e elevadores). Abraham Wald discordou porque percebeu que os dados analisados sofriam de viés de sobrevivência: os aviões atingidos nos motores ou zonas críticas não regressavam à base (não constando na amostra). Isto ilustra que focar-se apenas nos dados disponíveis (sobreviventes) sem analisar os dados em falta (aviões perdidos) conduz a conclusões erradas. Para melhorar a qualidade da decisão, a blindagem devia ser aplicada nos motores, que eram as áreas sem danos nos sobreviventes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente três estratégias distintas para tratar a ausência de dados (missing values) e a desvantagem associada a cada uma.",
+      "solucao": "Três estratégias e respetivas desvantagens:\n1. **Ignorar os registos/linhas com missing values**: Não é aconselhável se a taxa de dados em falta for elevada, pois descarta-se muita informação útil.\n2. **Ignorar os atributos/colunas com missing values**: Não é aconselhável se a variável em causa contiver informação crítica para o modelo preditivo.\n3. **Preencher com um valor constante (ex: 'talvez')**: Embora retenha os registos, pode introduzir tendências artificiais nos dados ou criar novas classes falsas, desviando o modelo da realidade."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare a imputação de missing values utilizando o valor médio com a utilização do valor mais frequente (moda), identificando as suas condições de aplicabilidade.",
+      "solucao": "A imputação pelo valor médio é aplicada a atributos quantitativos contínuos, tendo baixo impacto negativo desde que o desvio padrão da variável não seja grande (valores concentrados em torno da média). Por outro lado, a imputação pelo valor mais frequente (moda) é aplicada a atributos qualitativos/categóricos, preenchendo as lacunas com a classe que mais vezes ocorre no dataset."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enuncie a regra de ouro/consequência matemática associada ao excesso de imputação de dados ('valores inventados').",
+      "solucao": "A regra de ouro estabelece que quanto maior for o número de valores 'inventados' (imputados artificialmente), maior será o desvio estatístico dos dados que caracterizam o problema face à realidade que o problema ilustra. Isto pode introduzir um enviesamento severo nos modelos, reduzindo a sua capacidade de generalização no mundo real."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua as técnicas de Normalização e Padronização (Standardization/Z-Score) utilizadas na uniformização de dados.",
+      "solucao": "A **Normalização** (Min-Max) escala linearmente os valores de um atributo para um intervalo fechado específico, tipicamente $[0; 1]$. A **Padronização (Z-Score)** transforma os dados de modo a que a distribuição tenha média $\\mu = 0$ e desvio padrão $\\sigma = 1$, expressando cada valor em termos de desvios padrão em relação à média. A padronização é preferível quando existem outliers severos, pois não comprime a escala como a normalização Min-Max."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O que é a generalização de dados e como a hierarquização de conceitos auxilia esta tarefa? Dê um exemplo.",
+      "solucao": "A generalização consiste em substituir dados de baixo nível por dados de nível mais elevado (abstratos). A hierarquização de conceitos organiza os valores em árvores ou sequências de abstração. Por exemplo, na dimensão geográfica, a hierarquia pode ser `Rua -> Cidade -> Distrito -> País`. Ao generalizar, substitui-se o endereço exato (`Rua`) pela `Cidade` ou `Distrito`, reduzindo a cardinalidade do atributo e tornando a realidade mais tratável e inteligível para os algoritmos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente dois métodos mencionados para a deteção de valores atípicos (outliers) na fase de transformação de dados.",
+      "solucao": "Os dois métodos mencionados são:\n1. **Visualização por Box plots**: Permite identificar graficamente os pontos que se situam para lá dos limites superior e inferior (calculados com base no intervalo interquartil).\n2. **Z-Score (Desvio Padrão)**: Mede a distância de cada ponto à média em termos de desvio padrão; pontos com Z-Score elevado (tipicamente $|Z| > 3$) são classificados como outliers."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Qual é a motivação principal para realizar a redução de dados e o que esta tarefa pretende assegurar em termos analíticos?",
+      "solucao": "A motivação principal é o facto de os repositórios modernos (como Data Warehouses) armazenarem larguras de terabytes de dados, tornando o processamento e modelação computacionalmente muito lentos ou impraticáveis. A redução de dados pretende obter uma representação mais compacta e reduzida no volume dos dados, mas garantindo a capacidade de produzir exatamente os mesmos (ou muito semelhantes) resultados analíticos que os dados originais produziriam."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a que estratégia de redução de dados pertence a Principal Component Analysis (PCA) e qual o seu mecanismo básico.",
+      "solucao": "A PCA pertence à estratégia de **Redução de dimensões**. O seu mecanismo básico consiste em transformar o espaço original de atributos correlacionados num novo conjunto de atributos ortogonais (não correlacionados) chamados componentes principais, ordenados pela quantidade de variância que explicam. Isto permite reter apenas as primeiras componentes que capturam a maior parte da informação, eliminando dimensões irrelevantes ou redundantes."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os dados recolhidos diretamente do mundo real são tipicamente completos e consistentes, dispensando limpezas complexas antes da modelação.",
+      "solucao": 1,
+      "explicacao": "Falso. Os dados do mundo real são conhecidos por serem incompletos (falta de atributos/valores), conterem lixo (valores impossíveis) e apresentarem inconsistências (discrepâncias de registos)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A preparação de dados é um processo puramente mecânico que não traz valor ao analista no que diz respeito à escolha de modelos.",
+      "solucao": 1,
+      "explicacao": "Falso. A preparação de dados 'também prepara o preparador', auxiliando-o a compreender a fundo a distribuição dos atributos e a selecionar os algoritmos mais adequados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A discretização (ou enumeração) é uma tarefa com importante aplicação a dados numéricos que reduz o número de valores de um atributo contínuo ao dividi-lo em intervalos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A discretização converte atributos contínuos em intervalos discretos, reduzindo a escala e permitindo a aplicação de algoritmos que exigem dados categóricos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na literatura de extração de conhecimento, o termo 'binning' é utilizado como sinónimo de discretização.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. 'Binning' refere-se ao agrupamento de dados contínuos em recipientes ou caixas (bins) de valores, o que constitui discretização."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A escala nominal é o tipo de dados com maior conteúdo informativo, pois permite calcular distâncias e rácios significativos entre objetos.",
+      "solucao": 1,
+      "explicacao": "Falso. A escala nominal é a que contém menor informação (apenas atribui nomes únicos sem ordem). As escalas com maior conteúdo informativo são as de Intervalos e Rácios."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um código postal é classificado formalmente como um dado quantitativo discreto, uma vez que é composto por valores numéricos.",
+      "solucao": 1,
+      "explicacao": "Falso. Embora codificado com números, o código postal é qualitativo categórico, pois os números não têm significado quantitativo (ex: somar dois códigos postais não faz sentido)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na escala ordinal, os valores possuem uma ordenação natural, mas não é possível definir distâncias exatas entre eles.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Escalas ordinais (ex: excelente/bom/suficiente) permitem ordenar, mas a diferença numérica ou qualitativa entre os degraus não é mensurável de forma métrica estrita."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A diferença fundamental entre a escala de intervalos e a escala de rácios é que a escala de rácios possui um ponto zero absoluto com significado físico real.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Na escala de intervalos (ex: temperatura em Celsius), o zero é arbitrário e não significa ausência de calor. Na escala de rácios (ex: salário, saldo bancário), o zero representa a ausência total da propriedade, permitindo calcular rácios multiplicativos reais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na discretização de igual largura, sendo A e B os limites de gama, a largura de cada um dos N intervalos é calculada por L = (B - A) / N.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta é a fórmula padrão para calcular a amplitude constante de cada bin na discretização por igual largura."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma das vantagens da discretização de igual largura é a sua total robustez contra a influência de valores fronteira (outliers).",
+      "solucao": 1,
+      "explicacao": "Falso. A discretização por igual largura é extremamente sensível a valores fronteira (outliers), pois estes esticam os limites $A$ ou $B$, alterando a largura de todos os bins e gerando intervalos vazios."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A discretização por igual altura é frequentemente preferida à de igual largura porque evita o amontoamento de registos num número reduzido de bins.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A discretização por igual altura ajusta os limites de forma a distribuir uniformemente os registos pelos bins, mitigando o amontoamento em zonas de alta densidade."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O método 1R é uma abordagem de discretização não supervisionada.",
+      "solucao": 1,
+      "explicacao": "Falso. O método 1R é um método de discretização supervisionado baseado em regras de divisão que consideram a associação com o target."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A integração de dados de múltiplas origens exige conhecimento do negócio para detetar e resolver conflitos e inconsistências de fontes concorrentes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Sem o contexto de negócio, é impossível decidir qual a fonte mais fiável quando ocorrem conflitos nos valores integrados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A construção de atributos consiste na eliminação de colunas redundantes do dataset original.",
+      "solucao": 1,
+      "explicacao": "Falso. A construção de atributos consiste na criação de novos atributos com base nos já existentes para enriquecer o dataset (ex: Preço Líquido = Preço Ilíquido + IVA)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A uniformização por padronização Z-Score garante que os dados transformados passem a ter uma média igual a 0 e desvio padrão igual a 1.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a propriedade matemática definidora do Z-Score."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O principal objetivo da preparação de dados consiste em transformar os datasets por forma a que a informação neles contida esteja adequadamente ____________ à ____________.",
+      "solucao": "As palavras em falta são:\n1. **exposta** (ou patente)\n2. **ferramenta de análise de dados** (ou ferramenta de análise / ferramenta)\n\n*Explicação*: A preparação de dados garante a compatibilidade e a qualidade da exposição dos atributos face às restrições e potencialidades das ferramentas analíticas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os dados obtidos do 'mundo real' caracterizam-se por três falhas fundamentais: são ____________, contêm ____________ e podem manifestar inconsistências.",
+      "solucao": "As palavras em falta são:\n1. **incompletos**\n2. **lixo**\n\n*Explicação*: Dados do mundo real sofrem frequentemente de lacunas de registo (incompletos), erros de introdução física (lixo) e contradições entre fontes (inconsistências)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Utiliza-se a discretização (ou enumeração) para reduzir o número de valores de um atributo ____________, dividindo-o em ____________.",
+      "solucao": "As palavras em falta são:\n1. **contínuo** (ou quantitativo)\n2. **intervalos** (ou bins / classes)\n\n*Explicação*: O binning ou discretização converte um espectro contínuo infinito de valores reais em subconjuntos discretos representados por intervalos fechados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os tipos de dados qualitativos dividem-se em ____________ (nomes sem ordem) e ____________ (valores ordenáveis naturalmente).",
+      "solucao": "As palavras em falta são:\n1. **nominais** (ou categorias / nominais e categorias)\n2. **ordinais**\n\n*Explicação*: Dados qualitativos ou qualitativos categóricos podem ser puramente nominais (nomes sem relação de grandeza) ou ordinais (nomes que expressam uma hierarquia ou escala de ordenação)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os tipos de dados quantitativos dividem-se nas escalas de ____________ (distância mensurável sem zero absoluto) e de ____________ (presença de zero absoluto com rácios multiplicativos).",
+      "solucao": "As palavras em falta são:\n1. **intervalos**\n2. **rácios**\n\n*Explicação*: Na escala de intervalos, calcula-se a diferença exata. Na escala de rácios, a existência do zero absoluto dá significado à multiplicação e divisão de valores (ex: ganhar o dobro)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na discretização por igual largura, a fórmula para obter o tamanho de cada bin é L = (B - A) / N, onde A e B representam os ____________ da gama de valores e N é o número de ____________ desejado.",
+      "solucao": "As palavras em falta são:\n1. **limites** (ou valores mínimo e máximo)\n2. **intervalos** (ou bins / partições)\n\n*Explicação*: A largura uniforme de cada intervalo resulta da amplitude total dividida pelo número predefinido de bins."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A discretização por igual altura é habitualmente preferida à de igual largura porque consegue evitar o ____________ de valores num número reduzido de bins, mantendo uma ____________ uniforme de registos.",
+      "solucao": "As palavras em falta são:\n1. **amontoar** (ou amontoamento / concentração)\n2. **distribuição** (ou frequência / quantidade)\n\n*Explicação*: Equal-height binning ajusta as fronteiras dos bins dinamicamente consoante a densidade de dados para garantir contagens idênticas em cada partição."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao realizar uma discretização por igual altura 'quase-igual', as boas práticas ditam que se criem intervalos separados para valores ____________ como o ____________.",
+      "solucao": "As palavras em falta são:\n1. **especiais**\n2. **0** (ou zero)\n\n*Explicação*: Registos com valores nulos ('0') têm muitas vezes um significado analítico próprio que deve ser isolado num bin exclusivo para não enviesar os restantes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A ausência de dados pode revelar informação importante, no entanto, quantos mais valores forem ____________ pelo analista, maior será o desvio estatístico do dataset face à ____________.",
+      "solucao": "As palavras em falta são:\n1. **inventados** (ou imputados / preenchidos)\n2. **realidade**\n\n*Explicação*: A imputação de dados em falta ajuda a viabilizar os modelos, mas em excesso acaba por criar distribuições falsas que desvirtuam a realidade física sob análise."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O objetivo principal da tarefa de integração de dados é compor peças de informação de proveniências diversas numa coleção ____________ e ____________ de dados.",
+      "solucao": "As palavras em falta são:\n1. **coerente**\n2. **integrada** (ou unificada)\n\n*Explicação*: A integração unifica fontes díspares resolvendo incoerências lógicas, garantindo um modelo relacional consolidado e robusto."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na transformação de dados, a técnica de suavização (smoothing) visa remover ruído dos dados recorrendo a métodos como o binning, a ____________ ou o ____________.",
+      "solucao": "As palavras em falta são:\n1. **regressão**\n2. **clustering** (ou agrupamento)\n\n*Explicação*: O ruído é atenuado aproximando os dados reais por curvas matemáticas (regressão) ou agrupando em blocos homogéneos (clustering/binning)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A tarefa de transformação designada por ____________ baseia-se em aplicar operações de sumariação, obtendo, por exemplo, o resumo das vendas ____________ a partir dos registos diários.",
+      "solucao": "As palavras em falta são:\n1. **agregação**\n2. **anuais** (ou mensais / trimestrais)\n\n*Explicação*: A agregação combina vários registos num único registo sumarizado, reduzindo o detalhe e destacando tendências macro."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A uniformização de dados evita que variáveis com uma gama ____________ de valores dominem artificialmente atributos com uma gama ____________ de valores.",
+      "solucao": "As palavras em falta são:\n1. **alargada** (ou ampla / maior)\n2. **menor** (ou mais reduzida)\n\n*Explicação*: Atributos com grandezas elevadas (ex: Salário) podem assumir relevância indevida em algoritmos baseados em distâncias em comparação com escalas menores (ex: Idade), exigindo redimensionamento."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A padronização por Z-score transforma os valores de forma a obter uma distribuição com média ____________ e desvio padrão ____________.",
+      "solucao": "As palavras em falta são:\n1. **0** (ou zero)\n2. **1** (ou um)\n\n*Explicação*: A transformação linear subtrai a média e divide pelo desvio padrão, gerando uma escala padronizada sem unidade com média zero e variância unitária."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os box plots são ferramentas visuais utilizadas para a deteção de ____________ baseando a sua escala no intervalo ____________.",
+      "solucao": "As palavras em falta são:\n1. **valores atípicos** (ou outliers)\n2. **interquartil** (ou IQR)\n\n*Explicação*: Os limites das 'mustaches' de um Box plot estendem-se até $1.5 \\times IQR$ a partir dos quartis, sinalizando quaisquer pontos fora destas marcas como outliers."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nAtributo A: Código Postal (Ex: 6832-999)\nAtributo B: Idade (Ex: 21)\nAtributo C: Temperatura em Celsius (Ex: 18.5)\nAtributo D: Saldo Bancário (Ex: 1540.20 EUR)\n```",
+      "pergunta": "Analise a lista de atributos acima. Classifique a escala dos Atributos C e D, justificando a diferença crucial na interpretação matemática de ambos.",
+      "solucao": "O Atributo C (Temperatura em Celsius) pertence à escala de **Intervalos**, onde a distância física entre os valores é calculada, mas a escala não possui um zero absoluto com significado físico (0 °C não significa ausência de temperatura). O Atributo D (Saldo Bancário) pertence à escala de **Rácios**, a qual possui um ponto zero real e absoluto (0 EUR significa ausência de saldo/dinheiro). A diferença crucial é que na escala de rácios faz sentido efetuar operações de multiplicação e divisão direta dos valores (ex: 1000 EUR é o dobro de 500 EUR), o que não é estatisticamente válido na escala de intervalos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nValores originais: [100, 200, 300, 400, 10000]\nOpção 1: Escalar todos os dados para o intervalo [0; 1].\nOpção 2: Converter os dados para desvios padrão em relação à média.\n```",
+      "pergunta": "Com base na lista com a presença de um outlier severo (10000), a Opção 1 (Normalização Min-Max) é preferível à Opção 2 (Padronização Z-Score) por ser menos influenciada por valores extremos.",
+      "solucao": 1,
+      "explicacao": "Falso. A Opção 1 (Min-Max) é extremamente afetada por outliers (o valor 10000 esmaga os valores de 100 a 400 para o intervalo junto a 0). A Opção 2 (Padronização Z-Score) é muito mais robusta a valores extremos, sendo a escolha recomendada quando existem outliers acentuados na amostra."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\n1. Construção de cubos de dados ──► Operações de agregação\n2. Redução de dimensões         ──► Remoção de colunas e PCA\n3. Compressão de dados          ──► Transformações compactadoras\n4. Redução de quantidade        ──► Técnicas paramétricas ou não paramétricas\n```",
+      "pergunta": "As quatro estratégias acima descritas integram a tarefa global de ____________, a qual visa obter uma representação de dados menos ____________ mantendo, no entanto, a capacidade de gerar os mesmos resultados analíticos.",
+      "solucao": "As palavras em falta são:\n1. **redução de dados**\n2. **volumosa** (ou grande)\n\n*Explicação*: O cabeçalho descreve as estratégias centrais de redução de dados. O seu objetivo é compactar o volume ou cardinalidade de registos/atributos nas bases de dados para viabilizar e acelerar as tarefas de Data Mining."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nMétodo A: Divide a gama de valores em N intervalos de largura L = (B - A) / N.\nMétodo B: Divide os dados mantendo idêntico número de registos por intervalo.\n```",
+      "pergunta": "O Método A e o Método B descrevem, respetivamente, os métodos de discretização por igual altura e por igual largura.",
+      "solucao": 1,
+      "explicacao": "Falso. O Método A descreve a discretização por **igual largura** (equal-width binning), onde a largura L é constante. O Método B descreve a discretização por **igual altura** (equal-height/equal-frequency binning). A correspondência está invertida."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nIdade = 35; Data de nascimento = 31/maio/1969;\nSalário = -1000 EUR\nCódigo postal = 9342\n```",
+      "pergunta": "Considere as observações no cabeçalho acima. A data exemplifica um erro de ____________, o salário negativo indica um caso de ____________ e o código postal incompleto é um dado ____________.",
+      "solucao": "As palavras em falta são:\n1. **inconsistência** (ou discrepância)\n2. **lixo** (ou valor impossível)\n3. **incompleto**\n\n*Explicação*: A contradição lógica entre a idade e a data de nascimento constitui uma inconsistência. O salário negativo representa lixo (um valor impossível na realidade física do problema). O código postal sem o detalhe final ilustra dados incompletos."
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+{
+  "titulo": "Paradigmas Aprendizagem - Treino",
+  "descricao": "Exame temático focado nos Paradigmas de Aprendizagem da UC de ADI, baseado nas definições de Inteligência Artificial, Hard vs Soft Computing, Big Data, e nas abordagens de aprendizagem supervisionada, não supervisionada, por reforço e semi-supervisionada.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique como o problema do quebra-cabeças de 8x8 peças ilustra a necessidade de técnicas de IA em detrimento da pesquisa exaustiva (brute-force).",
+      "solucao": "Um quebra-cabeças de 8x8 peças possui aproximadamente $1.27 \\times 10^{89}$ combinações possíveis. Caso utilizássemos uma pesquisa exaustiva (força bruta) que testasse 1.000.000.000 de combinações por segundo, a resolução demoraria cerca de $4 \\times 10^{69}$ milénios. Isto ilustra o problema da explosão combinatória, mostrando que a pesquisa exaustiva é computacionalmente inviável para problemas de escala real e justificando o desenvolvimento de heurísticas e algoritmos de IA para procurar soluções inteligentes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a diferença filosófica e matemática fundamental entre as abordagens de Hard Computing e Soft Computing.",
+      "solucao": "O Hard Computing baseia-se na lógica tradicional rígida e na exatidão, exigindo precisão absoluta e certezas absolutas nos dados de entrada. Por outro lado, o Soft Computing (cujo modelo subjacente é a mente humana) caracteriza-se por ser tolerante à imprecisão, à incerteza, à verdade parcial e à aproximação, explorando estas tolerâncias para alcançar soluções robustas, viáveis e de baixo custo em tempo útil."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Quais são os 5 V's característicos de Big Data e explique sumariamente o que representam.",
+      "solucao": "Os 5 V's de Big Data representam as dimensões cruciais do fluxo de dados moderno:\n1. **Volume**: A escala física massiva e quantidade de dados gerados.\n2. **Velocidade**: A rapidez e tempo real com que novos dados são produzidos e precisam de ser processados.\n3. **Variedade**: A diversidade de formatos e origens de dados (estruturados, semiestruturados ou não estruturados como áudio/vídeo/texto).\n4. **Variabilidade**: A instabilidade e inconsistência nos fluxos de dados ao longo do tempo.\n5. **Valor**: A utilidade analítica, decisão estratégica ou retorno económico prático que se consegue extrair do processamento desses dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva a mudança de paradigma na computação introduzida pelo Machine Learning em comparação com a programação tradicional (Antes vs Agora).",
+      "solucao": "Na programação tradicional (**Antes**), os humanos codificavam regras lógicas explícitas (o programa) e forneciam os dados de entrada (**INPUT** + **PROGRAMA**) para obter o **OUTPUT**. No paradigma de Machine Learning (**Agora**), fornecemos ao sistema os dados de entrada e os resultados correspondentes (**INPUT** + **OUTPUT**) e o algoritmo de aprendizagem automática deduz as regras e gera o **PROGRAMA** (modelo) de forma autónoma, que depois pode generalizar previsões para novos inputs."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o paradigma de Aprendizagem Supervisionada e explique a expressão matemática $y = f(x)$ associada.",
+      "solucao": "A Aprendizagem Supervisionada é um paradigma onde os casos de treino fornecidos ao sistema contêm os resultados pretendidos (dados rotulados / labeled). A fórmula matemática $y = f(x)$ descreve esta relação, onde $x$ representa o vetor de características de entrada (inputs), $y$ representa os correspondentes resultados/targets reais, e o treino do algoritmo consiste em mapear e aprender a função $f$ sob a supervisão indireta das etiquetas de treino para minimizar o erro."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o paradigma de Aprendizagem Não Supervisionada e os seus dois principais subtipos.",
+      "solucao": "A Aprendizagem Não Supervisionada ocorre quando o algoritmo recebe apenas os dados de entrada ($x$) mas não conhece os correspondentes resultados target ($y$). O objetivo deste tipo de aprendizagem é modelar a estrutura ou a distribuição natural dos dados. Divide-se em:\n1. **Segmentação (Clustering)**: Organizar e agrupar instâncias em blocos ou grupos coerentes por proximidade/similaridade.\n2. **Associação**: Identificar regras e padrões de comportamento conjunto frequentes entre os atributos presentes nos dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como funciona a retroalimentação na Aprendizagem por Reforço e porque é que esta não se enquadra na aprendizagem supervisionada nem na não supervisionada?",
+      "solucao": "A Aprendizagem por Reforço baseia-se na interação de um agente com um ambiente através de sinais de recompensa e penalização. Não se enquadra na Aprendizagem Supervisionada porque não existe um professor/treinador a fornecer o mapeamento direto de respostas corretas a cada ação do agente. Também não é Aprendizagem Não Supervisionada porque existe um sinal numérico explícito de feedback (avaliação/crítica) que classifica se as ações tomadas pelo sistema resultaram em resultados bons ou maus."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique passo a passo o funcionamento do método Wrapper conhecido por Self-training no contexto da aprendizagem semi-supervisionada.",
+      "solucao": "O Self-training funciona de acordo com as seguintes fases:\n1. Treina-se um modelo preditivo básico usando apenas o subconjunto de dados para os quais existem soluções (dados etiquetados / labeled data).\n2. Aplica-se este modelo sobre os dados que não possuem soluções (unlabeled data) para prever novas respostas.\n3. Selecionam-se as instâncias em que o modelo apresentou maior grau de confiança de acerto (as 'melhores' novas soluções).\n4. Integram-se estas novas instâncias etiquetadas com alta confiança no conjunto de treino original.\n5. O processo é iterado sucessivamente até que se atinja a convergência ou critério de paragem."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o funcionamento do algoritmo Co-training na aprendizagem semi-supervisionada.",
+      "solucao": "O Co-training baseia-se em treinar dois classificadores/modelos independentes recorrendo a perspetivas (views) ou conjuntos de atributos complementares e alternativos sobre o mesmo problema. O processo funciona assim: cada modelo é inicialmente treinado com a pequena amostra de dados rotulados disponível; de seguida, cada modelo prevê as saídas sobre os dados não rotulados; as instâncias classificadas com maior confiança pelo primeiro modelo são incorporadas no conjunto de dados de treino do segundo modelo, e vice-versa. Desta forma, os dois modelos ensinam-se e melhoram-se mutuamente ao longo de iterações."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A Inteligência Artificial limita-se a compreender o funcionamento da inteligência humana, não tendo como objetivo a construção prática de entidades inteligentes.",
+      "solucao": 1,
+      "explicacao": "Falso. Como refere Luís Moniz Pereira (2001), a IA não se limita a compreender (como a filosofia ou a psicologia); o seu objetivo principal é construir entidades inteligentes artificiais (sendo uma ciência do artificial)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O paradigma simbólico da IA baseia-se na lógica para representar conhecimento e fundamenta o raciocínio em sistemas de inferência.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O paradigma simbólico baseia-se na lógica matemática formal para representação e dedução (sistemas de inferência), ao passo que o conexionista baseia-se na aprendizagem com base em dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O paradigma não simbólico (ou conexionista) resolve problemas por meio de raciocínio lógico-dedutivo explícito, ignorando dados passados.",
+      "solucao": 1,
+      "explicacao": "Falso. O conexionista/não simbólico resolve problemas baseando o seu funcionamento na capacidade de aprender e generalizar a partir de dados passados ou exemplos da resolução de problemas, sem construir dedução lógica explícita."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Big Data refere-se a conjuntos de dados com volumes e complexidade que impossibilitam o tratamento eficaz através de abordagens de computação tradicionais.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Esta é a definição fundamental do termo Big Data, exigindo novas infraestruturas analíticas não tradicionais devido à escala e complexidade das fontes."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os 5 V's tradicionais do Big Data são Volume, Velocidade, Variedade, Vetorização e Validação.",
+      "solucao": 1,
+      "explicacao": "Falso. Os 5 V's corretos descritos na literatura são Volume, Velocidade, Variedade, Variabilidade e Valor."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Segundo Mercy Selvaraj (2006), a capacidade do Machine Learning de aprender com a experiência e observação analítica resulta num sistema que pode melhorar continuamente a sua eficiência e eficácia.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A citação é fidedigna e resume a capacidade de contínuo auto-aperfeiçoamento e eficiência que caracteriza o Machine Learning na visão de Mercy Selvaraj (2006)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A característica diferenciadora fundamental de algoritmos de Machine Learning é o facto de serem data-driven, aprendendo regras a partir de exemplos sem codificação explícita da solução.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Os algoritmos clássicos são orientados por regras (rule-driven/programados manualmente). No Machine Learning, os algoritmos são orientados por dados (data-driven), descobrindo os padrões autonomamente a partir de exemplos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na fase de treino em aprendizagem supervisionada, os dados de entrada e os resultados correspondentes não são conhecidos, sendo necessário que o algoritmo avalie o seu próprio funcionamento interno para aprender.",
+      "solucao": 1,
+      "explicacao": "Falso. A descrição diz respeito à aprendizagem não supervisionada. Na aprendizagem supervisionada, os dados de treino possuem obrigatoriamente inputs e saídas (rótulos) correspondentes bem definidos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A tarefa de classificação enquadra-se na aprendizagem supervisionada e é utilizada quando os resultados pretendidos são contínuos, como a temperatura.",
+      "solucao": 1,
+      "explicacao": "Falso. A classificação prevê targets discretos (rótulos/classes). A previsão de resultados contínuos (como a variação de temperatura ou valor numérico em euros) é tratada por modelos de regressão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem não supervisionada caracteriza-se pela presença de dados de entrada (x) sem os correspondentes resultados (y).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Na aprendizagem não supervisionada, conhecem-se apenas os inputs ($x$). O algoritmo explora os dados sem o auxílio de respostas ou targets prévios."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No paradigma não supervisionado, a segmentação (clustering) visa agrupar os dados em conjuntos coerentes, enquanto a associação procura identificar regras de comportamento conjunto.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ambas são tarefas de Unsupervised Learning: a segmentação categoriza o espaço em partições homogéneas (clusters); a associação deteta relações e dependências (regras) entre a ocorrência de diferentes atributos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na Aprendizagem por Reforço, o agente ajusta o seu comportamento com base na supervisão direta de um professor que avalia individualmente cada decisão tomada.",
+      "solucao": 1,
+      "explicacao": "Falso. Na Aprendizagem por Reforço não há um professor (treinador) a supervisionar as decisões específicas em cada estado do processo. Em vez disso, a aprendizagem baseia-se na auto-crítica através da receção de sinais de recompensa ou penalização."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Q-Learning é um algoritmo de aprendizagem por reforço que assume que está a seguir uma política ótima para atualizar os valores das ações.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Q-learning baseia-se na equação de Bellman e atualiza os valores de ação estimando que a política subsequente será a ótima (off-policy)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo SARSA atualiza o valor das ações considerando a política de controlo concreta que está a ser seguida.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O SARSA é um algoritmo on-policy, o que significa que atualiza a estimativa do valor de ação tendo em conta a ação real seguinte que a política atual efetivamente escolhe tomar."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem semi-supervisionada aproveita conjuntos maioritariamente sem soluções (unlabeled) em conjunto com uma pequena quantidade de dados com soluções para melhorar a qualidade dos modelos com menor esforço.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Este paradigma minimiza a necessidade de catalogação manual de dados (labeled data) que exige tempo e recursos, aproveitando grandes massas de dados não-catalogados (unlabeled data) para robustecer o modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "John McCarthy propôs em 1956 que o problema da IA consiste em fazer com que uma máquina ____________ de formas que seriam apelidadas de ____________ caso fossem demonstradas por um ser humano.",
+      "solucao": "As palavras em falta são:\n1. **se comporte** (ou comporte / actue / reaja)\n2. **inteligentes**\n\n*Explicação*: A definição clássica de John McCarthy (1956) baseia-se no comportamento externo da máquina. Se a máquina atua de forma que seria julgada inteligente num ser humano, a máquina está a simular inteligência artificial."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enquanto um quebra-cabeças de 2x2 peças apresenta apenas ____________ combinações possíveis, a expansão para um quebra-cabeças de 3x3 peças eleva este número para ____________ combinações.",
+      "solucao": "As palavras em falta são:\n1. **24**\n2. **362.880** (ou 362880)\n\n*Explicação*: O quebra-cabeças de 2x2 peças possui $4! = 24$ combinações possíveis. O de 3x3 peças possui $9! = 362.880$ combinações, ilustrando graficamente como o espaço de procura cresce de forma explosiva."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao contrário da computação clássica ou rígida, o Soft Computing é caracterizado por ser tolerante à ____________, à incerteza, à verdade parcial e à ____________.",
+      "solucao": "As palavras em falta são:\n1. **imprecisão**\n2. **aproximação**\n\n*Explicação*: O Soft Computing aproveita a tolerância humana natural a conceitos imprecisos, aproximados ou parcialmente verdadeiros, permitindo obter soluções robustas e exequíveis em problemas de elevada incerteza."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Entre os exemplos de sistemas de Soft Computing destacam-se a Lógica Difusa (Fuzzy Logic), as ____________ Artificiais e a Computação ____________.",
+      "solucao": "As palavras em falta são:\n1. **Redes Neuronais** (ou Redes Neurais / RNAs)\n2. **Genética e Evolutiva** (ou Genética / Evolutiva)\n\n*Explicação*: A lógica difusa, redes neuronais artificiais e algoritmos genéticos/evolutivos compõem as áreas centrais de Soft Computing, desenhadas para aprender e generalizar sem modelações puramente determinísticas rígidas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os 5 V's do Big Data descrevem dados de grande escala. Além de Volume, Velocidade e Variedade, incluem também a ____________ (inconsistência no fluxo) e o ____________ (utilidade prática extraída).",
+      "solucao": "As palavras em falta são:\n1. **variabilidade**\n2. **valor**\n\n*Explicação*: A variabilidade descreve a inconsistência e flutuação temporal das fontes de dados. O valor representa o impacto estratégico, analítico e de negócio que justifica as despesas com o processamento de Big Data."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Tom Mitchell (1997) define o campo de Machine Learning como focado em como construir programas que ____________ automaticamente com a ____________.",
+      "solucao": "As palavras em falta são:\n1. **melhoram** (ou se aperfeiçoam)\n2. **experiência**\n\n*Explicação*: A definição matemática clássica de Tom Mitchell (1997) estabelece que um algoritmo de aprendizagem automática aprende uma tarefa quando o seu desempenho nessa tarefa melhora sistematicamente com a experiência."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na aprendizagem supervisionada, a relação matemática de mapeamento que o algoritmo tenta aproximar com base em dados de entrada (x) e resultados (y) expressa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **y = f(x)**\n\n*Explicação*: Na aprendizagem supervisionada, assume-se que as saídas $y$ são geradas a partir das entradas $x$ através de uma função de mapeamento $f(x)$. O treino tem como finalidade aproximar esta função de forma precisa."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A aprendizagem supervisionada divide-se em duas grandes categorias: ____________ se a variável alvo for discreta, e ____________ se a variável for contínua.",
+      "solucao": "As palavras em falta são:\n1. **classificação**\n2. **regressão**\n\n*Explicação*: A classificação mapeia entradas para categorias qualitativas discretas (ex: sim/não). A regressão mapeia entradas para variáveis quantitativas contínuas (ex: valores numéricos reais)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A aprendizagem não supervisionada divide-se frequentemente em duas categorias principais: a ____________ (criação de grupos coerentes) e a ____________ (descoberta de regras que ligam itens).",
+      "solucao": "As palavras em falta são:\n1. **segmentação** (ou clustering)\n2. **associação**\n\n*Explicação*: A segmentação (clustering) divide os dados não catalogados em grupos homogéneos de acordo com a sua distância física. A associação procura inferir regras que relacionem os comportamentos observados conjuntamente nos dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os algoritmos de Reinforcement Learning operam em ciclos e recorrem a sinais de auto-alimentação assentes nos conceitos de ____________ e ____________.",
+      "solucao": "As palavras em falta são:\n1. **recompensa** (ou recompensas)\n2. **penalização** (ou penalizações / punição / castigo)\n\n*Explicação*: O feedback recebido pelo agente após interagir com o ambiente consiste em incentivos positivos (recompensas) ou negativos (penalizações), que servem para reajustar a sua política e maximizar o ganho de longo prazo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Dois algoritmos de referência na aprendizagem por reforço são o ____________, que assume uma política ótima ao atualizar os valores das ações, e o ____________, que considera a política de controlo atual.",
+      "solucao": "As palavras em falta são:\n1. **Q-Learning** (ou Q-learning)\n2. **SARSA**\n\n*Explicação*: O Q-Learning atualiza as tabelas com base na melhor estimativa futura de forma independente da política atual (off-policy). O SARSA faz o ajuste on-policy, dependendo do próximo passo ditado pela política de controlo real."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num Algoritmo Genético, a cada geração as estruturas candidatas são avaliadas, sendo gerada uma nova população através da aplicação de operadores genéticos como a seleção, o ____________ e a ____________.",
+      "solucao": "As palavras em falta são:\n1. **cruzamento** (ou crossover)\n2. **mutação**\n\n*Explicação*: Os Algoritmos Genéticos emulam a seleção natural evolutiva. A evolução faz-se pela seleção das melhores estruturas, cruzamento (crossover) para misturar atributos das soluções ancestrais e mutação para introduzir variações aleatórias."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na aprendizagem semi-supervisionada, os designados 'Wrapper Methods' incluem o ____________ (baseado na autoconfiança de um único modelo) e o ____________ (onde dois modelos complementares se ensinam mutuamente).",
+      "solucao": "As palavras em falta são:\n1. **Self-training** (ou self training)\n2. **Co-training** (ou co training)\n\n*Explicação*: Self-training usa previsões do próprio classificador com alta confiança para expandir o seu conjunto rotulado. Co-training usa dois classificadores independentes que atuam em perspetivas de atributos diferentes para classificar dados um para o outro."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os 'Graph Methods' na aprendizagem semi-supervisionada modelam os dados sob a forma de grafos, calculando a ____________ geométrica ou estrutural entre os ____________ (dados).",
+      "solucao": "As palavras em falta são:\n1. **similaridade** (ou distância / semelhança)\n2. **nodos** (ou nós / pontos / vértices)\n\n*Explicação*: Métodos baseados em grafos representam os dados como nós no grafo e ligam-nos com arestas ponderadas pela sua similaridade. Isto permite a propagação dos rótulos existentes para os nós vizinhos não rotulados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As Generative Adversarial Networks (GANs) utilizam um modelo composto por duas redes adversárias em competição: o ____________ (que tenta criar dados falsos realistas) e o ____________ (que tenta distinguir os dados reais dos gerados).",
+      "solucao": "As palavras em falta são:\n1. **gerador** (ou generator)\n2. **discriminador** (ou discriminator)\n\n*Explicação*: O gerador e o discriminador competem numa dinâmica min-max. O gerador produz dados sintéticos para tentar enganar o discriminador, enquanto este aprende a detetar dados falsificados, o que melhora o desempenho de ambos os modelos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nAntes:   [INPUT]  ──► [PROGRAMA] ──► [OUTPUT]\nAgora:   [INPUT]  ──► [ ? ]      ──► [PROGRAMA]\n```",
+      "pergunta": "Com base nos diagramas de fluxo acima representados, o elemento em falta identificado pelo ponto de interrogação no paradigma «Agora» (Machine Learning) corresponde ao OUTPUT.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Na computação tradicional (Antes), fornecemos o INPUT e o PROGRAMA (regras) para obter o OUTPUT. No Machine Learning (Agora), fornecemos o INPUT e o correspondente OUTPUT para que o algoritmo descubra as regras e gere o PROGRAMA (modelo)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nPuzzle 2x2: 4 x 3 x 2 x 1 = 24 combinações\nPuzzle 3x3: 9 x 8 x 7 x 6 x 5 x 4 x 3 x 2 x 1 = 362.880 combinações\nPuzzle 8x8: 64 x 63 x 62 x ... = 1,27 x 10^89 combinações\n```",
+      "pergunta": "Explique a que se deve o aumento desmesurado de combinações nos quebra-cabeças acima ilustrados e qual o seu termo científico na teoria de computação.",
+      "solucao": "O aumento desmesurado deve-se ao crescimento fatorial do número de posições possíveis ($N!$) à medida que o tamanho do tabuleiro aumenta. Cientificamente, este fenómeno é designado por **explosão combinatória**, tornando impossível o recurso a pesquisa exaustiva (força bruta) e justificando a necessidade de algoritmos de Inteligência Artificial para guiar a procura de soluções de forma heurística."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\n1. Segmentação (Clustering) ──► Organizar clientes em grupos coerentes\n2. Associação              ──► Regras de compra (ex: Pão -> Manteiga)\n```",
+      "pergunta": "Considere as tarefas descritas acima. Ambas enquadram-se sob o paradigma de aprendizagem ____________, cuja principal característica reside no facto de o conjunto de treino conter apenas dados de ____________.",
+      "solucao": "As palavras em falta são:\n1. **não supervisionada**\n2. **entrada (x)** (ou input)\n\n*Explicação*: A segmentação e a associação são tarefas clássicas da aprendizagem não supervisionada. Neste paradigma, os dados de treino não possuem respostas de saída ou labels (y); existem apenas as variáveis de entrada (x), cabendo ao modelo modelar a estrutura interna e a distribuição natural dos dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nAlgoritmo de Aprendizagem por Reforço A: assume uma política ótima e atualiza o valor das ações.\nAlgoritmo de Aprendizagem por Reforço B: considera a política de controlo concreta que está a ser seguida.\n```",
+      "pergunta": "O Algoritmo A e o Algoritmo B correspondem, respetivamente, ao SARSA e ao Q-Learning.",
+      "solucao": 1,
+      "explicacao": "Falso. O Algoritmo A, que assume uma política ótima, é o **Q-Learning** (off-policy). O Algoritmo B, que segue a política de controlo em execução, é o **SARSA** (on-policy). Portanto, a correspondência apresentada está invertida."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nWrapper Methods  ──► Self-training e Co-training\nGraph Methods    ──► Representação e propagação em grafos\nGANs             ──► Gerador vs Discriminador\n```",
+      "pergunta": "As abordagens listadas no cabeçalho acima são variantes que integram o paradigma de aprendizagem ____________, cujo objetivo é aproveitar grandes volumes de dados ____________ para treinar modelos com menor esforço de catalogação.",
+      "solucao": "As palavras em falta são:\n1. **semi-supervisionada** (ou semi supervisionada)\n2. **não rotulados** (ou unlabeled / sem soluções)\n\n*Explicação*: O cabeçalho descreve métodos comuns de Aprendizagem Semi-Supervisionada. Este paradigma atua de forma intermédia, tirando partido de uma pequena amostra de dados rotulados combinada com um volume muito maior de dados não rotulados (unlabeled) para melhorar o desempenho do modelo final com custo reduzido de etiquetagem."
+    }
+  ]
+}

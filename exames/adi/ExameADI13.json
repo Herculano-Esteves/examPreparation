@@ -1,0 +1,242 @@
+{
+  "titulo": "Arvores de Decisao - Treino",
+  "descricao": "Exame temático focado em Árvores de Decisão da UC de ADI, cobrindo modelos preditivos (classificação e regressão), paradigmas (Top-down vs Bottom-up), algoritmos (ID3, C4.5, J48, CART, CHAID), conceitos de Entropia e Ganho de Informação, e a Poda de Árvores (Pruning).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva os três componentes fundamentais de uma árvore de decisão (nodos internos, ramos e folhas) e o que cada um representa na modelação.",
+      "solucao": "Numa árvore de decisão, os **nodos internos** representam testes aplicados a atributos específicos do dataset. Os **ramos** representam os valores ou conjuntos de valores resultantes do teste do nodo, servindo de caminhos de transição. As **folhas** (nós terminais) representam a decisão final, classe ou intervalo previsto para os dados que percorreram a árvore até aquele ponto."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a criação de modelos de decisão segundo os paradigmas Top-down e Bottom-up, indicando em qual deles as Árvores de Decisão se enquadram.",
+      "solucao": "O paradigma **Top-down** constrói o modelo a partir do conhecimento prévio de especialistas humanos, dividindo o 'todo' em 'partes' lógicas. O paradigma **Bottom-up** constrói o modelo a partir dos próprios dados, identificando relações estatísticas entre os atributos e induzindo regras por generalização. As Árvores de Decisão enquadram-se no paradigma **Bottom-up**, pois são induzidas de forma automática com base no dataset de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a restrição de atributos fixos que o paradigma Bottom-up impõe às Árvores de Decisão.",
+      "solucao": "O paradigma Bottom-up exige que toda a informação sobre cada item de dados (objeto) esteja definida numa coleção fixa e finita de atributos. Desta forma, objetos distintos no dataset não podem requerer ou possuir conjuntos diferentes de variáveis explicativas, garantindo uma matriz estruturada e homogénea para o treino do modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto das Árvores de Decisão, como se distingue o enquadramento em aprendizagem supervisionada da não supervisionada?",
+      "solucao": "Se o conjunto de classes ou níveis de decisão for conhecido *a priori* (etiquetado), a árvore segue o paradigma de aprendizagem **supervisionado** (ex: classificar se chove ou não chove). Se os níveis de decisão ou grupos forem calculados dinamicamente pelo próprio modelo durante o treino, a sua construção segue um paradigma de aprendizagem **não supervisionado** (ex: regras de segmentação hierárquica)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente, passo a passo, o ciclo de execução que um modelo de Árvore de Decisão percorre para obter a resposta a um problema apresentado.",
+      "solucao": "O processo preditivo decorre nas seguintes etapas:\n1. Inicia-se no nodo raiz (topo da árvore);\n2. Identifica-se o valor do atributo testado nesse nodo para a instância a classificar;\n3. Segue-se pelo ramo correspondente a esse valor;\n4. Alcança-se o nodo seguinte (interno ou folha);\n5. Caso seja um nodo interno, repete-se o processo a partir do passo 2;\n6. Caso seja um nodo folha, interrompe-se a travessia e assume-se o valor da folha como a decisão final."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O que mede a Entropia no algoritmo ID3 e qual a interpretação dos valores extremos 0 e 1 para um problema de classificação binária?",
+      "solucao": "No algoritmo ID3, a Entropia é uma medida da incerteza ou desorganização associada a um conjunto de objetos em relação a uma variável alvo. No caso binário (exemplos positivos e negativos), a entropia é **0** quando todos os objetos pertencem à mesma classe (ordem total, sem incerteza). A entropia é **1** quando existe uma proporção idêntica de objetos positivos e negativos (50% de cada, representando a incerteza máxima)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como funciona o Ganho de Informação na escolha dos nós do ID3 e qual o objetivo de selecionar o atributo com maior valor?",
+      "solucao": "O Ganho de Informação calcula a redução esperada na entropia (desorganização) ao dividir os dados com base em determinado atributo. O ID3 calcula o ganho para todos os atributos candidatos e seleciona o atributo com o **maior ganho de informação** para ser o nó de decisão. O objetivo é escolher a variável que melhor segrega as classes, minimizando a entropia nos subconjuntos resultantes e, consequentemente, reduzindo a profundidade e complexidade da árvore final."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente quatro melhorias introduzidas pelo algoritmo C4.5 em relação ao seu predecessor ID3.",
+      "solucao": "As quatro melhorias principais introduzidas pelo C4.5 são:\n1. **Manipulação de atributos contínuos**: Define um limiar (threshold) dinâmico para binarizar variáveis numéricas.\n2. **Tratamento de missing values**: Assinala e desconsidera valores em falta nos cálculos de entropia e ganho.\n3. **Pesos em atributos**: Permite associar ponderações de relevância diferenciadas a cada variável.\n4. **Poda da árvore (Pruning)**: Permite simplificar a árvore após o crescimento para evitar overfitting."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a motivação para realizar a Poda (Tree Pruning) numa Árvore de Decisão e como este procedimento funciona.",
+      "solucao": "A motivação é prevenir o **overfitting** (sobreajustamento), que ocorre quando a árvore cresce demasiado e cria folhas muito específicas adaptadas apenas ao ruído dos dados de treino. A poda funciona retrocedendo iterações na árvore, removendo ramos que contribuem pouco ou nada para a generalização da solução e substituindo esses sub-ramos por folhas, simplificando o modelo para novos dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Quais são os principais pontos fortes e pontos fracos dos modelos baseados em Árvores de Decisão?",
+      "solucao": "Os **pontos fortes** incluem: facilidade de compreensão e visualização, simplicidade de configuração, explicabilidade da tomada de decisão, capacidade de lidar com missing values e facilidade de conversão do grafo em regras lógicas (`IF-THEN`). Os **pontos fracos** são: inadequação para problemas com muitas interações não lineares entre os atributos, falta de poder expressivo comparado a outros modelos, e propensão à replicação desnecessária de subárvores."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Numa árvore de decisão, as folhas representam testes sobre os atributos e os nodos internos representam as decisões.",
+      "solucao": 1,
+      "explicacao": "Falso. É o oposto: os nodos internos testam os atributos e as folhas representam as decisões/classes finais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As árvores de decisão seguem o paradigma de modelação Bottom-up, induzindo o modelo a partir da generalização de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Elas partem das instâncias de dados para induzir regras de decisão de forma ascendente (generalização)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No paradigma Bottom-up, objetos distintos podem ser descritos por conjuntos de atributos totalmente diferentes.",
+      "solucao": 1,
+      "explicacao": "Falso. Toda a informação deve estar definida numa coleção fixa e finita de atributos, impossibilitando que objetos requeiram esquemas distintos de variáveis."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Quando os níveis de decisão de uma árvore de decisão são contínuos, estamos perante um problema de regressão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Árvores com alvos contínuos são árvores de regressão, onde as folhas indicam intervalos ou médias numéricas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo ID3 foi desenvolvido por Leo Breiman, em paralelo com o algoritmo CART de Ross Quinlan.",
+      "solucao": 1,
+      "explicacao": "Falso. O ID3 foi desenvolvido por Ross Quinlan e o CART foi desenvolvido por Leo Breiman."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A entropia é uma medida de incerteza ou desorganização associada a um conjunto de objetos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Identifica a pureza de um conjunto: quanto maior a desorganização/mistura de classes, maior é a entropia."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma entropia de 0 (zero) indica que o conjunto está dividido em proporções exatamente iguais entre as classes.",
+      "solucao": 1,
+      "explicacao": "Falso. Entropia 0 indica pureza máxima (todos os objetos pertencem a uma única classe). O valor 1 indica mistura igual (50% de cada)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A entropia de um conjunto binário atinge o seu valor máximo de 1 quando a proporção de exemplos positivos é de 0,5.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Com 50% de probabilidade para cada classe, a incerteza é máxima, resultando em entropia igual a 1."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Ganho de Informação mede a redução esperada na entropia ao dividir a coleção através de um atributo.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Representa a diferença entre a entropia inicial e a média ponderada das entropias dos subconjuntos divididos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo ID3 escolhe o atributo com o menor ganho de informação para ser o nó de decisão.",
+      "solucao": 1,
+      "explicacao": "Falso. O algoritmo escolhe o atributo com o **maior ganho de informação** para maximizar a segregação de classes e minimizar a árvore."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O C4.5 lida com atributos contínuos definindo um limite (threshold) para separar os valores.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O C4.5 binariza variáveis contínuas testando diferentes limites para encontrar o melhor ponto de corte."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo CART (Classification and Regression Tree) suporta a criação de modelos de classificação e de regressão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como o nome indica, o CART compartilha semelhanças para resolver ambos os tipos de modelação preditiva."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo CHAID destaca-se por operar divisões estritamente binárias nos atributos, ao contrário do CART.",
+      "solucao": 1,
+      "explicacao": "Falso. É o oposto: o CHAID opera em modo multi-nível (multi-way splits), enquanto o CART usa divisões binárias."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um dos pontos fracos das árvores de decisão é a sua potencial falta de poder expressivo e a inadequação para problemas com muitas interações entre atributos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Devido à natureza retangular das divisões, têm dificuldade em capturar interações complexas de features sem criar árvores gigantescas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Numa Árvore de Decisão, cada nodo interno testa um ____________, cada ramo identifica um ____________ e cada folha representa uma decisão.",
+      "solucao": "As palavras em falta são:\n1. **atributo** (ou variável)\n2. **valor** (ou conjunto de valores)\n\n*Explicação*: Esta é a correspondência estrutural do grafo: nós contêm testes a features, arestas (ramos) representam as opções/valores testados e folhas as decisões finais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Se a criação de uma árvore de decisão usa classes conhecidas a priori, segue um paradigma ____________; se calcula as classes no modelo, segue um paradigma ____________.",
+      "solucao": "As palavras em falta são:\n1. **supervisionado**\n2. **não supervisionado**\n\n*Explicação*: O conhecimento prévio das classes target dita a supervisão. Na sua ausência, o modelo atua em regime não supervisionado agrupando os dados autonomamente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O ciclo de previsão de uma árvore inicia no nodo ____________, segue pelo ramo condizente com o valor do atributo, até alcançar um nodo ____________, que dita a resposta.",
+      "solucao": "As palavras em falta são:\n1. **raiz**\n2. **folha** (ou terminal)\n\n*Explicação*: O fluxo preditivo percorre o grafo de cima (raiz) para baixo, parando apenas ao atingir um nó sem descendentes (folha)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A indução de árvores de decisão baseia-se na observação de exemplos para realizar uma ____________ por ____________, gerando o modelo preditivo.",
+      "solucao": "As palavras em falta são:\n1. **generalização**\n2. **indução**\n\n*Explicação*: A aprendizagem supervisionada induz regras genéricas (generalização por indução) partindo de exemplos concretos da amostra de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo ID3 foi desenvolvido por ____________ e recorre à métrica de ____________ para medir a incerteza de uma partição de dados.",
+      "solucao": "As palavras em falta são:\n1. **Ross Quinlan** (ou Quinlan)\n2. **entropia**\n\n*Explicação*: Ross Quinlan concebeu o ID3, integrando a teoria de informação de Shannon (Entropia) como critério de pureza de partição."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A fórmula da entropia binária é definida por $Entropia(S) = -p_+ \\log_2 p_+ - p_- \\log_2 p_-$, onde $p_+$ e $p_-$ correspondem às ____________ de exemplos ____________ e negativos.",
+      "solucao": "As palavras em falta são:\n1. **proporções** (ou frequências relativas)\n2. **positivos**\n\n*Explicação*: $p_+$ e $p_-$ representam as frações relativas da classe positiva e da classe negativa no conjunto $S$ em avaliação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A entropia é ____________ se todos os objetos no conjunto tiverem a mesma classe, e é ____________ se houver igual proporção de classes.",
+      "solucao": "As palavras em falta são:\n1. **0** (ou zero)\n2. **1** (ou um)\n\n*Explicação*: Sem incerteza (classe única), a entropia desce ao mínimo (0). Com incerteza máxima (classes divididas em 50/50), a entropia sobe ao pico (1)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O Ganho de Informação mede a ____________ esperada na ____________ de um conjunto ao efetuar a divisão com base num atributo.",
+      "solucao": "As palavras em falta são:\n1. **redução** (ou diminuição)\n2. **entropia** (ou incerteza)\n\n*Explicação*: O ganho quantifica quanto de desordem (entropia) é eliminado ao segmentar o dataset através daquela variável."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para manipular atributos contínuos, o algoritmo C4.5 define um ____________ que separa os valores em ____________ e abaixo deste limite.",
+      "solucao": "As palavras em falta são:\n1. **limite** (ou threshold)\n2. **acima**\n\n*Explicação*: O C4.5 converte features contínuas em binárias testando um limite divisor ($valor > threshold$ vs $valor \\le threshold$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao lidar com missing values, o C4.5 ____________ os registos com valores em falta nos cálculos de ____________ e ganho de informação.",
+      "solucao": "As palavras em falta são:\n1. **assinala** (ou ignora / exclui)\n2. **entropia**\n\n*Explicação*: O algoritmo marca e remove temporariamente as células nulas para que estas não perturbem o cálculo estatístico de ganho e entropia dos nós."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A poda (pruning) retrocede iterações na árvore, removendo ramos pouco relevantes e substituindo-os por ____________ para evitar o ____________.",
+      "solucao": "As palavras em falta são:\n1. **folhas** (ou nós folha)\n2. **overfitting** (ou sobreajustamento)\n\n*Explicação*: Ramos que representam especificidades excessivas de treino são podados e resumidos a um nó folha final para garantir generalização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo CART foi introduzido por ____________ e consegue criar árvores para problemas de classificação e de ____________.",
+      "solucao": "As palavras em falta são:\n1. **Breiman** (ou Leo Breiman)\n2. **regressão**\n\n*Explicação*: Leo Breiman introduziu o CART em 1984, permitindo que a mesma estrutura algorítmica trate targets categóricos ou numéricos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enquanto o CART efetua divisões estritamente ____________ nos dados, o algoritmo CHAID opera em modo ____________.",
+      "solucao": "As palavras em falta são:\n1. **binárias**\n2. **multi-nível** (ou multi-way)\n\n*Explicação*: O CART divide os nós sempre em dois ramos. O CHAID recorre a testes Qui-Quadrado para particionar um nó em múltiplos ramos simultâneos (multi-nível)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O CHAID é adequado para grandes datasets, sendo frequentemente utilizado em estudos de ____________ para efetuar a ____________ de mercados.",
+      "solucao": "As palavras em falta são:\n1. **marketing**\n2. **segmentação**\n\n*Explicação*: O CHAID é popular em marketing pela facilidade em segmentar públicos-alvo com base em múltiplos cruzamentos categóricos estruturados."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nColeção S com 14 instâncias:\n- 9 exemplos Sim (Positivos)\n- 5 exemplos Não (Negativos)\nFórmula: Entropia(S) = -p+ log2(p+) - p- log2(p-)\n```",
+      "pergunta": "Com base nos dados fornecidos no cabeçalho, calcule o valor exato da Entropia de S, demonstrando o desenvolvimento aritmético básico.",
+      "solucao": "As proporções são $p_+ = 9/14 \\approx 0.643$ e $p_- = 5/14 \\approx 0.357$. Aplicando a fórmula:\n$Entropia(S) = -(9/14) \\log_2(9/14) - (5/14) \\log_2(5/14)$\n$Entropia(S) = -0.643 \\times \\log_2(0.643) - 0.357 \\times \\log_2(0.357)$\n$Entropia(S) = -0.643 \\times (-0.637) - 0.357 \\times (-1.485)$\n$Entropia(S) = 0.410 + 0.530 = 0.940$.\nPortanto, a entropia exata de S é **0.940**."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nAtributo Aspeto: Ganho = 0.246\nAtributo Humidade: Ganho = 0.151\nAtributo Vento: Ganho = 0.048\nAtributo Temperatura: Ganho = 0.029\n```",
+      "pergunta": "Com base nos ganhos de informação apresentados acima para os atributos candidatos no exemplo do tempo, o algoritmo ID3 escolherá o atributo Temperatura para ser o nodo raiz da árvore de decisão.",
+      "solucao": 1,
+      "explicacao": "Falso. O ID3 escolhe o atributo com o **maior** ganho de informação para maximizar a redução de entropia. Nesse caso, o atributo selecionado para a raiz será o **Aspeto** (Ganho = 0.246), enquanto a Temperatura tem o menor ganho (0.029)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\n              [ASPETO]\n            /    |    \\\n         Sol  Nuvens   Chuva\n          /      |       \\\n   [HUMIDADE]  [SIM]   [VENTO]\n     /    \\            /     \\\n  Alta   Normal     Forte   Fraco\n   /        \\        /        \\\n [NÃO]     [SIM]   [NÃO]     [SIM]\n```",
+      "pergunta": "Considere o modelo preditivo final acima. Trata-se de uma árvore de decisão para um problema de ____________. Uma nova instância com as características: Aspeto = Chuva, Temperatura = Calor, Humidade = Alta, Vento = Fraco será classificada com a decisão ____________.",
+      "solucao": "As palavras em falta são:\n1. **classificação**\n2. **SIM**\n\n*Explicação*: O target possui classes discretas (SIM/NÃO), o que caracteriza classificação. Para a instância: 1. Raiz é Aspeto = Chuva, seguimos o ramo direito para o nó Vento. 2. O valor de Vento é Fraco, pelo que seguimos o ramo direito de Vento e atingimos a folha terminal [SIM], ditando esta previsão."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nID3   ──► Ross Quinlan (1986)\nC4.5  ──► Ross Quinlan (1993)\nCART  ──► Leo Breiman (1984)\n```",
+      "pergunta": "De acordo com a cronologia histórica e autores apresentados no cabeçalho, o algoritmo C4.5 foi desenvolvido como uma extensão do CART de Leo Breiman.",
+      "solucao": 1,
+      "explicacao": "Falso. O C4.5 foi desenvolvido por Ross Quinlan em 1993 como uma extensão direta do seu próprio algoritmo predecessor, o **ID3** (lançado por Quinlan em 1986)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nPontos Fortes: Explicabilidade e manipulação de missing values.\nPontos Fracos: Inadequadas para muitas interações e falta de poder expressivo.\n```",
+      "pergunta": "As características acima pertencem às Árvores de Decisão. O facto de o seu grafo poder ser convertido numa coleção de regras lógicas do tipo 'Se-Então' é um fator que contribui para o ponto forte da ____________.",
+      "solucao": "As palavras em falta são:\n1. **explicabilidade** (ou legibilidade / compreensibilidade)\n\n*Explicação*: A correspondência direta entre caminhos da árvore e regras lógicas (`IF-THEN`) torna a lógica de tomada de decisão do modelo altamente explicável e compreensível para utilizadores humanos, um dos maiores pontos fortes desta técnica."
+    }
+  ]
+}

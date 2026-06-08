@@ -4,8 +4,8 @@
   "perguntas": [
     {
       "tipo": "escrita",
-      "pergunta": "Em Machine Learning, o sistema aprende de forma ____________ a partir de ____________ (dados) para extrair padrões sem ser explicitamente programado com regras lógicas rígidas.",
-      "solucao": "As palavras em falta são:\n1. **autónoma** (ou independente / automática)\n2. **experiência**\n\n*Explicação*: O Machine Learning (Aprendizagem Automática) é um paradigma de computação onde o sistema não recebe regras rígidas predefinidas. Em vez disso, desenvolve a capacidade de aprender padrões e tomar decisões de forma autónoma a partir dos dados históricos disponibilizados."
+      "pergunta": "Ao contrário da programação ____________, onde as regras são definidas manualmente pelo humano, em Machine Learning o modelo aprende de forma ____________ a partir de ____________ para identificar ____________ ocultos, sem necessitar de ser explicitamente programado.",
+      "solucao": "As palavras em falta são:\n1. **tradicional** (ou clássica / convencional)\n2. **autónoma** (ou automática / independente)\n3. **dados** (ou exemplos / dados históricos)\n4. **padrões** (ou relações / tendências)\n\n*Explicação*: O paradigma do Machine Learning inverte a lógica da programação clássica. Em vez de introduzir dados e regras para obter respostas, nós fornecemos os dados e as respostas passadas (histórico) para que o algoritmo descubra, de forma autónoma, os padrões e crie as suas próprias regras."
     },
     {
       "tipo": "escrita",

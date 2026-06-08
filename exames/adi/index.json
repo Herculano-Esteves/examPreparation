@@ -14,6 +14,41 @@
     "perguntas_count": 43
   },
   {
+    "id": "ExameADI11",
+    "titulo": "Paradigmas Aprendizagem - Treino",
+    "descricao": "Exame temático focado nos Paradigmas de Aprendizagem da UC de ADI, baseado nas definições de Inteligência Artificial, Hard vs Soft Computing, Big Data, e nas abordagens de aprendizagem supervisionada, não supervisionada, por reforço e semi-supervisionada.",
+    "path": "exames/adi/ExameADI11.json",
+    "perguntas_count": 44
+  },
+  {
+    "id": "ExameADI12",
+    "titulo": "Preparacao de Dados - Treino",
+    "descricao": "Exame temático focado na Preparação de Dados (Pré-processamento) da UC de ADI, baseado nas tarefas de discretização (igual largura/altura), limpeza (missing values), integração, transformação (normalização Min-Max, Z-score, outliers) e redução de dados.",
+    "path": "exames/adi/ExameADI12.json",
+    "perguntas_count": 45
+  },
+  {
+    "id": "ExameADI13",
+    "titulo": "Arvores de Decisao - Treino",
+    "descricao": "Exame temático focado em Árvores de Decisão da UC de ADI, cobrindo modelos preditivos (classificação e regressão), paradigmas (Top-down vs Bottom-up), algoritmos (ID3, C4.5, J48, CART, CHAID), conceitos de Entropia e Ganho de Informação, e a Poda de Árvores (Pruning).",
+    "path": "exames/adi/ExameADI13.json",
+    "perguntas_count": 43
+  },
+  {
+    "id": "ExameADI14",
+    "titulo": "Regressao - Treino",
+    "descricao": "Exame temático focado em Técnicas de Regressão da UC de ADI, cobrindo regressão linear simples (intercept, slope, resíduos, mínimos quadrados), regressão linear múltipla, regressão polinomial múltipla, árvores de regressão e regressão logística para classificação.",
+    "path": "exames/adi/ExameADI14.json",
+    "perguntas_count": 45
+  },
+  {
+    "id": "ExameADI15",
+    "titulo": "Avaliacao e Metricas - Treino",
+    "descricao": "Exame temático focado na Avaliação de Modelos e Métricas de Qualidade da UC de ADI, cobrindo a divisão de dados (treino, teste, validação), estratégias de validação (Hold-out, Cross Validation, Leave-one-out), métricas de classificação (matrizes de confusão, Accuracy, Precision, Recall, AUC curve) e métricas de regressão (MAE, MSE, RMSE).",
+    "path": "exames/adi/ExameADI15.json",
+    "perguntas_count": 45
+  },
+  {
     "id": "ExameADI2",
     "titulo": "Exame ADI 2 (Época de Recurso 2023/2024)",
     "descricao": "Exame completo da época de recurso de Aprendizagem e Decisão Inteligentes (ADI) cobrindo métricas de classificação, regressão com targets discretos, desequilíbrio de classes, soft computing, redes neuronais artificiais, algoritmos de clustering, CRISP-DM e workflows Knime.",

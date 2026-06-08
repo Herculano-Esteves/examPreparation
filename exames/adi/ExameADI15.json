@@ -1,0 +1,253 @@
+{
+  "titulo": "Avaliacao e Metricas - Treino",
+  "descricao": "Exame temático focado na Avaliação de Modelos e Métricas de Qualidade da UC de ADI, cobrindo a divisão de dados (treino, teste, validação), estratégias de validação (Hold-out, Cross Validation, Leave-one-out), métricas de classificação (matrizes de confusão, Accuracy, Precision, Recall, AUC curve) e métricas de regressão (MAE, MSE, RMSE).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique por que razão a medição de desempenho de um modelo de Machine Learning deve ser efetuada com dados não apresentados durante o treino.",
+      "solucao": "Avaliar o modelo com os mesmos dados usados no treino não revela a sua verdadeira capacidade de generalização, podendo marcar problemas de sobreajustamento (overfitting) onde o modelo apenas memorizou os dados. A medição com dados não apresentados durante o treino (dados de teste) simula o comportamento do modelo perante novos casos do mundo real, fornecendo uma avaliação imparcial do seu desempenho."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a finalidade dos seguintes três subconjuntos de dados: dados de treino, dados de validação e dados de teste.",
+      "solucao": "Os **dados de treino** são usados para ajustar diretamente os parâmetros do modelo (ex: pesos das sinapses ou regras dos nós). Os **dados de validação** são utilizados para guiar a seleção do melhor modelo e afinação de hiperparâmetros, fornecendo uma avaliação imparcial durante o ajuste preliminar. Os **dados de teste** são reservados exclusivamente para fornecer a avaliação de desempenho final e imparcial do modelo já selecionado e ajustado."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva o funcionamento do método de particionamento Hold-out Validation, indicando rácios de partilha comuns.",
+      "solucao": "O Hold-out Validation é um método de particionamento simples que divide o conjunto total de dados em dois subconjuntos disjuntos: um conjunto para treino e outro para teste. O analista retém uma parte (hold-out) dos dados para testar a qualidade do modelo treinado com a parte restante. Rácios de divisão comuns na prática incluem 80% para treino e 20% para teste, ou 75% para treino e 25% para teste."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique como funciona o processo de validação por cruzamento de dados (Cross Validation) em $k$ folds e como o erro final é determinado.",
+      "solucao": "O Cross Validation divide o dataset uniformemente em $k$ partes (folds). O processo decorre em $k$ iterações: em cada iteração, utilizam-se $k-1$ folds para treinar o modelo e o fold restante (reservado) para testar o seu desempenho. Este processo repete-se $k$ vezes, rodando o fold de teste a cada passo. O erro final do modelo é calculado através da média aritmética dos valores de erro obtidos nas $k$ iterações parciais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o método Leave-one-out Cross Validation e identifique em que circunstâncias de dimensão do dataset este é recomendado.",
+      "solucao": "O Leave-one-out Cross Validation é um caso particular de Cross Validation onde o número de folds $k$ é exatamente igual ao número total de instâncias do dataset ($N$). A cada iteração, o modelo é treinado com $N-1$ instâncias e testado numa única instância isolada, repetindo-se o ciclo $N$ vezes. É altamente recomendado para datasets pequenos, pois permite maximizar a quantidade de dados disponíveis para o treino em cada iteração."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como é que o valor escolhido para o número de folds ($k$) influencia a estimativa do erro, o viés (bias) e o sobreajuste (overfitting) do modelo?",
+      "solucao": "Quanto maior for a quantidade de folds ($k$), maior será a fração de dados utilizada para o treino em cada iteração, o que resulta numa melhor estimativa do erro médio real, num menor viés (bias/distorção) e numa menor propensão para o sobreajuste (overfitting) do modelo final, embora o custo computacional do treino aumente substancialmente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enuncie a fórmula da métrica Accuracy (Exatidão global) e apresente uma limitação importante desta métrica em datasets reais.",
+      "solucao": "A fórmula é $Accuracy = \\frac{TP + TN}{TP + TN + FP + FN}$, que divide a quantidade total de previsões corretas (verdadeiros positivos e verdadeiros negativos) pelo total de instâncias observadas. A principal limitação é que a exatidão é severamente afetada por datasets desequilibrados (class imbalance); por exemplo, num dataset de deteção de fraudes onde 99% dos casos são normais, um classificador ingénuo que preveja sempre 'não fraude' terá 99% de exatidão, falhando por completo no objetivo de detetar as fraudes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diferencie a Precisão (Precision) do Recall, identificando as fórmulas e o foco de cada uma.",
+      "solucao": "A **Precisão** (Precision, referida como Sensitivity) é uma medida de exatidão que calcula a proporção de itens relevantes identificados entre todos os itens previstos como positivos: $Precision = \\frac{TP}{TP + FP}$. Foca-se em evitar falsos positivos.\n- O **Recall** (referido como Specificity) é uma medida de completude que determina a proporção de itens realmente relevantes que foram recuperados pelo modelo: $Recall = \\frac{TP}{TP + FN}$. Foca-se em evitar falsos negativos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o que mede a métrica Area Under the Curve (AUC) e quais os significados físicos dos limites 0 e 1.",
+      "solucao": "A AUC mede a área abaixo da curva ROC, avaliando a capacidade de ordenação das previsões do classificador (ou seja, a probabilidade de um exemplo positivo obter um score superior a um exemplo negativo), em detrimento dos seus valores absolutos de probabilidade. A métrica varia no intervalo $[0; 1]$: uma AUC de **0** significa que o classificador erra 100% das previsões; uma AUC de **1** representa um classificador ideal que acerta 100% das previsões."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique qual o impacto matemático e prático de elevar o erro de previsão ao quadrado nas métricas MSE e RMSE, distinguindo o seu uso do MAE.",
+      "solucao": "Ao elevar os desvios individuais ao quadrado, o MSE e o RMSE atribuem um peso penalizador desproporcionalmente maior a erros de grande magnitude em comparação com erros pequenos. Praticamente, isto torna o MSE e o RMSE muito sensíveis a outliers e mais adequados para cenários onde grandes erros de previsão são altamente indesejáveis. O MAE, por sua vez, calcula a média linear simples dos valores absolutos dos desvios, tratando todos os erros com pesos lineares proporcionais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os dados de teste são utilizados diretamente durante a fase de treino para ajustar e sintonizar os parâmetros internos do modelo.",
+      "solucao": 1,
+      "explicacao": "Falso. Os dados de teste devem ser mantidos ocultos durante o treino e servem apenas para a avaliação imparcial final do modelo já treinado."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Hold-out Validation é um método de particionamento que divide o conjunto de dados em subconjuntos de treino e teste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a definição exata de Hold-out (separar uma porção fixa para teste e treinar no restante)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No Cross Validation com k folds, cada uma das k iterações utiliza 1 fold para treino e k-1 folds para teste.",
+      "solucao": 1,
+      "explicacao": "Falso. É o oposto: em cada iteração utilizam-se $k-1$ folds para treinar o modelo e apenas $1$ fold reservado para testar."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Leave-one-out Cross Validation é um caso particular de validação cruzada em que o número de folds k é igual a 1.",
+      "solucao": 1,
+      "explicacao": "Falso. No Leave-one-out, o número de folds $k$ é igual ao número total de casos $N$ no dataset."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Se o conjunto de dados for pequeno, selecionar um valor de k elevado (próximo de N) ajuda a maximizar a quantidade de dados para treino.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como cada iteração treina em $k-1$ folds, ter um $k$ grande garante que o modelo treina em quase todas as instâncias em cada iteração."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Aumentar a quantidade de folds (k) na validação cruzada leva a uma melhor estimativa do erro, reduzindo o viés (bias) e o sobreajuste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Um maior $k$ aproxima a quantidade de dados de treino da totalidade do dataset, reduzindo a distorção (bias) e mitigando overfitting."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A exatidão (Accuracy) quantifica a fração de previsões corretas sobre o total de observações e é calculada por (TP + TN) / (TP + TN + FP + FN).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a definição formal e fórmula da métrica de exatidão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A Precisão (Precision) é também referida como Sensitivity.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro.'Precisão (Precision aka Sensitivity)'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A fórmula do Recall é calculada por TP / (TP + FP).",
+      "solucao": 1,
+      "explicacao": "Falso. O Recall (completude) calcula-se por $TP / (TP + FN)$. A fórmula $TP / (TP + FP)$ corresponde à Precisão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A métrica AUC (Area Under the Curve) varia de -1 a 1, sendo que valores negativos indicam previsões piores do que o acaso.",
+      "solucao": 1,
+      "explicacao": "Falso. A AUC varia entre $0$ e $1$. O valor 0.5 representa previsões aleatórias (acaso); 0 significa 100% erradas e 1 significa 100% corretas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nas métricas MAE, MSE e RMSE, valores mais baixos (próximos de 0) indicam um melhor ajuste e exatidão das previsões contínuas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Todas estas métricas medem o erro do modelo, pelo que a sua minimização (valor mais baixo) representa um modelo mais preciso."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As métricas de erro MAE, MSE e RMSE variam de 0 a infinito e são sensíveis à direção (positiva ou negativa) dos erros individuais.",
+      "solucao": 1,
+      "explicacao": "Falso. Embora variem de 0 a $\\infty$, as três métricas são indiferentes à direção dos erros, pois usam valores absolutos (MAE) ou quadrados (MSE, RMSE)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Erro Médio Absoluto (MAE) e a Raiz Quadrada do Erro Médio Quadrado (RMSE) expressam o erro de previsão na mesma unidade de medida da variável dependente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como o MAE usa valores absolutos e o RMSE tira a raiz quadrada do quadrado dos erros, ambos regressam à escala de medida original da variável sob análise."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Erro Médio Quadrado (MSE) expressa o erro médio na mesma unidade física da variável dependente.",
+      "solucao": 1,
+      "explicacao": "Falso. Como o MSE eleva as diferenças ao quadrado e não aplica raiz quadrada, a sua unidade de medida é o quadrado da unidade original."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Abraham Wald propôs blindar os aviões nas áreas onde os aviões que regressavam apresentavam mais furos de bala.",
+      "solucao": 1,
+      "explicacao": "Falso. Wald recomendou blindar as áreas **sem** furos de bala nos aviões que regressavam (os motores), deduzindo que os aviões alvejados nessas partes não conseguiam regressar à base para ser analisados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na avaliação de modelos, os dados de ____________ servem para ajustar o modelo, enquanto os dados de ____________ dão uma avaliação final e imparcial.",
+      "solucao": "As palavras em falta são:\n1. **treino**\n2. **teste**\n\n*Explicação*: Os dados de treino treinam os parâmetros do modelo, enquanto os de teste são guardados em segredo para a validação externa final."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os dados de ____________ destinam-se a fornecer uma avaliação imparcial do ajuste de um modelo sobre o conjunto de treino ao selecionar hiperparâmetros.",
+      "solucao": "As palavras em falta são:\n1. **validação**\n\n*Explicação*: Os dados de validação funcionam como um teste intermédio para otimizar a estrutura do modelo sem contaminar os dados de teste finais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O método de particionamento ____________ separa uma porção fixa do dataset para fins de teste, realizando o treino na parte restante.",
+      "solucao": "As palavras em falta são:\n1. **Hold-out** (ou Hold-out Validation / hold out)\n\n*Explicação*: Hold-out consiste em manter trancada uma percentagem do dataset (ex: 20%) para verificar a capacidade de generalização do modelo treinado nos restantes 80%."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O Cross Validation divide o dataset em k partes denominadas ____________. A cada passo, treina o modelo em ____________ partes e testa no fold restante.",
+      "solucao": "As palavras em falta são:\n1. **folds** (ou folds / partições)\n2. **k-1** (ou k - 1)\n\n*Explicação*: A validação cruzada reparte o conjunto de dados em $k$ partições. O algoritmo treina nas $k-1$ partes acumuladas e valida na partição que sobrou."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O Leave-one-out Cross Validation é um caso particular de validação cruzada recomendado para datasets pequenos, onde k é igual a ____________.",
+      "solucao": "As palavras em falta são:\n1. **N** (ou número de casos / número de observações)\n\n*Explicação*: Ao treinar em pequenos conjuntos de dados, o número de folds $k$ é igualado ao tamanho da amostra $N$ para otimizar os exemplos de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No Cross Validation, quanto maior for a quantidade de folds, melhor será a estimativa do erro, mais baixo será o ____________ e menor será o ____________.",
+      "solucao": "As palavras em falta são:\n1. **viés** (ou bias / distorção)\n2. **sobreajuste** (ou overfitting)\n\n*Explicação*: Um maior número de folds minimiza a perda de dados no treino, resultando numa estimativa com menor viés (bias) e que evita sobreajustamento."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A ____________ de ____________ é uma tabela utilizada para descrever o desempenho e cruzamento de classes reais e previstas de um modelo de classificação.",
+      "solucao": "As palavras em falta são:\n1. **matriz**\n2. **confusão**\n\n*Explicação*: A matriz de confusão cruza os resultados reais com as previsões do modelo, detalhando TP, TN, FP e FN."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A exatidão de um classificador calcula-se através da fórmula Accuracy = ____________ / (TP + TN + FP + FN).",
+      "solucao": "As palavras em falta são:\n1. **TP + TN** (ou TN + TP)\n\n*Explicação*: A exatidão mede a proporção de acertos totais: verdadeiros positivos (TP) somados aos verdadeiros negativos (TN) sobre o total."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A Precisão ( Precision ) é uma medida de exatidão calculada pela fórmula matemática ____________.",
+      "solucao": "As palavras em falta são:\n1. **TP / (TP + FP)** (ou TP/(TP+FP))\n\n*Explicação*: A precisão foca-se nos casos previstos como positivos pelo modelo, medindo a taxa de verdadeiros positivos (TP) sobre o total de positivos previstos ($TP+FP$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O Recall calcula-se com a fórmula ____________.",
+      "solucao": "As palavras em falta são:\n1. **TP / (TP + FN)** (ou TP/(TP+FN))\n\n*Explicação*: O recall avalia a capacidade de recuperar casos da classe real positiva, dividindo TP pelo total de positivos reais ($TP+FN$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica AUC mede a área abaixo da curva ____________, avaliando a qualidade com que as previsões são ____________ em vez de olhar a valores absolutos.",
+      "solucao": "As palavras em falta são:\n1. **ROC**\n2. **classificadas** (ou ordenadas)\n\n*Explicação*: A curva ROC contrasta a taxa de verdadeiros positivos com a taxa de falsos positivos. A área sob esta curva (AUC) reflete a qualidade de ordenação do classificador."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As métricas de regressão MAE, MSE e RMSE indicam a magnitude média do erro, variando entre os valores ____________ e ____________.",
+      "solucao": "As palavras em falta são:\n1. **0** (ou zero)\n2. **infinito** (ou ∞)\n\n*Explicação*: O erro de previsão ideal é nulo ($0$), e o pior caso de erro estende-se sem limite superior teórico até ao infinito."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica de regressão ____________ mede a magnitude média absoluta dos erros das previsões e ____________ considera a sua direção.",
+      "solucao": "As palavras em falta são:\n1. **MAE** (ou Erro Médio Absoluto)\n2. **não**\n\n*Explicação*: MAE (Mean Absolute Error) calcula a média linear simples dos valores absolutos dos erros, sem dar atenção ao sentido (positivo ou negativo) dos desvios."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica ____________ consiste na média das diferenças ao quadrado entre os valores reais e as estimativas do modelo, penalizando desvios elevados.",
+      "solucao": "As palavras em falta são:\n1. **MSE** (ou Erro Médio Quadrado)\n\n*Explicação*: Ao elevar os erros individualmente ao quadrado, o MSE penaliza exponencialmente desvios maiores, sendo útil para detetar modelos com erros discrepantes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica ____________ é a raiz quadrada do MSE. Ao contrário do MSE, esta expressa o erro de previsão na ____________ unidade da variável de interesse.",
+      "solucao": "As palavras em falta são:\n1. **RMSE** (ou Raiz Quadrada do Erro Médio Quadrado)\n2. **mesma**\n\n*Explicação*: A aplicação de raiz quadrada após o cálculo da média quadrática reajusta a métrica RMSE à dimensão unitária original dos dados analisados."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nValores Reais (y):     [10.0, 15.0, 20.0, 25.0]\nValores Previstos (ŷ): [11.0, 14.0, 23.0, 28.0]\n```",
+      "pergunta": "Com base nos dados fornecidos no cabeçalho, calcule passo a passo os valores exatos das métricas de erro MAE e MSE para as previsões apresentadas.",
+      "solucao": "1. **Erros individuais (y - ŷ)**:\n   - Caso 1: 10.0 - 11.0 = -1.0\n   - Caso 2: 15.0 - 14.0 = 1.0\n   - Caso 3: 20.0 - 23.0 = -3.0\n   - Caso 4: 25.0 - 28.0 = -3.0\n\n2. **Erros absolutos (|y - ŷ|)**: [1.0, 1.0, 3.0, 3.0]\n   - Soma dos erros absolutos = 1.0 + 1.0 + 3.0 + 3.0 = 8.0\n   - **MAE** = 8.0 / 4 = **2.0**\n\n3. **Erros ao quadrado ((y - ŷ)²)**: [1.0, 1.0, 9.0, 9.0]\n   - Soma dos erros ao quadrado = 1.0 + 1.0 + 9.0 + 9.0 = 20.0\n   - **MSE** = 20.0 / 4 = **5.0**\n\nOs valores calculados são MAE = 2.0 e MSE = 5.0."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nCaso A: Erros de previsão = [1.0, 0.0, 0.0, 10.0]\nCaso B: Erros de previsão = [1.0, -1.0, 3.0, 3.0]\nMétrica de comparação: MSE\n```",
+      "pergunta": "Utilizando os dois casos descritos acima, o Caso A terá um MSE superior ao do Caso B devido à penalização quadrática do erro extremo (10.0).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Para o Caso A, os erros ao quadrado são [1.0, 0.0, 0.0, 100.0], cuja soma é 101.0, resultando em MSE = 101 / 4 = 25.25. Para o Caso B, os erros ao quadrado são [1.0, 1.0, 9.0, 9.0], cuja soma é 20.0, resultando em MSE = 20 / 4 = 5.0. Portanto, o MSE do Caso A (25.25) é significativamente superior ao do Caso B (5.0) por causa do erro pontual extremo de 10.0."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nMatriz de Confusão:\n               Previsão Positiva | Previsão Negativa\nReal Positivo |     TP = 80      |     FN = 20\nReal Negativo |     FP = 10      |     TN = 90\n```",
+      "pergunta": "Considere a Matriz de Confusão no cabeçalho acima. A Accuracy (exatidão) global do modelo corresponde a ____________, a Precisão (Precision) calculada é de ____________ e o Recall é de ____________.",
+      "solucao": "As palavras em falta são:\n1. **0.85** (ou 85%)\n2. **0.888** (ou 8/9 / 88.9% / 0.89)\n3. **0.80** (ou 80%)\n\n*Explicação*:\n- Accuracy = (TP + TN) / Total = (80 + 90) / 200 = 170 / 200 = 0.85.\n- Precision = TP / (TP + FP) = 80 / (80 + 10) = 80 / 90 \\approx 0.888.\n- Recall = TP / (TP + FN) = 80 / (80 + 20) = 80 / 100 = 0.80."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nModelo 1: AUC = 0.52\nModelo 2: AUC = 0.88\nModelo 3: AUC = 0.12\n```",
+      "pergunta": "Com base nos scores de AUC acima, o Modelo 1 representa o classificador com melhor desempenho preditivo.",
+      "solucao": 1,
+      "explicacao": "Falso. Quanto mais próximo de 1.0 for o valor de AUC, melhor é a ordenação das previsões e o desempenho do classificador. O Modelo 2 (AUC = 0.88) é o de melhor qualidade, enquanto o Modelo 1 (AUC = 0.52) aproxima-se de um classificador aleatório (acaso, 0.50)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nErro Médio Absoluto (MAE)   ──► Variável dependente em € ──► Erro expresso em €\nErro Médio Quadrado (MSE)   ──► Variável dependente em € ──► Erro expresso em €²\n```",
+      "pergunta": "Considere a relação de unidades de erro mostrada acima. Se pretendermos avaliar o modelo com a mesma unidade física da variável original, mas penalizando erros grandes de forma quadrática, a métrica recomendada a aplicar é a ____________.",
+      "solucao": "As palavras em falta são:\n1. **RMSE** (ou Raiz Quadrada do Erro Médio Quadrado)\n\n*Explicação*: O RMSE penaliza desvios de grande magnitude devido à elevação ao quadrado efetuada no MSE, contudo, ao aplicar a raiz quadrada no final, reposiciona o resultado na mesma unidade física da variável original (€), satisfazendo ambos os critérios descritos."
+    }
+  ]
+}
