@@ -49,6 +49,20 @@
     "perguntas_count": 45
   },
   {
+    "id": "ExameADI16",
+    "titulo": "Metodologias - Treino",
+    "descricao": "Exame temático focado em Metodologias de Análise de Dados da UC de ADI, cobrindo a comparação de ciclos de vida de data mining, a metodologia CRISP-DM (fases de estudo do negócio, estudo dos dados, preparação, modelação, avaliação e desenvolvimento) e o processo SEMMA da SAS (Sample, Explore, Modify, Model, Assess).",
+    "path": "exames/adi/ExameADI16.json",
+    "perguntas_count": 43
+  },
+  {
+    "id": "ExameADI17",
+    "titulo": "Segmentacao - Treino",
+    "descricao": "Exame temático focado em Segmentação de Dados (Clustering) da UC de ADI, cobrindo o paradigma de Aprendizagem Não Supervisionada, métricas de similaridade e dissemelhança (Euclidiana, Manhattan, Minkowski, Jaccard, Coeficiente Simples), tipos de dados e atributos, algoritmos de particionamento (k-means e k-medoids/PAM), algoritmos hierárquicos (AGNES e DIANA) e abordagens baseadas em densidade e modelos (BIRCH, CURe, DBSCAN).",
+    "path": "exames/adi/ExameADI17.json",
+    "perguntas_count": 60
+  },
+  {
     "id": "ExameADI2",
     "titulo": "Exame ADI 2 (Época de Recurso 2023/2024)",
     "descricao": "Exame completo da época de recurso de Aprendizagem e Decisão Inteligentes (ADI) cobrindo métricas de classificação, regressão com targets discretos, desequilíbrio de classes, soft computing, redes neuronais artificiais, algoritmos de clustering, CRISP-DM e workflows Knime.",

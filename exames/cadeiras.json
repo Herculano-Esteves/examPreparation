@@ -5,7 +5,7 @@
     "sigla": "ADI",
     "icon": "fa-brain",
     "descricao": "Aborda técnicas de Inteligência Artificial e Machine Learning, incluindo metodologias CRISP-DM/SEMMA, preparação de dados, redes neuronais artificiais, árvores de decisão e fluxos KNIME.",
-    "exames_count": 15,
+    "exames_count": 17,
     "index_path": "exames/adi/index.json"
   },
   {

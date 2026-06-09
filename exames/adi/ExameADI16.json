@@ -1,0 +1,242 @@
+{
+  "titulo": "Metodologias - Treino",
+  "descricao": "Exame temático focado em Metodologias de Análise de Dados da UC de ADI, cobrindo a comparação de ciclos de vida de data mining, a metodologia CRISP-DM (fases de estudo do negócio, estudo dos dados, preparação, modelação, avaliação e desenvolvimento) e o processo SEMMA da SAS (Sample, Explore, Modify, Model, Assess).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o que é uma Metodologia para Análise de Dados e qual a sua importância no contexto de projetos de Machine Learning.",
+      "solucao": "Uma metodologia para Análise de Dados descreve e cria um conjunto estruturado de passos lógicos e tarefas a executar durante o desenvolvimento de um projeto de Machine Learning. A sua importância reside em fornecer um guião padronizado para a resolução de problemas práticos, garantindo a qualidade dos resultados, otimizando os recursos e facilitando a integração do modelo no ciclo produtivo da organização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva a fase de Business Understanding (Estudo do Negócio) do CRISP-DM, indicando os seus principais objetivos.",
+      "solucao": "A fase de Business Understanding foca-se na compreensão profunda dos objetivos e requisitos do projeto sob a perspetiva do negócio. O seu principal objetivo é traduzir este conhecimento em termos técnicos de Análise de Dados e formular um plano de projeto preliminar que guie o desenvolvimento técnico rumo às metas estratégicas da organização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente as principais atividades que decorrem durante a fase de Data Understanding (Estudo dos Dados) do CRISP-DM.",
+      "solucao": "As principais atividades desta fase incluem a recolha inicial de dados relevantes para o problema, a descrição das propriedades básicas dos dados (ex: tipos de variáveis, volumetria), a exploração visual ou numérica para detetar padrões interessantes preliminares e a identificação do estado de qualidade dos dados (ex: deteção de inconsistências, missing values ou ruído)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Quais as tarefas realizadas na fase de Data Preparation (Preparação dos Dados) do CRISP-DM e qual o seu propósito?",
+      "solucao": "Na fase de Data Preparation realizam-se tarefas como a seleção de dados e atributos a incluir, a limpeza dos dados (exclusão ou imputação de missing values), a construção de novas variáveis derivadas, a integração de múltiplas fontes de dados e a formatação necessária dos dados. O propósito é limpar, transformar e estruturar o dataset de forma a deixá-lo exposto corretamente para consumo pelas ferramentas de modelação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua as fases de Modeling (Modelação) e Evaluation (Avaliação) no ciclo de vida CRISP-DM.",
+      "solucao": "A fase de **Modelação** foca-se na seleção e aplicação de diferentes técnicas de modelação (ex: RNAs, regressão) e na calibração dos seus parâmetros com base em testes técnicos de erro. A fase de **Avaliação**, por sua vez, analisa o modelo final sob a perspetiva de negócio, verificando se os resultados obtidos satisfazem os objetivos organizacionais definidos na primeira etapa e decidindo se o modelo está pronto para produção."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique em que consiste a fase de Deployment (Desenvolvimento/Implementação) do CRISP-DM e quais os planos que devem ser elaborados nesta fase.",
+      "solucao": "A fase de Deployment consiste na colocação do modelo treinado e validado em ambiente produtivo real de forma a que a organização extraia valor prático dele. Nesta etapa, devem ser elaborados o planeamento da implementação física, o plano de monitorização e manutenção do modelo (para detetar degradação de performance ao longo do tempo), bem como a produção de relatórios finais e a revisão retrospetiva de todo o projeto."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Indique o significado de cada uma das letras da sigla SEMMA e qual a empresa responsável pelo seu desenvolvimento.",
+      "solucao": "A sigla SEMMA significa **S**ample (Amostragem), **E**xplore (Exploração), **M**odify (Modificação), **M**odel (Modelação) e **A**ssess (Avaliação). A empresa responsável pelo seu desenvolvimento e registo de marca é a **SAS Institute Inc.**"
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente a definição formal de Data Mining avançada pelo SAS Institute no âmbito da metodologia SEMMA.",
+      "solucao": "Segundo a definição do SAS Institute, o Data Mining é classificado como o processo de extrair conhecimento útil e relações complexas a partir de grandes volumes de dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a motivação teórica e prática para a inclusão da etapa Sample (Amostragem) no início do processo SEMMA.",
+      "solucao": "A motivação é basear o processo de Data Mining numa amostra representativa e significativa do universo de dados, em vez de processar imediatamente todo o repositório massivo de dados. Teoricamente e de forma prática, uma amostra pequena e significativa proporciona maior flexibilidade e rapidez computacional no tratamento de dados e modelação, sem perda significativa de qualidade estatística."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Discuta a equivalência entre as fases do CRISP-DM e do SEMMA, indicando quais as principais lacunas ou diferenças na cobertura de etapas.",
+      "solucao": "De acordo com o mapeamento entre as metodologias:\n- As fases de *Business Understanding* e *Data Understanding* do CRISP-DM não possuem equivalentes diretos no SEMMA, visto que o SEMMA inicia diretamente na vertente de tratamento de dados (*Sample* e *Explore*).\n- A *Data Preparation* do CRISP-DM mapeia-se na fase *Modify* do SEMMA.\n- A *Modeling* mapeia-se na fase *Model*.\n- A *Evaluation* mapeia-se na fase *Assess*.\n- A fase final de *Deployment* do CRISP-DM também não possui equivalente direto no SEMMA, evidenciando o foco mais técnico da metodologia SEMMA face ao foco mais abrangente e focado no negócio da metodologia CRISP-DM."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A sigla CRISP-DM significa CRoss Industry Standard Process for Data Mining, tendo sido criada por um consórcio que inclui a Daimler Chrysler, SPSS e NCR.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É o nome exato e o consórcio original de desenvolvimento da metodologia."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O ciclo de vida do CRISP-DM é composto por 5 etapas, iniciando-se na amostragem e terminando na avaliação.",
+      "solucao": 1,
+      "explicacao": "Falso. O CRISP-DM possui 6 etapas (Estudo do negócio, Estudo dos dados, Preparação dos dados, Modelação, Avaliação e Desenvolvimento). A metodologia SEMMA é que possui 5 etapas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A fase de Business Understanding tem como principal objetivo a obtenção dos dados e a identificação de lacunas de qualidade dos mesmos.",
+      "solucao": 1,
+      "explicacao": "Falso. Esse objetivo pertence à fase de Data Understanding (Estudo dos dados). A fase de Business Understanding define os objetivos do projeto e o problema sob a ótica do negócio."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A limpeza de dados e a seleção de atributos a incluir no modelo são tarefas realizadas durante a fase de Modeling.",
+      "solucao": 1,
+      "explicacao": "Falso. A limpeza e a seleção de atributos são tarefas integradas na fase de **Data Preparation** (Preparação dos dados)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A colocação do modelo final de Machine Learning em ambiente de produção real ocorre na fase de Deployment.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Deployment (Desenvolvimento/Implementação) consiste exatamente na colocação do modelo em produção."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O SEMMA é um processo proprietário de Data Mining concebido e mantido pela IBM.",
+      "solucao": 1,
+      "explicacao": "Falso. O SEMMA foi desenvolvido e é propriedade do **SAS Institute Inc.**"
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na fase Sample do SEMMA, o objetivo é utilizar toda a população de dados disponível de modo a garantir que o processo de mining é o mais preciso possível.",
+      "solucao": 1,
+      "explicacao": "Falso. O objetivo do Sample é extrair uma amostra de dimensão pequena, mas estatisticamente significativa do universo do problema, para conferir flexibilidade e rapidez computacional."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A exploração visual ou numérica de tendências imprevistas nos dados realiza-se na etapa Explore da metodologia SEMMA.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A exploração visual e estatística (Explore) serve para identificar tendências iniciais e refinar o processo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A seleção e criação de novas variáveis explicativas, bem como a transformação de atributos para a modelação, são centralizadas na etapa Modify do SEMMA.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Na etapa Modify concentram-se todas as modificações necessárias, incluindo a inclusão e transformação de variáveis."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No SEMMA, destaca-se que as Redes Neuronais Artificiais (RNAs) são particularmente adequadas para modelação quando os dados contêm relacionamentos simples e estritamente lineares.",
+      "solucao": 1,
+      "explicacao": "Falso. As RNAs são recomendadas para relacionamentos **complexos** e não-lineares, pois o seu poder de representação captura dinâmicas de dados difíceis de modelar linearmente."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A etapa Assess do SEMMA envolve a aferição do desempenho do modelo aplicando-o a uma amostra de dados de teste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A etapa Assess (Avaliação) serve para testar o desempenho do modelo final com dados de teste."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Ao contrário do SEMMA, que é muito focado no SAS Enterprise Miner, o CRISP-DM foi desenhado para ser independente de qualquer ferramenta específica.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O CRISP-DM é um padrão aberto e independente de ferramentas comerciais, enquanto o SEMMA nasceu integrado ao ecossistema da SAS."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma das principais diferenças entre as duas metodologias é que o SEMMA não possui uma fase dedicada à compreensão dos objetivos do negócio.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O SEMMA inicia-se diretamente nos dados (fase Sample), enquanto o CRISP-DM dedica a sua primeira fase inteiramente ao estudo do negócio."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No CRISP-DM, o fluxo de processos é estritamente sequencial, sendo impossível recuar a fases anteriores uma vez que se transita para a modelação.",
+      "solucao": 1,
+      "explicacao": "Falso. O ciclo de vida do CRISP-DM é cíclico e iterativo, sendo muito comum retroceder de fases (ex: da Modelação para a Preparação de dados)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A fase de Assess do SEMMA engloba procedimentos técnicos para afinação e ajuste fino do modelo estatístico obtido.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A fase de Assess engloba a avaliação do desempenho e o procedimento final de ajuste fino (tuning) do modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A primeira fase do CRISP-DM designa-se por ____________ e foca-se na tradução das metas operacionais em objetivos de Análise de Dados.",
+      "solucao": "As palavras em falta são:\n1. **Business Understanding** (ou Estudo do Negócio)\n\n*Explicação*: O Estudo do Negócio alinha os objetivos do projeto com as necessidades de mercado e operacionais da empresa."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A fase ____________ do CRISP-DM visa a recolha inicial, exploração e avaliação do estado de qualidade do dataset obtido.",
+      "solucao": "As palavras em falta são:\n1. **Data Understanding** (ou Estudo dos Dados)\n\n*Explicação*: O Estudo dos Dados garante o conhecimento inicial das variáveis físicas disponíveis para a modelação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na fase de ____________ realizam-se as operações de limpeza, integração, construção de novos atributos e formatação de dados.",
+      "solucao": "As palavras em falta são:\n1. **Data Preparation** (ou Preparação dos Dados)\n\n*Explicação*: O pré-processamento ocorre na Preparação de Dados para deixar o dataset pronto para o consumo algorítmico."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A fase do CRISP-DM onde se experimentam diferentes técnicas algorítmicas de indução de regras ou de regressão chama-se ____________.",
+      "solucao": "As palavras em falta são:\n1. **Modeling** (ou Modelação)\n\n*Explicação*: Na Modelação geram-se os testes e estimam-se os parâmetros dos classificadores ou regressores."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na fase de ____________ do CRISP-DM, confrontam-se os resultados do modelo preditivo face aos objetivos do negócio definidos inicialmente.",
+      "solucao": "As palavras em falta são:\n1. **Evaluation** (ou Avaliação)\n\n*Explicação*: A Avaliação determina a qualidade do modelo no contexto prático do problema empresarial."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A fase ____________ do CRISP-DM envolve o planeamento da manutenção, monitorização do modelo em produção e elaboração do relatório final.",
+      "solucao": "As palavras em falta são:\n1. **Deployment** (ou Desenvolvimento / Implementação)\n\n*Explicação*: O Deployment garante a utilização prática do modelo no dia a dia da organização."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A metodologia SEMMA é uma proposta de normalização de processos desenhada pela empresa ____________.",
+      "solucao": "As palavras em falta são:\n1. **SAS Institute Inc.** (ou SAS)\n\n*Explicação*: O SAS desenhou o SEMMA para padronizar e apoiar as soluções do SAS Enterprise Miner."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A etapa ____________ do SEMMA extrai uma amostra representativa e significativa para acelerar o processo sem comprometer a exatidão estatística.",
+      "solucao": "As palavras em falta são:\n1. **Sample** (ou Amostragem)\n\n*Explicação*: Amostragem (Sample) cria partições pequenas de dados para dar celeridade computacional aos testes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na etapa ____________ do SEMMA, aplicam-se técnicas de visualização gráfica e análises estatísticas como a regressão ou a distribuição de Poisson.",
+      "solucao": "As palavras em falta são:\n1. **Explore** (ou Exploração)\n\n*Explicação*: Exploração (Explore) visa expor tendências e relacionamentos estatísticos não detetados à partida nos dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A criação de novas variáveis explicativas e a aplicação de transformações aos dados ocorrem na etapa ____________ da metodologia SEMMA.",
+      "solucao": "As palavras em falta são:\n1. **Modify** (ou Modificação)\n\n*Explicação*: Na Modificação (Modify) adaptam-se e selecionam-se os preditores mais adequados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na etapa ____________ do SEMMA escolhem-se as tecnologias de Data Mining como redes neuronais, árvores de decisão ou modelos lógicos.",
+      "solucao": "As palavras em falta são:\n1. **Model** (ou Modelação)\n\n*Explicação*: Na Modelação (Model) corre-se o algoritmo selecionado para induzir o mapeamento preditivo nos dados modificados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A etapa final do SEMMA designa-se por ____________, e nela é testado o modelo em dados novos para aferir o seu desempenho real.",
+      "solucao": "As palavras em falta são:\n1. **Assess** (ou Avaliação)\n\n*Explicação*: Avaliação (Assess) mede as métricas de qualidade do modelo final sobre um conjunto de validação independente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na etapa Model do SEMMA, recomenda-se usar Redes Neuronais Artificiais (RNAs) se os dados exibirem relacionamentos ____________.",
+      "solucao": "As palavras em falta são:\n1. **complexos** (ou não lineares)\n\n*Explicação*: O elevado poder de representação das RNAs é melhor aproveitado quando os dados apresentam padrões e correlações não-lineares complexas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao mapear as duas metodologias, verifica-se que as fases de ____________ e ____________ do CRISP-DM não possuem um equivalente direto no fluxo do SEMMA.",
+      "solucao": "As palavras em falta são:\n1. **Business Understanding** (ou Compreensão do Negócio)\n2. **Deployment** (ou Implementação / Colocação em Produção)\n\n*Explicação*: O SEMMA é um processo puramente técnico e focado nos dados. Por isso, omite a fase inicial de contextualização e objetivos de negócio (Business Understanding) e a fase final de integração do modelo no mundo real (Deployment)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nTarefa A: Seleção de técnicas de modelação\nTarefa B: Elaborar plano de projeto\nTarefa C: Limpeza de dados\nTarefa D: Planeamento de monitorização e manutenção\n```",
+      "pergunta": "Associe cada uma das tarefas (A, B, C e D) do cabeçalho à respetiva fase no ciclo de vida da metodologia CRISP-DM.",
+      "solucao": "A associação correta é:\n- **Tarefa A** (Seleção de técnicas de modelação): Fase de **Modeling** (Modelação).\n- **Tarefa B** (Elaborar plano de projeto): Fase de **Business Understanding** (Estudo do Negócio).\n- **Tarefa C** (Limpeza de dados): Fase de **Data Preparation** (Preparação dos Dados).\n- **Tarefa D** (Planeamento de monitorização e manutenção): Fase de **Deployment** (Desenvolvimento/Implementação)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nCRISP-DM: Estudo do Negócio -> Estudo dos Dados -> Preparação dos Dados -> Modelação -> Avaliação -> Desenvolvimento\nSEMMA: Amostragem -> Exploração -> Modificação -> Modelação -> Avaliação\n```",
+      "pergunta": "Com base no ciclo de vida de cada metodologia apresentado acima, a fase de Modificação (Modify) do SEMMA é o equivalente direto da fase de Estudo dos Dados (Data Understanding) do CRISP-DM.",
+      "solucao": 1,
+      "explicacao": "Falso. O equivalente da fase de Modificação (Modify) do SEMMA é a fase de **Preparação dos Dados** (Data Preparation) do CRISP-DM, onde ocorrem as transformações e seleção de atributos. A fase de Estudo dos Dados mapeia-se de forma aproximada no Explore (Exploração) do SEMMA."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nTécnica 1: Visualização gráfica e tabelas de frequência (Exploração)\nTécnica 2: Redes Neuronais Artificiais e Árvores de Decisão (Modelação)\nTécnica 3: Seleção e criação de variáveis derivadas (Modificação)\nTécnica 4: Amostragem aleatória estratificada (Amostragem)\n```",
+      "pergunta": "Considere as técnicas do cabeçalho. Indique a ordem correta (por números das técnicas) em que as mesmas são aplicadas ao longo de uma execução típica da metodologia ____________: a sequência correta é Técnica ____________ -> Técnica ____________ -> Técnica ____________ -> Técnica ____________.",
+      "solucao": "As palavras em falta são:\n1. **SEMMA**\n2. **4**\n3. **1**\n4. **3**\n5. **2**\n\n*Explicação*: O fluxo do SEMMA decorre na ordem: 1. Sample (Técnica 4), 2. Explore (Técnica 1), 3. Modify (Técnica 3), 4. Model (Técnica 2), terminando no Assess. Portanto, a ordem correta de aplicação é 4 -> 1 -> 3 -> 2."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nFase de Avaliação (CRISP-DM): Comparar resultados com objetivos de negócio.\nFase de Avaliação (SEMMA - Assess): Aferir desempenho em dados de teste e ajustar.\n```",
+      "pergunta": "De acordo com o cabeçalho, a fase de Avaliação (Assess) no SEMMA tem um foco puramente voltado para a estratégia corporativa e os objetivos macro do negócio, ao contrário do CRISP-DM.",
+      "solucao": 1,
+      "explicacao": "Falso. É o oposto: a fase de Avaliação no CRISP-DM compara os resultados com os objetivos comerciais/organizacionais (foco no negócio). No SEMMA, o Assess foca-se mais no desempenho estatístico técnico do modelo sobre dados de teste (foco técnico/algorítmico)."
+    }
+  ]
+}

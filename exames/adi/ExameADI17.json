@@ -1,0 +1,333 @@
+{
+  "titulo": "Segmentacao - Treino",
+  "descricao": "Exame temático focado em Segmentação de Dados (Clustering) da UC de ADI, cobrindo o paradigma de Aprendizagem Não Supervisionada, métricas de similaridade e dissemelhança (Euclidiana, Manhattan, Minkowski, Jaccard, Coeficiente Simples), tipos de dados e atributos, algoritmos de particionamento (k-means e k-medoids/PAM), algoritmos hierárquicos (AGNES e DIANA) e abordagens baseadas em densidade e modelos (BIRCH, CURe, DBSCAN).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a Aprendizagem com Supervisão da Aprendizagem sem Supervisão com base na presença de resultados pretendidos nos dados.",
+      "solucao": "Na Aprendizagem com Supervisão, os casos usados para aprender contêm informação sobre os resultados pretendidos (rótulos/labels), permitindo ajustar o modelo comparando as previsões com os valores reais. Na Aprendizagem sem Supervisão, não existem resultados conhecidos associados aos dados de entrada, apenas os enunciados dos problemas, cabendo ao algoritmo modelar a estrutura ou distribuição interna dos dados sem orientação externa."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diferencie as duas principais categorias da Aprendizagem sem Supervisão: a Segmentação (Clustering) e a Associação.",
+      "solucao": "A **Segmentação** procura particionar e organizar os dados em grupos/clusters coerentes de menor dimensão que agregam objetos altamente similares entre si. A **Associação** visa descobrir regras de relacionamento implícitas que associam o comportamento ou presença de certos atributos (ex: regras de associação no padrão de compras de supermercado)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o que é um Segmento (Cluster) e enuncie as duas propriedades fundamentais que os objetos nele contidos devem verificar.",
+      "solucao": "Um Segmento é uma coleção de objetos que partilham características comuns. As duas propriedades fundamentais são:\n1. Alta similaridade interna (os objetos dentro do mesmo segmento devem ser muito semelhantes entre si).\n2. Alta dissimilaridade externa (os objetos de segmentos distintos devem ser muito diferentes entre si)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Indique quatro áreas ou problemas práticos distintos onde a segmentação (clustering) é aplicada com sucesso.",
+      "solucao": "A segmentação é aplicada em:\n1. **Marketing** (descoberta de grupos de clientes para estratégias de comercialização).\n2. **Banca e Seguros** (identificação de grupos de risco ou perfis socioeconómicos).\n3. **Pré-processamento de dados** (organização prévia de dados complexos para outros algoritmos).\n4. **Processamento de imagem e deteção de anomalias/fraudes**."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a representação de dados sob a forma de Matriz de Dados da representação sob a forma de Matriz de Distâncias.",
+      "solucao": "A **Matriz de Dados** representa diretamente os $n$ objetos com os seus respetivos $p$ atributos físicos (estrutura de tabela convencional). A **Matriz de Distâncias** é uma representação quadrada de dimensão $n \\times n$ que mede a dissemelhança ou afastamento entre todos os pares de objetos possíveis, contendo obrigatoriamente zeros na diagonal principal (distância de um objeto a si próprio) e sendo simétrica."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique por que razão se deve efetuar a normalização dos dados quando se realiza segmentação com atributos contínuos.",
+      "solucao": "A normalização é crucial porque as diferentes escalas e unidades de medida dos atributos contínuos (ex: peso em kg vs. salário em euros) podem enviesar o cálculo das distâncias geométricas. Atributos com ordens de grandeza muito superiores dominariam as medidas de distância (como a Euclidiana), distorcendo a determinação da similaridade real entre os objetos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diferencie atributos binários simétricos de atributos binários assimétricos, exemplificando cada um deles.",
+      "solucao": "Nos **atributos binários simétricos**, o significado de ter o valor 0 é o mesmo de ter 1 (ex: o sexo Masculino/Feminino). Nos **atributos binários assimétricos**, a presença do valor 1 tem um significado muito mais relevante e distinto do valor 0 (ex: a presença de Febre num diagnóstico clínico, onde o valor 1 é crítico e a ausência do sintoma 0 não deve ser tratada com a mesma relevância nas contagens)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare o Coeficiente de Distância Simples com o Coeficiente de Jaccard no tratamento de dados binários, indicando a diferença na consideração de ausências mútuas.",
+      "solucao": "O Coeficiente de Distância Simples ($d(i,j) = \\frac{b+c}{a+b+c+d}$) é usado para atributos simétricos e contabiliza as ausências mútuas (o termo $d$, onde ambos são 0) como fator de similaridade. O Coeficiente de Jaccard ($d(i,j) = \\frac{b+c}{a+b+c}$) é aplicado a atributos assimétricos e descarta por completo as ausências mútuas ($d$), focando-se apenas nos casos em que pelo menos um dos objetos possui a característica ativa (1)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente dois métodos comuns para medir a distância entre objetos contendo atributos nominais.",
+      "solucao": "Os dois métodos podem ser:\n1. **Matching Simples**: Calcula a distância através do rácio das variáveis em que os valores não coincidem: $d(i,j) = \\frac{\\text{nº de variáveis} - \\text{nº de matches}}{\\text{nº de variáveis}}$.\n2. **One-Hot Encoding**: Converter cada valor do atributo nominal numa variável binária separada (0 ou 1) e depois aplicar técnicas de distância de atributos binários."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva de forma sucinta o funcionamento iterativo do algoritmo de particionamento k-means.",
+      "solucao": "O algoritmo k-means funciona em quatro passos:\n1. Divide aleatoriamente os objetos em $k$ subconjuntos iniciais não vazios.\n2. Calcula o centro médio (centroid) de cada um dos $k$ segmentos.\n3. Atribui cada objeto individual ao centroid geometricamente mais próximo.\n4. Recalcula os novos centroids e repete a atribuição iterativamente até que não existam alterações na associação dos objetos aos clusters (condição de paragem)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Identifique quatro limitações importantes do algoritmo k-means.",
+      "solucao": "As quatro limitações são:\n1. Só é aplicável quando é possível calcular a média dos atributos (dados numéricos).\n2. Exige a especificação do parâmetro $k$ (número de clusters) de forma prévia (a priori).\n3. É extremamente sensível a ruído e outliers (que distorcem fortemente o cálculo dos centroids).\n4. É inadequado para detetar segmentos com geometrias não convexas ou côncavas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique como o k-medoids (PAM) difere do k-means na representação dos clusters e qual a sua vantagem face ao ruído.",
+      "solucao": "No k-means, cada segmento é representado pela média matemática dos seus pontos (um centroid sintético que pode não corresponder a nenhum objeto real). No k-medoids, cada segmento é representado obrigatoriamente por um objeto representativo real do dataset (o medoid). A vantagem face ao ruído é que o uso de objetos reais centrais torna a substituição iterativa menos suscetível à influência distorcida de valores extremos ou outliers, ao contrário da média aritmética."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a estratégia de Aglomeração (AGNES) da estratégia de Divisão (DIANA) no âmbito da segmentação hierárquica.",
+      "solucao": "A **Aglomeração (AGNES)** segue uma abordagem bottom-up: começa com cada objeto a formar o seu próprio segmento atómico individual e junta iterativamente os segmentos com menor dissemelhança até que todos estejam num único cluster. A **Divisão (DIANA)** segue uma abordagem top-down: inicia com todos os objetos concentrados num único segmento gigante e vai dividindo-o iterativamente em clusters menores que maximizam a separação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva o funcionamento geral do DBSCAN e apresente três das suas principais vantagens face ao k-means.",
+      "solucao": "O DBSCAN é um algoritmo baseado na densidade e conectividade local de pontos num determinado limite de vizinhança. As suas três principais vantagens são:\n1. Capaz de descobrir segmentos com formas geométricas não regulares/côncavas.\n2. Capaz de lidar eficazmente com ruído nos dados (outliers não são integrados em clusters).\n3. É um algoritmo de um só passo (scan único dos dados) e não obriga a definir o número de clusters $k$ à partida."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique de forma sucinta o propósito e a característica principal dos algoritmos BIRCH e CURe.",
+      "solucao": "O **BIRCH** usa estruturas de dados eficientes (Clustering Feature e Clustering Feature Trees) para capturar o resumo dos dados de forma a realizar clustering de forma rápida e incremental em grandes bases de dados. O **CURe** utiliza múltiplos pontos dispersos representativos de cada segmento (em vez de um único centroid/medoid) e encolhe esses pontos em direção ao centro para tratar eficazmente clusters de formas arbitrárias e tamanhos variados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem não supervisionada caracteriza-se pela presença de variáveis de entrada e pela ausência das correspondentes variáveis de saída ou resultados pretendidos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a definição exata de aprendizagem sem supervisão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O coeficiente de Jaccard é a métrica de distância recomendada para calcular a similaridade entre atributos contínuos.",
+      "solucao": 1,
+      "explicacao": "Falso. O coeficiente de Jaccard é usado para atributos binários assimétricos (dados discretos). Para atributos contínuos usam-se distâncias como a Euclidiana ou de Manhattan."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A distância Euclidiana é uma medida geométrica e corresponde à distância física em linha reta entre dois pontos no espaço multidimensional.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a distância em linha reta (a mais comum em algoritmos de clustering)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A distância de Manhattan calcula-se através da soma dos quadrados das diferenças de coordenadas entre dois objetos no espaço.",
+      "solucao": 1,
+      "explicacao": "Falso. A distância de Manhattan calcula-se pela soma linear das diferenças absolutas ($d(x,y) = |x_1-x_2| + |y_1-y_2|$), sem elevar os desvios ao quadrado."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A distância Minkowski é uma generalização que assume a forma da distância de Manhattan quando o parâmetro p é igual a 1 e da distância Euclidiana quando p é igual a 2.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a generalização das duas distâncias baseada na ordem $p$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na análise de uma matriz de distâncias, quanto mais próximo de 0 for o valor de dissemelhança entre dois objetos, maior é a sua similaridade.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A distância 0 indica que os objetos são idênticos, logo, a similaridade é máxima."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No cálculo de similaridade com atributos binários simétricos, o coeficiente simples é adequado porque a ausência mútua de um atributo (ambos zero) é tão relevante quanto a sua presença mútua (ambos um).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Em atributos simétricos como 'Sexo', 0 e 1 têm o mesmo peso estatístico."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Coeficiente de Jaccard inclui o termo de ausência mútua 'd' tanto no seu numerador como no seu denominador.",
+      "solucao": 1,
+      "explicacao": "Falso. O coeficiente de Jaccard ($b+c / a+b+c$) ignora as ausências mútuas ($d$) por serem irrelevantes para dados assimétricos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Para atributos nominais, o método de matching simples calcula a distância subtraindo a contagem de matches ao total de variáveis e dividindo pelo total de variáveis.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a fórmula exata: $d = (\\text{nº variáveis} - \\text{nº matches}) / \\text{nº variáveis}$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Atributos ordinais devem ser tratados convertendo a sua ordem qualitativa em posições numéricas (ranks), permitindo aplicar técnicas de distância de dados contínuos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A conversão para posições ordinais (1, 2, ..., Máx) permite o uso de medidas métricas como a distância Euclidiana."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em bases de dados com atributos mistos, o analista deve empregar uma função pesada (ponderada) para equilibrar e medir os efeitos de cada tipo de atributo no cálculo da dissemelhança.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Utiliza-se uma função pesada para lidar com a presença de dados de naturezas distintas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A definição de um segmento/cluster é unívoca e objetiva, existindo apenas uma configuração de clustering correta para qualquer distribuição de pontos.",
+      "solucao": 1,
+      "explicacao": "Falso. A noção de segmento é ambígua; um mesmo conjunto de pontos pode ser legitimamente agrupado em 2, 4 ou 6 segmentos de acordo com a perspetiva técnica e os critérios estabelecidos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo k-means garante a descoberta do ótimo global do critério de particionamento em qualquer execução autónoma.",
+      "solucao": 1,
+      "explicacao": "Falso. O k-means é uma heurística que converge para ótimos locais, estando sujeito ao posicionamento aleatório inicial dos centroids."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma das desvantagens do k-means é a exigência de que o número de segmentos k seja definido a priori pelo utilizador.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O parâmetro $k$ é de introdução obrigatória antes do início do algoritmo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O k-means é diretamente aplicável a dados contendo apenas atributos nominais sem necessidade de conversões ou codificações prévias.",
+      "solucao": 1,
+      "explicacao": "Falso. O k-means calcula médias físicas (centroids), pelo que requer atributos numéricos (dados contínuos)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No k-medoids, os clusters são representados pelo ponto médio geométrico de todas as coordenadas dos objetos no segmento.",
+      "solucao": 1,
+      "explicacao": "Falso. Esse é o centroid do k-means. No k-medoids, o representante do cluster é um objeto físico real pertencente ao conjunto de dados (o medoid)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O k-medoids é mais robusto na presença de ruído e outliers do que o k-means porque os medoids reais são menos sensíveis a valores extremos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A média é muito influenciada por outliers, enquanto o medoid (mediana multidimensional) é estatisticamente mais estável."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O k-medoids apresenta excelente desempenho computacional em datasets de grandes dimensões, sendo mais rápido do que o k-means.",
+      "solucao": 1,
+      "explicacao": "Falso. O k-medoids (especialmente PAM) é computacionalmente caro devido à substituição iterativa de candidatos a medoid, comportando-se pior do que o k-means em grandes volumes de dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Ao contrário dos algoritmos de particionamento, os métodos de segmentação hierárquica não requerem a definição inicial do número de segmentos k.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A árvore de clusters (dendrograma) é gerada por completo e o utilizador pode 'cortar' a árvore a qualquer nível para obter o $k$ desejado."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo DIANA (Divisive Analysis) segue uma estratégia bottom-up, juntando segmentos atómicos em estruturas progressivamente maiores.",
+      "solucao": 1,
+      "explicacao": "Falso. DIANA é um algoritmo divisivo (top-down), que começa com um cluster único contendo todos os dados e divide-o recursivamente. A aglomeração bottom-up chama-se AGNES."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A aprendizagem sem supervisão divide-se normalmente em duas grandes categorias: a ____________, para organizar dados em grupos coerentes, e a ____________, para conhecer regras de comportamento associativo.",
+      "solucao": "As palavras em falta são:\n1. **segmentação** (ou clustering)\n2. **associação**\n\n*Explicação*: A segmentação agrupa objetos semelhantes e a associação mapeia correlações ou regras entre comportamentos/atributos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas medidas de proximidade para atributos contínuos, os dados são tanto mais similares quanto mais ____________ de zero for o resultado da distância.",
+      "solucao": "As palavras em falta são:\n1. **próximo** (ou perto)\n\n*Explicação*: Uma distância nula ($0$) significa que os objetos coincidem inteiramente nas suas coordenadas, representando máxima similaridade."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A distância ____________ mede o espaço geométrico em linha reta entre dois pontos no plano, sendo calculada pela raiz quadrada de $(x_1 - x_2)^2 + (y_1 - y_2)^2$.",
+      "solucao": "As palavras em falta são:\n1. **Euclidiana**\n\n*Explicação*: É a métrica clássica de distância em linha reta baseada no Teorema de Pitágoras."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A distância de ____________ mede o afastamento somando de forma linear as diferenças absolutas das coordenadas, sem elevar os termos ao quadrado.",
+      "solucao": "As palavras em falta são:\n1. **Manhattan**\n\n*Explicação*: Manhattan mede o trajeto ao longo de eixos ortogonais, sendo ideal para grelhas de ruas urbanas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A distância de ____________ é uma métrica geral regulada por um parâmetro 'p' (onde p >= 1), generalizando as distâncias Euclidiana e Manhattan.",
+      "solucao": "As palavras em falta são:\n1. **Minkowski**\n\n*Explicação*: A distância de Minkowski define uma família de distâncias métricas parametrizadas por $p$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A similaridade calculada com base em atributos binários simétricos é denominada similaridade ____________, enquanto em atributos assimétricos se designa similaridade não-invariante.",
+      "solucao": "As palavras em falta são:\n1. **invariante**\n\n*Explicação*: Em atributos simétricos, a inversão da codificação dos valores (mudar 0 por 1) não altera a similaridade (invariância)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A fórmula do coeficiente de Jaccard divide as discrepâncias (b + c) pela soma dos termos ____________, excluindo as ausências mútuas (d).",
+      "solucao": "As palavras em falta são:\n1. **a + b + c** (ou a+b+c)\n\n*Explicação*: O denominador de Jaccard ($a+b+c$) ignora o termo $d$ porque a ausência conjunta da característica não traz informação de semelhança para atributos assimétricos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para dados binários simétricos, a distância é calculada dividindo (b + c) por ____________.",
+      "solucao": "As palavras em falta são:\n1. **a + b + c + d** (ou a+b+c+d)\n\n*Explicação*: A distância simples divide o total de inconsistências ($b+c$) pelo total absoluto de variáveis observadas ($a+b+c+d$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Um método comum para tratar atributos nominais na segmentação consiste em criar uma variável binária para cada valor da categoria, processo conhecido como ____________.",
+      "solucao": "As palavras em falta são:\n1. **one-hot encoding** (ou binarização)\n\n*Explicação*: O one-hot encoding mapeia uma categoria com N valores em N atributos binários independentes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No algoritmo k-means, cada segmento/cluster é representado matematicamente pelo seu ____________, que corresponde à média dos objetos que o constituem.",
+      "solucao": "As palavras em falta são:\n1. **centroid** (ou centroide / centro)\n\n*Explicação*: O centroid representa a âncora central do cluster obtida pela média aritmética das coordenadas dos pontos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No algoritmo k-medoids, cada segmento é representado por um ____________, que é obrigatoriamente um objeto real do conjunto de dados.",
+      "solucao": "As palavras em falta são:\n1. **medoid** (ou medóide / objeto representativo)\n\n*Explicação*: Diferente do k-means, o k-medoids escolhe um exemplar físico real central para representar o grupo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo AGNES (Agglomerative Nesting) segue uma estratégia de hierarquização designada por ____________, reunindo clusters atómicos de forma progressiva.",
+      "solucao": "As palavras em falta são:\n1. **bottom-up** (ou ascendente)\n\n*Explicação*: AGNES começa na base (cada ponto é um cluster) e sobe construindo a árvore até ao topo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo DIANA (Divisive Analysis) segue uma estratégia de hierarquização designada por ____________, dividindo recursivamente um cluster global.",
+      "solucao": "As palavras em falta são:\n1. **top-down** (ou descendente / divisão)\n\n*Explicação*: DIANA arranca no topo (todos num só cluster) e desce subdividindo em ramos menores."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Como os algoritmos hierárquicos não requerem o parâmetro k à partida, é necessário definir uma ____________ para interromper a aglomeração ou divisão (ex: distância mínima).",
+      "solucao": "As palavras em falta são:\n1. **condição de paragem** (ou regra de terminação)\n\n*Explicação*: A condição de paragem determina o momento em que a árvore deve deixar de ser expandida."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo DBSCAN baseia-se na densidade de pontos e destaca-se pela capacidade de descobrir segmentos de formas ____________, ao contrário do k-means.",
+      "solucao": "As palavras em falta são:\n1. **não regulares** (ou côncavas / arbitrárias)\n\n*Explicação*: Os clusters do DBSCAN crescem acompanhando contornos de densidade contíguos, permitindo mapear geometrias orgânicas ou não lineares."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo BIRCH estrutura os resumos dos dados em árvores hierárquicas compostas por nós designados por ____________.",
+      "solucao": "As palavras em falta são:\n1. **CF** (ou Clustering Features)\n\n*Explicação*: Um CF (Clustering Feature) resume a informação estática (nº de pontos, vetor soma, soma quadrática) de um cluster para poupar memória e tempo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo CURe utiliza múltiplos ____________ dispersos para definir cada segmento, em vez de recorrer a apenas um centroid médio.",
+      "solucao": "As palavras em falta são:\n1. **pontos representativos** (ou objetos representativos)\n\n*Explicação*: CURe seleciona vários pontos nas extremidades e encolhe-os para o centro do cluster para capturar formas complexas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para obter um número específico 'k' de segmentos a partir de uma segmentação hierárquica completa, basta efetuar um corte na árvore no nível ____________.",
+      "solucao": "As palavras em falta são:\n1. **k-1** (ou k - 1)\n\n*Explicação*: Cortar a árvore verticalmente a uma determinada altura de dissemelhança produz exatamente o número de ramos desejado."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A matriz de dados que serve de entrada à segmentação possui dimensões compostas por 'n' ____________ cruzados com 'p' ____________.",
+      "solucao": "As palavras em falta são:\n1. **objetos** (ou instâncias / casos)\n2. **atributos** (ou variáveis / características)\n\n*Explicação*: É a representação retangular de dados, onde as linhas contêm os objetos e as colunas os atributos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O DBSCAN destaca-se por conseguir lidar com ____________ nos dados, classificando pontos de baixa densidade isolados como outliers.",
+      "solucao": "As palavras em falta são:\n1. **ruído** (ou noise)\n\n*Explicação*: Ao contrário do k-means, onde todo o ruído tem de ser integrado a um centroid, o DBSCAN simplesmente rotula-os como ruído."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nObjeto A: Coordenadas contínuas = [3.0, 4.0]\nObjeto B: Coordenadas contínuas = [0.0, 0.0]\nMétricas de cálculo: Distância Euclidiana e Distância Manhattan\n```",
+      "pergunta": "Com base nas coordenadas dos Objetos A e B fornecidas no cabeçalho, calcule os valores exatos de distância entre ambos sob as duas métricas especificadas.",
+      "solucao": "1. **Distância Euclidiana (2D)**:\n   - Fórmula: $d(A, B) = \\sqrt{(3.0 - 0.0)^2 + (4.0 - 0.0)^2} = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = \\mathbf{5.0}$.\n\n2. **Distância Manhattan (2D)**:\n   - Fórmula: $d(A, B) = |3.0 - 0.0| + |4.0 - 0.0| = 3.0 + 4.0 = \\mathbf{7.0}$.\n\nOs valores exatos são 5.0 para a distância Euclidiana e 7.0 para a distância Manhattan."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nTabela de contingência binária entre dois pacientes (i e j):\n- a (ambos possuem o sintoma) = 1\n- b (apenas i possui o sintoma) = 2\n- c (apenas j possui o sintoma) = 1\n- d (nenhum possui o sintoma) = 6\n```",
+      "pergunta": "Considerando os dados clínicos assimétricos do cabeçalho, a distância calculada pelo Coeficiente de Jaccard será superior à distância obtida pelo Coeficiente Simples.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Para o Coeficiente Simples: $d(i,j) = (b+c)/(a+b+c+d) = (2+1)/(1+2+1+6) = 3/10 = 0.30$. Para o Coeficiente de Jaccard (assimétrico): $d(i,j) = (b+c)/(a+b+c) = (2+1)/(1+2+1) = 3/4 = 0.75$. Como 0.75 > 0.30, a distância de Jaccard é superior devido à exclusão das ausências mútuas (d=6) no denominador, o que reflete a dissemelhança clínica real."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nObjetos nominais:\n- Objeto i = [Cor: Vermelho, Combustível: Diesel, Caixa: Manual]\n- Objeto j = [Cor: Azul, Combustível: Diesel, Caixa: Manual]\nMétrica: Distância por Matching Simples\n```",
+      "pergunta": "Determine o valor exato da distância entre os dois objetos do cabeçalho utilizando o método de Matching Simples.",
+      "solucao": "1. **Total de variáveis (nº de atributos)**: 3 (Cor, Combustível, Caixa).\n2. **Contagem de matches (valores idênticos)**:\n   - Cor: Vermelho vs Azul (não coincide)\n   - Combustível: Diesel vs Diesel (coincide - match)\n   - Caixa: Manual vs Manual (coincide - match)\n   - Total de matches = 2.\n3. **Fórmula da distância**: $d(i,j) = \\frac{\\text{nº variáveis} - \\text{nº matches}}{\\text{nº variáveis}} = \\frac{3 - 2}{3} = \\frac{1}{3} \\approx \\mathbf{0.333}$ (ou 33.3%).\n\nA distância exata é 1/3 (ou aproximadamente 0.333)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nExecução de iteração k-means:\n- Passo 1: Calcular coordenadas médias do cluster -> Determina novos centroids\n- Passo 2: Calcular distâncias de todos os objetos aos centroids -> Associa objetos ao centroid mais próximo\n```",
+      "pergunta": "Conforme o ciclo iterativo do k-means expresso no cabeçalho, se a realocação de objetos no Passo 2 não alterar nenhuma das associações do passo anterior, o algoritmo deteta convergência e termina.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O critério de paragem do k-means é atingido quando a realocação de objetos aos centroids não resulta em quaisquer alterações nas atribuições de clusters, assinalando que os centroids estabilizaram."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nAlgoritmo | Representante de Cluster | Sensibilidade a Outliers | Deteta Formas Côncavas\nk-means   | Centroid (média)         | Alta                     | Não\nk-medoids | Medoid (objeto real)     | Baixa                    | Não\nDBSCAN    | Sem ponto único          | Muito Baixa              | Sim\n```",
+      "pergunta": "Com base na tabela comparativa do cabeçalho, justifique por que razão o DBSCAN é o mais indicado para segmentar dados espaciais com ruído e com formatos de agrupamento irregulares.",
+      "solucao": "O DBSCAN é o mais indicado por duas razões descritas na tabela:\n1. **Deteta Formas Côncavas**: Sendo baseado na densidade local de pontos contíguos (e não num ponto central representativo fixo como o centroid/medoid), ele consegue expandir clusters ao longo de trajetórias orgânicas de qualquer formato geométrico.\n2. **Sensibilidade a Outliers Muito Baixa**: O algoritmo classifica explicitamente pontos isolados que não atingem o limiar de densidade mínima como ruído (outliers), evitando que estes distorçam as fronteiras dos clusters, ao contrário do k-means que é altamente sensível."
+    }
+  ]
+}
