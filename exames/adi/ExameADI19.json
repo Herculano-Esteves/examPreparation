@@ -1,0 +1,269 @@
+{
+  "titulo": "Associacao - Treino",
+  "descricao": "Exame temático focado em Regras de Associação da UC de ADI, cobrindo o paradigma de Aprendizagem Não Supervisionada, conceitos de correlação e implicação, aplicações comerciais (market basket analysis, store layout, cross-marketing), a estrutura das regras (suporte e confiança), a classificação de regras (booleanas, quantitativas, uni/multi-dimensionais, multi-nível), o funcionamento do Algoritmo Apriori (poda, itemsets frequentes) e as medidas de interesse objetivas (Lift, Leverage, Conviction, Coverage) e subjetivas (surpresa, novidade, executabilidade).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o que são Regras de Associação e enquadre-as no contexto do paradigma da Aprendizagem Não Supervisionada.",
+      "solucao": "Regras de Associação são declarações lógicas da forma 'SE <condição> ENTÃO <conclusão>' (ou Antecedente → Consequente) que expressam o relacionamento frequente entre ocorrências de elementos num conjunto de dados. Enquadram-se na Aprendizagem Não Supervisionada porque os dados de entrada não contêm uma variável alvo (rótulo) pré-definida a prever; o algoritmo analisa de forma autónoma as transações para extrair as regras de coocorrência ou padrões ocultos sem orientação externa."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua os conceitos de Correlação e Implicação no âmbito dos objetivos das Regras de Associação.",
+      "solucao": "A **Correlação** mede a força e a direção do relacionamento linear ou estatístico entre duas variáveis aleatórias (ex: correlação de Pearson). A **Implicação** descreve uma relação de causa e consequência (ou de condição e ação) estruturada sob a forma de antecedente e consequente (implicação lógica), onde a presença do antecedente sugere a ocorrência do consequente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva a aplicação de Análise de Hábitos de Consumo (Market Basket Analysis) e cite o exemplo canónico utilizado para a ilustrar.",
+      "solucao": "A Análise de Hábitos de Consumo visa descobrir grupos de produtos que os consumidores costumam adquirir em conjunto na mesma transação de compra. O exemplo canónico é a associação entre **Fraldas e Cerveja**: observou-se que homens que compram fraldas ao fim da tarde de sexta-feira têm uma probabilidade elevada de comprar também cerveja, o que permite aos retalhistas reestruturar a disposição física dos produtos na loja."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Indique três decisões práticas que um retalhista pode tomar ao descobrir uma forte associação entre a compra de dois produtos (A e B).",
+      "solucao": "O retalhista pode:\n1. Colocar os produtos A e B muito próximos para potenciar e facilitar a venda casada.\n2. Afastar os produtos A e B em extremidades opostas da loja, forçando o cliente a percorrer um caminho onde verá outros produtos em promoção.\n3. Oferecer promoções ou descontos na compra conjunta ou de apenas um dos produtos para atrair mais clientes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina a medida de interesse de Suporte ($Support$) e explique por que razão é considerada uma medida de utilidade.",
+      "solucao": "O Suporte ($Support$) mede a frequência relativa com que um determinado conjunto de itens (itemset) surge na base de dados de transações. É considerada uma medida de utilidade porque ajuda a filtrar itemsets frequentes, garantindo que as regras geradas representam uma porção estatisticamente relevante do conjunto de dados, evitando padrões residuais ou raros."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina a medida de interesse de Confiança ($Confidence$) e explique por que razão é considerada uma medida de certeza.",
+      "solucao": "A Confiança ($Confidence$) é a probabilidade condicional de o consequente ocorrer dado que o antecedente ocorreu ($P(C|A)$), calculada como o rácio entre o suporte conjunto e o suporte do antecedente. É considerada uma medida de certeza porque quantifica a fiabilidade ou precisão da regra, isto é, a percentagem de transações com o antecedente que também incluem o consequente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua as Regras de Associação Booleanas das Regras de Associação Quantitativas.",
+      "solucao": "As **Regras Booleanas** lidam apenas com a presença ou ausência lógica de itens discretos nas transações (ex: $computador \\to gescliente$). As **Regras Quantitativas** envolvem atributos numéricos ou quantitativos, onde as associações são expressas por intervalos ou valores discretizados (ex: $idade(\"30..39\") \\wedge ordenado(\"2500..5000\") \\to compra(HDReady)$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diferencie regras de associação uni-dimensionais de regras multi-dimensionais com base nas dimensões dos dados envolvidas.",
+      "solucao": "Uma regra **uni-dimensional** refere-se a valores ou itens que pertencem a uma única dimensão ou predicado (ex: $compra(computador) \\to compra(gescliente)$, onde a única dimensão é 'compra'). Uma regra **multi-dimensional** envolve o relacionamento de múltiplos predicados ou dimensões de dados distintos (ex: $idade(\"30..39\") \\wedge compra(computador) \\to compra(gescliente)$, que cruza 'idade' com 'compra')."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O que são Regras de Associação Multi-nível? Dê um exemplo ilustrativo.",
+      "solucao": "Regras Multi-nível são aquelas em que os itens envolvidos pertencem a diferentes níveis de abstração de uma taxonomia ou hierarquia de conceitos. Exemplo:\n1. $idade(\"30..39\") \\to compra(portátil)$\n2. $idade(\"30..39\") \\to compra(computador)$\nOnde 'portátil' é um conceito mais específico de menor nível de abstração, e 'computador' é o seu conceito geral de maior nível de abstração."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o princípio basilar do algoritmo Apriori relativo à frequência dos subconjuntos.",
+      "solucao": "O princípio basilar estabelece que **qualquer subconjunto de um conjunto de itens frequente é também frequente**. Por exemplo, se o conjunto de itens $\\{cerveja, fraldas, tremo\\text{ç}os\\}$ é frequente (tem suporte acima do limiar mínimo), então o seu subconjunto $\\{cerveja, tremo\\text{ç}os\\}$ é obrigatoriamente frequente. Isto decorre de a frequência conjunta de um superconjunto ser matematicamente inferior ou igual à dos seus subconjuntos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o princípio complementar (poda/pruning) do algoritmo Apriori e enuncie a sua importância computacional.",
+      "solucao": "O princípio complementar determina que **nenhum superconjunto de um itemset não frequente deve ser pesquisado**. Se um conjunto de itens $V$ não atinge o suporte mínimo, qualquer extensão $V \\cup \\{A\\}$ também não o atingirá. A sua importância computacional é crucial, pois permite podar/eliminar à partida um enorme espaço de pesquisa de combinações infrequentes, tornando a execução do algoritmo viável em grandes bases de dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Interprete os três cenários possíveis para o valor da métrica Lift ($Lift=1$, $Lift>1$ e $Lift<1$) no âmbito das regras de associação.",
+      "solucao": "Os três cenários são:\n- **Lift = 1**: O antecedente e o consequente são estatisticamente independentes; a regra não tem poder preditivo real.\n- **Lift > 1**: Existe uma dependência positiva; a presença do antecedente aumenta a probabilidade de ocorrência do consequente.\n- **Lift < 1**: Existe uma dependência negativa (são substitutos); a presença do antecedente diminui a probabilidade de ocorrência do consequente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare as métricas Leverage (ou Potência) e Lift no que diz respeito à identificação de associações fortes.",
+      "solucao": "O **Lift** mede a importância da associação de forma independente do suporte, sendo capaz de descobrir regras com associações muito fortes mesmo em relações pouco frequentes. O **Leverage** mede a diferença de probabilidade conjunta ($Sup(A,C) - Sup(A) \\times Sup(C)$), dando maior importância e destaque a relações que apresentam valores de suporte elevados, ou seja, regras que afetam uma proporção maior de transações reais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As Regras de Associação representam uma técnica de aprendizagem supervisionada onde a variável alvo deve ser previamente rotulada.",
+      "solucao": 1,
+      "explicacao": "Falso. As regras de associação pertencem ao paradigma de aprendizagem não supervisionada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O exemplo canónico das Fraldas e da Cerveja ilustra o comportamento de consumo onde homens que compram fraldas à sexta-feira têm forte probabilidade de comprar também cerveja.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É o clássico 'beer and diapers'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O suporte é uma medida de certeza que indica a percentagem de vezes que o consequente ocorre em transações que contêm o antecedente.",
+      "solucao": 1,
+      "explicacao": "Falso. Esse é o conceito de Confiança. O suporte é uma medida de **utilidade** ou frequência de coocorrência global no dataset."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A confiança é considerada uma medida de utilidade, que reflete a representatividade global dos itens no conjunto de transações.",
+      "solucao": 1,
+      "explicacao": "Falso. A confiança é uma medida de **certeza** (precisão da implicação)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na regra 'computador -> gescliente [2%, 60%]', o valor de 60% indica que 60% de todos os clientes do dataset compraram ambos os produtos.",
+      "solucao": 1,
+      "explicacao": "Falso. O valor de 2% (suporte) indica que 2% de todas as transações contêm ambos. O valor de 60% (confiança) indica que 60% dos que compraram 'computador' também compraram 'gescliente'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Regras de associação quantitativas são aquelas que definem relações entre valores quantitativos dos atributos, geralmente delimitados por intervalos numéricos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ex: idade('30..39') -> compra(HDReady)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma regra de associação designa-se uni-dimensional quando se refere a valores ou atributos de uma única dimensão, como por exemplo 'compra'.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ex: compra(computador) -> compra(gescliente)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nas regras de associação multi-nível, os itens comparados nas regras referem-se a diferentes níveis de abstração de uma taxonomia de produtos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ex: 'portátil' (mais específico) vs 'computador' (mais geral)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um Maxpattern é um padrão frequente P tal que pelo menos um dos seus super-padrões Q também é frequente.",
+      "solucao": 1,
+      "explicacao": "Falso. Um Maxpattern é um padrão frequente P tal que o seu super-padrão Q **não** é frequente (é o padrão frequente máximo)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo Apriori baseia-se em aproximações booleanas e desenvolve uma pesquisa iterativa por níveis de itemsets.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Apriori trata as transações de forma booleana (presença/ausência de itens, ou seja, 1 ou 0) e opera através de uma abordagem 'layer-by-layer' (por níveis). Ele gera itemsets frequentes de tamanho k a partir dos itemsets frequentes de tamanho k-1, repetindo este processo iterativamente até não encontrar mais combinações."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "De acordo com o princípio basilar do Apriori, se um conjunto de itens é frequente, todos os seus subconjuntos são obrigatoriamente frequentes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É o princípio fundamental do algoritmo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O princípio complementar do Apriori afirma que qualquer superconjunto de um itemset não frequente pode ser frequente e deve ser ativamente pesquisado.",
+      "solucao": 1,
+      "explicacao": "Falso. Nenhum superconjunto de um itemset não frequente pode ser frequente, logo, não deve ser pesquisado (pruning)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Lift é uma medida de correlação cuja principal vantagem é ser independente do valor de suporte global dos itens.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Mede a importância de forma independente do suporte."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um valor de Lift inferior a 1 indica que o antecedente e o consequente possuem uma dependência estatística positiva forte.",
+      "solucao": 1,
+      "explicacao": "Falso. Lift < 1 indica dependência negativa (são substitutos; a presença de um reduz a probabilidade do outro)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um valor de Convicção (Conviction) igual a 1 indica que o antecedente e o consequente não estão relacionados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Indica que a taxa de erro esperado coincide com a taxa sob independência."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A métrica Coverage (Amplitude) de uma regra de associação Antecedente -> Consequente corresponde exatamente ao suporte do antecedente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Coverage(A -> C) = Sup(A)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma regra de associação é estruturada sob a forma de ____________ -> ____________, acompanhada pelas medidas de suporte e confiança.",
+      "solucao": "As palavras em falta são:\n1. **Antecedente** (ou Condição)\n2. **Consequente** (ou Conclusão)\n\n*Explicação*: O antecedente indica a condição (SE) e o consequente a conclusão (ENTÃO)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas regras de associação, o suporte representa uma medida de ____________, enquanto a confiança constitui uma medida de certeza.",
+      "solucao": "As palavras em falta são:\n1. **utilidade** (ou frequência)\n\n*Explicação*: O suporte afere a utilidade prática por refletir a ocorrência dos itens nas transações globais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A confiança de uma regra A -> C corresponde matematicamente à probabilidade ____________ de C ocorrer dado a ocorrência de A.",
+      "solucao": "As palavras em falta são:\n1. **condicional** (ou condicionada)\n\n*Explicação*: Conf(A -> C) = P(C | A), que é a probabilidade condicional de C dado A."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Quando uma regra de associação cruza atributos de diferentes dimensões (ex: idade e tipo de compra), diz-se uma regra ____________.",
+      "solucao": "As palavras em falta são:\n1. **multi-dimensional** (ou multidimensional)\n\n*Explicação*: As regras multi-dimensionais envolvem mais do que uma dimensão/predicado de dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Regras de associação que relacionam itens localizados em diferentes patamares de uma hierarquia de conceitos designam-se regras ____________.",
+      "solucao": "As palavras em falta são:\n1. **multi-nível** (ou multinível)\n\n*Explicação*: Mapeiam conceitos com diferentes abstrações taxonómicas (ex: marca vs produto)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo Apriori desenvolve a sua pesquisa de itemsets de forma iterativa através de uma pesquisa por ____________.",
+      "solucao": "As palavras em falta são:\n1. **níveis** (ou level-wise)\n\n*Explicação*: A pesquisa por níveis começa em itemsets de tamanho 1, gerando candidatos de tamanho 2, 3, etc."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O cálculo da métrica Lift(A -> C) divide o suporte conjunto Sup(A, C) pelo produto ____________.",
+      "solucao": "As palavras em falta são:\n1. **Sup(A) * Sup(C)** (ou Sup(A) x Sup(C))\n\n*Explicação*: Lift(A -> C) = Sup(A,C) / (Sup(A) * Sup(C))."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Se a ocorrência do antecedente for completamente independente da do consequente, o valor do Lift da regra será igual a ____________.",
+      "solucao": "As palavras em falta são:\n1. **1** (ou um)\n\n*Explicação*: Um Lift de $1.0$ reflete independência estatística absoluta entre as variáveis."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Um valor de Lift menor que 1 sugere que os itens são ____________, indicando que a presença de um influencia negativamente a do outro.",
+      "solucao": "As palavras em falta são:\n1. **substitutos** (ou incompatíveis)\n\n*Explicação*: Quando o Lift é inferior a 1, a compra de um item reduz a probabilidade de compra conjunta do outro."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A métrica Convicção (Conviction) é uma medida da ____________, avaliando a expectativa de o antecedente ocorrer sem o consequente.",
+      "solucao": "As palavras em falta são:\n1. **implicação**\n\n*Explicação*: A convicção foca-se no desvio da implicação lógica em relação à independência."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A amplitude (Coverage) de uma regra Antecedente -> Consequente é calculada como o suporte do ____________.",
+      "solucao": "As palavras em falta são:\n1. **antecedente**\n\n*Explicação*: A amplitude ou cobertura mede apenas a percentagem de transações sob o âmbito do antecedente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As três medidas de interesse subjetivas para validar regras perante o utilizador final são a surpresa, a executabilidade e a ____________.",
+      "solucao": "As palavras em falta são:\n1. **novidade**\n\n*Explicação*: Uma regra deve trazer novos conhecimentos não conhecidos de antemão pelo utilizador para ter relevância subjetiva."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A eliminação de candidatos a itemsets frequentes com base na infrequência de algum dos seus subconjuntos é chamada de ____________.",
+      "solucao": "As palavras em falta são:\n1. **poda** (ou prunning / corte)\n\n*Explicação*: A poda limpa os ramos infrequentes da árvore de combinações de itens."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A descoberta de Regras de Associação na aprendizagem sem supervisão permite conhecer a força da ____________ entre ocorrências em grandes datasets.",
+      "solucao": "As palavras em falta são:\n1. **relação** (ou associação / correlação)\n\n*Explicação*: O objetivo primordial é estimar a força de ligação estatística das coocorrências."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nBase de dados de 10 transações:\n- 4 transações contêm {computador, gescliente}\n- 2 transações contêm apenas {computador} (sem gescliente)\n- 1 transação contém apenas {gescliente} (sem computador)\n- 3 transações não contêm nenhum dos dois\n```",
+      "pergunta": "Com base nas transações do cabeçalho, calcule o Suporte e a Confiança exatos da Regra de Associação: computador -> gescliente.",
+      "solucao": "1. **Suporte (Support)**:\n   - É a proporção de transações que contêm tanto o antecedente como o consequente ({computador, gescliente}).\n   - Contagem conjunto = 4.\n   - Total transações = 10.\n   - $Sup(computador \\to gescliente) = 4 / 10 = \\mathbf{40\\%}$ (ou 0.4).\n\n2. **Confiança (Confidence)**:\n   - É a proporção de transações com o antecedente ({computador}) que também contêm o consequente ({gescliente}).\n   - Contagem do antecedente (computador) = 4 (com gescliente) + 2 (sem gescliente) = 6.\n   - $Conf(computador \\to gescliente) = 4 / 6 = \\mathbf{66.67\\%}$ (ou 2/3).\n\nO suporte é 40% e a confiança é 66.67%."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nDados de suporte de itens:\n- Sup(computador) = 0.60 (60%)\n- Sup(gescliente) = 0.50 (50%)\n- Sup(computador, gescliente) = 0.40 (40%)\n```",
+      "pergunta": "Calcule o valor de Lift para a regra 'computador -> gescliente' com base nos suportes fornecidos no cabeçalho e explique a dependência identificada.",
+      "solucao": "1. **Cálculo do Lift**:\n   - Fórmula: $Lift(A \\to C) = \\frac{Sup(A,C)}{Sup(A) \\times Sup(C)}$\n   - Substituindo os valores: $Lift = \\frac{0.40}{0.60 \\times 0.50} = \\frac{0.40}{0.30} = \\mathbf{1.333}$ (ou 4/3).\n\n2. **Explicação da dependência**:\n   - Como $Lift \\approx 1.333 > 1$, existe uma dependência estatística positiva entre a compra de computador e de gescliente. A compra do computador aumenta a probabilidade de compra de gescliente em relação ao esperado sob independência."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nRegra 1: A -> B [Sup(A,B) = 0.05, Sup(A) = 0.10, Sup(B) = 0.10]\nRegra 2: C -> D [Sup(C,D) = 0.30, Sup(C) = 0.50, Sup(D) = 0.50]\n```",
+      "pergunta": "Considerando as regras do cabeçalho, a Regra 1 apresenta um valor de Lift superior à Regra 2, enquanto a Regra 2 apresenta um valor de Leverage superior à Regra 1.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. \n1. **Lift**:\n   - Regra 1: $Lift = 0.05 / (0.10 * 0.10) = 0.05 / 0.01 = 5.0$.\n   - Regra 2: $Lift = 0.30 / (0.50 * 0.50) = 0.30 / 0.25 = 1.2$.\n   - Regra 1 (5.0) > Regra 2 (1.2) em Lift.\n\n2. **Leverage**:\n   - Regra 1: $Leverage = 0.05 - (0.10 * 0.10) = 0.05 - 0.01 = 0.04$.\n   - Regra 2: $Leverage = 0.30 - (0.50 * 0.50) = 0.30 - 0.25 = 0.05$.\n   - Regra 2 (0.05) > Regra 1 (0.04) em Leverage.\n\nIsto confirma que o Lift favorece relações fortes com suporte baixo e o Leverage destaca relações com suporte elevado."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nItemset frequente extraído: {Leite, Ovos, Pão}\nCandidato a regra a avaliar: {Leite, Ovos} -> {Pão}\n```",
+      "pergunta": "A partir do itemset frequente tridimensional do cabeçalho, podemos gerar exatamente 6 regras candidatas unidirecionais não vazias contendo antecedente e consequente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Para um itemset de tamanho 3 ($ACD$), as regras possíveis são: $A \\to C,D$; $C \\to A,D$; $D \\to A,C$; $A,C \\to D$; $A,D \\to C$; e $C,D \\to A$. Isto perfaz exatamente 6 regras candidatas unidirecionais possíveis."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nValores de suporte observados:\n- Sup(A) = 0.50 (50%)\n- Sup(¬C) = 0.40 (40% - suporte da ausência de C)\n- Sup(A, C) = 0.10 (10% - suporte conjunto)\n```",
+      "pergunta": "Com base na fórmula objetiva de Convicção ($Conviction(A \\to C) = \\frac{Sup(A) \\times Sup(\\neg C)}{Sup(A, C)}$), calcule o valor exato da convicção para a regra A -> C utilizando os valores do cabeçalho.",
+      "solucao": "1. **Cálculo da Convicção**:\n   - Substituindo os valores na fórmula: $Conviction(A \\to C) = \\frac{0.50 \\times 0.40}{0.10} = \\frac{0.20}{0.10} = \\mathbf{2.0}$.\n\nO valor exato da convicção para a regra é 2.0."
+    }
+  ]
+}

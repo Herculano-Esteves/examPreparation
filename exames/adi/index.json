@@ -63,6 +63,20 @@
     "perguntas_count": 60
   },
   {
+    "id": "ExameADI18",
+    "titulo": "Consolidacao - Treino",
+    "descricao": "Exame temático de consolidação global de conhecimentos de ADI, cobrindo os paradigmas de aprendizagem (supervisionada, não supervisionada, por reforço), definições fundamentais (algoritmo, modelo, técnica, variáveis), metodologias de data mining (CRISP-DM e SEMMA), exploração e preparação de dados, árvores de decisão, técnicas de regressão, estratégias de validação de modelos e métricas de desempenho.",
+    "path": "exames/adi/ExameADI18.json",
+    "perguntas_count": 44
+  },
+  {
+    "id": "ExameADI19",
+    "titulo": "Associacao - Treino",
+    "descricao": "Exame temático focado em Regras de Associação da UC de ADI, cobrindo o paradigma de Aprendizagem Não Supervisionada, conceitos de correlação e implicação, aplicações comerciais (market basket analysis, store layout, cross-marketing), a estrutura das regras (suporte e confiança), a classificação de regras (booleanas, quantitativas, uni/multi-dimensionais, multi-nível), o funcionamento do Algoritmo Apriori (poda, itemsets frequentes) e as medidas de interesse objetivas (Lift, Leverage, Conviction, Coverage) e subjetivas (surpresa, novidade, executabilidade).",
+    "path": "exames/adi/ExameADI19.json",
+    "perguntas_count": 48
+  },
+  {
     "id": "ExameADI2",
     "titulo": "Exame ADI 2 (Época de Recurso 2023/2024)",
     "descricao": "Exame completo da época de recurso de Aprendizagem e Decisão Inteligentes (ADI) cobrindo métricas de classificação, regressão com targets discretos, desequilíbrio de classes, soft computing, redes neuronais artificiais, algoritmos de clustering, CRISP-DM e workflows Knime.",

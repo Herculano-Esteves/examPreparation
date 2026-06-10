@@ -1,0 +1,248 @@
+{
+  "titulo": "Consolidacao - Treino",
+  "descricao": "Exame temático de consolidação global de conhecimentos de ADI, cobrindo os paradigmas de aprendizagem (supervisionada, não supervisionada, por reforço), definições fundamentais (algoritmo, modelo, técnica, variáveis), metodologias de data mining (CRISP-DM e SEMMA), exploração e preparação de dados, árvores de decisão, técnicas de regressão, estratégias de validação de modelos e métricas de desempenho.",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto de Aprendizagem Automática, diferencie os conceitos de Modelo, Algoritmo e Técnica com base na aula de consolidação.",
+      "solucao": "Um **Algoritmo** é uma sequência de instruções lógicas passo a passo e regras matemáticas para aprender a partir de dados (ex: algoritmo ID3). Uma **Técnica** é a forma prática ou o método de aplicação desse algoritmo a um determinado problema. O **Modelo** é o produto final resultante da aplicação do algoritmo/técnica sobre um conjunto de dados de treino, representando o conhecimento extraído (ex: uma árvore de decisão induzida)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua os problemas de Classificação dos problemas de Regressão com base na natureza da variável de saída (variável dependente).",
+      "solucao": "Na **Classificação**, a variável dependente (saída) é categórica, discreta ou nominal, dividindo os casos em classes específicas (ex: sim/não, fraude/não fraude). Na **Regressão**, a variável dependente é numérica e contínua, estimando valores numéricos reais (ex: temperatura, preço de habitação)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a diferença entre uma variável dependente e uma variável independente num modelo preditivo supervisionado.",
+      "solucao": "A **variável dependente** (também chamada de target ou variável de saída) é a variável alvo que o modelo pretende prever ou explicar. As **variáveis independentes** (também chamadas de atributos, preditores ou variáveis de entrada) são as características dos dados que são fornecidas ao modelo para que este consiga deduzir e estimar o valor ou classe da variável dependente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente três objetivos principais para a realização da fase de Exploração de Dados antes da modelação.",
+      "solucao": "Os três objetivos principais são:\n1. Compreender os dados e as suas características estatísticas/distribuição.\n2. Analisar a qualidade dos dados (detetar ruído, inconsistências ou valores em falta).\n3. Perceber padrões preliminares, correlações e informações relevantes que possam guiar a preparação e modelação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Identifique cinco tarefas fundamentais que fazem parte da fase de Preparação de Dados.",
+      "solucao": "Os cinco tarefas fundamentais podem ser:\n1. Redimensionamento de atributos (Feature scaling).\n2. Tratamento de valores em falta (Missing values).\n3. Seleção de atributos (Feature selection).\n4. Deteção e tratamento de valores atípicos (Outliers).\n5. Discretização de valores contínuos ou enumeração de valores nominais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique por que razão a Regressão Logística, apesar de conter 'regressão' no nome, é classificada como uma técnica de classificação e não como uma técnica de regressão de valores contínuos.",
+      "solucao": "A Regressão Logística utiliza uma função logística (sigmoide) para modelar a probabilidade de ocorrência de uma classe binária (saída entre 0 e 1). Como o objetivo final é prever um resultado categórico (classificação de classes) através da definição de um limiar de decisão, ela é classificada como uma técnica de classificação, e não de regressão contínua."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua conceitualmente uma estratégia de validação de modelos de uma métrica de qualidade.",
+      "solucao": "Uma **estratégia de validação** (ex: Hold-out, Cross Validation) define a metodologia física de como os dados são divididos e rodados entre treino e teste para que o modelo seja treinado e avaliado de forma imparcial. Uma **métrica de qualidade** (ex: Accuracy, MAE) é o indicador matemático usado para medir e quantificar o desempenho ou erro do modelo nos dados de teste resultantes da validação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Identifique quais das seguintes métricas pertencem a problemas de classificação e quais pertencem a problemas de regressão: Accuracy, Precision, Recall, MAE, MSE, RMSE, R^2.",
+      "solucao": "As métricas pertencentes a **classificação** são: Accuracy, Precision e Recall. As métricas pertencentes a **regressão** são: MAE (Mean Absolute Error), MSE (Mean Squared Error), RMSE (Root Mean Squared Error) e R^2 (Coeficiente de Determinação)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A aprendizagem não supervisionada foca-se na extração de conhecimento a partir de dados não rotulados. Duas das suas principais tarefas são a ____________ e a descoberta de regras de ____________, as quais podem ser implementadas respetivamente através de algoritmos como o ____________ e o ____________.",
+      "solucao": "As palavras em falta são:\n1. **segmentação**\n2. **associação**\n3. **k-means** (ou k-medoids)\n4. **Apriori**\n\n*Explicação*: A segmentação (clustering) organiza objetos semelhantes em grupos sem conhecimento de rótulos prévios, enquanto as regras de associação buscam relações de coocorrência de atributos. O k-means/k-medoids é o algoritmo clássico de partição para segmentação, ao passo que o algoritmo Apriori é a referência para a mineração de regras de associação."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem por reforço é um paradigma que, embora não tenha informação direta sobre os resultados pretendidos para cada caso, permite avaliar se as ações produzidas pelo agente são boas ou más através de feedback (recompensas/penalizações).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a definição exata de aprendizagem por reforço."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia recomendada para organizar e estruturar o desenvolvimento do projeto prático em grupo é a metodologia SEMMA.",
+      "solucao": 1,
+      "explicacao": "Falso. A metodologia recomendada e usada é o CRISP-DM."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um dos objetivos da exploração de dados é compreender o funcionamento interno dos programas e das suas implementações de software.",
+      "solucao": 1,
+      "explicacao": "Falso. A exploração de dados foca-se na compreensão das características dos próprios dados e na análise da sua qualidade, e não na qualidade ou lógica do software."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A divisão de valores contínuos em intervalos discretos (binning) é classificada como uma tarefa de exploração de dados.",
+      "solucao": 1,
+      "explicacao": "Falso. A discretização por intervalos (binning) é uma tarefa de **Preparação de Dados**."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As Árvores de Decisão são modelos preditivos úteis tanto para a resolução de problemas de classificação como para problemas de regressão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Podem ser de classificação (folhas categóricas) ou de regressão (folhas contínuas com médias)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regressão logística é uma técnica adequada para a previsão direta de variáveis dependentes com valores numéricos contínuos.",
+      "solucao": 1,
+      "explicacao": "Falso. A regressão logística é usada para prever probabilidades binárias/categóricas, sendo uma técnica de classificação e não de regressão de valores contínuos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A técnica Random Forest pode ser utilizada para previsão de valores contínuos (regressão).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Random Forest pode atuar tanto na classificação como na regressão de valores numéricos contínuos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Accuracy, Precision e Recall são consideradas estratégias de validação de modelos.",
+      "solucao": 1,
+      "explicacao": "Falso. Estas são métricas de desempenho/qualidade para classificação. As estratégias de validação são Hold-out, Cross Validation e Leave-one-out."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As métricas MAE (Mean Absolute Error), MSE (Mean Squared Error) e RMSE (Root Mean Squared Error) são adequadas para medir o desempenho de classificadores binários.",
+      "solucao": 1,
+      "explicacao": "Falso. Estas são métricas de erro para problemas de **regressão** (variáveis contínuas). Para classificação usam-se Accuracy, Precision, Recall, etc."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo Apriori é um exemplo clássico de algoritmo de aprendizagem não supervisionada focado em regras de associação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Apriori serve para minerar regras de associação, que é uma tarefa sem supervisão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A técnica de Support Vector Machines (SVM) é um exemplo de algoritmo de aprendizagem sem supervisão.",
+      "solucao": 1,
+      "explicacao": "Falso. O SVM é um algoritmo clássico de aprendizagem **supervisionada** (usado para classificação e regressão)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Segundo a consolidação, a Segmentação (Clustering) pode ser vista como uma técnica de classificação e também de tratamento de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Trata-se de classificação não supervisionada e serve como pré-processamento/tratamento de dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Cross Validation é uma métrica de qualidade cujo valor ótimo é igual a 1.",
+      "solucao": 1,
+      "explicacao": "Falso. Cross Validation é uma estratégia de validação (particionamento de dados) e não uma métrica."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A análise de qualidade dos dados para deteção de missing values ou dados ruidosos constitui um dos motivos centrais para a exploração de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Faz parte do diagnóstico inicial dos dados na exploração."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem semi-supervisionada constitui um dos paradigmas de aprendizagem automática estudados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Combina dados rotulados e não rotulados durante o treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os três paradigmas clássicos de aprendizagem automática estudados em ADI são: aprendizagem supervisionada, aprendizagem não supervisionada e aprendizagem ____________.",
+      "solucao": "As palavras em falta são:\n1. **por reforço** (ou reforçada)\n\n*Explicação*: A aprendizagem por reforço baseia-se em agentes que interagem com o meio e recebem estímulos de recompensa ou castigo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O resultado ou representação de conhecimento gerada após a execução de um algoritmo de aprendizagem sobre os dados de treino chama-se ____________.",
+      "solucao": "As palavras em falta são:\n1. **modelo**\n\n*Explicação*: O modelo é o artefacto estático final que retém a inteligência induzida a partir da amostra."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Num modelo preditivo, a variável que pretendemos estimar designa-se por variável ____________, ao passo que as variáveis preditoras se designam por variáveis independentes.",
+      "solucao": "As palavras em falta são:\n1. **dependente** (ou target / de saída)\n\n*Explicação*: A variável dependente é o alvo sob estudo cujas variações dependem dos atributos de entrada."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A metodologia de processos industrial que os alunos utilizam no trabalho prático de ADI é o ____________.",
+      "solucao": "As palavras em falta são:\n1. **CRISP-DM**\n\n*Explicação*: O CRISP-DM é a metodologia industrial standard adotada para guiar as fases do projeto da UC."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Exploramos os dados principalmente para compreender os dados e as suas características, detetar padrões relevantes e analisar a ____________ dos mesmos.",
+      "solucao": "As palavras em falta são:\n1. **qualidade**\n\n*Explicação*: A análise da qualidade identifica problemas como valores nulos, ruídos ou inconsistências estruturais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O redimensionamento de atributos (Feature Scaling) e a deteção de outliers são tarefas típicas integradas na fase de ____________ de Dados.",
+      "solucao": "As palavras em falta são:\n1. **Preparação** (ou pré-processamento)\n\n*Explicação*: A Preparação de Dados manipula e limpa as variáveis para as expor aos modelos de forma robusta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As Árvores de Decisão são indicadas para problemas preditivos de classificação e de ____________.",
+      "solucao": "As palavras em falta são:\n1. **regressão**\n\n*Explicação*: Árvores de decisão podem prever classes discretas (classificação) ou aproximar valores contínuos (regressão)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão logística estima a probabilidade de pertença a uma classe, sendo assim uma técnica de ____________.",
+      "solucao": "As palavras em falta são:\n1. **classificação**\n\n*Explicação*: O seu propósito principal é separar classes qualitativas (geralmente binárias), apesar de utilizar regressão matemática interna."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As três estratégias clássicas de validação de modelos são o Hold-out, o Cross Validation e o ____________.",
+      "solucao": "As palavras em falta são:\n1. **Leave-one-out** (ou Leave-one-out validation)\n\n*Explicação*: Leave-one-out é o caso extremo de Cross Validation onde o número de folds $k$ é igual ao tamanho do dataset $N$."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Accuracy, Precision e ____________ são métricas exclusivas para a medição de desempenho em problemas de classificação.",
+      "solucao": "As palavras em falta são:\n1. **Recall** (ou Sensitivity / Specificity)\n\n*Explicação*: O Recall avalia a taxa de verdadeiros positivos detetados sobre o total de positivos reais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "MAE, MSE, RMSE e ____________ são exemplos de métricas de qualidade específicas para avaliar modelos de regressão.",
+      "solucao": "As palavras em falta são:\n1. **R^2** (ou R-quadrado / coeficiente de determinação)\n\n*Explicação*: O R^2 quantifica a proporção da variância da variável dependente que é explicável pelas variáveis independentes do modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O k-means e o algoritmo Apriori são algoritmos pertencentes ao paradigma de aprendizagem ____________.",
+      "solucao": "As palavras em falta são:\n1. **não supervisionada** (ou sem supervisão)\n\n*Explicação*: Estes algoritmos operam em dados não rotulados, detetando clusters ou regras de associação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo Apriori é utilizado para a descoberta de regras de ____________ nos dados.",
+      "solucao": "As palavras em falta são:\n1. **associação**\n\n*Explicação*: O Apriori identifica relações frequentes de coocorrência de itens em transações."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A segmentação de dados (Clustering) é frequentemente referida como classificação ____________.",
+      "solucao": "As palavras em falta são:\n1. **não supervisionada**\n\n*Explicação*: Cria agrupamentos (classes) nos dados sem ter conhecimento de rótulos pré-definidos de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A metodologia SEMMA foi desenvolvida pelo ____________ para integrar e normalizar processos de data mining.",
+      "solucao": "As palavras em falta são:\n1. **SAS Institute Inc.** (ou SAS)\n\n*Explicação*: O SAS desenhou e registou a metodologia SEMMA para suportar o SAS Enterprise Miner."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nItem 1: Hold-out validation\nItem 2: Root Mean Squared Error (RMSE)\nItem 3: Cross validation\nItem 4: R-squared (R²)\nItem 5: Leave-one-out validation\nItem 6: Accuracy\n```",
+      "pergunta": "Com base nos itens do cabeçalho, separe-os rigorosamente em duas categorias: 'Estratégias de Validação' e 'Métricas de Qualidade'.",
+      "solucao": "A separação correta dos itens é:\n\n*   **Estratégias de Validação**:\n    *   Item 1: Hold-out validation\n    *   Item 3: Cross validation\n    *   Item 5: Leave-one-out validation\n\n*   **Métricas de Qualidade**:\n    *   Item 2: Root Mean Squared Error (RMSE)\n    *   Item 4: R-squared (R²)\n    *   Item 6: Accuracy"
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nClassificador A (Previsão de Fraude Bancária)\nMétricas avaliadas: Accuracy, Precision, MAE, MSE\n```",
+      "pergunta": "Considerando o problema do Classificador A do cabeçalho, as métricas MAE e MSE são indicadores adequados e corretos para medir o desempenho de classificação de fraudes.",
+      "solucao": 1,
+      "explicacao": "Falso. O problema é de classificação (fraude bancária - binário). MAE (Erro Médio Absoluto) e MSE (Erro Médio Quadrado) são métricas de erro exclusivas para problemas de regressão (valores numéricos contínuos). Para classificação, devem ser usadas métricas baseadas na matriz de confusão, como Accuracy e Precision."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nTécnica A: Regressão Linear\nTécnica B: Regressão Polinomial\nTécnica C: Regressão Logística\nTécnica D: Regressão Linear Múltipla\n```",
+      "pergunta": "Com base nas técnicas listadas no cabeçalho, indique qual delas não se destina à previsão de valores numéricos contínuos, classificando o seu real propósito: a técnica é a Regressão ____________, que se destina a problemas de ____________.",
+      "solucao": "As palavras em falta são:\n1. **Logística**\n2. **classificação**\n\n*Explicação*: A Regressão Logística (Técnica C) estima a probabilidade de uma variável dependente binária/categórica pertencer a uma classe específica, sendo uma técnica de classificação e não de regressão contínua."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nAlgoritmos avaliados:\n- Algoritmo 1: Support Vector Machines (SVM)\n- Algoritmo 2: K-Means\n- Algoritmo 3: Apriori (Regras de Associação)\n```",
+      "pergunta": "De acordo com os algoritmos listados no cabeçalho, o Algoritmo 1 (SVM) partilha o mesmo paradigma de aprendizagem não supervisionada que os Algoritmos 2 e 3.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means (Algoritmo 2) e o Apriori (Algoritmo 3) pertencem ao paradigma de aprendizagem não supervisionada. O SVM (Algoritmo 1) pertence ao paradigma de aprendizagem **supervisionada** (usado para classificação e regressão com labels)."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nFase CRISP-DM: Estudo do Negócio (Business Understanding)\nFase CRISP-DM: Preparação de Dados (Data Preparation)\nFase CRISP-DM: Modelação (Modeling)\nFase CRISP-DM: Avaliação (Evaluation)\nFase CRISP-DM: Desenvolvimento (Deployment)\n```",
+      "pergunta": "Considere o cabeçalho. Explique sucintamente quais destas fases do CRISP-DM não encontram correspondência direta no ciclo de vida da metodologia SEMMA (Sample, Explore, Modify, Model, Assess) e porquê.",
+      "solucao": "As fases do CRISP-DM que não possuem correspondência direta no SEMMA são:\n1. **Estudo do Negócio** (Business Understanding): O SEMMA é uma metodologia de cariz técnico que inicia diretamente na recolha de dados (Sample), omitindo o estudo organizacional de viabilidade e definição de objetivos de negócio.\n2. **Desenvolvimento** (Deployment): O SEMMA foca-se essencialmente na vertente de engenharia estatística e avaliação técnica (Assess), sem englobar a etapa final de colocação em produção física do modelo no ecossistema de negócio real da organização."
+    }
+  ]
+}
