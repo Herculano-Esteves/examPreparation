@@ -1,0 +1,238 @@
+{
+  "titulo": "Redes Neuronais - Treino",
+  "descricao": "Exame temático focado em Redes Neuronais Artificiais (RNA) da UC de ADI, cobrindo o modelo conexionista e inspiração biológica, a história (Perceptron, AlphaGO), a limitação de separação linear (problema do XOR), a anatomia de uma RNA (neurónios, axónios, sinapses, ativação, transferência), funções de ativação clássicas (binária/escada, linear/identidade, sigmoide), arquiteturas (feedforward e recorrentes), paradigmas de treino (supervisionado, não supervisionado, por reforço) e regras clássicas de aprendizagem (regra de Hebb, regra do Perceptron, regra de Widrow-Hoff/Delta, aprendizagem competitiva/Winner-takes-it-all).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o que é uma Rede Neuronal Artificial (RNA) e explique em que modelo biológico é inspirada.",
+      "solucao": "Uma Rede Neuronal Artificial (RNA) é um sistema computacional de base conexionista concebido para a resolução de problemas. É inspirada num modelo simplificado do sistema nervoso central dos seres humanos, sendo constituída por uma estrutura interligada de unidades computacionais com capacidade de processamento e aprendizagem, denominadas neurónios."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique como o sistema AlphaGO da Google DeepMind combina diferentes técnicas e paradigmas de aprendizagem para jogar GO.",
+      "solucao": "O AlphaGO combina redes neuronais profundas (deep neural networks) para avaliação de posições com algoritmos de procura em árvore Monte Carlo (Monte Carlo Tree Search) para a seleção de jogadas. Este sistema utiliza uma fusão híbrida de dois paradigmas de aprendizagem: a Aprendizagem Supervisionada (treinada com jogadas de especialistas humanos) e a Aprendizagem por Reforço (aprendendo através de jogos simulados contra si próprio)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a principal limitação do Perceptron simples no que diz respeito à separação de classes e indique por que razão não consegue resolver o problema do XOR.",
+      "solucao": "O Perceptron simples é um classificador linear, o que significa que apenas consegue resolver problemas que sejam linearmente separáveis (onde as classes podem ser divididas por uma linha reta ou hiperplano, como as portas AND e OR). O problema da porta lógica XOR não é linearmente separável (os pontos com saída 1 e saída 0 não podem ser cindidos por uma única reta), exigindo uma arquitetura multicamada (Multi-layer Perceptron) com camadas intermédias para introduzir não-linearidade."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua as funções do Axónio e da Sinapse numa Rede Neuronal Artificial.",
+      "solucao": "O **Axónio** funciona como a via de comunicação física unidirecional pela qual a informação flui de um neurónio para os outros. A **Sinapse** é o ponto de ligação entre o axónio e o neurónio de destino, cujo valor associado (peso sináptico) determina a importância, escala e tipo do sinal de entrada (sinal excitativo, inibidor ou nulo). A variação do peso sináptico ao longo do tempo é o que permite a aprendizagem da rede."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Diferencie o valor de ativação de um neurónio do seu valor de transferência.",
+      "solucao": "O **valor de ativação** ($A_i$) representa o estado interno do neurónio, sendo normalmente calculado pela soma ponderada dos sinais que recebe das sinapses (mais eventualmente termos de bias ou efeito de memória). O **valor de transferência** ($O_i$) é o sinal final de saída do neurónio que é enviado pelo axónio, obtido através da aplicação de uma função de transferência (ou ativação) sobre o valor de ativação ($O_i = f_T(A_i)$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare a função de transferência Binária (ou Escada) com a função de transferência Sigmoide quanto à suavidade dos seus resultados.",
+      "solucao": "A função **Binária (ou Escada)** é descontínua e abrupta, fornecendo apenas duas saídas possíveis (0 ou 1) consoante o valor de ativação atinja ou não um determinado limiar. A função **Sigmoide** é contínua, suave e derivável, mapeando qualquer valor de ativação real num intervalo suave entre 0 e 1 (formato em S), o que facilita a otimização por gradiente (como o Backpropagation)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a arquitetura Feedforward da arquitetura Recorrente no que respeita ao fluxo de informação e memória.",
+      "solucao": "Na arquitetura **Feedforward**, a informação flui estritamente num sentido (da camada de entrada para a de saída, passando pelas camadas intermédias) sem quaisquer ciclos de retroalimentação. Na arquitetura **Recorrente**, existem ligações de feedback (ciclos de retroalimentação) que ligam os neurónios a camadas anteriores ou a si próprios, permitindo que a rede retenha memória temporal e trate sequências de dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva o princípio fundamental da Regra de Aprendizagem de Hebb (Hebbian Learning Rule) e indique se é supervisionada.",
+      "solucao": "A Regra de Hebb baseia-se no princípio biológico de que se dois neurónios adjacentes sofrem variações no mesmo sentido, a sua ligação sináptica deve ser reforçada (aumento do peso). Se variam em sentidos opostos, o peso deve diminuir. Trata-se de uma regra de aprendizagem **não supervisionada**, pois os ajustes são feitos puramente com base nas correlações das ativações locais, sem utilizar um erro contra uma etiqueta desejada (target)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique como funciona o processo de atualização de pesos na Perceptron Learning Rule.",
+      "solucao": "Na Perceptron Learning Rule (aprendizagem supervisionada):\n1. Os pesos iniciais são atribuídos de forma aleatória.\n2. Os dados são propagados e o output calculado é comparado com o desejado (target).\n3. Calcula-se o erro ($e = \\text{Target} - \\text{Output}$).\n4. Se houver erro, os pesos são atualizados proporcionalmente ao erro, à taxa de aprendizagem e ao valor de entrada ($W^{\\text{new}} = W^{\\text{old}} + \\eta \\times e \\times \\text{Input}$). Se o erro for zero, os pesos mantêm-se."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente a principal diferença entre a Regra de Widrow-Hoff (Delta Rule) e a Perceptron Learning Rule no cálculo do erro.",
+      "solucao": "A principal diferença é que a Regra de Widrow-Hoff (Delta Rule) utiliza o sinal contínuo/linear de ativação (antes da aplicação da função de transferência de limiar binário) para calcular o erro e consequentemente atualizar os pesos. A Perceptron Learning Rule calcula o erro com base no output binário final (após a aplicação do limiar de decisão)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O cérebro humano possui aproximadamente 100 mil milhões ($10^{11}$) de neurónios interligados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a estimativa apresentada nos slides (100.000.000.000 neurónios)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Embora o cérebro humano represente apenas 2% da massa total do corpo, ele consome cerca de 25% do sangue bombeado pelo coração.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Conforme indicado nas estatísticas biológicas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Perceptron simples consegue aprender e resolver a função lógica XOR de forma direta sem a necessidade de camadas intermédias.",
+      "solucao": 1,
+      "explicacao": "Falso. O XOR não é linearmente separável, pelo que um Perceptron de camada única é incapaz de o resolver."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O valor associado a uma sinapse determina o peso ou a importância do sinal a entrar no neurónio, podendo este sinal ser classificado como excitativo, inibidor ou nulo.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a definição de sinapse conexionista."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Numa Rede Neuronal Artificial, a informação circula nos axónios de forma bidirecional livre.",
+      "solucao": 1,
+      "explicacao": "Falso. A informação circula no axónio em apenas um só sentido (unidirecional)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A função de transferência linear (ou identidade) define que o valor de saída do neurónio é exatamente igual ao seu valor de ativação ($O_i = A_i$).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a função linear/identidade clássica $f(A) = A$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As arquiteturas de redes feedforward caracterizam-se por possuírem caminhos de retroalimentação ou ciclos recursivos de dados.",
+      "solucao": 1,
+      "explicacao": "Falso. As feedforward não têm ciclos (o fluxo é apenas em frente). As recorrentes é que contêm esses loops."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na Regra de Aprendizagem de Hebb, os pesos das ligações sinápticas devem ser inicializados com valores aleatórios.",
+      "solucao": 1,
+      "explicacao": "Falso. Na Regra de Hebb, os pesos são inicializados a zero."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A Regra de Hebb é um algoritmo de treino não supervisionado desenvolvido originalmente por Donald Hebb em 1949.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a mais antiga regra conexionista não supervisionada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A Perceptron Learning Rule requer a presença do valor de output desejado (target) para o cálculo do erro, constituindo assim um método supervisionado.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É uma regra de aprendizagem baseada em erro supervisionada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na Regra de Aprendizagem Competitiva (Winner-takes-it-all), todos os neurónios da camada de saída atualizam os seus pesos de forma proporcional ao erro.",
+      "solucao": 1,
+      "explicacao": "Falso. Apenas o neurónio vencedor (o que obteve maior output) atualiza os seus pesos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A principal diferença da regra de Widrow-Hoff para a Perceptron Learning Rule é o uso de um sinal binário para cálculo do erro.",
+      "solucao": 1,
+      "explicacao": "Falso. A regra de Widrow-Hoff utiliza um sinal linear (contínuo) e não binário para calcular o erro."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo de Backpropagation é um método de treino não supervisionado usado para ajustar os pesos de redes MLP.",
+      "solucao": 1,
+      "explicacao": "Falso. O Backpropagation é um método de treino **supervisionado** (baseado no cálculo do erro e retropropagação do mesmo)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O AlphaGO da DeepMind utiliza exclusivamente o paradigma de aprendizagem supervisionada para atingir o nível de campeão mundial.",
+      "solucao": 1,
+      "explicacao": "Falso. O AlphaGO combina aprendizagem supervisionada com aprendizagem por reforço."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em RNAs, a variação dos pesos das sinapses ao longo do tempo determina o processo de aprendizagem da rede.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A aprendizagem é a atualização progressiva dos pesos sinápticos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma Rede Neuronal Artificial é um sistema computacional de base ____________ para a resolução de problemas complexos.",
+      "solucao": "As palavras em falta são:\n1. **conexionista**\n\n*Explicação*: O conexionismo descreve a computação através de redes de nós interligados simples."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As RNAs são concebidas com base num modelo simplificado do sistema ____________ central dos seres humanos.",
+      "solucao": "As palavras em falta são:\n1. **nervoso**\n\n*Explicação*: O modelo inspira-se no cérebro e na sua rede de neurónios biológicos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enquanto o Perceptron simples resolve problemas linearmente separáveis como as portas AND e OR, ele falha na porta lógica ____________ por esta não ser linearmente separável.",
+      "solucao": "As palavras em falta são:\n1. **XOR** (ou Exclusive OR / Ou Exclusivo)\n\n*Explicação*: O XOR exige uma fronteira de decisão não linear para separar as suas classes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As ligações entre neurónios em que o valor determina a importância do sinal a entrar são chamadas de ____________.",
+      "solucao": "As palavras em falta são:\n1. **sinapses** (ou ligações sinápticas)\n\n*Explicação*: As sinapses armazenam os pesos (importância) das conexões na rede."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A informação nas ligações neuronais flui através dos axónios em apenas ____________ sentido.",
+      "solucao": "As palavras em falta são:\n1. **um só** (ou um / único)\n\n*Explicação*: O fluxo de informação num axónio biológico e artificial é estritamente unidirecional."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O valor de ____________ de um neurónio é tipicamente calculado a partir da soma ponderada das suas entradas.",
+      "solucao": "As palavras em falta são:\n1. **ativação**\n\n*Explicação*: O valor de ativação ($A$) representa a estimulação interna combinada do neurónio."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O output de um neurónio é gerado ao aplicar a função de ____________ sobre o seu valor de ativação.",
+      "solucao": "As palavras em falta são:\n1. **transferência** (ou ativação)\n\n*Explicação*: A função de transferência ($f_T$) mapeia a ativação interna na saída final externa ($O = f_T(A)$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A função de transferência que devolve 0 para valores abaixo de um limiar e 1 para valores iguais ou superiores é chamada de função ____________.",
+      "solucao": "As palavras em falta são:\n1. **binária** (ou escada / step)\n\n*Explicação*: A função escada/binária atua como um interruptor liga-desliga com base num limiar."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A função de transferência contínua com uma curvatura suave em formato de 'S' designa-se por função ____________.",
+      "solucao": "As palavras em falta são:\n1. **sigmoide** (ou logística)\n\n*Explicação*: A sigmoide é muito usada devido à suavidade da sua curva derivável entre 0 e 1."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma rede feedforward que inclui camadas intermédias para além da de entrada e saída designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **Multi-layer Perceptron** (ou MLP / Perceptron Multi-camada)\n\n*Explicação*: O MLP ultrapassou a limitação de separação linear ao empilhar camadas de neurónios."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes que possuem ciclos de retroalimentação de informação designam-se por redes ____________.",
+      "solucao": "As palavras em falta são:\n1. **recorrentes** (ou RNN)\n\n*Explicação*: As ligações recorrentes permitem reter informação contextual de instantes anteriores."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A Regra de Aprendizagem Competitiva é também chamada de regra ____________.",
+      "solucao": "As palavras em falta são:\n1. **Winner-takes-it-all** (ou o vencedor leva tudo)\n\n*Explicação*: Apenas o neurónio com maior ativação é atualizado, inibindo os restantes."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nNeurónio J com 3 entradas:\n- Entrada 1 (x1) = 0.5, Peso (w1) = 2.0\n- Entrada 2 (x2) = 1.0, Peso (w2) = -1.0\n- Entrada 3 (x3) = 0.0, Peso (w3) = 5.0\nFunção de ativação: Aj = F(sum(wi * xi))\n```",
+      "pergunta": "Com base nos valores do cabeçalho, calcule o valor de ativação exato ($Aj$) do neurónio J.",
+      "solucao": "1. **Fórmula da soma ponderada**:\n   - $Aj = (x_1 \\times w_1) + (x_2 \\times w_2) + (x_3 \\times w_3)$\n   - Substituindo os valores: $Aj = (0.5 \\times 2.0) + (1.0 \\times -1.0) + (0.0 \\times 5.0)$\n   - $Aj = 1.0 - 1.0 + 0.0 = \\mathbf{0.0}$.\n\nO valor de ativação exato do neurónio J é 0.0."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nAtivação do Neurónio: A = 1.5\nFunção de Transferência 1: Binária (Limiar = 1.0)\nFunção de Transferência 2: Linear (f(A) = A)\n```",
+      "pergunta": "Determine o valor de saída (Output) do neurónio sob as duas funções de transferência independentes apresentadas no cabeçalho.",
+      "solucao": "1. **Função de Transferência 1 (Binária)**:\n   - Como a ativação ($A = 1.5$) é superior ao limiar ($1.0$), o output do neurónio é **1.0**.\n\n2. **Função de Transferência 2 (Linear)**:\n   - Fórmula: $O = f_T(A) = A$.\n   - Como $A = 1.5$, o output é **1.5**.\n\nOs outputs são 1.0 para a função binária e 1.5 para a função linear."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nValores no neurónio de saída F:\n- Output calculado (OUTC) = 0.8\n- Output desejado (OUTD) = 1.0\nFórmula de erro: e = OUTD - OUTC\n```",
+      "pergunta": "O erro de saída do neurónio F, calculado de acordo com os parâmetros do cabeçalho, é igual a 0.2.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O erro é calculado por: $e = \\text{Output Desejado (OUTD)} - \\text{Output Calculado (OUTC)} = 1.0 - 0.8 = 0.2$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nCamada de saída F com erro e_F = -1.0\nPeso da ligação do neurónio intermédio C ao de saída F: W_CF = 2.0\nFórmula de erro estimado intermédio: e_C = e_F * W_CF\n```",
+      "pergunta": "Com base no cabeçalho, o valor estimado de erro propagado de volta para o neurónio intermédio C na primeira iteração de Backpropagation é igual a -2.0.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O erro estimado na camada intermédia é calculado multiplicando o erro da saída pelo peso da ligação sináptica correspondente: $e_C = e_F \\times W_{CF} = -1.0 \\times 2.0 = -2.0$."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nParâmetros de atualização de peso (Delta Rule):\n- Peso inicial: W_old = 1.5\n- Output da origem: O_origem = 0.5\n- Erro do destino: e_destino = -1.0\nFórmula de atualização: W_new = W_old + e_destino * O_origem\n```",
+      "pergunta": "Determine o novo peso ($W\\_new$) da ligação com base nos parâmetros e fórmula do cabeçalho.",
+      "solucao": "1. **Aplicação da fórmula de atualização**:\n   - $W_{new} = W_{old} + (e_{destino} \\times O_{origem})$\n   - Substituindo os valores: $W_{new} = 1.5 + (-1.0 \\times 0.5)$\n   - $W_{new} = 1.5 - 0.5 = \\mathbf{1.0}$.\n\nO novo peso da ligação é 1.0."
+    }
+  ]
+}

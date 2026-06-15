@@ -1,0 +1,231 @@
+{
+  "titulo": "Redes Neuronais - rnn lstm gru - Treino",
+  "descricao": "Exame temático focado em Redes Neuronais Recorrentes (RNN), Long Short-Term Memory (LSTM) e Gated Recurrent Units (GRU) da UC de ADI, cobrindo sequências e séries temporais, as limitações 'amnésicas' de redes Feedforward, o conceito de Simple Recurrent Network (SRN) de Jeffrey Elman, o algoritmo de treino Backpropagation Through Time (BPTT), os problemas de desvanecimento e explosão de gradientes (Vanishing/Exploding Gradients), o efeito de Short Term Memory (STM), a arquitetura da LSTM (Cell State, Forget Gate, Input Gate, Output Gate) e a simplificação da GRU (Update Gate, Reset Gate).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique por que razão as redes Feedforward clássicas são descritas como 'amnésicas' perante novos dados após o treino.",
+      "solucao": "As redes Feedforward clássicas são 'amnésicas' porque não têm qualquer noção de ordem, sequência ou tempo. O processamento de um novo problema é feito de forma totalmente independente e isolada, sem que a resposta atual seja influenciada ou condicionada pelas soluções dos problemas anteriormente apresentados. Elas apenas recordam o conhecimento estático gravado nos pesos durante a fase de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Descreva a estrutura do input de uma Simple Recurrent Network (SRN) segundo Jeffrey L. Elman.",
+      "solucao": "Segundo o conceito de SRN introduzido por Jeffrey L. Elman, o input apresentado ao modelo em cada instante de tempo é caracterizado por duas partes distintas: o exemplo atual (os dados de entrada do passo de tempo corrente, $x_t$) e a perceção ou decisão do estado oculto anterior (retroalimentada a partir do passo de tempo anterior, $h_{t-1}$). Esta junção cria um efeito de memória que capta a noção de tempo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o funcionamento do algoritmo Backpropagation Through Time (BPTT) nas redes recorrentes.",
+      "solucao": "O BPTT é uma extensão do algoritmo de Backpropagation tradicional para redes recorrentes. Como a rede recorrente pode ser vista como uma cadeia de redes feedforward desdobrada ao longo dos passos de tempo da sequência (unfolded), o BPTT calcula os gradientes e propaga os erros de volta através das iterações temporais (do passo final $t$ recuando até aos passos anteriores), ajustando os pesos sinápticos considerando a dependência temporal."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o problema de Exploding Gradients em RNNs e indique as suas consequências na aprendizagem.",
+      "solucao": "O problema de Exploding Gradients ocorre quando o algoritmo de treino atribui um valor de importância excessivamente elevado aos gradientes dos pesos durante a retropropagação temporal. Isso faz com que os gradientes acumulem exponencialmente ao longo do tempo, resultando em atualizações de pesos extremamente grandes que geram instabilidade numérica e impedem a convergência do modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o problema de Vanishing Gradients em RNNs e explique por que razão este problema faz a aprendizagem 'congelar'.",
+      "solucao": "O problema de Vanishing Gradients ocorre quando os gradientes das funções de ativação se tornam extremamente pequenos (próximos de zero) à medida que são propagados para trás no tempo. Como as atualizações dos pesos dependem da multiplicação destes gradientes, os pesos das primeiras camadas temporais sofrem alterações quase impercetíveis, fazendo com que o algoritmo de treino perca a capacidade de aprender dependências de longo prazo ('congele')."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Justifique por que razão as RNNs simples exibem a característica de Short Term Memory (STM).",
+      "solucao": "As RNNs simples exibem Short Term Memory porque, devido ao desvanecimento do gradiente (Vanishing Gradient) ao longo da retropropagação temporal, a rede perde progressivamente a capacidade de propagar a informação dos instantes mais antigos. Consequentemente, o modelo tende a preservar apenas o efeito de memória dos instantes de tempo mais recentes da sequência, esquecendo o contexto de longo prazo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente a motivação principal para a criação da arquitetura Long Short-Term Memory (LSTM) e identifique os seus autores.",
+      "solucao": "A arquitetura LSTM foi proposta por Sepp Hochreiter e Juergen Schmidhuber em meados dos anos 90. A sua motivação principal foi estender as RNNs tradicionais para ultrapassar os problemas de desvanecimento e explosão de gradientes (Vanishing/Exploding Gradients), permitindo à rede aprender dependências temporais de longo prazo de forma estável."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique o papel do Cell State ($C_t$) na arquitetura de uma célula LSTM.",
+      "solucao": "O Cell State ($C_t$) funciona como a autoestrada principal de informação que atravessa toda a cadeia de células LSTM com interações puramente lineares e mínimas. Ele atua como uma memória de longo prazo à qual a informação pode ser facilmente adicionada ou removida por meio de portas controladas (gates), permitindo que os gradientes fluam de volta no tempo quase sem atenuação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enumere as três portas (gates) principais de uma LSTM e descreva a função de cada uma.",
+      "solucao": "As três portas são:\n1. **Forget Gate** ($f_t$): Decide quanta da informação do estado da célula anterior ($C_{t-1}$) deve ser descartada ou mantida.\n2. **Input Gate** ($i_t$): Decide que nova informação das entradas atuais deve ser armazenada no estado da célula.\n3. **Output Gate** ($o_t$): Decide qual parte do estado da célula atualizado ($C_t$) será exposta como a saída oculta final ($h_t$)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua as Gated Recurrent Units (GRU) das LSTMs em termos de simplificação estrutural e portas envolvidas.",
+      "solucao": "As GRUs simplificam a arquitetura LSTM ao combinar as portas Input e Forget numa única porta de atualização (**Update Gate**) e introduzir uma porta de reinicialização (**Reset Gate**). Adicionalmente, as GRUs mesclam o Cell State ($C_t$) e o Hidden State ($h_t$) num único estado oculto, reduzindo o número total de parâmetros e o custo computacional."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As Redes Neuronais Recorrentes (RNN) são especialmente indicadas para problemas que envolvem sequenciação de dados e análise de séries temporais.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A noção de tempo e sequência é a sua principal vantagem."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As redes Feedforward tradicionais possuem um conceito inerente de ordem, sequência e tempo após o treino.",
+      "solucao": 1,
+      "explicacao": "Falso. As feedforward são 'amnésicas' no que respeita ao tempo e ordem dos inputs."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Na arquitetura Simple Recurrent Network (SRN), o input é caracterizado por 3 partes: o exemplo atual, a perceção anterior e a previsão futura.",
+      "solucao": 1,
+      "explicacao": "Falso. O input é caracterizado por apenas 2 partes: o exemplo atual ($x_t$) e a perceção anterior ($h_{t-1}$)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo Backpropagation Through Time (BPTT) realiza a propagação de erros através dos instantes de tempo da sequência durante a aprendizagem.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É o algoritmo de treino padrão para RNNs."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O problema do Vanishing Gradients é caracterizado por uma instabilidade numérica causada pela explosão dos valores dos pesos ao longo do tempo.",
+      "solucao": 1,
+      "explicacao": "Falso. Essa é a definição de Exploding Gradients. O Vanishing Gradients faz com que o gradiente se aproxime de zero e a rede 'congele'."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Cell State da LSTM é controlado por portas que permitem a adição ou remoção regulada de informação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a espinha dorsal de memória da LSTM."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A porta Forget Gate da LSTM decide qual a parte do estado da célula que será colocada na saída (output).",
+      "solucao": 1,
+      "explicacao": "Falso. O Forget Gate decide que informação do estado anterior deve ser esquecida. O Output Gate é que decide a saída."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nas Gated Recurrent Units (GRU), o Update Gate combina o comportamento das portas input e forget da LSTM.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Isto torna a GRU mais simples computacionalmente."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Ao contrário das LSTMs, as GRUs possuem um Cell State e um Hidden State totalmente independentes e separados.",
+      "solucao": 1,
+      "explicacao": "Falso. As GRUs mesclam o Cell State e o Hidden State num único estado oculto."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O BPTT é o algoritmo recomendado para treinar redes Feedforward clássicas de várias camadas.",
+      "solucao": 1,
+      "explicacao": "Falso. É exclusivo de redes recorrentes (RNNs, LSTMs, GRUs) devido à dimensão temporal."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O problema do desvanecimento do gradiente (Vanishing Gradient) leva a que as RNNs simples exibam memória a curto prazo (Short Term Memory).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Dificulta a aprendizagem de relações a longo prazo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A porta Input Gate de uma LSTM decide a proporção do estado anterior a eliminar.",
+      "solucao": 1,
+      "explicacao": "Falso. A porta que decide o que descartar é a Forget Gate."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma Rede Neuronal Recorrente desdobrada (unfolded) funciona conceptualmente como uma cadeia de redes Feedforward.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É o modelo conceitual usado para aplicar o BPTT."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os problemas adequados para RNNs caracterizam-se por ocorrerem em sequências, sendo a dimensão mais comum o ____________.",
+      "solucao": "As palavras em falta são:\n1. **tempo**\n\n*Explicação*: Séries temporais e sequências ordenadas de dados dependem da passagem do tempo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes ____________ não guardam qualquer noção de ordem ou de tempo, processando inputs de forma isolada.",
+      "solucao": "As palavras em falta são:\n1. **feedforward** (ou Feed forward)\n\n*Explicação*: As redes feedforward são 'amnésicas' no tratamento temporal pós-treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas redes SRN de Elman, o input é composto pelo exemplo atual e pela ____________ anterior.",
+      "solucao": "As palavras em falta são:\n1. **perceção** (ou decisão / ativação)\n\n*Explicação*: O estado oculto anterior fornece a perceção passada de contexto ao input atual."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo utilizado para treinar as RNNs propagando os erros no tempo designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **Backpropagation Through Time** (ou BPTT)\n\n*Explicação*: BPTT calcula os gradientes retropropagando erros ao longo dos passos de tempo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Quando os valores do gradiente diminuem exponencialmente e fazem a rede parar de aprender, ocorre o problema de ____________ Gradients.",
+      "solucao": "As palavras em falta são:\n1. **Vanishing** (ou desvanecimento)\n\n*Explicação*: O desvanecimento faz com que as atualizações dos pesos se tornem residuais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O problema de ____________ Gradients provoca uma subida descontrolada dos pesos sinápticos e instabilidade na aprendizagem.",
+      "solucao": "As palavras em falta são:\n1. **Exploding** (ou explosão)\n\n*Explicação*: A explosão gera atualizações massivas que desestabilizam o modelo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A perda de gradientes mais antigos resulta na limitação de memória a curto prazo, conhecida pela sigla ____________.",
+      "solucao": "As palavras em falta são:\n1. **STM** (ou Short Term Memory)\n\n*Explicação*: STM significa 'Short Term Memory' ou memória a curto prazo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A linha central de transporte de informação a longo prazo numa LSTM é o ____________ State.",
+      "solucao": "As palavras em falta são:\n1. **Cell** (ou estado de célula)\n\n*Explicação*: O Cell State ($C_t$) é a autoestrada principal que atravessa as células."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A porta encarregue de remover ou descartar informação do Cell State da LSTM é o ____________ gate.",
+      "solucao": "As palavras em falta são:\n1. **forget**\n\n*Explicação*: O Forget Gate decide o que deve ser esquecido com base no input atual e no estado oculto anterior."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A porta da LSTM que decide que novos dados devem ser gravados no Cell State é o ____________ gate.",
+      "solucao": "As palavras em falta são:\n1. **input**\n\n*Explicação*: O Input Gate regula a entrada de novos dados a atualizar na memória da célula."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A porta que regula a informação do Cell State a exportar para o estado oculto de saída é o ____________ gate.",
+      "solucao": "As palavras em falta são:\n1. **output**\n\n*Explicação*: O Output Gate decide a saída final $h_t$ com base no estado da célula filtrado."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas GRUs, o ____________ gate substitui as funcionalidades de forget e input gates da LSTM.",
+      "solucao": "As palavras em falta são:\n1. **update** (ou de atualização)\n\n*Explicação*: O Update Gate decide o equilíbrio entre o estado anterior e o novo candidato."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas GRUs, a porta encarregue de decidir quanta informação do passado esquecer designa-se por ____________ gate.",
+      "solucao": "As palavras em falta são:\n1. **reset** (ou de reinicialização)\n\n*Explicação*: O Reset Gate decide como combinar o novo input com o estado oculto anterior."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nProblema de previsão de movimento:\n- Passo t-2: bola em x = 1.0\n- Passo t-1: bola em x = 2.0\n- Passo t: bola em x = 3.0\n```",
+      "pergunta": "Com base na sequência de posições do cabeçalho, justifique por que razão uma rede Feedforward e uma rede Recorrente produzirão comportamentos de previsão diferentes no passo t+1.",
+      "solucao": "1. **Rede Feedforward**:\n   - Como não tem memória de passos anteriores ($t-2$, $t-1$), apenas receberá o input isolado $x_t = 3.0$. Sem a noção de sentido e velocidade obtida pela sequência, a sua previsão do próximo passo será errática ou aleatória.\n\n2. **Rede Recorrente (RNN)**:\n   - Ao manter as decisões/perceções anteriores via ligações recorrentes, a rede consegue deduzir a direção e velocidade constante ($+1.0$ por passo). Portanto, conseguirá estimar corretamente a posição $x_{t+1} = 4.0$.\n\nA RNN é capaz de usar a sequência temporal para prever a trajetória, ao contrário da feedforward."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nValores de ativação das portas LSTM no passo t:\n- Forget Gate (ft) = 0.0\n- Input Gate (it) = 1.0\n- Candidato (ct) = 0.5\n- Estado da Célula anterior (Ct-1) = 2.0\nFórmula de atualização: Ct = ft * Ct-1 + it * ct\n```",
+      "pergunta": "Calcule o valor do novo Estado da Célula ($Ct$) com base nas ativações fornecidas no cabeçalho.",
+      "solucao": "1. **Aplicação da fórmula**:\n   - $C_t = (f_t \\times C_{t-1}) + (i_t \\times c_t)$\n   - Substituindo os valores: $C_t = (0.0 \\times 2.0) + (1.0 \\times 0.5)$\n   - $C_t = 0.0 + 0.5 = \\mathbf{0.5}$.\n\nO novo estado da célula $C_t$ é 0.5. Como o forget gate foi 0.0, a memória anterior ($C_{t-1} = 2.0$) foi totalmente descartada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nProblema detetado durante o treino de uma RNN simples com sequências de texto longas:\n- Os gradientes acumulados atingiram o valor de NaN ou infinito na iteração 50.\n```",
+      "pergunta": "O problema descrito no cabeçalho é um caso típico de Vanishing Gradients e pode ser resolvido reduzindo o tamanho da janela temporal.",
+      "solucao": 1,
+      "explicacao": "Falso. O problema descrito (gradientes a atingirem infinito/NaN) é o **Exploding Gradients** e não Vanishing Gradients. Reduzir a janela temporal ou aplicar gradient clipping ajuda a mitigá-lo, mas o diagnóstico do erro está incorreto."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nMapeamento de portas entre arquiteturas:\n- LSTM possui: Forget Gate, Input Gate, Output Gate.\n- GRU possui: Update Gate, Reset Gate.\n```",
+      "pergunta": "De acordo com o cabeçalho e a teoria estrutural, a GRU consegue ser computacionalmente mais rápida que a LSTM por ter um menor número de portas e não gerir um estado de célula (cell state) separado.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O menor número de portas e a fusão de estados oculto e de célula simplificam os cálculos matriciais da GRU, tornando-a mais rápida a treinar."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nValores calculados na célula LSTM:\n- Novo Estado da Célula (Ct) = 1.0\n- Output Gate (ot) = 0.5\n- Função de ativação de saída: tanh(Ct) = 0.76 (aproximado)\n- Fórmula do estado oculto de saída: ht = ot * tanh(Ct)\n```",
+      "pergunta": "Determine o valor exato do estado oculto de saída ($ht$) utilizando as informações do cabeçalho.",
+      "solucao": "1. **Aplicação da fórmula**:\n   - $h_t = o_t \\times \\tanh(C_t)$\n   - Substituindo os valores do cabeçalho: $h_t = 0.5 \\times 0.76$\n   - $h_t = \\mathbf{0.38}$.\n\nO valor do estado oculto de saída $h_t$ é 0.38."
+    }
+  ]
+}

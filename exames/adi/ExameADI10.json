@@ -55,7 +55,7 @@
     {
       "tipo": "escrita",
       "cabecalho": "```\n+---+-------------+----------+--------+--------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Name   | Sex    | Age    | Cabin  |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n| 1 | 1           | 0        | 3      | Owen   | male   | 22.0   |        |\n| 2 | 2           | 1        | 1      | Cumi   | female | 38.0   | C85    |\n| 3 | 3           | 1        | 3      | Heik   | female | 26.0   |        |\n| 4 | 4           | 1        | 1      | Futr   | female | 35.0   | C123   |\n| 5 | 5           | 0        | 3      | Alle   | male   | 35.0   |        |\n| 6 | 6           | 0        | 3      | Mora   | male   |        |        |\n| 7 | 7           | 0        | 1      | McCa   | male   | 54.0   | E46    |\n+---+-------------+----------+--------+--------+--------+--------+--------+\n```",
-      "pergunta": "Considere o excerto do dataset do Titanic acima. As células vazias nas colunas Cabin e Age constituem tecnicamente ____________, que representam a ausência de registo de um dado e requerem tratamento na fase de ____________ de dados.",
+      "pergunta": "Considere o excerto do dataset do Titanic acima. As células vazias nas colunas Cabin e Age constituem ____________, que representam a ausência de registo de um dado e requerem tratamento na fase de ____________ de dados.",
       "solucao": "As palavras em falta são:\n1. **missing values** (ou valores em falta)\n2. **preparação** (ou pré-processamento)\n\n*Explicação*: Células em branco em tabelas relacionais representam valores que não foram registados ou são desconhecidos para essa instância e atributo. A identificação e o tratamento destes *missing values* (ex: eliminação, imputação ou manutenção) são etapas essenciais da fase de preparação de dados."
     },
     {
@@ -198,7 +198,7 @@
     },
     {
       "tipo": "escrita",
-      "pergunta": "No domínio da classificação, a ____________ indica a proporção de previsões corretas (positivas e negativas) efetuadas pelo modelo sobre o total de exemplos, enquanto a ____________ (ou recall) quantifica a fração de exemplos positivos reais identificados pelo classificador.",
+      "pergunta": "No domínio da classificação, a ____________ indica a proporção de previsões corretas (positivas e negativas) efetuadas pelo modelo sobre o total de exemplos, enquanto a ____________ quantifica a fração de exemplos positivos reais identificados pelo classificador.",
       "solucao": "As palavras em falta são:\n1. **exatidão** (ou accuracy)\n2. **sensibilidade** (ou revogação / recall / sensitivity)\n\n*Explicação*: A exatidão avalia a taxa global de acerto. A sensibilidade (recall) avalia a eficácia do classificador em detetar instâncias pertencentes à classe positiva de interesse, dividindo os verdadeiros positivos pelo total de positivos reais na amostra ($VP / (VP + FN)$)."
     },
     {

@@ -84,6 +84,27 @@
     "perguntas_count": 35
   },
   {
+    "id": "ExameADI20",
+    "titulo": "Redes Neuronais - Treino",
+    "descricao": "Exame temático focado em Redes Neuronais Artificiais (RNA) da UC de ADI, cobrindo o modelo conexionista e inspiração biológica, a história (Perceptron, AlphaGO), a limitação de separação linear (problema do XOR), a anatomia de uma RNA (neurónios, axónios, sinapses, ativação, transferência), funções de ativação clássicas (binária/escada, linear/identidade, sigmoide), arquiteturas (feedforward e recorrentes), paradigmas de treino (supervisionado, não supervisionado, por reforço) e regras clássicas de aprendizagem (regra de Hebb, regra do Perceptron, regra de Widrow-Hoff/Delta, aprendizagem competitiva/Winner-takes-it-all).",
+    "path": "exames/adi/ExameADI20.json",
+    "perguntas_count": 42
+  },
+  {
+    "id": "ExameADI21",
+    "titulo": "Redes Neuronais - rnn lstm gru - Treino",
+    "descricao": "Exame temático focado em Redes Neuronais Recorrentes (RNN), Long Short-Term Memory (LSTM) e Gated Recurrent Units (GRU) da UC de ADI, cobrindo sequências e séries temporais, as limitações 'amnésicas' de redes Feedforward, o conceito de Simple Recurrent Network (SRN) de Jeffrey Elman, o algoritmo de treino Backpropagation Through Time (BPTT), os problemas de desvanecimento e explosão de gradientes (Vanishing/Exploding Gradients), o efeito de Short Term Memory (STM), a arquitetura da LSTM (Cell State, Forget Gate, Input Gate, Output Gate) e a simplificação da GRU (Update Gate, Reset Gate).",
+    "path": "exames/adi/ExameADI21.json",
+    "perguntas_count": 41
+  },
+  {
+    "id": "ExameADI22",
+    "titulo": "consolidacao 2 - Treino",
+    "descricao": "Exame temático focado na consolidação de redes neuronais (RNA), recorrentes (RNN, LSTM, GRU), convolucionais (CNN) e Transformers da UC de ADI. Cobre paradigmas de aprendizagem, a distinção entre inspiração e cópia cerebral, vantagens (adaptabilidade, não linearidade, paralelização), classificação de redes (plain vanilla, GANs, modular, etc.), características e limitações de RNNs (degradação temporal de memória, BPTT, falta de paralelização), aplicações de CNNs (OCR, imagiologia, deteção facial) e a revolução dos Transformers (mecanismo de atenção, sustentabilidade computacional, paralelização no treino, modelos sequence-to-sequence).",
+    "path": "exames/adi/ExameADI22.json",
+    "perguntas_count": 45
+  },
+  {
     "id": "ExameADI3",
     "titulo": "Exame ADI 3",
     "descricao": "Exame completo de época especial de Aprendizagem e Decisão Inteligentes (ADI) abrangendo métricas de distância (SMC e Jaccard), avaliação com matriz de confusão, regras de associação (Lift, Leverage e Convicção), algoritmos C4.5 e arquiteturas RNN/LSTM.",

@@ -1,0 +1,253 @@
+{
+  "titulo": "consolidacao 2 - Treino",
+  "descricao": "Exame temático focado na consolidação de redes neuronais (RNA), recorrentes (RNN, LSTM, GRU), convolucionais (CNN) e Transformers da UC de ADI. Cobre paradigmas de aprendizagem, a distinção entre inspiração e cópia cerebral, vantagens (adaptabilidade, não linearidade, paralelização), classificação de redes (plain vanilla, GANs, modular, etc.), características e limitações de RNNs (degradação temporal de memória, BPTT, falta de paralelização), aplicações de CNNs (OCR, imagiologia, deteção facial) e a revolução dos Transformers (mecanismo de atenção, sustentabilidade computacional, paralelização no treino, modelos sequence-to-sequence).",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a diferença conceptual entre dizer que as Redes Neuronais Artificiais são 'inspiradas no cérebro' e dizer que elas 'copiam o cérebro'.",
+      "solucao": "As RNAs são **inspiradas no cérebro e no sistema nervoso**, o que significa que utilizam um modelo matemático e computacional simplificado baseado em nós interconectados (neurónios) e pesos sinápticos para processar dados. Contudo, elas **não copiam o cérebro**, pois a complexidade biológica, química e estrutural do cérebro humano real é infinitamente superior e o seu funcionamento exato ainda não é totalmente compreendido ou replicado por software."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Indique como as RNAs lidam com os dados de entrada, distinguindo a retenção de dados da identificação de padrões.",
+      "solucao": "As RNAs não retêm os dados originais brutos em memória. Em vez disso, elas **retêm características abstratas dos dados** e **identificam padrões** complexos ocultos. Estas características e padrões são codificados e gravados sob a forma de pesos sinápticos distribuídos ao longo das conexões da rede durante o treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Enumere quatro vantagens das Redes Neuronais Artificiais em comparação com outras técnicas clássicas de modelação.",
+      "solucao": "Quatro vantagens fundamentais são:\n1. **Adaptabilidade**: Capacidade de se ajustar a novos dados através de treino.\n2. **Reconhecimento de padrões**: Eficácia na extração de estruturas complexas em dados ruidosos.\n3. **Paralelização do processamento**: Capacidade de executar operações matriciais de forma concorrente em hardware dedicado (GPUs).\n4. **Não linearidade**: Aptidão para aproximar funções não lineares altamente complexas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Indique três características distintivas das Redes Neuronais Recorrentes (RNN) no processamento temporal.",
+      "solucao": "As RNNs distinguem-se por:\n1. **Captar a noção de tempo**: Permite modelar a ordenação temporal das ocorrências.\n2. **Capacidade de memorização**: Armazena o contexto anterior para influenciar a decisão atual.\n3. **Preservação de memória recente**: O seu efeito de memória é predominantemente focado nas transações mais próximas no tempo (Short Term Memory) devido ao problema do desvanecimento do gradiente."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Apresente quatro áreas de aplicação prática onde as Redes Neuronais Recorrentes (RNN) são comummente empregadas.",
+      "solucao": "Quatro áreas de aplicação comuns são:\n1. **Processamento de Linguagem Natural (PLN)** e geração de texto.\n2. **Tradução automática** de idiomas.\n3. **Reconhecimento de fala** (Speech Recognition).\n4. **Previsão de séries temporais** (ex: séries financeiras ou meteorológicas)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique a razão pela qual as RNNs tradicionais falham na contextualização temporal global de sequências longas.",
+      "solucao": "As RNNs simples falham na contextualização temporal global devido ao problema do desvanecimento do gradiente (Vanishing Gradient). Ao retropropagar o erro ao longo de muitos passos de tempo, o gradiente decresce até zero, impedindo a atualização de pesos associados a passos distantes. Assim, a rede foca-se apenas na memória a curto prazo (recente) e perde o contexto global de longo prazo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Compare a degradação temporal da memória em arquiteturas LSTM e GRU com as RNNs simples.",
+      "solucao": "As arquiteturas LSTM e GRU possuem mecanismos baseados em portas (*gates*) que permitem regular o fluxo de informação. Estes mecanismos reduzem significativamente a degradação temporal da memória (atenuando o Vanishing Gradient) em comparação com as RNNs simples, permitindo reter informações relevantes por períodos temporais muito mais longos."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Distingua a velocidade de treino e o esforço computacional entre as LSTMs, GRUs e RNNs.",
+      "solucao": "As RNNs simples são as mais rápidas a treinar, mas têm fraca retenção de memória. As LSTMs têm excelente retenção de memória, mas o seu treino é o mais lento devido à complexidade das suas três portas e estado de célula. As GRUs oferecem um treino mais rápido e exigem **menor esforço computacional do que as LSTMs** por combinarem as portas e eliminarem o estado de célula separado."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Explique de que forma o mecanismo de atenção (*attention*) nos Transformers substitui a recursividade das RNNs.",
+      "solucao": "Nas RNNs, o processamento de uma sequência é inerentemente sequencial (recursivo), dependendo do passo de tempo anterior. Nos Transformers, o **mecanismo de atenção** calcula a relevância mútua entre todos os elementos da sequência de forma direta e simultânea. Isto elimina a necessidade de recursividade e permite processar toda a sequência de uma só vez de forma não sequencial."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Defina o enquadramento estrutural dos Transformers quanto à natureza da entrada e saída delos.",
+      "solucao": "Os Transformers são classificados estruturalmente como **modelos de redes neuronais sequence-to-sequence (seq2seq)**. Eles recebem uma sequência de elementos como entrada (ex: palavras num idioma) e produzem uma sequência de elementos correspondente como saída (ex: palavras noutro idioma), mapeando relações globais entre as duas sequências."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A aprendizagem por reforço, a supervisionada e a não supervisionada são paradigmas fundamentais de aprendizagem automática.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. São os três pilares clássicos da aprendizagem automática."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As Redes Neuronais Artificiais são consideradas técnicas de Machine Learning que copiam fielmente o funcionamento biológico do cérebro.",
+      "solucao": 1,
+      "explicacao": "Falso. Elas são apenas *inspiradas* no cérebro e no sistema nervoso; elas não o copiam."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As RNAs lidam com dados guardando uma cópia exata dos dados brutos em memória física para consulta futura.",
+      "solucao": 1,
+      "explicacao": "Falso. Elas não retêm os dados em memória; elas retêm apenas as suas características abstratas e identificam padrões."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os termos Deep Learning e Machine Learning são considerados sinónimos absolutos e diretos de Redes Neuronais Artificiais.",
+      "solucao": 1,
+      "explicacao": "Falso. Nenhuma das opções é sinónimo direto de RNA."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A explicabilidade (capacidade de interpretar facilmente as decisões do modelo) é uma das vantagens reconhecidas das Redes Neuronais Artificiais.",
+      "solucao": 1,
+      "explicacao": "Falso. As RNAs são conhecidas por serem modelos de 'caixa-negra', com baixa explicabilidade."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A expressão 'Plain vanilla' refere-se ao modelo básico e padrão de Rede Neuronal Artificial.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É o termo informal para redes feedforward básicas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As Support Vector Machines (SVM) são um tipo específico de arquitetura de Rede Neuronal Artificial.",
+      "solucao": 1,
+      "explicacao": "Falso. SVMs são algoritmos de modelação clássica baseados em hiperplanos de separação, não sendo considerados tipos de RNA."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As Redes Neuronais Recorrentes (RNN) simples destacam-se pela sua excelente capacidade de preservação de memória global em sequências muito longas.",
+      "solucao": 1,
+      "explicacao": "Falso. As RNNs simples sofrem de Vanishing Gradient e preservam essencialmente apenas a memória **recente** (curto prazo)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os dados de treino para uma Rede Neuronal Recorrente devem ser submetidos em sequência temporal ou ordenada.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A ordem sequencial é fundamental para que a recursividade capte o tempo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma das grandes vantagens das RNNs simples é a facilidade de paralelização total do processamento durante o treino.",
+      "solucao": 1,
+      "explicacao": "Falso. A dependência temporal estrita ($h_t$ depende de $h_{t-1}$) impede a paralelização do processamento ao longo do tempo em RNNs."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O treino de uma rede LSTM é caracteristicamente mais lento do que o de uma RNN simples.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A complexidade matemática das portas da LSTM introduz maior latência de computação."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Redes Neuronais Convolucionais (CNN) são adequadas para aplicações como deteção facial, imagiologia médica e segmentação de imagens.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. São as aplicações clássicas de processamento de imagem."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No treino de modelos Transformers, os dados de input devem ser obrigatoriamente processados de forma sequencial passo a passo.",
+      "solucao": 1,
+      "explicacao": "Falso. Graças ao mecanismo de atenção, os Transformers processam toda a sequência de uma vez, permitindo a paralelização do treino."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Os Transformers são modelos de redes neuronais caracterizados como sequence-to-vector.",
+      "solucao": 1,
+      "explicacao": "Falso. Eles são modelos **sequence-to-sequence**."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nos Transformers, o mecanismo de atenção (attention) substitui a necessidade de recursividade temporal para captar relações contextuais.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Permite associar elementos distantes da sequência sem propagação recursiva."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As RNAs são técnicas de Machine Learning inspiradas no cérebro e no sistema ____________.",
+      "solucao": "As palavras em falta são:\n1. **nervoso**\n\n*Explicação*: Conforme definido no VoxVote, o sistema nervoso central é a inspiração biológica primária."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes neuronais não guardam cópias dos dados, mas retêm ____________ dos mesmos.",
+      "solucao": "As palavras em falta são:\n1. **características**\n\n*Explicação*: O modelo extrai e armazena os atributos estruturais abstratos dos dados de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao lidar com os dados, a principal tarefa da RNA é identificar ____________ nos dados de treino.",
+      "solucao": "As palavras em falta são:\n1. **padrões**\n\n*Explicação*: O reconhecimento de padrões é a aptidão essencial que viabiliza a generalização da rede."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A capacidade de uma RNA ajustar os seus pesos para se adequar a novas situações designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **adaptabilidade**\n\n*Explicação*: A adaptabilidade reflete a flexibilidade de aprendizagem face a novas distribuições de dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A propriedade matemática que permite às RNAs modelar relações complexas e curvas que não são retas designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **não linearidade** (ou não-linearidade)\n\n*Explicação*: A não linearidade permite aproximar com rigor fronteiras de decisão complexas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O modelo básico e convencional de rede neuronal sem especializações é conhecido pelo termo inglês plain ____________.",
+      "solucao": "As palavras em falta são:\n1. **vanilla**\n\n*Explicação*: 'Plain vanilla' designa informalmente algo na sua versão mais simples."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes constituídas por dois modelos em competição (um gerador e um discriminador) chamam-se Generative ____________.",
+      "solucao": "As palavras em falta são:\n1. **Adversarial** (ou GAN / Adversariais)\n\n*Explicação*: Generative Adversarial Networks (GANs) treinam-se através de um jogo de soma zero entre redes."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes recorrentes diferenciam-se das feedforward porque captam a noção de ____________.",
+      "solucao": "As palavras em falta são:\n1. **tempo** (ou sequência)\n\n*Explicação*: O feedback temporal é o que dota as RNNs da capacidade de processar dados sequenciais."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os modelos LSTM e GRU destacam-se por apresentar uma menor ____________ temporal da memória do que as RNNs simples.",
+      "solucao": "As palavras em falta são:\n1. **degradação**\n\n*Explicação*: As portas gerem o esquecimento e adição, travando o decaimento precoce da memória."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O treino de uma rede GRU exige menor ____________ computacional do que o treino de uma LSTM.",
+      "solucao": "As palavras em falta são:\n1. **esforço** (ou custo)\n\n*Explicação*: A menor quantidade de portas e estados na GRU reduz a exigência de processamento."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As ____________ são muito utilizadas na área da saúde para a análise de imagens médicas, disciplina conhecida por imagiologia.",
+      "solucao": "As palavras em falta são:\n1. **Redes Convolucionais** (ou CNNs / Redes Neuronais Convolucionais)\n\n*Explicação*: As Redes Convolucionais são arquiteturas de Deep Learning especializadas no processamento de dados com topologia em grelha, como as imagens, sendo por isso a ferramenta padrão na imagiologia médica para detetar anomalias em exames."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A sigla OCR refere-se ao Reconhecimento ____________ de Caracteres, uma aplicação comum das redes convolucionais.",
+      "solucao": "As palavras em falta são:\n1. **Ótico** (ou Otico)\n\n*Explicação*: OCR (Optical Character Recognition) digitaliza caracteres impressos a partir de imagens."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma das grandes vantagens dos Transformers em relação às RNNs é permitir a ____________ do processamento no treino.",
+      "solucao": "As palavras em falta são:\n1. **paralelização**\n\n*Explicação*: A eliminação de dependências passo a passo viabiliza o treino em paralelo de toda a sequência."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Os Transformers são modelos de redes neuronais classificados estruturalmente como sequence-to-____________.",
+      "solucao": "As palavras em falta são:\n1. **sequence**\n\n*Explicação*: Sequence-to-sequence reflete o processamento de uma sequência de entrada numa sequência de saída."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nos Transformers, o mecanismo de ____________ é a peça central que substitui a necessidade de recursividade.",
+      "solucao": "As palavras em falta são:\n1. **atenção** (ou atenção)\n\n*Explicação*: O mecanismo de atenção calcula a influência contextual global entre todos os tokens da sequência."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nLista de características:\n- Adaptabilidade\n- Esforço computacional\n- Explicabilidade\n- Paralelização\n- Dependência de 'big data'\n```",
+      "pergunta": "Com base nas características indicadas no cabeçalho, selecione apenas aquelas que são consideradas vantagens das Redes Neuronais Artificiais, justificando a exclusão das restantes.",
+      "solucao": "1. **Vantagens selecionadas**:\n   - **Adaptabilidade**: Permite ao modelo aprender novos padrões a partir dos dados.\n   - **Paralelização**: Permite acelerar o treino através de processamento simultâneo em GPUs.\n\n2. **Exclusões (Desvantagens/Limitações)**:\n   - **Esforço computacional**: O treino de RNAs exige muitos recursos de computação, sendo um ponto negativo.\n   - **Explicabilidade**: As RNAs são caixas-negras difíceis de interpretar, o que representa uma desvantagem.\n   - **Dependência de 'big data'**: Necessitam de grandes volumes de dados para treinar sem sofrer de overfitting."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nModelos avaliados:\n- RNN Simples\n- LSTM / GRU\n- Transformers\n```",
+      "pergunta": "Compare os três modelos do cabeçalho relativamente à capacidade de paralelização no treino e suporte a dependências temporais remotas.",
+      "solucao": "1. **RNN Simples**:\n   - *Paralelização*: Baixa (processamento estritamente sequencial).\n   - *Dependências remotas*: Fraca (devido ao vanishing gradient).\n\n2. **LSTM / GRU**:\n   - *Paralelização*: Baixa (continua a ser sequencial).\n   - *Dependências remotas*: Média (as portas mitigam o vanishing gradient, mas ainda decaem em sequências muito longas).\n\n3. **Transformers**:\n   - *Paralelização*: Alta (o mecanismo de atenção elimina o processamento sequencial temporizado).\n   - *Dependências remotas*: Alta (consegue associar qualquer par de elementos independentemente da distância)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nAfirmações sobre RNNs simples:\n1. Não dependem de grandes volumes de dados.\n2. Suportam paralelização de treino temporal nativamente.\n3. Não sofrem de desvanecimento de gradiente.\n```",
+      "pergunta": "Com base nas limitações conhecidas das RNNs, todas as três afirmações do cabeçalho são falsas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As RNNs simples dependem fortemente de big data, não suportam paralelização nativa temporal e sofrem severamente do problema de desvanecimento/explosão de gradientes (Vanishing/Exploding Gradients). Portanto, todas as três afirmações são falsas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\nCaracterística dos Transformers:\n- O processamento sequencial de treino é substituído pelo mecanismo de atenção.\n- A entrada de treino é processada em paralelo.\n```",
+      "pergunta": "Com base no cabeçalho, os Transformers exigem maior esforço de tempo sequencial no treino do que as RNNs por serem maiores.",
+      "solucao": 1,
+      "explicacao": "Falso. Pelo contrário, a ausência de recursividade temporal permite que os Transformers processem as sequências em paralelo no treino. Isto torna o seu treino muito mais rápido e eficiente em termos temporais do que as RNNs, que necessitam de processar passo a passo sequencialmente."
+    },
+    {
+      "tipo": "escrita",
+      "cabecalho": "```\nAplicações tecnológicas:\n1. OCR (Reconhecimento Ótico de Caracteres)\n2. Imagiologia médica\n3. Análise emocional em texto\n4. Deteção facial em fotos\n```",
+      "pergunta": "Indique quais das aplicações listadas no cabeçalho são tipicamente solucionadas através de Redes Neuronais Convolucionais (CNNs).",
+      "solucao": "As aplicações resolvidas por CNNs são:\n- **1. OCR (Reconhecimento Ótico de Caracteres)**: Processa imagens de texto para reconhecer letras.\n- **2. Imagiologia médica**: Analisa exames de imagem médica (radiografias, ressonâncias) para diagnosticar anomalias.\n- **4. Deteção facial em fotos**: Identifica a localização e características de rostos em imagens.\n\nA aplicação **3 (Análise emocional em texto)** é um problema de processamento de texto/sequências, sendo mais adequado para RNNs, LSTMs ou Transformers, e não para CNNs."
+    }
+  ]
+}
