@@ -1,0 +1,222 @@
+{
+  "titulo": "Exame Modelo 4",
+  "descricao": "Exame Modelo 4",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes recorrentes do tipo GRU simplificam a estrutura das LSTMs e usam apenas duas portas: a porta de ____________ e a porta de ____________.",
+      "solucao": "As palavras em falta são:\n1. **reposição** (ou Reset Gate)\n2. **atualização** (ou Update Gate)\n\n*Explicação*: As GRUs (Gated Recurrent Units) otimizam a arquitetura LSTM ao remover o Cell State independente e gerir a memória através de apenas duas portas de fluxo de ativação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Numa regra de associação, se o Lift for igual a ____________, as variáveis antecedente e consequente são independentes. A diferença absoluta entre o suporte conjunto e o produto dos suportes individuais designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **1.0** (ou um)\n2. **Leverage**\n\n*Explicação*: Um Lift de 1.0 indica ausência de correlação estatística entre os itens. A Leverage mede a diferença de probabilidade conjunta observada em relação ao esperado sob independência absoluta."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Ao contrário do K-Means, o K-Medoids é menos sensível a ____________ porque o centro do cluster é representado por um registo ____________ pertencente ao dataset.",
+      "solucao": "As palavras em falta são:\n1. **outliers** (ou valores atípicos)\n2. **real** (ou existente)\n\n*Explicação*: O K-Means calcula centróides médios abstratos, que são severamente deslocados por valores extremos. O K-Medoids utiliza medoides que correspondem obrigatoriamente a registos físicos presentes nos dados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Na CRISP-DM, a fase que vem imediatamente após o Business Understanding chama-se ____________, e a fase onde se treinam os algoritmos preditivos designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **Data Understanding** (ou Compreensão dos Dados)\n2. **Modeling** (ou Modelação)\n\n*Explicação*: O ciclo CRISP-DM progride da definição dos objetivos de negócio para a aquisição e exploração inicial de dados (Data Understanding), ocorrendo o treino dos classificadores na fase posterior de Modelação."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A técnica de ____________ duplica sinteticamente exemplos da classe minoritária para combater o desequilíbrio de classes, enquanto o ____________ remove amostras da classe maioritária.",
+      "solucao": "As palavras em falta são:\n1. **Oversampling** (ou SMOTE)\n2. **Undersampling**\n\n*Explicação*: O oversampling equilibra a distribuição aumentando a representação da classe rara. O undersampling reduz a dimensão do dataset ao descartar instâncias da classe abundante."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A poda de uma árvore de decisão do tipo ____________ (poda para trás) é realizada após a árvore ter sido completamente gerada, enquanto a ____________ (poda para a frente) estabelece critérios de paragem durante o crescimento.",
+      "solucao": "As palavras em falta são:\n1. **Post-pruning** (ou pós-poda)\n2. **Pre-pruning** (ou pré-poda)\n\n*Explicação*: O post-pruning gera uma árvore sobredimensionada e simplifica os seus nós de baixo para cima. O pre-pruning define restrições (ex: profundidade máxima) que interrompem o crescimento da árvore a priori."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O paradigma do ____________ baseia-se em lógica precisa e controlo exato (ex: lógica booleana), ao passo que o ____________ modela a incerteza e a aproximação (ex: lógica fuzzy).",
+      "solucao": "As palavras em falta são:\n1. **Hard Computing**\n2. **Soft Computing**\n\n*Explicação*: Hard Computing exige modelos matemáticos exatos e binários. Soft Computing tolera ruído, verdades parciais e imprecisões para obter soluções eficientes em problemas complexos do mundo real."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Uma forma extrema de tratar missing values consiste na eliminação de registos, conhecida por ____________. No entanto, se decidirmos estimar os valores usando os vizinhos mais próximos, estamos a aplicar ____________.",
+      "solucao": "As palavras em falta são:\n1. **listwise deletion** (ou remoção de linhas)\n2. **imputação por KNN** (ou K-Nearest Neighbors)\n\n*Explicação*: A remoção de linhas elimina qualquer instância com dados nulos, perdendo informação. A imputação por vizinhos (KNN) preenche a lacuna com a média/moda ponderada das instâncias mais parecidas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No KNIME, o nodo ____________ divide os dados de entrada entre treino e teste. Para garantir que cada subconjunto tem a mesma distribuição de classes do target, ativamos a amostragem ____________.",
+      "solucao": "As palavras em falta são:\n1. **Partitioning**\n2. **estratificada** (ou stratified sampling)\n\n*Explicação*: O nodo Partitioning separa o fluxo de dados em duas partes (geralmente Hold-out). A estratificação assegura o equilíbrio de classes do atributo dependente entre os conjuntos de treino e teste."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A distância ____________ mede a menor distância linear em linha reta entre dois pontos (distância euclidiana), enquanto a distância ____________ calcula a soma das distâncias em eixos ortogonais.",
+      "solucao": "As palavras em falta são:\n1. **Euclidiana**\n2. **de Manhattan**\n\n*Explicação*: A distância Euclidiana usa a hipotenusa ($L_2$ norm), enquanto a de Manhattan soma as diferenças absolutas nos eixos cartesianos ($L_1$ norm)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão linear encontra os melhores coeficientes minimizando a soma dos ____________ quadráticos. A métrica que avalia o ajustamento e varia de 0 a 1 chama-se ____________.",
+      "solucao": "As palavras em falta são:\n1. **resíduos** (ou erros)\n2. **R-squared** (ou R² / coeficiente de determinação)\n\n*Explicação*: A regressão de mínimos quadrados (OLS) minimiza os erros de previsão (resíduos) ao quadrado. O $R^2$ avalia a percentagem da variância dos dados capturada pela equação estimada."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas redes recorrentes (RNN), a função de ativação mais utilizada no estado oculto para evitar saturação rápida e permitir valores negativos é a ____________, ao passo que a saída de classificação binária utiliza a ____________.",
+      "solucao": "As palavras em falta são:\n1. **tanh** (tangente hiperbólica)\n2. **sigmoide** (ou logística)\n\n*Explicação*: A tangente hiperbólica ($tanh$) centra as ativações em zero e varia entre $[-1, 1]$, prevenindo desvios nas RNNs. A sigmoide é reservada para a saída de probabilidade binária $[0, 1]$."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Association Rule Learner (Apriori Dialog Configuration)       |\n+--------------------------------------------------------------+\n| Min support:    10%                                          |\n| Min confidence: 80%                                          |\n|                                                              |\n| [X] Sort rules by: Lift                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo de configuração acima. Se aumentarmos o valor do 'Min support' para 15%, o número de regras de associação geradas pelo nodo irá aumentar.",
+      "solucao": 1,
+      "explicacao": "Falso. Aumentar o suporte mínimo torna o filtro mais rigoroso, o que reduz (ou mantém igual) o número de regras geradas, pois menos itemsets conseguirão atingir o novo limite."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Association Rule Learner (Apriori Dialog Configuration)       |\n+--------------------------------------------------------------+\n| Min support:    10%                                          |\n| Min confidence: 80%                                          |\n|                                                              |\n| [X] Sort rules by: Lift                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo de configuração acima. A opção 'Min confidence: 80%' garante que todas as regras de associação geradas tenham uma precisão preditiva (confiança) de pelo menos 80%.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O parâmetro de confiança mínima atua como filtro que descarta qualquer regra cuja probabilidade condicional P(B|A) seja inferior a 80%."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Association Rule Learner (Apriori Dialog Configuration)       |\n+--------------------------------------------------------------+\n| Min support:    10%                                          |\n| Min confidence: 80%                                          |\n|                                                              |\n| [X] Sort rules by: Lift                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo de configuração acima. Ordenar as regras por 'Lift' serve para organizar os resultados colocando as regras com maior independência estatística no topo.",
+      "solucao": 1,
+      "explicacao": "Falso. O Lift mede a força da associação: valores altos de Lift representam regras com elevada dependência positiva. A ordenação coloca as regras mais fortes no topo, e não as mais independentes (cujo Lift seria próximo de 1.0)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Association Rule Learner (Apriori Dialog Configuration)       |\n+--------------------------------------------------------------+\n| Min support:    10%                                          |\n| Min confidence: 80%                                          |\n|                                                              |\n| [X] Sort rules by: Lift                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo de configuração acima. O suporte mínimo de 10% indica que os itens da regra têm de aparecer em pelo menos 10% de todas as transações da base de dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O suporte da regra representa a probabilidade conjunta P(A e B), exigindo que a coocorrência ocorra em pelo menos 10% das linhas do dataset."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Association Rule Learner (Apriori Dialog Configuration)       |\n+--------------------------------------------------------------+\n| Min support:    10%                                          |\n| Min confidence: 80%                                          |\n|                                                              |\n| [X] Sort rules by: Lift                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo de configuração acima. Uma regra gerada por esta configuração que apresente um valor de Lift igual a 0.5 é considerada uma regra estatisticamente vantajosa e de forte associação positiva.",
+      "solucao": 1,
+      "explicacao": "Falso. Um Lift de 0.5 (inferior a 1.0) representa uma correlação negativa entre as variáveis, indicando que a ocorrência de um item diminui a probabilidade do outro ocorrer."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Association Rule Learner (Apriori Dialog Configuration)       |\n+--------------------------------------------------------------+\n| Min support:    10%                                          |\n| Min confidence: 80%                                          |\n|                                                              |\n| [X] Sort rules by: Lift                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo de configuração acima. Se definirmos o 'Min confidence' para 120%, o nodo gerará regras que ocorrem com frequência superior ao total de transações.",
+      "solucao": 1,
+      "explicacao": "Falso. A confiança é um rácio matemático delimitado no intervalo $[0, 1]$ ($0\\%$ a $100\\%$). Uma configuração de 120% é impossível e causará um erro de parametrização no KNIME."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| K-Means Node Configuration (KNIME)                           |\n+--------------------------------------------------------------+\n| Number of clusters (k): 5                                    |\n| Max number of iterations: 99                                 |\n|                                                              |\n| Distance Measure:                                            |\n| (X) Euclidean Distance                                       |\n| ( ) Manhattan Distance                                       |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo acima. O algoritmo K-Means gerará exatamente 5 partições (clusters) independentes nos dados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O parâmetro k está definido como 5, instruindo o algoritmo a procurar e estabilizar 5 centróides."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| K-Means Node Configuration (KNIME)                           |\n+--------------------------------------------------------------+\n| Number of clusters (k): 5                                    |\n| Max number of iterations: 99                                 |\n|                                                              |\n| Distance Measure:                                            |\n| (X) Euclidean Distance                                       |\n| ( ) Manhattan Distance                                       |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo acima. Se o algoritmo não convergir após 99 iterações, a execução terminará e o nodo emitirá um erro sem gerar clusters.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means para na convergência (estabilização dos centróides) ou ao atingir o limite máximo de iterações (99), devolvendo a melhor partição obtida até ao momento."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| K-Means Node Configuration (KNIME)                           |\n+--------------------------------------------------------------+\n| Number of clusters (k): 5                                    |\n| Max number of iterations: 99                                 |\n|                                                              |\n| Distance Measure:                                            |\n| (X) Euclidean Distance                                       |\n| ( ) Manhattan Distance                                       |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo acima. O nodo utiliza a distância de Manhattan para calcular a proximidade dos pontos aos centróides.",
+      "solucao": 1,
+      "explicacao": "Falso. A opção marcada é a distância Euclidiana (Euclidean Distance), que mede a distância linear clássica."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| K-Means Node Configuration (KNIME)                           |\n+--------------------------------------------------------------+\n| Number of clusters (k): 5                                    |\n| Max number of iterations: 99                                 |\n|                                                              |\n| Distance Measure:                                            |\n| (X) Euclidean Distance                                       |\n| ( ) Manhattan Distance                                       |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo acima. O algoritmo K-Means configurado desta forma é adequado para agrupar instâncias contendo maioritariamente atributos qualitativos nominais.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means recorre a cálculos de distância numérica contínua (como a Euclidiana). Atributos qualitativos nominais não possuem ordem ou distância linear real, tornando o K-Means inadequado para esses dados sem pré-processamento."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| K-Means Node Configuration (KNIME)                           |\n+--------------------------------------------------------------+\n| Number of clusters (k): 5                                    |\n| Max number of iterations: 99                                 |\n|                                                              |\n| Distance Measure:                                            |\n| (X) Euclidean Distance                                       |\n| ( ) Manhattan Distance                                       |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo acima. O K-Means necessita de uma semente aleatória para a inicialização dos centróides de forma a garantir a repetibilidade dos clusters gerados.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O K-Means inicia os centróides de forma aleatória. Sem fixação da semente (random seed), execuções diferentes podem resultar em agrupamentos finais distintos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| K-Means Node Configuration (KNIME)                           |\n+--------------------------------------------------------------+\n| Number of clusters (k): 5                                    |\n| Max number of iterations: 99                                 |\n|                                                              |\n| Distance Measure:                                            |\n| (X) Euclidean Distance                                       |\n| ( ) Manhattan Distance                                       |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere o diálogo acima. Aumentar o parâmetro 'Max number of iterations' para 500 irá alterar garantidamente os clusters finais se o algoritmo já tiver convergido na iteração 20.",
+      "solucao": 1,
+      "explicacao": "Falso. Se o algoritmo atingiu a estabilização (convergência) na iteração 20, as iterações adicionais não produzirão qualquer efeito estrutural nem alteração de pesos nos clusters."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No algoritmo de retropropagação (backpropagation), o cálculo das derivadas parciais do erro inicia-se nos pesos da camada de entrada progredindo em direção à camada de saída.",
+      "solucao": 1,
+      "explicacao": "Falso. O erro é avaliado na camada de saída (compara a previsão com o valor real) e as derivadas propagam-se para trás (backwards) em direção à camada de entrada."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A medida Simple Matching Coefficient (SMC) ignora as concordâncias do tipo 0-0, enquanto o Índice de Jaccard inclui-as tanto no numerador como no denominador da fórmula.",
+      "solucao": 1,
+      "explicacao": "Falso. É precisamente o oposto: o SMC considera as ausências mútuas (0-0) no numerador e denominador. Jaccard desconsidera-as, focando-se apenas na união e interseção de presenças."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia SEMMA difere da CRISP-DM por não incluir fases explícitas dedicadas à compreensão estratégica do negócio nem à implementação em produção dos modelos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A SEMMA foca-se estritamente nas vertentes estatísticas e de engenharia de modelação de dados."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A discretização por igual largura (equal width) garante que cada intervalo contenha exatamente o mesmo número de registos do dataset.",
+      "solucao": 1,
+      "explicacao": "Falso. A discretização por igual largura divide a amplitude máxima em intervalos simétricos, variando a frequência de cada um. Quem garante frequências idênticas é a discretização por igual frequência."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O neurónio biológico inspira a estrutura conexionista: as dendrites recebem os sinais elétricos, o corpo celular realiza a integração e o axónio propaga a ativação através das sinapses.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Trata-se da correspondência funcional biológica usada nas Redes Neuronais Artificiais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A medida de qualidade Gini Index avalia a impureza de uma divisão em problemas de regressão contínua através do desvio absoluto médio.",
+      "solucao": 1,
+      "explicacao": "Falso. O Gini Index é uma medida de impureza qualitativa (classes categóricas) usada na classificação. Para regressão, usam-se métricas de redução de variância ou erro quadrado."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo Random Forest baseia-se na criação de múltiplas árvores de decisão independentes, sendo a previsão final determinada por votação maioritária (na classificação) ou média (na regressão).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Random Forest é um método de ensemble (bagging) que combina os votos de várias árvores de decisão para mitigar o sobreajustamento."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No KNIME, a presença de uma bolinha vermelha por baixo de um nodo indica que o mesmo foi executado com sucesso e os dados de saída estão disponíveis.",
+      "solucao": 1,
+      "explicacao": "Falso. Vermelho indica erro de configuração ou falha estrutural. Bolinha amarela indica nodo configurado pronto a executar, e verde indica execução com sucesso."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A normalização por Min-Max mantém a distribuição estatística original dos dados (incluindo assimetria), alterando apenas os limites de escala para [0, 1].",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Trata-se de uma transformação linear simples que preserva as proporções e formas da distribuição original."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A presença de missing values em atributos contínuos causa a falha imediata da execução do nodo linear regression learner no KNIME caso não seja efetuado qualquer tratamento prévio.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Modelos estatísticos como a Regressão Linear no KNIME não toleram dados em falta, interrompendo a sua execução."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O desvanecimento do gradiente nas RNNs simples é agravado quando a função de ativação utilizada nos nós intermédios possui derivadas com valores máximos superiores a 10.",
+      "solucao": 1,
+      "explicacao": "Falso. O desvanecimento ocorre quando as derivadas são inferiores a 1.0 (como na sigmoide, cuja derivada máxima é 0.25), causando decréscimo exponencial. Valores superiores a 1.0 causam o problema do gradiente explodir (exploding gradient)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A sensibilidade (Recall) mede a proporção de instâncias classificadas como positivas que são realmente positivas.",
+      "solucao": 1,
+      "explicacao": "Falso. A proporção de instâncias classificadas como positivas que são realmente positivas é a Precisão (Precision). O Recall mede a proporção de instâncias positivas reais que foram corretamente identificadas."
+    }
+  ]
+}

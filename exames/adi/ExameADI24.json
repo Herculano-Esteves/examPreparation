@@ -1,0 +1,240 @@
+{
+  "titulo": "Exame Modelo 2",
+  "descricao": "Exame Modelo 2",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "No pré-processamento de dados para modelos de Machine Learning sensíveis à escala:\na) Apresente as equações matemáticas para a normalização por Min-Max e para a normalização Z-Score.\nb) Discuta a principal limitação da normalização Min-Max quando o conjunto de teste ou novos dados de produção contêm valores fora do intervalo $[Min, Max]$ observado no conjunto de treino, e explique como a normalização Z-Score lida com essa situação.",
+      "solucao": "a) **Equações Matemáticas**:\n   - **Normalização Min-Max**: $x_{norm} = \\frac{x - Min}{Max - Min}$ (mapeando a variável para a escala $[0, 1]$).\n   - **Normalização Z-Score**: $x_{norm} = \\frac{x - \\mu}{\\sigma}$, onde $\\mu$ é a média e $\\sigma$ é o desvio padrão da variável.\n\nb) **Limitação fora de gama**:\n   - Se novos dados de teste ou produção contiverem valores inferiores a $Min$ ou superiores a $Max$ usados no treino, a normalização Min-Max produzirá valores fora do intervalo $[0, 1]$ (menores que 0 ou maiores que 1). Isso pode afetar gravemente modelos que assumem limites estritos (como algumas redes neuronais ou funções de ativação).\n   - A **Z-Score** não possui limites superiores ou inferiores rígidos (os dados transformados mantêm-se em termos de desvios padrões em relação à média). Valores extremos de teste apenas assumirão desvios padrões maiores ou menores (ex: $+3.5$ ou $-4.2$), permitindo ao modelo acomodar e extrapolar estes novos dados de forma mais estável sem violar restrições de escala rígida."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As Redes Neuronais Recorrentes (RNN) introduzem a dimensão temporal no conexionismo:\na) Explique de que forma a recursividade temporal é representada no desdobramento (*unfolding*) da rede ao longo do tempo.\nb) Detalhe o papel do algoritmo Backpropagation Through Time (BPTT) e justifique matematicamente ou conceptualmente a ocorrência do problema do desvanecimento do gradiente (*vanishing gradient*) em sequências longas.",
+      "solucao": "a) **Unfolding e Recursividade**:\n   - No desdobramento (*unfolding*), a rede recorrente é representada como uma cadeia de células feedforward idênticas que partilham os mesmos pesos sinápticos. Cada célula no instante $t$ recebe o input atual $x_t$ e o estado oculto da célula anterior $h_{t-1}$, gerando o estado atual $h_t$ e a saída correspondente. Isso permite analisar a propagação temporal de forma linear passo a passo.\n\nb) **BPTT e Vanishing Gradient**:\n   - O **BPTT** estende o backpropagation para calcular os gradientes em relação aos pesos partilhados ao longo do tempo, acumulando as derivadas do erro desde o instante final $T$ recuando até $t=0$.\n   - A atualização de pesos no instante inicial depende de multiplicações sucessivas de gradientes intermédios (derivadas da função de ativação e matrizes de pesos). Se os gradientes das ativações intermédias (como a derivada da sigmoide, cujo máximo é 0.25) forem inferiores a 1.0, a multiplicação contínua por muitos passos temporais (ex: 50 passos) faz com que o gradiente final decresça exponencialmente em direção a zero ($0.25^{50} \\approx 0$). O ajuste dos pesos torna-se nulo e a rede perde a capacidade de aprender relações de longo prazo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No âmbito das Regras de Associação:\na) Defina e explique as métricas de Suporte (Support) e Confiança (Confidence) aplicadas a uma regra do tipo $A \\rightarrow B$.\nb) Defina a métrica de Lift e explique como o seu valor permite destrinçar uma associação estatisticamente relevante de uma mera coincidência.",
+      "solucao": "a) **Suporte e Confiança**:\n   - **Suporte**: Indica a frequência com que o conjunto contendo tanto antecedente como consequente ($A \\cup B$) ocorre em todo o dataset ($Suporte(A \\rightarrow B) = P(A \\cap B) = \\frac{n(A \\cup B)}{Total}$). Mede a relevância estatística global da regra.\n   - **Confiança**: Indica a taxa de acerto da regra, ou seja, de todas as transações que contêm $A$, qual a proporção que também contém $B$ ($Confiança(A \\rightarrow B) = P(B|A) = \\frac{Suporte(A \\cup B)}{Suporte(A)}$). Mede a fiabilidade operacional da regra.\n\nb) **Lift**:\n   - O **Lift** mede a força da regra sobre a hipótese de $A$ e $B$ serem estatisticamente independentes ($Lift(A \\rightarrow B) = \\frac{Suporte(A \\cup B)}{Suporte(A) \\times Suporte(B)} = \\frac{P(B|A)}{P(B)}$).\n   - Se $Lift = 1.0$, $A$ e $B$ são independentes (a ocorrência conjunta é coincidência).\n   - Se $Lift > 1.0$, a ocorrência de $A$ aumenta a probabilidade de $B$ ocorrer, indicando uma associação positiva relevante.\n   - Se $Lift < 1.0$, a ocorrência de $A$ diminui a probabilidade de $B$, sugerindo uma associação negativa."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. A célula vazia na coluna Score para a instância 6 e a célula vazia na coluna Age para a instância 4 constituem missing values de tipo contínuo.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ambas as colunas representam atributos numéricos e as células em branco são valores ausentes/em falta."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. O atributo IncomeCategory é um atributo numérico discreto com ordem definida.",
+      "solucao": 1,
+      "explicacao": "Falso. IncomeCategory é um atributo qualitativo ordinal (categórico com ordem: Low < Medium < High), não numérico."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. A imputação de missing values da coluna IncomeCategory pode ser feita calculando a média aritmética dos valores observados nas instâncias preenchidas.",
+      "solucao": 1,
+      "explicacao": "Falso. IncomeCategory é qualitativo (categórico), pelo que a média aritmética não pode ser calculada. Imputações adequadas seriam a moda ou modelos preditivos categóricos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. O atributo CreditApproved pode ser usado como a variável target (classe) para o treino de um classificador supervisionado.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. CreditApproved é binário discreto (0 e 1), que se enquadra na definição de classes para um problema de classificação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. A remoção da coluna CustomerID na fase de preparação é recomendada para evitar o sobreajustamento (overfitting) dos algoritmos de aprendizagem.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. IDs são chaves primárias com valores únicos sem relevância analítica para novas instâncias."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. Se aplicarmos uma discretização do atributo Score em 3 bins de igual largura, e o intervalo for definido entre $[300, 900]$, a largura de cada intervalo será exatamente de 200 pontos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Amplitude total $= 900 - 300 = 600$. Dividido por 3 bins de igual largura $= 600 / 3 = 200$ pontos por bin."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+------------+----------+----------------+--------+----------------+-------+\n|   | CustomerID | Age      | IncomeCategory | Gender | CreditApproved | Score |\n+---+------------+----------+----------------+--------+----------------+-------+\n| 1 | C-501      | 45.0     | High           | female | 1              | 850   |\n| 2 | C-502      | 18.0     | Low            | male   | 0              | 320   |\n| 3 | C-503      | 32.0     | Medium         | female | 1              | 620   |\n| 4 | C-504      |          | Medium         | male   | 1              | 480   |\n| 5 | C-505      | 25.0     |                | female | 0              | 510   |\n| 6 | C-506      | 61.0     | High           | male   | 1              |       |\n+---+------------+----------+----------------+--------+----------------+-------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. A coluna Gender é um atributo qualitativo nominal por conter categorias discretas sem ordem natural.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Gender (male, female) não assume relações ordinais inerentes."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Create Collection Column» agrupa os itens comprados por transação numa lista, que é o tipo de dados exigido pelo nodo «Association Rule Learner».",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Learner de regras de associação no KNIME requer dados organizados em coleções (collections) representando o carrinho de compras de cada transação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Association Rule Learner» implementa o algoritmo Apriori e requer a definição de limites de suporte e confiança mínimos na sua configuração.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Apriori filtra itemsets frequentes com base nos limites de suporte e confiança definidos pelo utilizador."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Rule Engine» serve para treinar e ajustar os pesos sinápticos do classificador de regras de associação.",
+      "solucao": 1,
+      "explicacao": "Falso. O Rule Engine no KNIME é usado para aplicar filtros e condições lógicas baseadas em expressões booleanas sobre tabelas de dados, e não para treinar modelos preditivos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, as regras de associação geradas pelo Learner são utilizadas para prever valores numéricos contínuos de preços futuros.",
+      "solucao": 1,
+      "explicacao": "Falso. As regras de associação identificam correlações e padrões de co-ocorrência qualitativa entre itens, não servindo para prever valores numéricos contínuos de regressão."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, se aumentarmos o suporte mínimo no nodo «Association Rule Learner», o número total de regras geradas irá garantidamente diminuir ou manter-se igual.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Um suporte mínimo mais elevado é um critério de filtragem mais restritivo, o que reduz o número de itemsets frequentes considerados e consequentemente o número de regras produzidas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, a confiança de uma regra gerada pelo nodo pode ser superior a 100% caso o consequente ocorra em todas as transações do dataset.",
+      "solucao": 1,
+      "explicacao": "Falso. A confiança representa uma probabilidade condicional ($P(B|A)$), variando estritamente entre 0 e 100%."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME Association Rules Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Create Collection Column]                                                    |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Association Rule Learner] (Apriori)                                          |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Rule Engine] ──────────────────────► [Table Writer]                          |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o workflow está incompleto porque falta introduzir um nodo de validação cruzada para avaliar a exatidão das regras de associação.",
+      "solucao": 1,
+      "explicacao": "Falso. Regras de associação utilizam métricas estatísticas descritivas (Lift, confiança, suporte) e não se aplicam no paradigma de modelação supervisionada clássica que exige cross-validation ou conjuntos de treino/teste independentes."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "O nodo «RProp MLP Learner» configurado segundo o diálogo acima criará uma rede neuronal multicamada composta por exatamente duas camadas ocultas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O parâmetro 'Number of hidden layers' está configurado como 2."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Segundo o diálogo acima, a rede neuronal criada terá exatamente 5 neurónios na sua camada de entrada.",
+      "solucao": 1,
+      "explicacao": "Falso. O valor 5 corresponde ao número de neurónios por camada oculta (hidden layer). O número de neurónios de entrada depende do número de atributos fornecidos no fluxo de dados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Segundo o diálogo acima, a rede neuronal terá exatamente 4 camadas no total (incluindo entrada, ocultas e saída).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A rede terá 1 camada de entrada + 2 camadas ocultas + 1 camada de saída, totalizando exatamente 4 camadas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "O parâmetro 'Max number of iterations' definido como 500 limita o número de ciclos (épocas) de treino do algoritmo de retropropagação do erro.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Representa o limite máximo de passagens (epochs) sobre o dataset para ajuste de pesos sinápticos durante o treino."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "O nodo «RProp MLP Learner» utiliza o algoritmo RProp (Resilient Backpropagation) para atualizar os pesos sinápticos da rede neuronal de forma estável.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. RProp é uma variação eficiente do algoritmo de backpropagation baseada apenas no sinal do gradiente para atualização de pesos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "A topologia de rede configurada acima é recomendada para lidar com dependências temporais complexas em sequências muito longas.",
+      "solucao": 1,
+      "explicacao": "Falso. O MLP (Multi-Layer Perceptron) é uma rede feedforward sem recursividade, não sendo adequada para dados sequenciais ou séries temporais longas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| RProp MLP Learner (KNIME Node Configuration Dialog)          |\n+--------------------------------------------------------------+\n| Target Column: [Survived]                                    |\n|                                                              |\n| Neural Network Topology:                                     |\n| Number of hidden layers: 2                                   |\n| Neurons per hidden layer: 5                                  |\n| (Topology layout: 2 layers of 5 neurons each -> [5, 5])      |\n|                                                              |\n| Parameters:                                                  |\n| [X] Max number of iterations: 500                            |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Se o parâmetro 'Max number of iterations' for alterado para 1000, o número total de neurónios na camada de saída da rede será duplicado.",
+      "solucao": 1,
+      "explicacao": "Falso. A alteração de iterações afeta apenas a duração do treino, não alterando a topologia da rede."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Inteligência Artificial, os algoritmos baseados em Soft Computing aceitam soluções parciais ou aproximadas como corretas para viabilizar a resolução de problemas complexos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Soft Computing lida com tolerância à imprecisão, incerteza e aproximações, facilitando a resolução de problemas NP-difíceis."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A distância de Manhattan mede a distância entre dois pontos calculando a soma das diferenças absolutas das suas coordenadas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A fórmula da distância de Manhattan é $d(x,y) = \\sum |x_i - y_i|$, correspondendo a trajetórias ortogonais."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo K-Means é um exemplo de técnica de aprendizagem supervisionada para classificação de classes qualitativas.",
+      "solucao": 1,
+      "explicacao": "Falso. K-Means é um algoritmo de clustering (aprendizagem não supervisionada) focado no agrupamento de dados sem classes pré-definidas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As redes recorrentes GRU (Gated Recurrent Units) reduzem a degradação temporal da memória em comparação com as RNNs simples, exigindo contudo menor esforço computacional do que as LSTMs.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As GRUs possuem menos portas e simplificam os estados de célula e oculto, acelerando as operações matemáticas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A discretização por igual frequência divide o atributo numérico em intervalos com amplitudes físicas de mesma largura.",
+      "solucao": 1,
+      "explicacao": "Falso. A discretização por igual frequência divide os dados em bins contendo a mesma quantidade de instâncias, variando a sua largura. Quem divide em larguras físicas iguais é a discretização de igual largura."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O desvio padrão Z-Score é obtido subtraindo a média da variável ao valor do registo e dividindo o resultado pelo desvio padrão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. É a definição matemática exata da normalização Z-Score."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia SEMMA é focada na perspetiva organizacional e de negócio, iniciando-se sempre com reuniões de definição de objetivos de negócio.",
+      "solucao": 1,
+      "explicacao": "Falso. Quem foca a fase inicial no negócio é a CRISP-DM (fase Business Understanding). A SEMMA inicia-se diretamente com a fase técnica de amostragem de dados (Sample)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A métrica de distância Simple Matching Coefficient (SMC) é preferível à de Jaccard quando a ausência conjunta de uma característica (0-0) não tem relevância analítica.",
+      "solucao": 1,
+      "explicacao": "Falso. Quando a ausência conjunta não tem importância, usa-se o Índice de Jaccard, pois este ignora a contagem $f_{00}$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regra de Hebb (Hebbian Learning Rule) de 1949 é uma regra de aprendizagem não supervisionada baseada na ativação correlacionada de nós adjacentes.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regra de Hebb assenta no princípio conexionista clássico: neurónios que disparam juntos, reforçam a ligação sináptica entre si."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo de árvore de decisão C4.5 utiliza o Ganho de Informação (Information Gain) em vez do rácio de ganho de informação (Gain Ratio) para selecionar atributos preditores.",
+      "solucao": 1,
+      "explicacao": "Falso. O C4.5 utiliza o Gain Ratio (Rácio de Ganho de Informação) para corrigir a tendência do Information Gain de favorecer atributos com muitas categorias únicas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A função de ativação Sigmoide mapeia valores de ativação de entrada para o intervalo $[-1, 1]$.",
+      "solucao": 1,
+      "explicacao": "Falso. A função Sigmoide mapeia para o intervalo $[0, 1]$. Quem mapeia para o intervalo $[-1, 1]$ é a função tangente hiperbólica (tanh)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em KNIME, o nodo «Partitioning» permite dividir o fluxo de dados em conjuntos de treino e teste, sendo a ativação da opção 'Use random seed' essencial para assegurar a repetibilidade das experiências.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Fixar a semente aleatória garante que a divisão das partições é sempre rigorosamente idêntica a cada execução."
+    }
+  ]
+}

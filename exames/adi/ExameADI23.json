@@ -1,0 +1,240 @@
+{
+  "titulo": "Exame Modelo 1",
+  "descricao": "Exame Modelo 1",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "No contexto do desenvolvimento de modelos de classificação em Machine Learning:\na) Defina as métricas de Precisão (Precision) e Sensibilidade (Recall/Sensitivity), apresentando as suas fórmulas com base na Matriz de Confusão.\nb) Explique de que forma um forte desequilíbrio de classes (ex: 95% de exemplos da classe A e 5% da classe B) afeta a métrica de Exatidão (Accuracy) e por que razão o F1-Score é mais adequado neste cenário.",
+      "solucao": "a) **Definição e Fórmulas**:\n   - **Precisão (Precision)**: Proporção de instâncias realmente positivas de entre todas as que o modelo classificou como positivas ($VP / (VP + FP)$). Avalia a fiabilidade das previsões positivas.\n   - **Sensibilidade (Recall / Sensitivity)**: Proporção de instâncias positivas reais que foram corretamente identificadas pelo classificador ($VP / (VP + FN)$). Avalia a capacidade de cobertura da classe de interesse.\n\nb) **Efeito do desequilíbrio de classes**:\n   - A **Exatidão (Accuracy)** mede simplesmente a taxa global de acertos ($ (VP + VN) / Total $). Se o dataset contiver 95% de classe A, um classificador ingénuo que preveja sempre a classe A obterá 95% de exatidão, apesar de não conseguir identificar nenhuma instância da classe minoritária B (Recall de B = 0%).\n   - O **F1-Score** é a média harmónica entre a precisão e a sensibilidade ($2 \\times \\frac{Precisão \\times Sensibilidade}{Precisão + Sensibilidade}$). Esta métrica penaliza desequilíbrios acentuados entre as duas: se a precisão ou o recall forem muito baixos (como no caso do classificador ingénuo), o F1-Score desce drasticamente, servindo como um melhor indicador de qualidade global em dados desequilibrados."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No domínio da Aprendizagem Não Supervisionada:\na) Distinga a aplicação das métricas Simple Matching Coefficient (SMC) e Índice de Jaccard no cálculo da similaridade entre registos binários.\nb) Compare os algoritmos K-Means e K-Medoids, explicando qual o impacto da presença de valores atípicos (outliers) na escolha entre ambos.",
+      "solucao": "a) **SMC vs Jaccard**:\n   - **SMC (Simple Matching Coefficient)**: Mede a proporção de concordâncias (tanto presenças 1-1 como ausências 0-0) sobre o total de atributos ($ (f_{11} + f_{00}) / (f_{11} + f_{01} + f_{10} + f_{00}) $). É adequado quando a presença e a ausência de um atributo têm igual importância.\n   - **Índice de Jaccard**: Despreza as ausências mútuas ($f_{00}$), calculando a proporção de concordâncias positivas sobre o número de atributos onde pelo menos um dos registos tem valor positivo ($ f_{11} / (f_{11} + f_{01} + f_{10}) $). É adequado quando a ausência conjunta de uma característica não traz informação relevante (ex: dois clientes que não compraram o mesmo produto).\n\nb) **K-Means vs K-Medoids face a Outliers**:\n   - O **K-Means** define o centro de cada cluster (centróide) como a média geométrica dos seus pontos. A média é altamente sensível a valores atípicos (*outliers*), que podem deslocar o centróide para longe da maioria dos dados do cluster.\n   - O **K-Medoids** define o centro (medóide) como um dos registos reais presentes no cluster que minimiza a soma das distâncias para os outros pontos. Por usar registos reais em vez de médias, o K-Medoids é muito mais robusto à presença de *outliers*."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As metodologias CRISP-DM e SEMMA fornecem diretrizes para guiar o ciclo de vida de projetos de Data Mining:\na) Discuta a principal diferença estrutural entre as duas no que toca ao foco no negócio e à colocação de modelos em produção (deployment).\nb) Identifique qual a fase da CRISP-DM que corresponde à fase 'Modify' do ciclo SEMMA, fundamentando a sua resposta.",
+      "solucao": "a) **Foco no Negócio e Deployment**:\n   - A **CRISP-DM** possui um caráter iterativo e integrador focado no negócio, iniciando-se na fase de *Business Understanding* (Compreensão do Negócio) e terminando na fase de *Deployment* (Implementação/Produção), garantindo a ligação entre a técnica e os objetivos organizacionais.\n   - A **SEMMA** é uma metodologia eminentemente técnica desenhada pelo SAS Institute. O seu ciclo foca-se estritamente na exploração estatística e na modelação de dados (Sample, Explore, Modify, Model, Assess), não contemplando formalmente etapas de definição de negócio na entrada nem etapas integradas de deployment na saída.\n\nb) **Correspondência de Fases**:\n   - A fase **Modify** do ciclo SEMMA corresponde essencialmente à fase de **Data Preparation (Preparação de Dados)** na CRISP-DM. Ambas envolvem a seleção de variáveis, limpeza de ruído, transformação de dados (ex: normalização, discretização) e tratamento de valores em falta, preparando a matriz de dados que servirá de entrada direta para os algoritmos de modelação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. A célula vazia na coluna Fare para a passageira da linha 3 e a célula vazia na coluna Age para o passageiro da linha 4 constituem valores em falta (missing values).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Células vazias em colunas numéricas de tabelas de dados representam valores ausentes ou não registados, designando-se por missing values."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. O atributo Ticket é um exemplo de atributo numérico contínuo com assimetria positiva.",
+      "solucao": 1,
+      "explicacao": "Falso. O atributo Ticket é do tipo categórico/alfanumérico (strings), visto conter códigos mistos com letras e números (como 'PC 1759')."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. Para aplicar modelos baseados em Árvores de Decisão, é obrigatório substituir primeiro a célula vazia da coluna Age, sob pena de o algoritmo KNIME falhar por completo.",
+      "solucao": 1,
+      "explicacao": "Falso. Algoritmos de Árvore de Decisão no KNIME conseguem tratar missing values de forma nativa através de ramificações secundárias (surrogate splits) ou ignorando essas instâncias em testes específicos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. O atributo PassengerId deve ser utilizado como variável preditora na fase de modelação, pois possui valores únicos que facilitam a criação de regras.",
+      "solucao": 1,
+      "explicacao": "Falso. Atributos identificadores (IDs) devem ser removidos na fase de preparação, pois contêm valores sequenciais únicos sem qualquer poder preditivo para novos dados (causam sobreajustamento extremo)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. O atributo Survived atua como a classe ou variável target para a criação de um modelo supervisionado de classificação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Survived é um atributo discreto contendo classes qualitativas codificadas (0 e 1), o que o torna a variável dependente ideal para problemas de classificação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. Se aplicarmos uma discretização por igual largura na coluna Age, os passageiros das linhas 1 (29 anos) e 3 (31 anos) ficarão garantidamente no mesmo bin se a largura definida for de 10 anos.",
+      "solucao": 1,
+      "explicacao": "Falso. O uso da palavra 'garantidamente' invalida a afirmação. Na discretização por igual largura, os limites dos intervalos dependem estritamente dos valores mínimos e máximos da coluna. Se o algoritmo gerar intervalos padronizados de dezenas (ex: $[20, 30[$ e $[30, 40[$), o passageiro de 29 anos ficará num bin e o de 31 anos ficará no bin seguinte, sendo separados por uma fronteira de corte."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+---+-------------+----------+--------+---------+--------+--------+--------+\n|   | PassengerId | Survived | Pclass | Ticket  | Sex    | Age    | Fare   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n| 1 | 101         | 1        | 1      | PC 1759 | female | 29.0   | 71.28  |\n| 2 | 102         | 0        | 3      | 350406  | male   | 2.0    | 7.92   |\n| 3 | 103         | 1        | 3      | 310129  | female | 31.0   |        |\n| 4 | 104         | 0        | 2      | 244373  | male   |        | 13.00  |\n| 5 | 105         | 1        | 1      | 113798  | male   | 35.0   | 53.10  |\n| 6 | 106         | 0        | 3      | 347082  | male   | 47.0   | 8.05   |\n+---+-------------+----------+--------+---------+--------+--------+--------+\n```",
+      "pergunta": "Considere o excerto do dataset acima. Se decidirmos preencher os missing values da coluna Age com a média da idade de todos os passageiros, estamos a realizar uma técnica de imputação.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A imputação de dados consiste em preencher valores em falta utilizando estimativas estatísticas baseadas nos restantes dados disponíveis (como a média, mediana ou moda)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Normalizer» é utilizado para reescalar os atributos numéricos e evitar que atributos com maiores magnitudes dominem o cálculo de distância no K-Means.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O algoritmo K-Means calcula distâncias Euclidianas, pelo que atributos com valores numéricos elevados poderiam distorcer os agrupamentos se os dados não fossem normalizados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «K-Means» recebe dados do Normalizer e gera um modelo preditivo de classificação com base em aprendizagem supervisionada.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means é um algoritmo de segmentação (clustering) que se baseia em aprendizagem não supervisionada, sem uso de classes target preditivas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, a porta inferior do nodo «K-Means» (Cluster Prototypes) envia a tabela contendo as coordenadas dos centróides finais de cada cluster para o nodo «Table Writer».",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A segunda porta de saída do nodo K-Means emite a tabela com as coordenadas centrais (protótipos/centróides) dos clusters gerados."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «Color Manager» é usado para atribuir cores distintas a cada cluster, permitindo uma melhor representação visual no «Scatter Plot».",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Color Manager mapeia cores com base nas partições geradas pelo K-Means (coluna 'Cluster') para facilitar a visualização no Scatter Plot."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, o nodo «K-Means» está configurado para determinar o número ótimo de clusters (K) de forma totalmente dinâmica e autónoma.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means exige que o utilizador parametrize previamente o número de clusters (K) que deseja obter. O nodo não descobre esse valor de forma autónoma."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, se alterarmos o nodo «Normalizer» da configuração Min-Max para Z-Score, a distância entre os pontos nos dados originais será afetada e os clusters obtidos podem mudar.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Min-Max escala os dados para $[0, 1]$, enquanto Z-Score normaliza com média 0 e desvio padrão 1. Diferentes normalizações afetam os cálculos de distância e podem produzir partições de clusters ligeiramente distintas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME K-Means Clustering Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Normalizer] (Min-Max)                                                        |\n|      │                                                                        |\n|      ▼                                                                        |\n| [K-Means] ───(Clustered Data)──► [Color Manager]                              |\n|      │                                 │                                      |\n|      │ (Cluster Prototypes)            ▼                                      |\n|      │                           [Scatter Plot]                               |\n|      ▼                                                                        |\n| [Table Writer]                                                                |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "No fluxo KNIME acima, se utilizarmos o nodo «Color Manager» para colorir o dataset original com base no atributo target antes do agrupamento, o K-Means utilizará essa cor como variável preditora principal.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Means ignora informações de cor ou classes target no agrupamento, operando puramente sobre as variáveis numéricas de entrada."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "O nodo «Decision Tree Learner» configurado segundo o diálogo acima constrói um modelo de regressão para prever valores contínuos.",
+      "solucao": 1,
+      "explicacao": "Falso. A presença da 'Class Column' configurada como 'Survived' e a medida de qualidade 'Gini Index' indicam a construção de uma árvore de classificação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Segundo o diálogo acima, a métrica utilizada para selecionar o melhor atributo para cada divisão (split) da árvore é a entropia.",
+      "solucao": 1,
+      "explicacao": "Falso. A métrica de qualidade configurada é o Gini Index (Índice Gini), e não a entropia (Gain Ratio ou Information Gain)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "A opção 'Pruning Method' configurada como 'MDL' indica que a árvore sofrerá uma poda com base no princípio Minimum Description Length (MDL) para evitar overfitting.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. MDL é uma técnica clássica de poda (pruning) que penaliza a complexidade da árvore com base na codificação da informação."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Segundo a configuração, um nó da árvore só poderá sofrer divisões adicionais se contiver pelo menos 10 registos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O parâmetro 'Min number of records per node' está fixado em 10, impedindo divisões em nós com dimensão inferior a esta tolerância."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "A opção 'Binary split' marcada força a árvore a realizar apenas divisões binárias (duas saídas) por cada nó de teste, mesmo para atributos multiclasse.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Divisões binárias forçam a partição de atributos em ramos simétricos de sim/não ou agrupamentos de categorias de dois em dois."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "A semente aleatória configurada nesta janela garante que as regras geradas pela árvore de decisão serão sempre idênticas, mesmo que mudemos a ordem das linhas de dados do dataset.",
+      "solucao": 1,
+      "explicacao": "Falso. Algoritmos de árvore de decisão clássicos (como C4.5/CART) são determinísticos no cálculo de entropia/Gini sobre o dataset disponível. No entanto, o diálogo acima não contém uma configuração de semente aleatória e a ordem ou conteúdo dos dados afeta as divisões estatísticas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Decision Tree Learner (KNIME Node Configuration Dialog)       |\n+--------------------------------------------------------------+\n| Class Column: [Survived]                                     |\n|                                                              |\n| Quality Measure: [Gini Index]                                |\n| Pruning Method:  [MDL]                                       |\n|                                                              |\n| Min number of records per node: 10                           |\n| [X] Binary split                                             |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Se a coluna target 'Survived' for substituída por uma coluna contínua de preços, o nodo Decision Tree Learner com as configurações acima falhará pois o Gini Index não é aplicável a problemas de regressão.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Gini Index é uma medida de impureza de classes categóricas. Para problemas de regressão, usam-se métricas como a redução da variância."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Em Machine Learning, os algoritmos baseados em Soft Computing (como as Redes Neuronais Artificiais) caracterizam-se pelo determinismo absoluto na sua modelação, não tolerando qualquer tipo de incerteza.",
+      "solucao": 1,
+      "explicacao": "Falso. A essência do Soft Computing é a tolerância à imprecisão, incerteza, verdade parcial e aproximação, ao contrário do Hard Computing."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo Apriori utiliza o princípio de que, se um itemset for frequente, todos os seus subconjuntos devem também ser frequentes (princípio de suporte descendente).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Este princípio é a base da poda de itens no Apriori, permitindo reduzir significativamente o espaço de pesquisa."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Uma regra de associação com valor de Lift menor que 1.0 indica que a ocorrência do antecedente tem uma associação positiva com a ocorrência do consequente.",
+      "solucao": 1,
+      "explicacao": "Falso. Um Lift menor que 1.0 indica que o antecedente e o consequente são negativamente correlacionados (a ocorrência de um diminui a probabilidade do outro)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As redes recorrentes LSTM (Long Short-Term Memory) mitigam o problema do desvanecimento do gradiente através do uso do Cell State e de portas controladas.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A presença de caminhos lineares no Cell State regulados por portas previne o desaparecimento exponencial dos gradientes ao longo do tempo."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nas Gated Recurrent Units (GRU), existem exatamente três portas: Forget Gate, Input Gate e Output Gate.",
+      "solucao": 1,
+      "explicacao": "Falso. As GRUs simplificam a LSTM e possuem apenas duas portas: Update Gate e Reset Gate."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O desvanecimento do gradiente (Vanishing Gradient) em RNNs simples faz com que a rede perca a capacidade de reter memória de longo prazo, manifestando o efeito de Short Term Memory.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O enfraquecimento exponencial do sinal do gradiente limita a influência de iterações temporais antigas sobre os pesos sinápticos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A normalização Z-Score garante que todos os valores escalados fiquem estritamente contidos entre o intervalo fechado $[0, 1]$.",
+      "solucao": 1,
+      "explicacao": "Falso. Quem garante a escala estrita $[0, 1]$ é a normalização Min-Max. A Z-Score normaliza para média zero e desvio padrão 1, podendo resultar em valores negativos ou superiores a 1."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O modelo clássico do Perceptron de camada única é perfeitamente capaz de modelar e separar linearmente a função lógica do XOR.",
+      "solucao": 1,
+      "explicacao": "Falso. O XOR é um problema não linearmente separável, pelo que o Perceptron de camada única falha no seu mapeamento."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "No algoritmo de Backpropagation das redes neuronais feedforward, o erro calculado na camada de saída é propagado para trás, ajustando os pesos a partir da camada de saída até à camada de entrada.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A retropropagação calcula as derivadas parciais do erro em cadeia no sentido inverso do fluxo de ativação."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A primeira etapa da metodologia CRISP-DM é a preparação de dados (Data Preparation), onde os dados são selecionados e limpos.",
+      "solucao": 1,
+      "explicacao": "Falso. A primeira fase da CRISP-DM é o Business Understanding (Compreensão do Negócio). A preparação de dados é a terceira fase."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O K-Medoids calcula a distância entre os pontos do dataset utilizando medoides, que são pontos centrais sintéticos não pertencentes ao conjunto de dados original.",
+      "solucao": 1,
+      "explicacao": "Falso. Os medoides no K-Medoids correspondente a registos reais existentes no dataset, ao contrário do K-Means onde os centróides são médias matemáticas abstratas (pontos sintéticos)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A medida de distância de Jaccard e o SMC variam sempre no intervalo fechado de $[0, 1]$.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Ambas as medidas de similaridade são expressas como proporções, variando entre 0 (similaridade nula) e 1 (similaridade total)."
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "titulo": "Exame Modelo 3",
+  "descricao": "Exame Modelo 3",
+  "perguntas": [
+    {
+      "tipo": "escrita",
+      "pergunta": "Nas redes recorrentes simples, o problema do ____________ do gradiente ocorre quando os gradientes diminuem exponencialmente ao longo do tempo. Para mitigar isso, as redes ____________ introduzem o Cell State e portas como a porta de esquecimento (Forget Gate).",
+      "solucao": "As palavras em falta são:\n1. **desvanecimento** (ou vanishing)\n2. **LSTM** (Long Short-Term Memory)\n\n*Explicação*: O desvanecimento do gradiente nas RNNs simples limita a sua capacidade de memória a curto prazo. As redes LSTM superam essa limitação introduzindo uma célula de memória interna (Cell State) e mecanismos de portas reguladoras."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regra de associação A -> B possui uma confiança que representa a probabilidade de ____________ dado que o antecedente ocorreu. A força estatística da regra sobre a independência dos itens é medida pelo ____________.",
+      "solucao": "As palavras em falta são:\n1. **consequente** (ou B)\n2. **Lift**\n\n*Explicação*: A confiança indica a fiabilidade da regra através da probabilidade condicional P(B|A). O Lift mede o desvio da regra em relação à independência estatística das duas variáveis."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo K-Means agrupa dados minimizando a soma das distâncias ao quadrado entre os pontos e os ____________ correspondentes. Para evitar que atributos de grande magnitude dominem a distância, é essencial realizar a ____________ de dados.",
+      "solucao": "As palavras em falta são:\n1. **centróides** (ou protótipos)\n2. **normalização**\n\n*Explicação*: O K-Means calcula distâncias euclidianas em relação aos centróides do cluster. Se os dados não forem normalizados, variáveis com escalas numéricas superiores dominam o cálculo de distâncias, distorcendo o agrupamento."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A metodologia CRISP-DM inicia-se com a fase de ____________ e encerra-se com a fase de ____________, que consiste na colocação do modelo em produção no ecossistema organizacional.",
+      "solucao": "As palavras em falta são:\n1. **Business Understanding** (ou Compreensão do Negócio)\n2. **Deployment** (ou Desenvolvimento / Implementação)\n\n*Explicação*: O CRISP-DM organiza o ciclo de vida de projetos de Data Mining em 6 fases sequenciais e iterativas, começando pelo estudo de negócio e terminando na implementação prática e operacional."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Em problemas com classes desequilibradas, a métrica de ____________ pode ser enganadora. Para equilibrar as classes no treino, podemos aplicar a técnica de ____________ (que duplica registos da classe minoritária) ou ____________ (que remove registos da classe majoritária).",
+      "solucao": "As palavras em falta são:\n1. **Exatidão** (ou Accuracy)\n2. **Oversampling**\n3. **Undersampling**\n\n*Explicação*: Num dataset desequilibrado, a Exatidão apenas reflete o acerto da classe maioritária. O oversampling e o undersampling são estratégias ao nível dos dados para contrariar esse desvio na fase de treino."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Em árvores de decisão, a métrica de qualidade configurável que mede a impureza dos nós num classificador chama-se ____________. O processo de redução do tamanho da árvore para evitar sobreajustamento designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **Índice Gini** (ou Entropia)\n2. **poda** (ou pruning)\n\n*Explicação*: O Índice Gini e a Entropia são usados para calcular a homogeneidade das partições. A poda remove ramos que adicionam pouca informação estatística, reduzindo a complexidade estrutural para evitar o sobreajustamento."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "As redes neuronais artificiais pertencem ao paradigma de ____________, caracterizado pela tolerância à incerteza e aproximação, ao passo que os algoritmos determinísticos clássicos pertencem ao ____________.",
+      "solucao": "As palavras em falta são:\n1. **Soft Computing**\n2. **Hard Computing**\n\n*Explicação*: O Soft Computing inclui redes neuronais, lógica difusa e algoritmos evolutivos, focando-se em soluções aproximadas de problemas NP-difíceis. O Hard Computing baseia-se em precisão e determinismo absoluto."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O preenchimento de valores em falta numa base de dados através de estimativas estatísticas designa-se por ____________. Se preenchermos com o valor mais comum de um atributo qualitativo nominal, estamos a usar a ____________.",
+      "solucao": "As palavras em falta são:\n1. **imputação**\n2. **moda**\n\n*Explicação*: A imputação de dados substitui valores ausentes por estimativas. Em atributos categóricos nominais, onde a média ou mediana não existem, a moda (valor mais frequente) é o estimador estatístico padrão."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "No KNIME, a validação cruzada utiliza em ciclo os nodos ____________ no início das iterações, e o nodo ____________ no fim para agregar e calcular as métricas de qualidade globais.",
+      "solucao": "As palavras em falta são:\n1. **X-Partitioner**\n2. **X-Aggregator**\n\n*Explicação*: O X-Partitioner cria as partições (folds) do Cross Validation e inicia a execução em ciclo. O X-Aggregator recebe os outputs de cada iteração de teste e junta-os para cálculo das métricas."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "Para calcular a similaridade de atributos binários onde a ausência dupla (0-0) não é relevante, utiliza-se a métrica de ____________. Quando ambas as presenças e ausências importam igualmente, a métrica adequada é o ____________.",
+      "solucao": "As palavras em falta são:\n1. **Jaccard** (ou coeficiente de Jaccard)\n2. **SMC** (Simple Matching Coefficient)\n\n*Explicação*: O SMC contabiliza as concordâncias negativas (ausências) no seu cálculo de similaridade, enquanto Jaccard foca-se estritamente em concordâncias positivas onde pelo menos um elemento apresenta o atributo."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "A regressão linear prevê valores ____________ através de uma reta ajustada, ao passo que a regressão logística utiliza uma função ____________ (sigmoide) para modelar probabilidades discretas.",
+      "solucao": "As palavras em falta são:\n1. **contínuos** (ou numéricos)\n2. **logística** (ou sigmoide)\n\n*Explicação*: A regressão linear estima valores reais infinitos (regressão), enquanto a regressão logística converte somas ponderadas em probabilidades de pertença a classes (classificação)."
+    },
+    {
+      "tipo": "escrita",
+      "pergunta": "O algoritmo de treino clássico das redes neuronais artificiais MLP, que propaga o erro de trás para a frente a fim de atualizar os pesos, designa-se por ____________.",
+      "solucao": "As palavras em falta são:\n1. **Backpropagation** (ou retropropagação)\n\n*Explicação*: O Backpropagation calcula o erro na saída da rede e utiliza a regra da cadeia para propagar esse erro no sentido inverso, atualizando os pesos sinápticos através do algoritmo de gradiente descendente."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME MLP Neural Network Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Train)──► [RProp MLP Learner]                           |\n|      │                                  │ (Model)                             |\n|      │                                  ▼                                     |\n|      └───(30% Test)──────────► [Multi Layer Perceptron Predictor]             |\n|                                         │                                     |\n|                                         ▼                                     |\n|                                   [Scorer]                                    |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Considere o fluxo KNIME acima. O nodo «Scorer» é responsável por calcular o erro de previsão de modelos de regressão, como o MAE (Mean Absolute Error) e o MSE.",
+      "solucao": 1,
+      "explicacao": "Falso. O nodo Scorer destina-se a avaliar modelos de classificação (categóricos), fornecendo a matriz de confusão, Accuracy, Precision e Recall. Para problemas de regressão contínua, utiliza-se o nodo Numeric Scorer."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME MLP Neural Network Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Train)──► [RProp MLP Learner]                           |\n|      │                                  │ (Model)                             |\n|      │                                  ▼                                     |\n|      └───(30% Test)──────────► [Multi Layer Perceptron Predictor]             |\n|                                         │                                     |\n|                                         ▼                                     |\n|                                   [Scorer]                                    |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Considere o fluxo KNIME acima. O workflow ilustra uma estratégia de validação cruzada (Cross Validation) com k-folds.",
+      "solucao": 1,
+      "explicacao": "Falso. O fluxo implementa a estratégia Hold-out, em que o dataset original é particionado estaticamente em treino (70%) e teste (30%). O Cross Validation utilizaria nodos específicos em loop (X-Partitioner / X-Aggregator)."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME MLP Neural Network Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Train)──► [RProp MLP Learner]                           |\n|      │                                  │ (Model)                             |\n|      │                                  ▼                                     |\n|      └───(30% Test)──────────► [Multi Layer Perceptron Predictor]             |\n|                                         │                                     |\n|                                         ▼                                     |\n|                                   [Scorer]                                    |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Considere o fluxo KNIME acima. O nodo «Multi Layer Perceptron Predictor» aplica as ponderações e funções de ativação do modelo MLP treinado para efetuar previsões sobre os dados de teste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Predictor recebe os coeficientes/pesos sinápticos ajustados no Learner e aplica-os aos 30% dos dados de teste para avaliar as previsões."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME MLP Neural Network Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Train)──► [RProp MLP Learner]                           |\n|      │                                  │ (Model)                             |\n|      │                                  ▼                                     |\n|      └───(30% Test)──────────► [Multi Layer Perceptron Predictor]             |\n|                                         │                                     |\n|                                         ▼                                     |\n|                                   [Scorer]                                    |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Considere o fluxo KNIME acima. O nodo «RProp MLP Learner» realiza o treino de uma rede neuronal recorrente do tipo LSTM.",
+      "solucao": 1,
+      "explicacao": "Falso. MLP (Multi-Layer Perceptron) é uma rede neuronal feedforward (sem ciclos de realimentação), ao passo que as LSTMs são redes recorrentes (RNN) desenhadas para dados sequenciais e temporais."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME MLP Neural Network Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Train)──► [RProp MLP Learner]                           |\n|      │                                  │ (Model)                             |\n|      │                                  ▼                                     |\n|      └───(30% Test)──────────► [Multi Layer Perceptron Predictor]             |\n|                                         │                                     |\n|                                         ▼                                     |\n|                                   [Scorer]                                    |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Considere o fluxo KNIME acima. A ordem com que as linhas são enviadas para o Partitioning pode afetar os conjuntos de treino e teste resultantes, a menos que uma semente aleatória estática seja definida.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Partitioning divide as amostras de forma aleatória. Fixar a semente (static seed) é o que garante a reprodutibilidade exata da experiência."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+-------------------------------------------------------------------------------+\n| KNIME MLP Neural Network Workflow                                             |\n|                                                                               |\n| [Table Reader]                                                                |\n|      │                                                                        |\n|      ▼                                                                        |\n| [Partitioning] ──(70% Train)──► [RProp MLP Learner]                           |\n|      │                                  │ (Model)                             |\n|      │                                  ▼                                     |\n|      └───(30% Test)──────────► [Multi Layer Perceptron Predictor]             |\n|                                         │                                     |\n|                                         ▼                                     |\n|                                   [Scorer]                                    |\n+-------------------------------------------------------------------------------+\n```",
+      "pergunta": "Considere o fluxo KNIME acima. O fluxo de dados do Table Reader necessita de passar por um nodo de normalização antes de entrar na rede neuronal, para garantir que as magnitudes das variáveis numéricas não afetem o ajuste dos pesos.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Embora o workflow funcione estruturalmente sem normalização, a ausência de normalização em redes neuronais de retropropagação causa instabilidade no treino e atrasa a convergência dos gradientes."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| Partitioning Mode:                                           |\n| ( ) Absolute: 100 records                                    |\n| (X) Relative: 80%                                            |\n|                                                              |\n| Sampling strategy:                                           |\n| ( ) Take first records                                       |\n| ( ) Random selection                                         |\n| (X) Stratified sampling:  [Survived]                         |\n|                                                              |\n| [X] Use random seed: 42                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere a janela de configuração acima. O particionamento está configurado para extrair uma quantidade absoluta de 80 registos para a primeira porta de saída.",
+      "solucao": 1,
+      "explicacao": "Falso. O modo está em relativo (80% dos dados totais do dataset), não se tratando de um valor estático de 80 registos."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| Partitioning Mode:                                           |\n| ( ) Absolute: 100 records                                    |\n| (X) Relative: 80%                                            |\n|                                                              |\n| Sampling strategy:                                           |\n| ( ) Take first records                                       |\n| ( ) Random selection                                         |\n| (X) Stratified sampling:  [Survived]                         |\n|                                                              |\n| [X] Use random seed: 42                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere a janela de configuração acima. A opção 'Stratified sampling' garante que a proporção de classes na coluna 'Survived' seja mantida igual tanto no conjunto de treino como no conjunto de teste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A amostragem estratificada assegura que cada partição seja representativa da distribuição da variável target, evitando distorções no treino."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| Partitioning Mode:                                           |\n| ( ) Absolute: 100 records                                    |\n| (X) Relative: 80%                                            |\n|                                                              |\n| Sampling strategy:                                           |\n| ( ) Take first records                                       |\n| ( ) Random selection                                         |\n| (X) Stratified sampling:  [Survived]                         |\n|                                                              |\n| [X] Use random seed: 42                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere a janela de configuração acima. O parâmetro 'Use random seed: 42' garante a repetibilidade dos dados de treino e teste ao longo das várias execuções do workflow.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Fixar a semente aleatória estabiliza o gerador de números pseudoaleatórios, assegurando partições idênticas em execuções sucessivas."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| Partitioning Mode:                                           |\n| ( ) Absolute: 100 records                                    |\n| (X) Relative: 80%                                            |\n|                                                              |\n| Sampling strategy:                                           |\n| ( ) Take first records                                       |\n| ( ) Random selection                                         |\n| (X) Stratified sampling:  [Survived]                         |\n|                                                              |\n| [X] Use random seed: 42                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere a janela de configuração acima. Se selecionarmos a opção 'Take first records', a divisão manterá a mesma aleatoriedade no particionamento.",
+      "solucao": 1,
+      "explicacao": "Falso. A opção 'Take first records' realiza uma partição determinista sequencial (extrai as primeiras N linhas), eliminando qualquer mecanismo de aleatoriedade."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| Partitioning Mode:                                           |\n| ( ) Absolute: 100 records                                    |\n| (X) Relative: 80%                                            |\n|                                                              |\n| Sampling strategy:                                           |\n| ( ) Take first records                                       |\n| ( ) Random selection                                         |\n| (X) Stratified sampling:  [Survived]                         |\n|                                                              |\n| [X] Use random seed: 42                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere a janela de configuração acima. A partição de saída enviará 80% dos dados para a primeira porta e os restantes 20% para a segunda porta.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O modo relativo a 80% direciona 80% dos registos para o topo (primeira porta) e os restantes 20% para a porta inferior."
+    },
+    {
+      "tipo": "boolean",
+      "cabecalho": "```\n+--------------------------------------------------------------+\n| Partitioning (KNIME Node Configuration Dialog)               |\n+--------------------------------------------------------------+\n| Partitioning Mode:                                           |\n| ( ) Absolute: 100 records                                    |\n| (X) Relative: 80%                                            |\n|                                                              |\n| Sampling strategy:                                           |\n| ( ) Take first records                                       |\n| ( ) Random selection                                         |\n| (X) Stratified sampling:  [Survived]                         |\n|                                                              |\n| [X] Use random seed: 42                                      |\n+--------------------------------------------------------------+\n```",
+      "pergunta": "Considere a janela de configuração acima. A amostragem estratificada pode ser aplicada sobre a coluna 'Survived' mesmo que esta seja numérica contínua.",
+      "solucao": 1,
+      "explicacao": "Falso. A amostragem estratificada requer classes qualitativas/discretas bem definidas para poder balancear os subconjuntos de forma correta. Não se aplica nativamente a alvos contínuos."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Nas Gated Recurrent Units (GRU), o Update Gate controla quanta informação do estado anterior é mantida no estado atual da rede recorrente.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. O Update Gate nas GRUs acumula as funções da porta de esquecimento (Forget) e de entrada (Input) das LSTMs clássicas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A normalização Z-Score é fortemente influenciada por outliers na determinação dos limites mínimos e máximos da escala final transformadora.",
+      "solucao": 1,
+      "explicacao": "Falso. Z-Score calcula média e desvio padrão, não possuindo limites estritos em $[0, 1]$. Quem depende estritamente do valor mínimo e máximo absolutos (sendo assim sensível a outliers) é a normalização Min-Max."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A metodologia SEMMA inclui as fases de Sample (Amostragem), Explore (Exploração), Modify (Modificação), Model (Modelação) e Assess (Avaliação).",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Constitui o acrónimo exato das 5 fases da metodologia técnica desenvolvida pelo SAS Institute."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O Simple Matching Coefficient (SMC) resulta sempre num valor idêntico ou superior ao Índice de Jaccard para um par de instâncias binárias.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Como o SMC adiciona a contagem de concordâncias negativas ($f_{00}$) tanto ao numerador como ao denominador, a sua similaridade é sempre maior ou igual à de Jaccard, a qual desconsidera essas ausências conjuntas."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A regra de aprendizagem do Perceptron de camada única ajusta os pesos sinápticos somando a entrada correspondente multiplicada pelo erro da previsão e pela taxa de aprendizagem.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. A regra clássica de atualização é: $W_i = W_i + \\eta \\times (y - \\hat{y}) \\times x_i$."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A função lógica do XOR é classificada como linearmente separável porque pode ser resolvida por um único neurónio com função de ativação linear.",
+      "solucao": 1,
+      "explicacao": "Falso. O XOR é clássico por ser não linearmente separável, exigindo pelo menos uma camada oculta intermédia (MLP) para o resolver."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "Um valor de Lift menor que 1.0 numa regra de associação indica que a presença do antecedente favorece e aumenta a presença conjunta do consequente.",
+      "solucao": 1,
+      "explicacao": "Falso. Um Lift menor que 1.0 traduz uma associação negativa (a presença de A diminui a probabilidade de ocorrência de B)."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo K-Medoids define o ponto central de cada cluster como a média geométrica ponderada de todas as instâncias pertencentes ao grupo.",
+      "solucao": 1,
+      "explicacao": "Falso. O K-Medoids define o centro (medoide) escolhendo um registo real existente no dataset. Quem define o centro como a média geométrica dos pontos é o K-Means."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "As redes LSTM possuem três portas distintas (Forget, Input e Output Gates) reguladas por funções de ativação do tipo sigmoide.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. As portas utilizam a função sigmoide (valores em $[0, 1]$) para decidir quanta informação deixam ou não passar."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "O algoritmo Apriori gera regras de associação descartando todos os itemsets cujo suporte seja inferior ao limite mínimo estipulado pelo utilizador.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Trata-se do princípio de poda do Apriori: se um itemset não é frequente, os seus superconjuntos também não o serão."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A fase de Exploração de Dados destina-se a efetuar transformações estruturais de dados como a imputação de missing values e o cálculo de distâncias.",
+      "solucao": 1,
+      "explicacao": "Falso. A imputação de missing values faz parte da fase de **Preparação de Dados**. A fase de Exploração foca-se na compreensão das propriedades estatísticas e visualizações preliminares."
+    },
+    {
+      "tipo": "boolean",
+      "pergunta": "A exatidão (Accuracy) de um classificador binário calcula-se dividindo o número total de previsões corretas pelo número total de instâncias do conjunto de teste.",
+      "solucao": 0,
+      "explicacao": "Verdadeiro. Formula-se como $(VP + VN) / (VP + VN + FP + FN)$."
+    }
+  ]
+}

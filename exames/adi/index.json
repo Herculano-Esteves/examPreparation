@@ -105,6 +105,41 @@
     "perguntas_count": 45
   },
   {
+    "id": "ExameADI23",
+    "titulo": "Exame Modelo 1",
+    "descricao": "Exame Modelo 1",
+    "path": "exames/adi/ExameADI23.json",
+    "perguntas_count": 36
+  },
+  {
+    "id": "ExameADI24",
+    "titulo": "Exame Modelo 2",
+    "descricao": "Exame Modelo 2",
+    "path": "exames/adi/ExameADI24.json",
+    "perguntas_count": 36
+  },
+  {
+    "id": "ExameADI25",
+    "titulo": "Exame Modelo 3",
+    "descricao": "Exame Modelo 3",
+    "path": "exames/adi/ExameADI25.json",
+    "perguntas_count": 36
+  },
+  {
+    "id": "ExameADI26",
+    "titulo": "Exame Modelo 4",
+    "descricao": "Exame Modelo 4",
+    "path": "exames/adi/ExameADI26.json",
+    "perguntas_count": 36
+  },
+  {
+    "id": "ExameADI27",
+    "titulo": "KNIME Workflows - Treino",
+    "descricao": "KNIME Workflows - Treino",
+    "path": "exames/adi/ExameADI27.json",
+    "perguntas_count": 42
+  },
+  {
     "id": "ExameADI3",
     "titulo": "Exame ADI 3",
     "descricao": "Exame completo de época especial de Aprendizagem e Decisão Inteligentes (ADI) abrangendo métricas de distância (SMC e Jaccard), avaliação com matriz de confusão, regras de associação (Lift, Leverage e Convicção), algoritmos C4.5 e arquiteturas RNN/LSTM.",
