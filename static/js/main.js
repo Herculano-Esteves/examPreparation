@@ -1,7 +1,7 @@
 import { State } from './state.js';
 import { elements } from './elements.js';
 import { JSON_INSTRUCTIONS } from './constants.js';
-import { showToast } from './utils.js';
+import { showToast, clampCardDescriptions } from './utils.js';
 import { loadLocalData, saveLocalCadeiras, saveLocalExames, clearAllLocalData } from './storage.js';
 import { validateExamJSON } from './validation.js';
 import { transitionTo } from './navigation.js';
@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setupLocalCreationListeners();
     loadLocalData(State);
     fetchCadeiras();
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            clampCardDescriptions(elements.cadeirasGrid);
+            clampCardDescriptions(elements.examsGrid);
+        }, 100);
+    });
 });
 
 // Setup Events
@@ -33,9 +42,17 @@ function setupEventListeners() {
         nextQuestion();
     });
 
-    elements.btnCopy.addEventListener('click', () => {
-        copyQuestionToClipboard();
-    });
+    if (elements.btnCopy) {
+        elements.btnCopy.addEventListener('click', () => {
+            copyQuestionToClipboard(false);
+        });
+    }
+
+    if (elements.btnCopyAnswer) {
+        elements.btnCopyAnswer.addEventListener('click', () => {
+            copyQuestionToClipboard(true);
+        });
+    }
 
     elements.btnBackMenu.addEventListener('click', () => {
         transitionTo('menu');
@@ -49,6 +66,20 @@ function setupEventListeners() {
         elements.btnSettings.addEventListener('click', () => {
             State.previousScreenBeforeSettings = State.currentScreen;
             transitionTo('settings');
+        });
+    }
+
+    const btnAddCadeiraTop = document.getElementById('btn-add-cadeira-top');
+    if (btnAddCadeiraTop) {
+        btnAddCadeiraTop.addEventListener('click', () => {
+            transitionTo('addCadeira');
+        });
+    }
+
+    const btnAddExameTop = document.getElementById('btn-add-exame-top');
+    if (btnAddExameTop) {
+        btnAddExameTop.addEventListener('click', () => {
+            transitionTo('addExame');
         });
     }
 
@@ -69,14 +100,21 @@ function setupEventListeners() {
         btnClearStorage.addEventListener('click', () => {
             if (confirm('Tem a certeza absoluta de que deseja apagar todas as cadeiras e exames criados localmente? Esta ação não pode ser desfeita.')) {
                 clearAllLocalData(State);
-                
+
                 showToast('Todos os dados locais foram apagados!', elements);
                 State.activeCadeira = null;
-                
-                document.getElementById('app-logo-icon').className = 'fa-solid fa-graduation-cap app-logo-icon';
-                document.getElementById('app-main-title').textContent = 'Simulador de Exames';
-                document.getElementById('app-subtitle').textContent = 'Ensino Superior';
-                
+
+                const logoIcon = document.getElementById('app-logo-icon');
+                if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
+
+                const mainTitle = document.getElementById('app-main-title');
+                if (mainTitle) mainTitle.textContent = 'Simulador de Exames';
+
+                const subtitleEl = document.getElementById('app-subtitle');
+                if (subtitleEl) {
+                    subtitleEl.innerHTML = `<span class="status-dot" aria-hidden="true"></span> SISTEMA DE EXAMES`;
+                }
+
                 transitionTo('cadeiras');
                 renderCadeirasMenu();
             }
@@ -110,11 +148,19 @@ function setupLocalCreationListeners() {
 
     if (iconGrid) {
         iconGrid.querySelectorAll('.icon-option').forEach(opt => {
-            opt.addEventListener('click', () => {
+            const selectIconOpt = () => {
                 const prevSel = iconGrid.querySelector('.icon-option.selected');
                 if (prevSel) prevSel.classList.remove('selected');
                 opt.classList.add('selected');
                 selectedIcon = opt.getAttribute('data-icon');
+            };
+
+            opt.addEventListener('click', selectIconOpt);
+            opt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    selectIconOpt();
+                }
             });
         });
     }
@@ -135,7 +181,7 @@ function setupLocalCreationListeners() {
                 alert('Por favor, preencha todos os campos.');
                 return;
             }
-            
+
             const newCadeira = {
                 id: 'local_' + Date.now(),
                 nome: nome,
@@ -145,10 +191,10 @@ function setupLocalCreationListeners() {
                 isLocal: true,
                 index_path: 'local'
             };
-            
+
             State.localCadeiras.push(newCadeira);
             saveLocalCadeiras(State);
-            
+
             inputCadeiraNome.value = '';
             inputCadeiraDesc.value = '';
             showToast('Cadeira local criada com sucesso!', elements);
@@ -177,7 +223,7 @@ function setupLocalCreationListeners() {
     if (btnCancelExame) {
         btnCancelExame.addEventListener('click', () => {
             editorInput.value = '';
-            statusDiv.innerHTML = 'Editor vazio. Aguardando JSON...';
+            statusDiv.innerHTML = '[ ... ] Editor vazio. Aguardando JSON...';
             statusDiv.className = 'validation-status empty';
             State.jsonValidationErrorLine = -1;
             State.validatedExamData = null;
@@ -213,7 +259,7 @@ function setupLocalCreationListeners() {
             }
 
             editorInput.value = '';
-            statusDiv.innerHTML = 'Editor vazio. Aguardando JSON...';
+            statusDiv.innerHTML = '[ ... ] Editor vazio. Aguardando JSON...';
             statusDiv.className = 'validation-status empty';
             State.jsonValidationErrorLine = -1;
             State.validatedExamData = null;
@@ -233,10 +279,10 @@ function setupLocalCreationListeners() {
         editorInput.addEventListener('input', () => {
             const lines = editorInput.value.split('\n');
             const lineCount = Math.max(lines.length, 1);
-            
+
             const result = validateExamJSON(editorInput.value.trim());
             if (!editorInput.value.trim()) {
-                statusDiv.innerHTML = 'Editor vazio. Aguardando JSON...';
+                statusDiv.innerHTML = '[ ... ] Editor vazio. Aguardando JSON...';
                 statusDiv.className = 'validation-status empty';
                 State.jsonValidationErrorLine = -1;
                 btnSubmitExam.disabled = true;
@@ -244,7 +290,7 @@ function setupLocalCreationListeners() {
                 document.getElementById('exame-titulo').value = '';
                 document.getElementById('exame-desc').value = '';
             } else if (result.valid) {
-                statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> JSON válido e estrutura correta!';
+                statusDiv.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> [OK] JSON válido e estrutura correta!';
                 statusDiv.className = 'validation-status valid';
                 State.jsonValidationErrorLine = -1;
                 btnSubmitExam.disabled = false;
@@ -259,7 +305,7 @@ function setupLocalCreationListeners() {
                 } else {
                     State.jsonValidationErrorLine = -1;
                 }
-                statusDiv.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${msg}`;
+                statusDiv.innerHTML = `<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> [ERRO] ${msg}`;
                 statusDiv.className = 'validation-status invalid';
                 btnSubmitExam.disabled = true;
                 State.validatedExamData = null;

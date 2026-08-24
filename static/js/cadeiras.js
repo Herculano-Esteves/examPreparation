@@ -2,16 +2,13 @@
  * cadeiras.js
  * -----------
  * Manages fetching, rendering, and selecting Cadeiras (university subjects).
- *
- * Circular import note: cadeiras.js imports transitionTo from navigation.js,
- * and navigation.js imports renderCadeirasMenu from cadeiras.js. This is safe
- * in ES modules because both sides export named functions (live bindings),
- * fully resolved before any code executes.
+ * Clean card layout with Title first, description underneath, and exam count at the bottom.
+ * Full WCAG 2.1 AA / EAA 2025 keyboard accessibility.
  */
 
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { escapeHTML } from './utils.js';
+import { escapeHTML, clampCardDescriptions } from './utils.js';
 import { transitionTo } from './navigation.js';
 
 /**
@@ -28,9 +25,9 @@ export async function fetchCadeiras() {
         console.error('Error fetching cadeiras:', error);
         elements.cadeirasGrid.innerHTML = `
             <div class="error-state">
-                <i class="fa-solid fa-triangle-exclamation"></i>
+                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
                 <h3>Erro ao carregar as cadeiras</h3>
-                <p>${error.message}</p>
+                <p>${escapeHTML(error.message)}</p>
                 <button class="btn-control btn-primary" id="btn-retry-cadeiras" style="margin-top: 1rem;">Tentar Novamente</button>
             </div>
         `;
@@ -41,11 +38,7 @@ export async function fetchCadeiras() {
 
 /**
  * Render the cadeiras grid from State.cadeiras + State.localCadeiras.
- *
- * IMPORTANT: Do NOT call loadLocalData() here. loadLocalData overwrites
- * State.localCadeiras from localStorage, discarding any in-memory changes
- * made after the last explicit save. Data is loaded on app startup and after
- * every explicit write operation (save / delete).
+ * Direct layout: Title on top, description underneath, exam count at the bottom.
  */
 export function renderCadeirasMenu() {
     const combinedCadeiras = [...State.cadeiras, ...State.localCadeiras];
@@ -53,9 +46,9 @@ export function renderCadeirasMenu() {
     if (combinedCadeiras.length === 0) {
         elements.cadeirasGrid.innerHTML = `
             <div class="error-state">
-                <i class="fa-solid fa-folder-open"></i>
+                <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
                 <h3>Nenhuma cadeira disponível</h3>
-                <p>Por favor, adicione uma cadeira local ou configure o ficheiro 'exames/cadeiras.json'.</p>
+                <p>Adicione uma cadeira no botão acima ou configure o ficheiro 'exames/cadeiras.json'.</p>
             </div>
         `;
         return;
@@ -64,42 +57,37 @@ export function renderCadeirasMenu() {
     elements.cadeirasGrid.innerHTML = '';
 
     combinedCadeiras.forEach(cadeira => {
-        const card = document.createElement('div');
-        card.className = 'exam-card';
-        const sigla = cadeira.sigla ||
-            cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5);
+        const row = document.createElement('div');
+        row.className = 'exam-list-row';
+        row.setAttribute('tabindex', '0');
+        row.setAttribute('role', 'button');
+        row.setAttribute('aria-label', `Selecionar cadeira ${cadeira.nome}`);
 
-        card.innerHTML = `
-            <div class="exam-card-header">
-                <div class="exam-icon-box">
-                    <i class="fa-solid ${cadeira.icon || 'fa-graduation-cap'}"></i>
-                </div>
-                <span class="question-count-badge">${cadeira.exames_count || 0} Exames</span>
+        const sigla = (cadeira.sigla ||
+            cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5)).toUpperCase();
+
+        const exCount = cadeira.exames_count || 0;
+        const countLabel = exCount === 1 ? '1 exame' : `${exCount} exames`;
+
+        row.innerHTML = `
+            <div class="exam-list-header">
+                <h4 class="exam-list-title">${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ' <span class="badge-local">Local</span>' : ''}</h4>
+                <span class="exam-list-action">[ ${countLabel} ]</span>
             </div>
-            <h4>${escapeHTML(sigla)} ${cadeira.isLocal ? '<span class="badge-local">Local</span>' : ''}</h4>
-            <p class="cadeira-card-nome">${escapeHTML(cadeira.nome)}</p>
-            <p>${escapeHTML(cadeira.descricao)}</p>
-            <div class="exam-card-footer">
-                <span>Ver Exames</span>
-                <i class="fa-solid fa-circle-arrow-right"></i>
-            </div>
+            <p class="exam-list-desc">${escapeHTML(cadeira.descricao)}</p>
         `;
 
-        card.addEventListener('click', () => selectCadeira(cadeira));
-        elements.cadeirasGrid.appendChild(card);
-    });
+        const activate = () => selectCadeira(cadeira);
+        row.addEventListener('click', activate);
+        row.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                activate();
+            }
+        });
 
-    // "Add cadeira" card
-    const addCard = document.createElement('div');
-    addCard.className = 'exam-card add-card';
-    addCard.innerHTML = `
-        <div class="add-card-content">
-            <i class="fa-solid fa-plus-circle add-icon"></i>
-            <span class="add-text">Adicionar Cadeira</span>
-        </div>
-    `;
-    addCard.addEventListener('click', () => transitionTo('addCadeira'));
-    elements.cadeirasGrid.appendChild(addCard);
+        elements.cadeirasGrid.appendChild(row);
+    });
 }
 
 /**
@@ -111,15 +99,19 @@ export function renderCadeirasMenu() {
 export function selectCadeira(cadeira) {
     State.activeCadeira = cadeira;
 
-    if (cadeira.icon) {
-        document.getElementById('app-logo-icon').className =
-            `fa-solid ${cadeira.icon} app-logo-icon`;
+    const iconEl = document.getElementById('app-logo-icon');
+    if (iconEl && cadeira.icon) {
+        iconEl.className = `fa-solid ${cadeira.icon} app-logo-icon`;
     }
+    
     document.getElementById('app-main-title').textContent = cadeira.nome;
     const sigla = cadeira.sigla ||
         cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5);
-    document.getElementById('app-subtitle').textContent =
-        `Simulador de Exames (${sigla})`;
+    
+    const subtitleEl = document.getElementById('app-subtitle');
+    if (subtitleEl) {
+        subtitleEl.innerHTML = `<span class="status-dot" aria-hidden="true"></span> SISTEMA DE EXAMES | ${escapeHTML(sigla)}`;
+    }
 
     transitionTo('menu');
 }

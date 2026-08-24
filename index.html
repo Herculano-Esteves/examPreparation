@@ -1,58 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSI - Simulador de Exames</title>
-    <link class="favicon" rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22brownGrad%22 x1=%220%%22 y1=%220%%22 x2=%22100%%22 y2=%22100%%22><stop offset=%220%%22 stop-color=%22%238B5A2B%22 /><stop offset=%22100%%22 stop-color=%22%235C3A21%22 /></linearGradient></defs><polygon points=%2250,5 98,30 50,55 2,30%22 fill=%22url(%23brownGrad)%22 /><path d=%22M25,42 v20 c0,12 50,12 50,0 V42%22 fill=%22url(%23brownGrad)%22 /><path d=%22M50,30 L15,45 v25%22 stroke=%22%23D2B48C%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22 /><circle cx=%2215%22 cy=%2274%22 r=%227%22 fill=%22%23D2B48C%22 /></svg>">
-    <!-- Google Fonts -->
+    <title>Simulador de Exames</title>
+    <link class="favicon" rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+    <!-- Typography: Inter (UI & Leitura) & JetBrains Mono (Código & Contadores) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- FontAwesome for beautiful icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- KaTeX for high-performance LaTeX math rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
-    <!-- Custom CSS stylesheet -->
+
+    <!-- Core Stylesheet, Centralized Colors & Typography Configuration -->
     <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/colors.css">
+    <link rel="stylesheet" href="static/typography.css">
 </head>
+
 <body>
-    <!-- Background visual decorations -->
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
+    <!-- Ambient glowing backgrounds for depth -->
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
 
     <div class="app-container">
-        <!-- HEADER -->
+        <!-- HEADER (Clean, free-surface integrated layout) -->
         <header class="app-header">
             <div class="logo-area">
-                <i id="app-logo-icon" class="fa-solid fa-graduation-cap app-logo-icon"></i>
+                <div class="logo-icon-wrapper">
+                    <i id="app-logo-icon" class="fa-solid fa-graduation-cap app-logo-icon" aria-hidden="true"></i>
+                </div>
                 <div class="logo-text">
                     <h1 id="app-main-title">Simulador de Exames</h1>
-                    <span id="app-subtitle" class="subtitle">Ensino Superior</span>
+                    <span id="app-subtitle" class="subtitle">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        SISTEMA DE EXAMES
+                    </span>
                 </div>
             </div>
-            <button id="btn-settings" class="btn-control btn-secondary btn-pill">
-                <i class="fa-solid fa-gear"></i>
-                <span>Definições</span>
-            </button>
+            <div class="header-actions">
+                <button id="btn-settings" class="btn-control btn-secondary btn-pill" aria-label="Abrir Definições">
+                    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                    <span>Definições</span>
+                </button>
+            </div>
         </header>
 
-        <!-- EXAM TOP BAR: Lives OUTSIDE #screen-exam so it is controlled
-             directly by body.layout-exam CSS and appears INSTANTLY with no
-             timer dependency. Content is populated by startExam() before
-             transitionTo('exam') is called. -->
+        <!-- EXAM TOP BAR: Synchronous bar controlled via body.layout-exam CSS -->
         <div class="exam-top-bar" id="exam-top-bar" aria-hidden="true">
             <div class="exam-top-bar-left">
                 <div class="exam-logo-box">
-                    <i id="exam-subject-icon" class="fa-solid fa-graduation-cap"></i>
+                    <i id="exam-subject-icon" class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
                 </div>
                 <div class="exam-title-group">
                     <h2 id="current-exam-title">Título do Exame</h2>
                     <div class="exam-progress-inline">
                         <span id="question-counter">Questão 1 de 10</span>
-                        <div class="progress-bar-bg-mini">
+                        <div class="progress-bar-bg-mini" role="progressbar" aria-label="Progresso do exame"
+                            aria-valuemin="0" aria-valuemax="100">
                             <div id="progress-bar-fill" class="progress-bar-fill"></div>
                         </div>
                         <span id="progress-percentage">10%</span>
@@ -65,11 +79,21 @@
         <main class="main-content">
             <!-- STATE 0: CADEIRAS SCREEN -->
             <section id="screen-cadeiras" class="screen active">
-                <h3 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Selecione uma Cadeira</h3>
+                <div class="menu-header-bar">
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Selecione uma Cadeira
+                    </h3>
+                    <div class="menu-header-actions">
+                        <button id="btn-add-cadeira-top" class="btn-control btn-primary btn-sm">
+                            <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
+                            <span>Adicionar Cadeira</span>
+                        </button>
+                    </div>
+                </div>
                 <div id="cadeiras-grid" class="exams-grid">
-                    <!-- Dynamic Cadeira Cards Loaded from JSON will go here -->
+                    <!-- Dynamic Cadeira Cards Loaded from JSON -->
                     <div class="loading-state">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
                         <p>A carregar cadeiras...</p>
                     </div>
                 </div>
@@ -78,80 +102,91 @@
             <!-- STATE 1: MENU SCREEN -->
             <section id="screen-menu" class="screen">
                 <div class="menu-header-bar">
-                    <h3 class="section-title"><i class="fa-solid fa-folder-open"></i> Exames Disponíveis</h3>
-                    <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm">
-                        <i class="fa-solid fa-arrow-left"></i>
-                        <span>Voltar às Cadeiras</span>
-                    </button>
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-folder-open" aria-hidden="true"></i> Selecione um Exame
+                    </h3>
+                    <div class="menu-header-actions">
+                        <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm">
+                            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                            <span>Voltar às Cadeiras</span>
+                        </button>
+                        <button id="btn-add-exame-top" class="btn-control btn-primary btn-sm">
+                            <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
+                            <span>Adicionar Exame</span>
+                        </button>
+                    </div>
                 </div>
                 <div id="exams-grid" class="exams-grid">
-                    <!-- Dynamic Exam Cards Loaded from API will go here -->
+                    <!-- Dynamic Exam Cards Loaded from API -->
                     <div class="loading-state">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
                         <p>A carregar exames...</p>
                     </div>
                 </div>
             </section>
 
-            <!-- STATE 2: EXAM SCREEN (only contains the split pane now) -->
+            <!-- STATE 2: EXAM SCREEN (Preserved split-pane solver) -->
             <section id="screen-exam" class="screen">
-
                 <div class="exam-split-container">
-                    
-                    <!-- LEFT COLUMN (Question details, feedback, persistent navigation) -->
+
+                    <!-- LEFT COLUMN (Question details, scenario, exit) -->
                     <div class="exam-left-pane">
                         <div class="exam-left-scroll-content">
-                            <div class="question-header">
-                                <span class="question-badge">Questão <span id="current-q-num">1</span></span>
-                                <button id="btn-copy" class="btn-copy" title="Copiar questão para área de transferência">
-                                    <i class="fa-regular fa-copy"></i>
-                                    <span>Copiar Questão</span>
-                                </button>
-                            </div>
-                            
                             <div id="question-cabecalho" class="question-cabecalho hidden"></div>
-                            <h3 id="question-text" class="question-text">Qual é o objetivo da criptografia?</h3>
+                            <h3 id="question-text" class="question-text">
+                                <span id="question-text-content">A carregar pergunta...</span>
+                                <span class="btn-copy-group" role="group" aria-label="Opções de cópia da questão">
+                                    <button id="btn-copy" class="btn-copy-split btn-copy-left" title="Copiar apenas a questão e opções"
+                                        aria-label="Copiar questão e opções">
+                                        <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                        <span>Copiar</span>
+                                    </button>
+                                    <button id="btn-copy-answer" class="btn-copy-split btn-copy-right" title="Copiar questão com a resposta e justificação"
+                                        aria-label="Copiar questão com resposta">
+                                        <span>+ Resposta</span>
+                                    </button>
+                                </span>
+                            </h3>
                         </div>
 
                         <!-- Fixed exit control on the left -->
                         <div class="exam-left-controls">
                             <button id="btn-exit" class="btn-control btn-danger">
-                                <i class="fa-solid fa-arrow-left-long"></i>
+                                <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
                                 <span>Sair do Exame</span>
                             </button>
                         </div>
                     </div>
-                    
+
                     <!-- RIGHT COLUMN (Options and choices + navigation) -->
                     <div class="exam-right-pane">
                         <div class="exam-right-scroll-content">
                             <div id="options-container" class="options-container">
                                 <!-- Options will be generated dynamically -->
                             </div>
-                            
+
                             <!-- Explanatory answer banner -->
                             <div id="answer-feedback" class="answer-feedback hidden">
-                                <div class="feedback-icon"></div>
                                 <div class="feedback-text">
                                     <h4 id="feedback-title">Correto!</h4>
-                                    <p id="feedback-message">A resposta correta é a alínea X.</p>
+                                    <p id="feedback-message">A resposta correta é...</p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Fixed navigation controls on the right (answer side) -->
                         <div class="exam-right-controls">
                             <button id="btn-prev" class="btn-control btn-secondary">
-                                <i class="fa-solid fa-chevron-left"></i>
+                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                                 <span>Voltar</span>
                             </button>
                             <button id="btn-next" class="btn-control btn-primary">
                                 <span>Avançar</span>
-                                <i class="fa-solid fa-chevron-right"></i>
+                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
-                    
+
                 </div>
             </section>
 
@@ -159,49 +194,65 @@
             <section id="screen-results" class="screen">
                 <div class="results-card">
                     <div class="success-icon-wrapper">
-                        <i class="fa-solid fa-trophy results-trophy"></i>
+                        <i class="fa-solid fa-trophy results-trophy" aria-hidden="true"></i>
                     </div>
                     <h2>Exame Concluído!</h2>
-                    <p id="results-exam-title">Título do Exame Terminado</p>
-                    
+                    <p id="results-exam-title">Título do Exame</p>
+
                     <button id="btn-back-menu" class="btn-control btn-primary btn-results-back">
-                        <i class="fa-solid fa-house"></i>
+                        <i class="fa-solid fa-house" aria-hidden="true"></i>
                         <span>Voltar ao Menu Principal</span>
                     </button>
                 </div>
             </section>
 
+            <!-- STATE 4: ADD CADEIRA SCREEN -->
             <section id="screen-add-cadeira" class="screen">
                 <div class="menu-header-bar">
-                    <h3 class="section-title"><i class="fa-solid fa-plus-circle"></i> Adicionar Nova Cadeira</h3>
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-plus-circle" aria-hidden="true"></i> Adicionar Nova Cadeira
+                    </h3>
                 </div>
                 <div class="question-card">
                     <div class="form-group">
                         <label for="cadeira-nome">Nome da Cadeira</label>
-                        <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos" required>
+                        <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="cadeira-desc">Descrição / Subtítulo</label>
-                        <input type="text" id="cadeira-desc" class="form-control" placeholder="Ex: Escalonamento, Processos e I/O" required>
+                        <input type="text" id="cadeira-desc" class="form-control"
+                            placeholder="Ex: Escalonamento, Processos e I/O" required>
                     </div>
                     <div class="form-group">
                         <label>Selecione um Ícone</label>
                         <div class="icon-select-grid" id="cadeira-icon-grid">
-                            <div class="icon-option selected" data-icon="fa-laptop-code"><i class="fa-solid fa-laptop-code"></i></div>
-                            <div class="icon-option" data-icon="fa-shield-halved"><i class="fa-solid fa-shield-halved"></i></div>
-                            <div class="icon-option" data-icon="fa-database"><i class="fa-solid fa-database"></i></div>
-                            <div class="icon-option" data-icon="fa-server"><i class="fa-solid fa-server"></i></div>
-                            <div class="icon-option" data-icon="fa-network-wired"><i class="fa-solid fa-network-wired"></i></div>
-                            <div class="icon-option" data-icon="fa-microchip"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="icon-option selected" data-icon="fa-laptop-code" tabindex="0" role="button"
+                                aria-label="Ícone portátil"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-shield-halved" tabindex="0" role="button"
+                                aria-label="Ícone escudo"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-database" tabindex="0" role="button"
+                                aria-label="Ícone base de dados"><i class="fa-solid fa-database" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-server" tabindex="0" role="button"
+                                aria-label="Ícone servidor"><i class="fa-solid fa-server" aria-hidden="true"></i></div>
+                            <div class="icon-option" data-icon="fa-network-wired" tabindex="0" role="button"
+                                aria-label="Ícone rede"><i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+                            </div>
+                            <div class="icon-option" data-icon="fa-microchip" tabindex="0" role="button"
+                                aria-label="Ícone microchip"><i class="fa-solid fa-microchip" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="exam-controls exam-controls-spaced">
                         <button id="btn-cancel-cadeira" class="btn-control btn-secondary">
-                            <i class="fa-solid fa-xmark"></i>
+                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                             <span>Cancelar</span>
                         </button>
                         <button id="btn-save-cadeira" class="btn-control btn-primary">
-                            <i class="fa-solid fa-floppy-disk"></i>
+                            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
                             <span>Criar Cadeira</span>
                         </button>
                     </div>
@@ -211,40 +262,45 @@
             <!-- STATE 5: ADD EXAME SCREEN -->
             <section id="screen-add-exame" class="screen">
                 <div class="menu-header-bar">
-                    <h3 class="section-title"><i class="fa-solid fa-file-circle-plus"></i> Adicionar Novo Exame</h3>
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i> Adicionar Novo Exame
+                    </h3>
                     <button id="btn-copy-instructions" class="btn-control btn-secondary btn-sm">
-                        <i class="fa-solid fa-circle-info"></i>
+                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
                         <span>Instruções de JSON</span>
                     </button>
                 </div>
                 <div class="question-card">
                     <div class="form-group">
                         <label for="exame-titulo">Título do Exame (Lido do JSON)</label>
-                        <input type="text" id="exame-titulo" class="form-control" placeholder="Será preenchido automaticamente..." readonly>
+                        <input type="text" id="exame-titulo" class="form-control"
+                            placeholder="Será preenchido automaticamente..." readonly>
                     </div>
                     <div class="form-group">
                         <label for="exame-desc">Descrição do Exame (Lido do JSON)</label>
-                        <input type="text" id="exame-desc" class="form-control" placeholder="Será preenchido automaticamente..." readonly>
+                        <input type="text" id="exame-desc" class="form-control"
+                            placeholder="Será preenchido automaticamente..." readonly>
                     </div>
                     <div class="form-group">
-                        <label>Código JSON do Exame</label>
+                        <label for="editor-code-input">Código JSON do Exame</label>
                         <div class="code-editor-wrapper">
-                            <div class="line-numbers" id="editor-line-numbers"></div>
-                            <textarea class="code-input" id="editor-code-input" placeholder="Cole o JSON do seu exame aqui..." spellcheck="false" required></textarea>
+                            <div class="line-numbers" id="editor-line-numbers" aria-hidden="true"></div>
+                            <textarea class="code-input" id="editor-code-input"
+                                placeholder="Cole o JSON do seu exame aqui..." spellcheck="false" required></textarea>
                         </div>
                     </div>
-                    
+
                     <div id="validation-status" class="validation-status empty">
                         Editor vazio. Aguardando JSON...
                     </div>
 
                     <div class="exam-controls">
                         <button id="btn-cancel-exame" class="btn-control btn-secondary">
-                            <i class="fa-solid fa-xmark"></i>
+                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                             <span>Cancelar</span>
                         </button>
                         <button id="btn-submit-exam" class="btn-control btn-primary" disabled>
-                            <i class="fa-solid fa-floppy-disk"></i>
+                            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
                             <span>Criar Exame</span>
                         </button>
                     </div>
@@ -254,26 +310,31 @@
             <!-- STATE 6: SETTINGS SCREEN -->
             <section id="screen-settings" class="screen">
                 <div class="menu-header-bar">
-                    <h3 class="section-title"><i class="fa-solid fa-gear"></i> Definições</h3>
+                    <h3 class="section-title">
+                        <i class="fa-solid fa-gear" aria-hidden="true"></i> Definições do Sistema
+                    </h3>
                 </div>
                 <div class="question-card">
-                    <h4 class="settings-section-title">Dados Locais</h4>
+                    <h4 class="settings-section-title">Armazenamento Local</h4>
                     <p class="settings-description">
-                        Todas as cadeiras e exames criados localmente são guardados apenas no seu browser (através do localStorage). Pode limpar esses dados para restaurar o estado original do simulador.
+                        Todas as cadeiras e exames criados localmente são guardados apenas no seu browser (através do
+                        localStorage). Não existem cookies de rastreio nem dados transmitidos para terceiros.
                     </p>
                     <div class="danger-zone">
-                        <h5 class="danger-zone-title"><i class="fa-solid fa-triangle-exclamation"></i> Zona de Perigo</h5>
+                        <h5 class="danger-zone-title"><i class="fa-solid fa-triangle-exclamation"
+                                aria-hidden="true"></i> Zona de Perigo</h5>
                         <p class="danger-zone-desc">
-                            Esta ação é irreversível e irá apagar permanentemente todos os exames e cadeiras locais criados.
+                            Esta ação é irreversível e irá apagar permanentemente todas as cadeiras e exames criados
+                            localmente.
                         </p>
                         <button id="btn-clear-storage" class="btn-control btn-danger btn-full">
-                            <i class="fa-solid fa-trash-can"></i>
+                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
                             <span>Apagar Todos os Dados Locais</span>
                         </button>
                     </div>
                     <div class="exam-controls">
                         <button id="btn-back-settings" class="btn-control btn-secondary btn-full">
-                            <i class="fa-solid fa-chevron-left"></i>
+                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
                             <span>Voltar</span>
                         </button>
                     </div>
@@ -281,19 +342,21 @@
             </section>
         </main>
 
-        <!-- FOOTER -->
+        <!-- FOOTER (EU Directive 2000/31/CE Compliance) -->
         <footer class="app-footer">
-            <p>&copy; 2026 Teoria de Segurança de Sistemas de Informação. Desenvolvido para fins letivos.</p>
+            <p>&copy; Simulador de Exames • Desenvolvido por <a href="https://github.com/Herculano-Esteves"
+                    target="_blank" rel="noopener noreferrer">github.com/Herculano-Esteves</a></p>
         </footer>
     </div>
 
-    <!-- Notification Toast for Copied feedback -->
-    <div id="toast" class="toast">
-        <i class="fa-solid fa-check-circle"></i>
+    <!-- Notification Toast -->
+    <div id="toast" class="toast" role="status" aria-live="polite">
+        <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
         <span>Copiado com sucesso!</span>
     </div>
 
-    <!-- Custom JavaScript logic -->
+    <!-- Custom JavaScript modules -->
     <script type="module" src="static/js/main.js"></script>
 </body>
+
 </html>

@@ -176,6 +176,28 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate')
         super().end_headers()
 
+    def do_GET(self):
+        """Map /teste and /teste/ cleanly to /teste.html."""
+        if self.path in ('/teste', '/teste/'):
+            self.path = '/teste.html'
+        super().do_GET()
+
+    def send_error(self, code, message=None, explain=None):
+        """Serve the custom 404.html page for 404 errors if it exists."""
+        if code == 404 and os.path.exists('404.html'):
+            try:
+                with open('404.html', 'rb') as f:
+                    content = f.read()
+                self.send_response(404, "Not Found")
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(content)))
+                self.end_headers()
+                self.wfile.write(content)
+                return
+            except Exception as e:
+                logging.error(f"Error serving custom 404.html: {e}")
+        super().send_error(code, message, explain)
+
 def run_server(port=5000):
     # Change working directory to the directory of this script to serve static files correctly
     script_dir = os.path.dirname(os.path.abspath(__file__))

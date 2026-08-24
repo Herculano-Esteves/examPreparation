@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página não encontrada - Simulador de Exames">
+    <title>404 - Página Não Encontrada | Simulador de Exames</title>
+
+    <!-- FontAwesome (Local/Self-hosted or Clean CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/colors.css">
+    <link rel="stylesheet" href="static/typography.css">
+
+    <style>
+        .error-page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-height: 70vh;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .error-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 3rem 2.5rem;
+            max-width: 540px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: var(--glow-shadow);
+        }
+
+        .error-code {
+            font-family: var(--font-mono);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            line-height: 1;
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .error-card h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .error-desc {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.55;
+        }
+
+        .error-actions {
+            margin-top: 0.75rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Ambient Glow -->
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+    <div class="app-container">
+        <!-- Minimal Header -->
+        <header class="app-header" role="banner">
+            <div class="logo-area">
+                <div class="logo-icon-wrapper" aria-hidden="true">
+                    <i class="fa-solid fa-graduation-cap app-logo-icon"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Simulador de Exames</h1>
+                    <span class="subtitle">
+                        <span class="status-dot" aria-hidden="true"></span> SISTEMA DE EXAMES
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="error-page-container" role="main">
+            <div class="error-card">
+                <div class="error-code" aria-label="Erro 404">404</div>
+                <h1>Página Não Encontrada</h1>
+                <p class="error-desc">
+                    O recurso, exame ou rota que está a tentar aceder não existe ou foi movido.
+                </p>
+                <div class="error-actions">
+                    <a href="index.html" class="btn-control btn-primary btn-full">
+                        <i class="fa-solid fa-house" aria-hidden="true"></i> Voltar ao Início
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer" role="contentinfo">
+            <span>Simulador de Exames &copy; 2026</span>
+            <span>&bull;</span>
+            <span>Conforme com a Diretiva 2000/31/CE</span>
+        </footer>
+    </div>
+</body>
+</html>

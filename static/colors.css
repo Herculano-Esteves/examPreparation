@@ -1,0 +1,112 @@
+/* ==========================================================================
+   PALETA DE CORES CENTRALIZADA (DARK SLATE & CHARCOAL)
+   Inspirada nas paletas modernas de referência:
+   Tokyo Night, Catppuccin Macchiato e GitHub Dark Dimmed.
+   ========================================================================== */
+
+/* 
+=============================================================================
+   [PRESETS ALTERNATIVOS DA INTERNET PRONTOS A USAR]
+=============================================================================
+   
+   --- PRESET A: Catppuccin Macchiato (Fundo Aveludado Confortável) ---
+   --bg-color: #181926;
+   --pane-bg: rgba(30, 32, 48, 0.96);
+   --card-bg: rgba(36, 39, 58, 0.85);
+   --card-bg-hover: rgba(49, 53, 77, 0.95);
+
+   --- PRESET B: GitHub Dark Dimmed (Neutro Industrial) ---
+   --bg-color: #1c2128;
+   --pane-bg: rgba(34, 39, 46, 0.96);
+   --card-bg: rgba(45, 51, 59, 0.85);
+   --card-bg-hover: rgba(55, 62, 71, 0.95);
+
+   --- PRESET C: Preto Puro / OLED Original ---
+   --bg-color: #08080a;
+   --pane-bg: rgba(12, 12, 16, 0.94);
+   --card-bg: rgba(18, 18, 24, 0.75);
+   --card-bg-hover: rgba(26, 26, 36, 0.92);
+=============================================================================
+*/
+
+:root {
+    /* --------------------------------------------------------------------------
+       1. FUNDOS E SUPERFÍCIES (CARVÃO SUAVE / CARBON BLACK #0f0f11)
+       Fundo escuro suave e aveludado, com zero azul/verde e descanso visual.
+       -------------------------------------------------------------------------- */
+    --bg-color: #0f0f11;                  /* Fundo principal da página */
+    --pane-bg: rgba(15, 15, 17, 0.96);    /* Painéis laterais de resolução */
+    --card-bg: rgba(24, 24, 28, 0.85);    /* Fundo dos cartões e opções */
+    --card-bg-hover: rgba(36, 36, 42, 0.95); /* Fundo ao passar o cursor */
+    --glass-bg: rgba(20, 20, 24, 0.70);   /* Efeito vidro semi-transparente */
+
+    /* --------------------------------------------------------------------------
+       2. HIERARQUIA DE TEXTO (ALTA NITIDEZ & CONTRASTE SUAVE)
+       -------------------------------------------------------------------------- */
+    --text-primary: #ffffff;             /* Títulos, perguntas e foco principal */
+    --text-secondary: #e2e2e6;           /* Opções de resposta e texto fluido */
+    --text-dim: #9494a0;                 /* Descrições dos blocos e contagens */
+    --text-muted: #60606c;               /* Metadados secundários e rodapé */
+
+    /* --------------------------------------------------------------------------
+       3. COR DE ACENTO PRINCIPAL (VIOLETA / ÍNDIGO SOFISTICADO)
+       -------------------------------------------------------------------------- */
+    --primary: #8b5cf6;                  /* Violeta moderno */
+    --primary-hover: #a78bfa;            /* Violeta claro para hover */
+    --primary-active: #7c3aed;           /* Violeta escuro para clique ativo */
+    --primary-glow: rgba(139, 92, 246, 0.28); /* Brilho suave */
+    --primary-border: rgba(139, 92, 246, 0.38); /* Borda destacada */
+    --primary-bg-subtle: rgba(139, 92, 246, 0.12); /* Fundo subtil de seleção */
+
+    /* --------------------------------------------------------------------------
+       4. BORDAS, DIVISORES E PICOTADOS (BORDERS & DIVIDERS)
+       -------------------------------------------------------------------------- */
+    --card-border: rgba(255, 255, 255, 0.08);       /* Borda padrão de caixas */
+    --card-border-hover: rgba(139, 92, 246, 0.45);   /* Borda em hover */
+    --divider-subtle: rgba(255, 255, 255, 0.08);    /* Linha divisória subtil */
+    --divider-dashed: rgba(255, 255, 255, 0.14);    /* Picotado entre blocos */
+    --divider-dashed-hover: var(--primary);          /* Picotado iluminado ao passar o rato */
+
+    /* --------------------------------------------------------------------------
+       5. ESTADOS DE RESPOSTA (FEEDBACK & VALIDAÇÃO)
+       -------------------------------------------------------------------------- */
+    /* Resposta Correta (Verde Esmeralda) */
+    --success: #10b981;
+    --success-hover: #34d399;
+    --success-bg: rgba(16, 185, 129, 0.14);
+    --success-border: rgba(16, 185, 129, 0.40);
+    --success-glow: rgba(16, 185, 129, 0.25);
+    --success-text: #4ade80;
+
+    /* Resposta Incorreta (Rosa Carmesim / Vermelho Suave) */
+    --danger: #f43f5e;
+    --danger-hover: #fb7185;
+    --danger-bg: rgba(244, 63, 94, 0.14);
+    --danger-border: rgba(244, 63, 94, 0.40);
+    --danger-glow: rgba(244, 63, 94, 0.25);
+    --danger-text: #fda4af;
+
+    /* Aviso / Atenção (Âmbar Ouro) */
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, 0.12);
+    --warning-border: rgba(245, 158, 11, 0.35);
+    --warning-text: #fcd34d;
+
+    /* --------------------------------------------------------------------------
+       6. BOTÕES SECUNDÁRIOS E CONTROLOS (CONTROLS)
+       -------------------------------------------------------------------------- */
+    --secondary: #e2e8f0;
+    --secondary-hover: #ffffff;
+    --secondary-bg: rgba(255, 255, 255, 0.05);
+    --secondary-bg-hover: rgba(255, 255, 255, 0.10);
+    --secondary-border: rgba(255, 255, 255, 0.12);
+    --secondary-border-hover: rgba(255, 255, 255, 0.25);
+    --secondary-glow: rgba(255, 255, 255, 0.10);
+
+    /* --------------------------------------------------------------------------
+       7. AMBIENTE & GLOWS DE FUNDO (ECLIPSE ULTRA SUBTIL ESTÁTICO)
+       -------------------------------------------------------------------------- */
+    --ambient-glow-1: radial-gradient(circle, rgba(124, 58, 237, 0.09) 0%, rgba(0, 0, 0, 0) 70%);
+    --ambient-glow-2: radial-gradient(circle, rgba(124, 58, 237, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
+    --shadow-deep: 0 10px 30px -5px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6);
+}

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estúdio de Paletas & Efeitos de Fundo | Simulador de Exames</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Base Stylesheet -->
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/colors.css">
+    <link rel="stylesheet" href="static/typography.css">
+
+    <style>
+        :root {
+            transition: background-color 0.25s ease, color 0.25s ease;
+            --glow-color-1: #8b5cf6;
+            --glow-color-2: #6366f1;
+            --glow-opacity-1: 0.16;
+            --glow-opacity-2: 0.12;
+            --glow-size: 550px;
+            --glow-blur: 140px;
+            --glow-anim-speed: 8s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: 5rem;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease;
+        }
+
+        /* ----------------------------------------------------
+           DYNAMIC AMBIENT LIGHTS & BACKGROUND DECORATIONS
+           ---------------------------------------------------- */
+        .ambient-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            transition: opacity 0.4s ease;
+        }
+
+        .ambient-glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(var(--glow-blur));
+            will-change: transform, opacity;
+            transition: background 0.3s ease, filter 0.3s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        .orb-1 {
+            top: 15%;
+            left: -180px;
+            width: var(--glow-size);
+            height: var(--glow-size);
+            background: radial-gradient(circle, var(--glow-color-1) 0%, transparent 70%);
+            opacity: var(--glow-opacity-1);
+            animation: float-glow-1 var(--glow-anim-speed) ease-in-out infinite alternate;
+        }
+
+        .orb-2 {
+            top: 45%;
+            right: -200px;
+            width: calc(var(--glow-size) * 1.15);
+            height: calc(var(--glow-size) * 1.15);
+            background: radial-gradient(circle, var(--glow-color-2) 0%, transparent 70%);
+            opacity: var(--glow-opacity-2);
+            animation: float-glow-2 calc(var(--glow-anim-speed) * 1.25) ease-in-out infinite alternate;
+        }
+
+        /* Subtle Dot Grid Background Overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .grid-overlay.active {
+            opacity: 0.35;
+        }
+
+        @keyframes float-glow-1 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.1); }
+            100% { transform: translate(-40px, 70px) scale(0.95); }
+        }
+
+        @keyframes float-glow-2 {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-70px, -50px) scale(1.15); }
+            100% { transform: translate(40px, -30px) scale(0.9); }
+        }
+
+        .studio-container {
+            max-width: 1060px;
+            margin: 1.5rem auto;
+            padding: 0 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top Sticky Floating Switcher */
+        .sticky-toolbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            background: var(--pane-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 0.85rem 1.2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.85rem;
+        }
+
+        .active-palette-name {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.90rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Live Preview Simulation Section */
+        .live-preview-box {
+            background: var(--pane-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+        }
+
+        .live-section-title {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.6rem;
+        }
+
+        /* ============================================================
+           LIGHTING CONTROL PANEL (PAINEL DE LUZES)
+           ============================================================ */
+        .lights-panel {
+            background: var(--pane-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .lights-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 0.75rem;
+        }
+
+        .lights-panel-title {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .lights-controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .light-ctrl-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .light-ctrl-item label {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.76rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .light-ctrl-item input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .light-ctrl-item input[type="color"] {
+            width: 100%;
+            height: 36px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            background: transparent;
+            cursor: pointer;
+            padding: 2px;
+        }
+
+        .btn-toggle-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-toggle-switch.active {
+            background: var(--primary-bg-subtle);
+            border-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .light-presets-bar {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--card-border);
+        }
+
+        .btn-preset {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-preset:hover {
+            background: var(--primary-bg-subtle);
+            border-color: var(--primary);
+            color: #ffffff;
+        }
+
+        /* Palettes Grid Selector */
+        .palettes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .palette-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .palette-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+        }
+
+        .palette-card.active {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 0 18px var(--primary-glow);
+        }
+
+        .palette-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+        }
+
+        .palette-card-title {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .swatch {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .palette-card-desc {
+            font-family: var(--font-inter);
+            font-size: 0.82rem;
+            color: #a1a1aa;
+            line-height: 1.45;
+            margin-bottom: 0.75rem;
+        }
+
+        .palette-card-meta {
+            font-family: var(--font-jetbrains-mono);
+            font-size: 0.74rem;
+            color: #71717a;
+        }
+    </style>
+</head>
+<body>
+    <!-- AMBIENT BACKGROUND GLOW LIGHTS -->
+    <div id="ambient-layer" class="ambient-layer">
+        <div id="orb-1" class="ambient-glow-orb orb-1"></div>
+        <div id="orb-2" class="ambient-glow-orb orb-2"></div>
+    </div>
+    <div id="grid-overlay" class="grid-overlay"></div>
+
+    <div class="app-container studio-container">
+        
+        <!-- TOP STICKY BAR -->
+        <div class="sticky-toolbar">
+            <div class="active-palette-name">
+                <i class="fa-solid fa-palette"></i>
+                <span>PALETA ATIVA: <span id="lbl-active-name">1. MIDNIGHT OBSIDIAN PURPLE</span></span>
+            </div>
+            <div style="display: flex; gap: 0.6rem; align-items: center;">
+                <button id="btn-copy-css" class="btn-control btn-primary btn-sm">
+                    <i class="fa-solid fa-copy"></i> Copiar Cores & Luzes
+                </button>
+                <a href="index.html" class="btn-control btn-secondary btn-sm">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar à Aplicação
+                </a>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             PAINEL DE CONFIGURAÇÃO DE LUZES E EFEITOS
+             ============================================================ -->
+        <div class="lights-panel">
+            <div class="lights-panel-header">
+                <span class="lights-panel-title">
+                    <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary);"></i>
+                    CONFIGURADOR DE LUZES & EFEITOS DE FUNDO
+                </span>
+                <div style="display: flex; gap: 0.6rem;">
+                    <button id="btn-toggle-lights" class="btn-toggle-switch active">
+                        <i class="fa-solid fa-lightbulb"></i> Luzes: <span id="lbl-lights-state">LIGADAS</span>
+                    </button>
+                    <button id="btn-toggle-grid" class="btn-toggle-switch">
+                        <i class="fa-solid fa-border-none"></i> Grelha Pontilhada: <span id="lbl-grid-state">DESLIGADA</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="lights-controls-grid">
+                <!-- Luz 1 Cor & Intensidade -->
+                <div class="light-ctrl-item">
+                    <label>
+                        <span><i class="fa-solid fa-circle" style="color: var(--glow-color-1);"></i> Luz 1 (Superior)</span>
+                        <span id="lbl-glow-val-1">16%</span>
+                    </label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="color" id="picker-color-1" value="#8b5cf6" style="width: 50px;">
+                        <input type="range" id="slider-opacity-1" min="0" max="60" value="16">
+                    </div>
+                </div>
+
+                <!-- Luz 2 Cor & Intensidade -->
+                <div class="light-ctrl-item">
+                    <label>
+                        <span><i class="fa-solid fa-circle" style="color: var(--glow-color-2);"></i> Luz 2 (Inferior)</span>
+                        <span id="lbl-glow-val-2">12%</span>
+                    </label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="color" id="picker-color-2" value="#6366f1" style="width: 50px;">
+                        <input type="range" id="slider-opacity-2" min="0" max="60" value="12">
+                    </div>
+                </div>
+
+                <!-- Tamanho / Dispersão do Brilho -->
+                <div class="light-ctrl-item">
+                    <label>
+                        <span>Dispersão do Glow</span>
+                        <span id="lbl-glow-size">550px</span>
+                    </label>
+                    <input type="range" id="slider-glow-size" min="250" max="900" value="550">
+                </div>
+
+                <!-- Velocidade de Animação -->
+                <div class="light-ctrl-item">
+                    <label>
+                        <span>Velocidade de Movimento</span>
+                        <span id="lbl-glow-speed">8s (Suave)</span>
+                    </label>
+                    <input type="range" id="slider-glow-speed" min="0" max="20" value="8">
+                </div>
+            </div>
+
+            <!-- Presets de Luzes Rápidos -->
+            <div class="light-presets-bar">
+                <span style="font-family: var(--font-jetbrains-mono); font-size: 0.76rem; color: var(--text-dim); align-self: center;">Presets Rápidos:</span>
+                <button class="btn-preset" onclick="setLightPreset('#8b5cf6', '#6366f1', 20, 16, 600, 8)">🟣 Roxo + Índigo Noturno</button>
+                <button class="btn-preset" onclick="setLightPreset('#a855f7', '#ec4899', 18, 14, 550, 7)">🌸 Cyber Violet + Rosa</button>
+                <button class="btn-preset" onclick="setLightPreset('#9333ea', '#3b82f6', 16, 15, 650, 9)">🌌 Nebula Profunda (Roxo + Azul)</button>
+                <button class="btn-preset" onclick="setLightPreset('#7c3aed', '#7c3aed', 10, 8, 450, 10)">🌑 Eclipse Ultra Subtil</button>
+                <button class="btn-preset" onclick="setLightPreset('#ffffff', '#ffffff', 0, 0, 0, 0)">⚪ 100% Desligado (Preto Puro)</button>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             DEMO 1: BLOCO REAL DE EXAME (LIST ROW)
+             ============================================================ -->
+        <div class="live-preview-box">
+            <div class="live-section-title">
+                <span><i class="fa-solid fa-layer-group"></i> DEMO 1 • Bloco de Exame Real no Menu</span>
+                <span style="font-size: 0.75rem;">Estilo Plano com Traço Picotado</span>
+            </div>
+
+            <div class="exams-grid" style="margin: 0;">
+                <div class="exam-list-row" tabindex="0">
+                    <div class="exam-list-header">
+                        <h4 class="exam-list-title">EXAME DE ESTUDO TSO 2</h4>
+                        <span class="exam-list-action">[ 10 questões ]</span>
+                    </div>
+                    <p class="exam-list-desc">
+                        Segundo exame de estudo rigoroso e completo sobre a matéria de TSO, abrangendo Caching (2Q), Completely Fair Scheduler (CFS), Stride Scheduling, SPDK (Reactors/Actors) e benchmarks.
+                    </p>
+                </div>
+                <div class="exam-list-row" tabindex="0">
+                    <div class="exam-list-header">
+                        <h4 class="exam-list-title">ADI - APRENDIZAGEM E DECISÃO INTELIGENTES</h4>
+                        <span class="exam-list-action">[ 27 exames ]</span>
+                    </div>
+                    <p class="exam-list-desc">
+                        Aborda técnicas de Inteligência Artificial e Machine Learning, incluindo metodologias CRISP-DM/SEMMA, preparação de dados, redes neuronais artificiais e árvores de decisão.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             DEMO 2: RESOLUÇÃO DE QUESTÃO REAL COM OPÇÕES
+             ============================================================ -->
+        <div class="live-preview-box">
+            <div class="live-section-title">
+                <span><i class="fa-solid fa-circle-question"></i> DEMO 2 • Resolução de Questão Real & Opções</span>
+                <span style="font-size: 0.75rem;">Clique nas opções para testar interação</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" id="demo-solver-grid">
+                <!-- Question Side -->
+                <div>
+                    <h3 class="question-text" style="font-size: 1.15rem; margin-bottom: 1.25rem;">
+                        Qual das seguintes afirmações descreve corretamente a diferença conceitual e prática entre Monitorização e Observabilidade?
+                        <span class="btn-copy-group" role="group">
+                            <button class="btn-copy-split btn-copy-left"><i class="fa-regular fa-copy"></i> <span>Copiar</span></button>
+                            <button class="btn-copy-split btn-copy-right"><span>+ Resposta</span></button>
+                        </span>
+                    </h3>
+                </div>
+
+                <!-- Options Side -->
+                <div class="options-container" style="gap: 0.65rem;">
+                    <button class="option-btn" onclick="toggleOption(this)">
+                        <span class="option-btn-prefix">A)</span>
+                        <span>A monitorização e a observabilidade são termos sinónimos que partilham a mesma implementação prática na stack física.</span>
+                    </button>
+                    <button class="option-btn correct-highlight" onclick="toggleOption(this)">
+                        <span class="option-btn-prefix">B)</span>
+                        <span>A monitorização foca-se em detetar que algo está errado, enquanto a observabilidade permite investigar a causa raiz.</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+             GRELHA DE SELEÇÃO: PALETAS DE ROXO ESCURO & CINZENTO
+             ============================================================ -->
+        <h3 style="font-family: var(--font-jetbrains-mono); font-size: 1.15rem; margin-bottom: 0.5rem; text-align: center;">
+            [ ESCOLHA UMA DAS PALETAS ABAIXO ]
+        </h3>
+        <p style="text-align: center; color: var(--text-dim); font-size: 0.88rem; margin-bottom: 1.5rem;">
+            Selecione qualquer paleta. O fundo, as luzes e os componentes adaptar-se-ão instantaneamente.
+        </p>
+
+        <div class="palettes-grid" id="palettes-grid">
+            <!-- Palettes generated by JavaScript -->
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-check-circle"></i>
+        <span id="toast-text">Paleta aplicada com sucesso!</span>
+    </div>
+
+    <script>
+        const palettes = [
+            /* --- NOVAS PALETAS DE ROXO ULTRA ESCURO / PROFUNDO --- */
+            {
+                id: 'midnight-obsidian',
+                name: '🟣 1. Midnight Obsidian Purple',
+                desc: 'Fundo quase preto (#0c0912) com subtil toque mineral ametista e cartões carvão.',
+                bg: '#0c0912',
+                pane: 'rgba(16, 12, 24, 0.96)',
+                card: 'rgba(22, 17, 32, 0.85)',
+                cardHover: 'rgba(34, 26, 50, 0.95)',
+                textPrimary: '#ffffff',
+                textSecondary: '#e6dfef',
+                textDim: '#a69bb7',
+                textMuted: '#6d6180',
+                primary: '#9333ea',
+                border: 'rgba(147, 51, 234, 0.16)',
+                divider: 'rgba(147, 51, 234, 0.22)'
+            },
+            {
+                id: 'abyssal-violet',
+                name: '🟣 2. Abyssal Violet (#0e0a16)',
+                desc: 'Tom abissal profundo de céu noturno com excelente contraste e acento violeta puro.',
+                bg: '#0e0a16',
+                pane: 'rgba(18, 13, 28, 0.96)',
+                card: 'rgba(26, 19, 38, 0.85)',
+                cardHover: 'rgba(38, 28, 56, 0.95)',
+                textPrimary: '#fbf8ff',
+                textSecondary: '#e4dcf1',
+                textDim: '#b3a2cb',
+                textMuted: '#74628d',
+                primary: '#a855f7',
+                border: 'rgba(168, 85, 247, 0.16)',
+                divider: 'rgba(168, 85, 247, 0.22)'
+            },
+            {
+                id: 'imperial-charcoal-violet',
+                name: '🟣 3. Carvão Imperial Violeta (#100d18)',
+                desc: 'Equilíbrio perfeito entre o carvão anti-reflexo e veludo púrpura suave.',
+                bg: '#100d18',
+                pane: 'rgba(20, 16, 30, 0.96)',
+                card: 'rgba(28, 23, 40, 0.85)',
+                cardHover: 'rgba(42, 34, 60, 0.95)',
+                textPrimary: '#ffffff',
+                textSecondary: '#eee6f7',
+                textDim: '#baa9d0',
+                textMuted: '#7a6894',
+                primary: '#c084fc',
+                border: 'rgba(192, 132, 252, 0.16)',
+                divider: 'rgba(192, 132, 252, 0.22)'
+            },
+            {
+                id: 'dark-indigo-abyss',
+                name: '🟣 4. Dark Indigo Abyss (#090913)',
+                desc: 'Índigo ultra-escuro e misterioso com iluminação subtil azul-violeta.',
+                bg: '#090913',
+                pane: 'rgba(14, 14, 28, 0.96)',
+                card: 'rgba(20, 20, 38, 0.85)',
+                cardHover: 'rgba(31, 31, 56, 0.95)',
+                textPrimary: '#f8f8ff',
+                textSecondary: '#dcdcf4',
+                textDim: '#9ea0c4',
+                textMuted: '#666894',
+                primary: '#818cf8',
+                border: 'rgba(129, 140, 248, 0.16)',
+                divider: 'rgba(129, 140, 248, 0.22)'
+            },
+            {
+                id: 'plum-shadow',
+                name: '🟣 5. Plum Shadow (#120c16)',
+                desc: 'Sombra ameixa escura com base fosca e detalhes em fúcsia/magenta.',
+                bg: '#120c16',
+                pane: 'rgba(24, 15, 28, 0.96)',
+                card: 'rgba(32, 20, 38, 0.85)',
+                cardHover: 'rgba(48, 30, 56, 0.95)',
+                textPrimary: '#fdf4ff',
+                textSecondary: '#eedaf2',
+                textDim: '#b89cb9',
+                textMuted: '#7c5f7d',
+                primary: '#e879f9',
+                border: 'rgba(232, 121, 249, 0.18)',
+                divider: 'rgba(232, 121, 249, 0.25)'
+            },
+            {
+                id: 'black-velvet-orchid',
+                name: '🟣 6. Black Velvet Orchid (#0d0814)',
+                desc: 'Orquídea escura sofisticada com fundo quase negro aveludado.',
+                bg: '#0d0814',
+                pane: 'rgba(17, 11, 26, 0.96)',
+                card: 'rgba(25, 16, 38, 0.85)',
+                cardHover: 'rgba(38, 25, 58, 0.95)',
+                textPrimary: '#ffffff',
+                textSecondary: '#eaddf5',
+                textDim: '#ad9ac0',
+                textMuted: '#705c84',
+                primary: '#d8b4fe',
+                border: 'rgba(216, 180, 254, 0.16)',
+                divider: 'rgba(216, 180, 254, 0.22)'
+            },
+
+            /* --- PALETAS DE CINZENTO ESCURO PURO --- */
+            {
+                id: 'carbon',
+                name: '⚪ 7. Carvão Suave (#0f0f11) [Paleta Atual]',
+                desc: 'A sua escolha favorita atual: cinzento carvão aveludado sem tons azuis nem verdes.',
+                bg: '#0f0f11',
+                pane: 'rgba(15, 15, 17, 0.96)',
+                card: 'rgba(24, 24, 28, 0.85)',
+                cardHover: 'rgba(36, 36, 42, 0.95)',
+                textPrimary: '#ffffff',
+                textSecondary: '#e2e2e6',
+                textDim: '#9494a0',
+                textMuted: '#60606c',
+                primary: '#8b5cf6',
+                border: 'rgba(255, 255, 255, 0.08)',
+                divider: 'rgba(255, 255, 255, 0.14)'
+            },
+            {
+                id: 'zinc',
+                name: '⚪ 8. Zinc 900 (#18181b)',
+                desc: 'O padrão internacional de interfaces modernas (Tailwind Zinc 900).',
+                bg: '#18181b',
+                pane: 'rgba(24, 24, 27, 0.95)',
+                card: 'rgba(39, 39, 42, 0.85)',
+                cardHover: 'rgba(63, 63, 70, 0.95)',
+                textPrimary: '#fafafa',
+                textSecondary: '#e4e4e7',
+                textDim: '#a1a1aa',
+                textMuted: '#71717a',
+                primary: '#8b5cf6',
+                border: 'rgba(255, 255, 255, 0.08)',
+                divider: 'rgba(255, 255, 255, 0.14)'
+            },
+            {
+                id: 'obsidian',
+                name: '⚪ 9. Grafite Obsidian (#141416)',
+                desc: 'Tom grafite fosco profundo de ferramentas como Raycast.',
+                bg: '#141416',
+                pane: 'rgba(20, 20, 22, 0.96)',
+                card: 'rgba(30, 30, 34, 0.85)',
+                cardHover: 'rgba(42, 42, 48, 0.95)',
+                textPrimary: '#ffffff',
+                textSecondary: '#e2e2e8',
+                textDim: '#9898a4',
+                textMuted: '#686874',
+                primary: '#8b5cf6',
+                border: 'rgba(255, 255, 255, 0.08)',
+                divider: 'rgba(255, 255, 255, 0.14)'
+            },
+            {
+                id: 'material',
+                name: '⚪ 10. Material Dark (#121212)',
+                desc: 'O clássico padrão #121212 do Google Material Design.',
+                bg: '#121212',
+                pane: 'rgba(18, 18, 18, 0.96)',
+                card: 'rgba(30, 30, 30, 0.85)',
+                cardHover: 'rgba(46, 46, 46, 0.95)',
+                textPrimary: '#ffffff',
+                textSecondary: '#e0e0e0',
+                textDim: '#a0a0a0',
+                textMuted: '#666666',
+                primary: '#bb86fc',
+                border: 'rgba(255, 255, 255, 0.08)',
+                divider: 'rgba(255, 255, 255, 0.14)'
+            }
+        ];
+
+        let activePalette = palettes[0];
+
+        function applyPalette(p) {
+            activePalette = p;
+            document.getElementById('lbl-active-name').textContent = p.name;
+            
+            const root = document.documentElement;
+            root.style.setProperty('--bg-color', p.bg);
+            root.style.setProperty('--pane-bg', p.pane);
+            root.style.setProperty('--card-bg', p.card);
+            root.style.setProperty('--card-bg-hover', p.cardHover);
+            root.style.setProperty('--text-primary', p.textPrimary);
+            root.style.setProperty('--text-secondary', p.textSecondary);
+            root.style.setProperty('--text-dim', p.textDim);
+            root.style.setProperty('--text-muted', p.textMuted);
+            root.style.setProperty('--primary', p.primary);
+            root.style.setProperty('--primary-glow', p.primary + '44');
+            root.style.setProperty('--card-border', p.border);
+            root.style.setProperty('--divider-dashed', p.divider);
+            root.style.setProperty('--divider-dashed-hover', p.primary);
+
+            // Update active state in grid cards
+            document.querySelectorAll('.palette-card').forEach(c => {
+                c.classList.toggle('active', c.dataset.id === p.id);
+            });
+        }
+
+        function renderPaletteCards() {
+            const grid = document.getElementById('palettes-grid');
+            grid.innerHTML = '';
+
+            palettes.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `palette-card ${p.id === activePalette.id ? 'active' : ''}`;
+                card.dataset.id = p.id;
+                card.innerHTML = `
+                    <div class="palette-card-header">
+                        <span class="palette-card-title">${p.name}</span>
+                        <div class="color-swatches">
+                            <span class="swatch" style="background: ${p.bg};" title="Fundo"></span>
+                            <span class="swatch" style="background: ${p.card};" title="Cartão"></span>
+                            <span class="swatch" style="background: ${p.primary};" title="Acento"></span>
+                        </div>
+                    </div>
+                    <p class="palette-card-desc">${p.desc}</p>
+                    <div class="palette-card-meta">Fundo: <code>${p.bg}</code> | Cartão: <code>${p.card}</code></div>
+                `;
+                card.addEventListener('click', () => {
+                    applyPalette(p);
+                    showToast(`Paleta "${p.name}" aplicada no ecrã!`);
+                });
+                grid.appendChild(card);
+            });
+        }
+
+        /* ----------------------------------------------------
+           LIGHTING CONTROLS HANDLERS
+           ---------------------------------------------------- */
+        const ambientLayer = document.getElementById('ambient-layer');
+        const gridOverlay = document.getElementById('grid-overlay');
+        const picker1 = document.getElementById('picker-color-1');
+        const picker2 = document.getElementById('picker-color-2');
+        const sliderOp1 = document.getElementById('slider-opacity-1');
+        const sliderOp2 = document.getElementById('slider-opacity-2');
+        const sliderSize = document.getElementById('slider-glow-size');
+        const sliderSpeed = document.getElementById('slider-glow-speed');
+
+        function updateLights() {
+            const root = document.documentElement;
+            root.style.setProperty('--glow-color-1', picker1.value);
+            root.style.setProperty('--glow-color-2', picker2.value);
+            root.style.setProperty('--glow-opacity-1', (sliderOp1.value / 100).toString());
+            root.style.setProperty('--glow-opacity-2', (sliderOp2.value / 100).toString());
+            root.style.setProperty('--glow-size', `${sliderSize.value}px`);
+            
+            const speedSec = sliderSpeed.value > 0 ? `${sliderSpeed.value}s` : '0s';
+            root.style.setProperty('--glow-anim-speed', speedSec);
+
+            document.getElementById('lbl-glow-val-1').textContent = `${sliderOp1.value}%`;
+            document.getElementById('lbl-glow-val-2').textContent = `${sliderOp2.value}%`;
+            document.getElementById('lbl-glow-size').textContent = `${sliderSize.value}px`;
+            document.getElementById('lbl-glow-speed').textContent = sliderSpeed.value > 0 ? `${sliderSpeed.value}s` : 'Pausado';
+        }
+
+        picker1.addEventListener('input', updateLights);
+        picker2.addEventListener('input', updateLights);
+        sliderOp1.addEventListener('input', updateLights);
+        sliderOp2.addEventListener('input', updateLights);
+        sliderSize.addEventListener('input', updateLights);
+        sliderSpeed.addEventListener('input', updateLights);
+
+        document.getElementById('btn-toggle-lights').addEventListener('click', function() {
+            const isVisible = ambientLayer.style.opacity !== '0';
+            if (isVisible) {
+                ambientLayer.style.opacity = '0';
+                this.classList.remove('active');
+                document.getElementById('lbl-lights-state').textContent = 'DESLIGADAS';
+            } else {
+                ambientLayer.style.opacity = '1';
+                this.classList.add('active');
+                document.getElementById('lbl-lights-state').textContent = 'LIGADAS';
+            }
+        });
+
+        document.getElementById('btn-toggle-grid').addEventListener('click', function() {
+            gridOverlay.classList.toggle('active');
+            const isActive = gridOverlay.classList.contains('active');
+            this.classList.toggle('active', isActive);
+            document.getElementById('lbl-grid-state').textContent = isActive ? 'LIGADA' : 'DESLIGADA';
+        });
+
+        function setLightPreset(c1, c2, op1, op2, size, speed) {
+            picker1.value = c1;
+            picker2.value = c2;
+            sliderOp1.value = op1;
+            sliderOp2.value = op2;
+            sliderSize.value = size;
+            sliderSpeed.value = speed;
+            ambientLayer.style.opacity = '1';
+            document.getElementById('btn-toggle-lights').classList.add('active');
+            document.getElementById('lbl-lights-state').textContent = 'LIGADAS';
+            updateLights();
+            showToast('Preset de luzes aplicado!');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = msg;
+            toast.classList.add('visible');
+            setTimeout(() => toast.classList.remove('visible'), 2400);
+        }
+
+        function toggleOption(btn) {
+            btn.classList.toggle('selected-toggled');
+        }
+
+        document.getElementById('btn-copy-css').addEventListener('click', () => {
+            const css = `/* Paleta: ${activePalette.name} */\n` +
+                `:root {\n` +
+                `    --bg-color: ${activePalette.bg};\n` +
+                `    --pane-bg: ${activePalette.pane};\n` +
+                `    --card-bg: ${activePalette.card};\n` +
+                `    --card-bg-hover: ${activePalette.cardHover};\n` +
+                `    --text-primary: ${activePalette.textPrimary};\n` +
+                `    --text-secondary: ${activePalette.textSecondary};\n` +
+                `    --text-dim: ${activePalette.textDim};\n` +
+                `    --text-muted: ${activePalette.textMuted};\n` +
+                `    --primary: ${activePalette.primary};\n` +
+                `    /* Luzes de Fundo */\n` +
+                `    --ambient-glow-1: radial-gradient(circle, ${picker1.value}${Math.round(sliderOp1.value * 2.55).toString(16).padStart(2, '0')} 0%, transparent 70%);\n` +
+                `    --ambient-glow-2: radial-gradient(circle, ${picker2.value}${Math.round(sliderOp2.value * 2.55).toString(16).padStart(2, '0')} 0%, transparent 70%);\n` +
+                `}`;
+            navigator.clipboard.writeText(css).then(() => {
+                showToast('CSS de cores e luzes copiado!');
+            });
+        });
+
+        // Initialize
+        renderPaletteCards();
+        applyPalette(palettes[0]);
+        updateLights();
+    </script>
+</body>
+</html>

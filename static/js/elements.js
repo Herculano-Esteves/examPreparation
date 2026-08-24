@@ -37,7 +37,7 @@ export const elements = {
     // ---------- Question pane ----------
     currentQNum:        document.getElementById('current-q-num'),
     questionCabecalho:  document.getElementById('question-cabecalho'),
-    questionText:       document.getElementById('question-text'),
+    questionText:       document.getElementById('question-text-content') || document.getElementById('question-text'),
     optionsContainer:   document.getElementById('options-container'),
 
     // ---------- Feedback ----------
@@ -46,12 +46,13 @@ export const elements = {
     feedbackMessage: document.getElementById('feedback-message'),
 
     // ---------- Buttons ----------
-    btnExit:     document.getElementById('btn-exit'),
-    btnPrev:     document.getElementById('btn-prev'),
-    btnNext:     document.getElementById('btn-next'),
-    btnCopy:     document.getElementById('btn-copy'),
-    btnBackMenu: document.getElementById('btn-back-menu'),
-    btnSettings: document.getElementById('btn-settings'),
+    btnExit:       document.getElementById('btn-exit'),
+    btnPrev:       document.getElementById('btn-prev'),
+    btnNext:       document.getElementById('btn-next'),
+    btnCopy:       document.getElementById('btn-copy'),
+    btnCopyAnswer: document.getElementById('btn-copy-answer'),
+    btnBackMenu:   document.getElementById('btn-back-menu'),
+    btnSettings:   document.getElementById('btn-settings'),
 
     // ---------- Results screen ----------
     resultsExamTitle: document.getElementById('results-exam-title'),

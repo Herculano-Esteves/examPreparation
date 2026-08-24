@@ -1,0 +1,335 @@
+/* ==========================================================================
+   CONFIGURAÇÃO DE TIPOGRAFIA HARMONIOSA & COESA (DARK MODE)
+   ==========================================================================
+   Sistema simplificado com 2 fontes complementares de padrão internacional:
+   - INTER: Interface de leitura principal (títulos, perguntas, opções, descrições e botões)
+   - JETBRAINS MONO: Elementos técnicos, contadores [ 10 questões ], código e badges
+   ========================================================================== */
+
+/* 
+=============================================================================
+   [BACKUP / HISTÓRICO] CONFIGURAÇÃO ANTERIOR (DESATIVADA)
+=============================================================================
+:root {
+    --typo-app-title-font: var(--font-inter);
+    --typo-app-subtitle-font: var(--font-share-mono);
+    --typo-section-title-font: var(--font-inter);
+    --typo-block-title-font: var(--font-share-mono);
+    --typo-block-count-font: var(--font-geist-mono);
+    --typo-block-desc-font: var(--font-geist-mono);
+    --typo-question-font: var(--font-inter);
+    --typo-option-font: var(--font-geist-mono);
+    --typo-btn-copy-font: var(--font-geist-mono);
+    --typo-btn-control-font: var(--font-geist-mono);
+    --typo-feedback-title-font: var(--font-geist-mono);
+    --typo-feedback-desc-font: var(--font-geist-mono);
+}
+=============================================================================
+*/
+
+:root {
+    /* --------------------------------------------------------------------------
+       1. FAMÍLIAS DE FONTES BASE
+       -------------------------------------------------------------------------- */
+    --font-inter: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-jetbrains-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+    /* --------------------------------------------------------------------------
+       2. CABEÇALHO PRINCIPAL DA APLICAÇÃO (APP HEADER)
+       -------------------------------------------------------------------------- */
+    --typo-app-title-font: var(--font-inter);
+    --typo-app-title-size: 1.35rem;
+    --typo-app-title-weight: 700;
+    --typo-app-title-letter-spacing: -0.02em;
+
+    --typo-app-subtitle-font: var(--font-jetbrains-mono);
+    --typo-app-subtitle-size: 0.80rem;
+    --typo-app-subtitle-weight: 500;
+    --typo-app-subtitle-letter-spacing: 0.04em;
+
+    /* --------------------------------------------------------------------------
+       3. TÍTULOS DE SECÇÃO (EX: "SELECIONE UMA CADEIRA", "SELECIONE UM EXAME")
+       -------------------------------------------------------------------------- */
+    --typo-section-title-font: var(--font-inter);
+    --typo-section-title-size: 1.22rem;
+    --typo-section-title-weight: 700;
+    --typo-section-title-letter-spacing: -0.015em;
+
+    /* --------------------------------------------------------------------------
+       4. BARRAS DE CADEIRAS E EXAMES (LIST ROWS)
+       -------------------------------------------------------------------------- */
+    /* Título do Bloco */
+    --typo-block-title-font: var(--font-inter);
+    --typo-block-title-size: 0.85rem;
+    --typo-block-title-weight: 700;
+    --typo-block-title-letter-spacing: 0.012em;
+    --typo-block-title-transform: uppercase;
+
+    /* Contagem [ 10 questões ] / [ 27 exames ] */
+    --typo-block-count-font: var(--font-jetbrains-mono);
+    --typo-block-count-size: 0.80rem;
+    --typo-block-count-weight: 600;
+    --typo-block-count-letter-spacing: 0.02em;
+
+    /* Descrição do Bloco */
+    --typo-block-desc-font: var(--font-inter);
+    --typo-block-desc-size: 0.875rem;
+    --typo-block-desc-weight: 400;
+    --typo-block-desc-line-height: 1.45;
+    --typo-block-desc-letter-spacing: -0.04em;
+
+    /* --------------------------------------------------------------------------
+       5. CABEÇALHO DO EXAME (TOP BAR NO MODO RESOLUÇÃO)
+       -------------------------------------------------------------------------- */
+    --typo-exam-header-title-font: var(--font-inter);
+    --typo-exam-header-title-size: 1.15rem;
+    --typo-exam-header-title-weight: 700;
+
+    --typo-exam-counter-font: var(--font-jetbrains-mono);
+    --typo-exam-counter-size: 0.80rem;
+    --typo-exam-counter-weight: 600;
+
+    /* --------------------------------------------------------------------------
+       6. ENUNCIADO DA QUESTÃO (QUESTION SOLVER)
+       -------------------------------------------------------------------------- */
+    /* Enunciado da Pergunta */
+    --typo-question-font: var(--font-inter);
+    --typo-question-size: 1.15rem;
+    --typo-question-weight: 600;
+    --typo-question-line-height: 1.58;
+    --typo-question-letter-spacing: -0.01em;
+
+    /* Badge "Questão X" */
+    --typo-question-badge-font: var(--font-jetbrains-mono);
+    --typo-question-badge-size: 0.76rem;
+    --typo-question-badge-weight: 700;
+    --typo-question-badge-letter-spacing: 0.04em;
+
+    /* Botões Divididos de Copiar [ Copiar | + Resposta ] */
+    --typo-btn-copy-font: var(--font-jetbrains-mono);
+    --typo-btn-copy-size: 0.72rem;
+    --typo-btn-copy-weight: 500;
+    --typo-btn-copy-letter-spacing: 0.02em;
+
+    /* Bloco de Código / Cenário de Enunciado */
+    --typo-question-code-font: var(--font-jetbrains-mono);
+    --typo-question-code-size: 0.86rem;
+    --typo-question-code-line-height: 1.5;
+
+    /* --------------------------------------------------------------------------
+       7. OPÇÕES DE RESPOSTA (CHOICES)
+       -------------------------------------------------------------------------- */
+    /* Texto da Opção */
+    --typo-option-font: var(--font-inter);
+    --typo-option-size: 0.92rem;
+    --typo-option-weight: 450;
+    --typo-option-line-height: 1.52;
+    --typo-option-letter-spacing: 0;
+
+    /* Prefixo A), B), C), D) */
+    --typo-option-prefix-font: var(--font-jetbrains-mono);
+    --typo-option-prefix-size: 0.92rem;
+    --typo-option-prefix-weight: 700;
+
+    /* --------------------------------------------------------------------------
+       8. BOTÕES DE CONTROLO E NAVEGAÇÃO (BUTTONS)
+       -------------------------------------------------------------------------- */
+    --typo-btn-control-font: var(--font-inter);
+    --typo-btn-control-size: 0.88rem;
+    --typo-btn-control-weight: 600;
+    --typo-btn-control-letter-spacing: 0.01em;
+
+    /* --------------------------------------------------------------------------
+       9. FEEDBACK E EXPLICAÇÃO DA RESPOSTA (FEEDBACK)
+       -------------------------------------------------------------------------- */
+    --typo-feedback-title-font: var(--font-inter);
+    --typo-feedback-title-size: 0.98rem;
+    --typo-feedback-title-weight: 700;
+
+    --typo-feedback-desc-font: var(--font-inter);
+    --typo-feedback-desc-size: 0.88rem;
+    --typo-feedback-desc-weight: 400;
+    --typo-feedback-desc-line-height: 1.6;
+
+    /* --------------------------------------------------------------------------
+       10. FORMULÁRIOS E ENTRADA DE DADOS (FORMS)
+       -------------------------------------------------------------------------- */
+    --typo-form-label-font: var(--font-inter);
+    --typo-form-label-size: 0.90rem;
+    --typo-form-label-weight: 600;
+
+    --typo-form-input-font: var(--font-inter);
+    --typo-form-input-size: 0.90rem;
+
+    /* --------------------------------------------------------------------------
+       11. RODAPÉ (FOOTER)
+       -------------------------------------------------------------------------- */
+    --typo-footer-font: var(--font-inter);
+    --typo-footer-size: 0.80rem;
+    --typo-footer-weight: 400;
+}
+
+/* ==========================================================================
+   APLICAÇÃO DIRETA DAS REGRAS NO SITE
+   ========================================================================== */
+
+/* Header da Aplicação */
+.logo-text h1 {
+    font-family: var(--typo-app-title-font) !important;
+    font-size: var(--typo-app-title-size) !important;
+    font-weight: var(--typo-app-title-weight) !important;
+    letter-spacing: var(--typo-app-title-letter-spacing) !important;
+}
+
+.logo-text .subtitle {
+    font-family: var(--typo-app-subtitle-font) !important;
+    font-size: var(--typo-app-subtitle-size) !important;
+    font-weight: var(--typo-app-subtitle-weight) !important;
+    letter-spacing: var(--typo-app-subtitle-letter-spacing) !important;
+}
+
+/* Títulos de Secção */
+.section-title {
+    font-family: var(--typo-section-title-font) !important;
+    font-size: var(--typo-section-title-size) !important;
+    font-weight: var(--typo-section-title-weight) !important;
+    letter-spacing: var(--typo-section-title-letter-spacing) !important;
+}
+
+/* Barras de Exames & Cadeiras */
+.exam-list-title {
+    font-family: var(--typo-block-title-font) !important;
+    font-size: var(--typo-block-title-size) !important;
+    font-weight: var(--typo-block-title-weight) !important;
+    letter-spacing: var(--typo-block-title-letter-spacing) !important;
+    text-transform: var(--typo-block-title-transform) !important;
+}
+
+.exam-list-action {
+    font-family: var(--typo-block-count-font) !important;
+    font-size: var(--typo-block-count-size) !important;
+    font-weight: var(--typo-block-count-weight) !important;
+    letter-spacing: var(--typo-block-count-letter-spacing) !important;
+}
+
+.exam-list-desc {
+    font-family: var(--typo-block-desc-font) !important;
+    font-size: var(--typo-block-desc-size) !important;
+    font-weight: var(--typo-block-desc-weight) !important;
+    line-height: var(--typo-block-desc-line-height) !important;
+    letter-spacing: var(--typo-block-desc-letter-spacing) !important;
+}
+
+/* Top Bar de Resolução do Exame */
+#current-exam-title {
+    font-family: var(--typo-exam-header-title-font) !important;
+    font-size: var(--typo-exam-header-title-size) !important;
+    font-weight: var(--typo-exam-header-title-weight) !important;
+}
+
+#question-counter,
+#progress-percentage {
+    font-family: var(--typo-exam-counter-font) !important;
+    font-size: var(--typo-exam-counter-size) !important;
+    font-weight: var(--typo-exam-counter-weight) !important;
+}
+
+/* Questão */
+.question-text {
+    font-family: var(--typo-question-font) !important;
+    font-size: var(--typo-question-size) !important;
+    font-weight: var(--typo-question-weight) !important;
+    line-height: var(--typo-question-line-height) !important;
+    letter-spacing: var(--typo-question-letter-spacing) !important;
+}
+
+.question-badge {
+    font-family: var(--typo-question-badge-font) !important;
+    font-size: var(--typo-question-badge-size) !important;
+    font-weight: var(--typo-question-badge-weight) !important;
+    letter-spacing: var(--typo-question-badge-letter-spacing) !important;
+}
+
+.btn-copy-split {
+    font-family: var(--typo-btn-copy-font) !important;
+    font-size: var(--typo-btn-copy-size) !important;
+    font-weight: var(--typo-btn-copy-weight) !important;
+    letter-spacing: var(--typo-btn-copy-letter-spacing) !important;
+}
+
+.question-cabecalho {
+    font-family: var(--typo-question-code-font) !important;
+    font-size: var(--typo-question-code-size) !important;
+    line-height: var(--typo-question-code-line-height) !important;
+}
+
+/* Opções e Respostas */
+.option-btn {
+    font-family: var(--typo-option-font) !important;
+    font-size: var(--typo-option-size) !important;
+    font-weight: var(--typo-option-weight) !important;
+    line-height: var(--typo-option-line-height) !important;
+    letter-spacing: var(--typo-option-letter-spacing) !important;
+}
+
+.option-btn-prefix {
+    font-family: var(--typo-option-prefix-font) !important;
+    font-size: var(--typo-option-prefix-size) !important;
+    font-weight: var(--typo-option-prefix-weight) !important;
+}
+
+/* Botões de Ação */
+.btn-control {
+    font-family: var(--typo-btn-control-font) !important;
+    font-size: var(--typo-btn-control-size) !important;
+    font-weight: var(--typo-btn-control-weight) !important;
+    letter-spacing: var(--typo-btn-control-letter-spacing) !important;
+}
+
+/* Feedback */
+#feedback-title {
+    font-family: var(--typo-feedback-title-font) !important;
+    font-size: var(--typo-feedback-title-size) !important;
+    font-weight: var(--typo-feedback-title-weight) !important;
+    letter-spacing: var(--typo-feedback-title-letter-spacing) !important;
+}
+
+#feedback-message {
+    font-family: var(--typo-feedback-desc-font) !important;
+    font-size: var(--typo-feedback-desc-size) !important;
+    font-weight: var(--typo-feedback-desc-weight) !important;
+    line-height: var(--typo-feedback-desc-line-height) !important;
+}
+
+/* Formulários e Perguntas Escritas */
+.form-group label,
+.written-answer-label {
+    font-family: var(--font-inter) !important;
+    font-size: 0.92rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+}
+
+.form-control,
+.code-input,
+.written-answer-textarea {
+    font-family: var(--font-inter) !important;
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+}
+
+/* Estatísticas e Chips de Exame */
+.stat-chip,
+.exam-stat-tag,
+.score-badge {
+    font-family: var(--font-jetbrains-mono) !important;
+}
+
+/* Rodapé */
+.app-footer,
+.app-footer p,
+.app-footer span {
+    font-family: var(--typo-footer-font) !important;
+    font-size: var(--typo-footer-size) !important;
+    font-weight: var(--typo-footer-weight) !important;
+}

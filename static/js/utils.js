@@ -3,14 +3,11 @@
  * --------
  * Pure utility functions with no module-level side effects.
  * No DOM references, no State — importable from any module safely.
- *
- * JSON_INSTRUCTIONS was moved to constants.js (MOD-04) because it is a
- * static content string, not a utility function.
  */
 
 /**
  * Escape special HTML characters to prevent XSS.
- * Returns an empty string for null / undefined input (BUG-05 fix).
+ * Returns an empty string for null / undefined input.
  *
  * @param {*} str
  * @returns {string}
@@ -34,10 +31,6 @@ export function escapeHTML(str) {
  *  - **bold** → <strong>
  *  - `inline code` → <code>
  *  - Newlines → <br> (unless isPreformatted is true)
- *
- * Note: escapeHTML is applied BEFORE markdown substitution so that
- * `<` and `>` inside normal text are always escaped, while the HTML
- * tags injected by the regex replacements are trusted and safe.
  *
  * @param {string} text
  * @param {boolean} isPreformatted - If true, newlines are preserved as-is
@@ -67,16 +60,156 @@ export function renderMarkdown(text, isPreformatted = false) {
 }
 
 /**
- * Display a brief toast notification.
- * The toast element is shown for 2.5 s then hidden automatically.
+ * Display a brief retro terminal toast notification.
  *
  * @param {string} message
  * @param {{ toast: HTMLElement }} elements - Must contain a .toast element with a <span> child
  */
 export function showToast(message, elements) {
-    elements.toast.querySelector('span').textContent = message;
+    if (!elements || !elements.toast) return;
+    const span = elements.toast.querySelector('span');
+    if (span) {
+        span.textContent = message.startsWith('[') ? message : `[ ${message} ]`;
+    }
     elements.toast.classList.add('show');
     setTimeout(() => {
         elements.toast.classList.remove('show');
     }, 2500);
+}
+
+let cardResizeObserver = null;
+
+/**
+ * Dynamically calculate the exact integer number of full lines of description
+ * that fit in each card without any half-cut line, and format ellipsis cleanly:
+ * - No trailing punctuation before '...' (e.g. no ',...' or ';...' or ' -...')
+ * - Attached directly to the word (e.g. 'palavra...' and not 'palavra ...')
+ *
+ * @param {HTMLElement} container
+ */
+export function clampCardDescriptions(container) {
+    if (!container) return;
+
+    const runClamp = () => {
+        const cards = container.querySelectorAll('.exam-card');
+        cards.forEach(card => {
+            const desc = card.querySelector('.card-desc');
+            const footer = card.querySelector('.exam-card-footer');
+            if (!desc || !footer) return;
+
+            if (!desc.dataset.fullText) {
+                desc.dataset.fullText = desc.textContent.trim();
+            }
+            const fullText = desc.dataset.fullText;
+
+            // Reset display temporarily to get natural unconstrained geometry
+            desc.style.display = 'block';
+            desc.style.webkitLineClamp = 'unset';
+            desc.textContent = fullText;
+
+            const descRect = desc.getBoundingClientRect();
+            const footerRect = footer.getBoundingClientRect();
+
+            // If card is hidden, skip until visible
+            if (descRect.height <= 0 || footerRect.top <= 0) return;
+
+            const availableHeight = footerRect.top - descRect.top - 8;
+            const computed = window.getComputedStyle(desc);
+            const lineHeight = parseFloat(computed.lineHeight) || (parseFloat(computed.fontSize) * 1.45) || 22;
+
+            // Compute exact integer number of complete lines that fit
+            const maxLines = Math.max(1, Math.floor(availableHeight / lineHeight));
+            const maxHeight = maxLines * lineHeight;
+
+            desc.style.display = '-webkit-box';
+            desc.style.webkitBoxOrient = 'vertical';
+            desc.style.webkitLineClamp = String(maxLines);
+            desc.style.overflow = 'hidden';
+
+            // If the full text fits naturally without overflowing, keep it clean
+            if (desc.scrollHeight <= maxHeight + 3) {
+                desc.textContent = fullText;
+                return;
+            }
+
+            // Binary search to find the maximum words that fit with clean ellipsis
+            const words = fullText.split(/\s+/);
+            let low = 1;
+            let high = words.length;
+            let bestText = '';
+
+            while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                const candidateWords = words.slice(0, mid).join(' ');
+                
+                // Clean any trailing punctuation and spaces before appending '...'
+                const cleaned = candidateWords.replace(/[\s,;:\-_/\\(.]+$/, '');
+                const candidate = cleaned ? cleaned + '...' : '';
+
+                desc.textContent = candidate;
+
+                if (desc.scrollHeight <= maxHeight + 3) {
+                    bestText = candidate;
+                    low = mid + 1; // Try to fit more text
+                } else {
+                    high = mid - 1; // Overflowed, reduce words
+                }
+            }
+
+            const fallbackCleaned = words[0].replace(/[\s,;:\-_/\\(.]+$/, '');
+            const finalClamped = bestText || (fallbackCleaned ? fallbackCleaned + '...' : '...');
+            desc.textContent = finalClamped;
+
+            desc.dataset.isClamped = 'true';
+            desc.dataset.clampedText = finalClamped;
+            desc.dataset.clampedLines = String(maxLines);
+
+            // Configure hover / focus expansion to reveal full text over cards below
+            if (!card.dataset.hasHoverExpand) {
+                card.dataset.hasHoverExpand = 'true';
+
+                const onEnter = () => {
+                    if (desc.dataset.isClamped === 'true' && desc.dataset.fullText) {
+                        desc.textContent = desc.dataset.fullText;
+                        desc.style.webkitLineClamp = 'unset';
+                        desc.style.display = 'block';
+                        card.classList.add('is-expanded');
+                    }
+                };
+
+                const onLeave = () => {
+                    if (desc.dataset.isClamped === 'true' && desc.dataset.clampedText) {
+                        desc.style.display = '-webkit-box';
+                        desc.style.webkitBoxOrient = 'vertical';
+                        desc.style.webkitLineClamp = desc.dataset.clampedLines || '4';
+                        desc.textContent = desc.dataset.clampedText;
+                        card.classList.remove('is-expanded');
+                    }
+                };
+
+                card.addEventListener('mouseenter', onEnter);
+                card.addEventListener('mouseleave', onLeave);
+                card.addEventListener('focusin', onEnter);
+                card.addEventListener('focusout', onLeave);
+            }
+        });
+    };
+
+    // Run on next animation frame
+    requestAnimationFrame(runClamp);
+
+    // Setup ResizeObserver on container so it recalculates automatically on visibility/resize
+    if (typeof ResizeObserver !== 'undefined' && container && !container.dataset.hasCardObserver) {
+        container.dataset.hasCardObserver = 'true';
+        if (!cardResizeObserver) {
+            cardResizeObserver = new ResizeObserver((entries) => {
+                for (const entry of entries) {
+                    if (entry.target.clientHeight > 0) {
+                        clampCardDescriptions(entry.target);
+                    }
+                }
+            });
+        }
+        cardResizeObserver.observe(container);
+    }
 }
