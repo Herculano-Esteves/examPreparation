@@ -1,6 +1,4 @@
 /**
- * question.js
- * -----------
  * Renders individual questions, handles user interaction (option selection,
  * answer confirmation, reveal), and manages navigation between questions.
  * Styled with hybrid cyber-glass formatting and full WCAG AA accessibility.
@@ -57,6 +55,9 @@ export function renderWrittenQuestionUI(q) {
 
     textarea.addEventListener('input', (e) => {
         State.question.writtenInput = e.target.value;
+        if (State.examAnswers && State.examAnswers[State.question.index]) {
+            State.examAnswers[State.question.index].writtenInput = e.target.value;
+        }
     });
 
     if (State.question.revealed) {
@@ -173,6 +174,24 @@ export function renderQuestion() {
     const q = State.currentQuestion;
     if (!q) return;
 
+    // Garantir integridade do array de respostas da sessão
+    if (!State.examAnswers || State.examAnswers.length !== State.totalQuestions) {
+        State.examAnswers = State.activeExam.perguntas.map(() => ({
+            selectedOptions: [],
+            writtenInput: '',
+            revealed: false,
+            isCorrect: null
+        }));
+    }
+
+    // Carregar o estado guardado desta pergunta na sessão
+    const saved = State.examAnswers[State.question.index];
+    if (saved) {
+        State.question.selectedOptions = saved.selectedOptions || [];
+        State.question.writtenInput    = saved.writtenInput || '';
+        State.question.revealed        = saved.revealed || false;
+    }
+
     // --- Top bar progress ---
     elements.questionCounter.textContent =
         `Questão ${State.question.index + 1} de ${State.totalQuestions}`;
@@ -220,7 +239,7 @@ export function renderQuestion() {
 
     if (State.question.index === State.totalQuestions - 1) {
         elements.btnNext.innerHTML =
-            `<span>Concluir Exame</span> <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>`;
+            `<span>Terminar Exame</span> <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>`;
     } else {
         elements.btnNext.innerHTML =
             `<span>Avançar</span> <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>`;
@@ -252,6 +271,12 @@ export function selectOption(optionIndex) {
             State.question.selectedOptions.push(optionIndex);
         }
     }
+
+    // Guardar seleção em memória
+    if (State.examAnswers && State.examAnswers[State.question.index]) {
+        State.examAnswers[State.question.index].selectedOptions = [...State.question.selectedOptions];
+    }
+
     renderQuestion();
 }
 
@@ -273,6 +298,14 @@ export function confirmMultipleChoiceAnswer() {
     if (State.question.firstAttemptCorrect[State.question.index] === undefined) {
         State.question.firstAttemptCorrect[State.question.index] = isCorrect;
     }
+
+    // Guardar estado de confirmação e resultado em memória
+    if (State.examAnswers && State.examAnswers[State.question.index]) {
+        State.examAnswers[State.question.index].revealed = true;
+        State.examAnswers[State.question.index].isCorrect = isCorrect;
+        State.examAnswers[State.question.index].selectedOptions = [...selected];
+    }
+
     renderQuestion();
 }
 
@@ -284,6 +317,12 @@ export function revealWrittenAnswer() {
     if (State.question.firstAttemptCorrect[State.question.index] === undefined) {
         State.question.firstAttemptCorrect[State.question.index] = true;
     }
+
+    if (State.examAnswers && State.examAnswers[State.question.index]) {
+        State.examAnswers[State.question.index].revealed = true;
+        State.examAnswers[State.question.index].isCorrect = true;
+    }
+
     renderQuestion();
 }
 
@@ -292,16 +331,16 @@ export function revealWrittenAnswer() {
 // ---------------------------------------------------------------------------
 
 /**
- * Advance to the next question, or show results if on the last one.
+ * Advance to the next question, or show results if on the last one (button click only).
+ * @param {boolean} isKeyboard - If true, ignores advancing past the last question.
  */
-export function nextQuestion() {
+export function nextQuestion(isKeyboard = false) {
     if (State.question.index === State.totalQuestions - 1) {
-        showResults();
+        if (!isKeyboard) {
+            showResults();
+        }
     } else {
         State.question.index += 1;
-        State.question.selectedOptions = [];
-        State.question.writtenInput    = '';
-        State.question.revealed        = false;
         const leftPane = document.querySelector('.exam-left-scroll-content');
         if (leftPane) leftPane.scrollTop = 0;
         renderQuestion();
@@ -314,9 +353,6 @@ export function nextQuestion() {
 export function prevQuestion() {
     if (State.question.index > 0) {
         State.question.index -= 1;
-        State.question.selectedOptions = [];
-        State.question.writtenInput    = '';
-        State.question.revealed        = false;
         const leftPane = document.querySelector('.exam-left-scroll-content');
         if (leftPane) leftPane.scrollTop = 0;
         renderQuestion();
@@ -324,9 +360,59 @@ export function prevQuestion() {
 }
 
 /**
- * End the exam and transition to the results screen.
+ * End the exam, calculate percentage and breakdown, and transition to the results screen.
  */
 export function showResults() {
-    elements.resultsExamTitle.textContent = State.activeExam.titulo;
+    elements.resultsExamTitle.textContent = State.activeExam ? State.activeExam.titulo : '';
+
+    const total = State.totalQuestions;
+    const answers = State.examAnswers || [];
+
+    let correct = 0;
+    let incorrect = 0;
+    let unanswered = 0;
+
+    for (let i = 0; i < total; i++) {
+        const ans = answers[i];
+        if (!ans || !ans.revealed) {
+            unanswered++;
+        } else if (ans.isCorrect) {
+            correct++;
+        } else {
+            incorrect++;
+        }
+    }
+
+    const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+    // Atualizar visualização da percentagem
+    if (elements.resultsScorePercentage) {
+        elements.resultsScorePercentage.textContent = `${percentage}%`;
+        elements.resultsScorePercentage.className = 'results-score-percentage';
+        if (percentage >= 70) {
+            elements.resultsScorePercentage.classList.add('score-high');
+        } else if (percentage >= 50) {
+            elements.resultsScorePercentage.classList.add('score-medium');
+        } else {
+            elements.resultsScorePercentage.classList.add('score-low');
+        }
+    }
+
+    // Atualizar contadores
+    if (elements.resultsCorrectCount) elements.resultsCorrectCount.textContent = correct;
+    if (elements.resultsIncorrectCount) elements.resultsIncorrectCount.textContent = incorrect;
+    if (elements.resultsUnansweredCount) elements.resultsUnansweredCount.textContent = unanswered;
+
+    // Mensagem de feedback contextual
+    if (elements.resultsFeedbackMessage) {
+        if (percentage >= 80) {
+            elements.resultsFeedbackMessage.textContent = 'Excelente desempenho! Dominou esta matéria com distinção.';
+        } else if (percentage >= 50) {
+            elements.resultsFeedbackMessage.textContent = 'Bom trabalho! Exame concluído com aproveitamento positivo.';
+        } else {
+            elements.resultsFeedbackMessage.textContent = 'Aproveitamento insuficiente. Reveja as matérias com mais dúvidas e tente novamente!';
+        }
+    }
+
     transitionTo('results');
 }

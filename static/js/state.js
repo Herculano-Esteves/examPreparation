@@ -28,6 +28,10 @@ export const State = {
     // Currently active exam
     activeExam: null,
 
+    // Session answers & progress for active exam:
+    // Array of { selectedOptions: number[], writtenInput: string, revealed: boolean, isCorrect: boolean|null }
+    examAnswers: [],
+
     // Current question states
     question: {
         index: 0,

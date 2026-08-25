@@ -52,10 +52,16 @@ export const elements = {
     btnCopy:       document.getElementById('btn-copy'),
     btnCopyAnswer: document.getElementById('btn-copy-answer'),
     btnBackMenu:   document.getElementById('btn-back-menu'),
+    btnResumeExam: document.getElementById('btn-resume-exam'),
     btnSettings:   document.getElementById('btn-settings'),
 
     // ---------- Results screen ----------
-    resultsExamTitle: document.getElementById('results-exam-title'),
+    resultsExamTitle:        document.getElementById('results-exam-title'),
+    resultsScorePercentage:  document.getElementById('results-score-percentage'),
+    resultsCorrectCount:     document.getElementById('results-correct-count'),
+    resultsIncorrectCount:   document.getElementById('results-incorrect-count'),
+    resultsUnansweredCount:  document.getElementById('results-unanswered-count'),
+    resultsFeedbackMessage:  document.getElementById('results-feedback-message'),
 
     // ---------- Notifications ----------
     toast: document.getElementById('toast')

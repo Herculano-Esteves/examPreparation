@@ -11,7 +11,9 @@
     <!-- Typography: Inter (UI & Leitura) & JetBrains Mono (Código & Contadores) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -136,12 +138,13 @@
                             <h3 id="question-text" class="question-text">
                                 <span id="question-text-content">A carregar pergunta...</span>
                                 <span class="btn-copy-group" role="group" aria-label="Opções de cópia da questão">
-                                    <button id="btn-copy" class="btn-copy-split btn-copy-left" title="Copiar apenas a questão e opções"
-                                        aria-label="Copiar questão e opções">
+                                    <button id="btn-copy" class="btn-copy-split btn-copy-left"
+                                        title="Copiar apenas a questão e opções" aria-label="Copiar questão e opções">
                                         <i class="fa-regular fa-copy" aria-hidden="true"></i>
                                         <span>Copiar</span>
                                     </button>
-                                    <button id="btn-copy-answer" class="btn-copy-split btn-copy-right" title="Copiar questão com a resposta e justificação"
+                                    <button id="btn-copy-answer" class="btn-copy-split btn-copy-right"
+                                        title="Copiar questão com a resposta e justificação"
                                         aria-label="Copiar questão com resposta">
                                         <span>+ Resposta</span>
                                     </button>
@@ -193,16 +196,61 @@
             <!-- STATE 3: RESULTS SCREEN -->
             <section id="screen-results" class="screen">
                 <div class="results-card">
-                    <div class="success-icon-wrapper">
-                        <i class="fa-solid fa-trophy results-trophy" aria-hidden="true"></i>
+                    <!-- Top header with icon and title -->
+                    <div class="results-card-header">
+                        <div class="success-icon-wrapper" id="results-icon-wrapper">
+                            <i class="fa-solid fa-trophy results-trophy" aria-hidden="true"></i>
+                        </div>
+                        <div class="results-card-title-group">
+                            <h2 id="results-title">Exame Concluído!</h2>
+                            <p id="results-exam-title">Título do Exame</p>
+                        </div>
                     </div>
-                    <h2>Exame Concluído!</h2>
-                    <p id="results-exam-title">Título do Exame</p>
 
-                    <button id="btn-back-menu" class="btn-control btn-primary btn-results-back">
-                        <i class="fa-solid fa-house" aria-hidden="true"></i>
-                        <span>Voltar ao Menu Principal</span>
-                    </button>
+                    <!-- Middle Content: Left (Score) + Right (Stats & Feedback) -->
+                    <div class="results-main-body">
+                        <!-- Score Percentage Display -->
+                        <div class="results-score-box">
+                            <div class="results-score-percentage" id="results-score-percentage">0%</div>
+                        </div>
+
+                        <div class="results-details-col">
+                            <!-- Statistics Breakdown Grid -->
+                            <div class="results-stats-grid">
+                                <div class="result-stat-card stat-correct">
+                                    <span class="result-stat-num" id="results-correct-count">0</span>
+                                    <span class="result-stat-label"><i class="fa-solid fa-circle-check"
+                                            aria-hidden="true"></i> Corretas</span>
+                                </div>
+                                <div class="result-stat-card stat-incorrect">
+                                    <span class="result-stat-num" id="results-incorrect-count">0</span>
+                                    <span class="result-stat-label"><i class="fa-solid fa-circle-xmark"
+                                            aria-hidden="true"></i> Incorretas</span>
+                                </div>
+                                <div class="result-stat-card stat-unanswered">
+                                    <span class="result-stat-num" id="results-unanswered-count">0</span>
+                                    <span class="result-stat-label"><i class="fa-solid fa-circle-minus"
+                                            aria-hidden="true"></i> Por Fazer</span>
+                                </div>
+                            </div>
+
+                            <p id="results-feedback-message" class="results-feedback-text">
+                                Bom trabalho na conclusão do exame!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Actions -->
+                    <div class="results-actions">
+                        <button id="btn-resume-exam" class="btn-control btn-secondary">
+                            <i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i>
+                            <span>Voltar ao Exame</span>
+                        </button>
+                        <button id="btn-back-menu" class="btn-control btn-primary">
+                            <i class="fa-solid fa-house" aria-hidden="true"></i>
+                            <span>Menu Principal</span>
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -317,8 +365,8 @@
                 <div class="question-card">
                     <h4 class="settings-section-title">Armazenamento Local</h4>
                     <p class="settings-description">
-                        Todas as cadeiras e exames criados localmente são guardados apenas no seu browser (através do
-                        localStorage). Não existem cookies de rastreio nem dados transmitidos para terceiros.
+                        Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem
+                        cookies de rastreio nem dados transmitidos para terceiros.
                     </p>
                     <div class="danger-zone">
                         <h5 class="danger-zone-title"><i class="fa-solid fa-triangle-exclamation"

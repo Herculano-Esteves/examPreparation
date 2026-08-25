@@ -149,6 +149,14 @@ export async function startExam(examId) {
 
         State.activeExam.perguntas.forEach(q => shuffleQuestionOptions(q));
 
+        // Inicializar armazenamento em memória da sessão de respostas do exame
+        State.examAnswers = State.activeExam.perguntas.map(() => ({
+            selectedOptions: [],
+            writtenInput: '',
+            revealed: false,
+            isCorrect: null
+        }));
+
         State.question.index              = 0;
         State.question.selectedOptions    = [];
         State.question.revealed           = false;

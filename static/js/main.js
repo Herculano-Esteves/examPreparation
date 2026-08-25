@@ -7,7 +7,7 @@ import { validateExamJSON } from './validation.js';
 import { transitionTo } from './navigation.js';
 import { fetchCadeiras, renderCadeirasMenu } from './cadeiras.js';
 import { fetchExams } from './exams.js';
-import { prevQuestion, nextQuestion } from './question.js';
+import { prevQuestion, nextQuestion, renderQuestion } from './question.js';
 import { copyQuestionToClipboard } from './clipboard.js';
 
 // Initialization
@@ -51,6 +51,17 @@ function setupEventListeners() {
     if (elements.btnCopyAnswer) {
         elements.btnCopyAnswer.addEventListener('click', () => {
             copyQuestionToClipboard(true);
+        });
+    }
+
+    if (elements.btnResumeExam) {
+        elements.btnResumeExam.addEventListener('click', () => {
+            if (State.activeExam) {
+                transitionTo('exam');
+                renderQuestion();
+            } else {
+                transitionTo('menu');
+            }
         });
     }
 
@@ -129,7 +140,7 @@ function setupEventListeners() {
                 return;
             }
             if (e.key === 'ArrowRight') {
-                nextQuestion();
+                nextQuestion(true);
             } else if (e.key === 'ArrowLeft') {
                 prevQuestion();
             }
