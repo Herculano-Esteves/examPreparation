@@ -8,6 +8,7 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { renderMarkdown, escapeHTML } from './utils.js';
 import { transitionTo } from './navigation.js';
+import { getQuestionTypeInfo } from './questionTypes.js';
 
 // ---------------------------------------------------------------------------
 // Internal helpers

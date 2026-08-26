@@ -461,8 +461,8 @@ body.layout-exam #screen-exam {
 .exam-list-row {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    padding: 1.1rem 0.4rem 1.15rem;
+    gap: 0.18rem;
+    padding: 1.05rem 0.4rem 1.1rem;
     background: transparent;
     border: none;
     border-bottom: 1px dashed var(--divider-dashed);
@@ -504,6 +504,21 @@ body.layout-exam #screen-exam {
     flex: 1;
 }
 
+.cadeira-title-icon {
+    color: var(--primary);
+    margin-right: 0.5rem;
+    font-size: 0.95em;
+    vertical-align: -1px;
+    display: inline-block;
+    transition: transform var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.exam-list-row:hover .cadeira-title-icon,
+.exam-list-row:focus-visible .cadeira-title-icon {
+    color: #c084fc;
+    transform: scale(1.12);
+}
+
 .exam-list-action {
     font-family: var(--font-geist-mono);
     font-size: 0.82rem;
@@ -526,14 +541,139 @@ body.layout-exam #screen-exam {
     font-family: var(--font-geist-mono);
     font-size: 0.86rem;
     color: #a1a1aa;
-    line-height: 1.6;
-    margin: 0;
+    line-height: 1.5;
+    margin: 0.05rem 0 0 0;
     word-break: break-word;
     letter-spacing: 0.01em;
 }
 
 .exam-list-row:hover .exam-list-desc {
     color: #e4e4e7;
+}
+
+/* Single Split Capsule for Exam Question Types (===|=== Style, Interactive Filter) */
+.exam-types-capsule {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-pill);
+    overflow: hidden;
+    line-height: 1;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    margin: 0.05rem 0 0.05rem 0;
+    width: fit-content;
+    user-select: none;
+    transition: all var(--transition-speed) ease;
+}
+
+.exam-types-capsule.interactive {
+    pointer-events: auto;
+    cursor: default;
+}
+
+.exam-list-row:hover .exam-types-capsule {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.exam-type-segment {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    padding: 0.25rem 0.65rem;
+    letter-spacing: 0.02em;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    text-decoration: none;
+}
+
+.exam-type-segment:not(:last-child) {
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.exam-type-segment:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+/* Excluded State (Riscado / Desativado) */
+.exam-type-segment.type-excluded {
+    opacity: 0.42;
+    background: rgba(239, 68, 68, 0.08);
+    color: #f87171;
+}
+
+.exam-type-segment.type-excluded .type-segment-text {
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: #f87171;
+}
+
+.exam-type-segment.type-excluded i {
+    opacity: 0.6;
+}
+
+.exam-type-segment.type-excluded:hover {
+    opacity: 0.75;
+    background: rgba(239, 68, 68, 0.14);
+}
+
+.exam-type-segment i {
+    font-size: 0.72rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.exam-type-segment.badge-type-choice i {
+    color: #c084fc;
+}
+
+.exam-type-segment.badge-type-boolean i {
+    color: #38bdf8;
+}
+
+.exam-type-segment.badge-type-written i {
+    color: #fbbf24;
+}
+
+/* Dynamic Filtered Question Counter */
+.count-old {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    margin-right: 0.3rem;
+    opacity: 0.75;
+    font-weight: 400;
+}
+
+.count-new {
+    color: #c084fc;
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--primary-glow);
+}
+
+.count-new.count-zero {
+    color: #f87171;
+    text-shadow: 0 0 8px rgba(248, 113, 113, 0.4);
+}
+
+/* Error Shake Animation when attempting to start with all excluded */
+@keyframes row-shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.exam-list-row.row-shake-error {
+    animation: row-shake 0.42s ease;
+    border-color: rgba(239, 68, 68, 0.6) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1491,6 +1631,67 @@ body.layout-exam #screen-exam {
 .app-footer a:hover {
     color: #ffffff;
     text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   16. Discreet Notification Toast (Top-Center, Fitted to Content, Click-Through)
+   -------------------------------------------------------------------------- */
+.toast {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(18, 18, 22, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--border-radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #e4e4e7;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none !important; /* Nunca bloqueia cliques */
+    user-select: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    width: fit-content;
+    max-width: calc(100vw - 2.5rem);
+    box-sizing: border-box;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast i {
+    font-size: 0.85rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.toast.toast-warning {
+    border-color: rgba(245, 158, 11, 0.35);
+    background: rgba(24, 20, 14, 0.94);
+}
+
+.toast.toast-warning i {
+    color: #fbbf24;
+}
+
+.toast.toast-success {
+    border-color: rgba(168, 85, 247, 0.35);
+}
+
+.toast.toast-success i {
+    color: #c084fc;
 }
 
 /* --------------------------------------------------------------------------

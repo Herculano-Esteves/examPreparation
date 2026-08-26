@@ -134,12 +134,20 @@ def build_exams_json():
                             continue
                         
                         exam_id = os.path.splitext(filename)[0]
+                        types_counts = {}
+                        for q in valid_questions:
+                            t = q.get('tipo', 'escolha_multipla')
+                            types_counts[t] = types_counts.get(t, 0) + 1
+                        
+                        question_types = sorted(list(types_counts.keys()))
                         loaded_exams.append({
                             "id": exam_id,
                             "titulo": data["titulo"],
                             "descricao": data["descricao"],
                             "path": f"exames/{cadeira_id}/{filename}",
-                            "perguntas_count": len(valid_questions)
+                            "perguntas_count": len(valid_questions),
+                            "tipos_perguntas": question_types,
+                            "tipos_contagem": types_counts
                         })
                 except Exception as e:
                     logging.exception(f"Erro ao processar ficheiro {filename}: {e}")

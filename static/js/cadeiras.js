@@ -68,10 +68,13 @@ export function renderCadeirasMenu() {
 
         const exCount = cadeira.exames_count || 0;
         const countLabel = exCount === 1 ? '1 exame' : `${exCount} exames`;
+        const iconClass = cadeira.icon
+            ? (cadeira.icon.startsWith('fa-') ? `fa-solid ${cadeira.icon}` : cadeira.icon)
+            : 'fa-solid fa-graduation-cap';
 
         row.innerHTML = `
             <div class="exam-list-header">
-                <h4 class="exam-list-title">${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ' <span class="badge-local">Local</span>' : ''}</h4>
+                <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ' <span class="badge-local">Local</span>' : ''}</h4>
                 <span class="exam-list-action">[ ${countLabel} ]</span>
             </div>
             <p class="exam-list-desc">${escapeHTML(cadeira.descricao)}</p>

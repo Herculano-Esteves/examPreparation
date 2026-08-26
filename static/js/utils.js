@@ -59,22 +59,47 @@ export function renderMarkdown(text, isPreformatted = false) {
     return result;
 }
 
+let toastTimeout = null;
+
 /**
- * Display a brief retro terminal toast notification.
+ * Display a brief modern toast notification.
  *
- * @param {string} message
- * @param {{ toast: HTMLElement }} elements - Must contain a .toast element with a <span> child
+ * @param {string} message - Notification text to display.
+ * @param {object} [elementsRef] - Optional elements cache containing toast element.
  */
-export function showToast(message, elements) {
-    if (!elements || !elements.toast) return;
-    const span = elements.toast.querySelector('span');
+export function showToast(message, elementsRef) {
+    const toastEl = (elementsRef && elementsRef.toast) || document.getElementById('toast');
+    if (!toastEl) return;
+
+    const span = toastEl.querySelector('span');
+    const icon = toastEl.querySelector('i');
+
     if (span) {
-        span.textContent = message.startsWith('[') ? message : `[ ${message} ]`;
+        // Strip duplicate emoji icons from message string so only FontAwesome icon shows
+        span.textContent = message.replace(/^[\s⚠️!✅❌\[]+|[\s\]]+$/g, '').trim();
     }
-    elements.toast.classList.add('show');
-    setTimeout(() => {
-        elements.toast.classList.remove('show');
-    }, 2500);
+
+    if (icon) {
+        if (message.includes('⚠️') || message.toLowerCase().includes('erro') || message.toLowerCase().includes('excluídas') || message.toLowerCase().includes('excluidas')) {
+            icon.className = 'fa-solid fa-triangle-exclamation';
+            toastEl.classList.add('toast-warning');
+            toastEl.classList.remove('toast-success');
+        } else {
+            icon.className = 'fa-solid fa-circle-check';
+            toastEl.classList.add('toast-success');
+            toastEl.classList.remove('toast-warning');
+        }
+    }
+
+    if (toastTimeout) {
+        clearTimeout(toastTimeout);
+    }
+
+    toastEl.classList.add('show');
+
+    toastTimeout = setTimeout(() => {
+        toastEl.classList.remove('show');
+    }, 2200);
 }
 
 let cardResizeObserver = null;
