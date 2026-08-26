@@ -75,6 +75,12 @@ function updateExamRowUI(row, exam) {
         const typeId = btn.getAttribute('data-type');
         const isExcluded = excluded.includes(typeId);
         const info = getQuestionTypeInfo(typeId);
+        const label = info.shortLabel || info.label;
+
+        const actionHTML = isExcluded
+            ? `<span class="chip-action-bubble" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>`
+            : `<span class="chip-action-bubble" aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>`;
+
         if (isExcluded) {
             btn.classList.add('type-excluded');
             btn.setAttribute('aria-pressed', 'false');
@@ -86,6 +92,12 @@ function updateExamRowUI(row, exam) {
             btn.setAttribute('title', `Incluído: ${info.label} (Clique para excluir)`);
             btn.setAttribute('aria-label', `Incluído: ${info.label} (Clique para excluir)`);
         }
+
+        btn.innerHTML = `
+            <i class="fa-solid ${info.icon} chip-type-icon" aria-hidden="true"></i>
+            <span class="type-segment-text">${escapeHTML(label)}</span>
+            ${actionHTML}
+        `;
     });
 }
 
@@ -173,7 +185,7 @@ export function renderExamsMenu() {
             <p class="exam-list-desc">${escapeHTML(exam.descricao)}</p>
         `;
 
-        // Interactivity for question type toggle buttons
+        // Interactivity for question type toggle segments inside capsule
         row.querySelectorAll('.exam-type-segment').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation(); // Avoid triggering exam start

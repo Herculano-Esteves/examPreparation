@@ -551,7 +551,9 @@ body.layout-exam #screen-exam {
     color: #e4e4e7;
 }
 
-/* Single Split Capsule for Exam Question Types (===|=== Style, Interactive Filter) */
+/* --------------------------------------------------------------------------
+   Exam Question Type Filter Capsule (Connected Segments with Vertical Dividers)
+   -------------------------------------------------------------------------- */
 .exam-types-capsule {
     display: inline-flex;
     align-items: center;
@@ -585,8 +587,8 @@ body.layout-exam #screen-exam {
     font-family: var(--font-jetbrains-mono);
     font-size: 0.72rem;
     font-weight: 500;
-    color: var(--text-dim);
-    padding: 0.25rem 0.65rem;
+    color: var(--text-secondary);
+    padding: 0.22rem 0.65rem;
     letter-spacing: 0.02em;
     background: transparent;
     border: none;
@@ -600,48 +602,98 @@ body.layout-exam #screen-exam {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.exam-type-segment .chip-type-icon {
+    font-size: 0.7rem;
+    transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease;
+}
+
+.exam-type-segment.badge-type-choice .chip-type-icon {
+    color: #c084fc;
+}
+
+.exam-type-segment.badge-type-boolean .chip-type-icon {
+    color: #38bdf8;
+}
+
+.exam-type-segment.badge-type-written .chip-type-icon {
+    color: #fbbf24;
+}
+
+.exam-type-segment .type-segment-text {
+    font-weight: 600;
+}
+
+/* Micro-Action Bubble (✕ / +) with Smooth Rotation (Same color as text) */
+.chip-action-bubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    margin-left: 0.22rem;
+    font-size: 0.60rem;
+    color: var(--text-dim);
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover on active segment: smooth scale and bright highlight */
 .exam-type-segment:hover {
     background: rgba(255, 255, 255, 0.08);
     color: #ffffff;
 }
 
-/* Excluded State (Riscado / Desativado) */
+.exam-type-segment:hover .chip-type-icon {
+    transform: scale(1.1);
+}
+
+.exam-type-segment:hover .chip-action-bubble {
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    transform: scale(1.22);
+}
+
+/* Excluded / Inactive Segment State */
 .exam-type-segment.type-excluded {
-    opacity: 0.42;
-    background: rgba(239, 68, 68, 0.08);
-    color: #f87171;
+    opacity: 0.52;
+    background: rgba(239, 68, 68, 0.05);
+    color: #a1a1aa;
+}
+
+.exam-type-segment.type-excluded .chip-type-icon {
+    opacity: 0.5;
 }
 
 .exam-type-segment.type-excluded .type-segment-text {
     text-decoration: line-through;
-    text-decoration-thickness: 1.5px;
-    text-decoration-color: #f87171;
+    text-decoration-thickness: 1.2px;
+    text-decoration-color: rgba(239, 68, 68, 0.7);
 }
 
-.exam-type-segment.type-excluded i {
-    opacity: 0.6;
+.exam-type-segment.type-excluded .chip-action-bubble {
+    background: rgba(255, 255, 255, 0.05);
+    color: #a1a1aa;
 }
 
 .exam-type-segment.type-excluded:hover {
-    opacity: 0.75;
-    background: rgba(239, 68, 68, 0.14);
+    opacity: 0.95;
+    background: rgba(56, 189, 248, 0.08);
+    color: #ffffff;
 }
 
-.exam-type-segment i {
-    font-size: 0.72rem;
-    transition: color var(--transition-speed) ease;
+.exam-type-segment.type-excluded:hover .chip-type-icon {
+    opacity: 1;
 }
 
-.exam-type-segment.badge-type-choice i {
-    color: #c084fc;
+.exam-type-segment.type-excluded:hover .type-segment-text {
+    text-decoration: none;
 }
 
-.exam-type-segment.badge-type-boolean i {
+.exam-type-segment.type-excluded:hover .chip-action-bubble {
+    background: rgba(56, 189, 248, 0.25);
     color: #38bdf8;
-}
-
-.exam-type-segment.badge-type-written i {
-    color: #fbbf24;
+    transform: scale(1.22);
 }
 
 /* Dynamic Filtered Question Counter */

@@ -84,7 +84,7 @@ export function getExamQuestionTypes(exam) {
 
 /**
  * Generates the HTML split capsule showing all question types included in an exam.
- * Each segment can be clicked to exclude/include that type from the exam session.
+ * Features: Single continuous capsule, type icons on the left, short labels, and checkbox icons (☑ / ☐) on the right.
  *
  * @param {string[]} types - Array of question type identifiers.
  * @param {string[]} [excludedTypes=[]] - Array of type identifiers currently excluded.
@@ -102,6 +102,11 @@ export function renderQuestionTypeTagsHTML(types, excludedTypes = []) {
         const title = isExcluded
             ? `Excluído: ${info.label} (Clique para incluir)`
             : `Incluído: ${info.label} (Clique para excluir)`;
+        const label = info.shortLabel || info.label;
+
+        const actionHTML = isExcluded
+            ? `<span class="chip-action-bubble" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>`
+            : `<span class="chip-action-bubble" aria-hidden="true"><i class="fa-solid fa-xmark"></i></span>`;
 
         return `
             <button type="button"
@@ -110,13 +115,14 @@ export function renderQuestionTypeTagsHTML(types, excludedTypes = []) {
                     title="${escapeHTML(title)}"
                     aria-label="${escapeHTML(title)}"
                     aria-pressed="${isExcluded ? 'false' : 'true'}">
-                <i class="fa-solid ${info.icon}" aria-hidden="true"></i>
-                <span class="type-segment-text">${escapeHTML(info.label)}</span>
+                <i class="fa-solid ${info.icon} chip-type-icon" aria-hidden="true"></i>
+                <span class="type-segment-text">${escapeHTML(label)}</span>
+                ${actionHTML}
             </button>
         `;
     }).join('');
 
-    return `<div class="exam-types-capsule interactive" role="group" aria-label="Tipos de perguntas no exame (clique para excluir/incluir)">${segmentsHTML}</div>`;
+    return `<div class="exam-types-capsule interactive" role="group" aria-label="Filtro de tipos de perguntas">${segmentsHTML}</div>`;
 }
 
 /**
