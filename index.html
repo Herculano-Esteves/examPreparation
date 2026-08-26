@@ -118,11 +118,110 @@
                         </button>
                     </div>
                 </div>
-                <div id="exams-grid" class="exams-grid">
-                    <!-- Dynamic Exam Cards Loaded from API -->
-                    <div class="loading-state">
-                        <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-                        <p>A carregar exames...</p>
+                <div class="exams-screen-layout">
+                    <!-- FLOATING LEFT SIDEBAR: Filters & Sorting (Invisible borderless container) -->
+                    <aside class="floating-filters-sidebar" id="exams-sidebar-filters" aria-label="Filtros e ordenação de exames">
+                        
+                        <!-- 1. ORDENAÇÃO (SORT DROPDOWN) -->
+                        <div class="floating-filter-group">
+                            <span class="floating-filter-label">
+                                <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> Ordenar
+                            </span>
+                            <div class="custom-dropdown" id="sort-dropdown">
+                                <button type="button" 
+                                        class="dropdown-trigger-btn" 
+                                        id="sort-dropdown-trigger" 
+                                        aria-haspopup="listbox" 
+                                        aria-expanded="false"
+                                        aria-label="Ordenar exames por">
+                                    <span id="sort-dropdown-selected-label">
+                                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
+                                </button>
+                                <ul class="dropdown-menu" id="sort-dropdown-menu" role="listbox" tabindex="-1">
+                                    <li class="dropdown-item active" role="option" data-value="default" aria-selected="true">
+                                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="questions_desc" aria-selected="false">
+                                        <i class="fa-solid fa-arrow-down-9-1" aria-hidden="true"></i> Nº de Questões (Maior)
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="questions_asc" aria-selected="false">
+                                        <i class="fa-solid fa-arrow-up-1-9" aria-hidden="true"></i> Nº de Questões (Menor)
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="title_asc" aria-selected="false">
+                                        <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i> Título (A → Z)
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="title_desc" aria-selected="false">
+                                        <i class="fa-solid fa-arrow-up-z-a" aria-hidden="true"></i> Título (Z → A)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 2. TIPOS DE PERGUNTAS (QUESTION TYPE FILTERS) -->
+                        <div class="floating-filter-group">
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-filter" aria-hidden="true"></i> Tipos de Pergunta
+                                </span>
+                                <button type="button" class="btn-filter-reset-link" id="btn-reset-global-filters" title="Selecionar Todos">
+                                    Todos
+                                </button>
+                            </div>
+
+                            <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por tipo de pergunta">
+                                <label class="floating-checkbox-item" data-type="escolha_multipla">
+                                    <input type="checkbox" class="floating-check-input" checked value="escolha_multipla" aria-label="Escolha Múltipla">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-list-check type-icon-choice" aria-hidden="true"></i>
+                                        <span>Escolha Múltipla</span>
+                                    </span>
+                                </label>
+                                
+                                <label class="floating-checkbox-item" data-type="boolean">
+                                    <input type="checkbox" class="floating-check-input" checked value="boolean" aria-label="Verdadeiro ou Falso">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-check-double type-icon-boolean" aria-hidden="true"></i>
+                                        <span>Verdadeiro / Falso</span>
+                                    </span>
+                                </label>
+
+                                <label class="floating-checkbox-item" data-type="escrita">
+                                    <input type="checkbox" class="floating-check-input" checked value="escrita" aria-label="Desenvolvimento / Escrita">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-pen-to-square type-icon-written" aria-hidden="true"></i>
+                                        <span>Desenvolvimento</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 3. STATUS INDICATOR -->
+                        <div class="floating-filter-status" id="floating-filter-status">
+                            <span id="floating-filter-count-text">A carregar exames...</span>
+                        </div>
+
+                    </aside>
+
+                    <!-- EXAMS GRID MAIN COLUMN -->
+                    <div class="exams-main-column">
+                        <div id="exams-grid" class="exams-grid">
+                            <!-- Dynamic Exam Cards Loaded from API -->
+                            <div class="loading-state">
+                                <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
+                                <p>A carregar exames...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

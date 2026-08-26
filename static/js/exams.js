@@ -14,6 +14,23 @@ import { transitionTo } from './navigation.js';
 import { renderQuestion } from './question.js';
 import { getExamQuestionTypes, getQuestionTypeInfo, renderQuestionTypeTagsHTML } from './questionTypes.js';
 
+const ALL_QUESTION_TYPES = ['escolha_multipla', 'boolean', 'escrita'];
+
+/**
+ * Calculates effective excluded types for an exam by merging:
+ * 1. Globally unchecked question types from the floating sidebar.
+ * 2. Exam-specific exclusions toggled directly on the card capsule.
+ *
+ * @param {object} exam
+ * @returns {string[]}
+ */
+export function getEffectiveExcludedTypes(exam) {
+    const globalActive = State.globalQuestionTypes || ALL_QUESTION_TYPES;
+    const globalExcluded = ALL_QUESTION_TYPES.filter(t => !globalActive.includes(t));
+    const perExamExcluded = (State.examFilters && State.examFilters[exam.id]) || [];
+    return Array.from(new Set([...globalExcluded, ...perExamExcluded]));
+}
+
 /**
  * Calculates the total and remaining active questions count after applying exclusions.
  *
@@ -56,8 +73,7 @@ function getExamFilteredCount(exam, excludedTypes = []) {
  * @param {object} exam
  */
 function updateExamRowUI(row, exam) {
-    if (!State.examFilters) State.examFilters = {};
-    const excluded = State.examFilters[exam.id] || [];
+    const excluded = getEffectiveExcludedTypes(exam);
     const { totalCount, activeCount } = getExamFilteredCount(exam, excluded);
 
     const actionEl = row.querySelector('.exam-list-action');
@@ -99,6 +115,99 @@ function updateExamRowUI(row, exam) {
             ${actionHTML}
         `;
     });
+}
+
+let floatingFiltersInitialized = false;
+
+/**
+ * Initializes floating sidebar filter controls (Sort dropdown, Question type checkboxes, Reset button).
+ */
+export function initFloatingFilters() {
+    if (floatingFiltersInitialized) return;
+    floatingFiltersInitialized = true;
+
+    // --- 1. SORT DROPDOWN ---
+    const trigger = elements.sortDropdownTrigger || document.getElementById('sort-dropdown-trigger');
+    const menu = elements.sortDropdownMenu || document.getElementById('sort-dropdown-menu');
+    const dropdown = elements.sortDropdown || document.getElementById('sort-dropdown');
+    const labelSpan = elements.sortDropdownSelectedLabel || document.getElementById('sort-dropdown-selected-label');
+
+    if (trigger && menu) {
+        const toggleDropdown = (open) => {
+            const isCurrentlyOpen = trigger.getAttribute('aria-expanded') === 'true';
+            const shouldOpen = (typeof open === 'boolean') ? open : !isCurrentlyOpen;
+            trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+            menu.classList.toggle('open', shouldOpen);
+            if (dropdown) dropdown.classList.toggle('open', shouldOpen);
+        };
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDropdown();
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (dropdown && !dropdown.contains(e.target)) {
+                toggleDropdown(false);
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
+                toggleDropdown(false);
+                trigger.focus();
+            }
+        });
+
+        // Dropdown Items Selection
+        menu.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const value = item.getAttribute('data-value');
+                State.examSort = value;
+
+                // Update active class & label
+                menu.querySelectorAll('.dropdown-item').forEach(i => {
+                    const isSelected = i === item;
+                    i.classList.toggle('active', isSelected);
+                    i.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+                });
+
+                if (labelSpan) {
+                    labelSpan.innerHTML = item.innerHTML;
+                }
+
+                toggleDropdown(false);
+                renderExamsMenu();
+            });
+        });
+    }
+
+    // --- 2. GLOBAL QUESTION TYPE CHECKBOXES ---
+    const typeCheckboxes = document.querySelectorAll('.floating-check-input');
+    typeCheckboxes.forEach(chk => {
+        chk.addEventListener('change', () => {
+            const activeTypes = [];
+            typeCheckboxes.forEach(c => {
+                if (c.checked) activeTypes.push(c.value);
+            });
+            State.globalQuestionTypes = activeTypes;
+            renderExamsMenu();
+        });
+    });
+
+    // --- 3. RESET BUTTON ("Todos") ---
+    const resetBtn = elements.btnResetGlobalFilters || document.getElementById('btn-reset-global-filters');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            typeCheckboxes.forEach(c => { c.checked = true; });
+            State.globalQuestionTypes = ['escolha_multipla', 'boolean', 'escrita'];
+            renderExamsMenu();
+            showToast('Todos os tipos de perguntas foram ativados.');
+        });
+    }
 }
 
 /**
@@ -149,31 +258,113 @@ export async function fetchExams(indexPath) {
 }
 
 /**
- * Render the exams grid from State.exams.
- * Direct layout: Title on top, question type filter capsule, and description underneath.
+ * Render the exams grid from State.exams applying floating filters and sorting.
  */
 export function renderExamsMenu() {
+    initFloatingFilters();
     elements.examsGrid.innerHTML = '';
     if (!State.examFilters) State.examFilters = {};
+    if (!State.globalQuestionTypes) State.globalQuestionTypes = ALL_QUESTION_TYPES;
 
-    State.exams.forEach(exam => {
+    // Synchronize checkboxes with state
+    document.querySelectorAll('.floating-check-input').forEach(chk => {
+        chk.checked = State.globalQuestionTypes.includes(chk.value);
+    });
+
+    // 1. Prepare items with calculated active counts
+    const preparedExams = State.exams.map((exam, originalIndex) => {
+        const effectiveExcluded = getEffectiveExcludedTypes(exam);
+        const questionTypes = getExamQuestionTypes(exam);
+        const { totalCount, activeCount } = getExamFilteredCount(exam, effectiveExcluded);
+
+        return {
+            ...exam,
+            _originalIndex: originalIndex,
+            _effectiveExcluded: effectiveExcluded,
+            _questionTypes: questionTypes,
+            _totalCount: totalCount,
+            _activeCount: activeCount
+        };
+    });
+
+    // 2. Filter: Only display exams that have at least 1 active question matching the filter
+    // If all 3 types are unchecked globally, activeCount will be 0 for all exams.
+    const visibleExams = preparedExams.filter(e => e._activeCount > 0);
+
+    // 3. Sort visible exams
+    const sortMode = State.examSort || 'default';
+    visibleExams.sort((a, b) => {
+        if (sortMode === 'questions_desc') {
+            return (b._activeCount - a._activeCount) || (b._totalCount - a._totalCount) || (a._originalIndex - b._originalIndex);
+        }
+        if (sortMode === 'questions_asc') {
+            return (a._activeCount - b._activeCount) || (a._totalCount - b._totalCount) || (a._originalIndex - b._originalIndex);
+        }
+        if (sortMode === 'title_asc') {
+            return a.titulo.localeCompare(b.titulo, 'pt', { numeric: true, sensitivity: 'base' });
+        }
+        if (sortMode === 'title_desc') {
+            return b.titulo.localeCompare(a.titulo, 'pt', { numeric: true, sensitivity: 'base' });
+        }
+        // 'default'
+        return a._originalIndex - b._originalIndex;
+    });
+
+    // 4. Update status indicator in floating sidebar
+    const statusEl = elements.floatingFilterCountText || document.getElementById('floating-filter-count-text');
+    if (statusEl) {
+        const total = State.exams.length;
+        const visible = visibleExams.length;
+        if (total === 0) {
+            statusEl.textContent = '0 exames disponíveis';
+        } else if (visible === total) {
+            statusEl.textContent = `${total} ${total === 1 ? 'exame disponível' : 'exames disponíveis'}`;
+        } else {
+            statusEl.textContent = `${visible} de ${total} ${total === 1 ? 'exame exibido' : 'exames exibidos'}`;
+        }
+    }
+
+    // 5. Empty State Handling
+    if (visibleExams.length === 0) {
+        elements.examsGrid.innerHTML = `
+            <div class="empty-filters-state">
+                <i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i>
+                <h4>Nenhum exame corresponde aos filtros</h4>
+                <p>Todos os exames desta cadeira contêm tipos de perguntas que estão atualmente desmarcados.</p>
+                <button type="button" class="btn-control btn-primary btn-sm" id="btn-reset-filters-empty">
+                    <i class="fa-solid fa-rotate-left"></i> Ativar Todos os Tipos
+                </button>
+            </div>
+        `;
+        const resetEmptyBtn = document.getElementById('btn-reset-filters-empty');
+        if (resetEmptyBtn) {
+            resetEmptyBtn.addEventListener('click', () => {
+                const typeCheckboxes = document.querySelectorAll('.floating-check-input');
+                typeCheckboxes.forEach(c => { c.checked = true; });
+                State.globalQuestionTypes = ALL_QUESTION_TYPES;
+                renderExamsMenu();
+                showToast('Filtros repostos com sucesso!');
+            });
+        }
+        return;
+    }
+
+    // 6. Render Exam Rows
+    visibleExams.forEach(exam => {
         const row = document.createElement('div');
         row.className = 'exam-list-row';
         row.setAttribute('tabindex', '0');
         row.setAttribute('role', 'button');
         row.setAttribute('aria-label', `Iniciar exame ${exam.titulo}`);
 
-        const excluded = State.examFilters[exam.id] || [];
-        const questionTypes = getExamQuestionTypes(exam);
-        const typesHTML = renderQuestionTypeTagsHTML(questionTypes, excluded);
+        const typesHTML = renderQuestionTypeTagsHTML(exam._questionTypes, exam._effectiveExcluded);
 
-        const { totalCount, activeCount } = getExamFilteredCount(exam, excluded);
-        const totalLabel = totalCount === 1 ? '1 questão' : `${totalCount} questões`;
+        const totalLabel = exam._totalCount === 1 ? '1 questão' : `${exam._totalCount} questões`;
         let actionHTML = `[ ${totalLabel} ]`;
 
-        if (activeCount < totalCount) {
-            const activeLabel = activeCount === 1 ? '1 questão' : `${activeCount} questões`;
-            actionHTML = `[ <s class="count-old">${totalCount}</s> <span class="count-new ${activeCount === 0 ? 'count-zero' : ''}">${activeLabel}</span> ]`;
+        if (exam._activeCount < exam._totalCount) {
+            const activeLabel = exam._activeCount === 1 ? '1 questão' : `${exam._activeCount} questões`;
+            actionHTML = `[ <s class="count-old">${exam._totalCount}</s> <span class="count-new ${exam._activeCount === 0 ? 'count-zero' : ''}">${activeLabel}</span> ]`;
         }
 
         row.innerHTML = `
@@ -204,10 +395,10 @@ export function renderExamsMenu() {
         });
 
         const activate = () => {
-            const currentExcluded = State.examFilters[exam.id] || [];
+            const currentExcluded = getEffectiveExcludedTypes(exam);
             const countInfo = getExamFilteredCount(exam, currentExcluded);
             if (countInfo.activeCount === 0) {
-                showToast('Todas as perguntas estão excluídas. Ative pelo menos um tipo para iniciar.');
+                showToast('Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.');
                 row.classList.add('row-shake-error');
                 setTimeout(() => row.classList.remove('row-shake-error'), 450);
                 return;
@@ -265,7 +456,7 @@ export async function startExam(examId) {
     const examMeta = State.exams.find(e => e.id === examId);
     if (!examMeta) return;
 
-    const excludedTypes = (State.examFilters && State.examFilters[examId]) || [];
+    const excludedTypes = getEffectiveExcludedTypes(examMeta);
 
     elements.examsGrid.innerHTML = `
         <div class="loading-state">

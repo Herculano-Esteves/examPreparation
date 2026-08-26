@@ -28,6 +28,11 @@ export const State = {
     // Currently active exam
     activeExam: null,
 
+    // Exam sorting & global filters
+    examSort: 'default', // 'default' | 'questions_desc' | 'questions_asc' | 'title_asc' | 'title_desc'
+    globalQuestionTypes: ['escolha_multipla', 'boolean', 'escrita'],
+    examFilters: {}, // { [examId]: string[] (excluded types) }
+
     // Session answers & progress for active exam:
     // Array of { selectedOptions: number[], writtenInput: string, revealed: boolean, isCorrect: boolean|null }
     examAnswers: [],

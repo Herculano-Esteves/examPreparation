@@ -449,6 +449,352 @@ body.layout-exam #screen-exam {
 /* --------------------------------------------------------------------------
    10. Terminal-Inspired Horizontal List Rows (Compact & Minimalist Style)
    -------------------------------------------------------------------------- */
+.exams-screen-layout {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.exams-main-column {
+    width: 100%;
+    max-width: 960px;
+}
+
+/* --------------------------------------------------------------------------
+   Floating Filters Sidebar (Invisible Container / Pure Floating Affordance)
+   Centered in the left gutter between the screen edge and the exams list
+   -------------------------------------------------------------------------- */
+.floating-filters-sidebar {
+    position: absolute;
+    left: calc(-25vw + 25%);
+    transform: translateX(-50%);
+    top: 0.2rem;
+    width: 300px;
+    max-width: calc(50vw - 50% - 24px);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    user-select: none;
+    z-index: 20;
+}
+
+.floating-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.floating-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.floating-filter-label {
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.floating-filter-label i {
+    font-size: 0.72rem;
+    color: var(--primary);
+}
+
+.btn-filter-reset-link {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    transition: all var(--transition-speed) ease;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.btn-filter-reset-link:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Custom Dropdown for Sorting */
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-trigger-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.58rem 0.85rem;
+    color: var(--text-primary);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.80rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-speed) ease;
+    backdrop-filter: blur(8px);
+}
+
+.dropdown-trigger-btn:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+}
+
+.custom-dropdown.open .dropdown-trigger-btn {
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.dropdown-arrow {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.custom-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    min-width: 100%;
+    background: rgba(16, 12, 24, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 0.35rem;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 16px var(--primary-glow);
+    backdrop-filter: blur(16px);
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    z-index: 150;
+    animation: dropdown-fade-in 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dropdown-menu.open {
+    display: flex;
+}
+
+@keyframes dropdown-fade-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.48rem 0.65rem;
+    border-radius: 6px;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.dropdown-item i {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    width: 14px;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.dropdown-item:hover i {
+    color: var(--primary);
+}
+
+.dropdown-item.active {
+    background: var(--primary-bg-subtle);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.dropdown-item.active i {
+    color: var(--primary);
+}
+
+/* Floating Checkbox Items */
+.floating-type-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.floating-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.55rem;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all var(--transition-speed) ease;
+    position: relative;
+}
+
+.floating-checkbox-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.floating-check-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.floating-custom-check {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-speed) ease;
+    flex-shrink: 0;
+}
+
+.floating-custom-check .fa-check {
+    font-size: 0.62rem;
+    color: #ffffff;
+    transform: scale(0);
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.floating-check-input:checked + .floating-custom-check {
+    background: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.floating-check-input:checked + .floating-custom-check .fa-check {
+    transform: scale(1);
+}
+
+.floating-checkbox-item:hover .floating-custom-check {
+    border-color: var(--primary);
+}
+
+.floating-type-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-speed) ease;
+}
+
+.floating-check-input:not(:checked) ~ .floating-type-label {
+    color: var(--text-muted);
+    opacity: 0.65;
+}
+
+.floating-checkbox-item:hover .floating-type-label {
+    color: #ffffff;
+    opacity: 1;
+}
+
+.type-icon-choice { color: #c084fc; font-size: 0.74rem; }
+.type-icon-boolean { color: #38bdf8; font-size: 0.74rem; }
+.type-icon-written { color: #fbbf24; font-size: 0.74rem; }
+
+/* Status indicator text */
+.floating-filter-status {
+    padding: 0.35rem 0.2rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* Empty Filters State */
+.empty-filters-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.empty-filters-state > i,
+.empty-filters-main-icon {
+    font-size: 2.2rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.empty-filters-state .btn-control i {
+    font-size: 0.82rem;
+    color: #ffffff !important;
+    opacity: 1 !important;
+    margin-right: 0.4rem;
+}
+
+.empty-filters-state h4 {
+    font-family: var(--font-jetbrains-mono);
+    font-size: 1rem;
+    color: #ffffff;
+    margin: 0;
+}
+
+.empty-filters-state p {
+    font-family: var(--font-inter);
+    font-size: 0.84rem;
+    color: var(--text-dim);
+    max-width: 360px;
+    margin: 0;
+    line-height: 1.45;
+}
+
 .exams-grid {
     display: flex;
     flex-direction: column;
@@ -1803,5 +2149,26 @@ body.layout-exam #screen-exam {
         align-items: flex-start;
         gap: 1rem;
         padding: 0 0 1.25rem 0;
+    }
+}
+
+@media (max-width: 1320px) {
+    .floating-filters-sidebar {
+        position: static;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto 1.25rem auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        padding: 0 0.4rem 1rem 0.4rem;
+        border-bottom: 1px dashed var(--divider-dashed);
+    }
+
+    .floating-filter-group {
+        flex: 1;
+        min-width: 180px;
     }
 }

@@ -23,10 +23,17 @@ export const elements = {
         settings:   document.getElementById('screen-settings')
     },
 
-    // ---------- Navigation grids ----------
-    cadeirasGrid:    document.getElementById('cadeiras-grid'),
-    btnBackCadeiras: document.getElementById('btn-back-cadeiras'),
-    examsGrid:       document.getElementById('exams-grid'),
+    // ---------- Navigation grids & Floating Filters ----------
+    cadeirasGrid:               document.getElementById('cadeiras-grid'),
+    btnBackCadeiras:            document.getElementById('btn-back-cadeiras'),
+    examsGrid:                  document.getElementById('exams-grid'),
+    examsSidebarFilters:        document.getElementById('exams-sidebar-filters'),
+    sortDropdown:               document.getElementById('sort-dropdown'),
+    sortDropdownTrigger:        document.getElementById('sort-dropdown-trigger'),
+    sortDropdownSelectedLabel:  document.getElementById('sort-dropdown-selected-label'),
+    sortDropdownMenu:           document.getElementById('sort-dropdown-menu'),
+    btnResetGlobalFilters:      document.getElementById('btn-reset-global-filters'),
+    floatingFilterCountText:    document.getElementById('floating-filter-count-text'),
 
     // ---------- Exam top bar ----------
     currentExamTitle:   document.getElementById('current-exam-title'),
