@@ -833,8 +833,74 @@ body.layout-exam #screen-exam {
 .exam-list-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     gap: 1rem;
+}
+
+.exam-list-header-right {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-shrink: 0;
+}
+
+.exam-score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.22rem 0.55rem;
+    border-radius: var(--border-radius-pill);
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    transition: all var(--transition-speed) ease;
+    user-select: none;
+}
+
+.exam-score-badge i {
+    font-size: 0.70rem;
+}
+
+/* High score (>= 70%): Emerald / Green */
+.exam-score-badge.score-badge-high {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #34d399;
+}
+
+.exam-list-row:hover .exam-score-badge.score-badge-high {
+    background: rgba(16, 185, 129, 0.22);
+    border-color: rgba(16, 185, 129, 0.55);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* Medium score (50-69%): Amber / Yellow */
+.exam-score-badge.score-badge-medium {
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+}
+
+.exam-list-row:hover .exam-score-badge.score-badge-medium {
+    background: rgba(245, 158, 11, 0.22);
+    border-color: rgba(245, 158, 11, 0.55);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+}
+
+/* Low score (< 50%): Rose / Red */
+.exam-score-badge.score-badge-low {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #f87171;
+}
+
+.exam-list-row:hover .exam-score-badge.score-badge-low {
+    background: rgba(239, 68, 68, 0.22);
+    border-color: rgba(239, 68, 68, 0.55);
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
 }
 
 .exam-list-title {

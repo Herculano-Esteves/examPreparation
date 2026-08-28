@@ -9,6 +9,7 @@ import { elements } from './elements.js';
 import { renderMarkdown, escapeHTML } from './utils.js';
 import { transitionTo } from './navigation.js';
 import { getQuestionTypeInfo } from './questionTypes.js';
+import { QuestionStatus, updateQuestionStatus } from './storage.js';
 
 // ---------------------------------------------------------------------------
 // Internal helpers
@@ -307,6 +308,13 @@ export function confirmMultipleChoiceAnswer() {
         State.examAnswers[State.question.index].selectedOptions = [...selected];
     }
 
+    // Atualizar resultado desta pergunta em tempo real no localStorage
+    if (State.activeExam && State.activeExam.id) {
+        const origIdx = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
+        const status = isCorrect ? QuestionStatus.CORRECT : QuestionStatus.INCORRECT;
+        updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+    }
+
     renderQuestion();
 }
 
@@ -322,6 +330,13 @@ export function revealWrittenAnswer() {
     if (State.examAnswers && State.examAnswers[State.question.index]) {
         State.examAnswers[State.question.index].revealed = true;
         State.examAnswers[State.question.index].isCorrect = true;
+    }
+
+    // Atualizar resultado desta pergunta aberta em tempo real no localStorage
+    if (State.activeExam && State.activeExam.id) {
+        const q = State.currentQuestion;
+        const origIdx = (q && q._origIndex !== undefined) ? q._origIndex : State.question.index;
+        updateQuestionStatus(State.activeExam.id, origIdx, QuestionStatus.CORRECT, State, State.totalQuestions);
     }
 
     renderQuestion();
@@ -413,6 +428,19 @@ export function showResults() {
         } else {
             elements.resultsFeedbackMessage.textContent = 'Aproveitamento insuficiente. Reveja as matérias com mais dúvidas e tente novamente!';
         }
+    }
+
+    // Sincronizar array de respostas do exame completo no localStorage
+    if (State.activeExam && State.activeExam.id && Array.isArray(State.activeExam.perguntas)) {
+        State.activeExam.perguntas.forEach((q, idx) => {
+            const ans = answers[idx];
+            const origIdx = (q._origIndex !== undefined) ? q._origIndex : idx;
+            let status = QuestionStatus.UNANSWERED;
+            if (ans && ans.revealed) {
+                status = ans.isCorrect ? QuestionStatus.CORRECT : QuestionStatus.INCORRECT;
+            }
+            updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+        });
     }
 
     transitionTo('results');

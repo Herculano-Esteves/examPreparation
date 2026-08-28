@@ -45,3 +45,15 @@ Regras:
 3. Para "tipo": "escrita", a "solucao" é uma string com a resposta explicada. Suporta formatação Markdown básica (**negrito**, \`código\` e equações em KaTeX $ ou $$). Não tem o campo "opcoes".
 4. O campo "explicacao" é opcional em qualquer tipo de pergunta e é exibido na revelação da resposta.
 5. O campo "cabecalho" é opcional e suporta blocos de código formatados com três crases (\`\`\`) para manter alinhamento em tabelas/comandos.`;
+
+/**
+ * Question resolution status enum for exam history and progress tracking.
+ * 1: CORRECT
+ * 2: INCORRECT
+ * 3: UNANSWERED
+ */
+export const QuestionStatus = Object.freeze({
+    CORRECT: 1,
+    INCORRECT: 2,
+    UNANSWERED: 3
+});

@@ -9,7 +9,7 @@
 import { State } from './state.js';
 import { elements } from './elements.js';
 import { escapeHTML, clampCardDescriptions, showToast } from './utils.js';
-import { loadLocalData } from './storage.js';
+import { loadLocalData, QuestionStatus } from './storage.js';
 import { transitionTo } from './navigation.js';
 import { renderQuestion } from './question.js';
 import { getExamQuestionTypes, getQuestionTypeInfo, renderQuestionTypeTagsHTML } from './questionTypes.js';
@@ -25,10 +25,9 @@ const ALL_QUESTION_TYPES = ['escolha_multipla', 'boolean', 'escrita'];
  * @returns {string[]}
  */
 export function getEffectiveExcludedTypes(exam) {
-    const globalActive = State.globalQuestionTypes || ALL_QUESTION_TYPES;
-    const globalExcluded = ALL_QUESTION_TYPES.filter(t => !globalActive.includes(t));
-    const perExamExcluded = (State.examFilters && State.examFilters[exam.id]) || [];
-    return Array.from(new Set([...globalExcluded, ...perExamExcluded]));
+    const globalExcluded = ALL_QUESTION_TYPES.filter(t => !State.globalQuestionTypes.includes(t));
+    const examExcluded = State.examFilters && State.examFilters[exam.id] ? State.examFilters[exam.id] : [];
+    return Array.from(new Set([...globalExcluded, ...examExcluded]));
 }
 
 /**
@@ -64,6 +63,59 @@ function getExamFilteredCount(exam, excludedTypes = []) {
     }
 
     return { totalCount, activeCount: totalCount };
+}
+
+/**
+ * Generates the score percentage badge HTML for an exam based on its saved question status array.
+ *
+ * @param {string} examId
+ * @returns {string} HTML string of the score badge, or empty string if no questions answered
+ */
+export function renderExamScoreBadgeHTML(examId) {
+    if (!State.examHistory) return '';
+    let histArr = State.examHistory[examId];
+    if (!histArr) return '';
+
+    // Converter dados legados se existirem
+    if (!Array.isArray(histArr) && typeof histArr === 'object' && Array.isArray(histArr.questions)) {
+        histArr = histArr.questions.map(q => {
+            if (q.status === 'correct' || q.isCorrect === true) return QuestionStatus.CORRECT;
+            if (q.status === 'incorrect' || q.isCorrect === false) return QuestionStatus.INCORRECT;
+            return QuestionStatus.UNANSWERED;
+        });
+        State.examHistory[examId] = histArr;
+    }
+
+    if (!Array.isArray(histArr) || histArr.length === 0) return '';
+
+    const total = histArr.length;
+    const correctCount = histArr.filter(s => s === QuestionStatus.CORRECT).length;
+    const incorrectCount = histArr.filter(s => s === QuestionStatus.INCORRECT).length;
+    const unansweredCount = histArr.filter(s => s === QuestionStatus.UNANSWERED || s === 0 || !s).length;
+
+    // Se ainda nenhuma pergunta foi respondida neste exame, não exibe badge
+    if (correctCount === 0 && incorrectCount === 0) return '';
+
+    const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+    let badgeClass = 'score-badge-low';
+    let iconClass = 'fa-circle-xmark';
+
+    if (pct >= 70) {
+        badgeClass = 'score-badge-high';
+        iconClass = 'fa-circle-check';
+    } else if (pct >= 50) {
+        badgeClass = 'score-badge-medium';
+        iconClass = 'fa-circle-exclamation';
+    }
+
+    const title = `Aproveitamento: ${pct}% (${correctCount} corretas, ${incorrectCount} erradas, ${unansweredCount} por fazer)`;
+
+    return `
+        <span class="exam-score-badge ${badgeClass}" title="${escapeHTML(title)}" aria-label="${escapeHTML(title)}">
+            <i class="fa-solid ${iconClass}" aria-hidden="true"></i>
+            <span>${pct}%</span>
+        </span>
+    `;
 }
 
 /**
@@ -367,10 +419,15 @@ export function renderExamsMenu() {
             actionHTML = `[ <s class="count-old">${exam._totalCount}</s> <span class="count-new ${exam._activeCount === 0 ? 'count-zero' : ''}">${activeLabel}</span> ]`;
         }
 
+        const scoreBadgeHTML = renderExamScoreBadgeHTML(exam.id);
+
         row.innerHTML = `
             <div class="exam-list-header">
                 <h4 class="exam-list-title">${escapeHTML(exam.titulo.toUpperCase())}${exam.isLocal ? ' <span class="badge-local">Local</span>' : ''}</h4>
-                <span class="exam-list-action">${actionHTML}</span>
+                <div class="exam-list-header-right">
+                    ${scoreBadgeHTML}
+                    <span class="exam-list-action">${actionHTML}</span>
+                </div>
             </div>
             ${typesHTML}
             <p class="exam-list-desc">${escapeHTML(exam.descricao)}</p>
@@ -475,8 +532,23 @@ export async function startExam(examId) {
             examData = await response.json();
         }
 
+        const allQuestions = examData.perguntas || [];
+        allQuestions.forEach((q, idx) => {
+            q._origIndex = idx;
+        });
+
+        // Inicializar ou assegurar tamanho do array de histórico para este exame
+        if (!State.examHistory) State.examHistory = {};
+        if (!State.examHistory[examMeta.id] || !Array.isArray(State.examHistory[examMeta.id])) {
+            State.examHistory[examMeta.id] = new Array(allQuestions.length).fill(QuestionStatus.UNANSWERED);
+        } else {
+            while (State.examHistory[examMeta.id].length < allQuestions.length) {
+                State.examHistory[examMeta.id].push(QuestionStatus.UNANSWERED);
+            }
+        }
+
         // Apply question type filters
-        let questionsToUse = examData.perguntas || [];
+        let questionsToUse = allQuestions;
         if (excludedTypes.length > 0) {
             questionsToUse = questionsToUse.filter(q => {
                 const t = getQuestionTypeInfo(q.tipo).id;

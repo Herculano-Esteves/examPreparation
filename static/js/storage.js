@@ -10,6 +10,9 @@
  *   It should only run on startup and after explicit save/delete operations.
  */
 
+import { QuestionStatus } from './constants.js';
+
+export { QuestionStatus };
 export const STORAGE_VERSION = '2.0.0';
 const VERSION_KEY = 'simulador_storage_version';
 
@@ -26,10 +29,12 @@ export function checkAndMigrateStorageVersion(State) {
             console.warn(`[Storage] Versão de dados incompatível ou legada detectada (${storedVersion || 'nenhuma'}). A purgar dados antigos para nova versão ${STORAGE_VERSION}...`);
             localStorage.removeItem('simulador_cadeiras_locais');
             localStorage.removeItem('simulador_exames_locais');
+            localStorage.removeItem('simulador_historico_exames');
             localStorage.setItem(VERSION_KEY, STORAGE_VERSION);
             if (State) {
                 State.localCadeiras = [];
                 State.localExames   = [];
+                State.examHistory   = {};
             }
         }
     } catch (e) {
@@ -38,8 +43,8 @@ export function checkAndMigrateStorageVersion(State) {
 }
 
 /**
- * Load locally-stored cadeiras and exames into State.
- * Gracefully handles corrupted JSON (resets to empty arrays).
+ * Load locally-stored cadeiras, exames, and exam answers history into State.
+ * Gracefully handles corrupted JSON (resets to empty objects/arrays).
  *
  * @param {object} State
  */
@@ -62,6 +67,82 @@ export function loadLocalData(State) {
         console.error('Erro ao ler exames locais:', e);
         State.localExames = [];
     }
+
+    try {
+        const historyRaw = localStorage.getItem('simulador_historico_exames');
+        State.examHistory = historyRaw ? JSON.parse(historyRaw) : {};
+        // Normaliza arrays legados caso existam
+        if (State.examHistory && typeof State.examHistory === 'object') {
+            Object.keys(State.examHistory).forEach(key => {
+                const val = State.examHistory[key];
+                if (!Array.isArray(val) && val && typeof val === 'object' && Array.isArray(val.questions)) {
+                    State.examHistory[key] = val.questions.map(q => {
+                        if (q.status === 'correct' || q.isCorrect === true) return QuestionStatus.CORRECT;
+                        if (q.status === 'incorrect' || q.isCorrect === false) return QuestionStatus.INCORRECT;
+                        return QuestionStatus.UNANSWERED;
+                    });
+                }
+            });
+        }
+    } catch (e) {
+        console.error('Erro ao ler histórico de exames:', e);
+        State.examHistory = {};
+    }
+}
+
+/**
+ * Persist the exam history dictionary to localStorage.
+ * Maps examId -> Array of QuestionStatus (1: CORRECT, 2: INCORRECT, 3: UNANSWERED)
+ * @param {object} State
+ */
+export function saveExamHistory(State) {
+    try {
+        localStorage.setItem('simulador_historico_exames', JSON.stringify(State.examHistory || {}));
+    } catch (e) {
+        console.error('Erro ao guardar histórico de exames:', e);
+    }
+}
+
+/**
+ * Updates or records the status of a single question in an exam in real-time.
+ *
+ * @param {string} examId - ID of the exam
+ * @param {number} questionOriginalIndex - 0-indexed position of question in the exam's full array
+ * @param {number} status - QuestionStatus.CORRECT (1) | QuestionStatus.INCORRECT (2) | QuestionStatus.UNANSWERED (3)
+ * @param {object} State
+ * @param {number} [totalQuestions] - Total question count in full exam to pre-allocate array if needed
+ */
+export function updateQuestionStatus(examId, questionOriginalIndex, status, State, totalQuestions) {
+    if (!examId || questionOriginalIndex < 0) return;
+    if (!State.examHistory) State.examHistory = {};
+
+    let arr = State.examHistory[examId];
+    if (!Array.isArray(arr)) {
+        const length = totalQuestions && totalQuestions > (questionOriginalIndex + 1)
+            ? totalQuestions
+            : (questionOriginalIndex + 1);
+        arr = new Array(length).fill(QuestionStatus.UNANSWERED);
+        State.examHistory[examId] = arr;
+    }
+
+    while (arr.length <= questionOriginalIndex) {
+        arr.push(QuestionStatus.UNANSWERED);
+    }
+
+    arr[questionOriginalIndex] = status;
+    saveExamHistory(State);
+}
+
+/**
+ * Get the saved question status array for a specific exam ID.
+ *
+ * @param {string} examId
+ * @param {object} State
+ * @returns {number[]|null}
+ */
+export function getExamResult(examId, State) {
+    if (!State || !State.examHistory) return null;
+    return State.examHistory[examId] || null;
 }
 
 /**
@@ -91,11 +172,8 @@ export function saveLocalExames(State) {
 }
 
 /**
- * Delete all locally-created cadeiras and exames from localStorage and
- * reset the corresponding State arrays (MOD-02).
- *
- * Note: this function intentionally does NOT touch the DOM — resetting
- * the header icon/title is the caller's responsibility (main.js).
+ * Delete all locally-created cadeiras, exames, and question history from localStorage and
+ * reset the corresponding State arrays and dictionaries.
  *
  * @param {object} State
  */
@@ -103,9 +181,11 @@ export function clearAllLocalData(State) {
     try {
         localStorage.removeItem('simulador_cadeiras_locais');
         localStorage.removeItem('simulador_exames_locais');
+        localStorage.removeItem('simulador_historico_exames');
     } catch (e) {
         console.error('Erro ao limpar dados locais:', e);
     }
     State.localCadeiras = [];
     State.localExames   = [];
+    State.examHistory   = {};
 }

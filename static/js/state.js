@@ -32,6 +32,7 @@ export const State = {
     examSort: 'default', // 'default' | 'questions_desc' | 'questions_asc' | 'title_asc' | 'title_desc'
     globalQuestionTypes: ['escolha_multipla', 'boolean', 'escrita'],
     examFilters: {}, // { [examId]: string[] (excluded types) }
+    examHistory: {}, // { [examId]: { percentage, total, correctCount, incorrectCount, unansweredCount, timestamp, questions: [...] } }
 
     // Session answers & progress for active exam:
     // Array of { selectedOptions: number[], writtenInput: string, revealed: boolean, isCorrect: boolean|null }

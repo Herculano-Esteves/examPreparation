@@ -109,7 +109,7 @@ function setupEventListeners() {
     const btnClearStorage = document.getElementById('btn-clear-storage');
     if (btnClearStorage) {
         btnClearStorage.addEventListener('click', () => {
-            if (confirm('Tem a certeza absoluta de que deseja apagar todas as cadeiras e exames criados localmente? Esta ação não pode ser desfeita.')) {
+            if (confirm('Tem a certeza absoluta de que deseja apagar todos os dados locais (cadeiras, exames e histórico de respostas)? Esta ação não pode ser desfeita.')) {
                 clearAllLocalData(State);
 
                 showToast('Todos os dados locais foram apagados!', elements);
