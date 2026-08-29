@@ -36,11 +36,57 @@ export async function fetchCadeiras() {
     }
 }
 
+let cadeirasSearchInitialized = false;
+
 /**
- * Render the cadeiras grid from State.cadeiras + State.localCadeiras.
+ * Initializes search input listeners on the Cadeiras screen.
+ */
+function initCadeirasSearch() {
+    if (cadeirasSearchInitialized) return;
+    cadeirasSearchInitialized = true;
+
+    const searchInput = elements.searchCadeiras || document.getElementById('search-cadeiras');
+    const clearBtn = elements.btnClearCadeiraSearch || document.getElementById('btn-clear-cadeira-search');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            State.cadeirasSearch = searchInput.value;
+            if (clearBtn) {
+                clearBtn.style.display = searchInput.value.trim() ? 'inline-flex' : 'none';
+            }
+            renderCadeirasMenu();
+        });
+    }
+
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            State.cadeirasSearch = '';
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.focus();
+            }
+            clearBtn.style.display = 'none';
+            renderCadeirasMenu();
+        });
+    }
+}
+
+/**
+ * Render the cadeiras grid from State.cadeiras + State.localCadeiras, applying search filter.
  * Direct layout: Title on top, description underneath, exam count at the bottom.
  */
 export function renderCadeirasMenu() {
+    initCadeirasSearch();
+
+    const searchInput = elements.searchCadeiras || document.getElementById('search-cadeiras');
+    const clearBtn = elements.btnClearCadeiraSearch || document.getElementById('btn-clear-cadeira-search');
+    if (searchInput && searchInput.value !== (State.cadeirasSearch || '')) {
+        searchInput.value = State.cadeirasSearch || '';
+    }
+    if (clearBtn) {
+        clearBtn.style.display = (State.cadeirasSearch || '').trim() ? 'inline-flex' : 'none';
+    }
+
     const combinedCadeiras = [...State.cadeiras, ...State.localCadeiras];
 
     if (combinedCadeiras.length === 0) {
@@ -54,9 +100,42 @@ export function renderCadeirasMenu() {
         return;
     }
 
+    const query = (State.cadeirasSearch || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    const filteredCadeiras = combinedCadeiras.filter(cadeira => {
+        if (!query) return true;
+        const nome = (cadeira.nome || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const sigla = (cadeira.sigla || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const desc = (cadeira.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return nome.includes(query) || sigla.includes(query) || desc.includes(query);
+    });
+
+    if (filteredCadeiras.length === 0) {
+        elements.cadeirasGrid.innerHTML = `
+            <div class="empty-filters-state">
+                <i class="fa-solid fa-magnifying-glass empty-filters-main-icon" aria-hidden="true"></i>
+                <h4>Nenhuma cadeira encontrada</h4>
+                <p>Nenhuma cadeira corresponde à pesquisa "${escapeHTML(State.cadeirasSearch)}".</p>
+                <button type="button" class="btn-control btn-primary btn-sm" id="btn-clear-cadeiras-empty">
+                    <i class="fa-solid fa-rotate-left"></i> Limpar Pesquisa
+                </button>
+            </div>
+        `;
+        const resetBtn = document.getElementById('btn-clear-cadeiras-empty');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                State.cadeirasSearch = '';
+                if (searchInput) searchInput.value = '';
+                if (clearBtn) clearBtn.style.display = 'none';
+                renderCadeirasMenu();
+            });
+        }
+        return;
+    }
+
     elements.cadeirasGrid.innerHTML = '';
 
-    combinedCadeiras.forEach(cadeira => {
+    filteredCadeiras.forEach(cadeira => {
         const row = document.createElement('div');
         row.className = 'exam-list-row';
         row.setAttribute('tabindex', '0');

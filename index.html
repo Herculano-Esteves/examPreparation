@@ -86,6 +86,13 @@
                         <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Selecione uma Cadeira
                     </h3>
                     <div class="menu-header-actions">
+                        <div class="search-input-wrapper header-search-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                            <input type="text" id="search-cadeiras" class="header-search-input" placeholder="Pesquisar cadeira..." aria-label="Pesquisar cadeira por nome">
+                            <button type="button" id="btn-clear-cadeira-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
                         <button id="btn-add-cadeira-top" class="btn-control btn-primary btn-sm">
                             <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
                             <span>Adicionar Cadeira</span>
@@ -108,10 +115,13 @@
                         <i class="fa-solid fa-folder-open" aria-hidden="true"></i> Selecione um Exame
                     </h3>
                     <div class="menu-header-actions">
-                        <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm">
-                            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                            <span>Voltar às Cadeiras</span>
-                        </button>
+                        <div class="search-input-wrapper header-search-wrapper">
+                            <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                            <input type="text" id="filter-exam-search" class="header-search-input" placeholder="Pesquisar exame..." aria-label="Pesquisar exames por nome">
+                            <button type="button" id="btn-clear-exam-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
                         <button id="btn-add-exame-top" class="btn-control btn-primary btn-sm">
                             <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
                             <span>Adicionar Exame</span>
@@ -120,59 +130,117 @@
                 </div>
                 <div class="exams-screen-layout">
                     <!-- FLOATING LEFT SIDEBAR: Filters & Sorting (Invisible borderless container) -->
-                    <aside class="floating-filters-sidebar" id="exams-sidebar-filters" aria-label="Filtros e ordenação de exames">
-                        
+                    <aside class="floating-filters-sidebar" id="exams-sidebar-filters"
+                        aria-label="Filtros e ordenação de exames">
+
+                        <!-- TOP BACK BUTTON (Horizontally aligned with Selecione um Exame header) -->
+                        <div class="floating-header-back-slot">
+                            <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm btn-floating-header-back" aria-label="Voltar à seleção de cadeiras">
+                                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                                <span>Voltar às Cadeiras</span>
+                            </button>
+                        </div>
+
                         <!-- 1. ORDENAÇÃO (SORT DROPDOWN) -->
                         <div class="floating-filter-group">
                             <span class="floating-filter-label">
                                 <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> Ordenar
                             </span>
                             <div class="custom-dropdown" id="sort-dropdown">
-                                <button type="button" 
-                                        class="dropdown-trigger-btn" 
-                                        id="sort-dropdown-trigger" 
-                                        aria-haspopup="listbox" 
-                                        aria-expanded="false"
-                                        aria-label="Ordenar exames por">
+                                <button type="button" class="dropdown-trigger-btn" id="sort-dropdown-trigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-label="Ordenar exames por">
                                     <span id="sort-dropdown-selected-label">
                                         <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão
                                     </span>
                                     <i class="fa-solid fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
                                 </button>
                                 <ul class="dropdown-menu" id="sort-dropdown-menu" role="listbox" tabindex="-1">
-                                    <li class="dropdown-item active" role="option" data-value="default" aria-selected="true">
+                                    <li class="dropdown-item active" role="option" data-value="default"
+                                        aria-selected="true">
                                         <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão
                                     </li>
-                                    <li class="dropdown-item" role="option" data-value="questions_desc" aria-selected="false">
-                                        <i class="fa-solid fa-arrow-down-9-1" aria-hidden="true"></i> Nº de Questões (Maior)
+                                    <li class="dropdown-item" role="option" data-value="score_desc"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-trophy" aria-hidden="true"></i> Melhor Classificação
                                     </li>
-                                    <li class="dropdown-item" role="option" data-value="questions_asc" aria-selected="false">
-                                        <i class="fa-solid fa-arrow-up-1-9" aria-hidden="true"></i> Nº de Questões (Menor)
+                                    <li class="dropdown-item" role="option" data-value="score_asc"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-trophy" aria-hidden="true"></i> Pior Classificação
                                     </li>
-                                    <li class="dropdown-item" role="option" data-value="title_asc" aria-selected="false">
-                                        <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i> Título (A → Z)
+                                    <li class="dropdown-item" role="option" data-value="questions_desc"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-arrow-down-9-1" aria-hidden="true"></i> Maior nº de
+                                        Questões
                                     </li>
-                                    <li class="dropdown-item" role="option" data-value="title_desc" aria-selected="false">
-                                        <i class="fa-solid fa-arrow-up-z-a" aria-hidden="true"></i> Título (Z → A)
+                                    <li class="dropdown-item" role="option" data-value="questions_asc"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-arrow-up-1-9" aria-hidden="true"></i> Menor nº de Questões
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="title_asc"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i> A → Z
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="title_desc"
+                                        aria-selected="false">
+                                        <i class="fa-solid fa-arrow-up-z-a" aria-hidden="true"></i> Z → A
                                     </li>
                                 </ul>
                             </div>
                         </div>
 
-                        <!-- 2. TIPOS DE PERGUNTAS (QUESTION TYPE FILTERS) -->
+                        <!-- 2. ESTADO DOS EXAMES (FEITOS / POR FAZER) -->
+                        <div class="floating-filter-group">
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-list-check" aria-hidden="true"></i> Estado
+                                </span>
+                            </div>
+                            <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por estado do exame">
+                                <label class="floating-checkbox-item" data-state="completed">
+                                    <input type="checkbox" class="floating-state-check-input"
+                                        id="filter-state-completed" checked value="completed"
+                                        aria-label="Exames Feitos">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-circle-check" style="color: #34d399;"
+                                            aria-hidden="true"></i>
+                                        <span>Exames Feitos</span>
+                                    </span>
+                                </label>
+                                <label class="floating-checkbox-item" data-state="pending">
+                                    <input type="checkbox" class="floating-state-check-input" id="filter-state-pending"
+                                        checked value="pending" aria-label="Exames Por Fazer">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-circle-minus" style="color: #94a3b8;"
+                                            aria-hidden="true"></i>
+                                        <span>Exames Por Fazer</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 3. TIPOS DE PERGUNTAS (QUESTION TYPE FILTERS) -->
                         <div class="floating-filter-group">
                             <div class="floating-filter-header">
                                 <span class="floating-filter-label">
                                     <i class="fa-solid fa-filter" aria-hidden="true"></i> Tipos de Pergunta
                                 </span>
-                                <button type="button" class="btn-filter-reset-link" id="btn-reset-global-filters" title="Selecionar Todos">
-                                    Todos
+                                <button type="button" class="btn-filter-reset-link" id="btn-reset-global-filters"
+                                    title="Repor todos os filtros">
+                                    Repor
                                 </button>
                             </div>
 
-                            <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por tipo de pergunta">
+                            <div class="floating-type-checkboxes" role="group"
+                                aria-label="Filtrar por tipo de pergunta">
                                 <label class="floating-checkbox-item" data-type="escolha_multipla">
-                                    <input type="checkbox" class="floating-check-input" checked value="escolha_multipla" aria-label="Escolha Múltipla">
+                                    <input type="checkbox" class="floating-check-input" checked value="escolha_multipla"
+                                        aria-label="Escolha Múltipla">
                                     <span class="floating-custom-check" aria-hidden="true">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
@@ -181,9 +249,10 @@
                                         <span>Escolha Múltipla</span>
                                     </span>
                                 </label>
-                                
+
                                 <label class="floating-checkbox-item" data-type="boolean">
-                                    <input type="checkbox" class="floating-check-input" checked value="boolean" aria-label="Verdadeiro ou Falso">
+                                    <input type="checkbox" class="floating-check-input" checked value="boolean"
+                                        aria-label="Verdadeiro ou Falso">
                                     <span class="floating-custom-check" aria-hidden="true">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
@@ -194,7 +263,8 @@
                                 </label>
 
                                 <label class="floating-checkbox-item" data-type="escrita">
-                                    <input type="checkbox" class="floating-check-input" checked value="escrita" aria-label="Desenvolvimento / Escrita">
+                                    <input type="checkbox" class="floating-check-input" checked value="escrita"
+                                        aria-label="Desenvolvimento / Escrita">
                                     <span class="floating-custom-check" aria-hidden="true">
                                         <i class="fa-solid fa-check"></i>
                                     </span>
@@ -206,12 +276,65 @@
                             </div>
                         </div>
 
-                        <!-- 3. STATUS INDICATOR -->
+                        <!-- 4. INTERVALO DE Nº DE QUESTÕES -->
+                        <div class="floating-filter-group">
+                            <span class="floating-filter-label">
+                                <i class="fa-solid fa-hashtag" aria-hidden="true"></i> Nº de Questões
+                            </span>
+                            <div class="floating-range-inputs">
+                                <div class="floating-range-field" title="Mínimo de questões">
+                                    <span class="range-field-label">Min</span>
+                                    <input type="number" id="filter-questions-min" class="floating-number-input" min="1"
+                                        value="1" placeholder="Min" aria-label="Número mínimo de questões">
+                                </div>
+                                <div class="dual-range-slider-wrapper">
+                                    <div class="range-slider-track-bg"></div>
+                                    <div class="range-slider-track-fill" id="track-fill-questions"></div>
+                                    <input type="range" id="slider-questions-min" class="range-thumb range-thumb-min" min="1" max="50" value="1" step="1" aria-label="Slider mínimo de questões">
+                                    <input type="range" id="slider-questions-max" class="range-thumb range-thumb-max" min="1" max="50" value="50" step="1" aria-label="Slider máximo de questões">
+                                </div>
+                                <div class="floating-range-field" title="Máximo de questões">
+                                    <span class="range-field-label">Max</span>
+                                    <input type="number" id="filter-questions-max" class="floating-number-input" min="1"
+                                        value="50" placeholder="Max" aria-label="Número máximo de questões">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. INTERVALO DE PERCENTAGEM DE ACERTO -->
+                        <div class="floating-filter-group">
+                            <span class="floating-filter-label">
+                                <i class="fa-solid fa-percent" aria-hidden="true"></i> Classificação (%)
+                            </span>
+                            <div class="floating-range-inputs">
+                                <div class="floating-range-field" title="Classificação mínima (%)">
+                                    <span class="range-field-label">Min</span>
+                                    <input type="number" id="filter-score-min" class="floating-number-input" min="0"
+                                        max="100" value="0" placeholder="Min" aria-label="Percentagem mínima de acerto">
+                                </div>
+                                <div class="dual-range-slider-wrapper">
+                                    <div class="range-slider-track-bg"></div>
+                                    <div class="range-slider-track-fill" id="track-fill-score"></div>
+                                    <input type="range" id="slider-score-min" class="range-thumb range-thumb-min" min="0" max="100" value="0" step="1" aria-label="Slider percentagem mínima">
+                                    <input type="range" id="slider-score-max" class="range-thumb range-thumb-max" min="0" max="100" value="100" step="1" aria-label="Slider percentagem máxima">
+                                </div>
+                                <div class="floating-range-field" title="Classificação máxima (%)">
+                                    <span class="range-field-label">Max</span>
+                                    <input type="number" id="filter-score-max" class="floating-number-input" min="0"
+                                        max="100" value="100" placeholder="Max" aria-label="Percentagem máxima de acerto">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. STATUS INDICATOR -->
                         <div class="floating-filter-status" id="floating-filter-status">
                             <span id="floating-filter-count-text">A carregar exames...</span>
                         </div>
 
                     </aside>
+
+                    <!-- FLOATING RIGHT GUTTER: Header divider segment for symmetry -->
+                    <div class="floating-right-gutter-slot" aria-hidden="true"></div>
 
                     <!-- EXAMS GRID MAIN COLUMN -->
                     <div class="exams-main-column">

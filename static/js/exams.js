@@ -172,11 +172,37 @@ function updateExamRowUI(row, exam) {
 let floatingFiltersInitialized = false;
 
 /**
- * Initializes floating sidebar filter controls (Sort dropdown, Question type checkboxes, Reset button).
+ * Initializes floating sidebar filter controls (Sort dropdown, State checkboxes, Question type checkboxes, Range inputs, Reset button).
  */
 export function initFloatingFilters() {
     if (floatingFiltersInitialized) return;
     floatingFiltersInitialized = true;
+
+    // --- 0. EXAM SEARCH INPUT ---
+    const examSearchInput = elements.filterExamSearch || document.getElementById('filter-exam-search');
+    const examSearchClear = elements.btnClearExamSearch || document.getElementById('btn-clear-exam-search');
+
+    if (examSearchInput) {
+        examSearchInput.addEventListener('input', () => {
+            State.examSearch = examSearchInput.value;
+            if (examSearchClear) {
+                examSearchClear.style.display = examSearchInput.value.trim() ? 'inline-flex' : 'none';
+            }
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    if (examSearchClear) {
+        examSearchClear.addEventListener('click', () => {
+            State.examSearch = '';
+            if (examSearchInput) {
+                examSearchInput.value = '';
+                examSearchInput.focus();
+            }
+            examSearchClear.style.display = 'none';
+            scheduleRenderExamsMenu();
+        });
+    }
 
     // --- 1. SORT DROPDOWN ---
     const trigger = elements.sortDropdownTrigger || document.getElementById('sort-dropdown-trigger');
@@ -237,7 +263,20 @@ export function initFloatingFilters() {
         });
     }
 
-    // --- 2. GLOBAL QUESTION TYPE CHECKBOXES ---
+    // --- 2. EXAM STATE CHECKBOXES (FEITOS / POR FAZER) ---
+    const stateCheckboxes = document.querySelectorAll('.floating-state-check-input');
+    stateCheckboxes.forEach(chk => {
+        chk.addEventListener('change', () => {
+            const activeStates = [];
+            stateCheckboxes.forEach(c => {
+                if (c.checked) activeStates.push(c.value);
+            });
+            State.examStateFilter = activeStates;
+            renderExamsMenu();
+        });
+    });
+
+    // --- 3. GLOBAL QUESTION TYPE CHECKBOXES ---
     const typeCheckboxes = document.querySelectorAll('.floating-check-input');
     typeCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
@@ -250,16 +289,230 @@ export function initFloatingFilters() {
         });
     });
 
-    // --- 3. RESET BUTTON ("Todos") ---
+let renderRafId = null;
+
+/**
+ * Throttles renderExamsMenu execution using requestAnimationFrame for smooth, tear-free slider interactions.
+ */
+function scheduleRenderExamsMenu() {
+    if (renderRafId) cancelAnimationFrame(renderRafId);
+    renderRafId = requestAnimationFrame(() => {
+        renderExamsMenu();
+        renderRafId = null;
+    });
+}
+
+    // --- 4. QUESTION COUNT DUAL SLIDER & INPUTS ---
+    const qMinInput = elements.filterQuestionsMin || document.getElementById('filter-questions-min');
+    const qMaxInput = elements.filterQuestionsMax || document.getElementById('filter-questions-max');
+    const qMinSlider = elements.sliderQuestionsMin || document.getElementById('slider-questions-min');
+    const qMaxSlider = elements.sliderQuestionsMax || document.getElementById('slider-questions-max');
+    const qTrackFill = elements.trackFillQuestions || document.getElementById('track-fill-questions');
+
+    const updateQuestionsTrackUI = (minVal, maxVal, maxRange) => {
+        if (!qTrackFill) return;
+        const span = Math.max(1, maxRange - 1);
+        const leftPercent = Math.max(0, Math.min(100, ((minVal - 1) / span) * 100));
+        const rightPercent = Math.max(0, Math.min(100, 100 - (((maxVal - 1) / span) * 100)));
+        qTrackFill.style.left = `${leftPercent}%`;
+        qTrackFill.style.right = `${rightPercent}%`;
+    };
+
+    if (qMinSlider && qMaxSlider) {
+        qMinSlider.addEventListener('input', () => {
+            let minVal = parseInt(qMinSlider.value, 10);
+            let maxVal = parseInt(qMaxSlider.value, 10);
+            if (minVal > maxVal) {
+                minVal = maxVal;
+                qMinSlider.value = minVal;
+            }
+            if (minVal >= maxVal - 1) {
+                qMinSlider.style.zIndex = '5';
+                qMaxSlider.style.zIndex = '4';
+            } else {
+                qMinSlider.style.zIndex = '3';
+                qMaxSlider.style.zIndex = '4';
+            }
+            State.examQuestionsMin = minVal;
+            if (qMinInput) qMinInput.value = minVal;
+            const maxQ = parseInt(qMaxSlider.max, 10) || 50;
+            updateQuestionsTrackUI(minVal, maxVal, maxQ);
+            scheduleRenderExamsMenu();
+        });
+
+        qMaxSlider.addEventListener('input', () => {
+            let minVal = parseInt(qMinSlider.value, 10);
+            let maxVal = parseInt(qMaxSlider.value, 10);
+            if (maxVal < minVal) {
+                maxVal = minVal;
+                qMaxSlider.value = maxVal;
+            }
+            if (maxVal <= minVal + 1) {
+                qMaxSlider.style.zIndex = '5';
+                qMinSlider.style.zIndex = '4';
+            } else {
+                qMaxSlider.style.zIndex = '4';
+                qMinSlider.style.zIndex = '3';
+            }
+            State.examQuestionsMax = maxVal;
+            if (qMaxInput) qMaxInput.value = maxVal;
+            const maxQ = parseInt(qMaxSlider.max, 10) || 50;
+            updateQuestionsTrackUI(minVal, maxVal, maxQ);
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    if (qMinInput) {
+        qMinInput.addEventListener('input', () => {
+            let val = parseInt(qMinInput.value, 10);
+            const maxQ = (qMaxSlider && parseInt(qMaxSlider.max, 10)) || 50;
+            if (isNaN(val)) val = 1;
+            val = Math.max(1, Math.min(State.examQuestionsMax || maxQ, val));
+            State.examQuestionsMin = val;
+            if (qMinSlider) qMinSlider.value = val;
+            updateQuestionsTrackUI(val, State.examQuestionsMax || maxQ, maxQ);
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    if (qMaxInput) {
+        qMaxInput.addEventListener('input', () => {
+            let val = parseInt(qMaxInput.value, 10);
+            const maxQ = (qMaxSlider && parseInt(qMaxSlider.max, 10)) || 50;
+            if (isNaN(val)) val = maxQ;
+            val = Math.max(State.examQuestionsMin || 1, Math.min(maxQ, val));
+            State.examQuestionsMax = val;
+            if (qMaxSlider) qMaxSlider.value = val;
+            updateQuestionsTrackUI(State.examQuestionsMin || 1, val, maxQ);
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    // --- 5. SCORE PERCENTAGE DUAL SLIDER & INPUTS ---
+    const sMinInput = elements.filterScoreMin || document.getElementById('filter-score-min');
+    const sMaxInput = elements.filterScoreMax || document.getElementById('filter-score-max');
+    const sMinSlider = elements.sliderScoreMin || document.getElementById('slider-score-min');
+    const sMaxSlider = elements.sliderScoreMax || document.getElementById('slider-score-max');
+    const sTrackFill = elements.trackFillScore || document.getElementById('track-fill-score');
+
+    const updateScoreTrackUI = (minVal, maxVal) => {
+        if (!sTrackFill) return;
+        sTrackFill.style.left = `${minVal}%`;
+        sTrackFill.style.right = `${100 - maxVal}%`;
+    };
+
+    if (sMinSlider && sMaxSlider) {
+        sMinSlider.addEventListener('input', () => {
+            let minVal = parseInt(sMinSlider.value, 10);
+            let maxVal = parseInt(sMaxSlider.value, 10);
+            if (minVal > maxVal) {
+                minVal = maxVal;
+                sMinSlider.value = minVal;
+            }
+            if (minVal >= maxVal - 2) {
+                sMinSlider.style.zIndex = '5';
+                sMaxSlider.style.zIndex = '4';
+            } else {
+                sMinSlider.style.zIndex = '3';
+                sMaxSlider.style.zIndex = '4';
+            }
+            State.examScoreMin = minVal;
+            if (sMinInput) sMinInput.value = minVal;
+            updateScoreTrackUI(minVal, maxVal);
+            scheduleRenderExamsMenu();
+        });
+
+        sMaxSlider.addEventListener('input', () => {
+            let minVal = parseInt(sMinSlider.value, 10);
+            let maxVal = parseInt(sMaxSlider.value, 10);
+            if (maxVal < minVal) {
+                maxVal = minVal;
+                sMaxSlider.value = maxVal;
+            }
+            if (maxVal <= minVal + 2) {
+                sMaxSlider.style.zIndex = '5';
+                sMinSlider.style.zIndex = '4';
+            } else {
+                sMaxSlider.style.zIndex = '4';
+                sMinSlider.style.zIndex = '3';
+            }
+            State.examScoreMax = maxVal;
+            if (sMaxInput) sMaxInput.value = maxVal;
+            updateScoreTrackUI(minVal, maxVal);
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    if (sMinInput) {
+        sMinInput.addEventListener('input', () => {
+            let val = parseInt(sMinInput.value, 10);
+            if (isNaN(val)) val = 0;
+            val = Math.max(0, Math.min(State.examScoreMax || 100, val));
+            State.examScoreMin = val;
+            if (sMinSlider) sMinSlider.value = val;
+            updateScoreTrackUI(val, State.examScoreMax || 100);
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    if (sMaxInput) {
+        sMaxInput.addEventListener('input', () => {
+            let val = parseInt(sMaxInput.value, 10);
+            if (isNaN(val)) val = 100;
+            val = Math.max(State.examScoreMin || 0, Math.min(100, val));
+            State.examScoreMax = val;
+            if (sMaxSlider) sMaxSlider.value = val;
+            updateScoreTrackUI(State.examScoreMin || 0, val);
+            scheduleRenderExamsMenu();
+        });
+    }
+
+    // --- 6. RESET BUTTON ---
     const resetBtn = elements.btnResetGlobalFilters || document.getElementById('btn-reset-global-filters');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            typeCheckboxes.forEach(c => { c.checked = true; });
-            State.globalQuestionTypes = ['escolha_multipla', 'boolean', 'escrita'];
-            renderExamsMenu();
-            showToast('Todos os tipos de perguntas foram ativados.');
+            resetAllFilters();
+            showToast('Todos os filtros foram repostos.');
         });
     }
+}
+
+/**
+ * Resets all exam filters and sorting to defaults.
+ */
+export function resetAllFilters() {
+    const maxQ = Math.max(1, ...State.exams.map(e => e.perguntas ? e.perguntas.length : (e.perguntas_count || 0)));
+    
+    State.examSearch = '';
+    State.globalQuestionTypes = ['escolha_multipla', 'boolean', 'escrita'];
+    State.examStateFilter = ['completed', 'pending'];
+    State.examQuestionsMin = 1;
+    State.examQuestionsMax = maxQ;
+    State.examScoreMin = 0;
+    State.examScoreMax = 100;
+    State.examSort = 'default';
+
+    const examSearchInput = elements.filterExamSearch || document.getElementById('filter-exam-search');
+    const examSearchClear = elements.btnClearExamSearch || document.getElementById('btn-clear-exam-search');
+    if (examSearchInput) examSearchInput.value = '';
+    if (examSearchClear) examSearchClear.style.display = 'none';
+
+    // Reset dropdown trigger label
+    const labelSpan = elements.sortDropdownSelectedLabel || document.getElementById('sort-dropdown-selected-label');
+    if (labelSpan) {
+        labelSpan.innerHTML = `<i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão`;
+    }
+
+    const menu = elements.sortDropdownMenu || document.getElementById('sort-dropdown-menu');
+    if (menu) {
+        menu.querySelectorAll('.dropdown-item').forEach(i => {
+            const isDef = i.getAttribute('data-value') === 'default';
+            i.classList.toggle('active', isDef);
+            i.setAttribute('aria-selected', isDef ? 'true' : 'false');
+        });
+    }
+
+    renderExamsMenu();
 }
 
 /**
@@ -293,6 +546,16 @@ export async function fetchExams(indexPath) {
             ...matchingLocalExams.map(e => ({ ...e, isLocal: true }))
         ];
 
+        // Initialize dynamic max questions for this subject
+        const maxQ = Math.max(1, ...State.exams.map(e => e.perguntas ? e.perguntas.length : (e.perguntas_count || 0)));
+        State.examSearch = '';
+        State.examQuestionsMax = maxQ;
+        State.examQuestionsMin = 1;
+        State.examScoreMin = 0;
+        State.examScoreMax = 100;
+        State.examStateFilter = ['completed', 'pending'];
+        State.globalQuestionTypes = ALL_QUESTION_TYPES;
+
         renderExamsMenu();
     } catch (error) {
         console.error('Error fetching exams:', error);
@@ -317,17 +580,97 @@ export function renderExamsMenu() {
     elements.examsGrid.innerHTML = '';
     if (!State.examFilters) State.examFilters = {};
     if (!State.globalQuestionTypes) State.globalQuestionTypes = ALL_QUESTION_TYPES;
+    if (!State.examStateFilter) State.examStateFilter = ['completed', 'pending'];
 
-    // Synchronize checkboxes with state
+    const examSearchInput = elements.filterExamSearch || document.getElementById('filter-exam-search');
+    const examSearchClear = elements.btnClearExamSearch || document.getElementById('btn-clear-exam-search');
+    if (examSearchInput && examSearchInput.value !== (State.examSearch || '')) {
+        examSearchInput.value = State.examSearch || '';
+    }
+    if (examSearchClear) {
+        examSearchClear.style.display = (State.examSearch || '').trim() ? 'inline-flex' : 'none';
+    }
+
+    const maxQInCadeira = Math.max(1, ...State.exams.map(e => e.perguntas ? e.perguntas.length : (e.perguntas_count || 0)));
+    if (State.examQuestionsMax === null || State.examQuestionsMax === undefined) {
+        State.examQuestionsMax = maxQInCadeira;
+    }
+
+    // Synchronize UI inputs with state
     document.querySelectorAll('.floating-check-input').forEach(chk => {
         chk.checked = State.globalQuestionTypes.includes(chk.value);
     });
 
-    // 1. Prepare items with calculated active counts
+    document.querySelectorAll('.floating-state-check-input').forEach(chk => {
+        chk.checked = State.examStateFilter.includes(chk.value);
+    });
+
+    const qMinInput = elements.filterQuestionsMin || document.getElementById('filter-questions-min');
+    const qMaxInput = elements.filterQuestionsMax || document.getElementById('filter-questions-max');
+    if (qMinInput) {
+        qMinInput.value = State.examQuestionsMin;
+        qMinInput.max = maxQInCadeira;
+    }
+    if (qMaxInput) {
+        qMaxInput.value = State.examQuestionsMax;
+        qMaxInput.max = maxQInCadeira;
+    }
+
+    const sMinInput = elements.filterScoreMin || document.getElementById('filter-score-min');
+    const sMaxInput = elements.filterScoreMax || document.getElementById('filter-score-max');
+    if (sMinInput) sMinInput.value = State.examScoreMin;
+    if (sMaxInput) sMaxInput.value = State.examScoreMax;
+
+    const qMinSlider = elements.sliderQuestionsMin || document.getElementById('slider-questions-min');
+    const qMaxSlider = elements.sliderQuestionsMax || document.getElementById('slider-questions-max');
+    const qTrackFill = elements.trackFillQuestions || document.getElementById('track-fill-questions');
+    if (qMinSlider) {
+        qMinSlider.min = 1;
+        qMinSlider.max = maxQInCadeira;
+        qMinSlider.value = State.examQuestionsMin;
+    }
+    if (qMaxSlider) {
+        qMaxSlider.min = 1;
+        qMaxSlider.max = maxQInCadeira;
+        qMaxSlider.value = State.examQuestionsMax;
+    }
+    if (qTrackFill) {
+        const span = Math.max(1, maxQInCadeira - 1);
+        const leftPercent = Math.max(0, Math.min(100, ((State.examQuestionsMin - 1) / span) * 100));
+        const rightPercent = Math.max(0, Math.min(100, 100 - (((State.examQuestionsMax - 1) / span) * 100)));
+        qTrackFill.style.left = `${leftPercent}%`;
+        qTrackFill.style.right = `${rightPercent}%`;
+    }
+
+    const sMinSlider = elements.sliderScoreMin || document.getElementById('slider-score-min');
+    const sMaxSlider = elements.sliderScoreMax || document.getElementById('slider-score-max');
+    const sTrackFill = elements.trackFillScore || document.getElementById('track-fill-score');
+    if (sMinSlider) sMinSlider.value = State.examScoreMin;
+    if (sMaxSlider) sMaxSlider.value = State.examScoreMax;
+    if (sTrackFill) {
+        sTrackFill.style.left = `${State.examScoreMin}%`;
+        sTrackFill.style.right = `${100 - State.examScoreMax}%`;
+    }
+
+    // 1. Prepare items with calculated active counts and score history
     const preparedExams = State.exams.map((exam, originalIndex) => {
         const effectiveExcluded = getEffectiveExcludedTypes(exam);
         const questionTypes = getExamQuestionTypes(exam);
         const { totalCount, activeCount } = getExamFilteredCount(exam, effectiveExcluded);
+
+        // Analyze score history
+        const histArr = State.examHistory ? State.examHistory[exam.id] : null;
+        let isAttempted = false;
+        let scorePercentage = null;
+
+        if (Array.isArray(histArr)) {
+            const correctCount = histArr.filter(s => s === QuestionStatus.CORRECT).length;
+            const incorrectCount = histArr.filter(s => s === QuestionStatus.INCORRECT).length;
+            if (correctCount > 0 || incorrectCount > 0) {
+                isAttempted = true;
+                scorePercentage = histArr.length > 0 ? Math.round((correctCount / histArr.length) * 100) : 0;
+            }
+        }
 
         return {
             ...exam,
@@ -335,17 +678,64 @@ export function renderExamsMenu() {
             _effectiveExcluded: effectiveExcluded,
             _questionTypes: questionTypes,
             _totalCount: totalCount,
-            _activeCount: activeCount
+            _activeCount: activeCount,
+            _isAttempted: isAttempted,
+            _scorePercentage: scorePercentage
         };
     });
 
-    // 2. Filter: Only display exams that have at least 1 active question matching the filter
-    // If all 3 types are unchecked globally, activeCount will be 0 for all exams.
-    const visibleExams = preparedExams.filter(e => e._activeCount > 0);
+    // 2. Filter exams based on all active criteria
+    const minQ = typeof State.examQuestionsMin === 'number' ? State.examQuestionsMin : 1;
+    const maxQ = typeof State.examQuestionsMax === 'number' ? State.examQuestionsMax : 9999;
+    const minScore = typeof State.examScoreMin === 'number' ? State.examScoreMin : 0;
+    const maxScore = typeof State.examScoreMax === 'number' ? State.examScoreMax : 100;
+    const allowedStates = State.examStateFilter || ['completed', 'pending'];
+    const query = (State.examSearch || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+    const visibleExams = preparedExams.filter(exam => {
+        // Criterion 0: Search query by title or description
+        if (query) {
+            const titleNorm = (exam.titulo || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const descNorm = (exam.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            if (!titleNorm.includes(query) && !descNorm.includes(query)) {
+                return false;
+            }
+        }
+
+        // Criterion A: Active question types (must have > 0 matching active questions)
+        if (exam._activeCount <= 0) return false;
+
+        // Criterion B: Exam State (Exames Feitos vs Exames Por Fazer)
+        if (exam._isAttempted && !allowedStates.includes('completed')) return false;
+        if (!exam._isAttempted && !allowedStates.includes('pending')) return false;
+
+        // Criterion C: Question Count range
+        if (exam._activeCount < minQ || exam._activeCount > maxQ) return false;
+
+        // Criterion D: Score percentage range
+        if (exam._isAttempted) {
+            if (exam._scorePercentage < minScore || exam._scorePercentage > maxScore) return false;
+        } else {
+            // For pending exams without attempts, only display if score filter range includes 0%
+            if (minScore > 0) return false;
+        }
+
+        return true;
+    });
 
     // 3. Sort visible exams
     const sortMode = State.examSort || 'default';
     visibleExams.sort((a, b) => {
+        if (sortMode === 'score_desc') {
+            const scoreA = a._isAttempted ? a._scorePercentage : -1;
+            const scoreB = b._isAttempted ? b._scorePercentage : -1;
+            return (scoreB - scoreA) || (b._activeCount - a._activeCount) || (a._originalIndex - b._originalIndex);
+        }
+        if (sortMode === 'score_asc') {
+            const scoreA = a._isAttempted ? a._scorePercentage : 999;
+            const scoreB = b._isAttempted ? b._scorePercentage : 999;
+            return (scoreA - scoreB) || (a._activeCount - b._activeCount) || (a._originalIndex - b._originalIndex);
+        }
         if (sortMode === 'questions_desc') {
             return (b._activeCount - a._activeCount) || (b._totalCount - a._totalCount) || (a._originalIndex - b._originalIndex);
         }
@@ -380,21 +770,18 @@ export function renderExamsMenu() {
     if (visibleExams.length === 0) {
         elements.examsGrid.innerHTML = `
             <div class="empty-filters-state">
-                <i class="fa-solid fa-filter-circle-xmark" aria-hidden="true"></i>
+                <i class="fa-solid fa-filter-circle-xmark empty-filters-main-icon" aria-hidden="true"></i>
                 <h4>Nenhum exame corresponde aos filtros</h4>
-                <p>Todos os exames desta cadeira contêm tipos de perguntas que estão atualmente desmarcados.</p>
+                <p>Ajuste os filtros de estado, tipos de pergunta ou intervalos na barra lateral para encontrar exames.</p>
                 <button type="button" class="btn-control btn-primary btn-sm" id="btn-reset-filters-empty">
-                    <i class="fa-solid fa-rotate-left"></i> Ativar Todos os Tipos
+                    <i class="fa-solid fa-rotate-left"></i> Repor Todos os Filtros
                 </button>
             </div>
         `;
         const resetEmptyBtn = document.getElementById('btn-reset-filters-empty');
         if (resetEmptyBtn) {
             resetEmptyBtn.addEventListener('click', () => {
-                const typeCheckboxes = document.querySelectorAll('.floating-check-input');
-                typeCheckboxes.forEach(c => { c.checked = true; });
-                State.globalQuestionTypes = ALL_QUESTION_TYPES;
-                renderExamsMenu();
+                resetAllFilters();
                 showToast('Filtros repostos com sucesso!');
             });
         }

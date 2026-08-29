@@ -17,6 +17,7 @@ export const State = {
     // Loaded list of subjects (cadeiras)
     cadeiras: [],
     localCadeiras: [],
+    cadeirasSearch: '',
 
     // Selected subject
     activeCadeira: null,
@@ -29,10 +30,16 @@ export const State = {
     activeExam: null,
 
     // Exam sorting & global filters
-    examSort: 'default', // 'default' | 'questions_desc' | 'questions_asc' | 'title_asc' | 'title_desc'
+    examSort: 'default', // 'default' | 'score_desc' | 'score_asc' | 'questions_desc' | 'questions_asc' | 'title_asc' | 'title_desc'
+    examSearch: '',
     globalQuestionTypes: ['escolha_multipla', 'boolean', 'escrita'],
+    examStateFilter: ['completed', 'pending'], // ['completed', 'pending']
+    examQuestionsMin: 1,
+    examQuestionsMax: null, // dynamically calculated per cadeira
+    examScoreMin: 0,
+    examScoreMax: 100,
     examFilters: {}, // { [examId]: string[] (excluded types) }
-    examHistory: {}, // { [examId]: { percentage, total, correctCount, incorrectCount, unansweredCount, timestamp, questions: [...] } }
+    examHistory: {}, // { [examId]: number[] (array of QuestionStatus: 1=CORRECT, 2=INCORRECT, 3=UNANSWERED) }
 
     // Session answers & progress for active exam:
     // Array of { selectedOptions: number[], writtenInput: string, revealed: boolean, isCorrect: boolean|null }
