@@ -163,8 +163,18 @@ export function renderFeedbackUI(q) {
         ? `<i class="fa-solid fa-circle-check" aria-hidden="true"></i> ${t('feedback_correct')}`
         : `<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> ${t('feedback_incorrect')}`;
 
-    const letters = correctList.map(val => String.fromCharCode(65 + val)).sort().join(', ');
-    let msg = correctList.length === 1
+    const isBoolean = qType === 'boolean';
+    let letters = '';
+    if (isBoolean) {
+        const isTrue = (correctList[0] === 0);
+        letters = isTrue
+            ? (getCurrentLanguage() === 'en' ? 'True (T)' : 'Verdadeiro (V)')
+            : (getCurrentLanguage() === 'en' ? 'False (F)' : 'Falso (F)');
+    } else {
+        letters = correctList.map(val => String.fromCharCode(65 + val)).sort().join(', ');
+    }
+
+    let msg = (correctList.length === 1 || isBoolean)
         ? t('feedback_correct_single', { letters })
         : t('feedback_correct_plural', { letters });
 

@@ -12,7 +12,7 @@ import { copyQuestionToClipboard } from './clipboard.js';
 import { applyTranslations, setLanguage, t } from './i18n.js';
 
 // Initialization
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
     applyTranslations();
     setupEventListeners();
     setupLocalCreationListeners();
@@ -23,26 +23,38 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            clampCardDescriptions(elements.cadeirasGrid);
-            clampCardDescriptions(elements.examsGrid);
+            if (elements.cadeirasGrid) clampCardDescriptions(elements.cadeirasGrid);
+            if (elements.examsGrid) clampCardDescriptions(elements.examsGrid);
         }, 100);
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 // Setup Events
 function setupEventListeners() {
     // Navigation
-    elements.btnExit.addEventListener('click', () => {
-        transitionTo('menu');
-    });
+    if (elements.btnExit) {
+        elements.btnExit.addEventListener('click', () => {
+            transitionTo('menu');
+        });
+    }
 
-    elements.btnPrev.addEventListener('click', () => {
-        prevQuestion();
-    });
+    if (elements.btnPrev) {
+        elements.btnPrev.addEventListener('click', () => {
+            prevQuestion();
+        });
+    }
 
-    elements.btnNext.addEventListener('click', () => {
-        nextQuestion();
-    });
+    if (elements.btnNext) {
+        elements.btnNext.addEventListener('click', () => {
+            nextQuestion();
+        });
+    }
 
     if (elements.btnCopy) {
         elements.btnCopy.addEventListener('click', () => {
@@ -67,13 +79,17 @@ function setupEventListeners() {
         });
     }
 
-    elements.btnBackMenu.addEventListener('click', () => {
-        transitionTo('menu');
-    });
+    if (elements.btnBackMenu) {
+        elements.btnBackMenu.addEventListener('click', () => {
+            transitionTo('menu');
+        });
+    }
 
-    elements.btnBackCadeiras.addEventListener('click', () => {
-        transitionTo('cadeiras');
-    });
+    if (elements.btnBackCadeiras) {
+        elements.btnBackCadeiras.addEventListener('click', () => {
+            transitionTo('cadeiras');
+        });
+    }
 
     if (elements.btnSettings) {
         elements.btnSettings.addEventListener('click', () => {

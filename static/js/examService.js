@@ -172,7 +172,7 @@ export class ExamService {
      * @returns {Promise<object[]>}
      */
     static async fetchExamsForSubject(indexPath, currentCadeiraId, localExams = []) {
-        const response = await fetch(indexPath);
+        const response = await fetch(indexPath, { cache: 'no-cache' });
         if (!response.ok) {
             throw new Error('Não foi possível carregar os exames desta cadeira.');
         }
@@ -209,7 +209,7 @@ export class ExamService {
         if (examMeta.isLocal) {
             return examMeta;
         }
-        const response = await fetch(examMeta.path);
+        const response = await fetch(examMeta.path, { cache: 'no-cache' });
         if (!response.ok) {
             throw new Error('Não foi possível carregar as questões deste exame.');
         }

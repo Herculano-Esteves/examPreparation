@@ -18,7 +18,7 @@ import { t } from './i18n.js';
  */
 export async function fetchCadeiras() {
     try {
-        const response = await fetch('exames/cadeiras.json');
+        const response = await fetch('exames/cadeiras.json', { cache: 'no-cache' });
         if (!response.ok) throw new Error('Não foi possível carregar as cadeiras.');
         State.cadeiras = await response.json();
         renderCadeirasMenu();

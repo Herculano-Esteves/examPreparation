@@ -73,12 +73,14 @@ export const TRANSLATIONS = {
 
         // Question Types
         type_escolha_multipla: 'Escolha Múltipla',
+        type_multiple_choice: 'Escolha Múltipla',
         type_escolha_multipla_short: 'Múltipla',
         type_escolha_multipla_desc: 'Questões com várias opções de seleção (alíneas A, B, C, D).',
         type_boolean: 'Verdadeiro / Falso',
         type_boolean_short: 'V / F',
         type_boolean_desc: 'Questões binárias de afirmações verdadeiras ou falsas.',
         type_escrita: 'Desenvolvimento',
+        type_written: 'Desenvolvimento',
         type_escrita_short: 'Escrita',
         type_escrita_desc: 'Questões abertas de redação e reflexão escrita com solução esperada.',
 
@@ -248,12 +250,14 @@ export const TRANSLATIONS = {
 
         // Question Types
         type_escolha_multipla: 'Multiple Choice',
+        type_multiple_choice: 'Multiple Choice',
         type_escolha_multipla_short: 'Multiple',
         type_escolha_multipla_desc: 'Questions with multiple selectable options (options A, B, C, D).',
         type_boolean: 'True / False',
         type_boolean_short: 'T / F',
         type_boolean_desc: 'Binary questions with true or false statements.',
         type_escrita: 'Essay / Written',
+        type_written: 'Essay / Written',
         type_escrita_short: 'Written',
         type_escrita_desc: 'Open-ended essay and written reflection questions with model solutions.',
 

@@ -57,16 +57,29 @@ export function copyQuestionToClipboard(includeAnswer = false) {
 
         if (optionsList && optionsList.length > 0) {
             const optionsText = optionsList
-                .map((opcao, idx) => `${String.fromCharCode(65 + idx)}) ${opcao}`)
+                .map((opcao, idx) => {
+                    const prefix = isBoolean 
+                        ? (idx === 0 ? (getCurrentLanguage() === 'en' ? 'T)' : 'V)') : 'F)')
+                        : `${String.fromCharCode(65 + idx)})`;
+                    return `${prefix} ${opcao}`;
+                })
                 .join('\n');
             textToCopy += `\n${t('clip_options')}:\n${optionsText}\n`;
         }
 
         if (includeAnswer) {
-            const correctLetters = correctList
-                .map(val => String.fromCharCode(65 + val))
-                .sort()
-                .join(', ');
+            let correctLetters = '';
+            if (isBoolean) {
+                const isTrue = (correctList[0] === 0);
+                correctLetters = isTrue
+                    ? (getCurrentLanguage() === 'en' ? 'True (T)' : 'Verdadeiro (V)')
+                    : (getCurrentLanguage() === 'en' ? 'False (F)' : 'Falso (F)');
+            } else {
+                correctLetters = correctList
+                    .map(val => String.fromCharCode(65 + val))
+                    .sort()
+                    .join(', ');
+            }
             textToCopy += `\n${t('clip_correct_answers')}:\n${correctLetters}\n`;
         }
     }

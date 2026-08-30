@@ -1,154 +1,154 @@
-/**
- * constants.js
- * ------------
- * Application-wide constants that do not belong to any specific domain module.
- * Contains schema instructions for creating exams and status enums.
- */
+import { APP_CONFIG } from './config.js';
 
 export const JSON_INSTRUCTIONS = {
-    en: `Create an exam in JSON format following this exact schema (English keys, supports monolingual strings or bilingual objects {"en": "...", "pt": "..."}):
+    en: [
+        'Create an exam in JSON format following this exact schema (English keys, supports monolingual strings or bilingual objects {"en": "...", "pt": "..."}):',
+        '',
+        '{',
+        '  "title": {',
+        '    "en": "Exam Title in English",',
+        '    "pt": "Título do Exame em Português"',
+        '  },',
+        '  "description": {',
+        '    "en": "Detailed exam description...",',
+        '    "pt": "Descrição detalhada do exame..."',
+        '  },',
+        '  "languages": ["en", "pt"],',
+        '  "questions": [',
+        '    {',
+        '      "type": "escolha_multipla",',
+        '      "header": "```python\\ndef example():\\n    return 42\\n```",',
+        '      "question": {',
+        '        "en": "What does the function return?",',
+        '        "pt": "O que retorna a função?"',
+        '      },',
+        '      "options": {',
+        '        "en": ["42", "0", "None", "Error"],',
+        '        "pt": ["42", "0", "None", "Erro"]',
+        '      },',
+        '      "solution": [0],',
+        '      "explanation": {',
+        '        "en": "The function explicitly returns integer 42.",',
+        '        "pt": "A função retorna explicitamente o inteiro 42."',
+        '      }',
+        '    },',
+        '    {',
+        '      "type": "boolean",',
+        '      "header": "```bash\\n$ ls -la /var/log\\n```",',
+        '      "question": {',
+        '        "en": "The command above lists files in long format including hidden files.",',
+        '        "pt": "O comando acima lista ficheiros no formato longo incluindo ficheiros ocultos."',
+        '      },',
+        '      "solution": 0,',
+        '      "explanation": {',
+        '        "en": "The -a flag shows hidden entries starting with \'.\' and -l uses long listing format.",',
+        '        "pt": "A flag -a mostra entradas ocultas iniciadas por \'.\' e -l usa o formato longo."',
+        '      }',
+        '    },',
+        '    {',
+        '      "type": "escrita",',
+        '      "question": {',
+        '        "en": "Explain the difference between TCP and UDP.",',
+        '        "pt": "Explique a diferença entre TCP e UDP."',
+        '      },',
+        '      "solution": {',
+        '        "en": "**TCP** is connection-oriented and guarantees ordered, reliable delivery.\\n**UDP** is connectionless and prioritized for low latency.",',
+        '        "pt": "**TCP** é orientado à conexão e garante entrega ordenada e fiável.\\n**UDP** não é orientado à conexão e prioriza baixa latência."',
+        '      }',
+        '    }',
+        '  ]',
+        '}',
+        '',
+        'Rules & Guidelines:',
+        '1. "languages": Array of supported language codes (e.g. ["en"], ["pt"], or ["en", "pt"]).',
+        '2. Monolingual vs Bilingual:',
+        '   - For monolingual exams (e.g. "languages": ["en"]), text fields can be plain strings ("title": "Exam 1", "question": "What is...", "options": ["A", "B"]).',
+        '   - For bilingual exams ("languages": ["en", "pt"]), text fields must be objects with entries for each language (e.g. {"en": "...", "pt": "..."}). In "options", each language must contain an array with identical item count and corresponding 1-to-1 order.',
+        '3. Question Types ("type"):',
+        '   - "escolha_multipla" (Multiple Choice - default if omitted): "options" is required. "solution" is an array of 0-based indices corresponding to the correct option(s) (e.g., [0] for first option, [0, 2] for multiple correct choices).',
+        '   - "boolean" (True/False): "solution" must be integer 0 for True (Verdadeiro) or 1 for False (Falso). Does NOT require "options".',
+        '   - "escrita" (Open/Written Response): "solution" must contain the expected model answer / resolution.',
+        '4. Optional Fields:',
+        '   - "header": Optional code snippet, command output, or contextual text placed above the question prompt. Supports Markdown code blocks.',
+        '   - "explanation": Optional explanation/justification displayed after the user confirms or completes the question.',
+        '5. Markdown & LaTeX: All text fields support Markdown formatting (bold, italics, code snippets, lists) and KaTeX math notation ($inline$ or $$display$$).',
+        '6. Output Format: Return ONLY raw, valid JSON with no markdown wrapping or preamble.'
+    ].join('\n'),
 
-{
-  "title": {
-    "en": "Exam Title in English",
-    "pt": "Título do Exame em Português"
-  },
-  "description": {
-    "en": "Detailed exam description...",
-    "pt": "Descrição detalhada do exame..."
-  },
-  "languages": ["en", "pt"],
-  "questions": [
-    {
-      "type": "escolha_multipla",
-      "header": "\`\`\`python\\ndef example():\\n    return 42\\n\`\`\`",
-      "question": {
-        "en": "What does the function return?",
-        "pt": "O que retorna a função?"
-      },
-      "options": {
-        "en": ["42", "0", "None", "Error"],
-        "pt": ["42", "0", "None", "Erro"]
-      },
-      "solution": [0],
-      "explanation": {
-        "en": "The function explicitly returns integer 42.",
-        "pt": "A função retorna explicitamente o inteiro 42."
-      }
-    },
-    {
-      "type": "boolean",
-      "header": "\`\`\`bash\\n$ ls -la /var/log\\n\`\`\`",
-      "question": {
-        "en": "The command above lists files in long format including hidden files.",
-        "pt": "O comando acima lista ficheiros no formato longo incluindo ficheiros ocultos."
-      },
-      "solution": 0,
-      "explanation": {
-        "en": "The -a flag shows hidden entries starting with '.' and -l uses long listing format.",
-        "pt": "A flag -a mostra entradas ocultas iniciadas por '.' e -l usa o formato longo."
-      }
-    },
-    {
-      "type": "escrita",
-      "question": {
-        "en": "Explain the difference between TCP and UDP.",
-        "pt": "Explique a diferença entre TCP e UDP."
-      },
-      "solution": {
-        "en": "**TCP** is connection-oriented and guarantees ordered, reliable delivery.\\n**UDP** is connectionless and prioritized for low latency.",
-        "pt": "**TCP** é orientado à conexão e garante entrega ordenada e fiável.\\n**UDP** não é orientado à conexão e prioriza baixa latência."
-      }
-    }
-  ]
-}
-
-Rules & Guidelines:
-1. "languages": Array of supported language codes (e.g. ["en"], ["pt"], or ["en", "pt"]).
-2. Monolingual vs Bilingual:
-   - For monolingual exams (e.g. "languages": ["en"]), text fields can be plain strings ("title": "Exam 1", "question": "What is...", "options": ["A", "B"]).
-   - For bilingual exams ("languages": ["en", "pt"]), text fields must be objects with entries for each language (e.g. {"en": "...", "pt": "..."}). In "options", each language must contain an array with identical item count and corresponding 1-to-1 order.
-3. Question Types ("type"):
-   - "escolha_multipla" (Multiple Choice - default if omitted): "options" is required. "solution" is an array of 0-based indices corresponding to the correct option(s) (e.g., [0] for first option, [0, 2] for multiple correct choices).
-   - "boolean" (True/False): "solution" must be integer 0 for True (Verdadeiro) or 1 for False (Falso). Does NOT require "options".
-   - "escrita" (Open/Written Response): "solution" must contain the expected model answer / resolution.
-4. Optional Fields:
-   - "header": Optional code snippet, command output, or contextual text placed above the question prompt. Supports Markdown fences (\`\`\`lang ... \`\`\`).
-   - "explanation": Optional explanation/justification displayed after the user confirms or completes the question.
-5. Markdown & LaTeX: All text fields support Markdown formatting (bold, italics, code snippets, lists) and KaTeX math notation ($inline$ or $$display$$).
-6. Output Format: Return ONLY raw, valid JSON with no markdown wrapping or preamble.`,
-
-    pt: `Cria um exame no formato JSON seguindo este esquema exato (chaves em inglês, suporta monolíngue ou bilingue {"pt": "...", "en": "..."}):
-
-{
-  "title": {
-    "pt": "Título do Exame em Português",
-    "en": "Exam Title in English"
-  },
-  "description": {
-    "pt": "Descrição detalhada do exame...",
-    "en": "Detailed exam description..."
-  },
-  "languages": ["pt", "en"],
-  "questions": [
-    {
-      "type": "escolha_multipla",
-      "header": "\`\`\`python\\ndef exemplo():\\n    return 42\\n\`\`\`",
-      "question": {
-        "pt": "O que retorna a função?",
-        "en": "What does the function return?"
-      },
-      "options": {
-        "pt": ["42", "0", "None", "Erro"],
-        "en": ["42", "0", "None", "Error"]
-      },
-      "solution": [0],
-      "explanation": {
-        "pt": "A função retorna explicitamente o inteiro 42.",
-        "en": "The function explicitly returns integer 42."
-      }
-    },
-    {
-      "type": "boolean",
-      "header": "\`\`\`bash\\n$ ls -la /var/log\\n\`\`\`",
-      "question": {
-        "pt": "O comando acima lista ficheiros no formato longo incluindo ficheiros ocultos.",
-        "en": "The command above lists files in long format including hidden files."
-      },
-      "solution": 0,
-      "explanation": {
-        "pt": "A flag -a mostra entradas ocultas iniciadas por '.' e -l usa o formato longo.",
-        "en": "The -a flag shows hidden entries starting with '.' and -l uses long listing format."
-      }
-    },
-    {
-      "type": "escrita",
-      "question": {
-        "pt": "Explique a diferença entre TCP e UDP.",
-        "en": "Explain the difference between TCP and UDP."
-      },
-      "solution": {
-        "pt": "**TCP** é orientado à conexão e garante entrega ordenada e fiável.\\n**UDP** não é orientado à conexão e prioriza baixa latência.",
-        "en": "**TCP** is connection-oriented and guarantees ordered, reliable delivery.\\n**UDP** is connectionless and prioritized for low latency."
-      }
-    }
-  ]
-}
-
-Regras e Diretrizes:
-1. "languages": Array com os códigos de idioma suportados (ex: ["pt"], ["en"] ou ["pt", "en"]).
-2. Exames Monolíngues vs Bilingues:
-   - Para exames monolíngues (ex: "languages": ["pt"]), os campos de texto podem ser strings simples ("title": "Exame 1", "question": "Pergunta...", "options": ["A", "B"]).
-   - Para exames bilingues ("languages": ["pt", "en"]), use objetos com as chaves de cada idioma (ex: {"pt": "...", "en": "..."}). Em "options", cada idioma deve ter um array com a mesma quantidade de opções e a mesma correspondência 1-para-1.
-3. Tipos de Pergunta ("type"):
-   - "escolha_multipla" (Escolha Múltipla - padrão se omitido): O campo "options" é obrigatório. "solution" é um array de índices de base 0 com a(s) resposta(s) correta(s) (ex: [0] para a primeira opção, [0, 2] se existirem múltiplas respostas corretas).
-   - "boolean" (Verdadeiro/Falso): "solution" deve ser o inteiro 0 para Verdadeiro (True) ou 1 para Falso (False). NÃO necessita do campo "options".
-   - "escrita" (Resposta Aberta): "solution" deve conter a resposta/resolução esperada.
-4. Campos Opcionais:
-   - "header": Código de exemplo, output de terminal ou texto de contexto exibido antes do enunciado da pergunta. Suporta blocos de código com sintaxe (\`\`\`lang ... \`\`\`).
-   - "explanation": Explicação/justificação opcional exibida após a confirmação da resposta.
-5. Markdown & LaTeX: Todos os campos de texto suportam Markdown e fórmulas matemáticas em KaTeX ($inline$ ou $$display$$).
-6. Formato de Saída: Devolva exclusivamente JSON puro e válido, sem blocos de texto adicionais.`;
+    pt: [
+        'Cria um exame no formato JSON seguindo este esquema exato (chaves em inglês, suporta monolíngue ou bilingue {"pt": "...", "en": "..."}):',
+        '',
+        '{',
+        '  "title": {',
+        '    "pt": "Título do Exame em Português",',
+        '    "en": "Exam Title in English"',
+        '  },',
+        '  "description": {',
+        '    "pt": "Descrição detalhada do exame...",',
+        '    "en": "Detailed exam description..."',
+        '  },',
+        '  "languages": ["pt", "en"],',
+        '  "questions": [',
+        '    {',
+        '      "type": "escolha_multipla",',
+        '      "header": "```python\\ndef exemplo():\\n    return 42\\n```",',
+        '      "question": {',
+        '        "pt": "O que retorna a função?",',
+        '        "en": "What does the function return?"',
+        '      },',
+        '      "options": {',
+        '        "pt": ["42", "0", "None", "Erro"],',
+        '        "en": ["42", "0", "None", "Error"]',
+        '      },',
+        '      "solution": [0],',
+        '      "explanation": {',
+        '        "pt": "A função retorna explicitamente o inteiro 42.",',
+        '        "en": "The function explicitly returns integer 42."',
+        '      }',
+        '    },',
+        '    {',
+        '      "type": "boolean",',
+        '      "header": "```bash\\n$ ls -la /var/log\\n```",',
+        '      "question": {',
+        '        "pt": "O comando acima lista ficheiros no formato longo incluindo ficheiros ocultos.",',
+        '        "en": "The command above lists files in long format including hidden files."',
+        '      },',
+        '      "solution": 0,',
+        '      "explanation": {',
+        '        "pt": "A flag -a mostra entradas ocultas iniciadas por \'.\' e -l usa o formato longo.",',
+        '        "en": "The -a flag shows hidden entries starting with \'.\' and -l uses long listing format."',
+        '      }',
+        '    },',
+        '    {',
+        '      "type": "escrita",',
+        '      "question": {',
+        '        "pt": "Explique a diferença entre TCP e UDP.",',
+        '        "en": "Explain the difference between TCP and UDP."',
+        '      },',
+        '      "solution": {',
+        '        "pt": "**TCP** é orientado à conexão e garante entrega ordenada e fiável.\\n**UDP** não é orientado à conexão e prioriza baixa latência.",',
+        '        "en": "**TCP** is connection-oriented and guarantees ordered, reliable delivery.\\n**UDP** is connectionless and prioritized for low latency."',
+        '      }',
+        '    }',
+        '  ]',
+        '}',
+        '',
+        'Regras e Diretrizes:',
+        '1. "languages": Array com os códigos de idioma suportados (ex: ["pt"], ["en"] ou ["pt", "en"]).',
+        '2. Exames Monolíngues vs Bilingues:',
+        '   - Para exames monolíngues (ex: "languages": ["pt"]), os campos de texto podem ser strings simples ("title": "Exame 1", "question": "Pergunta...", "options": ["A", "B"]).',
+        '   - Para exames bilingues ("languages": ["pt", "en"]), use objetos com as chaves de cada idioma (ex: {"pt": "...", "en": "..."}). Em "options", cada idioma deve ter um array com a mesma quantidade de opções e a mesma correspondência 1-para-1.',
+        '3. Tipos de Pergunta ("type"):',
+        '   - "escolha_multipla" (Escolha Múltipla - padrão se omitido): O campo "options" é obrigatório. "solution" é um array de índices de base 0 com a(s) resposta(s) correta(s) (ex: [0] para a primeira opção, [0, 2] se existirem múltiplas respostas corretas).',
+        '   - "boolean" (Verdadeiro/Falso): "solution" deve ser o inteiro 0 para Verdadeiro (True) ou 1 para Falso (False). NÃO necessita do campo "options".',
+        '   - "escrita" (Resposta Aberta): "solution" deve conter a resposta/resolução esperada.',
+        '4. Campos Opcionais:',
+        '   - "header": Código de exemplo, output de terminal ou texto de contexto exibido antes do enunciado da pergunta. Suporta blocos de código com sintaxe Markdown.',
+        '   - "explanation": Explicação/justificação opcional exibida após a confirmação da resposta.',
+        '5. Markdown & LaTeX: Todos os campos de texto suportam Markdown e fórmulas matemáticas em KaTeX ($inline$ ou $$display$$).',
+        '6. Formato de Saída: Devolva exclusivamente JSON puro e válido, sem blocos de texto adicionais.'
+    ].join('\n')
+};
 
 /**
  * Returns the JSON instructions template matching the requested or active language.
@@ -156,7 +156,7 @@ Regras e Diretrizes:
  * @returns {string}
  */
 export function getJsonInstructions(lang = null) {
-    const activeLang = lang || (typeof State !== 'undefined' && State ? State.language : 'en');
+    const activeLang = lang || APP_CONFIG.defaultLanguage;
     return JSON_INSTRUCTIONS[activeLang] || JSON_INSTRUCTIONS.en || JSON_INSTRUCTIONS.pt;
 }
 
