@@ -77,38 +77,19 @@ export function getLocalizedList(field, lang = null) {
     return [];
 }
 
+import { parseMarkdown, renderMath, renderRichText } from './renderer.js';
+
+export { parseMarkdown, renderMath, renderRichText };
+
 /**
- * Minimal Markdown renderer supporting:
- *  - Fenced code blocks (``` ... ```) → <pre><code>
- *  - **bold** → <strong>
- *  - `inline code` → <code>
- *  - Newlines → <br> (unless isPreformatted is true)
+ * Backward-compatible Markdown renderer delegating to renderer.js parseMarkdown.
  *
  * @param {string} text
- * @param {boolean} isPreformatted - If true, newlines are preserved as-is
+ * @param {boolean} [isPreformatted=false]
  * @returns {string} HTML string
  */
 export function renderMarkdown(text, isPreformatted = false) {
-    if (!text) return '';
-
-    const parts = text.split('```');
-    let result = '';
-
-    for (let i = 0; i < parts.length; i++) {
-        if (i % 2 === 1) {
-            // Inside a fenced code block — preserve whitespace, escape HTML
-            result += '<pre class="code-block"><code>' + escapeHTML(parts[i].trim()) + '</code></pre>';
-        } else {
-            let partText = escapeHTML(parts[i]);
-            partText = partText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            partText = partText.replace(/`(.*?)`/g, '<code>$1</code>');
-            if (!isPreformatted) {
-                partText = partText.replace(/\n/g, '<br>');
-            }
-            result += partText;
-        }
-    }
-    return result;
+    return parseMarkdown(text, isPreformatted);
 }
 
 let toastTimeout = null;

@@ -2,7 +2,7 @@
  * cadeiras.js
  * -----------
  * Manages fetching, rendering, and selecting Cadeiras (university subjects).
- * Clean card layout with Title first, description underneath, and exam count at the bottom.
+ * Uses the EventBus to listen for screen transitions and language changes.
  * Full WCAG 2.1 AA / EAA 2025 keyboard accessibility.
  */
 
@@ -11,6 +11,7 @@ import { elements } from './elements.js';
 import { escapeHTML, clampCardDescriptions } from './utils.js';
 import { transitionTo } from './navigation.js';
 import { t } from './i18n.js';
+import { Events, APP_EVENTS } from './events.js';
 
 /**
  * Fetch the static cadeiras list from the server and render the menu.
@@ -24,16 +25,18 @@ export async function fetchCadeiras() {
         renderCadeirasMenu();
     } catch (error) {
         console.error('Error fetching cadeiras:', error);
-        elements.cadeirasGrid.innerHTML = `
-            <div class="error-state">
-                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                <h3>Erro ao carregar as cadeiras</h3>
-                <p>${escapeHTML(error.message)}</p>
-                <button class="btn-control btn-primary" id="btn-retry-cadeiras" style="margin-top: 1rem;">Tentar Novamente</button>
-            </div>
-        `;
-        const retryBtn = document.getElementById('btn-retry-cadeiras');
-        if (retryBtn) retryBtn.addEventListener('click', () => fetchCadeiras());
+        if (elements.cadeirasGrid) {
+            elements.cadeirasGrid.innerHTML = `
+                <div class="error-state">
+                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                    <h3>Erro ao carregar as cadeiras</h3>
+                    <p>${escapeHTML(error.message)}</p>
+                    <button class="btn-control btn-primary" id="btn-retry-cadeiras" style="margin-top: 1rem;">Tentar Novamente</button>
+                </div>
+            `;
+            const retryBtn = document.getElementById('btn-retry-cadeiras');
+            if (retryBtn) retryBtn.addEventListener('click', () => fetchCadeiras());
+        }
     }
 }
 
@@ -77,6 +80,7 @@ function initCadeirasSearch() {
  * Direct layout: Title on top, description underneath, exam count at the bottom.
  */
 export function renderCadeirasMenu() {
+    if (!elements.cadeirasGrid) return;
     initCadeirasSearch();
 
     const searchInput = elements.searchCadeiras || document.getElementById('search-cadeiras');
@@ -88,7 +92,7 @@ export function renderCadeirasMenu() {
         clearBtn.style.display = (State.cadeirasSearch || '').trim() ? 'inline-flex' : 'none';
     }
 
-    const combinedCadeiras = [...State.cadeiras, ...State.localCadeiras];
+    const combinedCadeiras = [...(State.cadeiras || []), ...(State.localCadeiras || [])];
 
     if (combinedCadeiras.length === 0) {
         elements.cadeirasGrid.innerHTML = `
@@ -102,27 +106,26 @@ export function renderCadeirasMenu() {
     }
 
     const query = (State.cadeirasSearch || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    const filteredCadeiras = combinedCadeiras.filter(cadeira => {
+    const filteredCadeiras = combinedCadeiras.filter(c => {
         if (!query) return true;
-        const nome = (cadeira.nome || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const sigla = (cadeira.sigla || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const desc = (cadeira.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        return nome.includes(query) || sigla.includes(query) || desc.includes(query);
+        const nameNorm = (c.nome || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const descNorm = (c.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const siglaNorm = (c.sigla || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return nameNorm.includes(query) || descNorm.includes(query) || siglaNorm.includes(query);
     });
 
     if (filteredCadeiras.length === 0) {
         elements.cadeirasGrid.innerHTML = `
             <div class="empty-filters-state">
                 <i class="fa-solid fa-magnifying-glass empty-filters-main-icon" aria-hidden="true"></i>
-                <h4>${escapeHTML(t('empty_search_cadeiras_title'))}</h4>
-                <p>${escapeHTML(t('empty_search_cadeiras_desc', { query: State.cadeirasSearch }))}</p>
-                <button type="button" class="btn-control btn-primary btn-sm" id="btn-clear-cadeiras-empty">
-                    <i class="fa-solid fa-rotate-left"></i> ${escapeHTML(t('btn_clear_search'))}
+                <h4>${escapeHTML(t('no_cadeiras_found_title'))}</h4>
+                <p>${escapeHTML(t('no_cadeiras_found_desc'))}</p>
+                <button type="button" class="btn-control btn-primary btn-sm" id="btn-reset-cadeiras-search">
+                    <i class="fa-solid fa-rotate-left"></i> ${escapeHTML(t('btn_reset_all_filters'))}
                 </button>
             </div>
         `;
-        const resetBtn = document.getElementById('btn-clear-cadeiras-empty');
+        const resetBtn = document.getElementById('btn-reset-cadeiras-search');
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
                 State.cadeirasSearch = '';
@@ -191,7 +194,9 @@ export function selectCadeira(cadeira) {
         if (cadeira.icon) el.className = `fa-solid ${cadeira.icon} sticky-subject-icon`;
     });
     
-    document.getElementById('app-main-title').textContent = cadeira.nome;
+    const mainTitle = document.getElementById('app-main-title');
+    if (mainTitle) mainTitle.textContent = cadeira.nome;
+
     const sigla = cadeira.sigla ||
         cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5);
     
@@ -200,5 +205,34 @@ export function selectCadeira(cadeira) {
         subtitleEl.textContent = t('app_subtitle_with_sigla', { sigla });
     }
 
+    Events.emit(APP_EVENTS.CADEIRA_SELECTED, { cadeira });
     transitionTo('menu');
 }
+
+// ---------------------------------------------------------------------------
+// EventBus Subscriptions
+// ---------------------------------------------------------------------------
+Events.on(APP_EVENTS.SCREEN_CHANGED, ({ to }) => {
+    if (to === 'cadeiras') {
+        const logoIcon = document.getElementById('app-logo-icon');
+        if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
+
+        document.querySelectorAll('.sticky-subject-icon').forEach(el => {
+            el.className = 'fa-solid fa-graduation-cap sticky-subject-icon';
+        });
+
+        const mainTitle = document.getElementById('app-main-title');
+        if (mainTitle) mainTitle.textContent = t('app_title');
+
+        const subtitleEl = document.getElementById('app-subtitle');
+        if (subtitleEl) subtitleEl.textContent = t('app_subtitle');
+
+        renderCadeirasMenu();
+    }
+});
+
+Events.on(APP_EVENTS.LANGUAGE_CHANGED, () => {
+    if (State.currentScreen === 'cadeiras') {
+        renderCadeirasMenu();
+    }
+});

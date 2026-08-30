@@ -7,6 +7,7 @@
 
 import { State } from './state.js';
 import { APP_CONFIG, getInitialLanguage, persistLanguage, isLanguageSupported } from './config.js';
+import { Events, APP_EVENTS } from './events.js';
 
 export const TRANSLATIONS = {
     pt: {
@@ -502,4 +503,5 @@ export function setLanguage(lang) {
     State.language = targetLang;
     persistLanguage(targetLang);
     applyTranslations();
+    Events.emit(APP_EVENTS.LANGUAGE_CHANGED, { lang: targetLang });
 }

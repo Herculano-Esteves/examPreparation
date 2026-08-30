@@ -21,6 +21,7 @@ import { renderQuestion } from './question.js';
 import { getQuestionTypeInfo } from './questionTypes.js';
 import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
 import { ExamService } from './examService.js';
+import { Events, APP_EVENTS } from './events.js';
 
 import {
     ALL_QUESTION_TYPES,
@@ -324,6 +325,7 @@ export async function startExam(examId) {
         }
 
         transitionTo('exam');
+        Events.emit(APP_EVENTS.EXAM_STARTED, { examId, exam: State.activeExam });
 
         try {
             renderQuestion();
@@ -349,3 +351,20 @@ export async function startExam(examId) {
         alert('Erro ao carregar o exame: ' + error.message);
     }
 }
+
+// ---------------------------------------------------------------------------
+// EventBus Subscriptions
+// ---------------------------------------------------------------------------
+Events.on(APP_EVENTS.SCREEN_CHANGED, ({ to }) => {
+    if (to === 'menu') {
+        if (State.activeCadeira) {
+            fetchExams(State.activeCadeira.index_path);
+        }
+    }
+});
+
+Events.on(APP_EVENTS.LANGUAGE_CHANGED, () => {
+    if (State.currentScreen === 'menu') {
+        renderExamsMenu();
+    }
+});

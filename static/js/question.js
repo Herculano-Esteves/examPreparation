@@ -1,40 +1,12 @@
-/**
- * Renders individual questions, handles user interaction (option selection,
- * answer confirmation, reveal), and manages navigation between questions.
- * Styled with hybrid cyber-glass formatting and full WCAG AA accessibility.
- */
-
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { renderMarkdown, escapeHTML, getLocalizedText, getLocalizedList } from './utils.js';
+import { escapeHTML, getLocalizedText, getLocalizedList } from './utils.js';
+import { renderMarkdown, renderMath, renderRichText } from './renderer.js';
 import { transitionTo } from './navigation.js';
 import { getQuestionTypeInfo } from './questionTypes.js';
 import { QuestionStatus, updateQuestionStatus } from './storage.js';
 import { t, getCurrentLanguage } from './i18n.js';
-
-// ---------------------------------------------------------------------------
-// Internal helpers
-// ---------------------------------------------------------------------------
-
-/** Re-runs KaTeX on the question container after content changes. */
-function renderMath() {
-    if (typeof renderMathInElement !== 'function') return;
-    try {
-        const container =
-            document.querySelector('.exam-split-container') ||
-            document.querySelector('.question-card') ||
-            document.body;
-        renderMathInElement(container, {
-            delimiters: [
-                { left: '$$', right: '$$', display: true },
-                { left: '$',  right: '$',  display: false }
-            ],
-            throwOnError: false
-        });
-    } catch (err) {
-        console.error('Erro ao renderizar equações matemáticas:', err);
-    }
-}
+import { Events, APP_EVENTS } from './events.js';
 
 // ---------------------------------------------------------------------------
 // Sub-renderers (called by renderQuestion)
@@ -464,5 +436,24 @@ export function showResults() {
         });
     }
 
+    Events.emit(APP_EVENTS.EXAM_FINISHED, {
+        exam: State.activeExam,
+        results: { total, correct, incorrect, unanswered, percentage }
+    });
+
     transitionTo('results');
 }
+
+// ---------------------------------------------------------------------------
+// EventBus Subscriptions
+// ---------------------------------------------------------------------------
+Events.on(APP_EVENTS.LANGUAGE_CHANGED, () => {
+    if (State.currentScreen === 'exam') {
+        if (elements.currentExamTitle && State.activeExam) {
+            elements.currentExamTitle.textContent = State.activeExam.title ? getLocalizedText(State.activeExam.title) : getLocalizedText(State.activeExam.titulo);
+        }
+        renderQuestion();
+    } else if (State.currentScreen === 'results') {
+        showResults();
+    }
+});
