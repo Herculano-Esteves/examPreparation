@@ -438,18 +438,169 @@ body.layout-exam #screen-exam {
     color: var(--primary);
 }
 
-.menu-header-bar {
+/* --------------------------------------------------------------------------
+   Sticky Menu Header Bar (Unified Sticky Row across Left, Center, Right)
+   Follows the page smoothly during scroll with seamless backdrop mask
+   -------------------------------------------------------------------------- */
+.sticky-menu-header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding-top: 1rem;
+    margin-top: -1rem;
+    margin-bottom: 0.59rem;
+    background: linear-gradient(180deg, 
+        rgba(15, 15, 17, 0.98) 0%, 
+        rgba(15, 15, 17, 0.95) 75%, 
+        rgba(15, 15, 17, 0) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.sticky-menu-header-container {
+    position: relative;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sticky-header-center {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 960px;
     width: 100%;
     height: 36px;
-    margin: 0 auto 0.59rem auto;
     padding: 0 0 1.05rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     gap: 1rem;
     box-sizing: content-box;
+}
+
+.sticky-header-left {
+    position: absolute;
+    left: calc(-25vw + 25%);
+    transform: translateX(-50%);
+    width: 300px;
+    max-width: calc(50vw - 50% - 24px);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.05rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: content-box;
+}
+
+.sticky-header-right {
+    position: absolute;
+    right: calc(-25vw + 25%);
+    transform: translateX(50%);
+    width: 300px;
+    max-width: calc(50vw - 50% - 24px);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.05rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: content-box;
+    user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   Sticky Corner Elements (Anchored outside the 300px lateral gutter slots)
+   - Left: Subject / Cadeira Logo Box sitting to the LEFT of the filters/back slot
+   - Right: Settings Gear Icon Button sitting to the RIGHT of the symmetry slot
+   -------------------------------------------------------------------------- */
+.sticky-corner-left {
+    position: absolute;
+    right: calc(100% + 1.25rem);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 105;
+}
+
+.sticky-corner-right {
+    position: absolute;
+    left: calc(100% + 1.25rem);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 105;
+}
+
+body.header-scrolled .sticky-corner-left {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+body.header-scrolled .sticky-corner-right {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.sticky-corner-right button {
+    pointer-events: auto;
+}
+
+.sticky-mini-logo-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #1e1e24, #121216);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--primary-border);
+    box-sizing: border-box;
+}
+
+.sticky-mini-logo-box i {
+    color: var(--primary);
+}
+
+.btn-sticky-settings {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn-sticky-settings i {
+    color: var(--text-secondary);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color var(--transition-speed) ease;
+}
+
+.btn-sticky-settings:hover i {
+    color: #ffffff;
+    transform: rotate(45deg);
 }
 
 .menu-header-actions {
@@ -460,8 +611,23 @@ body.layout-exam #screen-exam {
 }
 
 /* --------------------------------------------------------------------------
-   10. Terminal-Inspired Horizontal List Rows (Compact & Minimalist Style)
+   10. Layout da Grelha de Exames & Barra Lateral de Filtros (Métricas Documentadas)
+   --------------------------------------------------------------------------
+   DOCUMENTAÇÃO DE ALINHAMENTO VERTICAL:
+   - --exam-row-pad-top: espaço interno superior de cada linha de exame (1.05rem).
+   - --exam-row-pad-bottom: espaço interno inferior de cada linha de exame (1.10rem).
+   - --sidebar-optical-offset: compensação ótica para a barra lateral de filtros (1.05rem).
+     Como o primeiro cartão de exame possui preenchimento interno superior (--exam-row-pad-top),
+     o texto do título só começa 1.05rem abaixo do topo da caixa.
+     Assim, a barra lateral utiliza top: var(--sidebar-optical-offset) para que o
+     rótulo "ORDENAR" fique rigorosamente alinhado na mesma linha horizontal do título do exame.
    -------------------------------------------------------------------------- */
+:root {
+    --exam-row-pad-top: 1.05rem;
+    --exam-row-pad-bottom: 1.10rem;
+    --sidebar-optical-offset: 1.05rem;
+}
+
 .exams-screen-layout {
     position: relative;
     width: 100%;
@@ -475,14 +641,17 @@ body.layout-exam #screen-exam {
 }
 
 /* --------------------------------------------------------------------------
-   Floating Filters Sidebar (Invisible Container / Pure Floating Affordance)
-   Centered in the left gutter between the screen edge and the exams list
+   Floating Filters Sidebar (Sticky in Left Gutter / Pure Floating Affordance)
+   Centered in the left gutter between the screen edge and the exams list,
+   following the user smoothly as they scroll through exams.
    -------------------------------------------------------------------------- */
 .floating-filters-sidebar {
-    position: absolute;
-    left: calc(-25vw + 25%);
-    transform: translateX(-50%);
-    top: calc(-1.05rem - 36px - 0.59rem);
+    position: sticky;
+    top: 5.0rem;
+    float: left;
+    margin-left: calc(-25vw + 25% - 150px);
+    margin-right: -300px;
+    margin-top: var(--sidebar-optical-offset);
     width: 300px;
     max-width: calc(50vw - 50% - 24px);
     background: transparent;
@@ -494,31 +663,6 @@ body.layout-exam #screen-exam {
     gap: 1.15rem;
     user-select: none;
     z-index: 20;
-}
-
-.floating-header-back-slot {
-    height: 36px;
-    display: flex;
-    align-items: center;
-    padding-bottom: 1.05rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    margin-bottom: 0.59rem;
-    box-sizing: content-box;
-}
-
-.floating-right-gutter-slot {
-    position: absolute;
-    right: calc(-25vw + 25%);
-    transform: translateX(50%);
-    top: calc(-1.05rem - 36px - 0.59rem);
-    width: 300px;
-    max-width: calc(50vw - 50% - 24px);
-    height: 36px;
-    padding-bottom: 1.05rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-sizing: content-box;
-    pointer-events: none;
-    user-select: none;
 }
 
 .btn-floating-header-back {
@@ -1143,7 +1287,7 @@ body.layout-exam #screen-exam {
     display: flex;
     flex-direction: column;
     gap: 0.18rem;
-    padding: 1.05rem 0.4rem 1.1rem;
+    padding: var(--exam-row-pad-top) 0.4rem var(--exam-row-pad-bottom);
     background: transparent;
     border: none;
     border-bottom: 1px dashed var(--divider-dashed);
@@ -2556,13 +2700,31 @@ body.layout-exam #screen-exam {
 }
 
 @media (max-width: 1320px) {
+    .sticky-corner-left,
+    .sticky-corner-right {
+        display: none;
+    }
+    .sticky-header-left {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 960px;
+        margin-bottom: 0.5rem;
+        border-bottom: none;
+    }
+
+    .sticky-header-right {
+        display: none;
+    }
+
     .floating-filters-sidebar {
         position: static;
+        float: none;
+        margin: 0 auto 1.25rem auto;
         left: auto;
         transform: none;
         width: 100%;
         max-width: 960px;
-        margin: 0 auto 1.25rem auto;
         flex-direction: row;
         flex-wrap: wrap;
         gap: 1.25rem;

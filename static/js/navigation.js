@@ -35,6 +35,10 @@ export function transitionTo(screenName) {
         const logoIcon = document.getElementById('app-logo-icon');
         if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
 
+        document.querySelectorAll('.sticky-subject-icon').forEach(el => {
+            el.className = 'fa-solid fa-graduation-cap sticky-subject-icon';
+        });
+
         const mainTitle = document.getElementById('app-main-title');
         if (mainTitle) mainTitle.textContent = 'Simulador de Exames';
 

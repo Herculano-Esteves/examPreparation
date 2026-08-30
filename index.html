@@ -81,22 +81,45 @@
         <main class="main-content">
             <!-- STATE 0: CADEIRAS SCREEN -->
             <section id="screen-cadeiras" class="screen active">
-                <div class="menu-header-bar">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Selecione uma Cadeira
-                    </h3>
-                    <div class="menu-header-actions">
-                        <div class="search-input-wrapper header-search-wrapper">
-                            <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-                            <input type="text" id="search-cadeiras" class="header-search-input" placeholder="Pesquisar cadeira..." aria-label="Pesquisar cadeira por nome">
-                            <button type="button" id="btn-clear-cadeira-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
+                <div class="sticky-menu-header-wrapper">
+                    <div class="sticky-menu-header-container">
+                        <!-- Left gutter symmetry slot with corner logo -->
+                        <div class="sticky-header-left" aria-hidden="true">
+                            <div class="sticky-corner-left">
+                                <div class="sticky-mini-logo-box">
+                                    <i class="fa-solid fa-graduation-cap sticky-subject-icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
                         </div>
-                        <button id="btn-add-cadeira-top" class="btn-control btn-primary btn-sm">
-                            <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
-                            <span>Adicionar Cadeira</span>
-                        </button>
+
+                        <!-- Center column: Title & Search & Add Cadeira -->
+                        <div class="sticky-header-center">
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Selecione uma Cadeira
+                            </h3>
+                            <div class="menu-header-actions">
+                                <div class="search-input-wrapper header-search-wrapper">
+                                    <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                                    <input type="text" id="search-cadeiras" class="header-search-input" placeholder="Pesquisar cadeira..." aria-label="Pesquisar cadeira por nome">
+                                    <button type="button" id="btn-clear-cadeira-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                <button id="btn-add-cadeira-top" class="btn-control btn-primary btn-sm">
+                                    <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
+                                    <span>Adicionar Cadeira</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right gutter symmetry slot with corner settings -->
+                        <div class="sticky-header-right">
+                            <div class="sticky-corner-right">
+                                <button class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições" title="Definições">
+                                    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="cadeiras-grid" class="exams-grid">
@@ -110,36 +133,55 @@
 
             <!-- STATE 1: MENU SCREEN -->
             <section id="screen-menu" class="screen">
-                <div class="menu-header-bar">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-folder-open" aria-hidden="true"></i> Selecione um Exame
-                    </h3>
-                    <div class="menu-header-actions">
-                        <div class="search-input-wrapper header-search-wrapper">
-                            <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-                            <input type="text" id="filter-exam-search" class="header-search-input" placeholder="Pesquisar exame..." aria-label="Pesquisar exames por nome">
-                            <button type="button" id="btn-clear-exam-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
-                                <i class="fa-solid fa-xmark"></i>
+                <div class="sticky-menu-header-wrapper">
+                    <div class="sticky-menu-header-container">
+                        <!-- Left gutter: Back to cadeiras button + corner logo to its left -->
+                        <div class="sticky-header-left">
+                            <div class="sticky-corner-left" aria-hidden="true">
+                                <div class="sticky-mini-logo-box">
+                                    <i class="fa-solid fa-graduation-cap sticky-subject-icon" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm btn-floating-header-back" aria-label="Voltar à seleção de cadeiras">
+                                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                                <span>Voltar às Cadeiras</span>
                             </button>
                         </div>
-                        <button id="btn-add-exame-top" class="btn-control btn-primary btn-sm">
-                            <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
-                            <span>Adicionar Exame</span>
-                        </button>
+
+                        <!-- Center column: Title & Search & Add Exame -->
+                        <div class="sticky-header-center">
+                            <h3 class="section-title">
+                                <i class="fa-solid fa-folder-open" aria-hidden="true"></i> Selecione um Exame
+                            </h3>
+                            <div class="menu-header-actions">
+                                <div class="search-input-wrapper header-search-wrapper">
+                                    <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
+                                    <input type="text" id="filter-exam-search" class="header-search-input" placeholder="Pesquisar exame..." aria-label="Pesquisar exames por nome">
+                                    <button type="button" id="btn-clear-exam-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                <button id="btn-add-exame-top" class="btn-control btn-primary btn-sm">
+                                    <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
+                                    <span>Adicionar Exame</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right gutter symmetry slot with corner settings to its right -->
+                        <div class="sticky-header-right">
+                            <div class="sticky-corner-right">
+                                <button class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições" title="Definições">
+                                    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="exams-screen-layout">
                     <!-- FLOATING LEFT SIDEBAR: Filters & Sorting (Invisible borderless container) -->
                     <aside class="floating-filters-sidebar" id="exams-sidebar-filters"
                         aria-label="Filtros e ordenação de exames">
-
-                        <!-- TOP BACK BUTTON (Horizontally aligned with Selecione um Exame header) -->
-                        <div class="floating-header-back-slot">
-                            <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm btn-floating-header-back" aria-label="Voltar à seleção de cadeiras">
-                                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                                <span>Voltar às Cadeiras</span>
-                            </button>
-                        </div>
 
                         <!-- 1. ORDENAÇÃO (SORT DROPDOWN) -->
                         <div class="floating-filter-group">
@@ -332,9 +374,6 @@
                         </div>
 
                     </aside>
-
-                    <!-- FLOATING RIGHT GUTTER: Header divider segment for symmetry -->
-                    <div class="floating-right-gutter-slot" aria-hidden="true"></div>
 
                     <!-- EXAMS GRID MAIN COLUMN -->
                     <div class="exams-main-column">

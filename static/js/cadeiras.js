@@ -185,6 +185,10 @@ export function selectCadeira(cadeira) {
     if (iconEl && cadeira.icon) {
         iconEl.className = `fa-solid ${cadeira.icon} app-logo-icon`;
     }
+
+    document.querySelectorAll('.sticky-subject-icon').forEach(el => {
+        if (cadeira.icon) el.className = `fa-solid ${cadeira.icon} sticky-subject-icon`;
+    });
     
     document.getElementById('app-main-title').textContent = cadeira.nome;
     const sigla = cadeira.sigla ||

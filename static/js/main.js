@@ -80,6 +80,30 @@ function setupEventListeners() {
         });
     }
 
+    document.querySelectorAll('.btn-sticky-settings').forEach(btn => {
+        btn.addEventListener('click', () => {
+            State.previousScreenBeforeSettings = State.currentScreen;
+            transitionTo('settings');
+        });
+    });
+
+    const appHeader = document.querySelector('.app-header');
+    if (appHeader) {
+        const headerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    document.body.classList.add('header-scrolled');
+                } else {
+                    document.body.classList.remove('header-scrolled');
+                }
+            });
+        }, {
+            threshold: 0,
+            rootMargin: '-10px 0px 0px 0px'
+        });
+        headerObserver.observe(appHeader);
+    }
+
     const btnAddCadeiraTop = document.getElementById('btn-add-cadeira-top');
     if (btnAddCadeiraTop) {
         btnAddCadeiraTop.addEventListener('click', () => {
