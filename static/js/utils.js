@@ -5,6 +5,8 @@
  * No DOM references, no State — importable from any module safely.
  */
 
+import { APP_CONFIG, getInitialLanguage } from './config.js';
+
 /**
  * Escape special HTML characters to prevent XSS.
  * Returns an empty string for null / undefined input.
@@ -23,6 +25,56 @@ export function escapeHTML(str) {
             '"': '&quot;'
         }[tag] || tag)
     );
+}
+
+/**
+ * Extracts the appropriate string for the given language from a field that can either
+ * be a plain string or a multilingual object like { pt: '...', en: '...' }.
+ *
+ * @param {string|object} field
+ * @param {string} [lang]
+ * @returns {string}
+ */
+export function getLocalizedText(field, lang = null) {
+    if (field === null || field === undefined) return '';
+    if (typeof field === 'string') return field;
+    if (typeof field === 'object') {
+        const activeLang = lang || getInitialLanguage();
+        if (field[activeLang] !== undefined && field[activeLang] !== null) {
+            return String(field[activeLang]);
+        }
+        for (const fbLang of APP_CONFIG.fallbackLanguages) {
+            if (field[fbLang] !== undefined && field[fbLang] !== null) {
+                return String(field[fbLang]);
+            }
+        }
+        const firstVal = Object.values(field)[0];
+        return firstVal !== undefined && firstVal !== null ? String(firstVal) : '';
+    }
+    return String(field);
+}
+
+/**
+ * Extracts an array of options/items for the given language from a field that can
+ * either be an array or a multilingual object like { pt: [...], en: [...] }.
+ *
+ * @param {Array|object} field
+ * @param {string} [lang]
+ * @returns {Array}
+ */
+export function getLocalizedList(field, lang = null) {
+    if (!field) return [];
+    if (Array.isArray(field)) return field;
+    if (typeof field === 'object') {
+        const activeLang = lang || getInitialLanguage();
+        if (Array.isArray(field[activeLang])) return field[activeLang];
+        for (const fbLang of APP_CONFIG.fallbackLanguages) {
+            if (Array.isArray(field[fbLang])) return field[fbLang];
+        }
+        const firstVal = Object.values(field).find(v => Array.isArray(v));
+        return firstVal || [];
+    }
+    return [];
 }
 
 /**

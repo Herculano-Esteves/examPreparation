@@ -1,17 +1,19 @@
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { JSON_INSTRUCTIONS } from './constants.js';
-import { showToast, clampCardDescriptions } from './utils.js';
+import { JSON_INSTRUCTIONS, getJsonInstructions } from './constants.js';
+import { showToast, clampCardDescriptions, getLocalizedText } from './utils.js';
 import { loadLocalData, saveLocalCadeiras, saveLocalExames, clearAllLocalData } from './storage.js';
 import { validateExamJSON } from './validation.js';
 import { transitionTo } from './navigation.js';
 import { fetchCadeiras, renderCadeirasMenu } from './cadeiras.js';
-import { fetchExams } from './exams.js';
+import { fetchExams, renderExamsMenu } from './exams.js';
 import { prevQuestion, nextQuestion, renderQuestion } from './question.js';
 import { copyQuestionToClipboard } from './clipboard.js';
+import { applyTranslations, setLanguage, t } from './i18n.js';
 
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    applyTranslations();
     setupEventListeners();
     setupLocalCreationListeners();
     loadLocalData(State);
@@ -130,24 +132,54 @@ function setupEventListeners() {
         });
     }
 
+    // Language selection buttons in settings
+    document.querySelectorAll('.btn-lang-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            setLanguage(lang);
+
+            // Synchronize header titles and active screen dynamically
+            const subtitleEl = document.getElementById('app-subtitle');
+            const mainTitle = document.getElementById('app-main-title');
+
+            if (State.activeCadeira) {
+                const sigla = State.activeCadeira.sigla ||
+                    State.activeCadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5);
+                if (subtitleEl) subtitleEl.textContent = t('app_subtitle_with_sigla', { sigla });
+            } else {
+                if (subtitleEl) subtitleEl.textContent = t('app_subtitle');
+                if (mainTitle) mainTitle.textContent = t('app_title');
+            }
+
+            if (State.currentScreen === 'cadeiras') {
+                renderCadeirasMenu();
+            } else if (State.currentScreen === 'menu') {
+                renderExamsMenu();
+            } else if (State.currentScreen === 'exam') {
+                renderQuestion();
+            }
+        });
+    });
+
     const btnClearStorage = document.getElementById('btn-clear-storage');
     if (btnClearStorage) {
         btnClearStorage.addEventListener('click', () => {
-            if (confirm('Tem a certeza absoluta de que deseja apagar todos os dados locais (cadeiras, exames e histórico de respostas)? Esta ação não pode ser desfeita.')) {
+            const confirmMsg = t('danger_zone_desc') + '\n\n' + (State.language === 'en' ? 'Are you sure you want to delete all local data?' : 'Tem a certeza de que deseja apagar todos os dados locais?');
+            if (confirm(confirmMsg)) {
                 clearAllLocalData(State);
 
-                showToast('Todos os dados locais foram apagados!', elements);
+                showToast(t('toast_storage_cleared'), elements);
                 State.activeCadeira = null;
 
                 const logoIcon = document.getElementById('app-logo-icon');
                 if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
 
                 const mainTitle = document.getElementById('app-main-title');
-                if (mainTitle) mainTitle.textContent = 'Simulador de Exames';
+                if (mainTitle) mainTitle.textContent = t('app_title');
 
                 const subtitleEl = document.getElementById('app-subtitle');
                 if (subtitleEl) {
-                    subtitleEl.innerHTML = `<span class="status-dot" aria-hidden="true"></span> SISTEMA DE EXAMES`;
+                    subtitleEl.textContent = t('app_subtitle');
                 }
 
                 transitionTo('cadeiras');
@@ -232,7 +264,7 @@ function setupLocalCreationListeners() {
 
             inputCadeiraNome.value = '';
             inputCadeiraDesc.value = '';
-            showToast('Cadeira local criada com sucesso!', elements);
+            showToast(t('toast_cadeira_created'), elements);
             transitionTo('cadeiras');
         });
     }
@@ -246,8 +278,9 @@ function setupLocalCreationListeners() {
 
     if (btnCopyInst) {
         btnCopyInst.addEventListener('click', () => {
-            navigator.clipboard.writeText(JSON_INSTRUCTIONS).then(() => {
-                showToast('Instruções copiadas com sucesso!', elements);
+            const instructionsText = getJsonInstructions(State.language);
+            navigator.clipboard.writeText(instructionsText).then(() => {
+                showToast(t('toast_copied'), elements);
             }).catch(err => {
                 console.error('Falha ao copiar:', err);
                 alert('Erro ao copiar. Pode copiar manualmente da caixa de texto.');
@@ -258,7 +291,7 @@ function setupLocalCreationListeners() {
     if (btnCancelExame) {
         btnCancelExame.addEventListener('click', () => {
             editorInput.value = '';
-            statusDiv.innerHTML = '[ ... ] Editor vazio. Aguardando JSON...';
+            statusDiv.innerHTML = `[ ... ] ${t('editor_empty_status')}`;
             statusDiv.className = 'validation-status empty';
             State.jsonValidationErrorLine = -1;
             State.validatedExamData = null;
@@ -275,8 +308,12 @@ function setupLocalCreationListeners() {
                 return;
             }
 
+            const exameLinguaSelect = document.getElementById('exame-lingua');
+            const selectedLingua = (exameLinguaSelect ? exameLinguaSelect.value : null) || State.language || 'en';
+
             const newExame = {
                 ...State.validatedExamData,
+                languages: State.validatedExamData.languages || [selectedLingua],
                 id: 'exam_local_' + Date.now(),
                 cadeira_id: State.activeCadeira.id,
                 isLocal: true
@@ -294,15 +331,25 @@ function setupLocalCreationListeners() {
             }
 
             editorInput.value = '';
-            statusDiv.innerHTML = '[ ... ] Editor vazio. Aguardando JSON...';
+            statusDiv.innerHTML = `[ ... ] ${t('editor_empty_status')}`;
             statusDiv.className = 'validation-status empty';
             State.jsonValidationErrorLine = -1;
             State.validatedExamData = null;
             if (editorLines) editorLines.innerHTML = '';
+            if (exameLinguaSelect) exameLinguaSelect.value = State.language || 'en';
 
-            showToast('Exame local criado com sucesso!', elements);
+            showToast(t('toast_exame_created'), elements);
             fetchExams(State.activeCadeira.index_path);
             transitionTo('menu');
+        });
+    }
+
+    const exameLinguaSelect = document.getElementById('exame-lingua');
+    if (exameLinguaSelect) {
+        exameLinguaSelect.addEventListener('change', () => {
+            if (State.validatedExamData) {
+                State.validatedExamData.languages = [exameLinguaSelect.value];
+            }
         });
     }
 
@@ -317,21 +364,32 @@ function setupLocalCreationListeners() {
 
             const result = validateExamJSON(editorInput.value.trim());
             if (!editorInput.value.trim()) {
-                statusDiv.innerHTML = '[ ... ] Editor vazio. Aguardando JSON...';
+                statusDiv.innerHTML = `[ ... ] ${t('editor_empty_status')}`;
                 statusDiv.className = 'validation-status empty';
                 State.jsonValidationErrorLine = -1;
                 btnSubmitExam.disabled = true;
                 State.validatedExamData = null;
                 document.getElementById('exame-titulo').value = '';
                 document.getElementById('exame-desc').value = '';
+                if (exameLinguaSelect) exameLinguaSelect.value = State.language || 'en';
             } else if (result.valid) {
                 statusDiv.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> [OK] JSON válido e estrutura correta!';
                 statusDiv.className = 'validation-status valid';
                 State.jsonValidationErrorLine = -1;
                 btnSubmitExam.disabled = false;
                 State.validatedExamData = result.data;
-                document.getElementById('exame-titulo').value = result.data.titulo || '';
-                document.getElementById('exame-desc').value = result.data.descricao || '';
+                document.getElementById('exame-titulo').value = getLocalizedText(result.data.title || result.data.titulo);
+                document.getElementById('exame-desc').value = getLocalizedText(result.data.description || result.data.descricao);
+                if (exameLinguaSelect) {
+                    const langs = result.data.languages || ['en'];
+                    if (langs.includes('en') && !langs.includes('pt')) {
+                        exameLinguaSelect.value = 'en';
+                    } else if (langs.includes('pt') && !langs.includes('en')) {
+                        exameLinguaSelect.value = 'pt';
+                    } else {
+                        exameLinguaSelect.value = State.language || 'en';
+                    }
+                }
             } else {
                 let msg = result.message;
                 if (result.line) {

@@ -1,165 +1,168 @@
 {
-  "titulo": "Exame de Avaliação Modelo (Teoria SSI)",
-  "descricao": "Simulador de exame.",
-  "perguntas": [
+  "title": "Exame de Avaliação Modelo (Teoria SSI)",
+  "description": "Simulador de exame.",
+  "languages": [
+    "pt"
+  ],
+  "questions": [
     {
-      "tipo": "boolean",
-      "pergunta": "Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
-      "solucao": 1
+      "type": "boolean",
+      "question": "Numa política de controlo de acesso discricionário (DAC) os processos que executam em nome de um utilizador só podem aceder aos recursos do próprio.",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Numa política de controlo de acesso mandatório (MAC) é o administrador quem define as permissões associadas aos recursos dos utilizadores.",
-      "solucao": 0
+      "type": "boolean",
+      "question": "Numa política de controlo de acesso mandatório (MAC) é o administrador quem define as permissões associadas aos recursos dos utilizadores.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "As políticas de controlo de acesso baseado em papéis (RBAC) são computacionalmente mais exigentes do que as baseadas em atributos (ABAC).",
-      "solucao": 1
+      "type": "boolean",
+      "question": "As políticas de controlo de acesso baseado em papéis (RBAC) são computacionalmente mais exigentes do que as baseadas em atributos (ABAC).",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Em Linux, para um processo realizar uma operação sobre um ficheiro, necessita de ter permissão de execução (x) em todas as diretorias do caminho que é necessário atravessar para o alcançar, não sendo obrigatória a permissão de leitura (r) nessas diretorias intermédias.",
-      "solucao": 0
+      "type": "boolean",
+      "question": "Em Linux, para um processo realizar uma operação sobre um ficheiro, necessita de ter permissão de execução (x) em todas as diretorias do caminho que é necessário atravessar para o alcançar, não sendo obrigatória a permissão de leitura (r) nessas diretorias intermédias.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Em sistemas operativos como o Unix e o Linux, a flag de set-user-id (SUID) permite que um programa seja executado com um utilizador efetivo igual ao do dono do ficheiro.",
-      "solucao": 0
+      "type": "boolean",
+      "question": "Em sistemas operativos como o Unix e o Linux, a flag de set-user-id (SUID) permite que um programa seja executado com um utilizador efetivo igual ao do dono do ficheiro.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Em Linux, o comando sudo utiliza a flag set-user-id para permitir a executar a um utilizador normal a execução de comandos como utilizador root.",
-      "solucao": 0
+      "type": "boolean",
+      "question": "Em Linux, o comando sudo utiliza a flag set-user-id para permitir a executar a um utilizador normal a execução de comandos como utilizador root.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "A representação octal do conjunto de permissões '-rw-r--r--' é 533.",
-      "solucao": 1
+      "type": "boolean",
+      "question": "A representação octal do conjunto de permissões '-rw-r--r--' é 533.",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Considere o excerto do início da página. O comando 'chmod exec script.sh' torna o ficheiro especificado executável.",
-      "solucao": 1,
-      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector\n```"
+      "type": "boolean",
+      "question": "Considere o excerto do início da página. O comando 'chmod exec script.sh' torna o ficheiro especificado executável.",
+      "solution": 1,
+      "header": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector\n```"
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Considere o excerto do início da página. O utilizador 'teacher' possui permissões de leitura, escrita e execução sobre o ficheiro 'script.sh'.",
-      "solucao": 1,
-      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector\n```"
+      "type": "boolean",
+      "question": "Considere o excerto do início da página. O utilizador 'teacher' possui permissões de leitura, escrita e execução sobre o ficheiro 'script.sh'.",
+      "solution": 1,
+      "header": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector\n```"
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Considere o excerto do início da página. Relativamente à diretoria 'utils', o utilizador 'hector' é capaz de mudar para essa diretoria (efetuar travessia).",
-      "solucao": 1,
-      "cabecalho": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector\n```"
+      "type": "boolean",
+      "question": "Considere o excerto do início da página. Relativamente à diretoria 'utils', o utilizador 'hector' é capaz de mudar para essa diretoria (efetuar travessia).",
+      "solution": 1,
+      "header": "\n```\nConsidere os excertos seguintes, contendo o resultado do comando ls -l e um fragmento do /etc/group, respetivamente:\n\n$ ls -l\ndrwxr--r--  6 student asi    192 Mar  5 10:02 utils\n-rw-r--r-- 1 teacher admin 2752 Feb 20 13:50 file.txt\n-rw-rw-r-- 1 student asi   1692 Feb 20 13:50 script.sh\n\n$ cat /etc/group\nadmin:x:998:teacher\nasi:x:999:teacher,student,hector\n```"
     },
     {
-      "pergunta": "Uma cifra autenticada combina as seguintes técnicas criptográficas:",
-      "opcoes": [
+      "question": "Uma cifra autenticada combina as seguintes técnicas criptográficas:",
+      "options": [
         "uma cifra simétrica com um MAC",
         "uma cifra simétrica com uma cifra assimétrica",
         "uma cifra simétrica com uma assinatura digital",
         "uma cifra assimétrica com uma assinatura digital",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         0
       ]
     },
     {
-      "pergunta": "Numa Função de Hash Criptográfica:",
-      "opcoes": [
+      "question": "Numa Função de Hash Criptográfica:",
+      "options": [
         "existem mensagens para as quais não é viável o cálculo do respetivo valor de hash",
         "é sempre viável encontrar mensagens distintas que são mapeadas num mesmo valor de hash",
         "not existem nunca duas mensagens distintas com o mesmo valor de hash",
         "para um qualquer valor de hash, não deve ser possível encontrar uma mensagem que mapeie nesse valor (Resistência à Pré-imagem)",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         3
       ]
     },
     {
-      "pergunta": "Um Message Authentication Code (MAC) garante a(s) seguinte(s) propriedade(s):",
-      "opcoes": [
+      "question": "Um Message Authentication Code (MAC) garante a(s) seguinte(s) propriedade(s):",
+      "options": [
         "anonimato",
         "confidencialidade",
         "integridade (e autenticidade de origem)",
         "não repúdio",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         2
       ]
     },
     {
-      "pergunta": "O algoritmo ChaCha20, utilizado nas sessões TP, é uma:",
-      "opcoes": [
+      "question": "O algoritmo ChaCha20, utilizado nas sessões TP, é uma:",
+      "options": [
         "cifra autenticada",
         "cifra por blocos",
         "cifra sequencial (stream cipher)",
         "cifra simétrica",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         2,
         3
       ]
     },
     {
-      "pergunta": "Um certificado X509:",
-      "opcoes": [
+      "question": "Um certificado X509:",
+      "options": [
         "pressupõe uma relação de confiança na entidade responsável pela sua emissão (CA)",
         "permite associar uma chave pública à entidade detentora da respetiva chave privada",
         "atesta que uma técnica criptográfica oferece proteção para as propriedades de segurança descriminadas",
         "é utilizado para garantir a confidencialidade das chaves públicas",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         0,
         1
       ]
     },
     {
-      "pergunta": "Quais dos seguintes atributos é normal encontrar-se num certificado X509?",
-      "opcoes": [
+      "question": "Quais dos seguintes atributos é normal encontrar-se num certificado X509?",
+      "options": [
         "chave privada do titular",
         "chave pública da entidade emissora",
         "período de validade",
         "identificação da entidade emissora",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         2,
         3
       ]
     },
     {
-      "pergunta": "Numa assinatura digital:",
-      "opcoes": [
+      "question": "Numa assinatura digital:",
+      "options": [
         "a chave pública é requerida para verificar a assinatura",
         "a chave pública é requerida ao gerar a assinatura",
         "garante-se a confidencialidade e integridade da mensagem",
         "garante-se a autenticidade do emissor (e a integridade)",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         0,
         3
       ]
     },
     {
-      "pergunta": "Numa cifra de chave pública:",
-      "opcoes": [
+      "question": "Numa cifra de chave pública:",
+      "options": [
         "garante-se a autenticidade do emissor",
         "é necessária a chave pública para 'cifrar' (garantindo confidencialidade)",
         "é necessária a chave pública para 'decifrar'",
         "garante-se a confidencialidade e integridade da mensagem de forma nativa",
         "Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         1
       ]
     }

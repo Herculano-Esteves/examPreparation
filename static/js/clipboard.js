@@ -10,7 +10,8 @@
 
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { showToast } from './utils.js';
+import { showToast, getLocalizedText, getLocalizedList } from './utils.js';
+import { t, getCurrentLanguage } from './i18n.js';
 
 /**
  * Build a plain-text representation of the current question and copy it.
@@ -22,28 +23,43 @@ export function copyQuestionToClipboard(includeAnswer = false) {
     const q = State.currentQuestion;
     if (!q) return;
 
-    let textToCopy = `Exame: ${State.activeExam.titulo}\nQuestão ${State.question.index + 1} de ${State.totalQuestions}\n`;
+    const examTitle = getLocalizedText(State.activeExam.title || State.activeExam.titulo);
+    const qNumText = t('clip_question', {
+        current: State.question.index + 1,
+        total: State.totalQuestions
+    });
 
-    if (q.cabecalho) {
-        textToCopy += `\nCenário:\n${q.cabecalho}\n`;
+    let textToCopy = `${t('clip_exam')}: ${examTitle}\n${qNumText}\n`;
+
+    const headerText = getLocalizedText(q.header || q.cabecalho);
+    if (headerText) {
+        textToCopy += `\n${t('clip_scenario')}:\n${headerText}\n`;
     }
 
-    textToCopy += `\nPergunta:\n${q.pergunta}\n`;
+    const questionText = getLocalizedText(q.question || q.pergunta);
+    textToCopy += `\n${t('clip_question_label')}:\n${questionText}\n`;
 
-    if (q.tipo === 'escrita') {
-        if (includeAnswer && q.solucao) {
-            textToCopy += `\nResposta Esperada / Resolução:\n${q.solucao}\n`;
+    const qType = q.type || q.tipo;
+    const rawSolution = q.solution !== undefined ? q.solution : q.solucao;
+    const rawExplanation = q.explanation || q.explicacao;
+
+    if (qType === 'escrita') {
+        if (includeAnswer && rawSolution) {
+            textToCopy += `\n${t('feedback_expected_solution')}\n${getLocalizedText(rawSolution)}\n`;
         }
     } else {
-        const isBoolean   = q.tipo === 'boolean';
-        const optionsList = isBoolean ? ['Verdadeiro', 'Falso'] : q.opcoes;
-        const correctList = Array.isArray(q.solucao) ? q.solucao : [q.solucao];
+        const isBoolean   = qType === 'boolean';
+        const rawOptions  = q.options || q.opcoes;
+        const optionsList = isBoolean 
+            ? (getCurrentLanguage() === 'en' ? ['True', 'False'] : ['Verdadeiro', 'Falso'])
+            : getLocalizedList(rawOptions);
+        const correctList = Array.isArray(rawSolution) ? rawSolution : [rawSolution];
 
         if (optionsList && optionsList.length > 0) {
             const optionsText = optionsList
                 .map((opcao, idx) => `${String.fromCharCode(65 + idx)}) ${opcao}`)
                 .join('\n');
-            textToCopy += `\nAlíneas:\n${optionsText}\n`;
+            textToCopy += `\n${t('clip_options')}:\n${optionsText}\n`;
         }
 
         if (includeAnswer) {
@@ -51,12 +67,13 @@ export function copyQuestionToClipboard(includeAnswer = false) {
                 .map(val => String.fromCharCode(65 + val))
                 .sort()
                 .join(', ');
-            textToCopy += `\nResposta(s) Correta(s):\n${correctLetters}\n`;
+            textToCopy += `\n${t('clip_correct_answers')}:\n${correctLetters}\n`;
         }
     }
 
-    if (includeAnswer && q.explicacao) {
-        textToCopy += `\nExplicação / Justificação:\n${q.explicacao}\n`;
+    const explanationText = getLocalizedText(rawExplanation);
+    if (includeAnswer && explanationText) {
+        textToCopy += `\n${t('feedback_explanation')}:\n${explanationText}\n`;
     }
 
     const targetBtn = includeAnswer ? elements.btnCopyAnswer : elements.btnCopy;
@@ -64,7 +81,7 @@ export function copyQuestionToClipboard(includeAnswer = false) {
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
             triggerCopyButtonFeedback(targetBtn);
-            showToast(includeAnswer ? 'Questão + Resposta Copiadas' : 'Questão Copiada', elements);
+            showToast(includeAnswer ? t('toast_question_answer_copied') : t('toast_question_copied'), elements);
         })
         .catch(err => {
             console.error('Failed to copy text:', err);
@@ -84,7 +101,7 @@ export function triggerCopyButtonFeedback(btn) {
 
     const originalHTML = btn.innerHTML;
     btn.classList.add('copied');
-    btn.innerHTML = `<i class="fa-solid fa-check" aria-hidden="true"></i> <span>Copiado!</span>`;
+    btn.innerHTML = `<i class="fa-solid fa-check" aria-hidden="true"></i> <span>${t('copied_feedback')}</span>`;
 
     setTimeout(() => {
         btn.classList.remove('copied');

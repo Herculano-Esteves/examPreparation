@@ -11,10 +11,11 @@
  */
 
 import { QuestionStatus } from './constants.js';
+import { APP_CONFIG } from './config.js';
 
 export { QuestionStatus };
-export const STORAGE_VERSION = '2.0.0';
-const VERSION_KEY = 'simulador_storage_version';
+export const STORAGE_VERSION = APP_CONFIG.storageVersion;
+const VERSION_KEY = APP_CONFIG.storageKeys.version;
 
 /**
  * Verifica a versão do localStorage. Se não existir versão ou for uma versão antiga/legada,
@@ -27,9 +28,9 @@ export function checkAndMigrateStorageVersion(State) {
         const storedVersion = localStorage.getItem(VERSION_KEY);
         if (!storedVersion || storedVersion !== STORAGE_VERSION) {
             console.warn(`[Storage] Versão de dados incompatível ou legada detectada (${storedVersion || 'nenhuma'}). A purgar dados antigos para nova versão ${STORAGE_VERSION}...`);
-            localStorage.removeItem('simulador_cadeiras_locais');
-            localStorage.removeItem('simulador_exames_locais');
-            localStorage.removeItem('simulador_historico_exames');
+            localStorage.removeItem(APP_CONFIG.storageKeys.cadeiras);
+            localStorage.removeItem(APP_CONFIG.storageKeys.exames);
+            localStorage.removeItem(APP_CONFIG.storageKeys.history);
             localStorage.setItem(VERSION_KEY, STORAGE_VERSION);
             if (State) {
                 State.localCadeiras = [];
@@ -53,7 +54,7 @@ export function loadLocalData(State) {
     checkAndMigrateStorageVersion(State);
 
     try {
-        const cadeirasRaw = localStorage.getItem('simulador_cadeiras_locais');
+        const cadeirasRaw = localStorage.getItem(APP_CONFIG.storageKeys.cadeiras);
         State.localCadeiras = cadeirasRaw ? JSON.parse(cadeirasRaw) : [];
     } catch (e) {
         console.error('Erro ao ler cadeiras locais:', e);
@@ -61,7 +62,7 @@ export function loadLocalData(State) {
     }
 
     try {
-        const examesRaw = localStorage.getItem('simulador_exames_locais');
+        const examesRaw = localStorage.getItem(APP_CONFIG.storageKeys.exames);
         State.localExames = examesRaw ? JSON.parse(examesRaw) : [];
     } catch (e) {
         console.error('Erro ao ler exames locais:', e);
@@ -69,7 +70,7 @@ export function loadLocalData(State) {
     }
 
     try {
-        const historyRaw = localStorage.getItem('simulador_historico_exames');
+        const historyRaw = localStorage.getItem(APP_CONFIG.storageKeys.history);
         State.examHistory = historyRaw ? JSON.parse(historyRaw) : {};
         // Normaliza arrays legados caso existam
         if (State.examHistory && typeof State.examHistory === 'object') {
@@ -97,7 +98,7 @@ export function loadLocalData(State) {
  */
 export function saveExamHistory(State) {
     try {
-        localStorage.setItem('simulador_historico_exames', JSON.stringify(State.examHistory || {}));
+        localStorage.setItem(APP_CONFIG.storageKeys.history, JSON.stringify(State.examHistory || {}));
     } catch (e) {
         console.error('Erro ao guardar histórico de exames:', e);
     }
@@ -151,7 +152,7 @@ export function getExamResult(examId, State) {
  */
 export function saveLocalCadeiras(State) {
     try {
-        localStorage.setItem('simulador_cadeiras_locais', JSON.stringify(State.localCadeiras));
+        localStorage.setItem(APP_CONFIG.storageKeys.cadeiras, JSON.stringify(State.localCadeiras));
     } catch (e) {
         console.error('Erro ao guardar cadeiras locais (storage cheio?):', e);
         alert('Não foi possível guardar os dados localmente. O armazenamento do browser pode estar cheio.');
@@ -164,7 +165,7 @@ export function saveLocalCadeiras(State) {
  */
 export function saveLocalExames(State) {
     try {
-        localStorage.setItem('simulador_exames_locais', JSON.stringify(State.localExames));
+        localStorage.setItem(APP_CONFIG.storageKeys.exames, JSON.stringify(State.localExames));
     } catch (e) {
         console.error('Erro ao guardar exames locais (storage cheio?):', e);
         alert('Não foi possível guardar os dados localmente. O armazenamento do browser pode estar cheio.');
@@ -179,9 +180,9 @@ export function saveLocalExames(State) {
  */
 export function clearAllLocalData(State) {
     try {
-        localStorage.removeItem('simulador_cadeiras_locais');
-        localStorage.removeItem('simulador_exames_locais');
-        localStorage.removeItem('simulador_historico_exames');
+        localStorage.removeItem(APP_CONFIG.storageKeys.cadeiras);
+        localStorage.removeItem(APP_CONFIG.storageKeys.exames);
+        localStorage.removeItem(APP_CONFIG.storageKeys.history);
     } catch (e) {
         console.error('Erro ao limpar dados locais:', e);
     }

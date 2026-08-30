@@ -1,7 +1,8 @@
 /**
  * exams.js
  * --------
- * Manages fetching, rendering, and starting exams for the active cadeira.
+ * Manages fetching, rendering, filtering, and starting exams for the active cadeira.
+ * Uses ExamService for all exam domain logic and data transformations.
  * Clean card layout with Title first, description underneath, and question count at the bottom.
  * Full WCAG 2.1 AA / EAA 2025 keyboard accessibility.
  */
@@ -12,7 +13,11 @@ import { escapeHTML, clampCardDescriptions, showToast } from './utils.js';
 import { loadLocalData, QuestionStatus } from './storage.js';
 import { transitionTo } from './navigation.js';
 import { renderQuestion } from './question.js';
-import { getExamQuestionTypes, getQuestionTypeInfo, renderQuestionTypeTagsHTML } from './questionTypes.js';
+import { getQuestionTypeInfo, renderQuestionTypeTagsHTML } from './questionTypes.js';
+import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
+import { ExamService } from './examService.js';
+
+export { ExamService };
 
 const ALL_QUESTION_TYPES = ['escolha_multipla', 'boolean', 'escrita'];
 
@@ -37,32 +42,8 @@ export function getEffectiveExcludedTypes(exam) {
  * @param {string[]} excludedTypes
  * @returns {{ totalCount: number, activeCount: number }}
  */
-function getExamFilteredCount(exam, excludedTypes = []) {
-    const totalCount = exam.perguntas
-        ? exam.perguntas.length
-        : (exam.perguntas_count || 0);
-
-    if (!excludedTypes || excludedTypes.length === 0) {
-        return { totalCount, activeCount: totalCount };
-    }
-
-    if (exam.tipos_contagem) {
-        let excludedSum = 0;
-        excludedTypes.forEach(t => {
-            excludedSum += (exam.tipos_contagem[t] || 0);
-        });
-        return {
-            totalCount,
-            activeCount: Math.max(0, totalCount - excludedSum)
-        };
-    }
-
-    if (Array.isArray(exam.perguntas)) {
-        const active = exam.perguntas.filter(q => !excludedTypes.includes(getQuestionTypeInfo(q.tipo).id)).length;
-        return { totalCount, activeCount: active };
-    }
-
-    return { totalCount, activeCount: totalCount };
+export function getExamFilteredCount(exam, excludedTypes = []) {
+    return ExamService.getFilteredCount(exam, excludedTypes);
 }
 
 /**
@@ -76,7 +57,6 @@ export function renderExamScoreBadgeHTML(examId) {
     let histArr = State.examHistory[examId];
     if (!histArr) return '';
 
-    // Converter dados legados se existirem
     if (!Array.isArray(histArr) && typeof histArr === 'object' && Array.isArray(histArr.questions)) {
         histArr = histArr.questions.map(q => {
             if (q.status === 'correct' || q.isCorrect === true) return QuestionStatus.CORRECT;
@@ -93,7 +73,6 @@ export function renderExamScoreBadgeHTML(examId) {
     const incorrectCount = histArr.filter(s => s === QuestionStatus.INCORRECT).length;
     const unansweredCount = histArr.filter(s => s === QuestionStatus.UNANSWERED || s === 0 || !s).length;
 
-    // Se ainda nenhuma pergunta foi respondida neste exame, não exibe badge
     if (correctCount === 0 && incorrectCount === 0) return '';
 
     const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
@@ -126,15 +105,15 @@ export function renderExamScoreBadgeHTML(examId) {
  */
 function updateExamRowUI(row, exam) {
     const excluded = getEffectiveExcludedTypes(exam);
-    const { totalCount, activeCount } = getExamFilteredCount(exam, excluded);
+    const { totalCount, activeCount } = ExamService.getFilteredCount(exam, excluded);
 
     const actionEl = row.querySelector('.exam-list-action');
     if (actionEl) {
-        const totalLabel = totalCount === 1 ? '1 questão' : `${totalCount} questões`;
+        const totalLabel = totalCount === 1 ? t('question_singular') : t('question_plural', { count: totalCount });
         if (activeCount === totalCount) {
             actionEl.innerHTML = `[ ${totalLabel} ]`;
         } else {
-            const activeLabel = activeCount === 1 ? '1 questão' : `${activeCount} questões`;
+            const activeLabel = activeCount === 1 ? t('question_singular') : t('question_plural', { count: activeCount });
             actionEl.innerHTML = `[ <s class="count-old">${totalCount}</s> <span class="count-new ${activeCount === 0 ? 'count-zero' : ''}">${activeLabel}</span> ]`;
         }
     }
@@ -172,13 +151,13 @@ function updateExamRowUI(row, exam) {
 let floatingFiltersInitialized = false;
 
 /**
- * Initializes floating sidebar filter controls (Sort dropdown, State checkboxes, Question type checkboxes, Range inputs, Reset button).
+ * Initializes floating sidebar filter controls.
  */
 export function initFloatingFilters() {
     if (floatingFiltersInitialized) return;
     floatingFiltersInitialized = true;
 
-    // --- 0. EXAM SEARCH INPUT ---
+    // 0. Search input
     const examSearchInput = elements.filterExamSearch || document.getElementById('filter-exam-search');
     const examSearchClear = elements.btnClearExamSearch || document.getElementById('btn-clear-exam-search');
 
@@ -204,11 +183,10 @@ export function initFloatingFilters() {
         });
     }
 
-    // --- 1. SORT DROPDOWN ---
+    // 1. Sort dropdown
     const trigger = elements.sortDropdownTrigger || document.getElementById('sort-dropdown-trigger');
     const menu = elements.sortDropdownMenu || document.getElementById('sort-dropdown-menu');
     const dropdown = elements.sortDropdown || document.getElementById('sort-dropdown');
-    const labelSpan = elements.sortDropdownSelectedLabel || document.getElementById('sort-dropdown-selected-label');
 
     if (trigger && menu) {
         const toggleDropdown = (open) => {
@@ -224,14 +202,12 @@ export function initFloatingFilters() {
             toggleDropdown();
         });
 
-        // Close when clicking outside
         document.addEventListener('click', (e) => {
             if (dropdown && !dropdown.contains(e.target)) {
                 toggleDropdown(false);
             }
         });
 
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
                 toggleDropdown(false);
@@ -239,31 +215,26 @@ export function initFloatingFilters() {
             }
         });
 
-        // Dropdown Items Selection
         menu.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const value = item.getAttribute('data-value');
                 State.examSort = value;
 
-                // Update active class & label
                 menu.querySelectorAll('.dropdown-item').forEach(i => {
                     const isSelected = i === item;
                     i.classList.toggle('active', isSelected);
                     i.setAttribute('aria-selected', isSelected ? 'true' : 'false');
                 });
 
-                if (labelSpan) {
-                    labelSpan.innerHTML = item.innerHTML;
-                }
-
+                updateSortDropdownLabel();
                 toggleDropdown(false);
-                renderExamsMenu();
+                scheduleRenderExamsMenu();
             });
         });
     }
 
-    // --- 2. EXAM STATE CHECKBOXES (FEITOS / POR FAZER) ---
+    // 2. Exam State Checkboxes
     const stateCheckboxes = document.querySelectorAll('.floating-state-check-input');
     stateCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
@@ -272,11 +243,11 @@ export function initFloatingFilters() {
                 if (c.checked) activeStates.push(c.value);
             });
             State.examStateFilter = activeStates;
-            renderExamsMenu();
+            scheduleRenderExamsMenu();
         });
     });
 
-    // --- 3. GLOBAL QUESTION TYPE CHECKBOXES ---
+    // 3. Question Types Checkboxes
     const typeCheckboxes = document.querySelectorAll('.floating-check-input');
     typeCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
@@ -285,79 +256,53 @@ export function initFloatingFilters() {
                 if (c.checked) activeTypes.push(c.value);
             });
             State.globalQuestionTypes = activeTypes;
-            renderExamsMenu();
+            scheduleRenderExamsMenu();
         });
     });
 
-let renderRafId = null;
-
-/**
- * Throttles renderExamsMenu execution using requestAnimationFrame for smooth, tear-free slider interactions.
- */
-function scheduleRenderExamsMenu() {
-    if (renderRafId) cancelAnimationFrame(renderRafId);
-    renderRafId = requestAnimationFrame(() => {
-        renderExamsMenu();
-        renderRafId = null;
-    });
-}
-
-    // --- 4. QUESTION COUNT DUAL SLIDER & INPUTS ---
-    const qMinInput = elements.filterQuestionsMin || document.getElementById('filter-questions-min');
-    const qMaxInput = elements.filterQuestionsMax || document.getElementById('filter-questions-max');
+    // 4. Questions Range Slider & Inputs
     const qMinSlider = elements.sliderQuestionsMin || document.getElementById('slider-questions-min');
     const qMaxSlider = elements.sliderQuestionsMax || document.getElementById('slider-questions-max');
-    const qTrackFill = elements.trackFillQuestions || document.getElementById('track-fill-questions');
+    const qMinInput = elements.filterQuestionsMin || document.getElementById('filter-questions-min');
+    const qMaxInput = elements.filterQuestionsMax || document.getElementById('filter-questions-max');
+    const qTrack = elements.trackFillQuestions || document.getElementById('track-fill-questions');
 
-    const updateQuestionsTrackUI = (minVal, maxVal, maxRange) => {
-        if (!qTrackFill) return;
-        const span = Math.max(1, maxRange - 1);
+    const updateQuestionsTrackUI = (minVal, maxVal) => {
+        if (!qTrack) return;
+        const maxLimit = Math.max(1, ...State.exams.map(e => ExamService.getQuestionsCount(e)));
+        const span = Math.max(1, maxLimit - 1);
         const leftPercent = Math.max(0, Math.min(100, ((minVal - 1) / span) * 100));
         const rightPercent = Math.max(0, Math.min(100, 100 - (((maxVal - 1) / span) * 100)));
-        qTrackFill.style.left = `${leftPercent}%`;
-        qTrackFill.style.right = `${rightPercent}%`;
+        qTrack.style.left = `${leftPercent}%`;
+        qTrack.style.right = `${rightPercent}%`;
     };
 
-    if (qMinSlider && qMaxSlider) {
+    if (qMinSlider) {
         qMinSlider.addEventListener('input', () => {
             let minVal = parseInt(qMinSlider.value, 10);
-            let maxVal = parseInt(qMaxSlider.value, 10);
+            let maxVal = parseInt(qMaxSlider ? qMaxSlider.value : (State.examQuestionsMax || 999), 10);
             if (minVal > maxVal) {
                 minVal = maxVal;
                 qMinSlider.value = minVal;
             }
-            if (minVal >= maxVal - 1) {
-                qMinSlider.style.zIndex = '5';
-                qMaxSlider.style.zIndex = '4';
-            } else {
-                qMinSlider.style.zIndex = '3';
-                qMaxSlider.style.zIndex = '4';
-            }
             State.examQuestionsMin = minVal;
             if (qMinInput) qMinInput.value = minVal;
-            const maxQ = parseInt(qMaxSlider.max, 10) || 50;
-            updateQuestionsTrackUI(minVal, maxVal, maxQ);
+            updateQuestionsTrackUI(minVal, maxVal);
             scheduleRenderExamsMenu();
         });
+    }
 
+    if (qMaxSlider) {
         qMaxSlider.addEventListener('input', () => {
-            let minVal = parseInt(qMinSlider.value, 10);
+            let minVal = parseInt(qMinSlider ? qMinSlider.value : (State.examQuestionsMin || 1), 10);
             let maxVal = parseInt(qMaxSlider.value, 10);
             if (maxVal < minVal) {
                 maxVal = minVal;
                 qMaxSlider.value = maxVal;
             }
-            if (maxVal <= minVal + 1) {
-                qMaxSlider.style.zIndex = '5';
-                qMinSlider.style.zIndex = '4';
-            } else {
-                qMaxSlider.style.zIndex = '4';
-                qMinSlider.style.zIndex = '3';
-            }
             State.examQuestionsMax = maxVal;
             if (qMaxInput) qMaxInput.value = maxVal;
-            const maxQ = parseInt(qMaxSlider.max, 10) || 50;
-            updateQuestionsTrackUI(minVal, maxVal, maxQ);
+            updateQuestionsTrackUI(minVal, maxVal);
             scheduleRenderExamsMenu();
         });
     }
@@ -365,12 +310,11 @@ function scheduleRenderExamsMenu() {
     if (qMinInput) {
         qMinInput.addEventListener('input', () => {
             let val = parseInt(qMinInput.value, 10);
-            const maxQ = (qMaxSlider && parseInt(qMaxSlider.max, 10)) || 50;
             if (isNaN(val)) val = 1;
-            val = Math.max(1, Math.min(State.examQuestionsMax || maxQ, val));
+            val = Math.max(1, Math.min(State.examQuestionsMax || 999, val));
             State.examQuestionsMin = val;
             if (qMinSlider) qMinSlider.value = val;
-            updateQuestionsTrackUI(val, State.examQuestionsMax || maxQ, maxQ);
+            updateQuestionsTrackUI(val, State.examQuestionsMax || 999);
             scheduleRenderExamsMenu();
         });
     }
@@ -378,63 +322,51 @@ function scheduleRenderExamsMenu() {
     if (qMaxInput) {
         qMaxInput.addEventListener('input', () => {
             let val = parseInt(qMaxInput.value, 10);
-            const maxQ = (qMaxSlider && parseInt(qMaxSlider.max, 10)) || 50;
-            if (isNaN(val)) val = maxQ;
-            val = Math.max(State.examQuestionsMin || 1, Math.min(maxQ, val));
+            const maxLimit = Math.max(1, ...State.exams.map(e => ExamService.getQuestionsCount(e)));
+            if (isNaN(val)) val = maxLimit;
+            val = Math.max(State.examQuestionsMin || 1, Math.min(maxLimit, val));
             State.examQuestionsMax = val;
             if (qMaxSlider) qMaxSlider.value = val;
-            updateQuestionsTrackUI(State.examQuestionsMin || 1, val, maxQ);
+            updateQuestionsTrackUI(State.examQuestionsMin || 1, val);
             scheduleRenderExamsMenu();
         });
     }
 
-    // --- 5. SCORE PERCENTAGE DUAL SLIDER & INPUTS ---
-    const sMinInput = elements.filterScoreMin || document.getElementById('filter-score-min');
-    const sMaxInput = elements.filterScoreMax || document.getElementById('filter-score-max');
+    // 5. Score Range Slider & Inputs
     const sMinSlider = elements.sliderScoreMin || document.getElementById('slider-score-min');
     const sMaxSlider = elements.sliderScoreMax || document.getElementById('slider-score-max');
-    const sTrackFill = elements.trackFillScore || document.getElementById('track-fill-score');
+    const sMinInput = elements.filterScoreMin || document.getElementById('filter-score-min');
+    const sMaxInput = elements.filterScoreMax || document.getElementById('filter-score-max');
+    const sTrack = elements.trackFillScore || document.getElementById('track-fill-score');
 
     const updateScoreTrackUI = (minVal, maxVal) => {
-        if (!sTrackFill) return;
-        sTrackFill.style.left = `${minVal}%`;
-        sTrackFill.style.right = `${100 - maxVal}%`;
+        if (!sTrack) return;
+        sTrack.style.left = `${minVal}%`;
+        sTrack.style.right = `${100 - maxVal}%`;
     };
 
-    if (sMinSlider && sMaxSlider) {
+    if (sMinSlider) {
         sMinSlider.addEventListener('input', () => {
             let minVal = parseInt(sMinSlider.value, 10);
-            let maxVal = parseInt(sMaxSlider.value, 10);
+            let maxVal = parseInt(sMaxSlider ? sMaxSlider.value : (State.examScoreMax || 100), 10);
             if (minVal > maxVal) {
                 minVal = maxVal;
                 sMinSlider.value = minVal;
-            }
-            if (minVal >= maxVal - 2) {
-                sMinSlider.style.zIndex = '5';
-                sMaxSlider.style.zIndex = '4';
-            } else {
-                sMinSlider.style.zIndex = '3';
-                sMaxSlider.style.zIndex = '4';
             }
             State.examScoreMin = minVal;
             if (sMinInput) sMinInput.value = minVal;
             updateScoreTrackUI(minVal, maxVal);
             scheduleRenderExamsMenu();
         });
+    }
 
+    if (sMaxSlider) {
         sMaxSlider.addEventListener('input', () => {
-            let minVal = parseInt(sMinSlider.value, 10);
+            let minVal = parseInt(sMinSlider ? sMinSlider.value : (State.examScoreMin || 0), 10);
             let maxVal = parseInt(sMaxSlider.value, 10);
             if (maxVal < minVal) {
                 maxVal = minVal;
                 sMaxSlider.value = maxVal;
-            }
-            if (maxVal <= minVal + 2) {
-                sMaxSlider.style.zIndex = '5';
-                sMinSlider.style.zIndex = '4';
-            } else {
-                sMaxSlider.style.zIndex = '4';
-                sMinSlider.style.zIndex = '3';
             }
             State.examScoreMax = maxVal;
             if (sMaxInput) sMaxInput.value = maxVal;
@@ -467,41 +399,44 @@ function scheduleRenderExamsMenu() {
         });
     }
 
-    // --- 6. RESET BUTTON ---
+    // 6. Reset Filters Button
     const resetBtn = elements.btnResetGlobalFilters || document.getElementById('btn-reset-global-filters');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             resetAllFilters();
-            showToast('Todos os filtros foram repostos.');
+            showToast(t('toast_filters_reset'));
         });
     }
 }
 
+let renderTimer = null;
+function scheduleRenderExamsMenu() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(renderExamsMenu, 25);
+}
+
 /**
- * Resets all exam filters and sorting to defaults.
+ * Resets all floating filters to their default state.
  */
 export function resetAllFilters() {
-    const maxQ = Math.max(1, ...State.exams.map(e => e.perguntas ? e.perguntas.length : (e.perguntas_count || 0)));
-    
+    const maxQ = Math.max(1, ...State.exams.map(e => ExamService.getQuestionsCount(e)));
+
     State.examSearch = '';
-    State.globalQuestionTypes = ['escolha_multipla', 'boolean', 'escrita'];
+    State.examSort = 'default';
     State.examStateFilter = ['completed', 'pending'];
+    State.globalQuestionTypes = ALL_QUESTION_TYPES;
+    State.examFilters = {};
     State.examQuestionsMin = 1;
     State.examQuestionsMax = maxQ;
     State.examScoreMin = 0;
     State.examScoreMax = 100;
-    State.examSort = 'default';
 
     const examSearchInput = elements.filterExamSearch || document.getElementById('filter-exam-search');
     const examSearchClear = elements.btnClearExamSearch || document.getElementById('btn-clear-exam-search');
     if (examSearchInput) examSearchInput.value = '';
     if (examSearchClear) examSearchClear.style.display = 'none';
 
-    // Reset dropdown trigger label
-    const labelSpan = elements.sortDropdownSelectedLabel || document.getElementById('sort-dropdown-selected-label');
-    if (labelSpan) {
-        labelSpan.innerHTML = `<i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão`;
-    }
+    updateSortDropdownLabel();
 
     const menu = elements.sortDropdownMenu || document.getElementById('sort-dropdown-menu');
     if (menu) {
@@ -511,6 +446,36 @@ export function resetAllFilters() {
             i.setAttribute('aria-selected', isDef ? 'true' : 'false');
         });
     }
+
+    document.querySelectorAll('.floating-state-check-input').forEach(chk => {
+        chk.checked = true;
+    });
+
+    document.querySelectorAll('.floating-check-input').forEach(chk => {
+        chk.checked = true;
+    });
+
+    const qMinSlider = elements.sliderQuestionsMin || document.getElementById('slider-questions-min');
+    const qMaxSlider = elements.sliderQuestionsMax || document.getElementById('slider-questions-max');
+    const qMinInput = elements.filterQuestionsMin || document.getElementById('filter-questions-min');
+    const qMaxInput = elements.filterQuestionsMax || document.getElementById('filter-questions-max');
+    const qTrack = elements.trackFillQuestions || document.getElementById('track-fill-questions');
+    if (qMinSlider) { qMinSlider.max = maxQ; qMinSlider.value = 1; }
+    if (qMaxSlider) { qMaxSlider.max = maxQ; qMaxSlider.value = maxQ; }
+    if (qMinInput) { qMinInput.max = maxQ; qMinInput.value = 1; }
+    if (qMaxInput) { qMaxInput.max = maxQ; qMaxInput.value = maxQ; }
+    if (qTrack) { qTrack.style.left = '0%'; qTrack.style.right = '0%'; }
+
+    const sMinSlider = elements.sliderScoreMin || document.getElementById('slider-score-min');
+    const sMaxSlider = elements.sliderScoreMax || document.getElementById('slider-score-max');
+    const sMinInput = elements.filterScoreMin || document.getElementById('filter-score-min');
+    const sMaxInput = elements.filterScoreMax || document.getElementById('filter-score-max');
+    const sTrack = elements.trackFillScore || document.getElementById('track-fill-score');
+    if (sMinSlider) sMinSlider.value = 0;
+    if (sMaxSlider) sMaxSlider.value = 100;
+    if (sMinInput) sMinInput.value = 0;
+    if (sMaxInput) sMaxInput.value = 100;
+    if (sTrack) { sTrack.style.left = '0%'; sTrack.style.right = '0%'; }
 
     renderExamsMenu();
 }
@@ -525,29 +490,16 @@ export async function fetchExams(indexPath) {
     elements.examsGrid.innerHTML = `
         <div class="loading-state">
             <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-            <p>A carregar exames...</p>
+            <p data-i18n="loading_exams">${escapeHTML(t('loading_exams'))}</p>
         </div>
     `;
 
     try {
-        const response = await fetch(indexPath);
-        if (!response.ok) throw new Error('Não foi possível carregar os exames desta cadeira.');
-        const serverExams = await response.json();
-
         loadLocalData(State);
-
         const currentCadeiraId = State.activeCadeira ? State.activeCadeira.id : null;
-        const matchingLocalExams = State.localExames.filter(
-            e => e.cadeira_id === currentCadeiraId
-        );
+        State.exams = await ExamService.fetchExamsForSubject(indexPath, currentCadeiraId, State.localExames);
 
-        State.exams = [
-            ...serverExams.map(e => ({ ...e, isLocal: false })),
-            ...matchingLocalExams.map(e => ({ ...e, isLocal: true }))
-        ];
-
-        // Initialize dynamic max questions for this subject
-        const maxQ = Math.max(1, ...State.exams.map(e => e.perguntas ? e.perguntas.length : (e.perguntas_count || 0)));
+        const maxQ = Math.max(1, ...State.exams.map(e => ExamService.getQuestionsCount(e)));
         State.examSearch = '';
         State.examQuestionsMax = maxQ;
         State.examQuestionsMin = 1;
@@ -577,6 +529,7 @@ export async function fetchExams(indexPath) {
  */
 export function renderExamsMenu() {
     initFloatingFilters();
+    updateSortDropdownLabel();
     elements.examsGrid.innerHTML = '';
     if (!State.examFilters) State.examFilters = {};
     if (!State.globalQuestionTypes) State.globalQuestionTypes = ALL_QUESTION_TYPES;
@@ -591,8 +544,8 @@ export function renderExamsMenu() {
         examSearchClear.style.display = (State.examSearch || '').trim() ? 'inline-flex' : 'none';
     }
 
-    const maxQInCadeira = Math.max(1, ...State.exams.map(e => e.perguntas ? e.perguntas.length : (e.perguntas_count || 0)));
-    if (State.examQuestionsMax === null || State.examQuestionsMax === undefined) {
+    const maxQInCadeira = Math.max(1, ...State.exams.map(e => ExamService.getQuestionsCount(e)));
+    if (State.examQuestionsMax === null || State.examQuestionsMax === undefined || State.examQuestionsMax < maxQInCadeira) {
         State.examQuestionsMax = maxQInCadeira;
     }
 
@@ -623,7 +576,7 @@ export function renderExamsMenu() {
 
     const qMinSlider = elements.sliderQuestionsMin || document.getElementById('slider-questions-min');
     const qMaxSlider = elements.sliderQuestionsMax || document.getElementById('slider-questions-max');
-    const qTrackFill = elements.trackFillQuestions || document.getElementById('track-fill-questions');
+    const qTrack = elements.trackFillQuestions || document.getElementById('track-fill-questions');
     if (qMinSlider) {
         qMinSlider.min = 1;
         qMinSlider.max = maxQInCadeira;
@@ -634,29 +587,29 @@ export function renderExamsMenu() {
         qMaxSlider.max = maxQInCadeira;
         qMaxSlider.value = State.examQuestionsMax;
     }
-    if (qTrackFill) {
+    if (qTrack) {
         const span = Math.max(1, maxQInCadeira - 1);
         const leftPercent = Math.max(0, Math.min(100, ((State.examQuestionsMin - 1) / span) * 100));
         const rightPercent = Math.max(0, Math.min(100, 100 - (((State.examQuestionsMax - 1) / span) * 100)));
-        qTrackFill.style.left = `${leftPercent}%`;
-        qTrackFill.style.right = `${rightPercent}%`;
+        qTrack.style.left = `${leftPercent}%`;
+        qTrack.style.right = `${rightPercent}%`;
     }
 
     const sMinSlider = elements.sliderScoreMin || document.getElementById('slider-score-min');
     const sMaxSlider = elements.sliderScoreMax || document.getElementById('slider-score-max');
-    const sTrackFill = elements.trackFillScore || document.getElementById('track-fill-score');
+    const sTrack = elements.trackFillScore || document.getElementById('track-fill-score');
     if (sMinSlider) sMinSlider.value = State.examScoreMin;
     if (sMaxSlider) sMaxSlider.value = State.examScoreMax;
-    if (sTrackFill) {
-        sTrackFill.style.left = `${State.examScoreMin}%`;
-        sTrackFill.style.right = `${100 - State.examScoreMax}%`;
+    if (sTrack) {
+        sTrack.style.left = `${State.examScoreMin}%`;
+        sTrack.style.right = `${100 - State.examScoreMax}%`;
     }
 
     // 1. Prepare items with calculated active counts and score history
     const preparedExams = State.exams.map((exam, originalIndex) => {
         const effectiveExcluded = getEffectiveExcludedTypes(exam);
-        const questionTypes = getExamQuestionTypes(exam);
-        const { totalCount, activeCount } = getExamFilteredCount(exam, effectiveExcluded);
+        const questionTypes = ExamService.getQuestionTypes(exam);
+        const { totalCount, activeCount } = ExamService.getFilteredCount(exam, effectiveExcluded);
 
         // Analyze score history
         const histArr = State.examHistory ? State.examHistory[exam.id] : null;
@@ -695,8 +648,8 @@ export function renderExamsMenu() {
     const visibleExams = preparedExams.filter(exam => {
         // Criterion 0: Search query by title or description
         if (query) {
-            const titleNorm = (exam.titulo || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-            const descNorm = (exam.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const titleNorm = ExamService.getTitle(exam).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const descNorm = ExamService.getDescription(exam).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
             if (!titleNorm.includes(query) && !descNorm.includes(query)) {
                 return false;
             }
@@ -716,7 +669,6 @@ export function renderExamsMenu() {
         if (exam._isAttempted) {
             if (exam._scorePercentage < minScore || exam._scorePercentage > maxScore) return false;
         } else {
-            // For pending exams without attempts, only display if score filter range includes 0%
             if (minScore > 0) return false;
         }
 
@@ -743,12 +695,15 @@ export function renderExamsMenu() {
             return (a._activeCount - b._activeCount) || (a._totalCount - b._totalCount) || (a._originalIndex - b._originalIndex);
         }
         if (sortMode === 'title_asc') {
-            return a.titulo.localeCompare(b.titulo, 'pt', { numeric: true, sensitivity: 'base' });
+            const titleA = ExamService.getTitle(a);
+            const titleB = ExamService.getTitle(b);
+            return titleA.localeCompare(titleB, getCurrentLanguage(), { numeric: true, sensitivity: 'base' });
         }
         if (sortMode === 'title_desc') {
-            return b.titulo.localeCompare(a.titulo, 'pt', { numeric: true, sensitivity: 'base' });
+            const titleA = ExamService.getTitle(a);
+            const titleB = ExamService.getTitle(b);
+            return titleB.localeCompare(titleA, getCurrentLanguage(), { numeric: true, sensitivity: 'base' });
         }
-        // 'default'
         return a._originalIndex - b._originalIndex;
     });
 
@@ -757,13 +712,7 @@ export function renderExamsMenu() {
     if (statusEl) {
         const total = State.exams.length;
         const visible = visibleExams.length;
-        if (total === 0) {
-            statusEl.textContent = '0 exames disponíveis';
-        } else if (visible === total) {
-            statusEl.textContent = `${total} ${total === 1 ? 'exame disponível' : 'exames disponíveis'}`;
-        } else {
-            statusEl.textContent = `${visible} de ${total} ${total === 1 ? 'exame exibido' : 'exames exibidos'}`;
-        }
+        statusEl.textContent = t('filter_status_indicator', { visible, total });
     }
 
     // 5. Empty State Handling
@@ -771,10 +720,10 @@ export function renderExamsMenu() {
         elements.examsGrid.innerHTML = `
             <div class="empty-filters-state">
                 <i class="fa-solid fa-filter-circle-xmark empty-filters-main-icon" aria-hidden="true"></i>
-                <h4>Nenhum exame corresponde aos filtros</h4>
-                <p>Ajuste os filtros de estado, tipos de pergunta ou intervalos na barra lateral para encontrar exames.</p>
+                <h4>${escapeHTML(t('empty_filters_title'))}</h4>
+                <p>${escapeHTML(t('empty_filters_desc'))}</p>
                 <button type="button" class="btn-control btn-primary btn-sm" id="btn-reset-filters-empty">
-                    <i class="fa-solid fa-rotate-left"></i> Repor Todos os Filtros
+                    <i class="fa-solid fa-rotate-left"></i> ${escapeHTML(t('btn_reset_all_filters'))}
                 </button>
             </div>
         `;
@@ -782,7 +731,7 @@ export function renderExamsMenu() {
         if (resetEmptyBtn) {
             resetEmptyBtn.addEventListener('click', () => {
                 resetAllFilters();
-                showToast('Filtros repostos com sucesso!');
+                showToast(t('toast_filters_reset'));
             });
         }
         return;
@@ -794,36 +743,51 @@ export function renderExamsMenu() {
         row.className = 'exam-list-row';
         row.setAttribute('tabindex', '0');
         row.setAttribute('role', 'button');
-        row.setAttribute('aria-label', `Iniciar exame ${exam.titulo}`);
+
+        const localizedTitle = ExamService.getTitle(exam);
+        const localizedDesc = ExamService.getDescription(exam);
+        row.setAttribute('aria-label', t('aria_start_exam', { title: localizedTitle }));
 
         const typesHTML = renderQuestionTypeTagsHTML(exam._questionTypes, exam._effectiveExcluded);
 
-        const totalLabel = exam._totalCount === 1 ? '1 questão' : `${exam._totalCount} questões`;
+        const totalLabel = exam._totalCount === 1 ? t('question_singular') : t('question_plural', { count: exam._totalCount });
         let actionHTML = `[ ${totalLabel} ]`;
 
         if (exam._activeCount < exam._totalCount) {
-            const activeLabel = exam._activeCount === 1 ? '1 questão' : `${exam._activeCount} questões`;
+            const activeLabel = exam._activeCount === 1 ? t('question_singular') : t('question_plural', { count: exam._activeCount });
             actionHTML = `[ <s class="count-old">${exam._totalCount}</s> <span class="count-new ${exam._activeCount === 0 ? 'count-zero' : ''}">${activeLabel}</span> ]`;
         }
 
         const scoreBadgeHTML = renderExamScoreBadgeHTML(exam.id);
 
+        const languages = ExamService.getLanguages(exam);
+        const currentAppLang = getCurrentLanguage();
+        let flagBadgeHTML = '';
+
+        if (!languages.includes(currentAppLang)) {
+            const isEnOnly = languages.includes('en') && !languages.includes('pt');
+            const flagEmoji = isEnOnly ? '🇬🇧' : '🇵🇹';
+            const flagTitle = isEnOnly ? t('flag_title_en') : t('flag_title_pt');
+            flagBadgeHTML = `<span class="exam-lang-flag" title="${flagTitle}" aria-label="${flagTitle}">${flagEmoji}</span>`;
+        }
+
         row.innerHTML = `
             <div class="exam-list-header">
-                <h4 class="exam-list-title">${escapeHTML(exam.titulo.toUpperCase())}${exam.isLocal ? ' <span class="badge-local">Local</span>' : ''}</h4>
+                <h4 class="exam-list-title">${escapeHTML(localizedTitle.toUpperCase())}${exam.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
                 <div class="exam-list-header-right">
                     ${scoreBadgeHTML}
+                    ${flagBadgeHTML}
                     <span class="exam-list-action">${actionHTML}</span>
                 </div>
             </div>
             ${typesHTML}
-            <p class="exam-list-desc">${escapeHTML(exam.descricao)}</p>
+            <p class="exam-list-desc">${escapeHTML(localizedDesc)}</p>
         `;
 
-        // Interactivity for question type toggle segments inside capsule
+        // Capsule toggle events
         row.querySelectorAll('.exam-type-segment').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Avoid triggering exam start
+                e.stopPropagation();
                 const typeId = btn.getAttribute('data-type');
                 if (!State.examFilters[exam.id]) {
                     State.examFilters[exam.id] = [];
@@ -840,9 +804,9 @@ export function renderExamsMenu() {
 
         const activate = () => {
             const currentExcluded = getEffectiveExcludedTypes(exam);
-            const countInfo = getExamFilteredCount(exam, currentExcluded);
+            const countInfo = ExamService.getFilteredCount(exam, currentExcluded);
             if (countInfo.activeCount === 0) {
-                showToast('Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.');
+                showToast(t('toast_error_all_excluded'));
                 row.classList.add('row-shake-error');
                 setTimeout(() => row.classList.remove('row-shake-error'), 450);
                 return;
@@ -864,30 +828,12 @@ export function renderExamsMenu() {
 
 /**
  * Fisher-Yates shuffle of a multiple-choice question's options in-place.
- * Updates q.solucao indices to match the new option order.
- * No-op for 'escrita' and 'boolean' questions (they have no shuffleable options).
+ * Delegated to ExamService.
  *
  * @param {object} q - Question object (mutated in-place)
  */
 export function shuffleQuestionOptions(q) {
-    if (q.tipo === 'escrita' || q.tipo === 'boolean' || !q.opcoes || q.opcoes.length === 0) {
-        return;
-    }
-
-    const mapped = q.opcoes.map((opcao, idx) => ({
-        texto:    opcao,
-        eCorreta: q.solucao.includes(idx)
-    }));
-
-    for (let i = mapped.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [mapped[i], mapped[j]] = [mapped[j], mapped[i]];
-    }
-
-    q.opcoes  = mapped.map(item => item.texto);
-    q.solucao = mapped
-        .map((item, idx) => item.eCorreta ? idx : -1)
-        .filter(idx => idx !== -1);
+    ExamService.shuffleOptions(q);
 }
 
 /**
@@ -900,31 +846,20 @@ export async function startExam(examId) {
     const examMeta = State.exams.find(e => e.id === examId);
     if (!examMeta) return;
 
-    const excludedTypes = getEffectiveExcludedTypes(examMeta);
-
     elements.examsGrid.innerHTML = `
         <div class="loading-state">
             <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-            <p>A carregar as perguntas do exame...</p>
+            <p data-i18n="loading_exams">${escapeHTML(t('loading_exams'))}</p>
         </div>
     `;
 
     try {
-        let examData;
-        if (examMeta.isLocal) {
-            examData = examMeta;
-        } else {
-            const response = await fetch(examMeta.path);
-            if (!response.ok) throw new Error('Não foi possível carregar as questões deste exame.');
-            examData = await response.json();
-        }
-
-        const allQuestions = examData.perguntas || [];
+        const examData = await ExamService.loadFullExam(examMeta);
+        const allQuestions = examData.questions || [];
         allQuestions.forEach((q, idx) => {
             q._origIndex = idx;
         });
 
-        // Inicializar ou assegurar tamanho do array de histórico para este exame
         if (!State.examHistory) State.examHistory = {};
         if (!State.examHistory[examMeta.id] || !Array.isArray(State.examHistory[examMeta.id])) {
             State.examHistory[examMeta.id] = new Array(allQuestions.length).fill(QuestionStatus.UNANSWERED);
@@ -934,11 +869,11 @@ export async function startExam(examId) {
             }
         }
 
-        // Apply question type filters
+        const excludedTypes = getEffectiveExcludedTypes(examMeta);
         let questionsToUse = allQuestions;
         if (excludedTypes.length > 0) {
             questionsToUse = questionsToUse.filter(q => {
-                const t = getQuestionTypeInfo(q.tipo).id;
+                const t = getQuestionTypeInfo(q.type || q.tipo).id;
                 return !excludedTypes.includes(t);
             });
         }
@@ -949,15 +884,16 @@ export async function startExam(examId) {
             return;
         }
 
+        questionsToUse.forEach(q => ExamService.shuffleOptions(q));
+
         State.activeExam = {
             ...examMeta,
+            ...examData,
+            questions: questionsToUse,
             perguntas: questionsToUse
         };
 
-        State.activeExam.perguntas.forEach(q => shuffleQuestionOptions(q));
-
-        // Inicializar armazenamento em memória da sessão de respostas do exame
-        State.examAnswers = State.activeExam.perguntas.map(() => ({
+        State.examAnswers = questionsToUse.map(() => ({
             selectedOptions: [],
             writtenInput: '',
             revealed: false,
@@ -970,7 +906,7 @@ export async function startExam(examId) {
         State.question.firstAttemptCorrect = {};
         State.question.writtenInput       = '';
 
-        elements.currentExamTitle.textContent = State.activeExam.titulo;
+        elements.currentExamTitle.textContent = ExamService.getTitle(State.activeExam);
 
         if (State.activeCadeira && State.activeCadeira.icon) {
             const iconEl = document.getElementById('exam-subject-icon');

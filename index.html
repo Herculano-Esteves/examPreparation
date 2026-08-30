@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -42,17 +42,14 @@
                     <i id="app-logo-icon" class="fa-solid fa-graduation-cap app-logo-icon" aria-hidden="true"></i>
                 </div>
                 <div class="logo-text">
-                    <h1 id="app-main-title">Simulador de Exames</h1>
-                    <span id="app-subtitle" class="subtitle">
-                        <span class="status-dot" aria-hidden="true"></span>
-                        SISTEMA DE EXAMES
-                    </span>
+                    <h1 id="app-main-title" data-i18n="app_title">Simulador de Exames</h1>
+                    <span id="app-subtitle" class="subtitle" data-i18n="app_subtitle">SISTEMA DE EXAMES</span>
                 </div>
             </div>
             <div class="header-actions">
-                <button id="btn-settings" class="btn-control btn-secondary btn-pill" aria-label="Abrir Definições">
+                <button id="btn-settings" class="btn-control btn-secondary btn-pill" aria-label="Abrir Definições" data-i18n-aria-label="btn_settings">
                     <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                    <span>Definições</span>
+                    <span data-i18n="btn_settings">Definições</span>
                 </button>
             </div>
         </header>
@@ -95,19 +92,19 @@
                         <!-- Center column: Title & Search & Add Cadeira -->
                         <div class="sticky-header-center">
                             <h3 class="section-title">
-                                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> Selecione uma Cadeira
+                                <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> <span data-i18n="select_cadeira">Selecione uma Cadeira</span>
                             </h3>
                             <div class="menu-header-actions">
                                 <div class="search-input-wrapper header-search-wrapper">
                                     <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-                                    <input type="text" id="search-cadeiras" class="header-search-input" placeholder="Pesquisar cadeira..." aria-label="Pesquisar cadeira por nome">
+                                    <input type="text" id="search-cadeiras" class="header-search-input" placeholder="Pesquisar cadeira..." aria-label="Pesquisar cadeira por nome" data-i18n-placeholder="search_cadeiras_placeholder">
                                     <button type="button" id="btn-clear-cadeira-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
                                 <button id="btn-add-cadeira-top" class="btn-control btn-primary btn-sm">
                                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
-                                    <span>Adicionar Cadeira</span>
+                                    <span data-i18n="btn_add_cadeira">Adicionar Cadeira</span>
                                 </button>
                             </div>
                         </div>
@@ -115,7 +112,7 @@
                         <!-- Right gutter symmetry slot with corner settings -->
                         <div class="sticky-header-right">
                             <div class="sticky-corner-right">
-                                <button class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições" title="Definições">
+                                <button class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições" title="Definições" data-i18n-title="btn_settings">
                                     <i class="fa-solid fa-gear" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -126,7 +123,7 @@
                     <!-- Dynamic Cadeira Cards Loaded from JSON -->
                     <div class="loading-state">
                         <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-                        <p>A carregar cadeiras...</p>
+                        <p data-i18n="loading_cadeiras">A carregar cadeiras...</p>
                     </div>
                 </div>
             </section>
@@ -144,26 +141,26 @@
                             </div>
                             <button id="btn-back-cadeiras" class="btn-control btn-secondary btn-sm btn-floating-header-back" aria-label="Voltar à seleção de cadeiras">
                                 <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                                <span>Voltar às Cadeiras</span>
+                                <span data-i18n="btn_back_cadeiras">Voltar às Cadeiras</span>
                             </button>
                         </div>
 
                         <!-- Center column: Title & Search & Add Exame -->
                         <div class="sticky-header-center">
                             <h3 class="section-title">
-                                <i class="fa-solid fa-folder-open" aria-hidden="true"></i> Selecione um Exame
+                                <i class="fa-solid fa-folder-open" aria-hidden="true"></i> <span data-i18n="select_exame">Selecione um Exame</span>
                             </h3>
                             <div class="menu-header-actions">
                                 <div class="search-input-wrapper header-search-wrapper">
                                     <i class="fa-solid fa-magnifying-glass search-icon" aria-hidden="true"></i>
-                                    <input type="text" id="filter-exam-search" class="header-search-input" placeholder="Pesquisar exame..." aria-label="Pesquisar exames por nome">
+                                    <input type="text" id="filter-exam-search" class="header-search-input" placeholder="Pesquisar exame..." aria-label="Pesquisar exames por nome" data-i18n-placeholder="search_exams_placeholder">
                                     <button type="button" id="btn-clear-exam-search" class="btn-clear-search" aria-label="Limpar pesquisa" style="display: none;">
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
                                 <button id="btn-add-exame-top" class="btn-control btn-primary btn-sm">
                                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
-                                    <span>Adicionar Exame</span>
+                                    <span data-i18n="btn_add_exame">Adicionar Exame</span>
                                 </button>
                             </div>
                         </div>
@@ -171,7 +168,7 @@
                         <!-- Right gutter symmetry slot with corner settings to its right -->
                         <div class="sticky-header-right">
                             <div class="sticky-corner-right">
-                                <button class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições" title="Definições">
+                                <button class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições" title="Definições" data-i18n-title="btn_settings">
                                     <i class="fa-solid fa-gear" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -186,7 +183,7 @@
                         <!-- 1. ORDENAÇÃO (SORT DROPDOWN) -->
                         <div class="floating-filter-group">
                             <span class="floating-filter-label">
-                                <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> Ordenar
+                                <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> <span data-i18n="filter_sort">Ordenar</span>
                             </span>
                             <div class="custom-dropdown" id="sort-dropdown">
                                 <button type="button" class="dropdown-trigger-btn" id="sort-dropdown-trigger"
@@ -198,33 +195,32 @@
                                 </button>
                                 <ul class="dropdown-menu" id="sort-dropdown-menu" role="listbox" tabindex="-1">
                                     <li class="dropdown-item active" role="option" data-value="default"
-                                        aria-selected="true">
-                                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão
+                                        aria-selected="true" data-i18n-text="sort_default">
+                                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> <span data-i18n="sort_default">Ordem Padrão</span>
                                     </li>
                                     <li class="dropdown-item" role="option" data-value="score_desc"
-                                        aria-selected="false">
-                                        <i class="fa-solid fa-trophy" aria-hidden="true"></i> Melhor Classificação
+                                        aria-selected="false" data-i18n-text="sort_score_desc">
+                                        <i class="fa-solid fa-trophy" aria-hidden="true"></i> <span data-i18n="sort_score_desc">Melhor Classificação</span>
                                     </li>
                                     <li class="dropdown-item" role="option" data-value="score_asc"
-                                        aria-selected="false">
-                                        <i class="fa-solid fa-trophy" aria-hidden="true"></i> Pior Classificação
+                                        aria-selected="false" data-i18n-text="sort_score_asc">
+                                        <i class="fa-solid fa-trophy" aria-hidden="true"></i> <span data-i18n="sort_score_asc">Pior Classificação</span>
                                     </li>
                                     <li class="dropdown-item" role="option" data-value="questions_desc"
-                                        aria-selected="false">
-                                        <i class="fa-solid fa-arrow-down-9-1" aria-hidden="true"></i> Maior nº de
-                                        Questões
+                                        aria-selected="false" data-i18n-text="sort_questions_desc">
+                                        <i class="fa-solid fa-arrow-down-9-1" aria-hidden="true"></i> <span data-i18n="sort_questions_desc">Maior nº de Questões</span>
                                     </li>
                                     <li class="dropdown-item" role="option" data-value="questions_asc"
-                                        aria-selected="false">
-                                        <i class="fa-solid fa-arrow-up-1-9" aria-hidden="true"></i> Menor nº de Questões
+                                        aria-selected="false" data-i18n-text="sort_questions_asc">
+                                        <i class="fa-solid fa-arrow-up-1-9" aria-hidden="true"></i> <span data-i18n="sort_questions_asc">Menor nº de Questões</span>
                                     </li>
                                     <li class="dropdown-item" role="option" data-value="title_asc"
-                                        aria-selected="false">
-                                        <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i> A → Z
+                                        aria-selected="false" data-i18n-text="sort_title_asc">
+                                        <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i> <span data-i18n="sort_title_asc">A → Z</span>
                                     </li>
                                     <li class="dropdown-item" role="option" data-value="title_desc"
-                                        aria-selected="false">
-                                        <i class="fa-solid fa-arrow-up-z-a" aria-hidden="true"></i> Z → A
+                                        aria-selected="false" data-i18n-text="sort_title_desc">
+                                        <i class="fa-solid fa-arrow-up-z-a" aria-hidden="true"></i> <span data-i18n="sort_title_desc">Z → A</span>
                                     </li>
                                 </ul>
                             </div>
@@ -234,7 +230,7 @@
                         <div class="floating-filter-group">
                             <div class="floating-filter-header">
                                 <span class="floating-filter-label">
-                                    <i class="fa-solid fa-list-check" aria-hidden="true"></i> Estado
+                                    <i class="fa-solid fa-list-check" aria-hidden="true"></i> <span data-i18n="filter_state">Estado</span>
                                 </span>
                             </div>
                             <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por estado do exame">
@@ -247,8 +243,8 @@
                                     </span>
                                     <span class="floating-type-label">
                                         <i class="fa-solid fa-circle-check" style="color: #34d399;"
-                                            aria-hidden="true"></i>
-                                        <span>Exames Feitos</span>
+                                             aria-hidden="true"></i>
+                                        <span data-i18n="filter_state_completed">Exames Feitos</span>
                                     </span>
                                 </label>
                                 <label class="floating-checkbox-item" data-state="pending">
@@ -260,7 +256,7 @@
                                     <span class="floating-type-label">
                                         <i class="fa-solid fa-circle-minus" style="color: #94a3b8;"
                                             aria-hidden="true"></i>
-                                        <span>Exames Por Fazer</span>
+                                        <span data-i18n="filter_state_pending">Exames Por Fazer</span>
                                     </span>
                                 </label>
                             </div>
@@ -270,11 +266,11 @@
                         <div class="floating-filter-group">
                             <div class="floating-filter-header">
                                 <span class="floating-filter-label">
-                                    <i class="fa-solid fa-filter" aria-hidden="true"></i> Tipos de Pergunta
+                                    <i class="fa-solid fa-filter" aria-hidden="true"></i> <span data-i18n="filter_types">Tipos de Pergunta</span>
                                 </span>
                                 <button type="button" class="btn-filter-reset-link" id="btn-reset-global-filters"
-                                    title="Repor todos os filtros">
-                                    Repor
+                                    title="Repor todos os filtros" data-i18n-title="filter_reset">
+                                    <span data-i18n="filter_reset">Repor</span>
                                 </button>
                             </div>
 
@@ -288,7 +284,7 @@
                                     </span>
                                     <span class="floating-type-label">
                                         <i class="fa-solid fa-list-check type-icon-choice" aria-hidden="true"></i>
-                                        <span>Escolha Múltipla</span>
+                                        <span data-i18n="type_multiple_choice">Escolha Múltipla</span>
                                     </span>
                                 </label>
 
@@ -300,7 +296,7 @@
                                     </span>
                                     <span class="floating-type-label">
                                         <i class="fa-solid fa-check-double type-icon-boolean" aria-hidden="true"></i>
-                                        <span>Verdadeiro / Falso</span>
+                                        <span data-i18n="type_boolean">Verdadeiro / Falso</span>
                                     </span>
                                 </label>
 
@@ -312,7 +308,7 @@
                                     </span>
                                     <span class="floating-type-label">
                                         <i class="fa-solid fa-pen-to-square type-icon-written" aria-hidden="true"></i>
-                                        <span>Desenvolvimento</span>
+                                        <span data-i18n="type_written">Desenvolvimento</span>
                                     </span>
                                 </label>
                             </div>
@@ -321,7 +317,7 @@
                         <!-- 4. INTERVALO DE Nº DE QUESTÕES -->
                         <div class="floating-filter-group">
                             <span class="floating-filter-label">
-                                <i class="fa-solid fa-hashtag" aria-hidden="true"></i> Nº de Questões
+                                <i class="fa-solid fa-hashtag" aria-hidden="true"></i> <span data-i18n="filter_num_questions">Nº de Questões</span>
                             </span>
                             <div class="floating-range-inputs">
                                 <div class="floating-range-field" title="Mínimo de questões">
@@ -346,7 +342,7 @@
                         <!-- 5. INTERVALO DE PERCENTAGEM DE ACERTO -->
                         <div class="floating-filter-group">
                             <span class="floating-filter-label">
-                                <i class="fa-solid fa-percent" aria-hidden="true"></i> Classificação (%)
+                                <i class="fa-solid fa-percent" aria-hidden="true"></i> <span data-i18n="filter_score">Classificação (%)</span>
                             </span>
                             <div class="floating-range-inputs">
                                 <div class="floating-range-field" title="Classificação mínima (%)">
@@ -381,7 +377,7 @@
                             <!-- Dynamic Exam Cards Loaded from API -->
                             <div class="loading-state">
                                 <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-                                <p>A carregar exames...</p>
+                                <p data-i18n="loading_exams">A carregar exames...</p>
                             </div>
                         </div>
                     </div>
@@ -397,17 +393,19 @@
                         <div class="exam-left-scroll-content">
                             <div id="question-cabecalho" class="question-cabecalho hidden"></div>
                             <h3 id="question-text" class="question-text">
-                                <span id="question-text-content">A carregar pergunta...</span>
-                                <span class="btn-copy-group" role="group" aria-label="Opções de cópia da questão">
+                                <span id="question-text-content" data-i18n="loading_question">A carregar pergunta...</span>
+                                <span class="btn-copy-group" role="group" aria-label="Opções de cópia da questão" data-i18n-aria-label="aria_copy_group">
                                     <button id="btn-copy" class="btn-copy-split btn-copy-left"
-                                        title="Copiar apenas a questão e opções" aria-label="Copiar questão e opções">
+                                        title="Copiar apenas a questão e opções" aria-label="Copiar questão e opções"
+                                        data-i18n-title="title_copy_question" data-i18n-aria-label="aria_copy_question">
                                         <i class="fa-regular fa-copy" aria-hidden="true"></i>
-                                        <span>Copiar</span>
+                                        <span data-i18n="btn_copy">Copiar</span>
                                     </button>
                                     <button id="btn-copy-answer" class="btn-copy-split btn-copy-right"
                                         title="Copiar questão com a resposta e justificação"
-                                        aria-label="Copiar questão com resposta">
-                                        <span>+ Resposta</span>
+                                        aria-label="Copiar questão com resposta"
+                                        data-i18n-title="title_copy_answer" data-i18n-aria-label="aria_copy_answer">
+                                        <span data-i18n="btn_copy_answer">+ Resposta</span>
                                     </button>
                                 </span>
                             </h3>
@@ -417,7 +415,7 @@
                         <div class="exam-left-controls">
                             <button id="btn-exit" class="btn-control btn-danger">
                                 <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
-                                <span>Sair do Exame</span>
+                                <span data-i18n="btn_leave_exam">Sair do Exame</span>
                             </button>
                         </div>
                     </div>
@@ -442,10 +440,10 @@
                         <div class="exam-right-controls">
                             <button id="btn-prev" class="btn-control btn-secondary">
                                 <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                                <span>Voltar</span>
+                                <span data-i18n="btn_prev">Anterior</span>
                             </button>
                             <button id="btn-next" class="btn-control btn-primary">
-                                <span>Avançar</span>
+                                <span data-i18n="btn_next">Seguinte</span>
                                 <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -463,7 +461,7 @@
                             <i class="fa-solid fa-trophy results-trophy" aria-hidden="true"></i>
                         </div>
                         <div class="results-card-title-group">
-                            <h2 id="results-title">Exame Concluído!</h2>
+                            <h2 id="results-title" data-i18n="results_title">Resultados do Exame</h2>
                             <p id="results-exam-title">Título do Exame</p>
                         </div>
                     </div>
@@ -481,23 +479,19 @@
                                 <div class="result-stat-card stat-correct">
                                     <span class="result-stat-num" id="results-correct-count">0</span>
                                     <span class="result-stat-label"><i class="fa-solid fa-circle-check"
-                                            aria-hidden="true"></i> Corretas</span>
+                                            aria-hidden="true"></i> <span data-i18n="results_correct">Certas</span></span>
                                 </div>
                                 <div class="result-stat-card stat-incorrect">
                                     <span class="result-stat-num" id="results-incorrect-count">0</span>
                                     <span class="result-stat-label"><i class="fa-solid fa-circle-xmark"
-                                            aria-hidden="true"></i> Incorretas</span>
+                                            aria-hidden="true"></i> <span data-i18n="results_incorrect">Erradas</span></span>
                                 </div>
                                 <div class="result-stat-card stat-unanswered">
                                     <span class="result-stat-num" id="results-unanswered-count">0</span>
                                     <span class="result-stat-label"><i class="fa-solid fa-circle-minus"
-                                            aria-hidden="true"></i> Por Fazer</span>
+                                            aria-hidden="true"></i> <span data-i18n="results_unanswered">Por Responder</span></span>
                                 </div>
                             </div>
-
-                            <p id="results-feedback-message" class="results-feedback-text">
-                                Bom trabalho na conclusão do exame!
-                            </p>
                         </div>
                     </div>
 
@@ -505,11 +499,11 @@
                     <div class="results-actions">
                         <button id="btn-resume-exam" class="btn-control btn-secondary">
                             <i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i>
-                            <span>Voltar ao Exame</span>
+                            <span data-i18n="btn_retry_exam">Voltar ao Exame</span>
                         </button>
                         <button id="btn-back-menu" class="btn-control btn-primary">
                             <i class="fa-solid fa-house" aria-hidden="true"></i>
-                            <span>Menu Principal</span>
+                            <span data-i18n="btn_main_menu">Menu Principal</span>
                         </button>
                     </div>
                 </div>
@@ -519,22 +513,22 @@
             <section id="screen-add-cadeira" class="screen">
                 <div class="menu-header-bar">
                     <h3 class="section-title">
-                        <i class="fa-solid fa-plus-circle" aria-hidden="true"></i> Adicionar Nova Cadeira
+                        <i class="fa-solid fa-plus-circle" aria-hidden="true"></i> <span data-i18n="add_cadeira_title">Adicionar Nova Cadeira</span>
                     </h3>
                 </div>
                 <div class="question-card">
                     <div class="form-group">
-                        <label for="cadeira-nome">Nome da Cadeira</label>
-                        <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos"
+                        <label for="cadeira-nome" data-i18n="label_cadeira_nome">Nome da Cadeira</label>
+                        <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos" data-i18n-placeholder="placeholder_cadeira_nome"
                             required>
                     </div>
                     <div class="form-group">
-                        <label for="cadeira-desc">Descrição / Subtítulo</label>
+                        <label for="cadeira-desc" data-i18n="label_cadeira_desc">Descrição / Subtítulo</label>
                         <input type="text" id="cadeira-desc" class="form-control"
-                            placeholder="Ex: Escalonamento, Processos e I/O" required>
+                            placeholder="Ex: Escalonamento, Processos e I/O" data-i18n-placeholder="placeholder_cadeira_desc" required>
                     </div>
                     <div class="form-group">
-                        <label>Selecione um Ícone</label>
+                        <label data-i18n="label_cadeira_icon">Selecione um Ícone</label>
                         <div class="icon-select-grid" id="cadeira-icon-grid">
                             <div class="icon-option selected" data-icon="fa-laptop-code" tabindex="0" role="button"
                                 aria-label="Ícone portátil"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
@@ -558,11 +552,11 @@
                     <div class="exam-controls exam-controls-spaced">
                         <button id="btn-cancel-cadeira" class="btn-control btn-secondary">
                             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                            <span>Cancelar</span>
+                            <span data-i18n="btn_cancel">Cancelar</span>
                         </button>
                         <button id="btn-save-cadeira" class="btn-control btn-primary">
                             <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
-                            <span>Criar Cadeira</span>
+                            <span data-i18n="btn_create_cadeira">Criar Cadeira</span>
                         </button>
                     </div>
                 </div>
@@ -572,45 +566,52 @@
             <section id="screen-add-exame" class="screen">
                 <div class="menu-header-bar">
                     <h3 class="section-title">
-                        <i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i> Adicionar Novo Exame
+                        <i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i> <span data-i18n="add_exame_title">Adicionar Novo Exame</span>
                     </h3>
                     <button id="btn-copy-instructions" class="btn-control btn-secondary btn-sm">
                         <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                        <span>Instruções de JSON</span>
+                        <span data-i18n="btn_json_instructions">Instruções de JSON</span>
                     </button>
                 </div>
                 <div class="question-card">
                     <div class="form-group">
-                        <label for="exame-titulo">Título do Exame (Lido do JSON)</label>
+                        <label for="exame-titulo" data-i18n="label_exame_titulo">Título do Exame (Lido do JSON)</label>
                         <input type="text" id="exame-titulo" class="form-control"
-                            placeholder="Será preenchido automaticamente..." readonly>
+                            placeholder="Será preenchido automaticamente..." data-i18n-placeholder="placeholder_read_auto" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="exame-desc">Descrição do Exame (Lido do JSON)</label>
+                        <label for="exame-desc" data-i18n="label_exame_desc">Descrição do Exame (Lido do JSON)</label>
                         <input type="text" id="exame-desc" class="form-control"
-                            placeholder="Será preenchido automaticamente..." readonly>
+                            placeholder="Será preenchido automaticamente..." data-i18n-placeholder="placeholder_read_auto" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="editor-code-input">Código JSON do Exame</label>
+                        <label for="exame-lingua" data-i18n="label_exame_lingua">Idioma do Exame</label>
+                        <select id="exame-lingua" class="form-control">
+                            <option value="pt">🇵🇹 Português (PT)</option>
+                            <option value="en">🇬🇧 English (UK)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editor-code-input" data-i18n="label_json_code">Código JSON do Exame</label>
                         <div class="code-editor-wrapper">
                             <div class="line-numbers" id="editor-line-numbers" aria-hidden="true"></div>
                             <textarea class="code-input" id="editor-code-input"
-                                placeholder="Cole o JSON do seu exame aqui..." spellcheck="false" required></textarea>
+                                placeholder="Cole o JSON do seu exame aqui..." data-i18n-placeholder="placeholder_json_code" spellcheck="false" required></textarea>
                         </div>
                     </div>
 
-                    <div id="validation-status" class="validation-status empty">
+                    <div id="validation-status" class="validation-status empty" data-i18n="editor_empty_status">
                         Editor vazio. Aguardando JSON...
                     </div>
 
                     <div class="exam-controls">
                         <button id="btn-cancel-exame" class="btn-control btn-secondary">
                             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                            <span>Cancelar</span>
+                            <span data-i18n="btn_cancel">Cancelar</span>
                         </button>
                         <button id="btn-submit-exam" class="btn-control btn-primary" disabled>
                             <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
-                            <span>Criar Exame</span>
+                            <span data-i18n="btn_create_exame">Criar Exame</span>
                         </button>
                     </div>
                 </div>
@@ -620,31 +621,49 @@
             <section id="screen-settings" class="screen">
                 <div class="menu-header-bar">
                     <h3 class="section-title">
-                        <i class="fa-solid fa-gear" aria-hidden="true"></i> Definições do Sistema
+                        <i class="fa-solid fa-gear" aria-hidden="true"></i> <span data-i18n="settings_title">Definições do Sistema</span>
                     </h3>
                 </div>
                 <div class="question-card">
-                    <h4 class="settings-section-title">Armazenamento Local</h4>
-                    <p class="settings-description">
+                    <!-- Language Selection Section -->
+                    <h4 class="settings-section-title" data-i18n="settings_lang_title">Idioma / Language</h4>
+                    <p class="settings-description" data-i18n="settings_lang_desc">
+                        Escolha o idioma de apresentação da interface do simulador.
+                    </p>
+                    <div class="language-selector-group" role="group" aria-label="Language Selection" data-i18n-aria-label="settings_lang_title">
+                        <button type="button" class="btn-control btn-lang-option" data-lang="pt" aria-pressed="false">
+                            <span class="lang-flag" aria-hidden="true">🇵🇹</span>
+                            <span class="lang-name" data-i18n="lang_pt">Português</span>
+                        </button>
+                        <button type="button" class="btn-control btn-lang-option active" data-lang="en" aria-pressed="true">
+                            <span class="lang-flag" aria-hidden="true">🇬🇧</span>
+                            <span class="lang-name" data-i18n="lang_en">English (UK)</span>
+                        </button>
+                    </div>
+
+                    <div class="settings-divider"></div>
+
+                    <h4 class="settings-section-title" data-i18n="settings_storage_title">Armazenamento Local</h4>
+                    <p class="settings-description" data-i18n="settings_storage_desc">
                         Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem
                         cookies de rastreio nem dados transmitidos para terceiros.
                     </p>
                     <div class="danger-zone">
                         <h5 class="danger-zone-title"><i class="fa-solid fa-triangle-exclamation"
-                                aria-hidden="true"></i> Zona de Perigo</h5>
-                        <p class="danger-zone-desc">
+                                aria-hidden="true"></i> <span data-i18n="danger_zone_title">Zona de Perigo</span></h5>
+                        <p class="danger-zone-desc" data-i18n="danger_zone_desc">
                             Esta ação é irreversível e irá apagar permanentemente todas as cadeiras e exames criados
                             localmente.
                         </p>
                         <button id="btn-clear-storage" class="btn-control btn-danger btn-full">
                             <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                            <span>Apagar Todos os Dados Locais</span>
+                            <span data-i18n="btn_clear_storage">Apagar Todos os Dados Locais</span>
                         </button>
                     </div>
                     <div class="exam-controls">
                         <button id="btn-back-settings" class="btn-control btn-secondary btn-full">
                             <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                            <span>Voltar</span>
+                            <span data-i18n="btn_back">Voltar</span>
                         </button>
                     </div>
                 </div>
@@ -653,15 +672,15 @@
 
         <!-- FOOTER (EU Directive 2000/31/CE Compliance) -->
         <footer class="app-footer">
-            <p>&copy; Simulador de Exames • Desenvolvido por <a href="https://github.com/Herculano-Esteves"
-                    target="_blank" rel="noopener noreferrer">github.com/Herculano-Esteves</a></p>
+            <p>&copy; <span data-i18n="footer_copyright">Simulador de Exames</span> • <span data-i18n="footer_dev_by">Desenvolvido por</span> <a href="https://github.com/Herculano-Esteves"
+                    target="_blank" rel="noopener noreferrer">github.com/Herculano-Esteves</a> • <span class="footer-dev-text" data-i18n="footer_dev_status">Ainda em desenvolvimento</span></p>
         </footer>
     </div>
 
     <!-- Notification Toast -->
     <div id="toast" class="toast" role="status" aria-live="polite">
         <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
-        <span>Copiado com sucesso!</span>
+        <span id="toast-message" data-i18n="toast_copied">Copiado com sucesso!</span>
     </div>
 
     <!-- Custom JavaScript modules -->

@@ -6,6 +6,7 @@
  */
 
 import { escapeHTML } from './utils.js';
+import { t } from './i18n.js';
 
 /**
  * Registry defining metadata, display labels, icons, and CSS badges for each question type.
@@ -41,25 +42,29 @@ export const QUESTION_TYPES = {
  * Retrieves metadata for a specific question type with safe fallback to 'escolha_multipla'.
  *
  * @param {string} tipo - The type identifier from question JSON.
- * @returns {object} The question type definition.
+ * @returns {object} The question type definition with localized labels.
  */
 export function getQuestionTypeInfo(tipo) {
     const key = (tipo || '').toLowerCase().trim();
-    if (QUESTION_TYPES[key]) {
-        return QUESTION_TYPES[key];
+    let base = QUESTION_TYPES[key];
+    if (!base) {
+        if (key === 'multipla' || key === 'multiple_choice' || key === 'multiple-choice') {
+            base = QUESTION_TYPES.escolha_multipla;
+        } else if (key === 'true_false' || key === 'verdadeiro_falso' || key === 'tf') {
+            base = QUESTION_TYPES.boolean;
+        } else if (key === 'essay' || key === 'aberta' || key === 'redacao' || key === 'desenvolvimento') {
+            base = QUESTION_TYPES.escrita;
+        } else {
+            base = QUESTION_TYPES.escolha_multipla;
+        }
     }
-    // Aliases
-    if (key === 'multipla' || key === 'multiple_choice' || key === 'multiple-choice') {
-        return QUESTION_TYPES.escolha_multipla;
-    }
-    if (key === 'true_false' || key === 'verdadeiro_falso' || key === 'tf') {
-        return QUESTION_TYPES.boolean;
-    }
-    if (key === 'essay' || key === 'aberta' || key === 'redacao' || key === 'desenvolvimento') {
-        return QUESTION_TYPES.escrita;
-    }
-    // Default fallback
-    return QUESTION_TYPES.escolha_multipla;
+
+    return {
+        ...base,
+        label: t(`type_${base.id}`),
+        shortLabel: t(`type_${base.id}_short`),
+        description: t(`type_${base.id}_desc`)
+    };
 }
 
 /**
@@ -71,12 +76,14 @@ export function getQuestionTypeInfo(tipo) {
 export function getExamQuestionTypes(exam) {
     if (!exam) return ['escolha_multipla'];
 
-    if (Array.isArray(exam.tipos_perguntas) && exam.tipos_perguntas.length > 0) {
-        return [...new Set(exam.tipos_perguntas.map(t => getQuestionTypeInfo(t).id))];
+    const typesList = exam.question_types || exam.tipos_perguntas;
+    if (Array.isArray(typesList) && typesList.length > 0) {
+        return [...new Set(typesList.map(t => getQuestionTypeInfo(t).id))];
     }
 
-    if (Array.isArray(exam.perguntas) && exam.perguntas.length > 0) {
-        return [...new Set(exam.perguntas.map(q => getQuestionTypeInfo(q.tipo).id))];
+    const questionsList = exam.questions || exam.perguntas;
+    if (Array.isArray(questionsList) && questionsList.length > 0) {
+        return [...new Set(questionsList.map(q => getQuestionTypeInfo(q.type || q.tipo).id))];
     }
 
     return ['escolha_multipla'];
@@ -136,40 +143,51 @@ export function validateQuestionSchema(q) {
         return { valid: false, error: 'Objeto de pergunta inválido.' };
     }
 
-    if (!q.pergunta || typeof q.pergunta !== 'string' || !q.pergunta.trim()) {
-        return { valid: false, error: "Campo 'pergunta' obrigatório ausente ou vazio." };
+    const qText = q.question !== undefined ? q.question : q.pergunta;
+    if (!qText || (typeof qText !== 'string' && typeof qText !== 'object')) {
+        return { valid: false, error: "Campo 'question' obrigatório ausente ou inválido." };
     }
 
-    const info = getQuestionTypeInfo(q.tipo);
+    const qType = q.type || q.tipo;
+    const info = getQuestionTypeInfo(qType);
+    const qSol = q.solution !== undefined ? q.solution : q.solucao;
+    const qOpts = q.options !== undefined ? q.options : q.opcoes;
 
     if (info.id === 'escrita') {
-        if (!q.solucao || typeof q.solucao !== 'string' || !q.solucao.trim()) {
-            return { valid: false, error: "Tipo 'escrita' requer 'solucao' textual válida." };
+        if (qSol === undefined || (typeof qSol !== 'string' && typeof qSol !== 'object')) {
+            return { valid: false, error: "Tipo 'escrita' requer 'solution' textual válida." };
         }
         return { valid: true };
     }
 
     if (info.id === 'boolean') {
-        const sol = q.solucao;
-        const isValid = sol === 0 || sol === 1 || (Array.isArray(sol) && sol.length > 0 && (sol[0] === 0 || sol[0] === 1));
+        const isValid = qSol === 0 || qSol === 1 || (Array.isArray(qSol) && qSol.length > 0 && (qSol[0] === 0 || qSol[0] === 1));
         if (!isValid) {
-            return { valid: false, error: "Tipo 'boolean' requer 'solucao' 0 (Verdadeiro) ou 1 (Falso)." };
+            return { valid: false, error: "Tipo 'boolean' requer 'solution' 0 (Verdadeiro) ou 1 (Falso)." };
         }
         return { valid: true };
     }
 
     // Default: escolha_multipla
-    if (!Array.isArray(q.opcoes) || q.opcoes.length < 2) {
-        return { valid: false, error: "Tipo 'escolha_multipla' requer pelo menos 2 opções em 'opcoes'." };
+    let optCount = 0;
+    if (Array.isArray(qOpts)) {
+        optCount = qOpts.length;
+    } else if (qOpts && typeof qOpts === 'object') {
+        const firstLang = Object.keys(qOpts)[0];
+        optCount = Array.isArray(qOpts[firstLang]) ? qOpts[firstLang].length : 0;
     }
 
-    if (!Array.isArray(q.solucao) || q.solucao.length === 0) {
-        return { valid: false, error: "Tipo 'escolha_multipla' requer array com índices em 'solucao'." };
+    if (optCount < 2) {
+        return { valid: false, error: "Tipo 'escolha_multipla' requer pelo menos 2 opções em 'options'." };
     }
 
-    for (const s of q.solucao) {
-        if (typeof s !== 'number' || s < 0 || s >= q.opcoes.length) {
-            return { valid: false, error: `Índice de solução [${s}] fora do intervalo de opções (0 a ${q.opcoes.length - 1}).` };
+    if (!Array.isArray(qSol) || qSol.length === 0) {
+        return { valid: false, error: "Tipo 'escolha_multipla' requer array com índices em 'solution'." };
+    }
+
+    for (const s of qSol) {
+        if (typeof s !== 'number' || s < 0 || s >= optCount) {
+            return { valid: false, error: `Índice de solução [${s}] fora do intervalo de opções (0 a ${optCount - 1}).` };
         }
     }
 

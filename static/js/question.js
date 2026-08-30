@@ -6,10 +6,11 @@
 
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { renderMarkdown, escapeHTML } from './utils.js';
+import { renderMarkdown, escapeHTML, getLocalizedText, getLocalizedList } from './utils.js';
 import { transitionTo } from './navigation.js';
 import { getQuestionTypeInfo } from './questionTypes.js';
 import { QuestionStatus, updateQuestionStatus } from './storage.js';
+import { t, getCurrentLanguage } from './i18n.js';
 
 // ---------------------------------------------------------------------------
 // Internal helpers
@@ -46,13 +47,13 @@ function renderMath() {
 export function renderWrittenQuestionUI(q) {
     const label = document.createElement('p');
     label.className = 'written-answer-label';
-    label.innerHTML = `<i class="fa-regular fa-keyboard" aria-hidden="true"></i> Escreva a sua resposta (<strong>opcional</strong>):`;
+    label.innerHTML = `<i class="fa-regular fa-keyboard" aria-hidden="true"></i> ${t('written_label')}`;
     elements.optionsContainer.appendChild(label);
 
     const textarea = document.createElement('textarea');
     textarea.id = 'written-answer-input';
     textarea.className = 'written-answer-textarea';
-    textarea.placeholder = 'Escreva aqui a sua resposta para estruturar as suas ideias...';
+    textarea.placeholder = t('written_placeholder');
     textarea.value = State.question.writtenInput || '';
 
     textarea.addEventListener('input', (e) => {
@@ -72,7 +73,7 @@ export function renderWrittenQuestionUI(q) {
     if (!State.question.revealed) {
         const btnReveal = document.createElement('button');
         btnReveal.className = 'btn-control btn-primary btn-full btn-reveal';
-        btnReveal.innerHTML = `<span>Ver Resposta</span> <i class="fa-solid fa-eye" aria-hidden="true"></i>`;
+        btnReveal.innerHTML = `<span>${t('btn_reveal_answer')}</span> <i class="fa-solid fa-eye" aria-hidden="true"></i>`;
         btnReveal.addEventListener('click', () => revealWrittenAnswer());
         elements.optionsContainer.appendChild(btnReveal);
     }
@@ -83,9 +84,13 @@ export function renderWrittenQuestionUI(q) {
  * @param {object} q - Current question object
  */
 export function renderChoiceQuestionUI(q) {
-    const isBoolean   = q.tipo === 'boolean';
-    const optionsList = isBoolean ? ['Verdadeiro', 'Falso'] : q.opcoes;
-    const correctList = Array.isArray(q.solucao) ? q.solucao : [q.solucao];
+    const isBoolean   = (q.type || q.tipo) === 'boolean';
+    const rawOptions  = q.options || q.opcoes;
+    const optionsList = isBoolean 
+        ? (getCurrentLanguage() === 'en' ? ['True', 'False'] : ['Verdadeiro', 'Falso'])
+        : getLocalizedList(rawOptions);
+    const rawSolution = q.solution !== undefined ? q.solution : q.solucao;
+    const correctList = Array.isArray(rawSolution) ? rawSolution : [rawSolution];
 
     optionsList.forEach((opcao, idx) => {
         const btn = document.createElement('button');
@@ -93,7 +98,7 @@ export function renderChoiceQuestionUI(q) {
         btn.setAttribute('type', 'button');
         
         const prefixText = isBoolean 
-            ? (idx === 0 ? 'V)' : 'F)')
+            ? (idx === 0 ? (getCurrentLanguage() === 'en' ? 'T)' : 'V)') : 'F)')
             : `${String.fromCharCode(65 + idx)})`;
             
         btn.innerHTML = `<span class="option-btn-prefix">${prefixText}</span> <span>${escapeHTML(opcao)}</span>`;
@@ -120,7 +125,7 @@ export function renderChoiceQuestionUI(q) {
     if (!State.question.revealed) {
         const confirmBtn = document.createElement('button');
         confirmBtn.className = 'btn-control btn-primary btn-full btn-confirm-answer';
-        confirmBtn.innerHTML = `<span>Confirmar Resposta(s)</span> <i class="fa-solid fa-square-check" aria-hidden="true"></i>`;
+        confirmBtn.innerHTML = `<span>${t('btn_confirm_selection')}</span> <i class="fa-solid fa-square-check" aria-hidden="true"></i>`;
         confirmBtn.disabled = State.question.selectedOptions.length === 0;
         confirmBtn.addEventListener('click', () => confirmMultipleChoiceAnswer());
         elements.optionsContainer.appendChild(confirmBtn);
@@ -137,30 +142,35 @@ export function renderFeedbackUI(q) {
         return;
     }
 
-    if (q.tipo === 'escrita') {
+    const qType = q.type || q.tipo;
+    const rawSolution = q.solution !== undefined ? q.solution : q.solucao;
+    const rawExplanation = q.explanation || q.explicacao;
+
+    if (qType === 'escrita') {
         elements.answerFeedback.className = 'answer-feedback correct';
-        elements.feedbackTitle.innerHTML = `<i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Resposta Esperada / Resolução:`;
-        elements.feedbackMessage.innerHTML = renderMarkdown(q.solucao);
+        elements.feedbackTitle.innerHTML = `<i class="fa-solid fa-lightbulb" aria-hidden="true"></i> ${t('feedback_expected_solution')}`;
+        elements.feedbackMessage.innerHTML = renderMarkdown(getLocalizedText(rawSolution));
         return;
     }
 
     const selected    = State.question.selectedOptions;
-    const correctList = Array.isArray(q.solucao) ? q.solucao : [q.solucao];
+    const correctList = Array.isArray(rawSolution) ? rawSolution : [rawSolution];
     const isCorrect   = selected.length === correctList.length &&
                         selected.every(val => correctList.includes(val));
 
     elements.answerFeedback.className = `answer-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
     elements.feedbackTitle.innerHTML = isCorrect 
-        ? `<i class="fa-solid fa-circle-check" aria-hidden="true"></i> Resposta Correta!`
-        : `<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> Resposta Incorreta!`;
+        ? `<i class="fa-solid fa-circle-check" aria-hidden="true"></i> ${t('feedback_correct')}`
+        : `<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> ${t('feedback_incorrect')}`;
 
     const letters = correctList.map(val => String.fromCharCode(65 + val)).sort().join(', ');
     let msg = correctList.length === 1
-        ? `A resposta correta é a Alínea <strong>${letters}</strong>.`
-        : `As respostas corretas são as Alíneas: <strong>${letters}</strong>.`;
+        ? t('feedback_correct_single', { letters })
+        : t('feedback_correct_plural', { letters });
 
-    if (q.explicacao) {
-        msg += `<br><br><strong>Explicação / Justificação:</strong><br>${renderMarkdown(q.explicacao)}`;
+    const explanationText = getLocalizedText(rawExplanation);
+    if (explanationText) {
+        msg += `<br><br><strong>${t('feedback_explanation')}:</strong><br>${renderMarkdown(explanationText)}`;
     }
     elements.feedbackMessage.innerHTML = msg;
 }
@@ -176,9 +186,11 @@ export function renderQuestion() {
     const q = State.currentQuestion;
     if (!q) return;
 
+    const questionsList = State.activeExam ? (State.activeExam.questions || State.activeExam.perguntas || []) : [];
+
     // Garantir integridade do array de respostas da sessão
     if (!State.examAnswers || State.examAnswers.length !== State.totalQuestions) {
-        State.examAnswers = State.activeExam.perguntas.map(() => ({
+        State.examAnswers = questionsList.map(() => ({
             selectedOptions: [],
             writtenInput: '',
             revealed: false,
@@ -194,9 +206,15 @@ export function renderQuestion() {
         State.question.revealed        = saved.revealed || false;
     }
 
-    // --- Top bar progress ---
-    elements.questionCounter.textContent =
-        `Questão ${State.question.index + 1} de ${State.totalQuestions}`;
+    // --- Top bar progress & Title ---
+    if (State.activeExam && elements.currentExamTitle) {
+        elements.currentExamTitle.textContent = getLocalizedText(State.activeExam.title || State.activeExam.titulo);
+    }
+
+    elements.questionCounter.textContent = t('question_counter', {
+        current: State.question.index + 1,
+        total: State.totalQuestions
+    });
     if (elements.currentQNum) {
         elements.currentQNum.textContent = State.question.index + 1;
     }
@@ -211,11 +229,12 @@ export function renderQuestion() {
     }
 
     // --- Question text ---
-    elements.questionText.textContent = q.pergunta;
+    elements.questionText.textContent = getLocalizedText(q.question || q.pergunta);
 
-    // --- Cabecalho (optional scenario block) ---
-    if (q.cabecalho) {
-        elements.questionCabecalho.innerHTML = renderMarkdown(q.cabecalho, true);
+    // --- Header / Cabecalho (optional scenario block) ---
+    const headerText = getLocalizedText(q.header || q.cabecalho);
+    if (headerText) {
+        elements.questionCabecalho.innerHTML = renderMarkdown(headerText, true);
         elements.questionCabecalho.classList.remove('hidden');
     } else {
         elements.questionCabecalho.innerHTML = '';
@@ -225,7 +244,8 @@ export function renderQuestion() {
     // --- Options / answer UI ---
     elements.optionsContainer.innerHTML = '';
 
-    if (q.tipo === 'escrita') {
+    const qType = q.type || q.tipo;
+    if (qType === 'escrita') {
         renderWrittenQuestionUI(q);
     } else {
         renderChoiceQuestionUI(q);
@@ -235,16 +255,16 @@ export function renderQuestion() {
 
     // --- Navigation buttons ---
     elements.btnPrev.disabled = State.question.index === 0;
-    elements.btnPrev.innerHTML = `<i class="fa-solid fa-chevron-left" aria-hidden="true"></i> <span>Voltar</span>`;
+    elements.btnPrev.innerHTML = `<i class="fa-solid fa-chevron-left" aria-hidden="true"></i> <span>${t('btn_prev')}</span>`;
     
     elements.btnNext.disabled = false;
 
     if (State.question.index === State.totalQuestions - 1) {
         elements.btnNext.innerHTML =
-            `<span>Terminar Exame</span> <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>`;
+            `<span>${t('btn_finish')}</span> <i class="fa-solid fa-flag-checkered" aria-hidden="true"></i>`;
     } else {
         elements.btnNext.innerHTML =
-            `<span>Avançar</span> <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>`;
+            `<span>${t('btn_next')}</span> <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>`;
     }
 
     renderMath();
@@ -263,7 +283,7 @@ export function selectOption(optionIndex) {
     const q = State.currentQuestion;
     if (!q) return;
 
-    if (q.tipo === 'boolean') {
+    if ((q.type || q.tipo) === 'boolean') {
         State.question.selectedOptions = [optionIndex];
     } else {
         const pos = State.question.selectedOptions.indexOf(optionIndex);
@@ -293,7 +313,8 @@ export function confirmMultipleChoiceAnswer() {
     State.question.revealed = true;
 
     const selected    = State.question.selectedOptions;
-    const correctList = Array.isArray(q.solucao) ? q.solucao : [q.solucao];
+    const rawSolution = q.solution !== undefined ? q.solution : q.solucao;
+    const correctList = Array.isArray(rawSolution) ? rawSolution : [rawSolution];
     const isCorrect   = selected.length === correctList.length &&
                         selected.every(val => correctList.includes(val));
 
@@ -419,20 +440,10 @@ export function showResults() {
     if (elements.resultsIncorrectCount) elements.resultsIncorrectCount.textContent = incorrect;
     if (elements.resultsUnansweredCount) elements.resultsUnansweredCount.textContent = unanswered;
 
-    // Mensagem de feedback contextual
-    if (elements.resultsFeedbackMessage) {
-        if (percentage >= 80) {
-            elements.resultsFeedbackMessage.textContent = 'Excelente desempenho! Dominou esta matéria com distinção.';
-        } else if (percentage >= 50) {
-            elements.resultsFeedbackMessage.textContent = 'Bom trabalho! Exame concluído com aproveitamento positivo.';
-        } else {
-            elements.resultsFeedbackMessage.textContent = 'Aproveitamento insuficiente. Reveja as matérias com mais dúvidas e tente novamente!';
-        }
-    }
-
     // Sincronizar array de respostas do exame completo no localStorage
-    if (State.activeExam && State.activeExam.id && Array.isArray(State.activeExam.perguntas)) {
-        State.activeExam.perguntas.forEach((q, idx) => {
+    const questionsList = State.activeExam ? (State.activeExam.questions || State.activeExam.perguntas || []) : [];
+    if (State.activeExam && State.activeExam.id && Array.isArray(questionsList)) {
+        questionsList.forEach((q, idx) => {
             const ans = answers[idx];
             const origIdx = (q._origIndex !== undefined) ? q._origIndex : idx;
             let status = QuestionStatus.UNANSWERED;

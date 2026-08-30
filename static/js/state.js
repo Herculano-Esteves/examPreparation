@@ -10,7 +10,12 @@
  * ensure the values are always derived from the current State.
  */
 
+import { getInitialLanguage } from './config.js';
+
 export const State = {
+    // Active language from configuration / storage
+    language: getInitialLanguage(),
+
     // Current active screen: 'cadeiras' | 'menu' | 'exam' | 'results' | 'addCadeira' | 'addExame' | 'settings'
     currentScreen: 'cadeiras',
 
@@ -65,12 +70,19 @@ export const State = {
 
     /** Total number of questions in the active exam. */
     get totalQuestions() {
-        return this.activeExam ? this.activeExam.perguntas.length : 0;
+        if (!this.activeExam) return 0;
+        const qList = this.activeExam.questions || this.activeExam.perguntas;
+        return Array.isArray(qList) ? qList.length : 0;
+    },
+    set totalQuestions(_) {
+        // Safe no-op setter to avoid TypeError in strict mode
     },
 
     /** The question object currently being shown. */
     get currentQuestion() {
-        if (!this.activeExam || !this.activeExam.perguntas) return null;
-        return this.activeExam.perguntas[this.question.index];
+        if (!this.activeExam) return null;
+        const qList = this.activeExam.questions || this.activeExam.perguntas;
+        if (!Array.isArray(qList)) return null;
+        return qList[this.question.index] || null;
     }
 };

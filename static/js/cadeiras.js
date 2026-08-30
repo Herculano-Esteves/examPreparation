@@ -10,6 +10,7 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { escapeHTML, clampCardDescriptions } from './utils.js';
 import { transitionTo } from './navigation.js';
+import { t } from './i18n.js';
 
 /**
  * Fetch the static cadeiras list from the server and render the menu.
@@ -93,8 +94,8 @@ export function renderCadeirasMenu() {
         elements.cadeirasGrid.innerHTML = `
             <div class="error-state">
                 <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
-                <h3>Nenhuma cadeira disponível</h3>
-                <p>Adicione uma cadeira no botão acima ou configure o ficheiro 'exames/cadeiras.json'.</p>
+                <h3>${escapeHTML(t('empty_cadeiras_title'))}</h3>
+                <p>${escapeHTML(t('empty_cadeiras_desc'))}</p>
             </div>
         `;
         return;
@@ -114,10 +115,10 @@ export function renderCadeirasMenu() {
         elements.cadeirasGrid.innerHTML = `
             <div class="empty-filters-state">
                 <i class="fa-solid fa-magnifying-glass empty-filters-main-icon" aria-hidden="true"></i>
-                <h4>Nenhuma cadeira encontrada</h4>
-                <p>Nenhuma cadeira corresponde à pesquisa "${escapeHTML(State.cadeirasSearch)}".</p>
+                <h4>${escapeHTML(t('empty_search_cadeiras_title'))}</h4>
+                <p>${escapeHTML(t('empty_search_cadeiras_desc', { query: State.cadeirasSearch }))}</p>
                 <button type="button" class="btn-control btn-primary btn-sm" id="btn-clear-cadeiras-empty">
-                    <i class="fa-solid fa-rotate-left"></i> Limpar Pesquisa
+                    <i class="fa-solid fa-rotate-left"></i> ${escapeHTML(t('btn_clear_search'))}
                 </button>
             </div>
         `;
@@ -140,20 +141,20 @@ export function renderCadeirasMenu() {
         row.className = 'exam-list-row';
         row.setAttribute('tabindex', '0');
         row.setAttribute('role', 'button');
-        row.setAttribute('aria-label', `Selecionar cadeira ${cadeira.nome}`);
+        row.setAttribute('aria-label', t('aria_select_cadeira', { name: cadeira.nome }));
 
         const sigla = (cadeira.sigla ||
             cadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5)).toUpperCase();
 
         const exCount = cadeira.exames_count || 0;
-        const countLabel = exCount === 1 ? '1 exame' : `${exCount} exames`;
+        const countLabel = exCount === 1 ? t('exam_singular') : t('exam_plural', { count: exCount });
         const iconClass = cadeira.icon
             ? (cadeira.icon.startsWith('fa-') ? `fa-solid ${cadeira.icon}` : cadeira.icon)
             : 'fa-solid fa-graduation-cap';
 
         row.innerHTML = `
             <div class="exam-list-header">
-                <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ' <span class="badge-local">Local</span>' : ''}</h4>
+                <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
                 <span class="exam-list-action">[ ${countLabel} ]</span>
             </div>
             <p class="exam-list-desc">${escapeHTML(cadeira.descricao)}</p>
@@ -196,7 +197,7 @@ export function selectCadeira(cadeira) {
     
     const subtitleEl = document.getElementById('app-subtitle');
     if (subtitleEl) {
-        subtitleEl.innerHTML = `<span class="status-dot" aria-hidden="true"></span> SISTEMA DE EXAMES | ${escapeHTML(sigla)}`;
+        subtitleEl.textContent = t('app_subtitle_with_sigla', { sigla });
     }
 
     transitionTo('menu');

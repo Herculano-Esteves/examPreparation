@@ -9,6 +9,7 @@ import { elements } from './elements.js';
 import { fetchExams } from './exams.js';
 import { renderCadeirasMenu } from './cadeiras.js';
 import { clampCardDescriptions } from './utils.js';
+import { t } from './i18n.js';
 
 /**
  * Transition to a named screen, handling layout class changes and scroll reset.
@@ -40,11 +41,11 @@ export function transitionTo(screenName) {
         });
 
         const mainTitle = document.getElementById('app-main-title');
-        if (mainTitle) mainTitle.textContent = 'Simulador de Exames';
+        if (mainTitle) mainTitle.textContent = t('app_title');
 
         const subtitleEl = document.getElementById('app-subtitle');
         if (subtitleEl) {
-            subtitleEl.innerHTML = `<span class="status-dot" aria-hidden="true"></span> SISTEMA DE EXAMES`;
+            subtitleEl.textContent = t('app_subtitle');
         }
     }
 
