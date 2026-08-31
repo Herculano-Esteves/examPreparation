@@ -14,7 +14,7 @@
 
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { escapeHTML, showToast } from './utils.js';
+import { escapeHTML, showToast, safeAsync } from './utils.js';
 import { loadLocalData, QuestionStatus } from './storage.js';
 import { transitionTo } from './navigation.js';
 import { renderQuestion } from './question.js';
@@ -71,7 +71,7 @@ export async function fetchExams(indexPath) {
         </div>
     `;
 
-    try {
+    await safeAsync(async () => {
         loadLocalData(State);
         const currentCadeiraId = State.activeCadeira ? State.activeCadeira.id : null;
         State.exams = await ExamService.fetchExamsForSubject(indexPath, currentCadeiraId, State.localExames);
@@ -86,19 +86,11 @@ export async function fetchExams(indexPath) {
         State.globalQuestionTypes = ALL_QUESTION_TYPES;
 
         renderExamsMenu();
-    } catch (error) {
-        console.error('Error fetching exams:', error);
-        elements.examsGrid.innerHTML = `
-            <div class="error-state">
-                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                <h3>Erro ao carregar os exames</h3>
-                <p>${escapeHTML(error.message)}</p>
-                <button class="btn-control btn-primary" id="btn-retry-exams" style="margin-top: 1rem;">Tentar Novamente</button>
-            </div>
-        `;
-        const retryBtn = document.getElementById('btn-retry-exams');
-        if (retryBtn) retryBtn.addEventListener('click', () => fetchExams(indexPath));
-    }
+    }, {
+        context: 'exames',
+        container: elements.examsGrid,
+        onRetry: () => fetchExams(indexPath)
+    });
 }
 
 /**

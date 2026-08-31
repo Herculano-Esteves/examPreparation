@@ -8,7 +8,7 @@
 
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { escapeHTML, clampCardDescriptions } from './utils.js';
+import { escapeHTML, clampCardDescriptions, safeAsync } from './utils.js';
 import { transitionTo } from './navigation.js';
 import { t } from './i18n.js';
 import { Events, APP_EVENTS } from './events.js';
@@ -18,26 +18,16 @@ import { Events, APP_EVENTS } from './events.js';
  * Displays a retry button on failure.
  */
 export async function fetchCadeiras() {
-    try {
+    await safeAsync(async () => {
         const response = await fetch('exames/cadeiras.json', { cache: 'no-cache' });
         if (!response.ok) throw new Error('Não foi possível carregar as cadeiras.');
         State.cadeiras = await response.json();
         renderCadeirasMenu();
-    } catch (error) {
-        console.error('Error fetching cadeiras:', error);
-        if (elements.cadeirasGrid) {
-            elements.cadeirasGrid.innerHTML = `
-                <div class="error-state">
-                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                    <h3>Erro ao carregar as cadeiras</h3>
-                    <p>${escapeHTML(error.message)}</p>
-                    <button class="btn-control btn-primary" id="btn-retry-cadeiras" style="margin-top: 1rem;">Tentar Novamente</button>
-                </div>
-            `;
-            const retryBtn = document.getElementById('btn-retry-cadeiras');
-            if (retryBtn) retryBtn.addEventListener('click', () => fetchCadeiras());
-        }
-    }
+    }, {
+        context: 'cadeiras',
+        container: elements.cadeirasGrid,
+        onRetry: fetchCadeiras
+    });
 }
 
 let cadeirasSearchInitialized = false;

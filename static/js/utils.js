@@ -92,48 +92,9 @@ export function renderMarkdown(text, isPreformatted = false) {
     return parseMarkdown(text, isPreformatted);
 }
 
-let toastTimeout = null;
+import { showToast, renderErrorState, safeAsync, NotificationType } from './notifications.js';
 
-/**
- * Display a brief modern toast notification.
- *
- * @param {string} message - Notification text to display.
- * @param {object} [elementsRef] - Optional elements cache containing toast element.
- */
-export function showToast(message, elementsRef) {
-    const toastEl = (elementsRef && elementsRef.toast) || document.getElementById('toast');
-    if (!toastEl) return;
-
-    const span = toastEl.querySelector('span');
-    const icon = toastEl.querySelector('i');
-
-    if (span) {
-        // Strip duplicate emoji icons from message string so only FontAwesome icon shows
-        span.textContent = message.replace(/^[\s⚠️!✅❌\[]+|[\s\]]+$/g, '').trim();
-    }
-
-    if (icon) {
-        if (message.includes('⚠️') || message.toLowerCase().includes('erro') || message.toLowerCase().includes('excluídas') || message.toLowerCase().includes('excluidas')) {
-            icon.className = 'fa-solid fa-triangle-exclamation';
-            toastEl.classList.add('toast-warning');
-            toastEl.classList.remove('toast-success');
-        } else {
-            icon.className = 'fa-solid fa-circle-check';
-            toastEl.classList.add('toast-success');
-            toastEl.classList.remove('toast-warning');
-        }
-    }
-
-    if (toastTimeout) {
-        clearTimeout(toastTimeout);
-    }
-
-    toastEl.classList.add('show');
-
-    toastTimeout = setTimeout(() => {
-        toastEl.classList.remove('show');
-    }, 2200);
-}
+export { showToast, renderErrorState, safeAsync, NotificationType };
 
 let cardResizeObserver = null;
 

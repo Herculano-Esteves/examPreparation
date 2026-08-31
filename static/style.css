@@ -2676,6 +2676,24 @@ body.header-scrolled .sticky-corner-right {
     color: #fbbf24;
 }
 
+.toast.toast-error {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(26, 15, 15, 0.95);
+}
+
+.toast.toast-error i {
+    color: #f87171;
+}
+
+.toast.toast-info {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: rgba(15, 20, 30, 0.94);
+}
+
+.toast.toast-info i {
+    color: #60a5fa;
+}
+
 .toast.toast-success {
     border-color: rgba(168, 85, 247, 0.35);
 }

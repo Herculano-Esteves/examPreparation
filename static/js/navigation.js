@@ -45,13 +45,16 @@ export function transitionTo(screenName) {
     }
 
     const actualTargetScreen = elements.screens[screenName];
+    if (actualTargetScreen) {
+        actualTargetScreen.classList.add('active');
+    }
+    State.currentScreen = screenName;
 
+    // Notify all subscribers of the screen transition synchronously
+    Events.emit(APP_EVENTS.SCREEN_CHANGED, { from: previousScreen, to: screenName });
+
+    // Defer visual measurements and KaTeX rendering to next animation frame
     requestAnimationFrame(() => {
-        if (actualTargetScreen) {
-            actualTargetScreen.classList.add('active');
-        }
-        State.currentScreen = screenName;
-
         if (screenName === 'cadeiras' && elements.cadeirasGrid) {
             clampCardDescriptions(elements.cadeirasGrid);
         } else if (screenName === 'menu' && elements.examsGrid) {
@@ -59,8 +62,5 @@ export function transitionTo(screenName) {
         }
 
         renderMath();
-
-        // Notify all subscribers of the screen transition
-        Events.emit(APP_EVENTS.SCREEN_CHANGED, { from: previousScreen, to: screenName });
     });
 }

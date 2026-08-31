@@ -12,7 +12,8 @@ export const APP_EVENTS = Object.freeze({
     CADEIRA_SELECTED:  'cadeira:selected',
     EXAM_STARTED:      'exam:started',
     EXAM_FINISHED:     'exam:finished',
-    FILTERS_RESET:     'filters:reset'
+    FILTERS_RESET:     'filters:reset',
+    NOTIFICATION:      'app:notification'
 });
 
 class EventBus {
