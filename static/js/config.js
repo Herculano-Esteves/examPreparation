@@ -21,7 +21,8 @@ export const APP_CONFIG = {
         version: 'simulador_storage_version',
         cadeiras: 'simulador_cadeiras_locais',
         exames: 'simulador_exames_locais',
-        history: 'simulador_historico_exames'
+        history: 'simulador_historico_exames',
+        difficultQuestions: 'simulador_perguntas_dificeis'
     },
 
     // Storage version for automatic schema migrations

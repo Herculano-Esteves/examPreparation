@@ -10,6 +10,7 @@ import { fetchExams, renderExamsMenu } from './exams.js';
 import { prevQuestion, nextQuestion, renderQuestion } from './question.js';
 import { copyQuestionToClipboard } from './clipboard.js';
 import { applyTranslations, setLanguage, t } from './i18n.js';
+import { initExamLayout } from './layout.js';
 
 // Initialization
 function initApp() {
@@ -17,6 +18,7 @@ function initApp() {
     setupEventListeners();
     setupLocalCreationListeners();
     loadLocalData(State);
+    initExamLayout();
     fetchCadeiras();
 
     let resizeTimer;

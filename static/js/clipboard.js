@@ -31,13 +31,13 @@ export function copyQuestionToClipboard(includeAnswer = false) {
 
     let textToCopy = `${t('clip_exam')}: ${examTitle}\n${qNumText}\n`;
 
+    const questionText = getLocalizedText(q.question || q.pergunta);
+    textToCopy += `\n${t('clip_question_label')}:\n${questionText}\n`;
+
     const headerText = getLocalizedText(q.header || q.cabecalho);
     if (headerText) {
         textToCopy += `\n${t('clip_scenario')}:\n${headerText}\n`;
     }
-
-    const questionText = getLocalizedText(q.question || q.pergunta);
-    textToCopy += `\n${t('clip_question_label')}:\n${questionText}\n`;
 
     const qType = q.type || q.tipo;
     const rawSolution = q.solution !== undefined ? q.solution : q.solucao;

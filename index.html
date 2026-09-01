@@ -74,6 +74,28 @@
             </div>
         </div>
 
+        <!-- EXAM SUB BAR: Secondary Context & Question Action Header -->
+        <div class="exam-sub-bar" id="exam-sub-bar" aria-hidden="true">
+            <div class="exam-sub-bar-left">
+                <span id="subbar-question-type-badge" class="exam-subbar-badge badge-question-type">
+                    <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                    <span id="subbar-question-type-text">Escolha Múltipla</span>
+                </span>
+                <span id="subbar-question-status-badge" class="exam-subbar-badge badge-question-status status-unanswered">
+                    <i class="fa-solid fa-circle-minus" aria-hidden="true"></i>
+                    <span id="subbar-question-status-text" data-i18n="status_unanswered">Por Responder</span>
+                </span>
+            </div>
+            <div class="exam-sub-bar-right">
+                <button type="button" id="btn-toggle-difficult" class="btn-control btn-difficult-toggle"
+                    aria-pressed="false" title="Marcar ou desmarcar esta pergunta como difícil para revisão"
+                    data-i18n-title="title_toggle_difficult">
+                    <i class="fa-solid fa-fire" aria-hidden="true"></i>
+                    <span id="btn-toggle-difficult-text" data-i18n="btn_mark_difficult">Marcar como Difícil</span>
+                </button>
+            </div>
+        </div>
+
         <!-- MAIN CONTENT AREA -->
         <main class="main-content">
             <!-- STATE 0: CADEIRAS SCREEN -->
@@ -390,25 +412,28 @@
 
                     <!-- LEFT COLUMN (Question details, scenario, exit) -->
                     <div class="exam-left-pane">
-                        <div class="exam-left-scroll-content">
-                            <div id="question-cabecalho" class="question-cabecalho hidden"></div>
-                            <h3 id="question-text" class="question-text">
-                                <span id="question-text-content" data-i18n="loading_question">A carregar pergunta...</span>
-                                <span class="btn-copy-group" role="group" aria-label="Opções de cópia da questão" data-i18n-aria-label="aria_copy_group">
-                                    <button id="btn-copy" class="btn-copy-split btn-copy-left"
-                                        title="Copiar apenas a questão e opções" aria-label="Copiar questão e opções"
-                                        data-i18n-title="title_copy_question" data-i18n-aria-label="aria_copy_question">
-                                        <i class="fa-regular fa-copy" aria-hidden="true"></i>
-                                        <span data-i18n="btn_copy">Copiar</span>
-                                    </button>
-                                    <button id="btn-copy-answer" class="btn-copy-split btn-copy-right"
-                                        title="Copiar questão com a resposta e justificação"
-                                        aria-label="Copiar questão com resposta"
-                                        data-i18n-title="title_copy_answer" data-i18n-aria-label="aria_copy_answer">
-                                        <span data-i18n="btn_copy_answer">+ Resposta</span>
-                                    </button>
-                                </span>
-                            </h3>
+                        <div class="exam-left-scroll-content" id="exam-left-scroll-content">
+                            <div class="pane-top-spacer" id="left-pane-spacer" aria-hidden="true"></div>
+                            <div class="pane-content-wrapper" id="left-pane-content">
+                                <h3 id="question-text" class="question-text">
+                                    <span id="question-text-content" data-i18n="loading_question">A carregar pergunta...</span>
+                                    <span class="btn-copy-group" role="group" aria-label="Opções de cópia da questão" data-i18n-aria-label="aria_copy_group">
+                                        <button id="btn-copy" class="btn-copy-split btn-copy-left"
+                                            title="Copiar apenas a questão e opções" aria-label="Copiar questão e opções"
+                                            data-i18n-title="title_copy_question" data-i18n-aria-label="aria_copy_question">
+                                            <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                                            <span data-i18n="btn_copy">Copiar</span>
+                                        </button>
+                                        <button id="btn-copy-answer" class="btn-copy-split btn-copy-right"
+                                            title="Copiar questão com a resposta e justificação"
+                                            aria-label="Copiar questão com resposta"
+                                            data-i18n-title="title_copy_answer" data-i18n-aria-label="aria_copy_answer">
+                                            <span data-i18n="btn_copy_answer">+ Resposta</span>
+                                        </button>
+                                    </span>
+                                </h3>
+                                <div id="question-cabecalho" class="question-cabecalho hidden"></div>
+                            </div>
                         </div>
 
                         <!-- Fixed exit control on the left -->
@@ -422,16 +447,19 @@
 
                     <!-- RIGHT COLUMN (Options and choices + navigation) -->
                     <div class="exam-right-pane">
-                        <div class="exam-right-scroll-content">
-                            <div id="options-container" class="options-container">
-                                <!-- Options will be generated dynamically -->
-                            </div>
+                        <div class="exam-right-scroll-content" id="exam-right-scroll-content">
+                            <div class="pane-top-spacer" id="right-pane-spacer" aria-hidden="true"></div>
+                            <div class="pane-content-wrapper" id="right-pane-content">
+                                <div id="options-container" class="options-container">
+                                    <!-- Options will be generated dynamically -->
+                                </div>
 
-                            <!-- Explanatory answer banner -->
-                            <div id="answer-feedback" class="answer-feedback hidden">
-                                <div class="feedback-text">
-                                    <h4 id="feedback-title">Correto!</h4>
-                                    <p id="feedback-message">A resposta correta é...</p>
+                                <!-- Explanatory answer banner -->
+                                <div id="answer-feedback" class="answer-feedback hidden">
+                                    <div class="feedback-text">
+                                        <h4 id="feedback-title">Correto!</h4>
+                                        <p id="feedback-message">A resposta correta é...</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

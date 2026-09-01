@@ -53,13 +53,27 @@ export const elements = {
     get sliderScoreMax()            { return document.getElementById('slider-score-max'); },
     get trackFillScore()            { return document.getElementById('track-fill-score'); },
 
-    // ---------- Exam top bar ----------
+    // ---------- Exam top bar & Sub bar ----------
+    get examTopBar()                { return document.getElementById('exam-top-bar'); },
     get currentExamTitle()          { return document.getElementById('current-exam-title'); },
     get questionCounter()           { return document.getElementById('question-counter'); },
     get progressPercentage()        { return document.getElementById('progress-percentage'); },
     get progressBarFill()           { return document.getElementById('progress-bar-fill'); },
+    get examSubBar()                { return document.getElementById('exam-sub-bar'); },
+    get btnToggleDifficult()        { return document.getElementById('btn-toggle-difficult'); },
+    get btnToggleDifficultText()    { return document.getElementById('btn-toggle-difficult-text'); },
+    get subbarQuestionTypeBadge()   { return document.getElementById('subbar-question-type-badge'); },
+    get subbarQuestionTypeText()    { return document.getElementById('subbar-question-type-text'); },
+    get subbarQuestionStatusBadge() { return document.getElementById('subbar-question-status-badge'); },
+    get subbarQuestionStatusText()  { return document.getElementById('subbar-question-status-text'); },
 
     // ---------- Question pane ----------
+    get leftScrollContent()         { return document.getElementById('exam-left-scroll-content') || document.querySelector('.exam-left-scroll-content'); },
+    get rightScrollContent()        { return document.getElementById('exam-right-scroll-content') || document.querySelector('.exam-right-scroll-content'); },
+    get leftPaneSpacer()            { return document.getElementById('left-pane-spacer'); },
+    get rightPaneSpacer()           { return document.getElementById('right-pane-spacer'); },
+    get leftPaneContent()           { return document.getElementById('left-pane-content'); },
+    get rightPaneContent()          { return document.getElementById('right-pane-content'); },
     get currentQNum()               { return document.getElementById('current-q-num'); },
     get questionCabecalho()         { return document.getElementById('question-cabecalho'); },
     get questionText()              { return document.getElementById('question-text-content') || document.getElementById('question-text'); },

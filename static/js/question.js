@@ -1,12 +1,13 @@
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { escapeHTML, getLocalizedText, getLocalizedList } from './utils.js';
+import { escapeHTML, getLocalizedText, getLocalizedList, showToast, NotificationType } from './utils.js';
 import { renderMarkdown, renderMath, renderRichText } from './renderer.js';
 import { transitionTo } from './navigation.js';
 import { getQuestionTypeInfo } from './questionTypes.js';
-import { QuestionStatus, updateQuestionStatus } from './storage.js';
+import { QuestionStatus, updateQuestionStatus, toggleDifficultQuestion, isQuestionDifficult } from './storage.js';
 import { t, getCurrentLanguage } from './i18n.js';
 import { Events, APP_EVENTS } from './events.js';
+import { syncExamSplitLayout } from './layout.js';
 
 // ---------------------------------------------------------------------------
 // Sub-renderers (called by renderQuestion)
@@ -235,6 +236,9 @@ export function renderQuestion() {
 
     renderFeedbackUI(q);
 
+    // --- Sub-bar (Type badge, Status badge, Difficult button) ---
+    updateQuestionSubBar(q);
+
     // --- Navigation buttons ---
     elements.btnPrev.disabled = State.question.index === 0;
     elements.btnPrev.innerHTML = `<i class="fa-solid fa-chevron-left" aria-hidden="true"></i> <span>${t('btn_prev')}</span>`;
@@ -250,6 +254,129 @@ export function renderQuestion() {
     }
 
     renderMath();
+    syncExamSplitLayout();
+}
+
+let difficultListenerInitialized = false;
+
+/**
+ * Initializes the difficult question toggle button listener once.
+ */
+function initDifficultToggleListener() {
+    if (difficultListenerInitialized) return;
+    const btn = elements.btnToggleDifficult;
+    if (!btn) return;
+    difficultListenerInitialized = true;
+
+    btn.addEventListener('click', () => {
+        if (!State.activeExam) return;
+        const q = State.currentQuestion;
+        if (!q) return;
+        const origIndex = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
+        const isDiff = toggleDifficultQuestion(State.activeExam.id, origIndex, State);
+        
+        updateDifficultButtonUI(isDiff);
+
+        if (isDiff) {
+            showToast(t('toast_question_marked_difficult'), NotificationType.SUCCESS);
+        } else {
+            showToast(t('toast_question_unmarked_difficult'), NotificationType.INFO);
+        }
+
+        Events.emit('question:difficult_toggled', {
+            examId: State.activeExam.id,
+            origIndex,
+            isDifficult: isDiff
+        });
+    });
+}
+
+/**
+ * Updates the secondary header (question type, status, and difficult flag).
+ * @param {object} q - Current question object
+ */
+export function updateQuestionSubBar(q) {
+    if (!q) return;
+    initDifficultToggleListener();
+
+    // 1. Question Type Badge
+    const typeInfo = getQuestionTypeInfo(q.type || q.tipo);
+    const typeBadge = elements.subbarQuestionTypeBadge;
+    const typeText = elements.subbarQuestionTypeText;
+
+    if (typeBadge && typeText) {
+        typeBadge.className = 'exam-subbar-badge badge-question-type';
+        if (typeInfo.id === 'boolean') {
+            typeBadge.classList.add('type-boolean');
+        } else if (typeInfo.id === 'escrita') {
+            typeBadge.classList.add('type-written');
+        } else {
+            typeBadge.classList.add('type-choice');
+        }
+
+        const iconEl = typeBadge.querySelector('i');
+        if (iconEl) iconEl.className = `fa-solid ${typeInfo.icon || 'fa-list-check'}`;
+        typeText.textContent = typeInfo.label;
+    }
+
+    // 2. Question Status Badge
+    const statusBadge = elements.subbarQuestionStatusBadge;
+    const statusText = elements.subbarQuestionStatusText;
+
+    if (statusBadge && statusText) {
+        statusBadge.className = 'exam-subbar-badge badge-question-status';
+        const iconEl = statusBadge.querySelector('i');
+        const ans = State.examAnswers ? State.examAnswers[State.question.index] : null;
+
+        if (State.question.revealed && ans) {
+            if (ans.isCorrect) {
+                statusBadge.classList.add('status-correct');
+                if (iconEl) iconEl.className = 'fa-solid fa-circle-check';
+                statusText.textContent = t('status_correct');
+            } else {
+                statusBadge.classList.add('status-incorrect');
+                if (iconEl) iconEl.className = 'fa-solid fa-circle-xmark';
+                statusText.textContent = t('status_incorrect');
+            }
+        } else if (State.question.selectedOptions?.length > 0 || State.question.writtenInput?.trim()) {
+            statusBadge.classList.add('status-answered');
+            if (iconEl) iconEl.className = 'fa-solid fa-pen';
+            statusText.textContent = t('status_answered');
+        } else {
+            statusBadge.classList.add('status-unanswered');
+            if (iconEl) iconEl.className = 'fa-solid fa-circle-minus';
+            statusText.textContent = t('status_unanswered');
+        }
+    }
+
+    // 3. Difficult Question Button State
+    const origIndex = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
+    const isDiff = isQuestionDifficult(State.activeExam?.id, origIndex, State);
+    updateDifficultButtonUI(isDiff);
+}
+
+/**
+ * Updates visual state of the difficult toggle button.
+ * @param {boolean} isDiff
+ */
+function updateDifficultButtonUI(isDiff) {
+    const btn = elements.btnToggleDifficult;
+    const btnText = elements.btnToggleDifficultText;
+    if (!btn) return;
+
+    if (isDiff) {
+        btn.classList.add('is-difficult');
+        btn.setAttribute('aria-pressed', 'true');
+        const iconEl = btn.querySelector('i');
+        if (iconEl) iconEl.className = 'fa-solid fa-fire';
+        if (btnText) btnText.textContent = t('btn_unmark_difficult');
+    } else {
+        btn.classList.remove('is-difficult');
+        btn.setAttribute('aria-pressed', 'false');
+        const iconEl = btn.querySelector('i');
+        if (iconEl) iconEl.className = 'fa-solid fa-fire';
+        if (btnText) btnText.textContent = t('btn_mark_difficult');
+    }
 }
 
 // ---------------------------------------------------------------------------

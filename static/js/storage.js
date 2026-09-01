@@ -89,6 +89,14 @@ export function loadLocalData(State) {
         console.error('Erro ao ler histórico de exames:', e);
         State.examHistory = {};
     }
+
+    try {
+        const diffRaw = localStorage.getItem(APP_CONFIG.storageKeys.difficultQuestions);
+        State.difficultQuestions = diffRaw ? JSON.parse(diffRaw) : {};
+    } catch (e) {
+        console.error('Erro ao ler perguntas difíceis:', e);
+        State.difficultQuestions = {};
+    }
 }
 
 /**
@@ -173,6 +181,65 @@ export function saveLocalExames(State) {
 }
 
 /**
+ * Persist the difficult questions dictionary to localStorage.
+ * Maps examId -> Array of original question indices
+ * @param {object} State
+ */
+export function saveDifficultQuestions(State) {
+    try {
+        localStorage.setItem(APP_CONFIG.storageKeys.difficultQuestions, JSON.stringify(State.difficultQuestions || {}));
+    } catch (e) {
+        console.error('Erro ao guardar perguntas difíceis:', e);
+    }
+}
+
+/**
+ * Toggle a question as difficult/starred in an exam.
+ *
+ * @param {string} examId
+ * @param {number} questionOriginalIndex
+ * @param {object} State
+ * @returns {boolean} True if now marked difficult, false if unmarked
+ */
+export function toggleDifficultQuestion(examId, questionOriginalIndex, State) {
+    if (!examId || questionOriginalIndex === undefined || questionOriginalIndex === null) return false;
+    if (!State.difficultQuestions) State.difficultQuestions = {};
+    if (!Array.isArray(State.difficultQuestions[examId])) {
+        State.difficultQuestions[examId] = [];
+    }
+
+    const idxList = State.difficultQuestions[examId];
+    const pos = idxList.indexOf(questionOriginalIndex);
+    let isDifficult = false;
+
+    if (pos > -1) {
+        idxList.splice(pos, 1);
+        isDifficult = false;
+    } else {
+        idxList.push(questionOriginalIndex);
+        isDifficult = true;
+    }
+
+    saveDifficultQuestions(State);
+    return isDifficult;
+}
+
+/**
+ * Check if a question is marked as difficult.
+ *
+ * @param {string} examId
+ * @param {number} questionOriginalIndex
+ * @param {object} State
+ * @returns {boolean}
+ */
+export function isQuestionDifficult(examId, questionOriginalIndex, State) {
+    if (!examId || questionOriginalIndex === undefined || questionOriginalIndex === null) return false;
+    if (!State || !State.difficultQuestions) return false;
+    const list = State.difficultQuestions[examId];
+    return Array.isArray(list) && list.includes(questionOriginalIndex);
+}
+
+/**
  * Delete all locally-created cadeiras, exames, and question history from localStorage and
  * reset the corresponding State arrays and dictionaries.
  *
@@ -183,10 +250,12 @@ export function clearAllLocalData(State) {
         localStorage.removeItem(APP_CONFIG.storageKeys.cadeiras);
         localStorage.removeItem(APP_CONFIG.storageKeys.exames);
         localStorage.removeItem(APP_CONFIG.storageKeys.history);
+        localStorage.removeItem(APP_CONFIG.storageKeys.difficultQuestions);
     } catch (e) {
         console.error('Erro ao limpar dados locais:', e);
     }
     State.localCadeiras = [];
     State.localExames   = [];
     State.examHistory   = {};
+    State.difficultQuestions = {};
 }

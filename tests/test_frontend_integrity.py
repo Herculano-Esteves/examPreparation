@@ -71,5 +71,31 @@ class TestFrontendIntegrity(unittest.TestCase):
         for k in set(data_keys):
             self.assertIn(k, pt_keys, f"Missing translation key for '{k}'")
 
+    def test_adaptive_layout_math_model(self):
+        """Validates the mathematical formula: T(h, H) = max(0, min(0.25*H, H - h))."""
+        def calculate_optimal_top_offset(h, H):
+            if not H or H <= 0:
+                return 0
+            if not h or h <= 0:
+                return round(0.25 * H)
+            return round(max(0, min(0.25 * H, H - h)))
+
+        H = 800  # 800px available height
+
+        # Case 1: Short content (h <= 0.75 H = 600px) -> Exactly 200px (1/4 H)
+        self.assertEqual(calculate_optimal_top_offset(100, H), 200)
+        self.assertEqual(calculate_optimal_top_offset(400, H), 200)
+        self.assertEqual(calculate_optimal_top_offset(600, H), 200)
+
+        # Case 2: Intermediate content (600px < h <= 800px) -> T = H - h (pushed to bottom)
+        self.assertEqual(calculate_optimal_top_offset(650, H), 150)
+        self.assertEqual(calculate_optimal_top_offset(700, H), 100)
+        self.assertEqual(calculate_optimal_top_offset(780, H), 20)
+        self.assertEqual(calculate_optimal_top_offset(800, H), 0)
+
+        # Case 3: Overflow content (h > 800px) -> T = 0 (Starts at top, triggers scroll)
+        self.assertEqual(calculate_optimal_top_offset(850, H), 0)
+        self.assertEqual(calculate_optimal_top_offset(1200, H), 0)
+
 if __name__ == '__main__':
     unittest.main()

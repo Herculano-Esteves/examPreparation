@@ -106,6 +106,15 @@ export const TRANSLATIONS = {
         clip_correct_answers: 'Resposta(s) Correta(s)',
 
         // Exam Solving Screen
+        btn_mark_difficult: 'Marcar como Difícil',
+        btn_unmark_difficult: 'Pergunta Difícil',
+        title_toggle_difficult: 'Marcar ou desmarcar esta pergunta como difícil para revisão',
+        toast_question_marked_difficult: 'Pergunta guardada na pasta de difíceis!',
+        toast_question_unmarked_difficult: 'Pergunta removida das difíceis.',
+        status_unanswered: 'Por Responder',
+        status_answered: 'Respondida',
+        status_correct: 'Correta',
+        status_incorrect: 'Incorreta',
         written_label: 'Escreva a sua resposta (opcional):',
         written_placeholder: 'Escreva aqui a sua resposta para estruturar as suas ideias...',
         btn_reveal_answer: 'Ver Resposta',
@@ -283,6 +292,15 @@ export const TRANSLATIONS = {
         clip_correct_answers: 'Correct Answer(s)',
 
         // Exam Solving Screen
+        btn_mark_difficult: 'Mark as Difficult',
+        btn_unmark_difficult: 'Difficult Question',
+        title_toggle_difficult: 'Mark or unmark this question as difficult for revision',
+        toast_question_marked_difficult: 'Question saved to difficult folder!',
+        toast_question_unmarked_difficult: 'Question removed from difficult folder.',
+        status_unanswered: 'Unanswered',
+        status_answered: 'Answered',
+        status_correct: 'Correct',
+        status_incorrect: 'Incorrect',
         written_label: 'Write your answer (optional):',
         written_placeholder: 'Write your answer here to structure your thoughts...',
         btn_reveal_answer: 'View Answer',
