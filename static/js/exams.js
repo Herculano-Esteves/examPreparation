@@ -129,7 +129,8 @@ export function renderExamsMenu() {
         if (Array.isArray(histArr)) {
             const correctCount = histArr.filter(s => s === QuestionStatus.CORRECT).length;
             const incorrectCount = histArr.filter(s => s === QuestionStatus.INCORRECT).length;
-            if (correctCount > 0 || incorrectCount > 0) {
+            const answeredCount = histArr.filter(s => s === QuestionStatus.ANSWERED).length;
+            if (correctCount > 0 || incorrectCount > 0 || answeredCount > 0) {
                 isAttempted = true;
                 scorePercentage = histArr.length > 0 ? Math.round((correctCount / histArr.length) * 100) : 0;
             }

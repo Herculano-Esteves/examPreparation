@@ -120,9 +120,51 @@ export function renderFeedbackUI(q) {
     const rawExplanation = q.explanation || q.explicacao;
 
     if (qType === 'escrita') {
-        elements.answerFeedback.className = 'answer-feedback correct';
+        const ans = State.examAnswers ? State.examAnswers[State.question.index] : null;
+        const isAssessedCorrect = ans && ans.isCorrect === true;
+        const isAssessedIncorrect = ans && ans.isCorrect === false;
+
+        let feedbackClass = 'answer-feedback';
+        if (isAssessedCorrect) feedbackClass += ' correct';
+        else if (isAssessedIncorrect) feedbackClass += ' incorrect';
+        else feedbackClass += ' answered';
+
+        elements.answerFeedback.className = feedbackClass;
         elements.feedbackTitle.innerHTML = `<i class="fa-solid fa-lightbulb" aria-hidden="true"></i> ${t('feedback_expected_solution')}`;
-        elements.feedbackMessage.innerHTML = renderMarkdown(getLocalizedText(rawSolution));
+        
+        let explanationHTML = renderMarkdown(getLocalizedText(rawSolution));
+        if (rawExplanation) {
+            const expText = getLocalizedText(rawExplanation);
+            if (expText) {
+                explanationHTML += `<br><br><strong>${t('feedback_explanation')}:</strong><br>${renderMarkdown(expText)}`;
+            }
+        }
+
+        // Card de Autoavaliação interativo
+        const selfAssessmentHTML = `
+            <div class="self-assessment-card">
+                <div class="self-assessment-actions">
+                    <button type="button" class="btn-self-assess btn-assess-correct ${isAssessedCorrect ? 'selected-correct' : ''}" id="btn-assess-correct">
+                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i> <span>${t('btn_assess_correct')}</span>
+                    </button>
+                    <button type="button" class="btn-self-assess btn-assess-incorrect ${isAssessedIncorrect ? 'selected-incorrect' : ''}" id="btn-assess-incorrect">
+                        <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> <span>${t('btn_assess_incorrect')}</span>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        elements.feedbackMessage.innerHTML = `${explanationHTML}${selfAssessmentHTML}`;
+
+        const btnCorrect = document.getElementById('btn-assess-correct');
+        const btnIncorrect = document.getElementById('btn-assess-incorrect');
+
+        if (btnCorrect) {
+            btnCorrect.addEventListener('click', () => assessWrittenAnswer(true));
+        }
+        if (btnIncorrect) {
+            btnIncorrect.addEventListener('click', () => assessWrittenAnswer(false));
+        }
         return;
     }
 
@@ -236,8 +278,8 @@ export function renderQuestion() {
 
     renderFeedbackUI(q);
 
-    // --- Sub-bar (Type badge, Status badge, Difficult button) ---
-    updateQuestionSubBar(q);
+    // --- Difficult question flag button ---
+    updateQuestionDifficultButton(q);
 
     // --- Navigation buttons ---
     elements.btnPrev.disabled = State.question.index === 0;
@@ -292,68 +334,20 @@ function initDifficultToggleListener() {
 }
 
 /**
- * Updates the secondary header (question type, status, and difficult flag).
+ * Updates the difficult question button state for the active question.
  * @param {object} q - Current question object
  */
-export function updateQuestionSubBar(q) {
+export function updateQuestionDifficultButton(q) {
     if (!q) return;
     initDifficultToggleListener();
 
-    // 1. Question Type Badge
-    const typeInfo = getQuestionTypeInfo(q.type || q.tipo);
-    const typeBadge = elements.subbarQuestionTypeBadge;
-    const typeText = elements.subbarQuestionTypeText;
-
-    if (typeBadge && typeText) {
-        typeBadge.className = 'exam-subbar-badge badge-question-type';
-        if (typeInfo.id === 'boolean') {
-            typeBadge.classList.add('type-boolean');
-        } else if (typeInfo.id === 'escrita') {
-            typeBadge.classList.add('type-written');
-        } else {
-            typeBadge.classList.add('type-choice');
-        }
-
-        const iconEl = typeBadge.querySelector('i');
-        if (iconEl) iconEl.className = `fa-solid ${typeInfo.icon || 'fa-list-check'}`;
-        typeText.textContent = typeInfo.label;
-    }
-
-    // 2. Question Status Badge
-    const statusBadge = elements.subbarQuestionStatusBadge;
-    const statusText = elements.subbarQuestionStatusText;
-
-    if (statusBadge && statusText) {
-        statusBadge.className = 'exam-subbar-badge badge-question-status';
-        const iconEl = statusBadge.querySelector('i');
-        const ans = State.examAnswers ? State.examAnswers[State.question.index] : null;
-
-        if (State.question.revealed && ans) {
-            if (ans.isCorrect) {
-                statusBadge.classList.add('status-correct');
-                if (iconEl) iconEl.className = 'fa-solid fa-circle-check';
-                statusText.textContent = t('status_correct');
-            } else {
-                statusBadge.classList.add('status-incorrect');
-                if (iconEl) iconEl.className = 'fa-solid fa-circle-xmark';
-                statusText.textContent = t('status_incorrect');
-            }
-        } else if (State.question.selectedOptions?.length > 0 || State.question.writtenInput?.trim()) {
-            statusBadge.classList.add('status-answered');
-            if (iconEl) iconEl.className = 'fa-solid fa-pen';
-            statusText.textContent = t('status_answered');
-        } else {
-            statusBadge.classList.add('status-unanswered');
-            if (iconEl) iconEl.className = 'fa-solid fa-circle-minus';
-            statusText.textContent = t('status_unanswered');
-        }
-    }
-
-    // 3. Difficult Question Button State
+    // Difficult Question Button State
     const origIndex = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
     const isDiff = isQuestionDifficult(State.activeExam?.id, origIndex, State);
     updateDifficultButtonUI(isDiff);
 }
+
+export const updateQuestionSubBar = updateQuestionDifficultButton;
 
 /**
  * Updates visual state of the difficult toggle button.
@@ -454,19 +448,56 @@ export function confirmMultipleChoiceAnswer() {
 export function revealWrittenAnswer() {
     State.question.revealed = true;
     if (State.question.firstAttemptCorrect[State.question.index] === undefined) {
-        State.question.firstAttemptCorrect[State.question.index] = true;
+        State.question.firstAttemptCorrect[State.question.index] = null;
     }
 
     if (State.examAnswers && State.examAnswers[State.question.index]) {
         State.examAnswers[State.question.index].revealed = true;
-        State.examAnswers[State.question.index].isCorrect = true;
+        if (State.examAnswers[State.question.index].isCorrect === undefined) {
+            State.examAnswers[State.question.index].isCorrect = null;
+        }
     }
 
-    // Atualizar resultado desta pergunta aberta em tempo real no localStorage
+    // Atualizar resultado desta pergunta aberta em tempo real no localStorage como ANSWERED (4)
     if (State.activeExam && State.activeExam.id) {
         const q = State.currentQuestion;
         const origIdx = (q && q._origIndex !== undefined) ? q._origIndex : State.question.index;
-        updateQuestionStatus(State.activeExam.id, origIdx, QuestionStatus.CORRECT, State, State.totalQuestions);
+        const ans = State.examAnswers ? State.examAnswers[State.question.index] : null;
+        let status = QuestionStatus.ANSWERED;
+        if (ans && ans.isCorrect === true) status = QuestionStatus.CORRECT;
+        else if (ans && ans.isCorrect === false) status = QuestionStatus.INCORRECT;
+
+        updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+    }
+
+    renderQuestion();
+}
+
+/**
+ * Self-assess a written question answer as correct (true) or incorrect (false).
+ * @param {boolean} isCorrect
+ */
+export function assessWrittenAnswer(isCorrect) {
+    if (!State.activeExam) return;
+    const q = State.currentQuestion;
+    if (!q) return;
+
+    if (State.examAnswers && State.examAnswers[State.question.index]) {
+        State.examAnswers[State.question.index].isCorrect = isCorrect;
+    }
+
+    if (State.question.firstAttemptCorrect[State.question.index] === undefined || State.question.firstAttemptCorrect[State.question.index] === null) {
+        State.question.firstAttemptCorrect[State.question.index] = isCorrect;
+    }
+
+    const origIdx = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
+    const status = isCorrect ? QuestionStatus.CORRECT : QuestionStatus.INCORRECT;
+    updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+
+    if (isCorrect) {
+        showToast(t('toast_assessed_correct'), NotificationType.SUCCESS);
+    } else {
+        showToast(t('toast_assessed_incorrect'), NotificationType.INFO);
     }
 
     renderQuestion();
@@ -522,7 +553,7 @@ export function showResults() {
         const ans = answers[i];
         if (!ans || !ans.revealed) {
             unanswered++;
-        } else if (ans.isCorrect) {
+        } else if (ans.isCorrect === true) {
             correct++;
         } else {
             incorrect++;
@@ -557,7 +588,9 @@ export function showResults() {
             const origIdx = (q._origIndex !== undefined) ? q._origIndex : idx;
             let status = QuestionStatus.UNANSWERED;
             if (ans && ans.revealed) {
-                status = ans.isCorrect ? QuestionStatus.CORRECT : QuestionStatus.INCORRECT;
+                if (ans.isCorrect === true) status = QuestionStatus.CORRECT;
+                else if (ans.isCorrect === false) status = QuestionStatus.INCORRECT;
+                else status = QuestionStatus.ANSWERED;
             }
             updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
         });

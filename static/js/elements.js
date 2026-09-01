@@ -59,13 +59,8 @@ export const elements = {
     get questionCounter()           { return document.getElementById('question-counter'); },
     get progressPercentage()        { return document.getElementById('progress-percentage'); },
     get progressBarFill()           { return document.getElementById('progress-bar-fill'); },
-    get examSubBar()                { return document.getElementById('exam-sub-bar'); },
     get btnToggleDifficult()        { return document.getElementById('btn-toggle-difficult'); },
     get btnToggleDifficultText()    { return document.getElementById('btn-toggle-difficult-text'); },
-    get subbarQuestionTypeBadge()   { return document.getElementById('subbar-question-type-badge'); },
-    get subbarQuestionTypeText()    { return document.getElementById('subbar-question-type-text'); },
-    get subbarQuestionStatusBadge() { return document.getElementById('subbar-question-status-badge'); },
-    get subbarQuestionStatusText()  { return document.getElementById('subbar-question-status-text'); },
 
     // ---------- Question pane ----------
     get leftScrollContent()         { return document.getElementById('exam-left-scroll-content') || document.querySelector('.exam-left-scroll-content'); },

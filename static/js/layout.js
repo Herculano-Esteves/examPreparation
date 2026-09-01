@@ -11,12 +11,12 @@
  *   - T(h, H): Distancia / espacamento superior (top offset)
  *
  * Formula Unificada:
- *   T(h, H) = max(0, min(0.25 * H, H - h))
+ *   T(h, H) = max(0, min(0.20 * H, H - h))
  *
  * Comportamento por Zonas:
- *   1. h <= 0.75 * H  => T = 0.25 * H (Alinhado a 1/4 da altura do topo)
- *   2. 0.75 * H < h <= H => T = H - h (Ocupa espaco do 1/4 superior, empurrado o mais para baixo possivel)
- *   3. h > H         => T = 0 (Inicia no topo absoluto, ativando scroll independente apenas nessa coluna)
+ *   1. h <= 0.80 * H     => T = 0.20 * H (Alinhado a 1/5 da altura do topo)
+ *   2. 0.80 * H < h <= H => T = H - h (Ocupa espaco do 1/5 superior, empurrado o mais para baixo possivel)
+ *   3. h > H             => T = 0 (Inicia no topo absoluto, ativando scroll independente apenas nessa coluna)
  */
 
 import { elements } from './elements.js';
@@ -34,9 +34,9 @@ let isLayoutSyncPending = false;
  */
 export function calculateOptimalTopOffset(contentHeight, availableHeight) {
     if (!availableHeight || availableHeight <= 0) return 0;
-    if (!contentHeight || contentHeight <= 0) return Math.round(0.25 * availableHeight);
+    if (!contentHeight || contentHeight <= 0) return Math.round(0.20 * availableHeight);
 
-    const maxRestingSpacer = 0.25 * availableHeight;
+    const maxRestingSpacer = 0.20 * availableHeight;
     const dynamicBottomAlignedSpacer = availableHeight - contentHeight;
 
     const offset = Math.max(0, Math.min(maxRestingSpacer, dynamicBottomAlignedSpacer));

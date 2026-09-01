@@ -136,6 +136,14 @@ export const TRANSLATIONS = {
         feedback_correct_plural: 'As respostas corretas são as Alíneas: <strong>{letters}</strong>.',
         feedback_explanation: 'Explicação / Justificação',
 
+        // Self-Assessment (Written Questions)
+        self_assess_title: 'Como avalia a sua resposta?',
+        btn_assess_correct: 'Acertei / Correta',
+        btn_assess_incorrect: 'Errei / Incorreta',
+        status_answered_unassessed: 'Respondida (Não avaliada)',
+        toast_assessed_correct: 'Resposta autoavaliada como correta!',
+        toast_assessed_incorrect: 'Resposta autoavaliada como incorreta.',
+
         // Results Screen
         results_title: 'Resultados do Exame',
         results_score_label: 'Classificação Final',
@@ -321,6 +329,14 @@ export const TRANSLATIONS = {
         feedback_correct_single: 'The correct answer is Option <strong>{letters}</strong>.',
         feedback_correct_plural: 'The correct answers are Options: <strong>{letters}</strong>.',
         feedback_explanation: 'Explanation / Rationale',
+
+        // Self-Assessment (Written Questions)
+        self_assess_title: 'How do you evaluate your answer?',
+        btn_assess_correct: 'Correct / I got it right',
+        btn_assess_incorrect: 'Incorrect / I got it wrong',
+        status_answered_unassessed: 'Answered (Pending evaluation)',
+        toast_assessed_correct: 'Answer self-assessed as correct!',
+        toast_assessed_incorrect: 'Answer self-assessed as incorrect.',
 
         // Results Screen
         results_title: 'Exam Results',

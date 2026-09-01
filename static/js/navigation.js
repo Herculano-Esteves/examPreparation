@@ -22,7 +22,6 @@ export function transitionTo(screenName) {
     const activeScreen = document.querySelector('.screen.active');
     const leavingExam = document.body.classList.contains('layout-exam');
     const examTopBar = document.getElementById('exam-top-bar');
-    const examSubBar = document.getElementById('exam-sub-bar');
 
     // Fallback if menu is requested without an active subject
     if (screenName === 'menu' && !State.activeCadeira) {
@@ -37,11 +36,9 @@ export function transitionTo(screenName) {
         window.scrollTo(0, 0);
         document.body.classList.add('layout-exam');
         if (examTopBar) examTopBar.removeAttribute('aria-hidden');
-        if (examSubBar) examSubBar.removeAttribute('aria-hidden');
     } else {
         document.body.classList.remove('layout-exam');
         if (examTopBar) examTopBar.setAttribute('aria-hidden', 'true');
-        if (examSubBar) examSubBar.setAttribute('aria-hidden', 'true');
         if (leavingExam) {
             window.scrollTo(0, 0);
         }

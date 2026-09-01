@@ -74,27 +74,6 @@
             </div>
         </div>
 
-        <!-- EXAM SUB BAR: Secondary Context & Question Action Header -->
-        <div class="exam-sub-bar" id="exam-sub-bar" aria-hidden="true">
-            <div class="exam-sub-bar-left">
-                <span id="subbar-question-type-badge" class="exam-subbar-badge badge-question-type">
-                    <i class="fa-solid fa-list-check" aria-hidden="true"></i>
-                    <span id="subbar-question-type-text">Escolha Múltipla</span>
-                </span>
-                <span id="subbar-question-status-badge" class="exam-subbar-badge badge-question-status status-unanswered">
-                    <i class="fa-solid fa-circle-minus" aria-hidden="true"></i>
-                    <span id="subbar-question-status-text" data-i18n="status_unanswered">Por Responder</span>
-                </span>
-            </div>
-            <div class="exam-sub-bar-right">
-                <button type="button" id="btn-toggle-difficult" class="btn-control btn-difficult-toggle"
-                    aria-pressed="false" title="Marcar ou desmarcar esta pergunta como difícil para revisão"
-                    data-i18n-title="title_toggle_difficult">
-                    <i class="fa-solid fa-fire" aria-hidden="true"></i>
-                    <span id="btn-toggle-difficult-text" data-i18n="btn_mark_difficult">Marcar como Difícil</span>
-                </button>
-            </div>
-        </div>
 
         <!-- MAIN CONTENT AREA -->
         <main class="main-content">
@@ -431,6 +410,12 @@
                                             <span data-i18n="btn_copy_answer">+ Resposta</span>
                                         </button>
                                     </span>
+                                    <button type="button" id="btn-toggle-difficult" class="btn-difficult-toggle"
+                                        aria-pressed="false" title="Marcar ou desmarcar esta pergunta como difícil para revisão"
+                                        data-i18n-title="title_toggle_difficult">
+                                        <i class="fa-solid fa-fire" aria-hidden="true"></i>
+                                        <span id="btn-toggle-difficult-text" data-i18n="btn_mark_difficult">Marcar como Difícil</span>
+                                    </button>
                                 </h3>
                                 <div id="question-cabecalho" class="question-cabecalho hidden"></div>
                             </div>

@@ -44,7 +44,7 @@ export const State = {
     examScoreMin: 0,
     examScoreMax: 100,
     examFilters: {}, // { [examId]: string[] (excluded types) }
-    examHistory: {}, // { [examId]: number[] (array of QuestionStatus: 1=CORRECT, 2=INCORRECT, 3=UNANSWERED) }
+    examHistory: {}, // { [examId]: number[] (array of QuestionStatus: 1=CORRECT, 2=INCORRECT, 3=UNANSWERED, 4=ANSWERED) }
     difficultQuestions: {}, // { [examId]: number[] (array of original question indices marked as difficult) }
 
     // Session answers & progress for active exam:

@@ -38,9 +38,10 @@ export function renderExamScoreBadgeHTML(examId) {
     const total = histArr.length;
     const correctCount = histArr.filter(s => s === QuestionStatus.CORRECT).length;
     const incorrectCount = histArr.filter(s => s === QuestionStatus.INCORRECT).length;
+    const answeredCount = histArr.filter(s => s === QuestionStatus.ANSWERED).length;
     const unansweredCount = histArr.filter(s => s === QuestionStatus.UNANSWERED || s === 0 || !s).length;
 
-    if (correctCount === 0 && incorrectCount === 0) return '';
+    if (correctCount === 0 && incorrectCount === 0 && answeredCount === 0) return '';
 
     const pct = total > 0 ? Math.round((correctCount / total) * 100) : 0;
     let badgeClass = 'score-badge-low';
@@ -54,7 +55,12 @@ export function renderExamScoreBadgeHTML(examId) {
         iconClass = 'fa-circle-exclamation';
     }
 
-    const title = `Aproveitamento: ${pct}% (${correctCount} corretas, ${incorrectCount} erradas, ${unansweredCount} por fazer)`;
+    let titleParts = [`${correctCount} corretas`, `${incorrectCount} erradas`];
+    if (answeredCount > 0) {
+        titleParts.push(`${answeredCount} respondidas (não avaliadas)`);
+    }
+    titleParts.push(`${unansweredCount} por fazer`);
+    const title = `Aproveitamento: ${pct}% (${titleParts.join(', ')})`;
 
     return `
         <span class="exam-score-badge ${badgeClass}" title="${escapeHTML(title)}" aria-label="${escapeHTML(title)}">

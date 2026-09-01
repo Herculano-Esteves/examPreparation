@@ -72,30 +72,60 @@ class TestFrontendIntegrity(unittest.TestCase):
             self.assertIn(k, pt_keys, f"Missing translation key for '{k}'")
 
     def test_adaptive_layout_math_model(self):
-        """Validates the mathematical formula: T(h, H) = max(0, min(0.25*H, H - h))."""
+        """Validates the mathematical formula: T(h, H) = max(0, min(0.20*H, H - h))."""
         def calculate_optimal_top_offset(h, H):
             if not H or H <= 0:
                 return 0
             if not h or h <= 0:
-                return round(0.25 * H)
-            return round(max(0, min(0.25 * H, H - h)))
+                return round(0.20 * H)
+            return round(max(0, min(0.20 * H, H - h)))
 
         H = 800  # 800px available height
 
-        # Case 1: Short content (h <= 0.75 H = 600px) -> Exactly 200px (1/4 H)
-        self.assertEqual(calculate_optimal_top_offset(100, H), 200)
-        self.assertEqual(calculate_optimal_top_offset(400, H), 200)
-        self.assertEqual(calculate_optimal_top_offset(600, H), 200)
+        # Case 1: Short content (h <= 0.80 H = 640px) -> Exactly 160px (1/5 H)
+        self.assertEqual(calculate_optimal_top_offset(100, H), 160)
+        self.assertEqual(calculate_optimal_top_offset(400, H), 160)
+        self.assertEqual(calculate_optimal_top_offset(640, H), 160)
 
-        # Case 2: Intermediate content (600px < h <= 800px) -> T = H - h (pushed to bottom)
-        self.assertEqual(calculate_optimal_top_offset(650, H), 150)
-        self.assertEqual(calculate_optimal_top_offset(700, H), 100)
+        # Case 2: Intermediate content (640px < h <= 800px) -> T = H - h (pushed to bottom)
+        self.assertEqual(calculate_optimal_top_offset(680, H), 120)
+        self.assertEqual(calculate_optimal_top_offset(750, H), 50)
         self.assertEqual(calculate_optimal_top_offset(780, H), 20)
         self.assertEqual(calculate_optimal_top_offset(800, H), 0)
 
         # Case 3: Overflow content (h > 800px) -> T = 0 (Starts at top, triggers scroll)
         self.assertEqual(calculate_optimal_top_offset(850, H), 0)
         self.assertEqual(calculate_optimal_top_offset(1200, H), 0)
+
+    def test_question_status_and_scoring_rules(self):
+        """Validates QuestionStatus definitions and score calculation rules."""
+        with open(os.path.join(STATIC_JS_DIR, 'constants.js'), 'r', encoding='utf-8') as f:
+            constants_code = f.read()
+
+        self.assertIn('CORRECT: 1', constants_code)
+        self.assertIn('INCORRECT: 2', constants_code)
+        self.assertIn('UNANSWERED: 3', constants_code)
+        self.assertIn('ANSWERED: 4', constants_code)
+
+        # Simulation of score rules: only CORRECT counts towards score
+        history = [1, 2, 4, 3, 1]  # 2 correct, 1 incorrect, 1 answered-unassessed, 1 unanswered (total 5)
+        correct_count = sum(1 for s in history if s == 1)
+        incorrect_count = sum(1 for s in history if s == 2)
+        answered_count = sum(1 for s in history if s == 4)
+        unanswered_count = sum(1 for s in history if s == 3)
+
+        self.assertEqual(correct_count, 2)
+        self.assertEqual(incorrect_count, 1)
+        self.assertEqual(answered_count, 1)
+        self.assertEqual(unanswered_count, 1)
+
+        # Score percentage: (2 / 5) * 100 = 40% (ANSWERED counts as 0 pts)
+        score_pct = round((correct_count / len(history)) * 100)
+        self.assertEqual(score_pct, 40)
+
+        # Attempted state check: attempted if correct > 0 or incorrect > 0 or answered > 0
+        is_attempted = (correct_count > 0 or incorrect_count > 0 or answered_count > 0)
+        self.assertTrue(is_attempted)
 
 if __name__ == '__main__':
     unittest.main()

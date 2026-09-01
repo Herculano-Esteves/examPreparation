@@ -162,12 +162,14 @@ export function getJsonInstructions(lang = null) {
 
 /**
  * Question resolution status enum for exam history and progress tracking.
- * 1: CORRECT
- * 2: INCORRECT
- * 3: UNANSWERED
+ * 1: CORRECT (Acertei / Correta - 1 ponto no score)
+ * 2: INCORRECT (Errei / Incorreta - 0 pontos no score)
+ * 3: UNANSWERED (Por responder - 0 pontos no score)
+ * 4: ANSWERED (Respondida / Revelada sem autoavaliação - 0 pontos no score)
  */
 export const QuestionStatus = Object.freeze({
     CORRECT: 1,
     INCORRECT: 2,
-    UNANSWERED: 3
+    UNANSWERED: 3,
+    ANSWERED: 4
 });
