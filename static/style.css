@@ -1197,6 +1197,32 @@ body.header-scrolled .sticky-corner-right {
 .type-icon-boolean { color: #38bdf8; font-size: 0.72rem; }
 .type-icon-written { color: #fbbf24; font-size: 0.72rem; }
 
+/* Filter Option Counts */
+.filter-option-count {
+    margin-left: auto;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.70rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+    background: transparent;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: all var(--transition-speed) ease;
+}
+
+.floating-checkbox-item:hover .filter-option-count,
+.floating-filter-header:hover .filter-option-count {
+    color: #ffffff;
+}
+
+.floating-check-input:not(:checked) ~ .filter-option-count,
+.floating-state-check-input:not(:checked) ~ .filter-option-count {
+    opacity: 0.35;
+}
+
 /* Range Inputs and Dual Slider */
 .floating-range-inputs {
     display: flex;

@@ -253,6 +253,7 @@
                                              aria-hidden="true"></i>
                                         <span data-i18n="filter_state_completed">Exames Feitos</span>
                                     </span>
+                                    <span class="filter-option-count" id="count-state-completed">0</span>
                                 </label>
                                 <label class="floating-checkbox-item" data-state="pending">
                                     <input type="checkbox" class="floating-state-check-input" id="filter-state-pending"
@@ -262,9 +263,10 @@
                                     </span>
                                     <span class="floating-type-label">
                                         <i class="fa-solid fa-circle-minus" style="color: #94a3b8;"
-                                            aria-hidden="true"></i>
+                                             aria-hidden="true"></i>
                                         <span data-i18n="filter_state_pending">Exames Por Fazer</span>
                                     </span>
+                                    <span class="filter-option-count" id="count-state-pending">0</span>
                                 </label>
                             </div>
                         </div>
@@ -293,6 +295,7 @@
                                         <i class="fa-solid fa-list-check type-icon-choice" aria-hidden="true"></i>
                                         <span data-i18n="type_multiple_choice">Escolha Múltipla</span>
                                     </span>
+                                    <span class="filter-option-count" id="count-type-escolha_multipla">0</span>
                                 </label>
 
                                 <label class="floating-checkbox-item" data-type="boolean">
@@ -305,6 +308,7 @@
                                         <i class="fa-solid fa-check-double type-icon-boolean" aria-hidden="true"></i>
                                         <span data-i18n="type_boolean">Verdadeiro / Falso</span>
                                     </span>
+                                    <span class="filter-option-count" id="count-type-boolean">0</span>
                                 </label>
 
                                 <label class="floating-checkbox-item" data-type="escrita">
@@ -317,15 +321,19 @@
                                         <i class="fa-solid fa-pen-to-square type-icon-written" aria-hidden="true"></i>
                                         <span data-i18n="type_written">Desenvolvimento</span>
                                     </span>
+                                    <span class="filter-option-count" id="count-type-escrita">0</span>
                                 </label>
                             </div>
                         </div>
 
                         <!-- 4. INTERVALO DE Nº DE QUESTÕES -->
                         <div class="floating-filter-group">
-                            <span class="floating-filter-label">
-                                <i class="fa-solid fa-hashtag" aria-hidden="true"></i> <span data-i18n="filter_num_questions">Nº de Questões</span>
-                            </span>
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-hashtag" aria-hidden="true"></i> <span data-i18n="filter_num_questions">Nº de Questões</span>
+                                </span>
+                                <span class="filter-option-count" id="count-filter-questions">0</span>
+                            </div>
                             <div class="floating-range-inputs">
                                 <div class="floating-range-field" title="Mínimo de questões">
                                     <span class="range-field-label">Min</span>
@@ -348,9 +356,12 @@
 
                         <!-- 5. INTERVALO DE PERCENTAGEM DE ACERTO -->
                         <div class="floating-filter-group">
-                            <span class="floating-filter-label">
-                                <i class="fa-solid fa-percent" aria-hidden="true"></i> <span data-i18n="filter_score">Classificação (%)</span>
-                            </span>
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-percent" aria-hidden="true"></i> <span data-i18n="filter_score">Classificação (%)</span>
+                                </span>
+                                <span class="filter-option-count" id="count-filter-score">0</span>
+                            </div>
                             <div class="floating-range-inputs">
                                 <div class="floating-range-field" title="Classificação mínima (%)">
                                     <span class="range-field-label">Min</span>

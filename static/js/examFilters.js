@@ -16,6 +16,7 @@ import { showToast } from './utils.js';
 import { t, updateSortDropdownLabel } from './i18n.js';
 import { ALL_QUESTION_TYPES, ALL_EXAM_STATES, clampQuestionsRange, clampScoreRange, sanitizeQuestionsMax, sanitizeQuestionsMin } from './filterState.js';
 import { createDualRangeSlider } from './dualRangeSlider.js';
+import { QuestionStatus } from './storage.js';
 
 export { ALL_QUESTION_TYPES, ALL_EXAM_STATES };
 
@@ -119,6 +120,7 @@ export function initFloatingFilters(onFilterChange) {
         onChange: (minVal, maxVal) => {
             State.examQuestionsMin = minVal;
             State.examQuestionsMax = maxVal;
+            updateFilterOptionCounts();
             if (onFilterChange) onFilterChange();
         }
     });
@@ -143,6 +145,7 @@ export function initFloatingFilters(onFilterChange) {
         onChange: (minVal, maxVal) => {
             State.examScoreMin = minVal;
             State.examScoreMax = maxVal;
+            updateFilterOptionCounts();
             if (onFilterChange) onFilterChange();
         }
     });
@@ -207,6 +210,90 @@ export function syncFilterInputsUI(maxQInCadeira) {
         if (sMinInput) sMinInput.value = safeScoreRange.min;
         if (sMaxInput) sMaxInput.value = safeScoreRange.max;
     }
+
+    // Atualiza contadores numéricos das opções de filtros
+    updateFilterOptionCounts();
+}
+
+/**
+ * Atualiza os contadores numéricos abrangidos pelas opções de Estado, Tipos de Pergunta,
+ * Nº de Questões e Classificação (%).
+ * Cada contador reflete individualmente o número de exames abrangidos pela opção (sem parêntesis, sublinhados).
+ */
+export function updateFilterOptionCounts() {
+    const typeExamCounts = {
+        escolha_multipla: 0,
+        boolean: 0,
+        escrita: 0
+    };
+    let completedExamsCount = 0;
+    let pendingExamsCount = 0;
+    let questionsMatchCount = 0;
+    let scoreMatchCount = 0;
+
+    const minQ = State.examQuestionsMin !== null && State.examQuestionsMin !== undefined ? State.examQuestionsMin : 1;
+    const maxQ = State.examQuestionsMax !== null && State.examQuestionsMax !== undefined ? State.examQuestionsMax : 9999;
+    const minScore = State.examScoreMin !== null && State.examScoreMin !== undefined ? State.examScoreMin : 0;
+    const maxScore = State.examScoreMax !== null && State.examScoreMax !== undefined ? State.examScoreMax : 100;
+
+    (State.exams || []).forEach(exam => {
+        // 1. Contagem de exames que contêm cada tipo de pergunta
+        const tc = ExamService.getTypesCount(exam);
+        const qTypes = ExamService.getQuestionTypes(exam);
+        ['escolha_multipla', 'boolean', 'escrita'].forEach(tKey => {
+            const hasType = (tc && tc[tKey] > 0) || (Array.isArray(qTypes) && qTypes.includes(tKey));
+            if (hasType) {
+                typeExamCounts[tKey]++;
+            }
+        });
+
+        // 2. Estado do exame (realizado / pendente) e pontuação (score)
+        const histArr = State.examHistory ? State.examHistory[exam.id] : null;
+        let isAttempted = false;
+        let scorePct = 0;
+        if (Array.isArray(histArr) && histArr.length > 0) {
+            const correct = histArr.filter(s => s === QuestionStatus.CORRECT).length;
+            const incorrect = histArr.filter(s => s === QuestionStatus.INCORRECT).length;
+            const answered = histArr.filter(s => s === QuestionStatus.ANSWERED).length;
+            if (correct > 0 || incorrect > 0 || answered > 0) {
+                isAttempted = true;
+                scorePct = Math.round((correct / histArr.length) * 100);
+            }
+        }
+        if (isAttempted) {
+            completedExamsCount++;
+        } else {
+            pendingExamsCount++;
+        }
+
+        // 3. Avaliação individual isolada para Nº de Questões
+        const totalQ = ExamService.getQuestionsCount(exam);
+        if (totalQ >= minQ && totalQ <= maxQ) {
+            questionsMatchCount++;
+        }
+
+        // 4. Avaliação individual isolada para Classificação (%)
+        if (scorePct >= minScore && scorePct <= maxScore) {
+            scoreMatchCount++;
+        }
+    });
+
+    const elCompleted = elements.countStateCompleted || document.getElementById('count-state-completed');
+    const elPending = elements.countStatePending || document.getElementById('count-state-pending');
+    if (elCompleted) elCompleted.textContent = `${completedExamsCount}`;
+    if (elPending) elPending.textContent = `${pendingExamsCount}`;
+
+    const elChoice = elements.countTypeChoice || document.getElementById('count-type-escolha_multipla');
+    const elBoolean = elements.countTypeBoolean || document.getElementById('count-type-boolean');
+    const elWritten = elements.countTypeWritten || document.getElementById('count-type-escrita');
+    if (elChoice) elChoice.textContent = `${typeExamCounts.escolha_multipla}`;
+    if (elBoolean) elBoolean.textContent = `${typeExamCounts.boolean}`;
+    if (elWritten) elWritten.textContent = `${typeExamCounts.escrita}`;
+
+    const elQuestions = elements.countFilterQuestions || document.getElementById('count-filter-questions');
+    const elScore = elements.countFilterScore || document.getElementById('count-filter-score');
+    if (elQuestions) elQuestions.textContent = `${questionsMatchCount}`;
+    if (elScore) elScore.textContent = `${scoreMatchCount}`;
 }
 
 /**

@@ -53,6 +53,15 @@ export const elements = {
     get sliderScoreMax()            { return document.getElementById('slider-score-max'); },
     get trackFillScore()            { return document.getElementById('track-fill-score'); },
 
+    // Filter option count badges
+    get countStateCompleted()       { return document.getElementById('count-state-completed'); },
+    get countStatePending()         { return document.getElementById('count-state-pending'); },
+    get countTypeChoice()           { return document.getElementById('count-type-escolha_multipla'); },
+    get countTypeBoolean()          { return document.getElementById('count-type-boolean'); },
+    get countTypeWritten()          { return document.getElementById('count-type-escrita'); },
+    get countFilterQuestions()      { return document.getElementById('count-filter-questions'); },
+    get countFilterScore()          { return document.getElementById('count-filter-score'); },
+
     // ---------- Practice Hub Sidebar (Right) ----------
     get examsSidebarPractice()        { return document.getElementById('exams-sidebar-practice'); },
     get practiceCardDifficult()       { return document.getElementById('practice-card-difficult'); },
