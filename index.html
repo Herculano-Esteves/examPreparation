@@ -378,6 +378,40 @@
 
                     </aside>
 
+                    <!-- FLOATING RIGHT SIDEBAR: Practice Hub (Difficult & Incorrect Questions) -->
+                    <aside class="floating-practice-sidebar" id="exams-sidebar-practice"
+                        aria-label="Sessões de treino e prática">
+
+                        <!-- 1. PERGUNTAS DIFÍCEIS (DIFFICULT QUESTIONS REVIEW) -->
+                        <div class="practice-card practice-card-difficult" id="practice-card-difficult">
+                            <div class="practice-card-header">
+                                <span class="practice-card-label">
+                                    <i class="fa-solid fa-fire" aria-hidden="true"></i> <span data-i18n="practice_difficult_title">Perguntas Difíceis</span>
+                                </span>
+                                <span class="practice-card-count" id="practice-difficult-count-text">0</span>
+                            </div>
+                            <button type="button" class="btn-control btn-practice-launch btn-practice-difficult" id="btn-practice-difficult" disabled>
+                                <i class="fa-solid fa-fire" aria-hidden="true"></i>
+                                <span data-i18n="btn_practice_difficult">Praticar Difíceis</span>
+                            </button>
+                        </div>
+
+                        <!-- 2. PERGUNTAS ERRADAS (MISTAKES / INCORRECT QUESTIONS REVIEW) -->
+                        <div class="practice-card practice-card-incorrect" id="practice-card-incorrect">
+                            <div class="practice-card-header">
+                                <span class="practice-card-label">
+                                    <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> <span data-i18n="practice_incorrect_title">Perguntas Erradas</span>
+                                </span>
+                                <span class="practice-card-count" id="practice-incorrect-count-text">0</span>
+                            </div>
+                            <button type="button" class="btn-control btn-practice-launch btn-practice-incorrect" id="btn-practice-incorrect" disabled>
+                                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                                <span data-i18n="btn_practice_incorrect">Praticar Erradas</span>
+                            </button>
+                        </div>
+
+                    </aside>
+
                     <!-- EXAMS GRID MAIN COLUMN -->
                     <div class="exams-main-column">
                         <div id="exams-grid" class="exams-grid">

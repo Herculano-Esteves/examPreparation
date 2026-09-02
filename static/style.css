@@ -590,21 +590,24 @@ body.header-scrolled .sticky-corner-right {
 }
 
 /* --------------------------------------------------------------------------
-   10. Layout da Grelha de Exames & Barra Lateral de Filtros (Métricas Documentadas)
+   10. Layout da Grelha de Exames & Barras Laterais Flutuantes (Métricas Simétricas Documentadas)
    --------------------------------------------------------------------------
-   DOCUMENTAÇÃO DE ALINHAMENTO VERTICAL:
+   DOCUMENTAÇÃO DE ALINHAMENTO E SIMETRIA VERTICAL:
    - --exam-row-pad-top: espaço interno superior de cada linha de exame (1.05rem).
    - --exam-row-pad-bottom: espaço interno inferior de cada linha de exame (1.10rem).
-   - --sidebar-optical-offset: compensação ótica para a barra lateral de filtros (1.05rem).
-     Como o primeiro cartão de exame possui preenchimento interno superior (--exam-row-pad-top),
-     o texto do título só começa 1.05rem abaixo do topo da caixa.
-     Assim, a barra lateral utiliza top: var(--sidebar-optical-offset) para que o
-     rótulo "ORDENAR" fique rigorosamente alinhado na mesma linha horizontal do título do exame.
+   - --sidebar-optical-offset: compensação ótica para as barras laterais (1.05rem), alinhando
+     o topo das barras laterais com o primeiro título de exame.
+   - --sidebar-floating-width: largura idêntica para ambas as barras (300px).
+   - --sidebar-floating-margin: margem para centralização na caleira exterior (calc(-25vw + 25% - 150px)).
+   - --sidebar-floating-max-width: largura máxima responsiva das barras (calc(50vw - 50% - 24px)).
    -------------------------------------------------------------------------- */
 :root {
     --exam-row-pad-top: 1.05rem;
     --exam-row-pad-bottom: 1.10rem;
     --sidebar-optical-offset: 1.05rem;
+    --sidebar-floating-width: 300px;
+    --sidebar-floating-margin: calc(-25vw + 25% - 150px);
+    --sidebar-floating-max-width: calc(50vw - 50% - 24px);
 }
 
 .exams-screen-layout {
@@ -619,20 +622,16 @@ body.header-scrolled .sticky-corner-right {
     max-width: 960px;
 }
 
-/* --------------------------------------------------------------------------
-   Floating Filters Sidebar (Sticky in Left Gutter / Pure Floating Affordance)
-   Centered in the left gutter between the screen edge and the exams list,
-   following the user smoothly as they scroll through exams.
-   -------------------------------------------------------------------------- */
+/* Floating Left Sidebar (Filters & Sorting) */
 .floating-filters-sidebar {
     position: sticky;
     top: 5.0rem;
     float: left;
-    margin-left: calc(-25vw + 25% - 150px);
-    margin-right: -300px;
+    margin-left: var(--sidebar-floating-margin);
+    margin-right: calc(-1 * var(--sidebar-floating-width));
     margin-top: var(--sidebar-optical-offset);
-    width: 300px;
-    max-width: calc(50vw - 50% - 24px);
+    width: var(--sidebar-floating-width);
+    max-width: var(--sidebar-floating-max-width);
     background: transparent;
     border: none;
     box-shadow: none;
@@ -642,6 +641,171 @@ body.header-scrolled .sticky-corner-right {
     gap: 1.15rem;
     user-select: none;
     z-index: 20;
+}
+
+/* Floating Right Sidebar (Practice Hub) */
+.floating-practice-sidebar {
+    position: sticky;
+    top: 5.0rem;
+    float: right;
+    margin-right: var(--sidebar-floating-margin);
+    margin-left: calc(-1 * var(--sidebar-floating-width));
+    margin-top: var(--sidebar-optical-offset);
+    width: var(--sidebar-floating-width);
+    max-width: var(--sidebar-floating-max-width);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    user-select: none;
+    z-index: 20;
+}
+
+/* Practice Card Styling */
+.practice-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 12px;
+    padding: 0.90rem 1.05rem;
+    backdrop-filter: blur(12px);
+    transition: all var(--transition-speed) ease;
+}
+
+.practice-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.practice-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.practice-card-label {
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.practice-card-difficult .practice-card-label i {
+    color: #f59e0b;
+    font-size: 0.82rem;
+}
+
+.practice-card-incorrect .practice-card-label i {
+    color: #f87171;
+    font-size: 0.82rem;
+}
+
+.practice-card-count {
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.12rem 0.45rem;
+    border-radius: var(--border-radius-pill);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    line-height: 1.2;
+    transition: all var(--transition-speed) ease;
+}
+
+.practice-card-difficult .practice-card-count {
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.35);
+    background: rgba(245, 158, 11, 0.10);
+}
+
+.practice-card-incorrect .practice-card-count {
+    color: #fca5a5;
+    border-color: rgba(239, 68, 68, 0.35);
+    background: rgba(239, 68, 68, 0.10);
+}
+
+.practice-card-count.count-zero {
+    color: var(--text-dim);
+    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    opacity: 0.5;
+}
+
+.btn-practice-launch {
+    width: 100%;
+    padding: 0.50rem 0.95rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-practice-difficult {
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #fbbf24;
+}
+
+.btn-practice-difficult:hover:not(:disabled) {
+    background: rgba(245, 158, 11, 0.22);
+    border-color: rgba(245, 158, 11, 0.65);
+    color: #fef3c7;
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.28);
+}
+
+.btn-practice-difficult i {
+    color: #f59e0b;
+}
+
+.btn-practice-incorrect {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #fca5a5;
+}
+
+.btn-practice-incorrect:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.22);
+    border-color: rgba(239, 68, 68, 0.65);
+    color: #ffffff;
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.28);
+}
+
+.btn-practice-incorrect i {
+    color: #f87171;
+}
+
+.btn-practice-launch:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    color: var(--text-dim) !important;
+}
+
+.btn-practice-launch:disabled i {
+    color: var(--text-dim) !important;
 }
 
 .btn-floating-header-back {
@@ -1115,7 +1279,7 @@ body.header-scrolled .sticky-corner-right {
 .dual-range-slider-wrapper {
     position: relative;
     flex: 1;
-    height: 22px;
+    height: 24px;
     display: flex;
     align-items: center;
 }
@@ -1126,6 +1290,7 @@ body.header-scrolled .sticky-corner-right {
     height: 4px;
     background: rgba(255, 255, 255, 0.12);
     border-radius: 2px;
+    z-index: 1;
 }
 
 .range-slider-track-fill {
@@ -1136,67 +1301,89 @@ body.header-scrolled .sticky-corner-right {
     box-shadow: 0 0 8px var(--primary-glow);
     left: 0%;
     right: 0%;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .range-thumb {
     position: absolute;
     width: 100%;
-    height: 4px;
+    height: 24px;
     background: transparent;
     pointer-events: none;
     -webkit-appearance: none;
     appearance: none;
     margin: 0;
+    padding: 0;
     outline: none;
-    top: 9px;
+    top: 0;
+    left: 0;
+}
+
+.range-thumb-min {
+    z-index: 4;
+}
+
+.range-thumb-max {
+    z-index: 5;
 }
 
 /* Webkit Range Thumb */
 .range-thumb::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 13px;
-    height: 13px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: #ffffff;
     border: 2px solid var(--primary);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6), 0 0 6px var(--primary-glow);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6), 0 0 8px var(--primary-glow);
     cursor: pointer;
     pointer-events: auto;
-    transition: transform 0.15s ease, background-color 0.15s ease;
+    position: relative;
+    z-index: 10;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .range-thumb::-webkit-slider-thumb:hover {
-    transform: scale(1.25);
-    background: #e9d5ff;
+    transform: scale(1.3);
+    background: #f3e8ff;
+    box-shadow: 0 0 12px var(--primary-glow);
 }
 
 .range-thumb::-webkit-slider-thumb:active {
-    transform: scale(1.35);
-    background: var(--primary);
+    transform: scale(1.4);
+    background: #ffffff;
+    border-color: #c084fc;
+    box-shadow: 0 0 16px var(--primary-glow);
 }
 
 /* Mozilla Range Thumb */
 .range-thumb::-moz-range-thumb {
-    width: 13px;
-    height: 13px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: #ffffff;
     border: 2px solid var(--primary);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6), 0 0 6px var(--primary-glow);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6), 0 0 8px var(--primary-glow);
     cursor: pointer;
     pointer-events: auto;
-    transition: transform 0.15s ease, background-color 0.15s ease;
+    position: relative;
+    z-index: 10;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .range-thumb::-moz-range-thumb:hover {
-    transform: scale(1.25);
-    background: #e9d5ff;
+    transform: scale(1.3);
+    background: #f3e8ff;
+    box-shadow: 0 0 12px var(--primary-glow);
 }
 
 .range-thumb::-moz-range-thumb:active {
-    transform: scale(1.35);
-    background: var(--primary);
+    transform: scale(1.4);
+    background: #ffffff;
+    border-color: #c084fc;
+    box-shadow: 0 0 16px var(--primary-glow);
 }
 
 /* Status indicator text */
@@ -2971,7 +3158,7 @@ body.header-scrolled .sticky-corner-right {
     }
 }
 
-@media (max-width: 1320px) {
+@media (max-width: 1720px) {
     .sticky-corner-left,
     .sticky-corner-right {
         display: none;
@@ -2989,11 +3176,13 @@ body.header-scrolled .sticky-corner-right {
         display: none;
     }
 
-    .floating-filters-sidebar {
+    .floating-filters-sidebar,
+    .floating-practice-sidebar {
         position: static;
         float: none;
         margin: 0 auto 1.25rem auto;
         left: auto;
+        right: auto;
         transform: none;
         width: 100%;
         max-width: 960px;
@@ -3004,8 +3193,9 @@ body.header-scrolled .sticky-corner-right {
         border-bottom: 1px dashed var(--divider-dashed);
     }
 
-    .floating-filter-group {
+    .floating-filter-group,
+    .practice-card {
         flex: 1;
-        min-width: 180px;
+        min-width: 240px;
     }
 }

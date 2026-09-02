@@ -12,6 +12,7 @@ import { escapeHTML, clampCardDescriptions, safeAsync } from './utils.js';
 import { transitionTo } from './navigation.js';
 import { t } from './i18n.js';
 import { Events, APP_EVENTS } from './events.js';
+import { ALL_QUESTION_TYPES } from './examFilters.js';
 
 /**
  * Fetch the static cadeiras list from the server and render the menu.
@@ -174,6 +175,15 @@ export function renderCadeirasMenu() {
  */
 export function selectCadeira(cadeira) {
     State.activeCadeira = cadeira;
+    State.exams = null;
+    State.examSearch = '';
+    State.examQuestionsMin = 1;
+    State.examQuestionsMax = null;
+    State.examScoreMin = 0;
+    State.examScoreMax = 100;
+    State.examStateFilter = ['completed', 'pending'];
+    State.globalQuestionTypes = [...ALL_QUESTION_TYPES];
+    State.examFilters = {};
 
     const iconEl = document.getElementById('app-logo-icon');
     if (iconEl && cadeira.icon) {

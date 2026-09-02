@@ -63,6 +63,23 @@ export const TRANSLATIONS = {
         empty_filters_desc: 'Nenhum exame corresponde aos filtros e pesquisa selecionados. Tente ajustar os parâmetros.',
         btn_reset_all_filters: 'Repor Todos os Filtros',
 
+        // Right Practice Hub (Special Review Exams)
+        practice_hub_title: 'Sessões de Prática',
+        practice_difficult_title: 'Perguntas Difíceis',
+        practice_difficult_desc: 'Reveja e treine todas as perguntas assinaladas como difíceis nesta cadeira.',
+        btn_practice_difficult: 'Praticar Difíceis',
+        practice_difficult_count: '{count} perguntas assinaladas',
+        practice_difficult_count_single: '1 pergunta assinalada',
+        practice_difficult_count_empty: 'Nenhuma pergunta assinalada',
+        practice_incorrect_title: 'Perguntas Erradas',
+        practice_incorrect_desc: 'Consolide a matéria resolvendo novamente as perguntas que errou nos exames.',
+        btn_practice_incorrect: 'Praticar Erradas',
+        practice_incorrect_count: '{count} perguntas com erro',
+        practice_incorrect_count_single: '1 pergunta com erro',
+        practice_incorrect_count_empty: 'Nenhuma pergunta com erro',
+        special_exam_difficult_title: 'Perguntas Difíceis',
+        special_exam_incorrect_title: 'Perguntas Erradas',
+
         // Exam Cards
         question_singular: '1 questão',
         question_plural: '{count} questões',
@@ -256,6 +273,23 @@ export const TRANSLATIONS = {
         empty_filters_title: 'No exams found',
         empty_filters_desc: 'No exams match the selected filters and search criteria. Try adjusting the parameters.',
         btn_reset_all_filters: 'Reset All Filters',
+
+        // Right Practice Hub (Special Review Exams)
+        practice_hub_title: 'Practice Hub',
+        practice_difficult_title: 'Difficult Questions',
+        practice_difficult_desc: 'Review and practice all questions marked as difficult in this subject.',
+        btn_practice_difficult: 'Practice Difficult',
+        practice_difficult_count: '{count} questions marked',
+        practice_difficult_count_single: '1 question marked',
+        practice_difficult_count_empty: 'No questions marked',
+        practice_incorrect_title: 'Mistakes / Incorrect',
+        practice_incorrect_desc: 'Reinforce your knowledge by resolving questions you previously missed.',
+        btn_practice_incorrect: 'Practice Mistakes',
+        practice_incorrect_count: '{count} incorrect questions',
+        practice_incorrect_count_single: '1 incorrect question',
+        practice_incorrect_count_empty: 'No incorrect questions',
+        special_exam_difficult_title: 'Difficult Questions',
+        special_exam_incorrect_title: 'Incorrect Questions',
 
         // Exam Cards
         question_singular: '1 question',

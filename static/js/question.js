@@ -315,7 +315,8 @@ function initDifficultToggleListener() {
         const q = State.currentQuestion;
         if (!q) return;
         const origIndex = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
-        const isDiff = toggleDifficultQuestion(State.activeExam.id, origIndex, State);
+        const targetExamId = q._sourceExamId || State.activeExam.id;
+        const isDiff = toggleDifficultQuestion(targetExamId, origIndex, State);
         
         updateDifficultButtonUI(isDiff);
 
@@ -326,7 +327,7 @@ function initDifficultToggleListener() {
         }
 
         Events.emit('question:difficult_toggled', {
-            examId: State.activeExam.id,
+            examId: targetExamId,
             origIndex,
             isDifficult: isDiff
         });
@@ -343,7 +344,8 @@ export function updateQuestionDifficultButton(q) {
 
     // Difficult Question Button State
     const origIndex = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
-    const isDiff = isQuestionDifficult(State.activeExam?.id, origIndex, State);
+    const targetExamId = q._sourceExamId || State.activeExam?.id;
+    const isDiff = isQuestionDifficult(targetExamId, origIndex, State);
     updateDifficultButtonUI(isDiff);
 }
 
@@ -434,9 +436,10 @@ export function confirmMultipleChoiceAnswer() {
 
     // Atualizar resultado desta pergunta em tempo real no localStorage
     if (State.activeExam && State.activeExam.id) {
+        const targetExamId = q._sourceExamId || State.activeExam.id;
         const origIdx = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
         const status = isCorrect ? QuestionStatus.CORRECT : QuestionStatus.INCORRECT;
-        updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+        updateQuestionStatus(targetExamId, origIdx, status, State, State.totalQuestions);
     }
 
     renderQuestion();
@@ -461,13 +464,14 @@ export function revealWrittenAnswer() {
     // Atualizar resultado desta pergunta aberta em tempo real no localStorage como ANSWERED (4)
     if (State.activeExam && State.activeExam.id) {
         const q = State.currentQuestion;
+        const targetExamId = (q && q._sourceExamId) ? q._sourceExamId : State.activeExam.id;
         const origIdx = (q && q._origIndex !== undefined) ? q._origIndex : State.question.index;
         const ans = State.examAnswers ? State.examAnswers[State.question.index] : null;
         let status = QuestionStatus.ANSWERED;
         if (ans && ans.isCorrect === true) status = QuestionStatus.CORRECT;
         else if (ans && ans.isCorrect === false) status = QuestionStatus.INCORRECT;
 
-        updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+        updateQuestionStatus(targetExamId, origIdx, status, State, State.totalQuestions);
     }
 
     renderQuestion();
@@ -490,9 +494,10 @@ export function assessWrittenAnswer(isCorrect) {
         State.question.firstAttemptCorrect[State.question.index] = isCorrect;
     }
 
+    const targetExamId = q._sourceExamId || State.activeExam.id;
     const origIdx = (q._origIndex !== undefined) ? q._origIndex : State.question.index;
     const status = isCorrect ? QuestionStatus.CORRECT : QuestionStatus.INCORRECT;
-    updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+    updateQuestionStatus(targetExamId, origIdx, status, State, State.totalQuestions);
 
     if (isCorrect) {
         showToast(t('toast_assessed_correct'), NotificationType.SUCCESS);

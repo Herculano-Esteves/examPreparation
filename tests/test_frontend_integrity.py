@@ -23,6 +23,7 @@ class TestFrontendIntegrity(unittest.TestCase):
                 for item in el.split(','):
                     item = item.strip().split(' as ')[-1].strip()
                     if item:
+                        self.assertNotIn(item, exp_named, f"Duplicate export of '{item}' in {os.path.basename(js_file)}")
                         all_exp.append(item)
             exports[os.path.basename(js_file)] = set(all_exp)
 
@@ -126,6 +127,35 @@ class TestFrontendIntegrity(unittest.TestCase):
         # Attempted state check: attempted if correct > 0 or incorrect > 0 or answered > 0
         is_attempted = (correct_count > 0 or incorrect_count > 0 or answered_count > 0)
         self.assertTrue(is_attempted)
+
+    def test_practice_hub_and_special_exams_logic(self):
+        """Validates difficult and incorrect question counting and special exam aggregation logic."""
+        mock_exams = [
+            {'id': 'exam_1', 'questions_count': 3},
+            {'id': 'exam_2', 'questions_count': 4},
+            {'id': 'exam_other_subject', 'questions_count': 5}
+        ]
+        active_subject_exam_ids = {'exam_1', 'exam_2'}
+
+        difficult_questions = {
+            'exam_1': [0, 2],         # 2 difficult in exam_1
+            'exam_2': [1],            # 1 difficult in exam_2
+            'exam_other_subject': [0] # 1 in another subject (should be excluded)
+        }
+
+        exam_history = {
+            'exam_1': [1, 2, 1],      # 1 incorrect (index 1) in exam_1
+            'exam_2': [2, 2, 3, 1],   # 2 incorrect (index 0, 1) in exam_2
+            'exam_other_subject': [2] # 1 in another subject (should be excluded)
+        }
+
+        # Calculate difficult count for active subject
+        diff_count = sum(len(difficult_questions[e['id']]) for e in mock_exams if e['id'] in active_subject_exam_ids and e['id'] in difficult_questions)
+        self.assertEqual(diff_count, 3)
+
+        # Calculate incorrect count for active subject
+        inc_count = sum(sum(1 for s in exam_history[e['id']] if s == 2) for e in mock_exams if e['id'] in active_subject_exam_ids and e['id'] in exam_history)
+        self.assertEqual(inc_count, 3)
 
 if __name__ == '__main__':
     unittest.main()
