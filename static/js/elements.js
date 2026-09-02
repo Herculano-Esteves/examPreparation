@@ -61,6 +61,7 @@ export const elements = {
     get progressBarFill()           { return document.getElementById('progress-bar-fill'); },
     get btnToggleDifficult()        { return document.getElementById('btn-toggle-difficult'); },
     get btnToggleDifficultText()    { return document.getElementById('btn-toggle-difficult-text'); },
+    get btnExamSettings()           { return document.getElementById('btn-exam-settings'); },
 
     // ---------- Question pane ----------
     get leftScrollContent()         { return document.getElementById('exam-left-scroll-content') || document.querySelector('.exam-left-scroll-content'); },

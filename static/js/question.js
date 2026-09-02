@@ -608,12 +608,14 @@ export function showResults() {
 // EventBus Subscriptions
 // ---------------------------------------------------------------------------
 Events.on(APP_EVENTS.LANGUAGE_CHANGED, () => {
-    if (State.currentScreen === 'exam') {
+    if (State.currentScreen === 'exam' || State.previousScreenBeforeSettings === 'exam') {
         if (elements.currentExamTitle && State.activeExam) {
-            elements.currentExamTitle.textContent = State.activeExam.title ? getLocalizedText(State.activeExam.title) : getLocalizedText(State.activeExam.titulo);
+            elements.currentExamTitle.textContent = getLocalizedText(State.activeExam.title || State.activeExam.titulo);
         }
-        renderQuestion();
-    } else if (State.currentScreen === 'results') {
+        if (State.activeExam && State.question.index !== undefined) {
+            renderQuestion();
+        }
+    } else if (State.currentScreen === 'results' || State.previousScreenBeforeSettings === 'results') {
         showResults();
     }
 });

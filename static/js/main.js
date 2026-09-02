@@ -93,14 +93,13 @@ function setupEventListeners() {
         });
     }
 
-    if (elements.btnSettings) {
-        elements.btnSettings.addEventListener('click', () => {
-            State.previousScreenBeforeSettings = State.currentScreen;
-            transitionTo('settings');
-        });
-    }
+    const settingsButtons = [
+        elements.btnSettings,
+        elements.btnExamSettings,
+        ...document.querySelectorAll('.btn-sticky-settings')
+    ].filter(Boolean);
 
-    document.querySelectorAll('.btn-sticky-settings').forEach(btn => {
+    settingsButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             State.previousScreenBeforeSettings = State.currentScreen;
             transitionTo('settings');
@@ -169,12 +168,19 @@ function setupEventListeners() {
                 if (mainTitle) mainTitle.textContent = t('app_title');
             }
 
-            if (State.currentScreen === 'cadeiras') {
+            if (State.currentScreen === 'cadeiras' || State.previousScreenBeforeSettings === 'cadeiras') {
                 renderCadeirasMenu();
-            } else if (State.currentScreen === 'menu') {
+            } else if (State.currentScreen === 'menu' || State.previousScreenBeforeSettings === 'menu') {
                 renderExamsMenu();
-            } else if (State.currentScreen === 'exam') {
-                renderQuestion();
+            }
+            
+            if (State.currentScreen === 'exam' || State.previousScreenBeforeSettings === 'exam') {
+                if (State.activeExam) {
+                    if (elements.currentExamTitle) {
+                        elements.currentExamTitle.textContent = getLocalizedText(State.activeExam.title || State.activeExam.titulo);
+                    }
+                    renderQuestion();
+                }
             }
         });
     });

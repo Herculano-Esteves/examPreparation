@@ -1615,13 +1615,21 @@ body.header-scrolled .sticky-corner-right {
     width: 100%;
     box-sizing: border-box;
     z-index: 10;
+    gap: 1.5rem;
 }
 
 .exam-top-bar-left {
     display: flex;
     align-items: center;
     gap: 1.15rem;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
+}
+
+.exam-top-bar-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .exam-logo-box {

@@ -138,8 +138,8 @@ export const TRANSLATIONS = {
 
         // Self-Assessment (Written Questions)
         self_assess_title: 'Como avalia a sua resposta?',
-        btn_assess_correct: 'Acertei / Correta',
-        btn_assess_incorrect: 'Errei / Incorreta',
+        btn_assess_correct: 'Acertei',
+        btn_assess_incorrect: 'Errei',
         status_answered_unassessed: 'Respondida (Não avaliada)',
         toast_assessed_correct: 'Resposta autoavaliada como correta!',
         toast_assessed_incorrect: 'Resposta autoavaliada como incorreta.',
@@ -332,8 +332,8 @@ export const TRANSLATIONS = {
 
         // Self-Assessment (Written Questions)
         self_assess_title: 'How do you evaluate your answer?',
-        btn_assess_correct: 'Correct / I got it right',
-        btn_assess_incorrect: 'Incorrect / I got it wrong',
+        btn_assess_correct: 'I got it right',
+        btn_assess_incorrect: 'I got it wrong',
         status_answered_unassessed: 'Answered (Pending evaluation)',
         toast_assessed_correct: 'Answer self-assessed as correct!',
         toast_assessed_incorrect: 'Answer self-assessed as incorrect.',
