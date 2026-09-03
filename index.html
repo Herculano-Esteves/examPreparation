@@ -726,52 +726,49 @@
 
             <!-- STATE 6: SETTINGS SCREEN -->
             <section id="screen-settings" class="screen">
-                <div class="menu-header-bar">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-gear" aria-hidden="true"></i> <span data-i18n="settings_title">Definições do Sistema</span>
-                    </h3>
-                </div>
-                <div class="question-card">
-                    <!-- Language Selection Section -->
-                    <h4 class="settings-section-title" data-i18n="settings_lang_title">Idioma / Language</h4>
-                    <p class="settings-description" data-i18n="settings_lang_desc">
-                        Escolha o idioma de apresentação da interface do simulador.
-                    </p>
-                    <div class="language-selector-group" role="group" aria-label="Language Selection" data-i18n-aria-label="settings_lang_title">
-                        <button type="button" class="btn-control btn-lang-option" data-lang="pt" aria-pressed="false">
-                            <span class="lang-flag" aria-hidden="true">🇵🇹</span>
-                            <span class="lang-name">Português</span>
+                <div class="settings-box">
+                    <div class="settings-header">
+                        <h3 class="section-title">
+                            <i class="fa-solid fa-gear" aria-hidden="true"></i> <span data-i18n="settings_title">Definições do Sistema</span>
+                        </h3>
+                        <button id="btn-back-settings" class="btn-control btn-secondary btn-sm" aria-label="Voltar">
+                            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                            <span data-i18n="btn_back">Voltar</span>
                         </button>
-                        <button type="button" class="btn-control btn-lang-option active" data-lang="en" aria-pressed="true">
-                            <span class="lang-flag" aria-hidden="true">🇬🇧</span>
-                            <span class="lang-name">English</span>
-                        </button>
+                    </div>
+
+                    <!-- Secção 1: Idioma -->
+                    <div class="settings-group">
+                        <div class="settings-group-header">
+                            <h4 class="settings-group-title" data-i18n="settings_lang_title">Idioma / Language</h4>
+                            <p class="settings-group-desc" data-i18n="settings_lang_desc">Escolha o idioma de apresentação da interface do simulador.</p>
+                        </div>
+                        <div class="settings-lang-actions">
+                            <button type="button" class="btn-control btn-lang-option" data-lang="pt" aria-pressed="false">
+                                <span class="lang-flag" aria-hidden="true">🇵🇹</span>
+                                <span class="lang-name">Português</span>
+                            </button>
+                            <button type="button" class="btn-control btn-lang-option active" data-lang="en" aria-pressed="true">
+                                <span class="lang-flag" aria-hidden="true">🇬🇧</span>
+                                <span class="lang-name">English</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="settings-divider"></div>
 
-                    <h4 class="settings-section-title" data-i18n="settings_storage_title">Armazenamento Local</h4>
-                    <p class="settings-description" data-i18n="settings_storage_desc">
-                        Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem
-                        cookies de rastreio nem dados transmitidos para terceiros.
-                    </p>
-                    <div class="danger-zone">
-                        <h5 class="danger-zone-title"><i class="fa-solid fa-triangle-exclamation"
-                                aria-hidden="true"></i> <span data-i18n="danger_zone_title">Zona de Perigo</span></h5>
-                        <p class="danger-zone-desc" data-i18n="danger_zone_desc">
-                            Esta ação é irreversível e irá apagar permanentemente todas as cadeiras e exames criados
-                            localmente.
-                        </p>
-                        <button id="btn-clear-storage" class="btn-control btn-danger btn-full">
-                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                            <span data-i18n="btn_clear_storage">Apagar Todos os Dados Locais</span>
-                        </button>
-                    </div>
-                    <div class="exam-controls">
-                        <button id="btn-back-settings" class="btn-control btn-secondary btn-full">
-                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                            <span data-i18n="btn_back">Voltar</span>
-                        </button>
+                    <!-- Secção 2: Armazenamento e Limpeza -->
+                    <div class="settings-group">
+                        <div class="settings-group-header">
+                            <h4 class="settings-group-title" data-i18n="settings_storage_title">Armazenamento Local</h4>
+                            <p class="settings-group-desc" data-i18n="settings_storage_desc">Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem cookies de rastreio nem dados transmitidos para terceiros.</p>
+                        </div>
+                        <div class="settings-danger-actions">
+                            <button id="btn-clear-storage" class="btn-control btn-danger">
+                                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                <span data-i18n="btn_clear_storage">Apagar Todos os Dados Locais</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
