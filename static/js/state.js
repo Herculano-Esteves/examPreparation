@@ -39,6 +39,9 @@ export const State = {
     examSearch: '',
     globalQuestionTypes: ['escolha_multipla', 'boolean', 'escrita'],
     examStateFilter: ['completed', 'pending'], // ['completed', 'pending']
+    examLanguageFilter: ['pt', 'en'], // ['pt', 'en']
+    prioritizedLanguage: 'pt', // 'pt' | 'en' (idioma prioritário nos blocos)
+    prioritizeLanguage: true, // boolean para ativar/desativar priorização de idioma
     examQuestionsMin: 1,
     examQuestionsMax: null, // dynamically calculated per cadeira
     examScoreMin: 0,

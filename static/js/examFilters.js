@@ -13,12 +13,12 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { ExamService } from './examService.js';
 import { showToast } from './utils.js';
-import { t, updateSortDropdownLabel } from './i18n.js';
-import { ALL_QUESTION_TYPES, ALL_EXAM_STATES, clampQuestionsRange, clampScoreRange, sanitizeQuestionsMax, sanitizeQuestionsMin } from './filterState.js';
+import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
+import { ALL_QUESTION_TYPES, ALL_EXAM_STATES, ALL_LANGUAGES, clampQuestionsRange, clampScoreRange, sanitizeQuestionsMax, sanitizeQuestionsMin } from './filterState.js';
 import { createDualRangeSlider } from './dualRangeSlider.js';
 import { QuestionStatus } from './storage.js';
 
-export { ALL_QUESTION_TYPES, ALL_EXAM_STATES };
+export { ALL_QUESTION_TYPES, ALL_EXAM_STATES, ALL_LANGUAGES };
 
 /**
  * Calcula os tipos excluídos efetivos para um exame, combinando:
@@ -85,7 +85,33 @@ export function initFloatingFilters(onFilterChange) {
         });
     });
 
-    // 3. Checkboxes de Tipologias de Questão
+    // 3. Checkboxes e Prioritização de Idioma do Exame
+    const langCheckboxes = document.querySelectorAll('.floating-lang-check-input');
+    langCheckboxes.forEach(chk => {
+        chk.addEventListener('change', () => {
+            const activeLangs = [];
+            langCheckboxes.forEach(c => {
+                if (c.checked) activeLangs.push(c.value);
+            });
+            State.examLanguageFilter = activeLangs;
+            if (activeLangs.length === 1) {
+                State.prioritizedLanguage = activeLangs[0];
+            } else if (activeLangs.length > 1 && chk.checked) {
+                State.prioritizedLanguage = chk.value;
+            }
+            if (onFilterChange) onFilterChange();
+        });
+    });
+
+    const priorityCheckbox = elements.filterLangPriority || document.getElementById('filter-lang-priority');
+    if (priorityCheckbox) {
+        priorityCheckbox.addEventListener('change', () => {
+            State.prioritizeLanguage = priorityCheckbox.checked;
+            if (onFilterChange) onFilterChange();
+        });
+    }
+
+    // 4. Checkboxes de Tipologias de Questão
     const typeCheckboxes = document.querySelectorAll('.floating-check-input');
     typeCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
@@ -182,6 +208,15 @@ export function syncFilterInputsUI(maxQInCadeira) {
         chk.checked = (State.examStateFilter || ALL_EXAM_STATES).includes(chk.value);
     });
 
+    document.querySelectorAll('.floating-lang-check-input').forEach(chk => {
+        chk.checked = (State.examLanguageFilter || ALL_LANGUAGES).includes(chk.value);
+    });
+
+    const priorityCheckbox = elements.filterLangPriority || document.getElementById('filter-lang-priority');
+    if (priorityCheckbox) {
+        priorityCheckbox.checked = State.prioritizeLanguage !== false;
+    }
+
     // Atualiza sliders através dos controladores modulares
     const safeMaxQ = sanitizeQuestionsMax(State.examQuestionsMax, maxQInCadeira);
     const safeMinQ = sanitizeQuestionsMin(State.examQuestionsMin, safeMaxQ);
@@ -216,7 +251,18 @@ export function syncFilterInputsUI(maxQInCadeira) {
 }
 
 /**
- * Atualiza os contadores numéricos abrangidos pelas opções de Estado, Tipos de Pergunta,
+ * Sincroniza a classe visual is-prioritized nos itens de idioma da barra lateral.
+ */
+export function syncLanguagePriorityUI() {
+    const pLang = State.prioritizedLanguage || (State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : getCurrentLanguage());
+    document.querySelectorAll('.floating-checkbox-item[data-lang]').forEach(item => {
+        const lang = item.getAttribute('data-lang');
+        item.classList.toggle('is-prioritized', lang === pLang);
+    });
+}
+
+/**
+ * Atualiza os contadores numéricos abrangidos pelas opções de Estado, Idioma, Tipos de Pergunta,
  * Nº de Questões e Classificação (%).
  * Cada contador reflete individualmente o número de exames abrangidos pela opção (sem parêntesis, sublinhados).
  */
@@ -228,6 +274,8 @@ export function updateFilterOptionCounts() {
     };
     let completedExamsCount = 0;
     let pendingExamsCount = 0;
+    let langPtCount = 0;
+    let langEnCount = 0;
     let questionsMatchCount = 0;
     let scoreMatchCount = 0;
 
@@ -237,7 +285,12 @@ export function updateFilterOptionCounts() {
     const maxScore = State.examScoreMax !== null && State.examScoreMax !== undefined ? State.examScoreMax : 100;
 
     (State.exams || []).forEach(exam => {
-        // 1. Contagem de exames que contêm cada tipo de pergunta
+        // 1. Contagem de exames por idioma
+        const langs = ExamService.getLanguages(exam);
+        if (langs.includes('pt')) langPtCount++;
+        if (langs.includes('en')) langEnCount++;
+
+        // 2. Contagem de exames que contêm cada tipo de pergunta
         const tc = ExamService.getTypesCount(exam);
         const qTypes = ExamService.getQuestionTypes(exam);
         ['escolha_multipla', 'boolean', 'escrita'].forEach(tKey => {
@@ -247,7 +300,7 @@ export function updateFilterOptionCounts() {
             }
         });
 
-        // 2. Estado do exame (realizado / pendente) e pontuação (score)
+        // 3. Estado do exame (realizado / pendente) e pontuação (score)
         const histArr = State.examHistory ? State.examHistory[exam.id] : null;
         let isAttempted = false;
         let scorePct = 0;
@@ -266,13 +319,13 @@ export function updateFilterOptionCounts() {
             pendingExamsCount++;
         }
 
-        // 3. Avaliação individual isolada para Nº de Questões
+        // 4. Avaliação individual isolada para Nº de Questões
         const totalQ = ExamService.getQuestionsCount(exam);
         if (totalQ >= minQ && totalQ <= maxQ) {
             questionsMatchCount++;
         }
 
-        // 4. Avaliação individual isolada para Classificação (%)
+        // 5. Avaliação individual isolada para Classificação (%)
         if (scorePct >= minScore && scorePct <= maxScore) {
             scoreMatchCount++;
         }
@@ -282,6 +335,11 @@ export function updateFilterOptionCounts() {
     const elPending = elements.countStatePending || document.getElementById('count-state-pending');
     if (elCompleted) elCompleted.textContent = `${completedExamsCount}`;
     if (elPending) elPending.textContent = `${pendingExamsCount}`;
+
+    const elLangPt = elements.countLangPt || document.getElementById('count-lang-pt');
+    const elLangEn = elements.countLangEn || document.getElementById('count-lang-en');
+    if (elLangPt) elLangPt.textContent = `${langPtCount}`;
+    if (elLangEn) elLangEn.textContent = `${langEnCount}`;
 
     const elChoice = elements.countTypeChoice || document.getElementById('count-type-escolha_multipla');
     const elBoolean = elements.countTypeBoolean || document.getElementById('count-type-boolean');
@@ -306,6 +364,9 @@ export function resetAllFilters(onReset) {
     State.examSearch = '';
     State.examSort = 'default';
     State.examStateFilter = [...ALL_EXAM_STATES];
+    State.examLanguageFilter = [...ALL_LANGUAGES];
+    State.prioritizedLanguage = getCurrentLanguage();
+    State.prioritizeLanguage = true;
     State.globalQuestionTypes = [...ALL_QUESTION_TYPES];
     State.examFilters = {};
     State.examQuestionsMin = 1;

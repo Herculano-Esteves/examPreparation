@@ -25,6 +25,16 @@ class TestFilterStateMath(unittest.TestCase):
         types = [t.strip().strip("'\"") for t in match.group(1).split(",") if t.strip()]
         self.assertEqual(types, ['escolha_multipla', 'boolean', 'escrita'])
 
+    def test_canonical_languages(self):
+        """Valida as línguas canónicas ('pt', 'en')."""
+        import re
+        with open(r"c:\Users\Pedro\source\repos\examPreparation\static\js\filterState.js", "r", encoding="utf-8") as f:
+            content = f.read()
+        match = re.search(r"export\s+const\s+ALL_LANGUAGES\s*=\s*\[(.*?)\];", content)
+        self.assertIsNotNone(match)
+        langs = [l.strip().strip("'\"") for l in match.group(1).split(",") if l.strip()]
+        self.assertEqual(langs, ['pt', 'en'])
+
     def test_sanitize_questions_max_preserves_lower_values(self):
         """Garante que quando o utilizador define max=10 numa cadeira de 50, o valor 10 é preservado!"""
         limit = 50

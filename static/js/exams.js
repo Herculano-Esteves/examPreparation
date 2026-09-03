@@ -84,6 +84,8 @@ export async function fetchExams(indexPath) {
         State.examScoreMin = 0;
         State.examScoreMax = 100;
         State.examStateFilter = ['completed', 'pending'];
+        State.examLanguageFilter = ['pt', 'en'];
+        State.prioritizedLanguage = getCurrentLanguage();
         State.globalQuestionTypes = ALL_QUESTION_TYPES;
 
         renderExamsMenu();
@@ -183,11 +185,18 @@ export function renderExamsMenu() {
             if (minScore > 0) return false;
         }
 
+        // Language filter
+        const allowedLanguages = State.examLanguageFilter || ['pt', 'en'];
+        const examLangs = ExamService.getLanguages(exam);
+        const matchesLang = examLangs.some(l => allowedLanguages.includes(l));
+        if (!matchesLang) return false;
+
         return true;
     });
 
-    // 3. Sort visible exams using examSorting module
-    sortExams(visibleExams, State.examSort || 'default', getCurrentLanguage());
+    // 3. Sort visible exams using examSorting module with language prioritization
+    const pLang = State.prioritizedLanguage || (State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : getCurrentLanguage());
+    sortExams(visibleExams, State.examSort || 'default', getCurrentLanguage(), pLang);
 
     // 4. Update status indicator in floating sidebar
     const statusEl = elements.floatingFilterCountText || document.getElementById('floating-filter-count-text');

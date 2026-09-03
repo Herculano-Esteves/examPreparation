@@ -156,6 +156,7 @@
                         <div class="sticky-header-center">
                             <h3 class="section-title">
                                 <i class="fa-solid fa-folder-open" aria-hidden="true"></i> <span data-i18n="select_exame">Selecione um Exame</span>
+                                <span class="header-exams-count-badge" id="floating-filter-count-text">A carregar exames...</span>
                             </h3>
                             <div class="menu-header-actions">
                                 <div class="search-input-wrapper header-search-wrapper">
@@ -382,9 +383,51 @@
                             </div>
                         </div>
 
-                        <!-- 6. STATUS INDICATOR -->
-                        <div class="floating-filter-status" id="floating-filter-status">
-                            <span id="floating-filter-count-text">A carregar exames...</span>
+                        <!-- 6. IDIOMA DOS EXAMES (LANGUAGE FILTER) -->
+                        <div class="floating-filter-group" id="group-filter-language">
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-language" aria-hidden="true"></i> <span data-i18n="filter_language">Idioma</span>
+                                </span>
+                            </div>
+                            <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por idioma do exame">
+                                <label class="floating-checkbox-item" data-lang="pt">
+                                    <input type="checkbox" class="floating-lang-check-input"
+                                        id="filter-lang-pt" checked value="pt"
+                                        aria-label="Português">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <span class="lang-flag-emoji">🇵🇹</span>
+                                        <span data-i18n="lang_pt">Português</span>
+                                    </span>
+                                    <span class="filter-option-count" id="count-lang-pt">0</span>
+                                </label>
+                                <label class="floating-checkbox-item" data-lang="en">
+                                    <input type="checkbox" class="floating-lang-check-input" id="filter-lang-en"
+                                        checked value="en" aria-label="English">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <span class="lang-flag-emoji">🇬🇧</span>
+                                        <span data-i18n="lang_en">English</span>
+                                    </span>
+                                    <span class="filter-option-count" id="count-lang-en">0</span>
+                                </label>
+                                <label class="floating-checkbox-item" data-priority="true">
+                                    <input type="checkbox" class="floating-priority-check-input" id="filter-lang-priority"
+                                        checked value="priority" aria-label="Priorizar Idioma">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-arrow-up-wide-short" style="color: #fbbf24;" aria-hidden="true"></i>
+                                        <span data-i18n="filter_lang_priority">Priorizar Idioma</span>
+                                    </span>
+                                </label>
+                            </div>
                         </div>
 
                     </aside>
@@ -651,8 +694,8 @@
                     <div class="form-group">
                         <label for="exame-lingua" data-i18n="label_exame_lingua">Idioma do Exame</label>
                         <select id="exame-lingua" class="form-control">
-                            <option value="pt">🇵🇹 Português (PT)</option>
-                            <option value="en">🇬🇧 English (UK)</option>
+                            <option value="pt">🇵🇹 Português</option>
+                            <option value="en">🇬🇧 English</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -697,11 +740,11 @@
                     <div class="language-selector-group" role="group" aria-label="Language Selection" data-i18n-aria-label="settings_lang_title">
                         <button type="button" class="btn-control btn-lang-option" data-lang="pt" aria-pressed="false">
                             <span class="lang-flag" aria-hidden="true">🇵🇹</span>
-                            <span class="lang-name" data-i18n="lang_pt">Português</span>
+                            <span class="lang-name">Português</span>
                         </button>
                         <button type="button" class="btn-control btn-lang-option active" data-lang="en" aria-pressed="true">
                             <span class="lang-flag" aria-hidden="true">🇬🇧</span>
-                            <span class="lang-name" data-i18n="lang_en">English (UK)</span>
+                            <span class="lang-name">English</span>
                         </button>
                     </div>
 

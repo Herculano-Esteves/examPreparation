@@ -134,8 +134,9 @@ export function createExamCardElement(exam, onStartExam) {
     row.setAttribute('tabindex', '0');
     row.setAttribute('role', 'button');
 
-    const localizedTitle = ExamService.getTitle(exam);
-    const localizedDesc = ExamService.getDescription(exam);
+    const pLang = State.prioritizedLanguage || (State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : getCurrentLanguage());
+    const localizedTitle = ExamService.getTitle(exam, pLang);
+    const localizedDesc = ExamService.getDescription(exam, pLang);
     row.setAttribute('aria-label', t('aria_start_exam', { title: localizedTitle }));
 
     const typesHTML = renderQuestionTypeTagsHTML(exam._questionTypes, exam._effectiveExcluded);
@@ -151,10 +152,9 @@ export function createExamCardElement(exam, onStartExam) {
     const scoreBadgeHTML = renderExamScoreBadgeHTML(exam.id);
 
     const languages = ExamService.getLanguages(exam);
-    const currentAppLang = getCurrentLanguage();
     let flagBadgeHTML = '';
 
-    if (!languages.includes(currentAppLang)) {
+    if (!languages.includes(pLang)) {
         const isEnOnly = languages.includes('en') && !languages.includes('pt');
         const flagEmoji = isEnOnly ? '🇬🇧' : '🇵🇹';
         const flagTitle = isEnOnly ? t('flag_title_en') : t('flag_title_pt');

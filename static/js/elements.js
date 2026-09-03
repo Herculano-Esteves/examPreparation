@@ -56,11 +56,16 @@ export const elements = {
     // Filter option count badges
     get countStateCompleted()       { return document.getElementById('count-state-completed'); },
     get countStatePending()         { return document.getElementById('count-state-pending'); },
+    get countLangPt()               { return document.getElementById('count-lang-pt'); },
+    get countLangEn()               { return document.getElementById('count-lang-en'); },
     get countTypeChoice()           { return document.getElementById('count-type-escolha_multipla'); },
     get countTypeBoolean()          { return document.getElementById('count-type-boolean'); },
     get countTypeWritten()          { return document.getElementById('count-type-escrita'); },
     get countFilterQuestions()      { return document.getElementById('count-filter-questions'); },
     get countFilterScore()          { return document.getElementById('count-filter-score'); },
+    get filterLangPt()              { return document.getElementById('filter-lang-pt'); },
+    get filterLangEn()              { return document.getElementById('filter-lang-en'); },
+    get filterLangPriority()        { return document.getElementById('filter-lang-priority'); },
 
     // ---------- Practice Hub Sidebar (Right) ----------
     get examsSidebarPractice()        { return document.getElementById('exams-sidebar-practice'); },

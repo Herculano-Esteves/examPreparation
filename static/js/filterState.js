@@ -8,6 +8,7 @@
 
 export const ALL_QUESTION_TYPES = ['escolha_multipla', 'boolean', 'escrita'];
 export const ALL_EXAM_STATES = ['completed', 'pending'];
+export const ALL_LANGUAGES = ['pt', 'en'];
 
 /**
  * Garante que os limites de número de questões são matematicamente válidos.
@@ -145,6 +146,14 @@ export function isExamMatchingFilters(item, state) {
         if (0 < minScore || 0 > maxScore) {
             return false;
         }
+    }
+
+    // 5. Filtro de Idioma do Exame
+    const langFilter = state.examLanguageFilter || ALL_LANGUAGES;
+    const examLangs = item.languages || item._languages || ['pt'];
+    const allowsLang = examLangs.some(l => langFilter.includes(l));
+    if (!allowsLang) {
+        return false;
     }
 
     return true;

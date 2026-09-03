@@ -78,10 +78,21 @@ export function initSortDropdown(onSortChange) {
  * @param {string} [lang]
  * @returns {object[]}
  */
-export function sortExams(examsList, sortMode = 'default', lang = null) {
+export function sortExams(examsList, sortMode = 'default', lang = null, prioritizedLang = null) {
     const currentLang = lang || getCurrentLanguage();
+    const shouldPrioritize = State && State.prioritizeLanguage !== false;
+    const pLang = shouldPrioritize ? (prioritizedLang || (State && State.prioritizedLanguage) || (State && State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : currentLang)) : null;
 
     return examsList.sort((a, b) => {
+        // Prioridade 1: Idioma Selecionado/Prioritário (se ativado)
+        if (pLang) {
+            const aSupports = ExamService.isLanguageSupported(a, pLang);
+            const bSupports = ExamService.isLanguageSupported(b, pLang);
+            if (aSupports && !bSupports) return -1;
+            if (!aSupports && bSupports) return 1;
+        }
+
+        // Prioridade 2: Modo de Ordenação Selecionado
         if (sortMode === 'score_desc') {
             const scoreA = a._isAttempted ? a._scorePercentage : -1;
             const scoreB = b._isAttempted ? b._scorePercentage : -1;
@@ -99,13 +110,13 @@ export function sortExams(examsList, sortMode = 'default', lang = null) {
             return (a._activeCount - b._activeCount) || (a._totalCount - b._totalCount) || (a._originalIndex - b._originalIndex);
         }
         if (sortMode === 'title_asc') {
-            const titleA = ExamService.getTitle(a);
-            const titleB = ExamService.getTitle(b);
+            const titleA = ExamService.getTitle(a, pLang || currentLang);
+            const titleB = ExamService.getTitle(b, pLang || currentLang);
             return titleA.localeCompare(titleB, currentLang, { numeric: true, sensitivity: 'base' });
         }
         if (sortMode === 'title_desc') {
-            const titleA = ExamService.getTitle(a);
-            const titleB = ExamService.getTitle(b);
+            const titleA = ExamService.getTitle(a, pLang || currentLang);
+            const titleB = ExamService.getTitle(b, pLang || currentLang);
             return titleB.localeCompare(titleA, currentLang, { numeric: true, sensitivity: 'base' });
         }
         return a._originalIndex - b._originalIndex;
