@@ -11,6 +11,25 @@ export const ALL_EXAM_STATES = ['completed', 'pending'];
 export const ALL_LANGUAGES = ['pt', 'en'];
 
 /**
+ * Determina modularmente o idioma efetivo a utilizar para títulos, descrições e flags.
+ * Baseado estritamente na informação dos filtros ativos e no idioma da interface.
+ * @param {string[]|null} [filterLangs]
+ * @param {string} [currentLang]
+ * @param {string|null} [explicitPrioritized]
+ * @returns {string}
+ */
+export function getEffectiveTargetLanguage(filterLangs = null, currentLang = 'pt', explicitPrioritized = null) {
+    const activeLangs = filterLangs || ALL_LANGUAGES;
+    const uiLang = currentLang || 'pt';
+
+    if (activeLangs && activeLangs.length === 1) {
+        return activeLangs[0];
+    }
+
+    return explicitPrioritized || uiLang;
+}
+
+/**
  * Garante que os limites de número de questões são matematicamente válidos.
  * @param {number} minVal
  * @param {number} maxVal

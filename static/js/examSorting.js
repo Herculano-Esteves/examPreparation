@@ -8,6 +8,7 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { ExamService } from './examService.js';
 import { updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
+import { getEffectiveTargetLanguage } from './filterState.js';
 
 let sortDropdownInitialized = false;
 
@@ -81,7 +82,7 @@ export function initSortDropdown(onSortChange) {
 export function sortExams(examsList, sortMode = 'default', lang = null, prioritizedLang = null) {
     const currentLang = lang || getCurrentLanguage();
     const shouldPrioritize = State && State.prioritizeLanguage !== false;
-    const pLang = shouldPrioritize ? (prioritizedLang || (State && State.prioritizedLanguage) || (State && State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : currentLang)) : null;
+    const pLang = shouldPrioritize ? (prioritizedLang || getEffectiveTargetLanguage(State?.examLanguageFilter, currentLang, State?.prioritizedLanguage)) : null;
 
     return examsList.sort((a, b) => {
         // Prioridade 1: Idioma Selecionado/Prioritário (se ativado)

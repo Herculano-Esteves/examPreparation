@@ -134,9 +134,20 @@ export function createExamCardElement(exam, onStartExam) {
     row.setAttribute('tabindex', '0');
     row.setAttribute('role', 'button');
 
-    const pLang = State.prioritizedLanguage || (State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : getCurrentLanguage());
-    const localizedTitle = ExamService.getTitle(exam, pLang);
-    const localizedDesc = ExamService.getDescription(exam, pLang);
+    const settingsLang = getCurrentLanguage();
+    const languages = ExamService.getLanguages(exam);
+
+    // 1. Determina o idioma em que o exame está a ser apresentado
+    let displayLang = settingsLang;
+    if (State.examLanguageFilter?.length === 1) {
+        displayLang = State.examLanguageFilter[0];
+    } else if (!languages.includes(settingsLang)) {
+        displayLang = languages[0] || 'pt';
+    }
+
+    // 2. Título e Descrição localizados
+    const localizedTitle = ExamService.getTitle(exam, displayLang);
+    const localizedDesc = ExamService.getDescription(exam, displayLang);
     row.setAttribute('aria-label', t('aria_start_exam', { title: localizedTitle }));
 
     const typesHTML = renderQuestionTypeTagsHTML(exam._questionTypes, exam._effectiveExcluded);
@@ -151,13 +162,11 @@ export function createExamCardElement(exam, onStartExam) {
 
     const scoreBadgeHTML = renderExamScoreBadgeHTML(exam.id);
 
-    const languages = ExamService.getLanguages(exam);
+    // 3. Regra da Bandeira: Se o que está à mostra é da língua das definições não aparece nada, se for outra aparece a bandeira dela
     let flagBadgeHTML = '';
-
-    if (!languages.includes(pLang)) {
-        const isEnOnly = languages.includes('en') && !languages.includes('pt');
-        const flagEmoji = isEnOnly ? '🇬🇧' : '🇵🇹';
-        const flagTitle = isEnOnly ? t('flag_title_en') : t('flag_title_pt');
+    if (displayLang !== settingsLang) {
+        const flagEmoji = displayLang === 'en' ? '🇬🇧' : '🇵🇹';
+        const flagTitle = displayLang === 'en' ? t('flag_title_en') : t('flag_title_pt');
         flagBadgeHTML = `<span class="exam-lang-flag" title="${flagTitle}" aria-label="${flagTitle}">${flagEmoji}</span>`;
     }
 

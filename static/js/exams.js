@@ -22,6 +22,7 @@ import { getQuestionTypeInfo } from './questionTypes.js';
 import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
 import { ExamService } from './examService.js';
 import { Events, APP_EVENTS } from './events.js';
+import { getEffectiveTargetLanguage } from './filterState.js';
 
 import {
     ALL_QUESTION_TYPES,
@@ -195,7 +196,7 @@ export function renderExamsMenu() {
     });
 
     // 3. Sort visible exams using examSorting module with language prioritization
-    const pLang = State.prioritizedLanguage || (State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : getCurrentLanguage());
+    const pLang = getEffectiveTargetLanguage(State.examLanguageFilter, getCurrentLanguage(), State.prioritizedLanguage);
     sortExams(visibleExams, State.examSort || 'default', getCurrentLanguage(), pLang);
 
     // 4. Update status indicator in floating sidebar

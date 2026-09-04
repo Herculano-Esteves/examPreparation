@@ -14,7 +14,7 @@ import { elements } from './elements.js';
 import { ExamService } from './examService.js';
 import { showToast } from './utils.js';
 import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
-import { ALL_QUESTION_TYPES, ALL_EXAM_STATES, ALL_LANGUAGES, clampQuestionsRange, clampScoreRange, sanitizeQuestionsMax, sanitizeQuestionsMin } from './filterState.js';
+import { ALL_QUESTION_TYPES, ALL_EXAM_STATES, ALL_LANGUAGES, clampQuestionsRange, clampScoreRange, sanitizeQuestionsMax, sanitizeQuestionsMin, getEffectiveTargetLanguage } from './filterState.js';
 import { createDualRangeSlider } from './dualRangeSlider.js';
 import { QuestionStatus } from './storage.js';
 
@@ -85,7 +85,7 @@ export function initFloatingFilters(onFilterChange) {
         });
     });
 
-    // 3. Checkboxes e Prioritização de Idioma do Exame
+    // 3. Checkboxes de Idioma do Exame
     const langCheckboxes = document.querySelectorAll('.floating-lang-check-input');
     langCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
@@ -94,11 +94,6 @@ export function initFloatingFilters(onFilterChange) {
                 if (c.checked) activeLangs.push(c.value);
             });
             State.examLanguageFilter = activeLangs;
-            if (activeLangs.length === 1) {
-                State.prioritizedLanguage = activeLangs[0];
-            } else if (activeLangs.length > 1 && chk.checked) {
-                State.prioritizedLanguage = chk.value;
-            }
             if (onFilterChange) onFilterChange();
         });
     });
@@ -254,7 +249,7 @@ export function syncFilterInputsUI(maxQInCadeira) {
  * Sincroniza a classe visual is-prioritized nos itens de idioma da barra lateral.
  */
 export function syncLanguagePriorityUI() {
-    const pLang = State.prioritizedLanguage || (State.examLanguageFilter?.length === 1 ? State.examLanguageFilter[0] : getCurrentLanguage());
+    const pLang = getEffectiveTargetLanguage(State.examLanguageFilter, getCurrentLanguage(), State.prioritizedLanguage);
     document.querySelectorAll('.floating-checkbox-item[data-lang]').forEach(item => {
         const lang = item.getAttribute('data-lang');
         item.classList.toggle('is-prioritized', lang === pLang);
