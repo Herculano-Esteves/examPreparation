@@ -417,23 +417,22 @@ body.layout-exam #screen-exam {
     color: var(--primary);
 }
 
+.header-exams-count,
 .header-exams-count-badge {
     font-family: var(--font-jetbrains-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: var(--text-dim);
-    padding: 0.20rem 0.65rem;
-    border-radius: var(--border-radius-pill);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    display: inline-flex;
-    align-items: center;
-    letter-spacing: 0;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
     text-transform: none;
-    line-height: 1.4;
+    line-height: 1;
     white-space: nowrap;
     user-select: none;
-    transition: all var(--transition-speed) ease;
+    margin-left: 0.25rem;
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
 }
 
 /* --------------------------------------------------------------------------
