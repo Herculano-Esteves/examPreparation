@@ -3401,7 +3401,7 @@ body.header-scrolled .sticky-corner-right {
 .language-modal-card {
     width: 100%;
     max-width: 440px;
-    background: #18181c;
+    background: #0f0f11;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
@@ -3440,7 +3440,7 @@ body.header-scrolled .sticky-corner-right {
     gap: 0.6rem;
     height: 42px;
     padding: 0 1rem;
-    background: #24242a;
+    background: #1c1c22;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 6px;
     color: var(--text-primary, #ffffff);
@@ -3450,7 +3450,7 @@ body.header-scrolled .sticky-corner-right {
 }
 
 .btn-modal-lang:hover {
-    background: #303038;
+    background: #282830;
     border-color: rgba(255, 255, 255, 0.28);
 }
 
@@ -3528,7 +3528,7 @@ body.header-scrolled .sticky-corner-right {
 .danger-modal-card {
     width: 100%;
     max-width: 440px;
-    background: #18181c;
+    background: #0f0f11;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 10px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85);
@@ -3573,7 +3573,7 @@ body.header-scrolled .sticky-corner-right {
     justify-content: center;
     height: 38px;
     padding: 0 1rem;
-    background: #24242a;
+    background: #1c1c22;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 6px;
     color: var(--text-secondary, #e2e2e6);
@@ -3585,7 +3585,7 @@ body.header-scrolled .sticky-corner-right {
 }
 
 .btn-modal-cancel:hover {
-    background: #303038;
+    background: #282830;
     border-color: rgba(255, 255, 255, 0.28);
     color: #ffffff;
 }
