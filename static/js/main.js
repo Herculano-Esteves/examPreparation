@@ -11,6 +11,7 @@ import { prevQuestion, nextQuestion, renderQuestion } from './question.js';
 import { copyQuestionToClipboard } from './clipboard.js';
 import { applyTranslations, setLanguage, t } from './i18n.js';
 import { initExamLayout } from './layout.js';
+import { isLanguageConfigured, setLanguageConfigured } from './config.js';
 
 // Initialization
 function initApp() {
@@ -20,6 +21,7 @@ function initApp() {
     loadLocalData(State);
     initExamLayout();
     fetchCadeiras();
+    initLanguagePrompt();
 
     let resizeTimer;
     window.addEventListener('resize', () => {
@@ -31,6 +33,16 @@ function initApp() {
     });
 }
 
+// Prompt inicial de seleção de idioma se ainda não configurado
+function initLanguagePrompt() {
+    if (!isLanguageConfigured()) {
+        const modal = elements.languageModal;
+        if (modal) {
+            modal.classList.remove('hidden');
+        }
+    }
+}
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
 } else {
@@ -39,6 +51,38 @@ if (document.readyState === 'loading') {
 
 // Setup Events
 function setupEventListeners() {
+    // Language prompt modal selection
+    const handleModalLanguageChoice = (lang) => {
+        setLanguage(lang);
+        setLanguageConfigured(true);
+        if (elements.languageModal) {
+            elements.languageModal.classList.add('hidden');
+        }
+
+        const subtitleEl = document.getElementById('app-subtitle');
+        const mainTitle = document.getElementById('app-main-title');
+        if (subtitleEl) subtitleEl.textContent = t('app_subtitle');
+        if (mainTitle) mainTitle.textContent = t('app_title');
+
+        if (State.currentScreen === 'cadeiras') {
+            renderCadeirasMenu();
+        } else if (State.currentScreen === 'menu') {
+            renderExamsMenu();
+        }
+    };
+
+    if (elements.btnSelectLangPt) {
+        elements.btnSelectLangPt.addEventListener('click', () => {
+            handleModalLanguageChoice('pt');
+        });
+    }
+
+    if (elements.btnSelectLangEn) {
+        elements.btnSelectLangEn.addEventListener('click', () => {
+            handleModalLanguageChoice('en');
+        });
+    }
+
     // Navigation
     if (elements.btnExit) {
         elements.btnExit.addEventListener('click', () => {
@@ -154,6 +198,7 @@ function setupEventListeners() {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
             setLanguage(lang);
+            setLanguageConfigured(true);
 
             // Synchronize header titles and active screen dynamically
             const subtitleEl = document.getElementById('app-subtitle');
@@ -208,6 +253,7 @@ function setupEventListeners() {
 
                 transitionTo('cadeiras');
                 renderCadeirasMenu();
+                initLanguagePrompt();
             }
         });
     }

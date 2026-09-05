@@ -122,5 +122,10 @@ export const elements = {
     get resultsFeedbackMessage()    { return document.getElementById('results-feedback-message'); },
 
     // ---------- Notifications ----------
-    get toast()                     { return document.getElementById('toast'); }
+    get toast()                     { return document.getElementById('toast'); },
+
+    // ---------- Language Selection Modal ----------
+    get languageModal()             { return document.getElementById('language-modal'); },
+    get btnSelectLangPt()           { return document.getElementById('btn-select-lang-pt'); },
+    get btnSelectLangEn()           { return document.getElementById('btn-select-lang-en'); }
 };

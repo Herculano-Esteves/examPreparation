@@ -251,6 +251,8 @@ export function clearAllLocalData(State) {
         localStorage.removeItem(APP_CONFIG.storageKeys.exames);
         localStorage.removeItem(APP_CONFIG.storageKeys.history);
         localStorage.removeItem(APP_CONFIG.storageKeys.difficultQuestions);
+        localStorage.removeItem(APP_CONFIG.storageKeys.language);
+        localStorage.removeItem(APP_CONFIG.storageKeys.languageConfigured);
     } catch (e) {
         console.error('Erro ao limpar dados locais:', e);
     }
@@ -258,4 +260,5 @@ export function clearAllLocalData(State) {
     State.localExames   = [];
     State.examHistory   = {};
     State.difficultQuestions = {};
+    State.language      = APP_CONFIG.defaultLanguage;
 }

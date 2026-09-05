@@ -220,7 +220,12 @@ export const TRANSLATIONS = {
         toast_filters_reset: 'Filtros repostos com sucesso!',
         toast_cadeira_created: 'Cadeira criada com sucesso!',
         toast_exame_created: 'Exame criado com sucesso!',
-        toast_error_all_excluded: 'Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.'
+        toast_error_all_excluded: 'Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.',
+
+        // Modal de Seleção de Idioma & Privacidade UE
+        modal_lang_title: 'Selecione o seu Idioma / Select your Language',
+        privacy_badge_text: '100% Local & Private • Privacy by Design',
+        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.'
     },
 
     en: {
@@ -433,7 +438,12 @@ export const TRANSLATIONS = {
         toast_filters_reset: 'Filters reset successfully!',
         toast_cadeira_created: 'Subject created successfully!',
         toast_exame_created: 'Exam created successfully!',
-        toast_error_all_excluded: 'All questions in this exam are excluded by your filters. Enable at least one type to start.'
+        toast_error_all_excluded: 'All questions in this exam are excluded by your filters. Enable at least one type to start.',
+
+        // Language Selection & EU Privacy Modal
+        modal_lang_title: 'Select your Language / Selecione o seu Idioma',
+        privacy_badge_text: '100% Local & Private • Privacy by Design',
+        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.'
     }
 };
 

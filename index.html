@@ -24,9 +24,9 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <!-- Core Stylesheet, Centralized Colors & Typography Configuration -->
-    <link rel="stylesheet" href="static/style.css?v=1.1.0">
-    <link rel="stylesheet" href="static/colors.css?v=1.1.0">
-    <link rel="stylesheet" href="static/typography.css?v=1.1.0">
+    <link rel="stylesheet" href="static/style.css?v=1.1.5">
+    <link rel="stylesheet" href="static/colors.css?v=1.1.5">
+    <link rel="stylesheet" href="static/typography.css?v=1.1.5">
 </head>
 
 <body>
@@ -781,6 +781,41 @@
         </footer>
     </div>
 
+    <!-- Language Selection & EU Privacy Compliance Modal -->
+    <div id="language-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="lang-modal-title">
+        <div class="language-modal-card">
+            <div class="lang-modal-header">
+                <div class="lang-modal-icon" aria-hidden="true">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h2 id="lang-modal-title" class="lang-modal-title" data-i18n="modal_lang_title">Selecione o seu Idioma / Select your Language</h2>
+            </div>
+            
+            <div class="lang-modal-body">
+                <div class="lang-modal-options">
+                    <button type="button" class="btn-modal-lang" id="btn-select-lang-pt" data-lang="pt" aria-label="Português">
+                        <span class="modal-lang-flag" aria-hidden="true">🇵🇹</span>
+                        <span class="modal-lang-name">Português</span>
+                    </button>
+                    <button type="button" class="btn-modal-lang" id="btn-select-lang-en" data-lang="en" aria-label="English">
+                        <span class="modal-lang-flag" aria-hidden="true">🇬🇧</span>
+                        <span class="modal-lang-name">English</span>
+                    </button>
+                </div>
+
+                <div class="lang-modal-privacy-notice">
+                    <div class="privacy-notice-badge">
+                        <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                        <span data-i18n="privacy_badge_text">100% Local & Private • Privacy by Design</span>
+                    </div>
+                    <p class="privacy-notice-text" data-i18n="modal_lang_privacy_notice">
+                        This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification Toast -->
     <div id="toast" class="toast" role="status" aria-live="polite">
         <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
@@ -788,7 +823,7 @@
     </div>
 
     <!-- Custom JavaScript modules with Cache Buster -->
-    <script type="module" src="static/js/main.js?v=1.1.0"></script>
+    <script type="module" src="static/js/main.js?v=1.1.5"></script>
 </body>
 
 </html>

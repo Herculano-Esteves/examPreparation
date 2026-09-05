@@ -18,6 +18,7 @@ export const APP_CONFIG = {
     // Storage keys used in localStorage
     storageKeys: {
         language: 'app_language',
+        languageConfigured: 'simulador_lingua_configurada',
         version: 'simulador_storage_version',
         cadeiras: 'simulador_cadeiras_locais',
         exames: 'simulador_exames_locais',
@@ -28,6 +29,36 @@ export const APP_CONFIG = {
     // Storage version for automatic schema migrations
     storageVersion: '1.1.0'
 };
+
+/**
+ * Checks whether the user has explicitly selected/configured their language preference.
+ * Returns false if the key does not exist or is not 'true'.
+ * @returns {boolean}
+ */
+export function isLanguageConfigured() {
+    try {
+        return localStorage.getItem(APP_CONFIG.storageKeys.languageConfigured) === 'true';
+    } catch (e) {
+        console.warn('Unable to access localStorage for language configuration check:', e);
+        return false;
+    }
+}
+
+/**
+ * Marks the language preference as configured (or resets it).
+ * @param {boolean} [configured=true]
+ */
+export function setLanguageConfigured(configured = true) {
+    try {
+        if (configured) {
+            localStorage.setItem(APP_CONFIG.storageKeys.languageConfigured, 'true');
+        } else {
+            localStorage.removeItem(APP_CONFIG.storageKeys.languageConfigured);
+        }
+    } catch (e) {
+        console.error('Failed to update language configured flag:', e);
+    }
+}
 
 /**
  * Retrieves the active language preference from localStorage or returns the default.
