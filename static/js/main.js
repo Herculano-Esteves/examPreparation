@@ -233,28 +233,45 @@ function setupEventListeners() {
     const btnClearStorage = document.getElementById('btn-clear-storage');
     if (btnClearStorage) {
         btnClearStorage.addEventListener('click', () => {
-            const confirmMsg = t('danger_zone_desc') + '\n\n' + (State.language === 'en' ? 'Are you sure you want to delete all local data?' : 'Tem a certeza de que deseja apagar todos os dados locais?');
-            if (confirm(confirmMsg)) {
-                clearAllLocalData(State);
-
-                showToast(t('toast_storage_cleared'), elements);
-                State.activeCadeira = null;
-
-                const logoIcon = document.getElementById('app-logo-icon');
-                if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
-
-                const mainTitle = document.getElementById('app-main-title');
-                if (mainTitle) mainTitle.textContent = t('app_title');
-
-                const subtitleEl = document.getElementById('app-subtitle');
-                if (subtitleEl) {
-                    subtitleEl.textContent = t('app_subtitle');
-                }
-
-                transitionTo('cadeiras');
-                renderCadeirasMenu();
-                initLanguagePrompt();
+            if (elements.dangerConfirmModal) {
+                elements.dangerConfirmModal.classList.remove('hidden');
             }
+        });
+    }
+
+    if (elements.btnCancelClearStorage) {
+        elements.btnCancelClearStorage.addEventListener('click', () => {
+            if (elements.dangerConfirmModal) {
+                elements.dangerConfirmModal.classList.add('hidden');
+            }
+        });
+    }
+
+    if (elements.btnConfirmClearStorage) {
+        elements.btnConfirmClearStorage.addEventListener('click', () => {
+            if (elements.dangerConfirmModal) {
+                elements.dangerConfirmModal.classList.add('hidden');
+            }
+
+            clearAllLocalData(State);
+
+            showToast(t('toast_storage_cleared'), elements);
+            State.activeCadeira = null;
+
+            const logoIcon = document.getElementById('app-logo-icon');
+            if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
+
+            const mainTitle = document.getElementById('app-main-title');
+            if (mainTitle) mainTitle.textContent = t('app_title');
+
+            const subtitleEl = document.getElementById('app-subtitle');
+            if (subtitleEl) {
+                subtitleEl.textContent = t('app_subtitle');
+            }
+
+            transitionTo('cadeiras');
+            renderCadeirasMenu();
+            initLanguagePrompt();
         });
     }
 

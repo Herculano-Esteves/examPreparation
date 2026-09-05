@@ -24,9 +24,9 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <!-- Core Stylesheet, Centralized Colors & Typography Configuration -->
-    <link rel="stylesheet" href="static/style.css?v=1.1.5">
-    <link rel="stylesheet" href="static/colors.css?v=1.1.5">
-    <link rel="stylesheet" href="static/typography.css?v=1.1.5">
+    <link rel="stylesheet" href="static/style.css?v=1.2.0">
+    <link rel="stylesheet" href="static/colors.css?v=1.2.0">
+    <link rel="stylesheet" href="static/typography.css?v=1.2.0">
 </head>
 
 <body>
@@ -785,9 +785,6 @@
     <div id="language-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="lang-modal-title">
         <div class="language-modal-card">
             <div class="lang-modal-header">
-                <div class="lang-modal-icon" aria-hidden="true">
-                    <i class="fa-solid fa-globe"></i>
-                </div>
                 <h2 id="lang-modal-title" class="lang-modal-title" data-i18n="modal_lang_title">Selecione o seu Idioma / Select your Language</h2>
             </div>
             
@@ -816,6 +813,26 @@
         </div>
     </div>
 
+    <!-- Danger Confirmation Modal -->
+    <div id="danger-confirm-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="danger-modal-title">
+        <div class="danger-modal-card">
+            <div class="danger-modal-header">
+                <h2 id="danger-modal-title" class="danger-modal-title" data-i18n="modal_danger_title">Apagar dados locais</h2>
+            </div>
+            
+            <div class="danger-modal-body">
+                <p class="danger-modal-desc" data-i18n="modal_danger_desc">
+                    Esta ação é irreversível. Todas as cadeiras, exames e histórico de progresso guardados no computador serão eliminados permanentemente.
+                </p>
+
+                <div class="danger-modal-actions">
+                    <button type="button" class="btn-modal-cancel" id="btn-cancel-clear-storage" data-i18n="btn_cancel">Cancelar</button>
+                    <button type="button" class="btn-danger-confirm" id="btn-confirm-clear-storage" data-i18n="btn_confirm_delete">Apagar Tudo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification Toast -->
     <div id="toast" class="toast" role="status" aria-live="polite">
         <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
@@ -823,7 +840,7 @@
     </div>
 
     <!-- Custom JavaScript modules with Cache Buster -->
-    <script type="module" src="static/js/main.js?v=1.1.5"></script>
+    <script type="module" src="static/js/main.js?v=1.2.0"></script>
 </body>
 
 </html>

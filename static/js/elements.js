@@ -127,5 +127,10 @@ export const elements = {
     // ---------- Language Selection Modal ----------
     get languageModal()             { return document.getElementById('language-modal'); },
     get btnSelectLangPt()           { return document.getElementById('btn-select-lang-pt'); },
-    get btnSelectLangEn()           { return document.getElementById('btn-select-lang-en'); }
+    get btnSelectLangEn()           { return document.getElementById('btn-select-lang-en'); },
+
+    // ---------- Danger Confirmation Modal ----------
+    get dangerConfirmModal()        { return document.getElementById('danger-confirm-modal'); },
+    get btnCancelClearStorage()     { return document.getElementById('btn-cancel-clear-storage'); },
+    get btnConfirmClearStorage()    { return document.getElementById('btn-confirm-clear-storage'); }
 };

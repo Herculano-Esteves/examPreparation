@@ -225,7 +225,13 @@ export const TRANSLATIONS = {
         // Modal de Seleção de Idioma & Privacidade UE
         modal_lang_title: 'Selecione o seu Idioma / Select your Language',
         privacy_badge_text: '100% Local & Private • Privacy by Design',
-        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.'
+        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.',
+
+        // Modal de Confirmação Zona de Perigo
+        modal_danger_title: 'Apagar dados locais',
+        modal_danger_desc: 'Esta ação é irreversível. Todas as cadeiras, exames e histórico de progresso guardados no computador serão eliminados permanentemente.',
+        btn_cancel: 'Cancelar',
+        btn_confirm_delete: 'Apagar Tudo'
     },
 
     en: {
@@ -443,7 +449,13 @@ export const TRANSLATIONS = {
         // Language Selection & EU Privacy Modal
         modal_lang_title: 'Select your Language / Selecione o seu Idioma',
         privacy_badge_text: '100% Local & Private • Privacy by Design',
-        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.'
+        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.',
+
+        // Danger Confirmation Modal
+        modal_danger_title: 'Delete local data',
+        modal_danger_desc: 'This action is irreversible. All subjects, exams, and progress history stored on your computer will be permanently deleted.',
+        btn_cancel: 'Cancel',
+        btn_confirm_delete: 'Delete All'
     }
 };
 
