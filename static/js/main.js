@@ -143,11 +143,86 @@ function setupEventListeners() {
         ...document.querySelectorAll('.btn-sticky-settings')
     ].filter(Boolean);
 
+    function openSettingsPopover(triggerBtn) {
+        const popover = elements.settingsDropdownMenu;
+        if (!popover) return;
+
+        popover.classList.remove('hidden');
+
+        if (triggerBtn) {
+            const rect = triggerBtn.getBoundingClientRect();
+            const popoverWidth = popover.offsetWidth || 280;
+            const popoverHeight = popover.offsetHeight || 200;
+
+            // Align popover right edge with trigger button right edge
+            let left = rect.right - popoverWidth;
+            const maxLeft = window.innerWidth - popoverWidth - 12;
+            left = Math.max(12, Math.min(left, maxLeft));
+
+            // Default position: directly below the button; flip upwards if overflowing window bottom
+            let top = rect.bottom + 8;
+            if (top + popoverHeight > window.innerHeight - 12) {
+                top = Math.max(12, rect.top - popoverHeight - 8);
+            }
+
+            popover.style.top = `${Math.round(top)}px`;
+            popover.style.left = `${Math.round(left)}px`;
+        }
+    }
+
+    function closeSettingsPopover() {
+        const popover = elements.settingsDropdownMenu;
+        if (popover) {
+            popover.classList.add('hidden');
+        }
+    }
+
+    function toggleSettingsPopover(triggerBtn) {
+        const popover = elements.settingsDropdownMenu;
+        if (!popover) return;
+        if (popover.classList.contains('hidden')) {
+            openSettingsPopover(triggerBtn);
+        } else {
+            closeSettingsPopover();
+        }
+    }
+
     settingsButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            State.previousScreenBeforeSettings = State.currentScreen;
-            transitionTo('settings');
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleSettingsPopover(btn);
         });
+    });
+
+    if (elements.btnCloseSettingsPopover) {
+        elements.btnCloseSettingsPopover.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeSettingsPopover();
+        });
+    }
+
+    // Dismiss popover when clicking outside
+    document.addEventListener('click', (e) => {
+        const popover = elements.settingsDropdownMenu;
+        if (popover && !popover.classList.contains('hidden')) {
+            const isClickInside = popover.contains(e.target);
+            const isClickOnTrigger = settingsButtons.some(btn => btn.contains(e.target));
+            if (!isClickInside && !isClickOnTrigger) {
+                closeSettingsPopover();
+            }
+        }
+    });
+
+    // Dismiss popover on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeSettingsPopover();
+        }
+    });
+
+    // Close popover on window resize to avoid detached floating menus
+    window.addEventListener('resize', () => {
+        closeSettingsPopover();
     });
 
     const appHeader = document.querySelector('.app-header');
@@ -181,19 +256,7 @@ function setupEventListeners() {
         });
     }
 
-    const btnBackSettings = document.getElementById('btn-back-settings');
-    if (btnBackSettings) {
-        btnBackSettings.addEventListener('click', () => {
-            const backTarget = State.previousScreenBeforeSettings || 'cadeiras';
-            if (backTarget === 'settings') {
-                transitionTo('cadeiras');
-            } else {
-                transitionTo(backTarget);
-            }
-        });
-    }
-
-    // Language selection buttons in settings
+    // Language selection buttons in settings popover
     document.querySelectorAll('.btn-lang-option').forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
@@ -213,13 +276,11 @@ function setupEventListeners() {
                 if (mainTitle) mainTitle.textContent = t('app_title');
             }
 
-            if (State.currentScreen === 'cadeiras' || State.previousScreenBeforeSettings === 'cadeiras') {
+            if (State.currentScreen === 'cadeiras') {
                 renderCadeirasMenu();
-            } else if (State.currentScreen === 'menu' || State.previousScreenBeforeSettings === 'menu') {
+            } else if (State.currentScreen === 'menu') {
                 renderExamsMenu();
-            }
-            
-            if (State.currentScreen === 'exam' || State.previousScreenBeforeSettings === 'exam') {
+            } else if (State.currentScreen === 'exam') {
                 if (State.activeExam) {
                     if (elements.currentExamTitle) {
                         elements.currentExamTitle.textContent = getLocalizedText(State.activeExam.title || State.activeExam.titulo);
@@ -233,6 +294,7 @@ function setupEventListeners() {
     const btnClearStorage = document.getElementById('btn-clear-storage');
     if (btnClearStorage) {
         btnClearStorage.addEventListener('click', () => {
+            closeSettingsPopover();
             if (elements.dangerConfirmModal) {
                 elements.dangerConfirmModal.classList.remove('hidden');
             }

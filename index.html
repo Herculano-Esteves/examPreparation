@@ -724,54 +724,6 @@
                 </div>
             </section>
 
-            <!-- STATE 6: SETTINGS SCREEN -->
-            <section id="screen-settings" class="screen">
-                <div class="settings-box">
-                    <div class="settings-header">
-                        <h3 class="section-title">
-                            <i class="fa-solid fa-gear" aria-hidden="true"></i> <span data-i18n="settings_title">Definições do Sistema</span>
-                        </h3>
-                        <button id="btn-back-settings" class="btn-control btn-secondary btn-sm" aria-label="Voltar">
-                            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                            <span data-i18n="btn_back">Voltar</span>
-                        </button>
-                    </div>
-
-                    <!-- Secção 1: Idioma -->
-                    <div class="settings-group">
-                        <div class="settings-group-header">
-                            <h4 class="settings-group-title" data-i18n="settings_lang_title">Idioma / Language</h4>
-                            <p class="settings-group-desc" data-i18n="settings_lang_desc">Escolha o idioma de apresentação da interface do simulador.</p>
-                        </div>
-                        <div class="settings-lang-actions">
-                            <button type="button" class="btn-control btn-lang-option" data-lang="pt" aria-pressed="false">
-                                <span class="lang-flag" aria-hidden="true">🇵🇹</span>
-                                <span class="lang-name">Português</span>
-                            </button>
-                            <button type="button" class="btn-control btn-lang-option active" data-lang="en" aria-pressed="true">
-                                <span class="lang-flag" aria-hidden="true">🇬🇧</span>
-                                <span class="lang-name">English</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="settings-divider"></div>
-
-                    <!-- Secção 2: Armazenamento e Limpeza -->
-                    <div class="settings-group">
-                        <div class="settings-group-header">
-                            <h4 class="settings-group-title" data-i18n="settings_storage_title">Armazenamento Local</h4>
-                            <p class="settings-group-desc" data-i18n="settings_storage_desc">Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem cookies de rastreio nem dados transmitidos para terceiros.</p>
-                        </div>
-                        <div class="settings-danger-actions">
-                            <button id="btn-clear-storage" class="btn-control btn-danger">
-                                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                                <span data-i18n="btn_clear_storage">Apagar Todos os Dados Locais</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <!-- FOOTER (EU Directive 2000/31/CE Compliance) -->
@@ -779,6 +731,47 @@
             <p>&copy; <span data-i18n="footer_copyright">Simulador de Exames</span> • <span data-i18n="footer_dev_by">Desenvolvido por</span> <a href="https://github.com/Herculano-Esteves"
                     target="_blank" rel="noopener noreferrer">github.com/Herculano-Esteves</a> • <span class="footer-dev-text" data-i18n="footer_dev_status">Ainda em desenvolvimento</span></p>
         </footer>
+    </div>
+
+    <!-- Settings Floating Popover Menu (Anchored to Trigger Buttons) -->
+    <div id="settings-dropdown-menu" class="settings-popover hidden" role="dialog" aria-modal="false" aria-labelledby="settings-popover-title">
+        <div class="settings-popover-header">
+            <h3 id="settings-popover-title" class="settings-popover-title">
+                <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                <span data-i18n="settings_title">Definições</span>
+            </h3>
+            <button type="button" id="btn-close-settings-popover" class="btn-close-popover" aria-label="Fechar">
+                <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="settings-popover-body">
+            <!-- Language Section -->
+            <div class="settings-popover-section">
+                <span class="settings-popover-section-label" data-i18n="settings_lang_title">Idioma / Language</span>
+                <div class="settings-popover-lang-options">
+                    <button type="button" class="btn-control btn-lang-option" data-lang="pt" aria-pressed="false">
+                        <span class="lang-flag" aria-hidden="true">🇵🇹</span>
+                        <span class="lang-name">Português</span>
+                    </button>
+                    <button type="button" class="btn-control btn-lang-option" data-lang="en" aria-pressed="false">
+                        <span class="lang-flag" aria-hidden="true">🇬🇧</span>
+                        <span class="lang-name">English</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-popover-divider"></div>
+
+            <!-- Danger Zone Section -->
+            <div class="settings-popover-section">
+                <span class="settings-popover-section-label" data-i18n="settings_storage_title">Armazenamento Local</span>
+                <button type="button" id="btn-clear-storage" class="btn-popover-clear-storage">
+                    <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                    <span data-i18n="btn_clear_storage">Apagar Dados Locais</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Language Selection & EU Privacy Compliance Modal -->

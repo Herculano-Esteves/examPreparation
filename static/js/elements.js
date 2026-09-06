@@ -20,8 +20,7 @@ export const elements = {
             exam:       document.getElementById('screen-exam'),
             results:    document.getElementById('screen-results'),
             addCadeira: document.getElementById('screen-add-cadeira'),
-            addExame:   document.getElementById('screen-add-exame'),
-            settings:   document.getElementById('screen-settings')
+            addExame:   document.getElementById('screen-add-exame')
         };
     },
 
@@ -132,5 +131,9 @@ export const elements = {
     // ---------- Danger Confirmation Modal ----------
     get dangerConfirmModal()        { return document.getElementById('danger-confirm-modal'); },
     get btnCancelClearStorage()     { return document.getElementById('btn-cancel-clear-storage'); },
-    get btnConfirmClearStorage()    { return document.getElementById('btn-confirm-clear-storage'); }
+    get btnConfirmClearStorage()    { return document.getElementById('btn-confirm-clear-storage'); },
+
+    // ---------- Settings Popover Menu ----------
+    get settingsDropdownMenu()      { return document.getElementById('settings-dropdown-menu'); },
+    get btnCloseSettingsPopover()   { return document.getElementById('btn-close-settings-popover'); }
 };

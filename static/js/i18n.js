@@ -134,7 +134,7 @@ export const TRANSLATIONS = {
         status_answered: 'Respondida',
         status_correct: 'Correta',
         status_incorrect: 'Incorreta',
-        written_label: 'Escreva a sua resposta (opcional):',
+        written_label: 'Escreva a sua resposta:',
         written_placeholder: 'Escreva aqui a sua resposta para estruturar as suas ideias...',
         btn_reveal_answer: 'Ver Resposta',
         btn_confirm_selection: 'Confirmar Seleção',
@@ -206,7 +206,7 @@ export const TRANSLATIONS = {
         settings_storage_desc: 'Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem cookies de rastreio nem dados transmitidos para terceiros.',
         danger_zone_title: 'Zona de Perigo',
         danger_zone_desc: 'Esta ação é irreversível e irá apagar permanentemente todas as cadeiras e exames criados localmente.',
-        btn_clear_storage: 'Apagar Todos os Dados Locais',
+        btn_clear_storage: 'Apagar Dados Locais',
         btn_back: 'Voltar',
 
         // Footer
@@ -358,7 +358,7 @@ export const TRANSLATIONS = {
         status_answered: 'Answered',
         status_correct: 'Correct',
         status_incorrect: 'Incorrect',
-        written_label: 'Write your answer (optional):',
+        written_label: 'Write your answer:',
         written_placeholder: 'Write your answer here to structure your thoughts...',
         btn_reveal_answer: 'View Answer',
         btn_confirm_selection: 'Confirm Selection',
@@ -430,7 +430,7 @@ export const TRANSLATIONS = {
         settings_storage_desc: 'All locally created subjects and exams are stored solely in your browser. There are no tracking cookies or third-party data transfers.',
         danger_zone_title: 'Danger Zone',
         danger_zone_desc: 'This action is irreversible and will permanently delete all locally created subjects and exams.',
-        btn_clear_storage: 'Delete All Local Data',
+        btn_clear_storage: 'Clear Local Data',
         btn_back: 'Back',
 
         // Footer
