@@ -135,5 +135,23 @@ export const elements = {
 
     // ---------- Settings Popover Menu ----------
     get settingsDropdownMenu()      { return document.getElementById('settings-dropdown-menu'); },
-    get btnCloseSettingsPopover()   { return document.getElementById('btn-close-settings-popover'); }
+    get btnCloseSettingsPopover()   { return document.getElementById('btn-close-settings-popover'); },
+
+    // ---------- Exam Builder (Dual-Pane) ----------
+    get builderTopBar()             { return document.getElementById('builder-top-bar'); },
+    get btnBuilderSettings()        { return document.getElementById('btn-builder-settings'); },
+    get editorCodeInput()           { return document.getElementById('editor-code-input'); },
+    get editorLineNumbers()         { return document.getElementById('editor-line-numbers'); },
+    get validationStatus()          { return document.getElementById('validation-status'); },
+    get btnCancelExame()            { return document.getElementById('btn-cancel-exame'); },
+    get btnSubmitExam()             { return document.getElementById('btn-submit-exam'); },
+    get btnCopyInstructions()       { return document.getElementById('btn-copy-instructions'); },
+    get builderQuestionsList()      { return document.getElementById('builder-questions-list'); },
+    get btnBuilderAddQuestion()     { return document.getElementById('btn-builder-add-question'); },
+    get builderVisualStatusText()   { return document.getElementById('builder-visual-status-text'); },
+    get builderExamTitle()          { return document.getElementById('builder-exam-title'); },
+    get builderExamDesc()           { return document.getElementById('builder-exam-desc'); },
+    get builderExamLang()           { return document.getElementById('builder-exam-lang'); },
+    get btnBuilderFormatJson()      { return document.getElementById('btn-builder-format-json'); },
+    get btnBuilderClear()           { return document.getElementById('btn-builder-clear'); }
 };

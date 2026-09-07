@@ -80,6 +80,38 @@
             </div>
         </div>
 
+        <!-- BUILDER TOP BAR: Synchronous primary bar controlled via body.layout-builder CSS -->
+        <div class="builder-top-bar" id="builder-top-bar" aria-hidden="true">
+            <div class="builder-top-bar-left">
+                <div class="builder-logo-box">
+                    <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                </div>
+                <div class="builder-title-group">
+                    <h2 id="builder-main-title" data-i18n="add_exame_title">Adicionar Novo Exame</h2>
+                    <span class="builder-subtitle subtitle" data-i18n="builder_subtitle">CRIADOR DE EXAMES</span>
+                </div>
+                <button id="btn-cancel-exame" class="btn-control btn-secondary btn-sm btn-floating-header-back" aria-label="Voltar aos exames">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    <span data-i18n="btn_back">Voltar</span>
+                </button>
+            </div>
+            <div class="builder-top-bar-right">
+                <div class="builder-top-actions">
+                    <button type="button" id="btn-builder-clear" class="btn-control btn-secondary btn-sm" title="Limpar formulário">
+                        <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                        <span data-i18n="builder_btn_clear">Limpar</span>
+                    </button>
+                    <button type="button" id="btn-submit-exam" class="btn-control btn-primary btn-sm" disabled>
+                        <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
+                        <span data-i18n="btn_create_exame">Criar Exame</span>
+                    </button>
+                </div>
+                <button id="btn-builder-settings" class="btn-control btn-secondary btn-builder-settings-square" aria-label="Abrir Definições" title="Definições" data-i18n-title="btn_settings" data-i18n-aria-label="btn_settings">
+                    <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
 
         <!-- MAIN CONTENT AREA -->
         <main class="main-content">
@@ -669,57 +701,102 @@
                 </div>
             </section>
 
-            <!-- STATE 5: ADD EXAME SCREEN -->
+            <!-- STATE 5: ADD EXAME SCREEN (Dual-Pane Interactive Builder) -->
             <section id="screen-add-exame" class="screen">
-                <div class="menu-header-bar">
-                    <h3 class="section-title">
-                        <i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i> <span data-i18n="add_exame_title">Adicionar Novo Exame</span>
-                    </h3>
-                    <button id="btn-copy-instructions" class="btn-control btn-secondary btn-sm">
-                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                        <span data-i18n="btn_json_instructions">Instruções de JSON</span>
-                    </button>
-                </div>
-                <div class="question-card">
-                    <div class="form-group">
-                        <label for="exame-titulo" data-i18n="label_exame_titulo">Título do Exame (Lido do JSON)</label>
-                        <input type="text" id="exame-titulo" class="form-control"
-                            placeholder="Será preenchido automaticamente..." data-i18n-placeholder="placeholder_read_auto" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exame-desc" data-i18n="label_exame_desc">Descrição do Exame (Lido do JSON)</label>
-                        <input type="text" id="exame-desc" class="form-control"
-                            placeholder="Será preenchido automaticamente..." data-i18n-placeholder="placeholder_read_auto" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="exame-lingua" data-i18n="label_exame_lingua">Idioma do Exame</label>
-                        <select id="exame-lingua" class="form-control">
-                            <option value="pt">🇵🇹 Português</option>
-                            <option value="en">🇬🇧 English</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="editor-code-input" data-i18n="label_json_code">Código JSON do Exame</label>
-                        <div class="code-editor-wrapper">
-                            <div class="line-numbers" id="editor-line-numbers" aria-hidden="true"></div>
-                            <textarea class="code-input" id="editor-code-input"
-                                placeholder="Cole o JSON do seu exame aqui..." data-i18n-placeholder="placeholder_json_code" spellcheck="false" required></textarea>
+                <div class="exam-builder-container">
+                    <!-- PAINEL ESQUERDO: Visual Box Editor -->
+                    <div class="builder-visual-pane">
+                        <div class="builder-visual-card">
+                            <div class="builder-visual-body">
+                                <!-- Secção 1: Informações do Exame -->
+                                <section class="builder-section-block" aria-labelledby="builder-metadata-heading">
+                                    <div class="builder-section-heading">
+                                        <h4 id="builder-metadata-heading" class="builder-section-title">
+                                            <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                                            <span data-i18n="builder_metadata_title">Informações do Exame</span>
+                                        </h4>
+                                    </div>
+                                    <div class="builder-form-fields">
+                                        <div class="builder-field-group">
+                                            <label for="builder-exam-title" class="builder-field-label" data-i18n="builder_exam_title_label">Título do Exame</label>
+                                            <input type="text" id="builder-exam-title" class="form-control" placeholder="Ex: Exame 2024" data-i18n-placeholder="builder_exam_title_placeholder" required>
+                                        </div>
+                                        <div class="builder-field-group">
+                                            <label for="builder-exam-desc" class="builder-field-label" data-i18n="builder_exam_desc_label">Descrição / Tema</label>
+                                            <input type="text" id="builder-exam-desc" class="form-control" placeholder="Ex: Questões de escolha múltipla e desenvolvimento..." data-i18n-placeholder="builder_exam_desc_placeholder" required>
+                                        </div>
+                                        <div class="builder-field-group">
+                                            <label for="builder-exam-lang" class="builder-field-label" data-i18n="builder_exam_lang_label">Idioma</label>
+                                            <select id="builder-exam-lang" class="form-control">
+                                                <option value="pt">🇵🇹 Português</option>
+                                                <option value="en">🇬🇧 English</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <!-- Secção 2: Perguntas do Exame -->
+                                <section class="builder-section-block" aria-labelledby="builder-questions-heading">
+                                    <div class="builder-section-heading">
+                                        <h4 id="builder-questions-heading" class="builder-section-title">
+                                            <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                                            <span data-i18n="builder_questions_title">Perguntas do Exame</span>
+                                        </h4>
+                                    </div>
+                                    <div class="builder-questions-container">
+                                        <div id="builder-questions-list" class="builder-questions-list"></div>
+                                        <button type="button" id="btn-builder-add-question" class="btn-builder-add-q-main">
+                                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                                            <span data-i18n="builder_btn_add_question">Adicionar Pergunta</span>
+                                        </button>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <div id="builder-visual-status" class="validation-status builder-visual-status">
+                                <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+                                <span id="builder-visual-status-text" data-i18n="builder_visual_status_default">1 pergunta configurada</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div id="validation-status" class="validation-status empty" data-i18n="editor_empty_status">
-                        Editor vazio. Aguardando JSON...
-                    </div>
+                    <!-- PAINEL DIREITO: Code / Text Editor -->
+                    <div class="builder-code-pane">
+                        <div class="builder-code-card">
+                            <div class="builder-code-header">
+                                <div class="builder-code-header-left">
+                                    <h4 class="builder-card-title">
+                                        <i class="fa-solid fa-code" aria-hidden="true"></i>
+                                        <span data-i18n="builder_code_title">Editor JSON</span>
+                                    </h4>
+                                </div>
+                                <div class="builder-code-header-right">
+                                    <button type="button" id="btn-copy-instructions" class="btn-code-action" title="Instruções e Estrutura JSON" data-i18n-title="btn_json_instructions">
+                                        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+                                        <span data-i18n="btn_json_instructions">Instruções de JSON</span>
+                                    </button>
+                                    <button type="button" id="btn-builder-format-json" class="btn-code-action" title="Formatar e indentar JSON" data-i18n-title="builder_btn_format_json">
+                                        <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                                        <span data-i18n="builder_btn_format_json">Formatar JSON</span>
+                                    </button>
+                                    <button type="button" id="btn-builder-copy-json" class="btn-code-action" title="Copiar código JSON" data-i18n-title="builder_btn_copy_json">
+                                        <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                                        <span data-i18n="builder_btn_copy_json">Copiar JSON</span>
+                                    </button>
+                                </div>
+                            </div>
 
-                    <div class="exam-controls">
-                        <button id="btn-cancel-exame" class="btn-control btn-secondary">
-                            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-                            <span data-i18n="btn_cancel">Cancelar</span>
-                        </button>
-                        <button id="btn-submit-exam" class="btn-control btn-primary" disabled>
-                            <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
-                            <span data-i18n="btn_create_exame">Criar Exame</span>
-                        </button>
+                            <div class="builder-code-body">
+                                <div class="code-editor-wrapper">
+                                    <div class="line-numbers" id="editor-line-numbers" aria-hidden="true"></div>
+                                    <textarea class="code-input" id="editor-code-input" placeholder="Cole ou escreva o JSON do seu exame aqui..." data-i18n-placeholder="placeholder_json_code" spellcheck="false" required></textarea>
+                                </div>
+                            </div>
+
+                            <div id="validation-status" class="validation-status empty" data-i18n="editor_empty_status">
+                                Editor vazio. Aguardando JSON...
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -12,6 +12,7 @@ import { copyQuestionToClipboard } from './clipboard.js';
 import { applyTranslations, setLanguage, t } from './i18n.js';
 import { initExamLayout } from './layout.js';
 import { isLanguageConfigured, setLanguageConfigured } from './config.js';
+import { initExamBuilder, resetExamBuilder } from './examBuilder.js';
 
 // Initialization
 function initApp() {
@@ -140,6 +141,7 @@ function setupEventListeners() {
     const settingsButtons = [
         elements.btnSettings,
         elements.btnExamSettings,
+        elements.btnBuilderSettings,
         ...document.querySelectorAll('.btn-sticky-settings')
     ].filter(Boolean);
 
@@ -252,6 +254,7 @@ function setupEventListeners() {
     const btnAddExameTop = document.getElementById('btn-add-exame-top');
     if (btnAddExameTop) {
         btnAddExameTop.addEventListener('click', () => {
+            resetExamBuilder();
             transitionTo('addExame');
         });
     }
@@ -418,12 +421,11 @@ function setupLocalCreationListeners() {
         });
     }
 
+    initExamBuilder();
+
     const btnCancelExame = document.getElementById('btn-cancel-exame');
     const btnSubmitExam = document.getElementById('btn-submit-exam');
     const btnCopyInst = document.getElementById('btn-copy-instructions');
-    const editorInput = document.getElementById('editor-code-input');
-    const editorLines = document.getElementById('editor-line-numbers');
-    const statusDiv = document.getElementById('validation-status');
 
     if (btnCopyInst) {
         btnCopyInst.addEventListener('click', () => {
@@ -439,12 +441,6 @@ function setupLocalCreationListeners() {
 
     if (btnCancelExame) {
         btnCancelExame.addEventListener('click', () => {
-            editorInput.value = '';
-            statusDiv.innerHTML = `[ ... ] ${t('editor_empty_status')}`;
-            statusDiv.className = 'validation-status empty';
-            State.jsonValidationErrorLine = -1;
-            State.validatedExamData = null;
-            if (editorLines) editorLines.innerHTML = '';
             transitionTo('menu');
         });
     }
@@ -457,8 +453,8 @@ function setupLocalCreationListeners() {
                 return;
             }
 
-            const exameLinguaSelect = document.getElementById('exame-lingua');
-            const selectedLingua = (exameLinguaSelect ? exameLinguaSelect.value : null) || State.language || 'en';
+            const builderLangSelect = document.getElementById('builder-exam-lang');
+            const selectedLingua = (builderLangSelect ? builderLangSelect.value : null) || State.language || 'pt';
 
             const newExame = {
                 ...State.validatedExamData,
@@ -479,88 +475,9 @@ function setupLocalCreationListeners() {
                 }
             }
 
-            editorInput.value = '';
-            statusDiv.innerHTML = `[ ... ] ${t('editor_empty_status')}`;
-            statusDiv.className = 'validation-status empty';
-            State.jsonValidationErrorLine = -1;
-            State.validatedExamData = null;
-            if (editorLines) editorLines.innerHTML = '';
-            if (exameLinguaSelect) exameLinguaSelect.value = State.language || 'en';
-
             showToast(t('toast_exame_created'), elements);
             fetchExams(State.activeCadeira.index_path);
             transitionTo('menu');
-        });
-    }
-
-    const exameLinguaSelect = document.getElementById('exame-lingua');
-    if (exameLinguaSelect) {
-        exameLinguaSelect.addEventListener('change', () => {
-            if (State.validatedExamData) {
-                State.validatedExamData.languages = [exameLinguaSelect.value];
-            }
-        });
-    }
-
-    if (editorInput && editorLines) {
-        editorInput.addEventListener('scroll', () => {
-            editorLines.scrollTop = editorInput.scrollTop;
-        });
-
-        editorInput.addEventListener('input', () => {
-            const lines = editorInput.value.split('\n');
-            const lineCount = Math.max(lines.length, 1);
-
-            const result = validateExamJSON(editorInput.value.trim());
-            if (!editorInput.value.trim()) {
-                statusDiv.innerHTML = `[ ... ] ${t('editor_empty_status')}`;
-                statusDiv.className = 'validation-status empty';
-                State.jsonValidationErrorLine = -1;
-                btnSubmitExam.disabled = true;
-                State.validatedExamData = null;
-                document.getElementById('exame-titulo').value = '';
-                document.getElementById('exame-desc').value = '';
-                if (exameLinguaSelect) exameLinguaSelect.value = State.language || 'en';
-            } else if (result.valid) {
-                statusDiv.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i> [OK] JSON válido e estrutura correta!';
-                statusDiv.className = 'validation-status valid';
-                State.jsonValidationErrorLine = -1;
-                btnSubmitExam.disabled = false;
-                State.validatedExamData = result.data;
-                document.getElementById('exame-titulo').value = getLocalizedText(result.data.title || result.data.titulo);
-                document.getElementById('exame-desc').value = getLocalizedText(result.data.description || result.data.descricao);
-                if (exameLinguaSelect) {
-                    const langs = result.data.languages || ['en'];
-                    if (langs.includes('en') && !langs.includes('pt')) {
-                        exameLinguaSelect.value = 'en';
-                    } else if (langs.includes('pt') && !langs.includes('en')) {
-                        exameLinguaSelect.value = 'pt';
-                    } else {
-                        exameLinguaSelect.value = State.language || 'en';
-                    }
-                }
-            } else {
-                let msg = result.message;
-                if (result.line) {
-                    msg += ` (Linha ${result.line})`;
-                    State.jsonValidationErrorLine = result.line;
-                } else {
-                    State.jsonValidationErrorLine = -1;
-                }
-                statusDiv.innerHTML = `<i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> [ERRO] ${msg}`;
-                statusDiv.className = 'validation-status invalid';
-                btnSubmitExam.disabled = true;
-                State.validatedExamData = null;
-                document.getElementById('exame-titulo').value = '';
-                document.getElementById('exame-desc').value = '';
-            }
-
-            let html = '';
-            for (let i = 1; i <= lineCount; i++) {
-                const isError = (i === State.jsonValidationErrorLine);
-                html += `<div class="line-number-item ${isError ? 'error-line' : ''}">${i}</div>`;
-            }
-            editorLines.innerHTML = html;
         });
     }
 }
