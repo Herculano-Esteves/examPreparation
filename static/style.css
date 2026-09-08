@@ -4445,6 +4445,79 @@ body.header-scrolled .sticky-corner-right {
     color: #ffffff;
 }
 
+/* AI Assistant Prompting Banner */
+.builder-ai-tip-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.85rem;
+    padding: 0.55rem 1.25rem;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    flex-shrink: 0;
+}
+
+.builder-ai-tip-left {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-width: 0;
+}
+
+.builder-ai-tip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(139, 92, 246, 0.18);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 5px;
+    color: #c084fc;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.builder-ai-tip-content {
+    font-size: 0.77rem;
+    line-height: 1.35;
+    color: #c4c4d0;
+}
+
+.builder-ai-tip-title {
+    color: #f3f4f6;
+    font-weight: 700;
+    margin-right: 0.3rem;
+}
+
+.builder-ai-tip-desc {
+    color: #b4b4c4;
+}
+
+.builder-ai-tip-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(139, 92, 246, 0.18);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 5px;
+    color: #e0e7ff;
+    font-size: 0.73rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.builder-ai-tip-action:hover {
+    background: rgba(139, 92, 246, 0.32);
+    border-color: #a78bfa;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.25);
+}
+
 .builder-code-body {
     flex: 1;
     min-height: 0;

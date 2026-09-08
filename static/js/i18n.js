@@ -227,6 +227,9 @@ export const TRANSLATIONS = {
         builder_explanation_label: 'Explicação / Justificação (Opcional)',
         builder_explanation_placeholder: 'Explicação para a resposta correta...',
         builder_empty_questions: 'Nenhuma pergunta adicionada. Clique em "+ Adicionar Pergunta" para começar.',
+        builder_ai_tip_title: 'Dica de IA:',
+        builder_ai_tip_desc: 'Copie as instruções e peça à sua IA de preferência para criar o exame automaticamente.',
+        builder_ai_tip_btn: 'Copiar Instruções',
 
         // Settings Screen
         settings_title: 'Definições do Sistema',
@@ -483,6 +486,9 @@ export const TRANSLATIONS = {
         builder_explanation_label: 'Explanation / Rationale (Optional)',
         builder_explanation_placeholder: 'Explanation for correct answer...',
         builder_empty_questions: 'No questions added yet. Click "+ Add Question" to start.',
+        builder_ai_tip_title: 'AI Tip:',
+        builder_ai_tip_desc: 'Copy the instructions and ask your preferred AI to generate the exam automatically.',
+        builder_ai_tip_btn: 'Copy Instructions',
 
         // Settings Screen
         settings_title: 'System Settings',
