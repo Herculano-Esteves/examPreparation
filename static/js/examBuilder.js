@@ -3,7 +3,8 @@
  * --------------
  * Dual-Pane Interactive Exam Builder module.
  * Provides live bi-directional synchronisation between the Visual Box Editor
- * (left pane) and the JSON Code Editor (right pane), supporting multiple-choice,
+ * (left pane) and the JSON Code Editor (right pane), supporting monolingual (PT/EN)
+ * and seamless Bilingual (PT + EN) exam authoring for multiple-choice,
  * boolean (true/false), and written questions.
  */
 
@@ -11,37 +12,64 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { validateExamJSON } from './validation.js';
 import { t } from './i18n.js';
-import { showToast, getLocalizedText } from './utils.js';
+import { showToast, getLocalizedText, escapeHTML } from './utils.js';
 
 let isSyncing = false;
 
 /**
- * Generates an empty default question item
+ * Returns array of selected language codes (e.g. ['pt'], ['en'], or ['pt', 'en'])
+ * @returns {string[]}
+ */
+export function getSelectedLanguages() {
+    const langSelect = document.getElementById('builder-exam-lang');
+    const val = langSelect ? langSelect.value : (State.language || 'pt');
+    if (val === 'pt,en' || val === 'en,pt') {
+        return ['pt', 'en'];
+    }
+    if (val === 'en') {
+        return ['en'];
+    }
+    return ['pt'];
+}
+
+/**
+ * Returns true if the builder is currently configured in bilingual (PT + EN) mode.
+ * @returns {boolean}
+ */
+export function isBilingualMode() {
+    return getSelectedLanguages().length > 1;
+}
+
+/**
+ * Generates an empty default question item respecting active language mode
  * @param {string} type - 'escolha_multipla' | 'boolean' | 'escrita'
+ * @returns {object}
  */
 export function createDefaultQuestion(type = 'escolha_multipla') {
+    const bilingual = isBilingualMode();
+
     if (type === 'boolean') {
         return {
             type: 'boolean',
-            question: '',
+            question: bilingual ? { pt: '', en: '' } : '',
             solution: 0,
-            explanation: ''
+            explanation: bilingual ? { pt: '', en: '' } : ''
         };
     }
     if (type === 'escrita') {
         return {
             type: 'escrita',
-            question: '',
-            solution: '',
-            explanation: ''
+            question: bilingual ? { pt: '', en: '' } : '',
+            solution: bilingual ? { pt: '', en: '' } : '',
+            explanation: bilingual ? { pt: '', en: '' } : ''
         };
     }
     return {
         type: 'escolha_multipla',
-        question: '',
-        options: ['', '', '', ''],
+        question: bilingual ? { pt: '', en: '' } : '',
+        options: bilingual ? { pt: ['', '', '', ''], en: ['', '', '', ''] } : ['', '', '', ''],
         solution: [0],
-        explanation: ''
+        explanation: bilingual ? { pt: '', en: '' } : ''
     };
 }
 
@@ -49,24 +77,25 @@ export function createDefaultQuestion(type = 'escolha_multipla') {
  * Initializes the Exam Builder interface and event listeners
  */
 export function initExamBuilder() {
-    const listContainer = document.getElementById('builder-questions-list');
     const btnAddQ = document.getElementById('btn-builder-add-question');
     const btnFormat = document.getElementById('btn-builder-format-json');
     const btnCopy = document.getElementById('btn-builder-copy-json');
     const btnClear = document.getElementById('btn-builder-clear');
     const editorInput = document.getElementById('editor-code-input');
     const editorLines = document.getElementById('editor-line-numbers');
-    const statusDiv = document.getElementById('validation-status');
-    const btnSubmit = document.getElementById('btn-submit-exam');
-
-    const titleInput = document.getElementById('builder-exam-title');
-    const descInput = document.getElementById('builder-exam-desc');
     const langSelect = document.getElementById('builder-exam-lang');
 
-    // Input listeners on Metadata fields (visual -> code)
-    if (titleInput) titleInput.addEventListener('input', handleVisualChange);
-    if (descInput) descInput.addEventListener('input', handleVisualChange);
-    if (langSelect) langSelect.addEventListener('change', handleVisualChange);
+    // Language selector change listener
+    if (langSelect) {
+        langSelect.addEventListener('change', () => {
+            const currentData = getExamDataFromVisualBoxes();
+            renderVisualBoxesFromData(currentData);
+            handleVisualChange();
+        });
+    }
+
+    // Initial render of metadata inputs
+    renderMetadataInputs('', '');
 
     // Add question button (bottom of questions section)
     const handleAddQ = () => {
@@ -125,18 +154,92 @@ export function initExamBuilder() {
 }
 
 /**
+ * Renders title and description input elements based on language mode (monolingual vs bilingual).
+ * @param {string|object} titleData
+ * @param {string|object} descData
+ */
+export function renderMetadataInputs(titleData = '', descData = '') {
+    const titleContainer = document.getElementById('builder-title-input-container');
+    const descContainer = document.getElementById('builder-desc-input-container');
+    if (!titleContainer || !descContainer) return;
+
+    const bilingual = isBilingualMode();
+
+    let titlePt = '';
+    let titleEn = '';
+    if (typeof titleData === 'object' && titleData !== null) {
+        titlePt = titleData.pt || '';
+        titleEn = titleData.en || '';
+    } else {
+        titlePt = titleData || '';
+        titleEn = titleData || '';
+    }
+
+    let descPt = '';
+    let descEn = '';
+    if (typeof descData === 'object' && descData !== null) {
+        descPt = descData.pt || '';
+        descEn = descData.en || '';
+    } else {
+        descPt = descData || '';
+        descEn = descData || '';
+    }
+
+    if (bilingual) {
+        titleContainer.innerHTML = `
+            <div class="builder-bilingual-stack">
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-pt">🇵🇹 PT</span>
+                    <input type="text" id="builder-exam-title" class="builder-title-pt form-control" placeholder="Ex: Exame 2024" value="${escapeHTML(titlePt)}" required>
+                </div>
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-en">🇬🇧 EN</span>
+                    <input type="text" id="builder-exam-title-en" class="builder-title-en form-control" placeholder="E.g. Exam 2024" value="${escapeHTML(titleEn)}" required>
+                </div>
+            </div>
+        `;
+
+        descContainer.innerHTML = `
+            <div class="builder-bilingual-stack">
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-pt">🇵🇹 PT</span>
+                    <input type="text" id="builder-exam-desc" class="builder-desc-pt form-control" placeholder="Ex: Questões de escolha múltipla e desenvolvimento..." value="${escapeHTML(descPt)}" required>
+                </div>
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-en">🇬🇧 EN</span>
+                    <input type="text" id="builder-exam-desc-en" class="builder-desc-en form-control" placeholder="E.g. Multiple choice and open answer questions..." value="${escapeHTML(descEn)}" required>
+                </div>
+            </div>
+        `;
+    } else {
+        const titlePlaceholder = t('builder_exam_title_placeholder') || 'Ex: Exame 2024';
+        const descPlaceholder = t('builder_exam_desc_placeholder') || 'Ex: Questões de escolha múltipla e desenvolvimento...';
+        const singleTitle = typeof titleData === 'object' ? getLocalizedText(titleData) : (titleData || '');
+        const singleDesc = typeof descData === 'object' ? getLocalizedText(descData) : (descData || '');
+
+        titleContainer.innerHTML = `
+            <input type="text" id="builder-exam-title" class="form-control" placeholder="${escapeHTML(titlePlaceholder)}" value="${escapeHTML(singleTitle)}" required>
+        `;
+
+        descContainer.innerHTML = `
+            <input type="text" id="builder-exam-desc" class="form-control" placeholder="${escapeHTML(descPlaceholder)}" value="${escapeHTML(singleDesc)}" required>
+        `;
+    }
+
+    // Attach live sync input events to all title & desc inputs
+    titleContainer.querySelectorAll('input').forEach(inp => inp.addEventListener('input', handleVisualChange));
+    descContainer.querySelectorAll('input').forEach(inp => inp.addEventListener('input', handleVisualChange));
+}
+
+/**
  * Resets the Exam Builder to a clean initial state with 1 default question
  */
 export function resetExamBuilder() {
-    const titleInput = document.getElementById('builder-exam-title');
-    const descInput = document.getElementById('builder-exam-desc');
     const langSelect = document.getElementById('builder-exam-lang');
     const listContainer = document.getElementById('builder-questions-list');
-    const editorInput = document.getElementById('editor-code-input');
 
-    if (titleInput) titleInput.value = '';
-    if (descInput) descInput.value = '';
     if (langSelect) langSelect.value = State.language || 'pt';
+    renderMetadataInputs('', '');
     if (listContainer) listContainer.innerHTML = '';
 
     // Add 1 default question
@@ -171,8 +274,6 @@ function handleCodeChange() {
     isSyncing = true;
 
     const editorInput = document.getElementById('editor-code-input');
-    const jsonStr = editorInput ? editorInput.value.trim() : '';
-
     const validation = updateLineNumbersAndValidation();
 
     if (validation.valid && validation.data) {
@@ -238,17 +339,46 @@ export function updateLineNumbersAndValidation() {
 }
 
 /**
- * Reads visual inputs and creates an exam object
+ * Reads visual inputs and creates an exam object, gracefully detecting whether DOM
+ * fields are currently rendered in monolingual or bilingual mode.
  */
 export function getExamDataFromVisualBoxes() {
-    const titleInput = document.getElementById('builder-exam-title');
-    const descInput = document.getElementById('builder-exam-desc');
-    const langSelect = document.getElementById('builder-exam-lang');
+    const bilingual = isBilingualMode();
+    const selectedLangs = getSelectedLanguages();
     const listContainer = document.getElementById('builder-questions-list');
 
-    const title = titleInput ? titleInput.value.trim() : '';
-    const desc = descInput ? descInput.value.trim() : '';
-    const lang = langSelect ? langSelect.value : (State.language || 'pt');
+    // Title & Description detection
+    const hasBilingualTitleInputs = !!document.getElementById('builder-exam-title-en');
+    let titlePt = '';
+    let titleEn = '';
+    if (hasBilingualTitleInputs) {
+        titlePt = document.getElementById('builder-exam-title')?.value || '';
+        titleEn = document.getElementById('builder-exam-title-en')?.value || '';
+    } else {
+        titlePt = document.getElementById('builder-exam-title')?.value || '';
+        titleEn = '';
+    }
+
+    const hasBilingualDescInputs = !!document.getElementById('builder-exam-desc-en');
+    let descPt = '';
+    let descEn = '';
+    if (hasBilingualDescInputs) {
+        descPt = document.getElementById('builder-exam-desc')?.value || '';
+        descEn = document.getElementById('builder-exam-desc-en')?.value || '';
+    } else {
+        descPt = document.getElementById('builder-exam-desc')?.value || '';
+        descEn = '';
+    }
+
+    let title;
+    let desc;
+    if (bilingual) {
+        title = { pt: titlePt, en: titleEn };
+        desc = { pt: descPt, en: descEn };
+    } else {
+        title = titlePt || titleEn || '';
+        desc = descPt || descEn || '';
+    }
 
     const questions = [];
     if (listContainer) {
@@ -257,40 +387,95 @@ export function getExamDataFromVisualBoxes() {
             const typeSelect = card.querySelector('.builder-q-type-select');
             const qType = typeSelect ? typeSelect.value : 'escolha_multipla';
 
-            const textInput = card.querySelector('.builder-q-text');
-            const qText = textInput ? textInput.value : '';
+            // Question prompt detection
+            let promptPt = '';
+            let promptEn = '';
+            const ptPromptInput = card.querySelector('.builder-q-text-pt');
+            const enPromptInput = card.querySelector('.builder-q-text-en');
+            const singlePromptInput = card.querySelector('.builder-q-text');
 
-            const explInput = card.querySelector('.builder-q-explanation');
-            const qExpl = explInput ? explInput.value.trim() : '';
+            if (ptPromptInput || enPromptInput) {
+                promptPt = ptPromptInput ? ptPromptInput.value : '';
+                promptEn = enPromptInput ? enPromptInput.value : '';
+            } else if (singlePromptInput) {
+                promptPt = singlePromptInput.value;
+                promptEn = '';
+            }
+
+            let qPrompt;
+            if (bilingual) {
+                qPrompt = { pt: promptPt, en: promptEn };
+            } else {
+                qPrompt = promptPt || promptEn || '';
+            }
+
+            // Explanation detection
+            let explPt = '';
+            let explEn = '';
+            const ptExplInput = card.querySelector('.builder-q-expl-pt');
+            const enExplInput = card.querySelector('.builder-q-expl-en');
+            const singleExplInput = card.querySelector('.builder-q-explanation');
+
+            if (ptExplInput || enExplInput) {
+                explPt = ptExplInput ? ptExplInput.value.trim() : '';
+                explEn = enExplInput ? enExplInput.value.trim() : '';
+            } else if (singleExplInput) {
+                explPt = singleExplInput.value.trim();
+                explEn = '';
+            }
+
+            let qExpl;
+            if (bilingual) {
+                if (explPt || explEn) {
+                    qExpl = { pt: explPt, en: explEn };
+                }
+            } else {
+                if (explPt || explEn) {
+                    qExpl = explPt || explEn;
+                }
+            }
 
             if (qType === 'boolean') {
                 const checkedRadio = card.querySelector('input[type="radio"]:checked');
                 const solution = checkedRadio ? parseInt(checkedRadio.value, 10) : 0;
                 const qObj = {
                     type: 'boolean',
-                    question: qText,
+                    question: qPrompt,
                     solution: solution
                 };
-                if (qExpl) qObj.explanation = qExpl;
+                if (qExpl !== undefined) qObj.explanation = qExpl;
                 questions.push(qObj);
             } else if (qType === 'escrita') {
-                const solutionInput = card.querySelector('.builder-q-written-solution');
-                const solution = solutionInput ? solutionInput.value : '';
+                let solPt = '';
+                let solEn = '';
+                const ptSolInput = card.querySelector('.builder-q-written-pt');
+                const enSolInput = card.querySelector('.builder-q-written-en');
+                const singleSolInput = card.querySelector('.builder-q-written-solution');
+
+                if (ptSolInput || enSolInput) {
+                    solPt = ptSolInput ? ptSolInput.value : '';
+                    solEn = enSolInput ? enSolInput.value : '';
+                } else if (singleSolInput) {
+                    solPt = singleSolInput.value;
+                    solEn = '';
+                }
+
+                let solution;
+                if (bilingual) {
+                    solution = { pt: solPt, en: solEn };
+                } else {
+                    solution = solPt || solEn || '';
+                }
+
                 const qObj = {
                     type: 'escrita',
-                    question: qText,
+                    question: qPrompt,
                     solution: solution
                 };
-                if (qExpl) qObj.explanation = qExpl;
+                if (qExpl !== undefined) qObj.explanation = qExpl;
                 questions.push(qObj);
             } else {
                 // escolha_multipla
-                const optInputs = card.querySelectorAll('.builder-opt-input');
-                const options = [];
-                optInputs.forEach(input => {
-                    options.push(input.value);
-                });
-
                 const correctCheckboxes = card.querySelectorAll('.builder-opt-correct:checked');
                 const solution = [];
                 correctCheckboxes.forEach(cb => {
@@ -298,13 +483,46 @@ export function getExamDataFromVisualBoxes() {
                     if (!isNaN(optIdx)) solution.push(optIdx);
                 });
 
+                const ptOptInputs = card.querySelectorAll('.builder-opt-input-pt');
+                const enOptInputs = card.querySelectorAll('.builder-opt-input-en');
+                const singleOptInputs = card.querySelectorAll('.builder-opt-input');
+
+                let options;
+                if (ptOptInputs.length > 0 || enOptInputs.length > 0) {
+                    const ptOpts = [];
+                    const enOpts = [];
+                    ptOptInputs.forEach(inp => ptOpts.push(inp.value));
+                    enOptInputs.forEach(inp => enOpts.push(inp.value));
+
+                    if (bilingual) {
+                        options = {
+                            pt: ptOpts.length > 0 ? ptOpts : ['', ''],
+                            en: enOpts.length > 0 ? enOpts : ['', '']
+                        };
+                    } else {
+                        options = ptOpts.length > 0 ? ptOpts : (enOpts.length > 0 ? enOpts : ['', '']);
+                    }
+                } else {
+                    const singleOpts = [];
+                    singleOptInputs.forEach(inp => singleOpts.push(inp.value));
+
+                    if (bilingual) {
+                        options = {
+                            pt: singleOpts.length > 0 ? singleOpts : ['', ''],
+                            en: singleOpts.map(() => '')
+                        };
+                    } else {
+                        options = singleOpts.length > 0 ? singleOpts : ['', ''];
+                    }
+                }
+
                 const qObj = {
                     type: 'escolha_multipla',
-                    question: qText,
-                    options: options.length > 0 ? options : ['', ''],
+                    question: qPrompt,
+                    options: options,
                     solution: solution.length > 0 ? solution : [0]
                 };
-                if (qExpl) qObj.explanation = qExpl;
+                if (qExpl !== undefined) qObj.explanation = qExpl;
                 questions.push(qObj);
             }
         });
@@ -313,7 +531,7 @@ export function getExamDataFromVisualBoxes() {
     return {
         title: title,
         description: desc,
-        languages: [lang],
+        languages: selectedLangs,
         questions: questions
     };
 }
@@ -325,21 +543,25 @@ export function getExamDataFromVisualBoxes() {
 export function renderVisualBoxesFromData(examData) {
     if (!examData) return;
 
-    const titleInput = document.getElementById('builder-exam-title');
-    const descInput = document.getElementById('builder-exam-desc');
     const langSelect = document.getElementById('builder-exam-lang');
     const listContainer = document.getElementById('builder-questions-list');
 
-    if (titleInput) {
-        titleInput.value = getLocalizedText(examData.title || examData.titulo || '');
-    }
-    if (descInput) {
-        descInput.value = getLocalizedText(examData.description || examData.descricao || '');
-    }
+    // Detect language configuration
+    const rawLangs = examData.languages || (examData.linguas ? examData.linguas : [examData.lingua || 'pt']);
+    const langArray = Array.isArray(rawLangs) ? rawLangs : [rawLangs];
+
     if (langSelect) {
-        const langs = examData.languages || (examData.linguas ? examData.linguas : [examData.lingua || 'pt']);
-        langSelect.value = Array.isArray(langs) && langs.length > 0 ? langs[0] : 'pt';
+        if (langArray.includes('pt') && langArray.includes('en')) {
+            langSelect.value = 'pt,en';
+        } else if (langArray.includes('en')) {
+            langSelect.value = 'en';
+        } else {
+            langSelect.value = 'pt';
+        }
     }
+
+    // Render metadata
+    renderMetadataInputs(examData.title || examData.titulo || '', examData.description || examData.descricao || '');
 
     if (!listContainer) return;
     listContainer.innerHTML = '';
@@ -358,7 +580,7 @@ export function renderVisualBoxesFromData(examData) {
 }
 
 /**
- * Creates and appends a visual question card
+ * Creates and appends a visual question card respecting bilingual or monolingual mode
  * @param {object} qData
  * @param {boolean} triggerSync
  */
@@ -371,12 +593,58 @@ export function addQuestionBox(qData = {}, triggerSync = true) {
 
     const qIndex = listContainer.querySelectorAll('.builder-question-card').length;
     const qType = qData.type || 'escolha_multipla';
-    const qText = typeof qData.question === 'object' ? getLocalizedText(qData.question) : (qData.question || qData.pergunta || '');
-    const qExpl = typeof qData.explanation === 'object' ? getLocalizedText(qData.explanation) : (qData.explanation || qData.explicacao || '');
+    const bilingual = isBilingualMode();
 
     const card = document.createElement('div');
     card.className = 'builder-question-card';
     card.setAttribute('data-q-index', qIndex);
+
+    let promptHtml = '';
+    let explHtml = '';
+
+    if (bilingual) {
+        const qTextPt = typeof qData.question === 'object' && qData.question !== null ? (qData.question.pt || '') : (qData.question || qData.pergunta || '');
+        const qTextEn = typeof qData.question === 'object' && qData.question !== null ? (qData.question.en || '') : '';
+
+        promptHtml = `
+            <div class="builder-bilingual-stack">
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-pt">🇵🇹 PT</span>
+                    <textarea class="builder-q-text-pt form-control" placeholder="Enunciado da pergunta em português..." rows="2">${escapeHTML(qTextPt)}</textarea>
+                </div>
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-en">🇬🇧 EN</span>
+                    <textarea class="builder-q-text-en form-control" placeholder="Question prompt in English..." rows="2">${escapeHTML(qTextEn)}</textarea>
+                </div>
+            </div>
+        `;
+
+        const qExplPt = typeof qData.explanation === 'object' && qData.explanation !== null ? (qData.explanation.pt || '') : (qData.explanation || qData.explicacao || '');
+        const qExplEn = typeof qData.explanation === 'object' && qData.explanation !== null ? (qData.explanation.en || '') : '';
+
+        explHtml = `
+            <div class="builder-bilingual-stack">
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-pt">🇵🇹 PT</span>
+                    <input type="text" class="builder-q-expl-pt form-control" placeholder="Explicação da resposta em português..." value="${escapeHTML(qExplPt)}">
+                </div>
+                <div class="builder-input-with-tag">
+                    <span class="builder-lang-tag tag-en">🇬🇧 EN</span>
+                    <input type="text" class="builder-q-expl-en form-control" placeholder="Answer explanation in English..." value="${escapeHTML(qExplEn)}">
+                </div>
+            </div>
+        `;
+    } else {
+        const qText = typeof qData.question === 'object' ? getLocalizedText(qData.question) : (qData.question || qData.pergunta || '');
+        promptHtml = `
+            <textarea class="builder-q-text form-control" placeholder="${t('builder_q_text_placeholder') || 'Escreva o enunciado da pergunta...'}" rows="2">${escapeHTML(qText)}</textarea>
+        `;
+
+        const qExpl = typeof qData.explanation === 'object' ? getLocalizedText(qData.explanation) : (qData.explanation || qData.explicacao || '');
+        explHtml = `
+            <input type="text" class="builder-q-explanation form-control" placeholder="${t('builder_explanation_placeholder') || 'Explicação para a resposta correta...'}" value="${escapeHTML(qExpl)}">
+        `;
+    }
 
     card.innerHTML = `
         <div class="builder-q-header">
@@ -398,14 +666,14 @@ export function addQuestionBox(qData = {}, triggerSync = true) {
         <div class="builder-q-body">
             <div class="builder-field-group">
                 <label class="builder-field-label">Enunciado</label>
-                <textarea class="builder-q-text form-control" placeholder="${t('builder_q_text_placeholder')}" rows="2">${qText}</textarea>
+                ${promptHtml}
             </div>
 
             <div class="builder-q-dynamic-area"></div>
 
             <div class="builder-field-group">
                 <label class="builder-field-label">${t('builder_explanation_label')}</label>
-                <input type="text" class="builder-q-explanation form-control" placeholder="${t('builder_explanation_placeholder')}" value="${qExpl}">
+                ${explHtml}
             </div>
         </div>
     `;
@@ -413,25 +681,36 @@ export function addQuestionBox(qData = {}, triggerSync = true) {
     const dynamicArea = card.querySelector('.builder-q-dynamic-area');
     renderDynamicArea(dynamicArea, qType, qData, qIndex);
 
-    // Event Listeners
+    // Event Listeners for Question Type switch
     const typeSelect = card.querySelector('.builder-q-type-select');
     typeSelect.addEventListener('change', () => {
         const newType = typeSelect.value;
-        const currentText = card.querySelector('.builder-q-text').value;
-        const currentExpl = card.querySelector('.builder-q-explanation').value;
         const freshQ = createDefaultQuestion(newType);
-        freshQ.question = currentText;
-        freshQ.explanation = currentExpl;
+
+        if (bilingual) {
+            freshQ.question = {
+                pt: card.querySelector('.builder-q-text-pt')?.value || '',
+                en: card.querySelector('.builder-q-text-en')?.value || ''
+            };
+            freshQ.explanation = {
+                pt: card.querySelector('.builder-q-expl-pt')?.value || '',
+                en: card.querySelector('.builder-q-expl-en')?.value || ''
+            };
+        } else {
+            freshQ.question = card.querySelector('.builder-q-text')?.value || '';
+            freshQ.explanation = card.querySelector('.builder-q-explanation')?.value || '';
+        }
+
         renderDynamicArea(dynamicArea, newType, freshQ, parseInt(card.getAttribute('data-q-index'), 10));
         handleVisualChange();
     });
 
-    const textInput = card.querySelector('.builder-q-text');
-    textInput.addEventListener('input', handleVisualChange);
+    // Event Listeners for typing in prompts and explanations
+    card.querySelectorAll('.builder-q-text, .builder-q-text-pt, .builder-q-text-en, .builder-q-explanation, .builder-q-expl-pt, .builder-q-expl-en').forEach(inp => {
+        inp.addEventListener('input', handleVisualChange);
+    });
 
-    const explInput = card.querySelector('.builder-q-explanation');
-    explInput.addEventListener('input', handleVisualChange);
-
+    // Remove question button
     const removeBtn = card.querySelector('.btn-builder-remove-q');
     removeBtn.addEventListener('click', () => {
         card.remove();
@@ -448,10 +727,11 @@ export function addQuestionBox(qData = {}, triggerSync = true) {
 }
 
 /**
- * Renders the question options / answers depending on question type
+ * Renders the question options / answers depending on question type and bilingual mode
  */
 function renderDynamicArea(container, qType, qData, qIndex) {
     container.innerHTML = '';
+    const bilingual = isBilingualMode();
 
     if (qType === 'boolean') {
         const solution = qData.solution !== undefined ? qData.solution : 0;
@@ -475,18 +755,41 @@ function renderDynamicArea(container, qType, qData, qIndex) {
             radio.addEventListener('change', handleVisualChange);
         });
     } else if (qType === 'escrita') {
-        const solText = typeof qData.solution === 'object' ? getLocalizedText(qData.solution) : (qData.solution || '');
-        container.innerHTML = `
-            <div class="builder-field-group">
-                <label class="builder-field-label">${t('builder_written_solution_label')}</label>
-                <textarea class="builder-q-written-solution form-control" placeholder="${t('builder_written_solution_placeholder')}" rows="2">${solText}</textarea>
-            </div>
-        `;
-        const solInput = container.querySelector('.builder-q-written-solution');
-        solInput.addEventListener('input', handleVisualChange);
+        if (bilingual) {
+            const solPt = typeof qData.solution === 'object' && qData.solution !== null ? (qData.solution.pt || '') : (qData.solution || '');
+            const solEn = typeof qData.solution === 'object' && qData.solution !== null ? (qData.solution.en || '') : '';
+
+            container.innerHTML = `
+                <div class="builder-field-group">
+                    <label class="builder-field-label">${t('builder_written_solution_label')}</label>
+                    <div class="builder-bilingual-stack">
+                        <div class="builder-input-with-tag">
+                            <span class="builder-lang-tag tag-pt">🇵🇹 PT</span>
+                            <textarea class="builder-q-written-pt form-control" placeholder="Critérios de resolução ou pontos-chave em português..." rows="2">${escapeHTML(solPt)}</textarea>
+                        </div>
+                        <div class="builder-input-with-tag">
+                            <span class="builder-lang-tag tag-en">🇬🇧 EN</span>
+                            <textarea class="builder-q-written-en form-control" placeholder="Grading criteria or model solution in English..." rows="2">${escapeHTML(solEn)}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.querySelectorAll('.builder-q-written-pt, .builder-q-written-en').forEach(inp => {
+                inp.addEventListener('input', handleVisualChange);
+            });
+        } else {
+            const solText = typeof qData.solution === 'object' ? getLocalizedText(qData.solution) : (qData.solution || '');
+            container.innerHTML = `
+                <div class="builder-field-group">
+                    <label class="builder-field-label">${t('builder_written_solution_label')}</label>
+                    <textarea class="builder-q-written-solution form-control" placeholder="${t('builder_written_solution_placeholder') || 'Escreva os pontos-chave ou a resolução modelo...'}" rows="2">${escapeHTML(solText)}</textarea>
+                </div>
+            `;
+            const solInput = container.querySelector('.builder-q-written-solution');
+            if (solInput) solInput.addEventListener('input', handleVisualChange);
+        }
     } else {
         // escolha_multipla
-        const options = Array.isArray(qData.options) ? qData.options : (qData.options ? [qData.options] : ['', '', '', '']);
         const solution = Array.isArray(qData.solution) ? qData.solution : [0];
 
         container.innerHTML = `
@@ -504,45 +807,102 @@ function renderDynamicArea(container, qType, qData, qIndex) {
         const optList = container.querySelector('.builder-options-list');
         const addOptBtn = container.querySelector('.btn-builder-add-opt');
 
-        const renderOptionRow = (optText, optIdx) => {
-            const isCorrect = solution.includes(optIdx);
-            const row = document.createElement('div');
-            row.className = 'builder-option-row';
-            row.innerHTML = `
-                <label class="builder-opt-correct-label" title="Marcar como correta">
-                    <input type="checkbox" class="builder-opt-correct" data-opt-index="${optIdx}" ${isCorrect ? 'checked' : ''}>
-                </label>
-                <input type="text" class="builder-opt-input form-control" placeholder="${t('builder_option_placeholder')}" value="${typeof optText === 'object' ? getLocalizedText(optText) : (optText || '')}">
-                <button type="button" class="btn-builder-remove-opt" title="Remover opção" aria-label="Remover opção">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            `;
+        if (bilingual) {
+            let ptOpts = [];
+            let enOpts = [];
+            if (typeof qData.options === 'object' && qData.options !== null && !Array.isArray(qData.options)) {
+                ptOpts = Array.isArray(qData.options.pt) ? qData.options.pt : [];
+                enOpts = Array.isArray(qData.options.en) ? qData.options.en : [];
+            } else if (Array.isArray(qData.options)) {
+                ptOpts = qData.options;
+                enOpts = qData.options.map(() => '');
+            }
 
-            const cb = row.querySelector('.builder-opt-correct');
-            cb.addEventListener('change', handleVisualChange);
+            const rowCount = Math.max(ptOpts.length, enOpts.length, 2);
 
-            const inp = row.querySelector('.builder-opt-input');
-            inp.addEventListener('input', handleVisualChange);
+            const renderBilingualOptionRow = (optPtVal, optEnVal, optIdx) => {
+                const isCorrect = solution.includes(optIdx);
+                const row = document.createElement('div');
+                row.className = 'builder-option-row builder-option-row-bilingual';
+                row.innerHTML = `
+                    <label class="builder-opt-correct-label" title="Marcar como correta">
+                        <input type="checkbox" class="builder-opt-correct" data-opt-index="${optIdx}" ${isCorrect ? 'checked' : ''}>
+                    </label>
+                    <div class="builder-opt-inputs-pair">
+                        <div class="builder-input-with-tag">
+                            <span class="builder-lang-tag tag-pt">🇵🇹 PT</span>
+                            <input type="text" class="builder-opt-input-pt form-control" placeholder="Opção em português..." value="${escapeHTML(optPtVal || '')}">
+                        </div>
+                        <div class="builder-input-with-tag">
+                            <span class="builder-lang-tag tag-en">🇬🇧 EN</span>
+                            <input type="text" class="builder-opt-input-en form-control" placeholder="Option in English..." value="${escapeHTML(optEnVal || '')}">
+                        </div>
+                    </div>
+                    <button type="button" class="btn-builder-remove-opt" title="Remover opção" aria-label="Remover opção">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
 
-            const rm = row.querySelector('.btn-builder-remove-opt');
-            rm.addEventListener('click', () => {
-                row.remove();
-                reindexOptionRows(optList);
+                row.querySelector('.builder-opt-correct').addEventListener('change', handleVisualChange);
+                row.querySelector('.builder-opt-input-pt').addEventListener('input', handleVisualChange);
+                row.querySelector('.builder-opt-input-en').addEventListener('input', handleVisualChange);
+                row.querySelector('.btn-builder-remove-opt').addEventListener('click', () => {
+                    row.remove();
+                    reindexOptionRows(optList);
+                    handleVisualChange();
+                });
+
+                optList.appendChild(row);
+            };
+
+            for (let i = 0; i < rowCount; i++) {
+                renderBilingualOptionRow(ptOpts[i] || '', enOpts[i] || '', i);
+            }
+
+            addOptBtn.addEventListener('click', () => {
+                const newIdx = optList.querySelectorAll('.builder-option-row').length;
+                renderBilingualOptionRow('', '', newIdx);
                 handleVisualChange();
             });
+        } else {
+            const options = Array.isArray(qData.options) ? qData.options : (qData.options ? [qData.options] : ['', '', '', '']);
 
-            optList.appendChild(row);
-        };
+            const renderOptionRow = (optText, optIdx) => {
+                const isCorrect = solution.includes(optIdx);
+                const row = document.createElement('div');
+                row.className = 'builder-option-row';
+                const textVal = typeof optText === 'object' ? getLocalizedText(optText) : (optText || '');
+                row.innerHTML = `
+                    <label class="builder-opt-correct-label" title="Marcar como correta">
+                        <input type="checkbox" class="builder-opt-correct" data-opt-index="${optIdx}" ${isCorrect ? 'checked' : ''}>
+                    </label>
+                    <input type="text" class="builder-opt-input form-control" placeholder="${t('builder_option_placeholder') || 'Texto da opção...'}" value="${escapeHTML(textVal)}">
+                    <button type="button" class="btn-builder-remove-opt" title="Remover opção" aria-label="Remover opção">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
 
-        options.forEach((opt, idx) => {
-            renderOptionRow(opt, idx);
-        });
+                row.querySelector('.builder-opt-correct').addEventListener('change', handleVisualChange);
+                row.querySelector('.builder-opt-input').addEventListener('input', handleVisualChange);
+                row.querySelector('.btn-builder-remove-opt').addEventListener('click', () => {
+                    row.remove();
+                    reindexOptionRows(optList);
+                    handleVisualChange();
+                });
 
-        addOptBtn.addEventListener('click', () => {
-            const newIdx = optList.querySelectorAll('.builder-option-row').length;
-            renderOptionRow('', newIdx);
-            handleVisualChange();
-        });
+                optList.appendChild(row);
+            };
+
+            options.forEach((opt, idx) => {
+                renderOptionRow(opt, idx);
+            });
+
+            addOptBtn.addEventListener('click', () => {
+                const newIdx = optList.querySelectorAll('.builder-option-row').length;
+                renderOptionRow('', newIdx);
+                handleVisualChange();
+            });
+        }
     }
 }
 

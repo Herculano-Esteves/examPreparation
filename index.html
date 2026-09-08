@@ -717,19 +717,24 @@
                                         </h4>
                                     </div>
                                     <div class="builder-form-fields">
-                                        <div class="builder-field-group">
+                                        <div class="builder-field-group" id="builder-group-title">
                                             <label for="builder-exam-title" class="builder-field-label" data-i18n="builder_exam_title_label">Título do Exame</label>
-                                            <input type="text" id="builder-exam-title" class="form-control" placeholder="Ex: Exame 2024" data-i18n-placeholder="builder_exam_title_placeholder" required>
+                                            <div id="builder-title-input-container">
+                                                <input type="text" id="builder-exam-title" class="form-control" placeholder="Ex: Exame 2024" data-i18n-placeholder="builder_exam_title_placeholder" required>
+                                            </div>
                                         </div>
-                                        <div class="builder-field-group">
+                                        <div class="builder-field-group" id="builder-group-desc">
                                             <label for="builder-exam-desc" class="builder-field-label" data-i18n="builder_exam_desc_label">Descrição / Tema</label>
-                                            <input type="text" id="builder-exam-desc" class="form-control" placeholder="Ex: Questões de escolha múltipla e desenvolvimento..." data-i18n-placeholder="builder_exam_desc_placeholder" required>
+                                            <div id="builder-desc-input-container">
+                                                <input type="text" id="builder-exam-desc" class="form-control" placeholder="Ex: Questões de escolha múltipla e desenvolvimento..." data-i18n-placeholder="builder_exam_desc_placeholder" required>
+                                            </div>
                                         </div>
                                         <div class="builder-field-group">
                                             <label for="builder-exam-lang" class="builder-field-label" data-i18n="builder_exam_lang_label">Idioma</label>
                                             <select id="builder-exam-lang" class="form-control">
                                                 <option value="pt">🇵🇹 Português</option>
                                                 <option value="en">🇬🇧 English</option>
+                                                <option value="pt,en" data-i18n="builder_exam_lang_bilingual">🇵🇹 + 🇬🇧 Bilingue (Português & English)</option>
                                             </select>
                                         </div>
                                     </div>
