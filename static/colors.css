@@ -109,4 +109,13 @@
     --ambient-glow-1: radial-gradient(circle, rgba(124, 58, 237, 0.09) 0%, rgba(0, 0, 0, 0) 70%);
     --ambient-glow-2: radial-gradient(circle, rgba(124, 58, 237, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
     --shadow-deep: 0 10px 30px -5px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6);
+
+    /* --------------------------------------------------------------------------
+       8. COMPOSED TOKENS (Patterns repeated across style.css)
+       -------------------------------------------------------------------------- */
+    /* Logo/icon box gradient — used on all square icon containers */
+    --logo-box-bg: linear-gradient(135deg, #1e1e24, #121216);
+    /* Button primary gradient shades — based on purple-800/900 for dark-mode depth */
+    --btn-primary-gradient: linear-gradient(135deg, #7e22ce, #581c87);
+    --btn-primary-gradient-hover: linear-gradient(135deg, #9333ea, #6b21a8);
 }
