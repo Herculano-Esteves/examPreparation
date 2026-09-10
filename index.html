@@ -828,6 +828,59 @@
 
                     <!-- PAINEL DIREITO: Code / Text Editor -->
                     <div class="builder-code-pane">
+
+                        <!-- ✨ AI ASSISTANT PANEL (above JSON editor) -->
+                        <div class="builder-ai-panel" id="builder-ai-panel">
+                            <div class="builder-ai-panel-header">
+                                <div class="builder-ai-panel-header-left">
+                                    <div class="builder-ai-panel-icon">
+                                        <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="builder-ai-panel-title" data-i18n="builder_ai_panel_title">Criar Exame com IA</h4>
+                                        <p class="builder-ai-panel-subtitle" data-i18n="builder_ai_panel_subtitle">Descreva o exame que quer e copie as instruções para a sua IA favorita</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="builder-ai-panel-toggle" id="btn-ai-panel-toggle" aria-expanded="true" aria-controls="builder-ai-panel-body" title="Minimizar painel IA">
+                                    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                            <div class="builder-ai-panel-body" id="builder-ai-panel-body">
+                                <!-- Description area -->
+                                <div class="builder-ai-desc-area">
+                                    <label for="builder-ai-description" class="builder-ai-desc-label">
+                                        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                                        <span data-i18n="builder_ai_desc_label">Descreva o exame que pretende:</span>
+                                    </label>
+                                    <textarea id="builder-ai-description" class="builder-ai-desc-textarea"
+                                        data-i18n-placeholder="builder_ai_desc_placeholder"
+                                        placeholder="Ex: Quero um exame de 10 perguntas sobre Sistemas Operativos, com foco em escalonamento de processos e memória virtual. Mistura perguntas de escolha múltipla e verdadeiro/falso..."
+                                        rows="3" spellcheck="true"></textarea>
+                                </div>
+
+                                <!-- Document upload hint -->
+                                <div class="builder-ai-doc-hint">
+                                    <i class="fa-solid fa-paperclip" aria-hidden="true"></i>
+                                    <span data-i18n="builder_ai_doc_hint">💡 <strong>Dica:</strong> Pode fornecer documentos (slides, PDFs, apontamentos) ao seu assistente de IA em conjunto com estas instruções para gerar um exame ainda mais personalizado às suas necessidades.</span>
+                                </div>
+
+                                <!-- Action buttons -->
+                                <div class="builder-ai-actions">
+                                    <button type="button" id="btn-copy-instructions" class="builder-ai-btn builder-ai-btn-copy"
+                                        title="Copiar instruções JSON para a IA" data-i18n-title="builder_ai_copy_btn_title">
+                                        <i class="fa-solid fa-copy" aria-hidden="true"></i>
+                                        <span data-i18n="builder_ai_copy_btn">Copiar Instruções para IA</span>
+                                    </button>
+                                    <button type="button" id="btn-paste-instructions" class="builder-ai-btn builder-ai-btn-paste"
+                                        title="Colar resposta da IA no editor JSON" data-i18n-title="builder_ai_paste_btn_title">
+                                        <i class="fa-solid fa-paste" aria-hidden="true"></i>
+                                        <span data-i18n="builder_ai_paste_btn">Colar Resposta da IA</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="builder-code-card">
                             <div class="builder-code-header">
                                 <div class="builder-code-header-left">
@@ -848,26 +901,6 @@
                                         <span data-i18n="builder_btn_copy_json">Copiar JSON</span>
                                     </button>
                                 </div>
-                            </div>
-
-                            <!-- AI Assistant Tip Mini-Bar -->
-                            <div class="builder-ai-tip-banner">
-                                <div class="builder-ai-tip-left">
-                                    <div class="builder-ai-tip-icon">
-                                        <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="builder-ai-tip-content">
-                                        <strong class="builder-ai-tip-title" data-i18n="builder_ai_tip_title">Dica de
-                                            IA:</strong>
-                                        <span class="builder-ai-tip-desc" data-i18n="builder_ai_tip_desc">Copie as
-                                            instruções e peça à sua IA para criar o exame automaticamente.</span>
-                                    </div>
-                                </div>
-                                <button type="button" id="btn-copy-instructions" class="builder-ai-tip-action"
-                                    title="Copiar instruções para a IA" data-i18n-title="builder_ai_tip_btn">
-                                    <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
-                                    <span data-i18n="builder_ai_tip_btn">Copiar Instruções</span>
-                                </button>
                             </div>
 
                             <div class="builder-code-body">

@@ -426,16 +426,69 @@ function setupLocalCreationListeners() {
     const btnCancelExame = document.getElementById('btn-cancel-exame');
     const btnSubmitExam = document.getElementById('btn-submit-exam');
     const btnCopyInst = document.getElementById('btn-copy-instructions');
+    const btnPasteInst = document.getElementById('btn-paste-instructions');
+    const btnAiPanelToggle = document.getElementById('btn-ai-panel-toggle');
 
+    // Copy Instructions button — appends the user's exam description at the end of the JSON schema
     if (btnCopyInst) {
         btnCopyInst.addEventListener('click', () => {
-            const instructionsText = getJsonInstructions(State.language);
+            const baseInstructions = getJsonInstructions(State.language);
+            const descInput = document.getElementById('builder-ai-description');
+            const userDesc = descInput ? descInput.value.trim() : '';
+
+            let instructionsText = baseInstructions;
+            if (userDesc) {
+                // Replace the placeholder closing line with the actual user request
+                // (each language template has its own placeholder string)
+                const placeholder = State.language === 'en'
+                    ? '(Now write here your prompt with the exam topics, subject, or attach files for your AI to read)'
+                    : '(Agora faça aqui o pedido do tipo de exame ou matérias que quer, pode adicionar ficheiros à parte para a sua inteligência artificial ler)';
+                instructionsText = baseInstructions.replace(placeholder, userDesc);
+            }
+
             navigator.clipboard.writeText(instructionsText).then(() => {
                 showToast(t('toast_copied'), elements);
+                // Visual feedback on the button
+                const icon = btnCopyInst.querySelector('i');
+                if (icon) { icon.className = 'fa-solid fa-check'; }
+                setTimeout(() => { if (icon) { icon.className = 'fa-solid fa-copy'; } }, 2000);
             }).catch(err => {
                 console.error('Falha ao copiar:', err);
                 alert('Erro ao copiar. Pode copiar manualmente da caixa de texto.');
             });
+        });
+    }
+
+    // Paste AI Response button — reads clipboard JSON into the editor textarea and triggers sync
+    if (btnPasteInst) {
+        btnPasteInst.addEventListener('click', () => {
+            navigator.clipboard.readText().then(text => {
+                const editorInput = document.getElementById('editor-code-input');
+                if (!editorInput) return;
+                editorInput.value = text.trim();
+                editorInput.dispatchEvent(new Event('input', { bubbles: true }));
+                showToast(t('toast_copied'), elements);
+                // Scroll the editor into view
+                editorInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                // Visual feedback
+                const icon = btnPasteInst.querySelector('i');
+                if (icon) { icon.className = 'fa-solid fa-check'; }
+                setTimeout(() => { if (icon) { icon.className = 'fa-solid fa-paste'; } }, 2000);
+            }).catch(err => {
+                console.error('Falha ao ler clipboard:', err);
+                alert('Não foi possível ler o clipboard. Cole o JSON diretamente no editor abaixo.');
+            });
+        });
+    }
+
+    // Toggle AI panel collapse/expand
+    if (btnAiPanelToggle) {
+        btnAiPanelToggle.addEventListener('click', () => {
+            const panelBody = document.getElementById('builder-ai-panel-body');
+            if (!panelBody) return;
+            const isCollapsed = panelBody.classList.toggle('collapsed');
+            btnAiPanelToggle.classList.toggle('collapsed', isCollapsed);
+            btnAiPanelToggle.setAttribute('aria-expanded', String(!isCollapsed));
         });
     }
 
