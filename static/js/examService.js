@@ -166,17 +166,22 @@ export class ExamService {
 
     /**
      * Fetches exams for a subject index file and merges with local user exams.
-     * @param {string} indexPath
+     * If indexPath is null/absent or subject is local, remote fetch is skipped.
+     * @param {string|null} indexPath
      * @param {string} currentCadeiraId
      * @param {object[]} localExams
      * @returns {Promise<object[]>}
      */
     static async fetchExamsForSubject(indexPath, currentCadeiraId, localExams = []) {
-        const response = await fetch(indexPath, { cache: 'no-cache' });
-        if (!response.ok) {
-            throw new Error('Não foi possível carregar os exames desta cadeira.');
+        let serverExams = [];
+        if (indexPath && indexPath !== 'local') {
+            const response = await fetch(indexPath, { cache: 'no-cache' });
+            if (!response.ok) {
+                throw new Error('Não foi possível carregar os exames desta cadeira.');
+            }
+            serverExams = await response.json();
         }
-        const serverExams = await response.json();
+
         const matchingLocal = (localExams || []).filter(e => e.cadeira_id === currentCadeiraId);
 
         return [

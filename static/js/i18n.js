@@ -34,6 +34,15 @@ export const TRANSLATIONS = {
         empty_search_cadeiras_title: 'Nenhuma cadeira encontrada',
         empty_search_cadeiras_desc: 'Nenhuma cadeira corresponde à pesquisa "{query}".',
         btn_clear_search: 'Limpar Pesquisa',
+        filter_origin: 'Origem',
+        filter_origin_system: 'Sistema',
+        filter_origin_local: 'Locais',
+        filter_availability: 'Disponibilidade',
+        filter_avail_with: 'Com Exames',
+        filter_avail_without: 'Sem Exames',
+        sort_sigla_asc: 'Sigla (A → Z)',
+        sort_exams_desc: 'Mais Exames',
+        sort_exams_asc: 'Menos Exames',
 
         // Menu Screen (Exams list)
         btn_back_cadeiras: 'Voltar às Cadeiras',
@@ -41,6 +50,8 @@ export const TRANSLATIONS = {
         search_exams_placeholder: 'Pesquisar exame...',
         btn_add_exame: 'Adicionar Exame',
         loading_exams: 'A carregar exames...',
+        empty_exams_title: 'Nenhum exame disponível',
+        empty_exams_desc: 'Esta cadeira ainda não tem exames. Adicione o seu primeiro exame para começar a praticar.',
 
         // Sidebar Filters & Sort
         filter_sort: 'Ordenar',
@@ -299,6 +310,15 @@ export const TRANSLATIONS = {
         empty_search_cadeiras_title: 'No subjects found',
         empty_search_cadeiras_desc: 'No subjects match the search query "{query}".',
         btn_clear_search: 'Clear Search',
+        filter_origin: 'Source',
+        filter_origin_system: 'System',
+        filter_origin_local: 'Local',
+        filter_availability: 'Availability',
+        filter_avail_with: 'With Exams',
+        filter_avail_without: 'Without Exams',
+        sort_sigla_asc: 'Acronym (A → Z)',
+        sort_exams_desc: 'Most Exams',
+        sort_exams_asc: 'Fewest Exams',
 
         // Menu Screen (Exams list)
         btn_back_cadeiras: 'Back to Subjects',
@@ -306,6 +326,8 @@ export const TRANSLATIONS = {
         search_exams_placeholder: 'Search exam...',
         btn_add_exame: 'Add Exam',
         loading_exams: 'Loading exams...',
+        empty_exams_title: 'No exams available',
+        empty_exams_desc: 'This subject does not have any exams yet. Add your first exam to start practicing.',
 
         // Sidebar Filters & Sort
         filter_sort: 'Sort by',
@@ -621,6 +643,37 @@ export function updateSortDropdownLabel() {
 }
 
 /**
+ * Updates the cadeiras sort dropdown trigger label to reflect the current active sort and language.
+ */
+export function updateSortCadeirasDropdownLabel() {
+    const labelSpan = document.getElementById('sort-cadeiras-selected-label');
+    if (!labelSpan) return;
+
+    const sortIcons = {
+        default: 'fa-list-ol',
+        name_asc: 'fa-arrow-down-a-z',
+        name_desc: 'fa-arrow-up-z-a',
+        sigla_asc: 'fa-font',
+        exams_desc: 'fa-arrow-down-9-1',
+        exams_asc: 'fa-arrow-up-1-9'
+    };
+    const sortKeys = {
+        default: 'sort_default',
+        name_asc: 'sort_title_asc',
+        name_desc: 'sort_title_desc',
+        sigla_asc: 'sort_sigla_asc',
+        exams_desc: 'sort_exams_desc',
+        exams_asc: 'sort_exams_asc'
+    };
+
+    const currentSort = State.cadeiraSort || 'default';
+    const icon = sortIcons[currentSort] || 'fa-list-ol';
+    const key = sortKeys[currentSort] || 'sort_default';
+
+    labelSpan.innerHTML = `<i class="fa-solid ${icon}" aria-hidden="true"></i> <span>${t(key)}</span>`;
+}
+
+/**
  * Applies translations to all DOM elements bearing data-i18n attributes.
  */
 export function applyTranslations() {
@@ -653,8 +706,9 @@ export function applyTranslations() {
     // 5. Update HTML lang attribute
     document.documentElement.lang = lang === 'en' ? 'en-GB' : 'pt-PT';
 
-    // 6. Update Sort dropdown trigger label
+    // 6. Update Sort dropdown trigger labels
     updateSortDropdownLabel();
+    updateSortCadeirasDropdownLabel();
 
     // 7. Update Language selector buttons UI in Settings
     document.querySelectorAll('.btn-lang-option').forEach(btn => {

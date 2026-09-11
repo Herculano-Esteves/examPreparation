@@ -73,7 +73,7 @@ export function initFloatingFilters(onFilterChange) {
     }
 
     // 2. Checkboxes de Estado do Exame
-    const stateCheckboxes = document.querySelectorAll('.floating-state-check-input');
+    const stateCheckboxes = document.querySelectorAll('#exams-sidebar-filters .floating-state-check-input');
     stateCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
             const activeStates = [];
@@ -86,7 +86,7 @@ export function initFloatingFilters(onFilterChange) {
     });
 
     // 3. Checkboxes de Idioma do Exame
-    const langCheckboxes = document.querySelectorAll('.floating-lang-check-input');
+    const langCheckboxes = document.querySelectorAll('#exams-sidebar-filters .floating-lang-check-input');
     langCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
             const activeLangs = [];
@@ -107,7 +107,7 @@ export function initFloatingFilters(onFilterChange) {
     }
 
     // 4. Checkboxes de Tipologias de Questão
-    const typeCheckboxes = document.querySelectorAll('.floating-check-input');
+    const typeCheckboxes = document.querySelectorAll('#exams-sidebar-filters .floating-check-input');
     typeCheckboxes.forEach(chk => {
         chk.addEventListener('change', () => {
             const activeTypes = [];
@@ -195,15 +195,15 @@ export function syncFilterInputsUI(maxQInCadeira) {
         examSearchClear.style.display = (State.examSearch || '').trim() ? 'inline-flex' : 'none';
     }
 
-    document.querySelectorAll('.floating-check-input').forEach(chk => {
+    document.querySelectorAll('#exams-sidebar-filters .floating-check-input').forEach(chk => {
         chk.checked = (State.globalQuestionTypes || ALL_QUESTION_TYPES).includes(chk.value);
     });
 
-    document.querySelectorAll('.floating-state-check-input').forEach(chk => {
+    document.querySelectorAll('#exams-sidebar-filters .floating-state-check-input').forEach(chk => {
         chk.checked = (State.examStateFilter || ALL_EXAM_STATES).includes(chk.value);
     });
 
-    document.querySelectorAll('.floating-lang-check-input').forEach(chk => {
+    document.querySelectorAll('#exams-sidebar-filters .floating-lang-check-input').forEach(chk => {
         chk.checked = (State.examLanguageFilter || ALL_LANGUAGES).includes(chk.value);
     });
 

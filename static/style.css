@@ -1214,6 +1214,8 @@ body.header-scrolled .sticky-corner-right {
 .floating-check-input,
 .floating-state-check-input,
 .floating-lang-check-input,
+.floating-origin-check-input,
+.floating-avail-check-input,
 .floating-priority-check-input {
     position: absolute;
     opacity: 0;
@@ -1245,6 +1247,8 @@ body.header-scrolled .sticky-corner-right {
 .floating-check-input:checked + .floating-custom-check,
 .floating-state-check-input:checked + .floating-custom-check,
 .floating-lang-check-input:checked + .floating-custom-check,
+.floating-origin-check-input:checked + .floating-custom-check,
+.floating-avail-check-input:checked + .floating-custom-check,
 .floating-priority-check-input:checked + .floating-custom-check {
     background: var(--primary);
     border-color: var(--primary);
@@ -1254,6 +1258,8 @@ body.header-scrolled .sticky-corner-right {
 .floating-check-input:checked + .floating-custom-check .fa-check,
 .floating-state-check-input:checked + .floating-custom-check .fa-check,
 .floating-lang-check-input:checked + .floating-custom-check .fa-check,
+.floating-origin-check-input:checked + .floating-custom-check .fa-check,
+.floating-avail-check-input:checked + .floating-custom-check .fa-check,
 .floating-priority-check-input:checked + .floating-custom-check .fa-check {
     transform: scale(1);
 }
@@ -1275,6 +1281,8 @@ body.header-scrolled .sticky-corner-right {
 .floating-check-input:not(:checked) ~ .floating-type-label,
 .floating-state-check-input:not(:checked) ~ .floating-type-label,
 .floating-lang-check-input:not(:checked) ~ .floating-type-label,
+.floating-origin-check-input:not(:checked) ~ .floating-type-label,
+.floating-avail-check-input:not(:checked) ~ .floating-type-label,
 .floating-priority-check-input:not(:checked) ~ .floating-type-label {
     color: var(--text-muted);
     opacity: 0.65;
@@ -1312,7 +1320,9 @@ body.header-scrolled .sticky-corner-right {
 
 .floating-check-input:not(:checked) ~ .filter-option-count,
 .floating-state-check-input:not(:checked) ~ .filter-option-count,
-.floating-lang-check-input:not(:checked) ~ .filter-option-count {
+.floating-lang-check-input:not(:checked) ~ .filter-option-count,
+.floating-origin-check-input:not(:checked) ~ .filter-option-count,
+.floating-avail-check-input:not(:checked) ~ .filter-option-count {
     opacity: 0.35;
 }
 

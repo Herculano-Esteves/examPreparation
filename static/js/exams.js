@@ -208,6 +208,27 @@ export function renderExamsMenu() {
     }
 
     // 5. Empty State Handling
+    const totalExams = (State.exams || []).length;
+    if (totalExams === 0) {
+        elements.examsGrid.innerHTML = `
+            <div class="empty-filters-state">
+                <i class="fa-solid fa-folder-open empty-filters-main-icon" aria-hidden="true"></i>
+                <h4>${escapeHTML(t('empty_exams_title'))}</h4>
+                <p>${escapeHTML(t('empty_exams_desc'))}</p>
+                <button type="button" class="btn-control btn-primary btn-sm" id="btn-empty-add-exam">
+                    <i class="fa-solid fa-plus"></i> ${escapeHTML(t('btn_add_exame'))}
+                </button>
+            </div>
+        `;
+        const addEmptyBtn = document.getElementById('btn-empty-add-exam');
+        if (addEmptyBtn) {
+            addEmptyBtn.addEventListener('click', () => {
+                transitionTo('add-exame');
+            });
+        }
+        return;
+    }
+
     if (visibleExams.length === 0) {
         elements.examsGrid.innerHTML = `
             <div class="empty-filters-state">

@@ -408,7 +408,7 @@ function setupLocalCreationListeners() {
                 icon: selectedIcon,
                 exames_count: 0,
                 isLocal: true,
-                index_path: 'local'
+                index_path: null
             };
 
             State.localCadeiras.push(newCadeira);

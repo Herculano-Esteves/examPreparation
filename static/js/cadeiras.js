@@ -1,18 +1,24 @@
 /**
  * cadeiras.js
  * -----------
- * Manages fetching, rendering, and selecting Cadeiras (university subjects).
+ * Manages fetching, filtering, sorting, rendering, and selecting Cadeiras (university subjects).
  * Uses the EventBus to listen for screen transitions and language changes.
  * Full WCAG 2.1 AA / EAA 2025 keyboard accessibility.
  */
 
 import { State } from './state.js';
 import { elements } from './elements.js';
-import { escapeHTML, clampCardDescriptions, safeAsync } from './utils.js';
+import { escapeHTML, safeAsync, showToast } from './utils.js';
 import { transitionTo } from './navigation.js';
-import { t } from './i18n.js';
+import { t, updateSortCadeirasDropdownLabel, getCurrentLanguage } from './i18n.js';
 import { Events, APP_EVENTS } from './events.js';
 import { ALL_QUESTION_TYPES } from './examFilters.js';
+
+let renderTimer = null;
+function scheduleRenderCadeirasMenu() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(renderCadeirasMenu, 25);
+}
 
 /**
  * Fetch the static cadeiras list from the server and render the menu.
@@ -49,7 +55,7 @@ function initCadeirasSearch() {
             if (clearBtn) {
                 clearBtn.style.display = searchInput.value.trim() ? 'inline-flex' : 'none';
             }
-            renderCadeirasMenu();
+            scheduleRenderCadeirasMenu();
         });
     }
 
@@ -61,19 +67,121 @@ function initCadeirasSearch() {
                 searchInput.focus();
             }
             clearBtn.style.display = 'none';
-            renderCadeirasMenu();
+            scheduleRenderCadeirasMenu();
+        });
+    }
+}
+
+let sortCadeirasDropdownInitialized = false;
+
+/**
+ * Initializes sort dropdown trigger, menu, keyboard navigation, and clicks for Cadeiras.
+ * @param {Function} onSortChange - Callback invoked when sort option changes.
+ */
+export function initSortCadeirasDropdown(onSortChange) {
+    if (sortCadeirasDropdownInitialized) return;
+    sortCadeirasDropdownInitialized = true;
+
+    const trigger = elements.sortCadeirasTrigger || document.getElementById('sort-cadeiras-trigger');
+    const menu = elements.sortCadeirasMenu || document.getElementById('sort-cadeiras-menu');
+    const dropdown = elements.sortCadeirasDropdown || document.getElementById('sort-cadeiras-dropdown');
+
+    if (trigger && menu) {
+        const toggleDropdown = (open) => {
+            const isCurrentlyOpen = trigger.getAttribute('aria-expanded') === 'true';
+            const shouldOpen = (typeof open === 'boolean') ? open : !isCurrentlyOpen;
+            trigger.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+            menu.classList.toggle('open', shouldOpen);
+            if (dropdown) dropdown.classList.toggle('open', shouldOpen);
+        };
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDropdown();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (dropdown && !dropdown.contains(e.target)) {
+                toggleDropdown(false);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
+                toggleDropdown(false);
+                trigger.focus();
+            }
+        });
+
+        menu.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const value = item.getAttribute('data-value');
+                State.cadeiraSort = value;
+
+                menu.querySelectorAll('.dropdown-item').forEach(i => {
+                    const isSelected = i === item;
+                    i.classList.toggle('active', isSelected);
+                    i.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+                });
+
+                updateSortCadeirasDropdownLabel();
+                toggleDropdown(false);
+                if (onSortChange) onSortChange();
+            });
+        });
+    }
+}
+
+let cadeirasSidebarFiltersInitialized = false;
+
+/**
+ * Initializes sidebar filter checkboxes and reset button for Cadeiras.
+ * @param {Function} onFilterChange - Callback invoked when any filter changes.
+ */
+export function initCadeirasSidebarFilters(onFilterChange) {
+    if (cadeirasSidebarFiltersInitialized) return;
+    cadeirasSidebarFiltersInitialized = true;
+
+    const originInputs = document.querySelectorAll('#cadeiras-sidebar-filters .floating-origin-check-input');
+    originInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            const active = [];
+            originInputs.forEach(inp => {
+                if (inp.checked) active.push(inp.value);
+            });
+            State.cadeiraOriginFilter = active;
+            if (onFilterChange) onFilterChange();
+        });
+    });
+
+    const availInputs = document.querySelectorAll('#cadeiras-sidebar-filters .floating-avail-check-input');
+    availInputs.forEach(input => {
+        input.addEventListener('change', () => {
+            const active = [];
+            availInputs.forEach(inp => {
+                if (inp.checked) active.push(inp.value);
+            });
+            State.cadeiraAvailabilityFilter = active;
+            if (onFilterChange) onFilterChange();
+        });
+    });
+
+    // Reset Link in Header (exact same as exams sidebar)
+    const btnReset = elements.btnResetCadeirasFilters || document.getElementById('btn-reset-cadeiras-filters');
+    if (btnReset) {
+        btnReset.addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetAllCadeirasFilters(onFilterChange);
+            showToast(t('toast_filters_reset'));
         });
     }
 }
 
 /**
- * Render the cadeiras grid from State.cadeiras + State.localCadeiras, applying search filter.
- * Direct layout: Title on top, description underneath, exam count at the bottom.
+ * Synchronizes the DOM input elements with State.
  */
-export function renderCadeirasMenu() {
-    if (!elements.cadeirasGrid) return;
-    initCadeirasSearch();
-
+export function syncCadeirasInputsUI() {
     const searchInput = elements.searchCadeiras || document.getElementById('search-cadeiras');
     const clearBtn = elements.btnClearCadeiraSearch || document.getElementById('btn-clear-cadeira-search');
     if (searchInput && searchInput.value !== (State.cadeirasSearch || '')) {
@@ -82,6 +190,95 @@ export function renderCadeirasMenu() {
     if (clearBtn) {
         clearBtn.style.display = (State.cadeirasSearch || '').trim() ? 'inline-flex' : 'none';
     }
+
+    const originFilter = State.cadeiraOriginFilter || ['system', 'local'];
+    document.querySelectorAll('#cadeiras-sidebar-filters .floating-origin-check-input').forEach(chk => {
+        chk.checked = originFilter.includes(chk.value);
+    });
+
+    const availFilter = State.cadeiraAvailabilityFilter || ['with_exams', 'without_exams'];
+    document.querySelectorAll('#cadeiras-sidebar-filters .floating-avail-check-input').forEach(chk => {
+        chk.checked = availFilter.includes(chk.value);
+    });
+
+    const currentSort = State.cadeiraSort || 'default';
+    const sortMenu = elements.sortCadeirasMenu || document.getElementById('sort-cadeiras-menu');
+    if (sortMenu) {
+        sortMenu.querySelectorAll('.dropdown-item').forEach(item => {
+            const isSelected = item.getAttribute('data-value') === currentSort;
+            item.classList.toggle('active', isSelected);
+            item.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+        });
+    }
+
+    updateSortCadeirasDropdownLabel();
+}
+
+/**
+ * Resets all Cadeira filters and sorting back to default.
+ * @param {Function} [onResetCallback]
+ */
+export function resetAllCadeirasFilters(onResetCallback) {
+    State.cadeirasSearch = '';
+    State.cadeiraSort = 'default';
+    State.cadeiraOriginFilter = ['system', 'local'];
+    State.cadeiraAvailabilityFilter = ['with_exams', 'without_exams'];
+
+    syncCadeirasInputsUI();
+
+    if (onResetCallback) onResetCallback();
+}
+
+/**
+ * Sorts an array of cadeira objects according to sortMode and language.
+ *
+ * @param {object[]} cadeirasList
+ * @param {string} [sortMode='default']
+ * @param {string} [lang]
+ * @returns {object[]}
+ */
+export function sortCadeiras(cadeirasList, sortMode = 'default', lang = null) {
+    const currentLang = lang || getCurrentLanguage();
+
+    return cadeirasList.sort((a, b) => {
+        if (sortMode === 'name_asc') {
+            const nameA = a.nome || '';
+            const nameB = b.nome || '';
+            return nameA.localeCompare(nameB, currentLang, { numeric: true, sensitivity: 'base' });
+        }
+        if (sortMode === 'name_desc') {
+            const nameA = a.nome || '';
+            const nameB = b.nome || '';
+            return nameB.localeCompare(nameA, currentLang, { numeric: true, sensitivity: 'base' });
+        }
+        if (sortMode === 'sigla_asc') {
+            const siglaA = (a.sigla || a.nome || '').toUpperCase();
+            const siglaB = (b.sigla || b.nome || '').toUpperCase();
+            return siglaA.localeCompare(siglaB, currentLang, { numeric: true, sensitivity: 'base' });
+        }
+        if (sortMode === 'exams_desc') {
+            const countA = a.exames_count || 0;
+            const countB = b.exames_count || 0;
+            return (countB - countA) || (a._originalIndex - b._originalIndex);
+        }
+        if (sortMode === 'exams_asc') {
+            const countA = a.exames_count || 0;
+            const countB = b.exames_count || 0;
+            return (countA - countB) || (a._originalIndex - b._originalIndex);
+        }
+        return a._originalIndex - b._originalIndex;
+    });
+}
+
+/**
+ * Render the cadeiras grid from State.cadeiras + State.localCadeiras, applying search, origin, availability, and sort filters.
+ */
+export function renderCadeirasMenu() {
+    if (!elements.cadeirasGrid) return;
+    initCadeirasSearch();
+    initSortCadeirasDropdown(scheduleRenderCadeirasMenu);
+    initCadeirasSidebarFilters(scheduleRenderCadeirasMenu);
+    syncCadeirasInputsUI();
 
     const combinedCadeiras = [...(State.cadeiras || []), ...(State.localCadeiras || [])];
 
@@ -93,17 +290,68 @@ export function renderCadeirasMenu() {
                 <p>${escapeHTML(t('empty_cadeiras_desc'))}</p>
             </div>
         `;
+        const countStatus = elements.cadeirasFilterCountText || document.getElementById('cadeiras-filter-count-text');
+        if (countStatus) countStatus.textContent = '';
         return;
     }
 
+    // Update count badges in sidebar
+    const countSystem = combinedCadeiras.filter(c => !c.isLocal).length;
+    const countLocal = combinedCadeiras.filter(c => c.isLocal).length;
+    const countWithExams = combinedCadeiras.filter(c => (c.exames_count || 0) > 0).length;
+    const countWithoutExams = combinedCadeiras.filter(c => (c.exames_count || 0) === 0).length;
+
+    const elCountSys = elements.countOriginSystem || document.getElementById('count-origin-system');
+    const elCountLoc = elements.countOriginLocal || document.getElementById('count-origin-local');
+    const elCountWith = elements.countAvailWith || document.getElementById('count-avail-with');
+    const elCountWithout = elements.countAvailWithout || document.getElementById('count-avail-without');
+
+    if (elCountSys) elCountSys.textContent = String(countSystem);
+    if (elCountLoc) elCountLoc.textContent = String(countLocal);
+    if (elCountWith) elCountWith.textContent = String(countWithExams);
+    if (elCountWithout) elCountWithout.textContent = String(countWithoutExams);
+
+    // Filter cadeiras
     const query = (State.cadeirasSearch || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    const filteredCadeiras = combinedCadeiras.filter(c => {
-        if (!query) return true;
-        const nameNorm = (c.nome || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const descNorm = (c.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const siglaNorm = (c.sigla || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        return nameNorm.includes(query) || descNorm.includes(query) || siglaNorm.includes(query);
+    const allowedOrigins = State.cadeiraOriginFilter || ['system', 'local'];
+    const allowedAvail = State.cadeiraAvailabilityFilter || ['with_exams', 'without_exams'];
+
+    const preparedCadeiras = combinedCadeiras.map((c, idx) => ({ ...c, _originalIndex: idx }));
+
+    const filteredCadeiras = preparedCadeiras.filter(c => {
+        // Origin filter
+        if (c.isLocal && !allowedOrigins.includes('local')) return false;
+        if (!c.isLocal && !allowedOrigins.includes('system')) return false;
+
+        // Availability filter
+        const hasExams = (c.exames_count || 0) > 0;
+        if (hasExams && !allowedAvail.includes('with_exams')) return false;
+        if (!hasExams && !allowedAvail.includes('without_exams')) return false;
+
+        // Search query
+        if (query) {
+            const nameNorm = (c.nome || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const descNorm = (c.descricao || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            const siglaNorm = (c.sigla || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            if (!nameNorm.includes(query) && !descNorm.includes(query) && !siglaNorm.includes(query)) {
+                return false;
+            }
+        }
+
+        return true;
     });
+
+    // Sort filtered cadeiras
+    sortCadeiras(filteredCadeiras, State.cadeiraSort || 'default', getCurrentLanguage());
+
+    // Update count indicator
+    const statusEl = elements.cadeirasFilterCountText || document.getElementById('cadeiras-filter-count-text');
+    if (statusEl) {
+        statusEl.textContent = t('filter_status_indicator', {
+            visible: filteredCadeiras.length,
+            total: combinedCadeiras.length
+        });
+    }
 
     if (filteredCadeiras.length === 0) {
         elements.cadeirasGrid.innerHTML = `
@@ -119,10 +367,8 @@ export function renderCadeirasMenu() {
         const resetBtn = document.getElementById('btn-reset-cadeiras-search');
         if (resetBtn) {
             resetBtn.addEventListener('click', () => {
-                State.cadeirasSearch = '';
-                if (searchInput) searchInput.value = '';
-                if (clearBtn) clearBtn.style.display = 'none';
-                renderCadeirasMenu();
+                resetAllCadeirasFilters(scheduleRenderCadeirasMenu);
+                showToast(t('toast_filters_reset'));
             });
         }
         return;

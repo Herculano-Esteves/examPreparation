@@ -139,6 +139,7 @@
                             <h3 class="section-title">
                                 <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> <span
                                     data-i18n="select_cadeira">Selecione uma Cadeira</span>
+                                <span class="header-exams-count" id="cadeiras-filter-count-text"></span>
                             </h3>
                             <div class="menu-header-actions">
                                 <div class="search-input-wrapper header-search-wrapper">
@@ -169,11 +170,150 @@
                         </div>
                     </div>
                 </div>
-                <div id="cadeiras-grid" class="exams-grid">
-                    <!-- Dynamic Cadeira Cards Loaded from JSON -->
-                    <div class="loading-state">
-                        <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-                        <p data-i18n="loading_cadeiras">A carregar cadeiras...</p>
+                <div class="exams-screen-layout">
+                    <!-- FLOATING LEFT SIDEBAR: Filters & Sorting for Cadeiras -->
+                    <aside class="floating-filters-sidebar" id="cadeiras-sidebar-filters"
+                        aria-label="Filtros e ordenação de cadeiras">
+
+                        <!-- 1. ORDENAÇÃO (SORT DROPDOWN) -->
+                        <div class="floating-filter-group">
+                            <span class="floating-filter-label">
+                                <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i> <span
+                                    data-i18n="filter_sort">Ordenar</span>
+                            </span>
+                            <div class="custom-dropdown" id="sort-cadeiras-dropdown">
+                                <button type="button" class="dropdown-trigger-btn" id="sort-cadeiras-trigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-label="Ordenar cadeiras por">
+                                    <span id="sort-cadeiras-selected-label">
+                                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> Ordem Padrão
+                                    </span>
+                                    <i class="fa-solid fa-chevron-down dropdown-arrow" aria-hidden="true"></i>
+                                </button>
+                                <ul class="dropdown-menu" id="sort-cadeiras-menu" role="listbox" tabindex="-1">
+                                    <li class="dropdown-item active" role="option" data-value="default"
+                                        aria-selected="true" data-i18n-text="sort_default">
+                                        <i class="fa-solid fa-list-ol" aria-hidden="true"></i> <span
+                                            data-i18n="sort_default">Ordem Padrão</span>
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="name_asc"
+                                        aria-selected="false" data-i18n-text="sort_title_asc">
+                                        <i class="fa-solid fa-arrow-down-a-z" aria-hidden="true"></i> <span
+                                            data-i18n="sort_title_asc">A → Z</span>
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="name_desc"
+                                        aria-selected="false" data-i18n-text="sort_title_desc">
+                                        <i class="fa-solid fa-arrow-up-z-a" aria-hidden="true"></i> <span
+                                            data-i18n="sort_title_desc">Z → A</span>
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="sigla_asc"
+                                        aria-selected="false" data-i18n-text="sort_sigla_asc">
+                                        <i class="fa-solid fa-font" aria-hidden="true"></i> <span
+                                            data-i18n="sort_sigla_asc">Sigla (A → Z)</span>
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="exams_desc"
+                                        aria-selected="false" data-i18n-text="sort_exams_desc">
+                                        <i class="fa-solid fa-arrow-down-9-1" aria-hidden="true"></i> <span
+                                            data-i18n="sort_exams_desc">Mais Exames</span>
+                                    </li>
+                                    <li class="dropdown-item" role="option" data-value="exams_asc"
+                                        aria-selected="false" data-i18n-text="sort_exams_asc">
+                                        <i class="fa-solid fa-arrow-up-1-9" aria-hidden="true"></i> <span
+                                            data-i18n="sort_exams_asc">Menos Exames</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 2. ORIGEM DA CADEIRA (SISTEMA / LOCAL) -->
+                        <div class="floating-filter-group">
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-shapes" aria-hidden="true"></i> <span
+                                        data-i18n="filter_origin">Origem</span>
+                                </span>
+                                <button type="button" class="btn-filter-reset-link" id="btn-reset-cadeiras-filters"
+                                    title="Repor todos os filtros" data-i18n-title="filter_reset">
+                                    <span data-i18n="filter_reset">Repor</span>
+                                </button>
+                            </div>
+                            <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por origem da cadeira">
+                                <label class="floating-checkbox-item" data-origin="system">
+                                    <input type="checkbox" class="floating-origin-check-input"
+                                        id="filter-origin-system" checked value="system"
+                                        aria-label="Cadeiras do Sistema">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-building-columns" style="color: #38bdf8;" aria-hidden="true"></i>
+                                        <span data-i18n="filter_origin_system">Sistema</span>
+                                    </span>
+                                    <span class="filter-option-count" id="count-origin-system">0</span>
+                                </label>
+                                <label class="floating-checkbox-item" data-origin="local">
+                                    <input type="checkbox" class="floating-origin-check-input"
+                                        id="filter-origin-local" checked value="local"
+                                        aria-label="Cadeiras Locais">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-user-pen" style="color: #c084fc;" aria-hidden="true"></i>
+                                        <span data-i18n="filter_origin_local">Locais</span>
+                                    </span>
+                                    <span class="filter-option-count" id="count-origin-local">0</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 3. CONTEÚDO / EXAMES (COM EXAMES / SEM EXAMES) -->
+                        <div class="floating-filter-group">
+                            <div class="floating-filter-header">
+                                <span class="floating-filter-label">
+                                    <i class="fa-solid fa-folder-tree" aria-hidden="true"></i> <span
+                                        data-i18n="filter_availability">Disponibilidade</span>
+                                </span>
+                            </div>
+                            <div class="floating-type-checkboxes" role="group" aria-label="Filtrar por disponibilidade de exames">
+                                <label class="floating-checkbox-item" data-availability="with_exams">
+                                    <input type="checkbox" class="floating-avail-check-input"
+                                        id="filter-avail-with" checked value="with_exams"
+                                        aria-label="Com Exames">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-circle-check" style="color: #34d399;" aria-hidden="true"></i>
+                                        <span data-i18n="filter_avail_with">Com Exames</span>
+                                    </span>
+                                    <span class="filter-option-count" id="count-avail-with">0</span>
+                                </label>
+                                <label class="floating-checkbox-item" data-availability="without_exams">
+                                    <input type="checkbox" class="floating-avail-check-input"
+                                        id="filter-avail-without" checked value="without_exams"
+                                        aria-label="Sem Exames">
+                                    <span class="floating-custom-check" aria-hidden="true">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
+                                    <span class="floating-type-label">
+                                        <i class="fa-solid fa-circle-pause" style="color: #94a3b8;" aria-hidden="true"></i>
+                                        <span data-i18n="filter_avail_without">Sem Exames</span>
+                                    </span>
+                                    <span class="filter-option-count" id="count-avail-without">0</span>
+                                </label>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Center Main Column -->
+                    <div class="exams-main-column">
+                        <div id="cadeiras-grid" class="exams-grid">
+                            <!-- Dynamic Cadeira Cards Loaded from JSON -->
+                            <div class="loading-state">
+                                <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
+                                <p data-i18n="loading_cadeiras">A carregar cadeiras...</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

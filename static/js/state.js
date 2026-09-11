@@ -23,6 +23,9 @@ export const State = {
     cadeiras: [],
     localCadeiras: [],
     cadeirasSearch: '',
+    cadeiraSort: 'default', // 'default' | 'name_asc' | 'name_desc' | 'sigla_asc' | 'exams_desc' | 'exams_asc'
+    cadeiraOriginFilter: ['system', 'local'], // ['system', 'local']
+    cadeiraAvailabilityFilter: ['with_exams', 'without_exams'], // ['with_exams', 'without_exams']
 
     // Selected subject
     activeCadeira: null,

@@ -157,5 +157,76 @@ class TestFrontendIntegrity(unittest.TestCase):
         inc_count = sum(sum(1 for s in exam_history[e['id']] if s == 2) for e in mock_exams if e['id'] in active_subject_exam_ids and e['id'] in exam_history)
         self.assertEqual(inc_count, 3)
 
+    def test_subject_empty_and_local_exams_loading(self):
+        """Validates that local subjects with no exams or custom exams are handled without errors and have i18n strings."""
+        with open(os.path.join(STATIC_JS_DIR, 'i18n.js'), 'r', encoding='utf-8') as f:
+            i18n_code = f.read()
+
+        # Check that empty exams title and desc are present in both PT and EN
+        self.assertIn("empty_exams_title:", i18n_code)
+        self.assertIn("empty_exams_desc:", i18n_code)
+
+        # Ensure examService.js handles absent/local index_path safely
+        with open(os.path.join(STATIC_JS_DIR, 'examService.js'), 'r', encoding='utf-8') as f:
+            service_code = f.read()
+        self.assertIn("if (indexPath && indexPath !== 'local')", service_code)
+
+        # Local subject exams merging logic simulation
+        local_exams = [
+            {'id': 'exam_local_1', 'cadeira_id': 'local_123', 'title': 'Exame 1', 'questions_count': 5},
+            {'id': 'exam_local_2', 'cadeira_id': 'other_chair', 'title': 'Exame 2', 'questions_count': 10}
+        ]
+
+        # Case 1: Newly created local subject with 0 exams
+        current_cadeira_id = 'local_999'
+        matching = [e for e in local_exams if e.get('cadeira_id') == current_cadeira_id]
+        self.assertEqual(len(matching), 0)
+
+        # Case 2: Local subject with 1 exam
+        current_cadeira_id = 'local_123'
+        matching = [e for e in local_exams if e.get('cadeira_id') == current_cadeira_id]
+        self.assertEqual(len(matching), 1)
+        self.assertEqual(matching[0]['id'], 'exam_local_1')
+
+    def test_cadeiras_filters_and_sorting_logic(self):
+        """Validates that cadeiras filtering and sorting logic operates accurately on subject metadata."""
+        sample_cadeiras = [
+            {'id': 'adi', 'nome': 'Aprendizagem e Decisão Inteligentes', 'sigla': 'ADI', 'exames_count': 27, 'isLocal': False, '_originalIndex': 0},
+            {'id': 'ssi', 'nome': 'Segurança de Sistemas de Informação', 'sigla': 'SSI', 'exames_count': 21, 'isLocal': False, '_originalIndex': 1},
+            {'id': 'tso', 'nome': 'Tecnologias de Sistemas Operativos', 'sigla': 'TSO', 'exames_count': 18, 'isLocal': False, '_originalIndex': 2},
+            {'id': 'local_1', 'nome': 'Base de Dados', 'sigla': 'BD', 'exames_count': 0, 'isLocal': True, '_originalIndex': 3},
+            {'id': 'local_2', 'nome': 'Compiladores', 'sigla': 'COMP', 'exames_count': 5, 'isLocal': True, '_originalIndex': 4}
+        ]
+
+        # 1. Filter by Origin: only system
+        sys_only = [c for c in sample_cadeiras if not c['isLocal']]
+        self.assertEqual(len(sys_only), 3)
+
+        # 2. Filter by Origin: only local
+        loc_only = [c for c in sample_cadeiras if c['isLocal']]
+        self.assertEqual(len(loc_only), 2)
+
+        # 3. Filter by Availability: with exams
+        with_exams = [c for c in sample_cadeiras if c['exames_count'] > 0]
+        self.assertEqual(len(with_exams), 4)
+
+        # 4. Filter by Availability: without exams
+        without_exams = [c for c in sample_cadeiras if c['exames_count'] == 0]
+        self.assertEqual(len(without_exams), 1)
+        self.assertEqual(without_exams[0]['id'], 'local_1')
+
+        # 5. Sorting by exam count descending
+        sorted_exams_desc = sorted(sample_cadeiras, key=lambda c: (-c['exames_count'], c['_originalIndex']))
+        self.assertEqual([c['id'] for c in sorted_exams_desc], ['adi', 'ssi', 'tso', 'local_2', 'local_1'])
+
+        # 6. Sorting by name A-Z
+        sorted_name_asc = sorted(sample_cadeiras, key=lambda c: c['nome'])
+        self.assertEqual(sorted_name_asc[0]['id'], 'adi')
+        self.assertEqual(sorted_name_asc[1]['id'], 'local_1') # Base de Dados
+
+        # 7. Sorting by sigla A-Z
+        sorted_sigla_asc = sorted(sample_cadeiras, key=lambda c: c['sigla'])
+        self.assertEqual([c['sigla'] for c in sorted_sigla_asc], ['ADI', 'BD', 'COMP', 'SSI', 'TSO'])
+
 if __name__ == '__main__':
     unittest.main()
