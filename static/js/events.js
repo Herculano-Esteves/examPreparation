@@ -7,13 +7,14 @@
  */
 
 export const APP_EVENTS = Object.freeze({
-    SCREEN_CHANGED:    'screen:changed',
-    LANGUAGE_CHANGED:  'language:changed',
-    CADEIRA_SELECTED:  'cadeira:selected',
-    EXAM_STARTED:      'exam:started',
-    EXAM_FINISHED:     'exam:finished',
-    FILTERS_RESET:     'filters:reset',
-    NOTIFICATION:      'app:notification'
+    SCREEN_CHANGED:             'screen:changed',
+    LANGUAGE_CHANGED:           'language:changed',
+    CADEIRA_SELECTED:           'cadeira:selected',
+    EXAM_STARTED:               'exam:started',
+    EXAM_FINISHED:              'exam:finished',
+    QUESTION_DIFFICULT_TOGGLED: 'question:difficult_toggled',
+    FILTERS_RESET:              'filters:reset',
+    NOTIFICATION:               'app:notification'
 });
 
 class EventBus {

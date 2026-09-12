@@ -326,7 +326,7 @@ function initDifficultToggleListener() {
             showToast(t('toast_question_unmarked_difficult'), NotificationType.INFO);
         }
 
-        Events.emit('question:difficult_toggled', {
+        Events.emit(APP_EVENTS.QUESTION_DIFFICULT_TOGGLED, {
             examId: targetExamId,
             origIndex,
             isDifficult: isDiff
@@ -597,7 +597,8 @@ export function showResults() {
                 else if (ans.isCorrect === false) status = QuestionStatus.INCORRECT;
                 else status = QuestionStatus.ANSWERED;
             }
-            updateQuestionStatus(State.activeExam.id, origIdx, status, State, State.totalQuestions);
+            const targetExamId = q._sourceExamId || State.activeExam.id;
+            updateQuestionStatus(targetExamId, origIdx, status, State, State.totalQuestions);
         });
     }
 

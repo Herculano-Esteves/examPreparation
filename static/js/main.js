@@ -13,6 +13,7 @@ import { applyTranslations, setLanguage, t } from './i18n.js';
 import { initExamLayout } from './layout.js';
 import { isLanguageConfigured, setLanguageConfigured } from './config.js';
 import { initExamBuilder, resetExamBuilder } from './examBuilder.js';
+import { initPracticeHub } from './practiceHub.js';
 
 // Initialization
 function initApp() {
@@ -21,6 +22,7 @@ function initApp() {
     setupLocalCreationListeners();
     loadLocalData(State);
     initExamLayout();
+    initPracticeHub();
     fetchCadeiras();
     initLanguagePrompt();
 

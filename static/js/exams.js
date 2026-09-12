@@ -23,6 +23,7 @@ import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
 import { ExamService } from './examService.js';
 import { Events, APP_EVENTS } from './events.js';
 import { getEffectiveTargetLanguage } from './filterState.js';
+import { resetExamBuilder } from './examBuilder.js';
 
 import {
     ALL_QUESTION_TYPES,
@@ -43,12 +44,27 @@ import {
     createExamCardElement
 } from './examCard.js';
 
+import {
+    initPracticeHub,
+    updatePracticeHubUI,
+    resetPracticeHubUI,
+    getSubjectDifficultCount,
+    getSubjectIncorrectCount,
+    launchSpecialExam
+} from './practiceHub.js';
+
 export {
     ExamService,
     ALL_QUESTION_TYPES,
     getEffectiveExcludedTypes,
     resetAllFilters,
-    renderExamScoreBadgeHTML
+    renderExamScoreBadgeHTML,
+    getSubjectDifficultCount,
+    getSubjectIncorrectCount,
+    launchSpecialExam,
+    updatePracticeHubUI,
+    resetPracticeHubUI,
+    initPracticeHub
 };
 
 let renderTimer = null;
@@ -65,6 +81,8 @@ function scheduleRenderExamsMenu() {
  */
 export async function fetchExams(indexPath) {
     if (!elements.examsGrid) return;
+
+    resetPracticeHubUI();
 
     elements.examsGrid.innerHTML = `
         <div class="loading-state">
@@ -106,6 +124,8 @@ export function renderExamsMenu() {
     initFloatingFilters(scheduleRenderExamsMenu);
     initSortDropdown(scheduleRenderExamsMenu);
     updateSortDropdownLabel();
+    initPracticeHub();
+    updatePracticeHubUI();
 
     elements.examsGrid.innerHTML = '';
     if (!State.examFilters) State.examFilters = {};
@@ -223,7 +243,8 @@ export function renderExamsMenu() {
         const addEmptyBtn = document.getElementById('btn-empty-add-exam');
         if (addEmptyBtn) {
             addEmptyBtn.addEventListener('click', () => {
-                transitionTo('add-exame');
+                resetExamBuilder();
+                transitionTo('addExame');
             });
         }
         return;
@@ -255,112 +276,6 @@ export function renderExamsMenu() {
         const row = createExamCardElement(exam, startExam);
         elements.examsGrid.appendChild(row);
     });
-
-    // 7. Update Right Practice Sidebar Stats & Listeners
-    initPracticeSidebarListeners();
-    updatePracticeSidebarStats();
-}
-
-/**
- * Calculates the total number of difficult questions in the active subject.
- * @param {object} State
- * @returns {number}
- */
-export function getSubjectDifficultCount(State) {
-    if (!State || !State.exams || !State.difficultQuestions) return 0;
-    const currentExamIds = new Set(State.exams.map(e => e.id));
-    let count = 0;
-    Object.keys(State.difficultQuestions).forEach(examId => {
-        if (currentExamIds.has(examId)) {
-            const arr = State.difficultQuestions[examId];
-            if (Array.isArray(arr)) {
-                count += arr.length;
-            }
-        }
-    });
-    return count;
-}
-
-/**
- * Calculates the total number of incorrect questions in the active subject.
- * @param {object} State
- * @returns {number}
- */
-export function getSubjectIncorrectCount(State) {
-    if (!State || !State.exams || !State.examHistory) return 0;
-    const currentExamIds = new Set(State.exams.map(e => e.id));
-    let count = 0;
-    Object.keys(State.examHistory).forEach(examId => {
-        if (currentExamIds.has(examId)) {
-            const arr = State.examHistory[examId];
-            if (Array.isArray(arr)) {
-                count += arr.filter(s => s === QuestionStatus.INCORRECT).length;
-            }
-        }
-    });
-    return count;
-}
-
-/**
- * Updates the Right Practice Sidebar counters and button states.
- */
-export function updatePracticeSidebarStats() {
-    const diffCount = getSubjectDifficultCount(State);
-    const incCount = getSubjectIncorrectCount(State);
-
-    // 1. Difficult questions
-    const diffCountEl = elements.practiceDifficultCountText;
-    const btnDiff = elements.btnPracticeDifficult;
-    if (diffCountEl) {
-        diffCountEl.textContent = `${diffCount}`;
-        diffCountEl.title = diffCount === 0
-            ? t('practice_difficult_count_empty')
-            : (diffCount === 1 ? t('practice_difficult_count_single') : t('practice_difficult_count', { count: diffCount }));
-        if (diffCount === 0) {
-            diffCountEl.classList.add('count-zero');
-        } else {
-            diffCountEl.classList.remove('count-zero');
-        }
-    }
-    if (btnDiff) {
-        btnDiff.disabled = (diffCount === 0);
-    }
-
-    // 2. Incorrect questions
-    const incCountEl = elements.practiceIncorrectCountText;
-    const btnInc = elements.btnPracticeIncorrect;
-    if (incCountEl) {
-        incCountEl.textContent = `${incCount}`;
-        incCountEl.title = incCount === 0
-            ? t('practice_incorrect_count_empty')
-            : (incCount === 1 ? t('practice_incorrect_count_single') : t('practice_incorrect_count', { count: incCount }));
-        if (incCount === 0) {
-            incCountEl.classList.add('count-zero');
-        } else {
-            incCountEl.classList.remove('count-zero');
-        }
-    }
-    if (btnInc) {
-        btnInc.disabled = (incCount === 0);
-    }
-}
-
-let practiceListenersInitialized = false;
-export function initPracticeSidebarListeners() {
-    if (practiceListenersInitialized) return;
-    practiceListenersInitialized = true;
-
-    if (elements.btnPracticeDifficult) {
-        elements.btnPracticeDifficult.addEventListener('click', () => {
-            launchSpecialExam('difficult');
-        });
-    }
-
-    if (elements.btnPracticeIncorrect) {
-        elements.btnPracticeIncorrect.addEventListener('click', () => {
-            launchSpecialExam('incorrect');
-        });
-    }
 }
 
 /**
@@ -482,144 +397,7 @@ export async function startExam(examId) {
     }
 }
 
-/**
- * Launches a special dynamic practice exam aggregated across all exams of the active subject.
- * @param {'difficult'|'incorrect'} type
- */
-export async function launchSpecialExam(type) {
-    if (!State.exams || State.exams.length === 0) return;
 
-    if (elements.examsGrid) {
-        elements.examsGrid.innerHTML = `
-            <div class="loading-state">
-                <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
-                <p data-i18n="loading_exams">${escapeHTML(t('loading_exams'))}</p>
-            </div>
-        `;
-    }
-
-    try {
-        // 1. Identify which exams contain questions matching the target criteria
-        const matchingExamsMeta = State.exams.filter(examMeta => {
-            if (type === 'difficult') {
-                const diffList = State.difficultQuestions ? State.difficultQuestions[examMeta.id] : null;
-                return Array.isArray(diffList) && diffList.length > 0;
-            } else {
-                const histList = State.examHistory ? State.examHistory[examMeta.id] : null;
-                return Array.isArray(histList) && histList.some(s => s === QuestionStatus.INCORRECT);
-            }
-        });
-
-        if (matchingExamsMeta.length === 0) {
-            showToast(type === 'difficult' ? t('practice_difficult_count_empty') : t('practice_incorrect_count_empty'));
-            renderExamsMenu();
-            return;
-        }
-
-        // 2. Load full question data for all matching exams in parallel
-        const loadedExamsData = await Promise.all(
-            matchingExamsMeta.map(meta => ExamService.loadFullExam(meta))
-        );
-
-        // 3. Extract and tag all matching questions
-        const aggregatedQuestions = [];
-        loadedExamsData.forEach((examData, metaIdx) => {
-            const meta = matchingExamsMeta[metaIdx];
-            const allQ = examData.questions || examData.perguntas || [];
-            
-            allQ.forEach((q, origIdx) => {
-                let isMatch = false;
-                if (type === 'difficult') {
-                    const diffList = State.difficultQuestions ? State.difficultQuestions[meta.id] : null;
-                    isMatch = Array.isArray(diffList) && diffList.includes(origIdx);
-                } else {
-                    const histList = State.examHistory ? State.examHistory[meta.id] : null;
-                    isMatch = Array.isArray(histList) && histList[origIdx] === QuestionStatus.INCORRECT;
-                }
-
-                if (isMatch) {
-                    const questionClone = JSON.parse(JSON.stringify(q));
-                    questionClone._origIndex = origIdx;
-                    questionClone._sourceExamId = meta.id;
-                    questionClone._sourceExamTitle = meta.title || meta.titulo;
-                    ExamService.shuffleOptions(questionClone);
-                    aggregatedQuestions.push(questionClone);
-                }
-            });
-        });
-
-        if (aggregatedQuestions.length === 0) {
-            showToast(type === 'difficult' ? t('practice_difficult_count_empty') : t('practice_incorrect_count_empty'));
-            renderExamsMenu();
-            return;
-        }
-
-        const isDiff = (type === 'difficult');
-        const specialTitle = isDiff ? t('special_exam_difficult_title') : t('special_exam_incorrect_title');
-        const specialDesc = isDiff ? t('practice_difficult_desc') : t('practice_incorrect_desc');
-
-        State.activeExam = {
-            id: isDiff ? 'special-difficult' : 'special-incorrect',
-            isSpecial: true,
-            specialType: type,
-            title: `${specialTitle} (${aggregatedQuestions.length})`,
-            titulo: `${specialTitle} (${aggregatedQuestions.length})`,
-            description: specialDesc,
-            descricao: specialDesc,
-            questions: aggregatedQuestions,
-            perguntas: aggregatedQuestions,
-            questions_count: aggregatedQuestions.length
-        };
-
-        State.examAnswers = aggregatedQuestions.map(() => ({
-            selectedOptions: [],
-            writtenInput: '',
-            revealed: false,
-            isCorrect: null
-        }));
-
-        State.question.index               = 0;
-        State.question.selectedOptions     = [];
-        State.question.revealed            = false;
-        State.question.firstAttemptCorrect = {};
-        State.question.writtenInput        = '';
-
-        if (elements.currentExamTitle) {
-            elements.currentExamTitle.textContent = State.activeExam.title;
-        }
-
-        if (State.activeCadeira && State.activeCadeira.icon) {
-            const iconEl = document.getElementById('exam-subject-icon');
-            if (iconEl) iconEl.className = `fa-solid ${State.activeCadeira.icon}`;
-        }
-
-        transitionTo('exam');
-        Events.emit(APP_EVENTS.EXAM_STARTED, { examId: State.activeExam.id, exam: State.activeExam });
-
-        try {
-            renderQuestion();
-        } catch (renderErr) {
-            console.error('Erro ao renderizar a questão:', renderErr);
-            if (elements.questionText) {
-                elements.questionText.textContent =
-                    '⚠️ Erro ao carregar a questão. Verifique a consola para detalhes.';
-            }
-            if (elements.optionsContainer) {
-                elements.optionsContainer.innerHTML = `
-                    <div class="error-state">
-                        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-                        <h3>Erro de renderização</h3>
-                        <p>${escapeHTML(renderErr.message)}</p>
-                    </div>`;
-            }
-        }
-
-    } catch (error) {
-        console.error('Error fetching practice questions:', error);
-        renderExamsMenu();
-        alert('Erro ao carregar o exame de prática: ' + error.message);
-    }
-}
 
 // ---------------------------------------------------------------------------
 // EventBus Subscriptions

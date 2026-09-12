@@ -18,6 +18,9 @@ import { Events, APP_EVENTS } from './events.js';
  * @param {'cadeiras'|'menu'|'exam'|'results'|'addCadeira'|'addExame'|'settings'} screenName
  */
 export function transitionTo(screenName) {
+    if (screenName === 'add-exame') screenName = 'addExame';
+    if (screenName === 'add-cadeira') screenName = 'addCadeira';
+
     const previousScreen = State.currentScreen;
     const activeScreen = document.querySelector('.screen.active');
     const leavingExam = document.body.classList.contains('layout-exam');
