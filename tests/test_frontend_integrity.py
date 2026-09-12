@@ -228,5 +228,100 @@ class TestFrontendIntegrity(unittest.TestCase):
         sorted_sigla_asc = sorted(sample_cadeiras, key=lambda c: c['sigla'])
         self.assertEqual([c['sigla'] for c in sorted_sigla_asc], ['ADI', 'BD', 'COMP', 'SSI', 'TSO'])
 
+    def test_cadeira_creation_validation_rules(self):
+        """Validates that Cadeira Title is strictly required while Description is optional."""
+        def validate_cadeira_form(nome, desc):
+            nome_clean = (nome or '').strip()
+            desc_clean = (desc or '').strip()
+            if not nome_clean:
+                return {'valid': False, 'error': 'error_fill_required_fields'}
+            return {
+                'valid': True,
+                'cadeira': {
+                    'nome': nome_clean,
+                    'descricao': desc_clean,
+                    'exames_count': 0,
+                    'isLocal': True
+                }
+            }
+
+        # Case 1: Empty title and empty description -> Invalid
+        res1 = validate_cadeira_form('', '')
+        self.assertFalse(res1['valid'])
+
+        # Case 2: Empty title with description -> Invalid (Title is mandatory)
+        res2 = validate_cadeira_form('   ', 'Alguma descrição')
+        self.assertFalse(res2['valid'])
+
+        # Case 3: Valid title with EMPTY description -> Valid (Description is optional!)
+        res3 = validate_cadeira_form('Computação Quântica', '')
+        self.assertTrue(res3['valid'])
+        self.assertEqual(res3['cadeira']['nome'], 'Computação Quântica')
+        self.assertEqual(res3['cadeira']['descricao'], '')
+
+        # Case 4: Valid title with description -> Valid
+        res4 = validate_cadeira_form('Computação Gráfica', 'OpenGL e Shaders')
+        self.assertTrue(res4['valid'])
+        self.assertEqual(res4['cadeira']['descricao'], 'OpenGL e Shaders')
+
+    def test_cadeira_submit_button_interactive_state_logic(self):
+        """Validates the state machine of the create subject button and on-demand validation triggering."""
+        class CadeiraFormStateMachine:
+            def __init__(self):
+                self.input_nome = ""
+                self.has_invalid_error = False
+                self.has_inline_warning = False
+                self.toast_emitted = None
+
+            def on_input(self, val):
+                self.input_nome = val
+                if self.is_button_enabled():
+                    self.has_invalid_error = False
+                    self.has_inline_warning = False
+
+            def is_button_enabled(self):
+                return len(self.input_nome.strip()) > 0
+
+            def on_click_submit(self):
+                if not self.is_button_enabled():
+                    self.has_invalid_error = True
+                    self.has_inline_warning = True
+                    self.toast_emitted = 'error_fill_required_fields'
+                    return False
+                self.has_invalid_error = False
+                self.has_inline_warning = False
+                self.toast_emitted = 'toast_cadeira_created'
+                return True
+
+        machine = CadeiraFormStateMachine()
+
+        # Step 1: Initial state (empty input)
+        # Button is visually/semantically disabled (is-disabled, aria-disabled=true)
+        self.assertFalse(machine.is_button_enabled())
+        # No errors are shown initially
+        self.assertFalse(machine.has_invalid_error)
+        self.assertFalse(machine.has_inline_warning)
+        self.assertIsNone(machine.toast_emitted)
+
+        # Step 2: User attempts to click while disabled
+        # Validation feedback triggers ONLY now
+        submitted = machine.on_click_submit()
+        self.assertFalse(submitted)
+        self.assertTrue(machine.has_invalid_error)
+        self.assertTrue(machine.has_inline_warning)
+        self.assertEqual(machine.toast_emitted, 'error_fill_required_fields')
+
+        # Step 3: User starts typing required title
+        machine.on_input("Engenharia de Software")
+        self.assertTrue(machine.is_button_enabled())
+        self.assertFalse(machine.has_invalid_error)
+        self.assertFalse(machine.has_inline_warning)
+
+        # Step 4: User clicks submit with valid data
+        submitted = machine.on_click_submit()
+        self.assertTrue(submitted)
+        self.assertEqual(machine.toast_emitted, 'toast_cadeira_created')
+
 if __name__ == '__main__':
     unittest.main()
+

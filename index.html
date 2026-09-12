@@ -846,16 +846,20 @@
                     </h3>
                 </div>
                 <div class="question-card">
-                    <div class="form-group">
+                    <div class="form-group" id="group-cadeira-nome">
                         <label for="cadeira-nome" data-i18n="label_cadeira_nome">Nome da Cadeira</label>
                         <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos"
                             data-i18n-placeholder="placeholder_cadeira_nome" required>
+                        <span class="form-field-error hidden" id="cadeira-nome-error">
+                            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                            <span data-i18n="error_required_field">Campo obrigatório</span>
+                        </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="group-cadeira-desc">
                         <label for="cadeira-desc" data-i18n="label_cadeira_desc">Descrição / Subtítulo</label>
                         <input type="text" id="cadeira-desc" class="form-control"
                             placeholder="Ex: Escalonamento, Processos e I/O"
-                            data-i18n-placeholder="placeholder_cadeira_desc" required>
+                            data-i18n-placeholder="placeholder_cadeira_desc">
                     </div>
                     <div class="form-group">
                         <label data-i18n="label_cadeira_icon">Selecione um Ícone</label>
@@ -884,7 +888,7 @@
                             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                             <span data-i18n="btn_cancel">Cancelar</span>
                         </button>
-                        <button id="btn-save-cadeira" class="btn-control btn-primary">
+                        <button id="btn-save-cadeira" class="btn-control btn-primary is-disabled" aria-disabled="true">
                             <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
                             <span data-i18n="btn_create_cadeira">Criar Cadeira</span>
                         </button>

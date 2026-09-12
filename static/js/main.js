@@ -1,7 +1,7 @@
 import { State } from './state.js';
 import { elements } from './elements.js';
 import { JSON_INSTRUCTIONS, getJsonInstructions } from './constants.js';
-import { showToast, clampCardDescriptions, getLocalizedText } from './utils.js';
+import { showToast, clampCardDescriptions, getLocalizedText, NotificationType } from './utils.js';
 import { loadLocalData, saveLocalCadeiras, saveLocalExames, clearAllLocalData } from './storage.js';
 import { validateExamJSON } from './validation.js';
 import { transitionTo } from './navigation.js';
@@ -386,27 +386,73 @@ function setupLocalCreationListeners() {
         });
     }
 
+    const updateCadeiraSubmitState = () => {
+        if (!btnSaveCadeira || !inputCadeiraNome) return;
+        const hasContent = inputCadeiraNome.value.trim().length > 0;
+        if (hasContent) {
+            btnSaveCadeira.classList.remove('is-disabled');
+            btnSaveCadeira.removeAttribute('aria-disabled');
+        } else {
+            btnSaveCadeira.classList.add('is-disabled');
+            btnSaveCadeira.setAttribute('aria-disabled', 'true');
+        }
+    };
+
+    const clearCadeiraFormErrors = () => {
+        if (inputCadeiraNome) {
+            inputCadeiraNome.classList.remove('is-invalid');
+            inputCadeiraNome.classList.remove('input-shake-error');
+        }
+        const errEl = document.getElementById('cadeira-nome-error');
+        if (errEl) errEl.classList.add('hidden');
+    };
+
+    if (inputCadeiraNome) {
+        inputCadeiraNome.addEventListener('input', () => {
+            updateCadeiraSubmitState();
+            if (inputCadeiraNome.value.trim()) {
+                clearCadeiraFormErrors();
+            }
+        });
+    }
+
     if (btnCancelCadeira) {
         btnCancelCadeira.addEventListener('click', () => {
-            inputCadeiraNome.value = '';
-            inputCadeiraDesc.value = '';
+            if (inputCadeiraNome) inputCadeiraNome.value = '';
+            if (inputCadeiraDesc) inputCadeiraDesc.value = '';
+            clearCadeiraFormErrors();
+            updateCadeiraSubmitState();
             transitionTo('cadeiras');
         });
     }
 
     if (btnSaveCadeira) {
         btnSaveCadeira.addEventListener('click', () => {
-            const nome = inputCadeiraNome.value.trim();
-            const desc = inputCadeiraDesc.value.trim();
-            if (!nome || !desc) {
-                alert('Por favor, preencha todos os campos.');
+            const nome = inputCadeiraNome ? inputCadeiraNome.value.trim() : '';
+            const desc = inputCadeiraDesc ? inputCadeiraDesc.value.trim() : '';
+            const nomeErrorEl = document.getElementById('cadeira-nome-error');
+
+            if (!nome) {
+                if (inputCadeiraNome) {
+                    inputCadeiraNome.classList.remove('input-shake-error');
+                    // Trigger reflow to restart CSS animation if clicked repeatedly
+                    void inputCadeiraNome.offsetWidth;
+                    inputCadeiraNome.classList.add('is-invalid');
+                    inputCadeiraNome.classList.add('input-shake-error');
+                    inputCadeiraNome.focus();
+                }
+                if (nomeErrorEl) nomeErrorEl.classList.remove('hidden');
+                showToast(t('error_fill_required_fields'), NotificationType.ERROR);
+                updateCadeiraSubmitState();
                 return;
             }
+
+            clearCadeiraFormErrors();
 
             const newCadeira = {
                 id: 'local_' + Date.now(),
                 nome: nome,
-                descricao: desc,
+                descricao: desc || '',
                 icon: selectedIcon,
                 exames_count: 0,
                 isLocal: true,
@@ -416,12 +462,17 @@ function setupLocalCreationListeners() {
             State.localCadeiras.push(newCadeira);
             saveLocalCadeiras(State);
 
-            inputCadeiraNome.value = '';
-            inputCadeiraDesc.value = '';
-            showToast(t('toast_cadeira_created'), elements);
+            if (inputCadeiraNome) inputCadeiraNome.value = '';
+            if (inputCadeiraDesc) inputCadeiraDesc.value = '';
+            updateCadeiraSubmitState();
+            showToast(t('toast_cadeira_created'), NotificationType.SUCCESS);
             transitionTo('cadeiras');
+            renderCadeirasMenu();
         });
     }
+
+    // Ensure initial button state matches form input
+    updateCadeiraSubmitState();
 
     initExamBuilder();
 

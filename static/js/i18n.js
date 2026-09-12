@@ -273,6 +273,8 @@ export const TRANSLATIONS = {
         toast_cadeira_created: 'Cadeira criada com sucesso!',
         toast_exame_created: 'Exame criado com sucesso!',
         toast_error_all_excluded: 'Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.',
+        error_required_field: 'Campo obrigatório',
+        error_fill_required_fields: 'Por favor, preencha o nome da cadeira.',
 
         // Modal de Seleção de Idioma & Privacidade UE
         modal_lang_title: 'Selecione o seu Idioma / Select your Language',
@@ -549,6 +551,8 @@ export const TRANSLATIONS = {
         toast_cadeira_created: 'Subject created successfully!',
         toast_exame_created: 'Exam created successfully!',
         toast_error_all_excluded: 'All questions in this exam are excluded by your filters. Enable at least one type to start.',
+        error_required_field: 'Required field',
+        error_fill_required_fields: 'Please fill in the subject title.',
 
         // Language Selection & EU Privacy Modal
         modal_lang_title: 'Select your Language / Selecione o seu Idioma',
