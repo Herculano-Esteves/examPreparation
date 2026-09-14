@@ -153,6 +153,9 @@ export const elements = {
     // ---------- Settings Popover Menu ----------
     get settingsDropdownMenu()      { return document.getElementById('settings-dropdown-menu'); },
     get btnCloseSettingsPopover()   { return document.getElementById('btn-close-settings-popover'); },
+    get btnExportZip()              { return document.getElementById('btn-export-zip'); },
+    get btnImportZip()              { return document.getElementById('btn-import-zip'); },
+    get inputImportZip()            { return document.getElementById('input-import-zip'); },
 
     // ---------- Exam Builder (Dual-Pane) ----------
     get builderTopBar()             { return document.getElementById('builder-top-bar'); },

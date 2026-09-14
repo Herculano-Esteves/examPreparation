@@ -2,7 +2,7 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { JSON_INSTRUCTIONS, getJsonInstructions } from './constants.js';
 import { showToast, clampCardDescriptions, getLocalizedText, NotificationType } from './utils.js';
-import { loadLocalData, saveLocalCadeiras, saveLocalExames, clearAllLocalData } from './storage.js';
+import { loadLocalData, saveLocalCadeiras, saveLocalExames, clearAllLocalData, importLocalDataFromBackup } from './storage.js';
 import { validateExamJSON } from './validation.js';
 import { transitionTo } from './navigation.js';
 import { fetchCadeiras, renderCadeirasMenu } from './cadeiras.js';
@@ -15,6 +15,7 @@ import { isLanguageConfigured, setLanguageConfigured } from './config.js';
 import { initExamBuilder, resetExamBuilder } from './examBuilder.js';
 import { initPracticeHub } from './practiceHub.js';
 import { openDangerConfirmModal, initDangerConfirmModal } from './confirmModal.js';
+import { initSettingsPopover } from './settingsPopover.js';
 
 // Initialization
 function initApp() {
@@ -142,95 +143,6 @@ function setupEventListeners() {
         });
     }
 
-    const settingsButtons = [
-        elements.btnSettings,
-        elements.btnExamSettings,
-        elements.btnBuilderSettings,
-        ...document.querySelectorAll('.btn-sticky-settings')
-    ].filter(Boolean);
-
-    function openSettingsPopover(triggerBtn) {
-        const popover = elements.settingsDropdownMenu;
-        if (!popover) return;
-
-        popover.classList.remove('hidden');
-
-        if (triggerBtn) {
-            const rect = triggerBtn.getBoundingClientRect();
-            const popoverWidth = popover.offsetWidth || 280;
-            const popoverHeight = popover.offsetHeight || 200;
-
-            // Align popover right edge with trigger button right edge
-            let left = rect.right - popoverWidth;
-            const maxLeft = window.innerWidth - popoverWidth - 12;
-            left = Math.max(12, Math.min(left, maxLeft));
-
-            // Default position: directly below the button; flip upwards if overflowing window bottom
-            let top = rect.bottom + 8;
-            if (top + popoverHeight > window.innerHeight - 12) {
-                top = Math.max(12, rect.top - popoverHeight - 8);
-            }
-
-            popover.style.top = `${Math.round(top)}px`;
-            popover.style.left = `${Math.round(left)}px`;
-        }
-    }
-
-    function closeSettingsPopover() {
-        const popover = elements.settingsDropdownMenu;
-        if (popover) {
-            popover.classList.add('hidden');
-        }
-    }
-
-    function toggleSettingsPopover(triggerBtn) {
-        const popover = elements.settingsDropdownMenu;
-        if (!popover) return;
-        if (popover.classList.contains('hidden')) {
-            openSettingsPopover(triggerBtn);
-        } else {
-            closeSettingsPopover();
-        }
-    }
-
-    settingsButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleSettingsPopover(btn);
-        });
-    });
-
-    if (elements.btnCloseSettingsPopover) {
-        elements.btnCloseSettingsPopover.addEventListener('click', (e) => {
-            e.stopPropagation();
-            closeSettingsPopover();
-        });
-    }
-
-    // Dismiss popover when clicking outside
-    document.addEventListener('click', (e) => {
-        const popover = elements.settingsDropdownMenu;
-        if (popover && !popover.classList.contains('hidden')) {
-            const isClickInside = popover.contains(e.target);
-            const isClickOnTrigger = settingsButtons.some(btn => btn.contains(e.target));
-            if (!isClickInside && !isClickOnTrigger) {
-                closeSettingsPopover();
-            }
-        }
-    });
-
-    // Dismiss popover on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeSettingsPopover();
-        }
-    });
-
-    // Close popover on window resize to avoid detached floating menus
-    window.addEventListener('resize', () => {
-        closeSettingsPopover();
-    });
-
     const appHeader = document.querySelector('.app-header');
     if (appHeader) {
         const headerObserver = new IntersectionObserver((entries) => {
@@ -263,11 +175,9 @@ function setupEventListeners() {
         });
     }
 
-    // Language selection buttons in settings popover
-    document.querySelectorAll('.btn-lang-option').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const lang = btn.getAttribute('data-lang');
-            setLanguage(lang);
+    // Initialize Modular Settings Popover with application lifecycle callbacks
+    initSettingsPopover({
+        onLanguageChange: (lang) => {
             setLanguageConfigured(true);
 
             // Synchronize header titles and active screen dynamically
@@ -295,42 +205,33 @@ function setupEventListeners() {
                     renderQuestion();
                 }
             }
-        });
+        },
+        onStorageCleared: () => {
+            State.activeCadeira = null;
+
+            const logoIcon = document.getElementById('app-logo-icon');
+            if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
+
+            const mainTitle = document.getElementById('app-main-title');
+            if (mainTitle) mainTitle.textContent = t('app_title');
+
+            const subtitleEl = document.getElementById('app-subtitle');
+            if (subtitleEl) {
+                subtitleEl.textContent = t('app_subtitle');
+            }
+
+            transitionTo('cadeiras');
+            renderCadeirasMenu();
+            initLanguagePrompt();
+        },
+        onBackupImported: (result) => {
+            if (State.currentScreen === 'cadeiras') {
+                renderCadeirasMenu();
+            } else if (State.currentScreen === 'menu' && State.activeCadeira) {
+                fetchExams(State.activeCadeira.index_path);
+            }
+        }
     });
-
-    const btnClearStorage = document.getElementById('btn-clear-storage');
-    if (btnClearStorage) {
-        btnClearStorage.addEventListener('click', () => {
-            closeSettingsPopover();
-            openDangerConfirmModal({
-                title: t('modal_danger_title'),
-                descriptionHTML: t('modal_danger_desc'),
-                confirmText: t('btn_confirm_delete'),
-                cancelText: t('btn_cancel'),
-                onConfirm: () => {
-                    clearAllLocalData(State);
-
-                    showToast(t('toast_storage_cleared'), elements);
-                    State.activeCadeira = null;
-
-                    const logoIcon = document.getElementById('app-logo-icon');
-                    if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
-
-                    const mainTitle = document.getElementById('app-main-title');
-                    if (mainTitle) mainTitle.textContent = t('app_title');
-
-                    const subtitleEl = document.getElementById('app-subtitle');
-                    if (subtitleEl) {
-                        subtitleEl.textContent = t('app_subtitle');
-                    }
-
-                    transitionTo('cadeiras');
-                    renderCadeirasMenu();
-                    initLanguagePrompt();
-                }
-            });
-        });
-    }
 
     // Keyboard navigation (ArrowLeft / ArrowRight)
     document.addEventListener('keydown', (e) => {
@@ -446,7 +347,8 @@ function setupLocalCreationListeners() {
                 icon: selectedIcon,
                 exames_count: 0,
                 isLocal: true,
-                index_path: null
+                index_path: null,
+                createdAt: new Date().toISOString()
             };
 
             State.localCadeiras.push(newCadeira);
@@ -557,7 +459,8 @@ function setupLocalCreationListeners() {
                 languages: State.validatedExamData.languages || [selectedLingua],
                 id: 'exam_local_' + Date.now(),
                 cadeira_id: State.activeCadeira.id,
-                isLocal: true
+                isLocal: true,
+                createdAt: new Date().toISOString()
             };
 
             State.localExames.push(newExame);

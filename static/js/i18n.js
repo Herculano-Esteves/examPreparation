@@ -259,6 +259,8 @@ export const TRANSLATIONS = {
         danger_zone_title: 'Zona de Perigo',
         danger_zone_desc: 'Esta ação é irreversível e irá apagar permanentemente todas as cadeiras e exames criados localmente.',
         btn_clear_storage: 'Apagar Dados Locais',
+        btn_export_zip: 'Exportar (.zip)',
+        btn_import_zip: 'Importar (.zip)',
         btn_back: 'Voltar',
 
         // Footer
@@ -274,6 +276,11 @@ export const TRANSLATIONS = {
         toast_exame_created: 'Exame criado com sucesso!',
         toast_cadeira_deleted: 'Cadeira apagada com sucesso!',
         toast_exam_deleted: 'Exame apagado com sucesso!',
+        toast_export_success: 'Backup .zip exportado com sucesso!',
+        toast_export_empty: 'Não existem cadeiras nem exames locais para exportar.',
+        toast_import_success: 'Importação concluída: {importedExams} novos exames ({importedCadeiras} novas cadeiras), {skippedExams} duplicados ignorados.',
+        toast_import_nothing_new: 'Todos os exames do arquivo já existem no simulador (nenhum novo adicionado).',
+        toast_import_error: 'Erro ao importar ficheiro .zip. Verifique o formato do arquivo.',
         toast_error_all_excluded: 'Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.',
         error_required_field: 'Campo obrigatório',
         error_fill_required_fields: 'Por favor, preencha o nome da cadeira.',
@@ -549,6 +556,8 @@ export const TRANSLATIONS = {
         danger_zone_title: 'Danger Zone',
         danger_zone_desc: 'This action is irreversible and will permanently delete all locally created subjects and exams.',
         btn_clear_storage: 'Clear Local Data',
+        btn_export_zip: 'Export (.zip)',
+        btn_import_zip: 'Import (.zip)',
         btn_back: 'Back',
 
         // Footer
@@ -564,6 +573,11 @@ export const TRANSLATIONS = {
         toast_exame_created: 'Exam created successfully!',
         toast_cadeira_deleted: 'Subject deleted successfully!',
         toast_exam_deleted: 'Exam deleted successfully!',
+        toast_export_success: 'Backup .zip exported successfully!',
+        toast_export_empty: 'No local subjects or exams found to export.',
+        toast_import_success: 'Import complete: {importedExams} new exams ({importedCadeiras} new subjects), {skippedExams} duplicates skipped.',
+        toast_import_nothing_new: 'All exams in the backup are already present (0 new added).',
+        toast_import_error: 'Error importing .zip file. Please check if format is valid.',
         toast_error_all_excluded: 'All questions in this exam are excluded by your filters. Enable at least one type to start.',
         error_required_field: 'Required field',
         error_fill_required_fields: 'Please fill in the subject title.',

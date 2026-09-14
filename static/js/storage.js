@@ -56,6 +56,14 @@ export function loadLocalData(State) {
     try {
         const cadeirasRaw = localStorage.getItem(APP_CONFIG.storageKeys.cadeiras);
         State.localCadeiras = cadeirasRaw ? JSON.parse(cadeirasRaw) : [];
+        if (Array.isArray(State.localCadeiras)) {
+            State.localCadeiras.forEach(c => {
+                if (!c.createdAt && c.id) {
+                    const ts = parseInt(c.id.replace('local_', ''), 10);
+                    c.createdAt = new Date(!isNaN(ts) && ts > 1000000000000 ? ts : Date.now()).toISOString();
+                }
+            });
+        }
     } catch (e) {
         console.error('Erro ao ler cadeiras locais:', e);
         State.localCadeiras = [];
@@ -64,6 +72,14 @@ export function loadLocalData(State) {
     try {
         const examesRaw = localStorage.getItem(APP_CONFIG.storageKeys.exames);
         State.localExames = examesRaw ? JSON.parse(examesRaw) : [];
+        if (Array.isArray(State.localExames)) {
+            State.localExames.forEach(e => {
+                if (!e.createdAt && e.id) {
+                    const ts = parseInt(e.id.replace('exam_local_', ''), 10);
+                    e.createdAt = new Date(!isNaN(ts) && ts > 1000000000000 ? ts : Date.now()).toISOString();
+                }
+            });
+        }
     } catch (e) {
         console.error('Erro ao ler exames locais:', e);
         State.localExames = [];
@@ -344,4 +360,157 @@ export function deleteLocalExame(examId, State) {
 
     return true;
 }
+
+/**
+ * Helper to extract comparable title from an exam object (supports string or { pt, en }).
+ * @param {object} exam
+ * @returns {string}
+ */
+export function getComparableExamTitle(exam) {
+    if (!exam) return '';
+    const raw = exam.title || exam.titulo || '';
+    if (typeof raw === 'object' && raw !== null) {
+        return (raw.pt || raw.en || Object.values(raw)[0] || '').trim().toLowerCase();
+    }
+    return String(raw).trim().toLowerCase();
+}
+
+/**
+ * Normalizes ISO date string or timestamp to standard ISO 8601 string for exact comparison.
+ * @param {string|number} dateVal
+ * @returns {string}
+ */
+export function normalizeTimestamp(dateVal) {
+    if (!dateVal) return '';
+    try {
+        const d = new Date(dateVal);
+        return isNaN(d.getTime()) ? String(dateVal).trim() : d.toISOString();
+    } catch (e) {
+        return String(dateVal).trim();
+    }
+}
+
+/**
+ * Imports local subjects and exams from a parsed backup package with intelligent de-duplication:
+ * - Same Name AND Same Creation Timestamp: Identical item -> Ignored (no duplicate).
+ * - Same Name BUT Different Creation Timestamp: New version / distinct instance -> Added as new local item.
+ * - Non-existent Name: Added as new local item.
+ *
+ * @param {{ cadeiras: object[], exames: object[] }} backupData
+ * @param {object} State
+ * @returns {{
+ *   importedCadeirasCount: number,
+ *   skippedCadeirasCount: number,
+ *   importedExamsCount: number,
+ *   skippedExamsCount: number
+ * }}
+ */
+export function importLocalDataFromBackup({ cadeiras = [], exames = [] }, State) {
+    if (!State) return { importedCadeirasCount: 0, skippedCadeirasCount: 0, importedExamsCount: 0, skippedExamsCount: 0 };
+    if (!Array.isArray(State.localCadeiras)) State.localCadeiras = [];
+    if (!Array.isArray(State.localExames)) State.localExames = [];
+
+    let importedCadeirasCount = 0;
+    let skippedCadeirasCount = 0;
+    let importedExamsCount = 0;
+    let skippedExamsCount = 0;
+
+    // Map old/imported subject IDs to resolved/existing subject IDs
+    const cadeiraIdMap = new Map();
+
+    // 1. Process Subjects
+    for (const incomingCadeira of cadeiras) {
+        if (!incomingCadeira || !incomingCadeira.nome) continue;
+
+        const incomingName = incomingCadeira.nome.trim().toLowerCase();
+        const incomingCreatedAt = normalizeTimestamp(incomingCadeira.createdAt || (incomingCadeira.id ? incomingCadeira.id.replace('local_', '') : ''));
+
+        // Check against existing local subjects
+        const existingSubject = State.localCadeiras.find(c => {
+            const existingName = (c.nome || '').trim().toLowerCase();
+            const existingCreatedAt = normalizeTimestamp(c.createdAt || (c.id ? c.id.replace('local_', '') : ''));
+            return existingName === incomingName && existingCreatedAt === incomingCreatedAt;
+        });
+
+        if (existingSubject) {
+            // Exact same subject (same name & same createdAt) -> Skip creating duplicate
+            cadeiraIdMap.set(incomingCadeira.id, existingSubject.id);
+            skippedCadeirasCount++;
+        } else {
+            // New subject or different creation timestamp -> Create as new local subject
+            const newSubjectId = 'local_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+            const cleanCreatedAt = incomingCreatedAt || new Date().toISOString();
+
+            const newCadeiraObj = {
+                id: newSubjectId,
+                nome: incomingCadeira.nome.trim(),
+                sigla: incomingCadeira.sigla || incomingCadeira.nome.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5),
+                descricao: incomingCadeira.descricao || '',
+                icon: incomingCadeira.icon || 'fa-graduation-cap',
+                exames_count: 0,
+                isLocal: true,
+                index_path: null,
+                createdAt: cleanCreatedAt
+            };
+
+            State.localCadeiras.push(newCadeiraObj);
+            cadeiraIdMap.set(incomingCadeira.id, newSubjectId);
+            importedCadeirasCount++;
+        }
+    }
+
+    // 2. Process Exams
+    for (const incomingExam of exames) {
+        if (!incomingExam) continue;
+
+        const incomingTitle = getComparableExamTitle(incomingExam);
+        const incomingCreatedAt = normalizeTimestamp(incomingExam.createdAt || (incomingExam.id ? incomingExam.id.replace('exam_local_', '') : ''));
+        const resolvedCadeiraId = cadeiraIdMap.get(incomingExam.cadeira_id) || incomingExam.cadeira_id || (State.localCadeiras[0] ? State.localCadeiras[0].id : null);
+
+        // Check against existing local exams
+        const existingExam = State.localExames.find(e => {
+            const existingTitle = getComparableExamTitle(e);
+            const existingCreatedAt = normalizeTimestamp(e.createdAt || (e.id ? e.id.replace('exam_local_', '') : ''));
+            // If they have the exact same title AND the exact same createdAt, they are identical
+            return existingTitle === incomingTitle && existingCreatedAt === incomingCreatedAt;
+        });
+
+        if (existingExam) {
+            // Exact same exam (same title & same timestamp) -> Skip creating duplicate
+            skippedExamsCount++;
+        } else {
+            // New exam or different timestamp -> Add as new local exam
+            const newExamId = 'exam_local_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6);
+            const cleanCreatedAt = incomingCreatedAt || new Date().toISOString();
+
+            const newExamObj = {
+                ...incomingExam,
+                id: newExamId,
+                cadeira_id: resolvedCadeiraId,
+                isLocal: true,
+                createdAt: cleanCreatedAt
+            };
+
+            State.localExames.push(newExamObj);
+            importedExamsCount++;
+        }
+    }
+
+    // 3. Recalculate exames_count for all local subjects
+    State.localCadeiras.forEach(c => {
+        c.exames_count = State.localExames.filter(e => e.cadeira_id === c.id).length;
+    });
+
+    // 4. Persist to localStorage
+    saveLocalCadeiras(State);
+    saveLocalExames(State);
+
+    return {
+        importedCadeirasCount,
+        skippedCadeirasCount,
+        importedExamsCount,
+        skippedExamsCount
+    };
+}
+
 

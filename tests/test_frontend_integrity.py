@@ -459,7 +459,300 @@ class TestFrontendIntegrity(unittest.TestCase):
         self.assertTrue(flag['deleted'])
         self.assertTrue(modal.executed)
 
+    def test_zip_backup_and_timestamp_deduplication(self):
+        """
+        Validates the backup import deduplication rules:
+        - Same name + same createdAt -> Duplicate (skip)
+        - Same name + different createdAt -> New instance (import)
+        - New name -> New instance (import)
+        - Auto-recalculation of exames_count
+        """
+        def get_comparable_title(exam):
+            title_val = exam.get('title') or exam.get('titulo') or ''
+            if isinstance(title_val, dict):
+                return str(title_val.get('pt') or title_val.get('en') or '').strip().lower()
+            return str(title_val).strip().lower()
+
+        def normalize_timestamp(ts):
+            if not ts:
+                return ''
+            import datetime
+            try:
+                dt = datetime.datetime.fromisoformat(str(ts).replace('Z', '+00:00'))
+                return dt.isoformat()
+            except Exception:
+                return str(ts).strip()
+
+        def import_local_backup(backup_data, state):
+            cadeiras = backup_data.get('cadeiras', [])
+            exames = backup_data.get('exames', [])
+            imported_cadeiras_count = 0
+            imported_exams_count = 0
+            skipped_exams_count = 0
+
+            cadeira_id_map = {}
+
+            # 1. Process Cadeiras
+            for raw_cad in cadeiras:
+                cad_name = (raw_cad.get('nome') or '').strip()
+                if not cad_name:
+                    continue
+                cad_created = normalize_timestamp(raw_cad.get('createdAt'))
+                
+                # Check existing cadeira
+                existing = None
+                for c in state['localCadeiras']:
+                    if (c.get('nome') or '').strip().lower() == cad_name.lower():
+                        if cad_created and normalize_timestamp(c.get('createdAt')) == cad_created:
+                            existing = c
+                            break
+                        elif not cad_created and not c.get('createdAt'):
+                            existing = c
+                            break
+
+                if existing:
+                    cadeira_id_map[raw_cad.get('id')] = existing['id']
+                else:
+                    new_id = f"local_imported_{len(state['localCadeiras']) + 1}"
+                    new_cad = {
+                        'id': new_id,
+                        'nome': cad_name,
+                        'descricao': raw_cad.get('descricao', ''),
+                        'icon': raw_cad.get('icon', 'fa-book'),
+                        'exames_count': 0,
+                        'isLocal': True,
+                        'index_path': None,
+                        'createdAt': raw_cad.get('createdAt') or "2026-09-14T12:00:00.000Z"
+                    }
+                    state['localCadeiras'].append(new_cad)
+                    cadeira_id_map[raw_cad.get('id')] = new_id
+                    imported_cadeiras_count += 1
+
+            # 2. Process Exames
+            for raw_ex in exames:
+                ex_title = get_comparable_title(raw_ex)
+                if not ex_title:
+                    continue
+                ex_created = normalize_timestamp(raw_ex.get('createdAt'))
+                target_cad_id = cadeira_id_map.get(raw_ex.get('cadeira_id')) or raw_ex.get('cadeira_id')
+
+                # Duplicate detection
+                is_duplicate = False
+                for ex in state['localExames']:
+                    if get_comparable_title(ex) == ex_title and ex.get('cadeira_id') == target_cad_id:
+                        existing_created = normalize_timestamp(ex.get('createdAt'))
+                        if ex_created and existing_created and ex_created == existing_created:
+                            is_duplicate = True
+                            break
+                        elif not ex_created and not existing_created:
+                            is_duplicate = True
+                            break
+
+                if is_duplicate:
+                    skipped_exams_count += 1
+                    continue
+
+                new_ex_id = f"exam_local_imported_{len(state['localExames']) + 1}"
+                new_ex = dict(raw_ex)
+                new_ex['id'] = new_ex_id
+                new_ex['cadeira_id'] = target_cad_id
+                new_ex['isLocal'] = True
+                if not new_ex.get('createdAt'):
+                    new_ex['createdAt'] = "2026-09-14T12:00:00.000Z"
+
+                state['localExames'].append(new_ex)
+                imported_exams_count += 1
+
+            # Recalculate exames_count
+            for c in state['localCadeiras']:
+                c['exames_count'] = len([e for e in state['localExames'] if e.get('cadeira_id') == c['id']])
+
+            return {
+                'importedCadeirasCount': imported_cadeiras_count,
+                'importedExamsCount': imported_exams_count,
+                'skippedExamsCount': skipped_exams_count
+            }
+
+        # Initialize State
+        state = {
+            'localCadeiras': [
+                {
+                    'id': 'local_1',
+                    'nome': 'Matemática',
+                    'createdAt': '2026-09-01T10:00:00.000Z',
+                    'exames_count': 1
+                }
+            ],
+            'localExames': [
+                {
+                    'id': 'exam_1',
+                    'cadeira_id': 'local_1',
+                    'title': 'Exame 1',
+                    'createdAt': '2026-09-01T10:00:00.000Z',
+                    'questions': []
+                }
+            ]
+        }
+
+        # Test Batch 1:
+        # - Exame 1 with SAME name and SAME createdAt -> Duplicate (skip)
+        # - Exame 1 with SAME name and DIFFERENT createdAt -> New instance (import)
+        # - Exame 2 with NEW name -> New instance (import)
+        backup = {
+            'cadeiras': [
+                {
+                    'id': 'backup_cad_1',
+                    'nome': 'Matemática',
+                    'createdAt': '2026-09-01T10:00:00.000Z'
+                },
+                {
+                    'id': 'backup_cad_2',
+                    'nome': 'Física',
+                    'createdAt': '2026-09-05T12:00:00.000Z'
+                }
+            ],
+            'exames': [
+                {
+                    'id': 'b_ex_1',
+                    'cadeira_id': 'backup_cad_1',
+                    'title': 'Exame 1',
+                    'createdAt': '2026-09-01T10:00:00.000Z'  # EXACT SAME -> SKIP
+                },
+                {
+                    'id': 'b_ex_2',
+                    'cadeira_id': 'backup_cad_1',
+                    'title': 'Exame 1',
+                    'createdAt': '2026-09-02T15:30:00.000Z'  # DIFFERENT TIME -> IMPORT NEW
+                },
+                {
+                    'id': 'b_ex_3',
+                    'cadeira_id': 'backup_cad_2',
+                    'title': 'Física Quântica Teste 1',
+                    'createdAt': '2026-09-05T12:00:00.000Z'  # NEW NAME -> IMPORT
+                }
+            ]
+        }
+
+        result = import_local_backup(backup, state)
+
+        # 1 new Cadeira ('Física'), 1 existing ('Matemática')
+        self.assertEqual(result['importedCadeirasCount'], 1)
+        # 1 duplicate skipped (Exame 1 @ 2026-09-01)
+        self.assertEqual(result['skippedExamsCount'], 1)
+        # 2 exams imported (Exame 1 @ 2026-09-02 and Física Quântica Teste 1)
+        self.assertEqual(result['importedExamsCount'], 2)
+
+        # Total exams in state should be 1 initial + 2 imported = 3
+        self.assertEqual(len(state['localExames']), 3)
+
+        # Matemática should now have 2 exams (exam_1 and the new Exame 1)
+        mat_cad = next(c for c in state['localCadeiras'] if c['nome'] == 'Matemática')
+        self.assertEqual(mat_cad['exames_count'], 2)
+
+        # Física should have 1 exam
+        fis_cad = next(c for c in state['localCadeiras'] if c['nome'] == 'Física')
+        self.assertEqual(fis_cad['exames_count'], 1)
+
+    def test_settings_popover_mathematical_layout(self):
+        """
+        Validates the mathematical positioning & collision avoidance algorithm of settingsPopover.js:
+        - Dynamic content width clamping
+        - Viewport boundary constraints (left/right margins)
+        - Intelligent vertical inversion (flip upwards when overflowing bottom)
+        - Max-height calculation for scrollable container
+        """
+        def calculate_popover_layout(trigger_rect, popover_dims, viewport_dims, options=None):
+            opts = options or {}
+            gap = opts.get('gap', 8)
+            margin = opts.get('margin', 12)
+            min_width = opts.get('min_width', 290)
+            max_width_limit = opts.get('max_width', 360)
+
+            vw = viewport_dims.get('width', 800)
+            vh = viewport_dims.get('height', 600)
+
+            # 1. Calculate dynamic width with viewport boundaries
+            max_w = max(min_width, min(max_width_limit, vw - 2 * margin))
+            target_w = max(min_width, min(popover_dims.get('width', min_width), max_w))
+
+            # 2. Horizontal placement (align with right edge of trigger, clamped to viewport)
+            left = trigger_rect['right'] - target_w
+            max_left = vw - target_w - margin
+            left = max(margin, min(left, max_left))
+
+            # 3. Vertical placement and available space calculation
+            space_below = max(0, vh - trigger_rect['bottom'] - gap - margin)
+            space_above = max(0, trigger_rect['top'] - gap - margin)
+            needed_height = popover_dims.get('height', 220)
+
+            if needed_height <= space_below or space_below >= space_above:
+                placement = 'bottom'
+                top = trigger_rect['bottom'] + gap
+                max_height = max(120, space_below)
+            else:
+                placement = 'top'
+                actual_height = min(needed_height, space_above)
+                top = max(margin, trigger_rect['top'] - actual_height - gap)
+                max_height = max(120, space_above)
+
+            return {
+                'top': round(top),
+                'left': round(left),
+                'width': round(target_w),
+                'maxHeight': round(max_height),
+                'placement': placement
+            }
+
+        # Case 1: Standard Desktop - Trigger in top-right corner, plenty of space below
+        # Trigger: right = 1180, top = 20, bottom = 54. Viewport: 1200x800. Popover: 300x240
+        res1 = calculate_popover_layout(
+            trigger_rect={'left': 1146, 'right': 1180, 'top': 20, 'bottom': 54},
+            popover_dims={'width': 300, 'height': 240},
+            viewport_dims={'width': 1200, 'height': 800}
+        )
+        self.assertEqual(res1['placement'], 'bottom')
+        self.assertEqual(res1['top'], 54 + 8)  # 62px
+        # Ideal left = 1180 - 300 = 880. Max left = 1200 - 300 - 12 = 888. Left = 880
+        self.assertEqual(res1['left'], 880)
+        self.assertEqual(res1['width'], 300)
+        self.assertGreaterEqual(res1['maxHeight'], 240)
+
+        # Case 2: Inversion upwards - Trigger near bottom (e.g. sticky bottom bar)
+        # Trigger: right = 700, top = 550, bottom = 584. Viewport: 800x600. Popover: 300x240
+        res2 = calculate_popover_layout(
+            trigger_rect={'left': 666, 'right': 700, 'top': 550, 'bottom': 584},
+            popover_dims={'width': 300, 'height': 240},
+            viewport_dims={'width': 800, 'height': 600}
+        )
+        self.assertEqual(res2['placement'], 'top')
+        # Space below was only 600 - 584 - 8 - 12 = -4px -> flips above
+        # top = 550 - 240 - 8 = 302px
+        self.assertEqual(res2['top'], 302)
+        self.assertEqual(res2['left'], 400)  # 700 - 300 = 400
+
+        # Case 3: Narrow mobile screen (360px wide) - Width adapts without overflowing
+        res3 = calculate_popover_layout(
+            trigger_rect={'left': 300, 'right': 345, 'top': 20, 'bottom': 54},
+            popover_dims={'width': 350, 'height': 240},
+            viewport_dims={'width': 360, 'height': 640}
+        )
+        # Max width available on 360px viewport: 360 - 24 = 336px
+        self.assertEqual(res3['width'], 336)
+        self.assertEqual(res3['left'], 12)  # clamped to margin
+
+        # Case 4: Extreme small height (e.g. landscape mobile 300px) - MaxHeight clamped
+        res4 = calculate_popover_layout(
+            trigger_rect={'left': 400, 'right': 440, 'top': 10, 'bottom': 40},
+            popover_dims={'width': 300, 'height': 350},
+            viewport_dims={'width': 600, 'height': 300}
+        )
+        self.assertEqual(res4['placement'], 'bottom')
+        # Available space below = 300 - 40 - 8 - 12 = 240px
+        self.assertEqual(res4['maxHeight'], 240)
+
+
 if __name__ == '__main__':
     unittest.main()
+
 
 

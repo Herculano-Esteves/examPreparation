@@ -1107,10 +1107,20 @@
 
             <div class="settings-popover-divider"></div>
 
-            <!-- Danger Zone Section -->
+            <!-- Storage & Backup Section -->
             <div class="settings-popover-section">
-                <span class="settings-popover-section-label" data-i18n="settings_storage_title">Armazenamento
-                    Local</span>
+                <span class="settings-popover-section-label" data-i18n="settings_storage_title">Armazenamento Local</span>
+                <div class="settings-popover-backup-actions">
+                    <button type="button" id="btn-export-zip" class="btn-popover-backup">
+                        <i class="fa-solid fa-file-zipper" aria-hidden="true"></i>
+                        <span data-i18n="btn_export_zip">Exportar (.zip)</span>
+                    </button>
+                    <button type="button" id="btn-import-zip" class="btn-popover-backup">
+                        <i class="fa-solid fa-file-import" aria-hidden="true"></i>
+                        <span data-i18n="btn_import_zip">Importar (.zip)</span>
+                    </button>
+                    <input type="file" id="input-import-zip" accept=".zip,application/zip" class="hidden" aria-hidden="true">
+                </div>
                 <button type="button" id="btn-clear-storage" class="btn-popover-clear-storage">
                     <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
                     <span data-i18n="btn_clear_storage">Apagar Dados Locais</span>
