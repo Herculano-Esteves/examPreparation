@@ -14,6 +14,7 @@ import { initExamLayout } from './layout.js';
 import { isLanguageConfigured, setLanguageConfigured } from './config.js';
 import { initExamBuilder, resetExamBuilder } from './examBuilder.js';
 import { initPracticeHub } from './practiceHub.js';
+import { openDangerConfirmModal, initDangerConfirmModal } from './confirmModal.js';
 
 // Initialization
 function initApp() {
@@ -21,6 +22,7 @@ function initApp() {
     setupEventListeners();
     setupLocalCreationListeners();
     loadLocalData(State);
+    initDangerConfirmModal();
     initExamLayout();
     initPracticeHub();
     fetchCadeiras();
@@ -300,45 +302,33 @@ function setupEventListeners() {
     if (btnClearStorage) {
         btnClearStorage.addEventListener('click', () => {
             closeSettingsPopover();
-            if (elements.dangerConfirmModal) {
-                elements.dangerConfirmModal.classList.remove('hidden');
-            }
-        });
-    }
+            openDangerConfirmModal({
+                title: t('modal_danger_title'),
+                descriptionHTML: t('modal_danger_desc'),
+                confirmText: t('btn_confirm_delete'),
+                cancelText: t('btn_cancel'),
+                onConfirm: () => {
+                    clearAllLocalData(State);
 
-    if (elements.btnCancelClearStorage) {
-        elements.btnCancelClearStorage.addEventListener('click', () => {
-            if (elements.dangerConfirmModal) {
-                elements.dangerConfirmModal.classList.add('hidden');
-            }
-        });
-    }
+                    showToast(t('toast_storage_cleared'), elements);
+                    State.activeCadeira = null;
 
-    if (elements.btnConfirmClearStorage) {
-        elements.btnConfirmClearStorage.addEventListener('click', () => {
-            if (elements.dangerConfirmModal) {
-                elements.dangerConfirmModal.classList.add('hidden');
-            }
+                    const logoIcon = document.getElementById('app-logo-icon');
+                    if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
 
-            clearAllLocalData(State);
+                    const mainTitle = document.getElementById('app-main-title');
+                    if (mainTitle) mainTitle.textContent = t('app_title');
 
-            showToast(t('toast_storage_cleared'), elements);
-            State.activeCadeira = null;
+                    const subtitleEl = document.getElementById('app-subtitle');
+                    if (subtitleEl) {
+                        subtitleEl.textContent = t('app_subtitle');
+                    }
 
-            const logoIcon = document.getElementById('app-logo-icon');
-            if (logoIcon) logoIcon.className = 'fa-solid fa-graduation-cap app-logo-icon';
-
-            const mainTitle = document.getElementById('app-main-title');
-            if (mainTitle) mainTitle.textContent = t('app_title');
-
-            const subtitleEl = document.getElementById('app-subtitle');
-            if (subtitleEl) {
-                subtitleEl.textContent = t('app_subtitle');
-            }
-
-            transitionTo('cadeiras');
-            renderCadeirasMenu();
-            initLanguagePrompt();
+                    transitionTo('cadeiras');
+                    renderCadeirasMenu();
+                    initLanguagePrompt();
+                }
+            });
         });
     }
 

@@ -13,6 +13,8 @@ import { transitionTo } from './navigation.js';
 import { t, updateSortCadeirasDropdownLabel, getCurrentLanguage } from './i18n.js';
 import { Events, APP_EVENTS } from './events.js';
 import { ALL_QUESTION_TYPES } from './examFilters.js';
+import { deleteLocalCadeira } from './storage.js';
+import { openDangerConfirmModal } from './confirmModal.js';
 
 let renderTimer = null;
 function scheduleRenderCadeirasMenu() {
@@ -392,13 +394,53 @@ export function renderCadeirasMenu() {
             ? (cadeira.icon.startsWith('fa-') ? `fa-solid ${cadeira.icon}` : cadeira.icon)
             : 'fa-solid fa-graduation-cap';
 
+        const deleteBtnHTML = cadeira.isLocal
+            ? `<button type="button" class="btn-card-delete" title="${escapeHTML(t('btn_delete_cadeira_title'))}" aria-label="${escapeHTML(t('aria_delete_cadeira', { name: cadeira.nome }))}">
+                   <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+               </button>`
+            : '';
+
         row.innerHTML = `
             <div class="exam-list-header">
                 <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
-                <span class="exam-list-action">[ ${countLabel} ]</span>
+                <div class="exam-list-header-right">
+                    ${deleteBtnHTML}
+                    <span class="exam-list-action">[ ${countLabel} ]</span>
+                </div>
             </div>
             <p class="exam-list-desc">${escapeHTML(cadeira.descricao)}</p>
         `;
+
+        if (cadeira.isLocal) {
+            const btnDelete = row.querySelector('.btn-card-delete');
+            if (btnDelete) {
+                const handleDelete = (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    openDangerConfirmModal({
+                        title: t('modal_delete_cadeira_title'),
+                        descriptionHTML: t('modal_delete_cadeira_desc', { name: escapeHTML(cadeira.nome) }),
+                        confirmText: t('btn_confirm_delete_cadeira'),
+                        cancelText: t('btn_cancel'),
+                        onConfirm: () => {
+                            deleteLocalCadeira(cadeira.id, State);
+                            showToast(t('toast_cadeira_deleted'));
+                            Events.emit(APP_EVENTS.CADEIRA_DELETED, { cadeiraId: cadeira.id });
+                            renderCadeirasMenu();
+                        }
+                    });
+                };
+
+                btnDelete.addEventListener('click', handleDelete);
+                btnDelete.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleDelete(e);
+                    }
+                });
+            }
+        }
 
         const activate = () => selectCadeira(cadeira);
         row.addEventListener('click', activate);

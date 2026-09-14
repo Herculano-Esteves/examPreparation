@@ -272,6 +272,8 @@ export const TRANSLATIONS = {
         toast_filters_reset: 'Filtros repostos com sucesso!',
         toast_cadeira_created: 'Cadeira criada com sucesso!',
         toast_exame_created: 'Exame criado com sucesso!',
+        toast_cadeira_deleted: 'Cadeira apagada com sucesso!',
+        toast_exam_deleted: 'Exame apagado com sucesso!',
         toast_error_all_excluded: 'Todas as perguntas deste exame estão excluídas pelos filtros. Ative pelo menos um tipo para iniciar.',
         error_required_field: 'Campo obrigatório',
         error_fill_required_fields: 'Por favor, preencha o nome da cadeira.',
@@ -285,7 +287,17 @@ export const TRANSLATIONS = {
         modal_danger_title: 'Apagar dados locais',
         modal_danger_desc: 'Esta ação é irreversível. Todas as cadeiras, exames e histórico de progresso guardados no computador serão eliminados permanentemente.',
         btn_cancel: 'Cancelar',
-        btn_confirm_delete: 'Apagar Tudo'
+        btn_confirm_delete: 'Apagar Tudo',
+        btn_delete_cadeira_title: 'Apagar cadeira',
+        btn_delete_exam_title: 'Apagar exame',
+        aria_delete_cadeira: 'Apagar cadeira {name}',
+        aria_delete_exam: 'Apagar exame {title}',
+        modal_delete_cadeira_title: 'Apagar Cadeira',
+        modal_delete_cadeira_desc: 'Tem a certeza de que deseja apagar a cadeira <strong class="danger-item-highlight">{name}</strong>? Esta ação é irreversível e todos os exames locais associados serão eliminados permanentemente.',
+        btn_confirm_delete_cadeira: 'Apagar Cadeira',
+        modal_delete_exam_title: 'Apagar Exame',
+        modal_delete_exam_desc: 'Tem a certeza de que deseja apagar o exame <strong class="danger-item-highlight">{title}</strong>? Esta ação é irreversível.',
+        btn_confirm_delete_exam: 'Apagar Exame'
     },
 
     en: {
@@ -550,6 +562,8 @@ export const TRANSLATIONS = {
         toast_filters_reset: 'Filters reset successfully!',
         toast_cadeira_created: 'Subject created successfully!',
         toast_exame_created: 'Exam created successfully!',
+        toast_cadeira_deleted: 'Subject deleted successfully!',
+        toast_exam_deleted: 'Exam deleted successfully!',
         toast_error_all_excluded: 'All questions in this exam are excluded by your filters. Enable at least one type to start.',
         error_required_field: 'Required field',
         error_fill_required_fields: 'Please fill in the subject title.',
@@ -563,7 +577,17 @@ export const TRANSLATIONS = {
         modal_danger_title: 'Delete local data',
         modal_danger_desc: 'This action is irreversible. All subjects, exams, and progress history stored on your computer will be permanently deleted.',
         btn_cancel: 'Cancel',
-        btn_confirm_delete: 'Delete All'
+        btn_confirm_delete: 'Delete All',
+        btn_delete_cadeira_title: 'Delete subject',
+        btn_delete_exam_title: 'Delete exam',
+        aria_delete_cadeira: 'Delete subject {name}',
+        aria_delete_exam: 'Delete exam {title}',
+        modal_delete_cadeira_title: 'Delete Subject',
+        modal_delete_cadeira_desc: 'Are you sure you want to delete the subject <strong class="danger-item-highlight">{name}</strong>? This action cannot be undone and all associated local exams will be permanently deleted.',
+        btn_confirm_delete_cadeira: 'Delete Subject',
+        modal_delete_exam_title: 'Delete Exam',
+        modal_delete_exam_desc: 'Are you sure you want to delete the exam <strong class="danger-item-highlight">{title}</strong>? This action cannot be undone.',
+        btn_confirm_delete_exam: 'Delete Exam'
     }
 };
 

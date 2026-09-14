@@ -262,3 +262,86 @@ export function clearAllLocalData(State) {
     State.difficultQuestions = {};
     State.language      = APP_CONFIG.defaultLanguage;
 }
+
+/**
+ * Delete a locally-created cadeira and any of its associated local exams.
+ * Also cleans up history and difficult questions.
+ *
+ * @param {string} cadeiraId
+ * @param {object} State
+ * @returns {boolean} True if deleted, false otherwise
+ */
+export function deleteLocalCadeira(cadeiraId, State) {
+    if (!cadeiraId || !State || !Array.isArray(State.localCadeiras)) return false;
+
+    const initialLen = State.localCadeiras.length;
+    State.localCadeiras = State.localCadeiras.filter(c => c.id !== cadeiraId);
+    if (State.localCadeiras.length === initialLen) return false;
+    saveLocalCadeiras(State);
+
+    // Clean up local exams associated with this cadeira
+    if (Array.isArray(State.localExames)) {
+        const examsToRemove = State.localExames.filter(e => e.cadeira_id === cadeiraId);
+        examsToRemove.forEach(e => {
+            if (State.examHistory && State.examHistory[e.id]) {
+                delete State.examHistory[e.id];
+            }
+            if (State.difficultQuestions && State.difficultQuestions[e.id]) {
+                delete State.difficultQuestions[e.id];
+            }
+        });
+        State.localExames = State.localExames.filter(e => e.cadeira_id !== cadeiraId);
+        saveLocalExames(State);
+        saveExamHistory(State);
+        saveDifficultQuestions(State);
+    }
+
+    // Reset activeCadeira if the active one was deleted
+    if (State.activeCadeira && State.activeCadeira.id === cadeiraId) {
+        State.activeCadeira = null;
+    }
+
+    return true;
+}
+
+/**
+ * Delete a locally-created exam.
+ * Also updates parent local cadeira's exames_count and cleans up exam history/difficult questions.
+ *
+ * @param {string} examId
+ * @param {object} State
+ * @returns {boolean} True if deleted, false otherwise
+ */
+export function deleteLocalExame(examId, State) {
+    if (!examId || !State || !Array.isArray(State.localExames)) return false;
+
+    const targetExam = State.localExames.find(e => e.id === examId);
+    if (!targetExam) return false;
+
+    // 1. Remove from localExames
+    State.localExames = State.localExames.filter(e => e.id !== examId);
+    saveLocalExames(State);
+
+    // 2. Update parent local cadeira's exames_count if applicable
+    if (targetExam.cadeira_id && Array.isArray(State.localCadeiras)) {
+        const cIdx = State.localCadeiras.findIndex(c => c.id === targetExam.cadeira_id);
+        if (cIdx > -1) {
+            const currentCount = State.localCadeiras[cIdx].exames_count || 0;
+            State.localCadeiras[cIdx].exames_count = Math.max(0, currentCount - 1);
+            saveLocalCadeiras(State);
+        }
+    }
+
+    // 3. Clean up history and difficult questions
+    if (State.examHistory && State.examHistory[examId]) {
+        delete State.examHistory[examId];
+        saveExamHistory(State);
+    }
+    if (State.difficultQuestions && State.difficultQuestions[examId]) {
+        delete State.difficultQuestions[examId];
+        saveDifficultQuestions(State);
+    }
+
+    return true;
+}
+

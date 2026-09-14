@@ -415,3 +415,17 @@ Events.on(APP_EVENTS.LANGUAGE_CHANGED, () => {
         renderExamsMenu();
     }
 });
+
+Events.on(APP_EVENTS.EXAM_DELETED, () => {
+    if (State.currentScreen === 'menu' && State.activeCadeira) {
+        fetchExams(State.activeCadeira.index_path);
+    }
+});
+
+Events.on(APP_EVENTS.CADEIRA_DELETED, ({ cadeiraId }) => {
+    if (State.activeCadeira && State.activeCadeira.id === cadeiraId) {
+        State.activeCadeira = null;
+        transitionTo('cadeiras');
+    }
+});
+

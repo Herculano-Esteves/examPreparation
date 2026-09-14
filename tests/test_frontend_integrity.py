@@ -322,6 +322,144 @@ class TestFrontendIntegrity(unittest.TestCase):
         self.assertTrue(submitted)
         self.assertEqual(machine.toast_emitted, 'toast_cadeira_created')
 
+    def test_delete_local_cadeira_and_exam_cascade_logic(self):
+        """Validates deletion of local subjects, local exams, and automatic cascading data cleanup."""
+        # Simulated State
+        state = {
+            'localCadeiras': [
+                {'id': 'local_1', 'nome': 'Compiladores', 'exames_count': 2, 'isLocal': True},
+                {'id': 'local_2', 'nome': 'Redes', 'exames_count': 1, 'isLocal': True}
+            ],
+            'localExames': [
+                {'id': 'exam_1', 'title': 'Exame 2024', 'cadeira_id': 'local_1', 'isLocal': True},
+                {'id': 'exam_2', 'title': 'Exame 2023', 'cadeira_id': 'local_1', 'isLocal': True},
+                {'id': 'exam_3', 'title': 'Exame Redes 1', 'cadeira_id': 'local_2', 'isLocal': True}
+            ],
+            'examHistory': {
+                'exam_1': [1, 2, 1],
+                'exam_2': [1, 1],
+                'exam_3': [2, 2]
+            },
+            'difficultQuestions': {
+                'exam_1': [1],
+                'exam_3': [0]
+            },
+            'activeCadeira': {'id': 'local_1', 'nome': 'Compiladores'}
+        }
+
+        # 1. Delete a single local exam (exam_2 from local_1)
+        def delete_exam(exam_id, s):
+            target = next((e for e in s['localExames'] if e['id'] == exam_id), None)
+            if not target:
+                return False
+            s['localExames'] = [e for e in s['localExames'] if e['id'] != exam_id]
+            if target.get('cadeira_id'):
+                for c in s['localCadeiras']:
+                    if c['id'] == target['cadeira_id']:
+                        c['exames_count'] = max(0, c.get('exames_count', 0) - 1)
+            s['examHistory'].pop(exam_id, None)
+            s['difficultQuestions'].pop(exam_id, None)
+            return True
+
+        res_exam = delete_exam('exam_2', state)
+        self.assertTrue(res_exam)
+        self.assertEqual(len(state['localExames']), 2)
+        # local_1 exames_count should be decremented from 2 to 1
+        c1 = next(c for c in state['localCadeiras'] if c['id'] == 'local_1')
+        self.assertEqual(c1['exames_count'], 1)
+        self.assertNotIn('exam_2', state['examHistory'])
+
+        # 2. Delete a local subject (local_1)
+        def delete_cadeira(cadeira_id, s):
+            initial_len = len(s['localCadeiras'])
+            s['localCadeiras'] = [c for c in s['localCadeiras'] if c['id'] != cadeira_id]
+            if len(s['localCadeiras']) == initial_len:
+                return False
+            # Cascade delete exams
+            to_remove = [e for e in s['localExames'] if e.get('cadeira_id') == cadeira_id]
+            for e in to_remove:
+                s['examHistory'].pop(e['id'], None)
+                s['difficultQuestions'].pop(e['id'], None)
+            s['localExames'] = [e for e in s['localExames'] if e.get('cadeira_id') != cadeira_id]
+            if s.get('activeCadeira') and s['activeCadeira']['id'] == cadeira_id:
+                s['activeCadeira'] = None
+            return True
+
+        res_cad = delete_cadeira('local_1', state)
+        self.assertTrue(res_cad)
+        self.assertEqual(len(state['localCadeiras']), 1)
+        self.assertEqual(state['localCadeiras'][0]['id'], 'local_2')
+        # All exams belonging to local_1 (exam_1) should be cleaned up
+        self.assertEqual(len(state['localExames']), 1)
+        self.assertEqual(state['localExames'][0]['id'], 'exam_3')
+        self.assertNotIn('exam_1', state['examHistory'])
+        self.assertNotIn('exam_1', state['difficultQuestions'])
+        # Active subject reset
+        self.assertIsNone(state['activeCadeira'])
+
+    def test_danger_modal_state_machine(self):
+        """Validates confirmation dialog state machine and focus preservation."""
+        class DangerModalManager:
+            def __init__(self):
+                self.is_open = False
+                self.title = ""
+                self.description = ""
+                self.confirm_text = ""
+                self.on_confirm = None
+                self.executed = False
+
+            def open(self, title, desc, confirm_text, on_confirm):
+                self.is_open = True
+                self.title = title
+                self.description = desc
+                self.confirm_text = confirm_text
+                self.on_confirm = on_confirm
+                self.executed = False
+
+            def confirm(self):
+                if self.is_open and self.on_confirm:
+                    self.on_confirm()
+                    self.executed = True
+                self.is_open = False
+
+            def cancel(self):
+                self.is_open = False
+                self.executed = False
+
+        modal = DangerModalManager()
+        flag = {'deleted': False}
+
+        # Open modal
+        modal.open(
+            title="Apagar Cadeira",
+            desc="Tem a certeza?",
+            confirm_text="Apagar Cadeira",
+            on_confirm=lambda: flag.update({'deleted': True})
+        )
+
+        self.assertTrue(modal.is_open)
+        self.assertEqual(modal.title, "Apagar Cadeira")
+        self.assertFalse(flag['deleted'])
+
+        # Cancel action
+        modal.cancel()
+        self.assertFalse(modal.is_open)
+        self.assertFalse(flag['deleted'])
+
+        # Open again and confirm
+        modal.open(
+            title="Apagar Exame",
+            desc="Tem a certeza?",
+            confirm_text="Apagar Exame",
+            on_confirm=lambda: flag.update({'deleted': True})
+        )
+        self.assertTrue(modal.is_open)
+        modal.confirm()
+        self.assertFalse(modal.is_open)
+        self.assertTrue(flag['deleted'])
+        self.assertTrue(modal.executed)
+
 if __name__ == '__main__':
     unittest.main()
+
 

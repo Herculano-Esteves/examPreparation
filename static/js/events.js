@@ -12,6 +12,8 @@ export const APP_EVENTS = Object.freeze({
     CADEIRA_SELECTED:           'cadeira:selected',
     EXAM_STARTED:               'exam:started',
     EXAM_FINISHED:              'exam:finished',
+    CADEIRA_DELETED:            'cadeira:deleted',
+    EXAM_DELETED:               'exam:deleted',
     QUESTION_DIFFICULT_TOGGLED: 'question:difficult_toggled',
     FILTERS_RESET:              'filters:reset',
     NOTIFICATION:               'app:notification'

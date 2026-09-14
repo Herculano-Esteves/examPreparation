@@ -7,11 +7,13 @@
 
 import { State } from './state.js';
 import { escapeHTML, showToast } from './utils.js';
-import { QuestionStatus } from './storage.js';
+import { QuestionStatus, deleteLocalExame } from './storage.js';
 import { getQuestionTypeInfo, renderQuestionTypeTagsHTML } from './questionTypes.js';
 import { t, getCurrentLanguage } from './i18n.js';
 import { ExamService } from './examService.js';
 import { getEffectiveExcludedTypes } from './examFilters.js';
+import { openDangerConfirmModal } from './confirmModal.js';
+import { Events, APP_EVENTS } from './events.js';
 
 /**
  * Generates the score percentage badge HTML for an exam based on its saved question status array.
@@ -170,18 +172,55 @@ export function createExamCardElement(exam, onStartExam) {
         flagBadgeHTML = `<span class="exam-lang-flag" title="${flagTitle}" aria-label="${flagTitle}">${flagEmoji}</span>`;
     }
 
+    const deleteBtnHTML = exam.isLocal
+        ? `<button type="button" class="btn-card-delete" title="${escapeHTML(t('btn_delete_exam_title'))}" aria-label="${escapeHTML(t('aria_delete_exam', { title: localizedTitle }))}">
+               <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+           </button>`
+        : '';
+
     row.innerHTML = `
         <div class="exam-list-header">
             <h4 class="exam-list-title">${escapeHTML(localizedTitle.toUpperCase())}${exam.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
             <div class="exam-list-header-right">
                 ${scoreBadgeHTML}
                 ${flagBadgeHTML}
+                ${deleteBtnHTML}
                 <span class="exam-list-action">${actionHTML}</span>
             </div>
         </div>
         ${typesHTML}
         <p class="exam-list-desc">${escapeHTML(localizedDesc)}</p>
     `;
+
+    if (exam.isLocal) {
+        const btnDelete = row.querySelector('.btn-card-delete');
+        if (btnDelete) {
+            const handleDelete = (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                openDangerConfirmModal({
+                    title: t('modal_delete_exam_title'),
+                    descriptionHTML: t('modal_delete_exam_desc', { title: escapeHTML(localizedTitle) }),
+                    confirmText: t('btn_confirm_delete_exam'),
+                    cancelText: t('btn_cancel'),
+                    onConfirm: () => {
+                        deleteLocalExame(exam.id, State);
+                        showToast(t('toast_exam_deleted'));
+                        Events.emit(APP_EVENTS.EXAM_DELETED, { examId: exam.id });
+                    }
+                });
+            };
+
+            btnDelete.addEventListener('click', handleDelete);
+            btnDelete.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleDelete(e);
+                }
+            });
+        }
+    }
 
     // Capsule toggle events
     row.querySelectorAll('.exam-type-segment').forEach(btn => {

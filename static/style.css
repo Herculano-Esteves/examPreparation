@@ -1749,6 +1749,42 @@ body.header-scrolled .sticky-corner-right {
     transform: scale(1.03);
 }
 
+/* Card Row Delete Action Button (GitHub Danger Micro-Action) */
+.btn-card-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: var(--text-dim, #9494a0);
+    font-size: 0.74rem;
+    cursor: pointer;
+    transition: all 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+    outline: none;
+    flex-shrink: 0;
+    line-height: 1;
+    padding: 0;
+}
+
+.btn-card-delete:hover {
+    background: rgba(244, 63, 94, 0.16);
+    border-color: rgba(244, 63, 94, 0.5);
+    color: #f87171;
+    box-shadow: 0 0 10px rgba(244, 63, 94, 0.35);
+    transform: scale(1.1);
+}
+
+.btn-card-delete:active {
+    transform: scale(0.95);
+}
+
+.btn-card-delete:focus-visible {
+    box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.6);
+}
+
 .exam-list-desc {
     font-family: var(--font-geist-mono);
     font-size: 0.86rem;
@@ -3659,6 +3695,19 @@ body.header-scrolled .sticky-corner-right {
     color: var(--text-dim, #9494a0);
     margin: 0 0 1.35rem 0;
     text-align: left;
+}
+
+.danger-item-highlight {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.12rem 0.42rem;
+    border-radius: 4px;
+    font-family: var(--font-jetbrains-mono, var(--font-sans));
+    font-size: 0.88em;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    word-break: break-word;
+    display: inline-block;
 }
 
 .danger-modal-actions {

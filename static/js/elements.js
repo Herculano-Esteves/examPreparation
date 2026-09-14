@@ -145,6 +145,8 @@ export const elements = {
 
     // ---------- Danger Confirmation Modal ----------
     get dangerConfirmModal()        { return document.getElementById('danger-confirm-modal'); },
+    get dangerModalTitle()          { return document.getElementById('danger-modal-title'); },
+    get dangerModalDesc()           { return document.getElementById('danger-modal-desc'); },
     get btnCancelClearStorage()     { return document.getElementById('btn-cancel-clear-storage'); },
     get btnConfirmClearStorage()    { return document.getElementById('btn-confirm-clear-storage'); },
 
