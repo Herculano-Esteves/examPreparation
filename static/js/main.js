@@ -16,12 +16,16 @@ import { initExamBuilder, resetExamBuilder } from './examBuilder.js';
 import { initPracticeHub } from './practiceHub.js';
 import { openDangerConfirmModal, initDangerConfirmModal } from './confirmModal.js';
 import { initSettingsPopover } from './settingsPopover.js';
+import { initSingleExamImport } from './examSharing.js';
 
 // Initialization
 function initApp() {
     applyTranslations();
     setupEventListeners();
     setupLocalCreationListeners();
+    initSingleExamImport(() => {
+        if (State.activeCadeira) fetchExams(State.activeCadeira.index_path);
+    });
     loadLocalData(State);
     initDangerConfirmModal();
     initExamLayout();

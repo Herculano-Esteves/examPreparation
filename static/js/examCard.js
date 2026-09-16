@@ -14,6 +14,7 @@ import { ExamService } from './examService.js';
 import { getEffectiveExcludedTypes } from './examFilters.js';
 import { openDangerConfirmModal } from './confirmModal.js';
 import { Events, APP_EVENTS } from './events.js';
+import { openExamShareDialog } from './examSharing.js';
 
 /**
  * Generates the score percentage badge HTML for an exam based on its saved question status array.
@@ -177,6 +178,7 @@ export function createExamCardElement(exam, onStartExam) {
                <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
            </button>`
         : '';
+    const shareBtnHTML = `<button type="button" class="btn-card-share" title="${escapeHTML(t('btn_share_exam'))}" aria-label="${escapeHTML(t('aria_share_exam', { title: localizedTitle }))}"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></button>`;
 
     row.innerHTML = `
         <div class="exam-list-header">
@@ -184,6 +186,7 @@ export function createExamCardElement(exam, onStartExam) {
             <div class="exam-list-header-right">
                 ${scoreBadgeHTML}
                 ${flagBadgeHTML}
+                ${shareBtnHTML}
                 ${deleteBtnHTML}
                 <span class="exam-list-action">${actionHTML}</span>
             </div>
@@ -221,6 +224,12 @@ export function createExamCardElement(exam, onStartExam) {
             });
         }
     }
+
+    const btnShare = row.querySelector('.btn-card-share');
+    if (btnShare) btnShare.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openExamShareDialog(exam, btnShare);
+    });
 
     // Capsule toggle events
     row.querySelectorAll('.exam-type-segment').forEach(btn => {

@@ -359,6 +359,10 @@
                                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
                                     <span data-i18n="btn_add_exame">Adicionar Exame</span>
                                 </button>
+                                <button id="btn-import-exam-top" class="btn-control btn-secondary btn-sm">
+                                    <i class="fa-solid fa-file-import" aria-hidden="true"></i>
+                                    <span data-i18n="btn_import_exam">Importar exame</span>
+                                </button>
                             </div>
                         </div>
 
@@ -1187,6 +1191,40 @@
                         data-i18n="btn_cancel">Cancelar</button>
                     <button type="button" class="btn-danger-confirm" id="btn-confirm-clear-storage"
                         data-i18n="btn_confirm_delete">Apagar Tudo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exam-share-modal" class="modal-backdrop exam-transfer-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="share-exam-title">
+        <div class="exam-transfer-modal-card">
+            <div class="settings-popover-header exam-transfer-header">
+                <h2 id="share-exam-title" class="settings-popover-title"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> <span data-i18n="share_exam_title">Partilhar exame</span></h2>
+                <button id="btn-close-share-modal" type="button" class="btn-close-popover" aria-label="Fechar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="settings-popover-body exam-transfer-body">
+                <p class="exam-transfer-description" data-i18n="share_exam_desc">Partilhe apenas as perguntas, respostas e explicações. O seu progresso não é incluído.</p>
+                <div class="exam-transfer-actions">
+                    <button id="btn-share-copy-json" type="button" class="btn-popover-backup"><i class="fa-regular fa-copy" aria-hidden="true"></i> <span data-i18n="btn_copy_json">Copiar JSON</span></button>
+                    <button id="btn-share-download-json" type="button" class="btn-popover-backup"><i class="fa-solid fa-download" aria-hidden="true"></i> <span data-i18n="btn_download_json">Descarregar .json</span></button>
+                    <button id="btn-share-native" type="button" class="btn-popover-backup hidden"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> <span data-i18n="btn_share_native">Partilhar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exam-import-modal" class="modal-backdrop exam-transfer-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="import-exam-title">
+        <div class="exam-transfer-modal-card">
+            <div class="settings-popover-header exam-transfer-header">
+                <h2 id="import-exam-title" class="settings-popover-title"><i class="fa-solid fa-file-import" aria-hidden="true"></i> <span data-i18n="import_exam_title">Importar exame</span></h2>
+                <button id="btn-close-import-modal" type="button" class="btn-close-popover" aria-label="Fechar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="settings-popover-body exam-transfer-body">
+                <p class="exam-transfer-description" data-i18n="import_exam_desc">O exame será guardado localmente nesta cadeira.</p>
+                <div class="exam-transfer-actions">
+                    <button id="btn-import-exam-clipboard" type="button" class="btn-popover-backup"><i class="fa-solid fa-clipboard" aria-hidden="true"></i> <span data-i18n="btn_read_clipboard">Ler área de transferência</span></button>
+                    <button id="btn-choose-import-exam-json" type="button" class="btn-popover-backup"><i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i> <span data-i18n="btn_choose_json">Escolher ficheiro .json</span></button>
+                    <input id="input-import-exam-json" type="file" accept="application/json,.json" class="hidden">
                 </div>
             </div>
         </div>
