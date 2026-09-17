@@ -517,7 +517,7 @@ body.layout-builder #screen-add-exame {
 
 .sticky-menu-header-container {
     position: relative;
-    max-width: 960px;
+    max-width: var(--menu-center-width);
     width: 100%;
     margin: 0 auto;
 }
@@ -526,7 +526,7 @@ body.layout-builder #screen-add-exame {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 960px;
+    max-width: var(--menu-center-width);
     width: 100%;
     height: 36px;
     padding: 0 0 1.05rem 0;
@@ -537,7 +537,7 @@ body.layout-builder #screen-add-exame {
 
 .sticky-header-left {
     position: absolute;
-    left: calc(-25vw + 25%);
+    left: calc(-25vw + 25% + var(--sidebar-position-adjust));
     transform: translateX(-50%);
     width: 300px;
     max-width: calc(50vw - 50% - 24px);
@@ -578,7 +578,7 @@ body.layout-builder #screen-add-exame {
 
 .sticky-header-right {
     position: absolute;
-    right: calc(-25vw + 25%);
+    right: calc(-25vw + 25% + var(--sidebar-position-adjust));
     transform: translateX(50%);
     width: 300px;
     max-width: calc(50vw - 50% - 24px);
@@ -701,28 +701,32 @@ body.header-scrolled .sticky-corner-right {
    - --sidebar-optical-offset: compensação ótica para as barras laterais (1.05rem), alinhando
      o topo das barras laterais com o primeiro título de exame.
    - --sidebar-floating-width: largura idêntica para ambas as barras (300px).
-   - --sidebar-floating-margin: margem para centralização na caleira exterior (calc(-25vw + 25% - 150px)).
+   - --menu-center-width: largura da coluna central (1032px).
+   - --sidebar-position-adjust: mantém as laterais na mesma posição exterior ao alargar o centro.
+   - --sidebar-floating-margin: margem para centralização na caleira exterior.
    - --sidebar-floating-max-width: largura máxima responsiva das barras (calc(50vw - 50% - 24px)).
    -------------------------------------------------------------------------- */
 :root {
     --exam-row-pad-top: 1.05rem;
     --exam-row-pad-bottom: 1.10rem;
     --sidebar-optical-offset: 1.05rem;
+    --menu-center-width: 1032px;
+    --sidebar-position-adjust: 18px;
     --sidebar-floating-width: 300px;
-    --sidebar-floating-margin: calc(-25vw + 25% - 150px);
+    --sidebar-floating-margin: calc(-25vw + 25% - 150px + var(--sidebar-position-adjust));
     --sidebar-floating-max-width: calc(50vw - 50% - 24px);
 }
 
 .exams-screen-layout {
     position: relative;
     width: 100%;
-    max-width: 960px;
+    max-width: var(--menu-center-width);
     margin: 0 auto;
 }
 
 .exams-main-column {
     width: 100%;
-    max-width: 960px;
+    max-width: var(--menu-center-width);
 }
 
 /* Floating Left Sidebar (Filters & Sorting) */
@@ -767,54 +771,6 @@ body.header-scrolled .sticky-corner-right {
     z-index: 20;
 }
 
-/* Practice Card Styling */
-.practice-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 12px;
-    padding: 0.90rem 1.05rem;
-    backdrop-filter: blur(12px);
-    transition: all var(--transition-speed) ease;
-}
-
-.practice-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.16);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-}
-
-.practice-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-}
-
-.practice-card-label {
-    font-family: var(--font-jetbrains-mono);
-    font-size: 0.76rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-}
-
-.practice-card-difficult .practice-card-label i {
-    color: #f59e0b;
-    font-size: 0.82rem;
-}
-
-.practice-card-incorrect .practice-card-label i {
-    color: #f87171;
-    font-size: 0.82rem;
-}
-
 .practice-card-count {
     font-family: var(--font-jetbrains-mono);
     font-size: 0.72rem;
@@ -827,13 +783,13 @@ body.header-scrolled .sticky-corner-right {
     transition: all var(--transition-speed) ease;
 }
 
-.practice-card-difficult .practice-card-count {
+.btn-practice-difficult .practice-card-count {
     color: #fbbf24;
     border-color: rgba(245, 158, 11, 0.35);
     background: rgba(245, 158, 11, 0.10);
 }
 
-.practice-card-incorrect .practice-card-count {
+.btn-practice-incorrect .practice-card-count {
     color: #fca5a5;
     border-color: var(--danger-border);
     background: var(--danger-bg);
@@ -859,6 +815,10 @@ body.header-scrolled .sticky-corner-right {
     border-radius: 8px;
     cursor: pointer;
     transition: all var(--transition-speed) ease;
+}
+
+.btn-practice-launch .practice-card-count {
+    margin-left: auto;
 }
 
 .btn-practice-difficult {
@@ -1600,7 +1560,7 @@ body.header-scrolled .sticky-corner-right {
     flex-direction: column;
     gap: 0;
     width: 100%;
-    max-width: 960px;
+    max-width: var(--menu-center-width);
     margin: 0 auto;
 }
 
@@ -3316,7 +3276,7 @@ body.header-scrolled .sticky-corner-right {
         position: static;
         transform: none;
         width: 100%;
-        max-width: 960px;
+        max-width: var(--menu-center-width);
         margin-bottom: 0.5rem;
         border-bottom: none;
     }
@@ -3339,7 +3299,7 @@ body.header-scrolled .sticky-corner-right {
         right: auto;
         transform: none;
         width: 100%;
-        max-width: 960px;
+        max-width: var(--menu-center-width);
         flex-direction: row;
         flex-wrap: wrap;
         gap: 1.25rem;
@@ -3348,7 +3308,7 @@ body.header-scrolled .sticky-corner-right {
     }
 
     .floating-filter-group,
-    .practice-card {
+    .btn-practice-launch {
         flex: 1;
         min-width: 240px;
     }

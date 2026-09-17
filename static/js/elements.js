@@ -83,10 +83,8 @@ export const elements = {
 
     // ---------- Practice Hub Sidebar (Right) ----------
     get examsSidebarPractice()        { return document.getElementById('exams-sidebar-practice'); },
-    get practiceCardDifficult()       { return document.getElementById('practice-card-difficult'); },
     get practiceDifficultCountText()  { return document.getElementById('practice-difficult-count-text'); },
     get btnPracticeDifficult()        { return document.getElementById('btn-practice-difficult'); },
-    get practiceCardIncorrect()       { return document.getElementById('practice-card-incorrect'); },
     get practiceIncorrectCountText()  { return document.getElementById('practice-incorrect-count-text'); },
     get btnPracticeIncorrect()        { return document.getElementById('btn-practice-incorrect'); },
 

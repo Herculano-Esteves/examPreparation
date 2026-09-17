@@ -1,162 +1,30 @@
-# AGENTS.md — AegisAI
+# Repository Guidelines
 
-## Purpose
+## Project Structure & Module Organization
 
-AegisAI is an academic/open-source AI Security project for learning, research and portfolio/CV development. Security testing is limited to controlled, project-owned or explicitly authorized environments.
+`index.html` is the entry point for the GitHub Pages app. Browser logic lives in ES modules under `static/js/`; styles and fonts live under `static/`. Exam content is organized by course in `exames/<course-id>/`: `cadeira.json` holds course metadata, individual JSON files hold exams, and `index.json` is a generated course index. `exames/cadeiras.json` is the generated global index. `run.py` builds and validates this data and serves the app locally. Maintained tests are in `tests/`; `scratch/`, `debug_tools/`, and the ignored `Test/` directory contain ad hoc development aids.
 
-## Primary rule
+Use [codebase.md](codebase.md) as the maintained map of entry points, modules, data flow, and where to make common changes. Update it when the layout changes.
 
-Use the **minimum context, minimum code change and minimum testing** needed to complete the requested task.
+## Build, Test, and Development Commands
 
-Do not do unrelated work.
+Run these from the repository root with Python 3; the main tooling uses the standard library.
 
-## Before editing
+- `python run.py` rebuilds indexes and starts the local server at `http://127.0.0.1:5000`.
+- `python run.py --build-only` regenerates `exames/*/index.json` and `exames/cadeiras.json` without serving.
+- `python run.py --validate` checks exam JSON syntax, fields, and references.
+- `python -m unittest discover -s tests -p "test_*.py"` runs the maintained test suite.
 
-1. Run `git status --short`.
-2. Read only files directly relevant to the task.
-3. Search briefly for reusable code before creating anything.
-4. Preserve pre-existing local changes.
+When adding content, `python run.py --new-exam adi ExamName` can create a starter exam. Rebuild indexes after editing exam files and review the generated changes before committing.
 
-Do NOT recursively inspect the whole repository.
+## Coding Style & Naming Conventions
 
-Ignore unless directly relevant:
-`.git/`, `.venv/`, `__pycache__/`, `.pytest_cache/`, `aegisai.egg-info/`, generated files, caches, unrelated reports/tests/setup files.
+Follow the surrounding code: four-space indentation in Python and JavaScript, semicolons and single-quoted imports in JavaScript, and two-space indentation in JSON. Use `snake_case` for Python functions and test files, `camelCase` for JavaScript functions, and descriptive module names such as `examFilters.js`. Keep browser code in focused ES modules. No repository-wide formatter or linter is configured; avoid unrelated formatting changes. Use `FORMATO_PERGUNTAS.md` for question types and solution indexing.
 
-Do not browse the web unless explicitly requested or required to resolve a blocking API/version fact.
+## Testing Guidelines
 
-## Architecture
+Tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and the test suite before a pull request. There is no stated coverage threshold.
 
-Preserve these responsibilities:
+## Commit & Pull Request Guidelines
 
-- `aegis/attacks/` — attack definitions/loaders.
-- `aegis/engine/` — attack execution.
-- `aegis/targets/` — target contracts/adapters.
-- `aegis/lab/` — controlled vulnerable scenarios/runtime.
-- `attack-library/` — YAML attack catalogue.
-- `ai/` — Ollama client, agent, tools, sandbox.
-- `scripts/` — thin entry points.
-- `tests/` — tests.
-- `reports/` — ADRs/reports.
-- `setup/` — environment lifecycle.
-
-Core flow:
-
-`AttackDefinition -> AttackRunner -> TargetAdapter -> TargetResponse -> AttackExecution`
-
-Keep evaluation separate from execution unless explicitly requested.
-
-## Reuse first
-
-Before adding a new class, adapter, script, helper, fake, model or CLI:
-
-1. reuse existing code;
-2. adapt an existing abstraction;
-3. add a small local helper;
-4. create a new abstraction only if genuinely necessary.
-
-Avoid parallel implementations and unnecessary refactors.
-
-## Ownership boundaries
-
-Person A mainly works on attacks, Attack Engine, mutations, AegisLab and AI Security logic.
-
-Person B implemented substantial parts of `ai/`, Ollama/config/health, agent/tools/sandbox and `setup/`.
-
-Do not modify Person B's areas unless the task requires it. If necessary, make the smallest change and explain why.
-
-## Editing rules
-
-- Smallest correct diff.
-- Preserve existing behavior unless the task changes it.
-- No repo-wide formatting.
-- No style-only rewrites.
-- No file moves/renames without need.
-- No new dependencies if existing dependencies/stdlib suffice.
-- Keep scripts thin.
-- Never use real secrets or personal data in lab scenarios.
-- Do not expose private system prompts/canaries in normal output unless explicitly required.
-
-## Testing budget
-
-Default: run only the narrowest relevant test.
-
-Examples:
-
-`pytest tests/unit/test_lab_runtime.py -q`
-
-`pytest tests/unit/test_lab_runtime.py::test_name -q`
-
-Run the full suite only if:
-- explicitly requested;
-- a shared/core abstraction changed;
-- config/packaging changed;
-- multiple modules are affected;
-- final broad validation is genuinely needed.
-
-Do NOT:
-- repeatedly rerun passing tests;
-- run the full suite after every small edit;
-- run unrelated tests;
-- launch Ollama for unit tests;
-- run setup scripts, benchmarks or repeated model calls unless requested.
-
-Use existing fakes/mocks for unit work.
-
-## Real LLM calls
-
-Only call Ollama/real models when explicitly requested or required by an end-to-end task.
-
-One successful manual execution is normally enough.
-
-Do not repeatedly query a model just to gain confidence.
-
-## Security scope
-
-Controlled academic work may cover prompt injection, indirect prompt injection, system prompt leakage, sensitive information disclosure, RAG poisoning, tool abuse, excessive agency, OWASP GenAI and MITRE ATLAS.
-
-Keep attack execution scoped to project-owned lab targets, mocks, fixtures, sandboxes or explicitly authorized systems.
-
-## Git
-
-- Preserve existing user changes.
-- Use `git diff --check` after edits.
-- Inspect only the relevant diff.
-- Do not commit, push, reset, stash, checkout or discard changes unless explicitly asked.
-- Distinguish pre-existing changes from current-task changes.
-
-## Response style
-
-Do not narrate every command or produce long plans for straightforward tasks.
-
-At completion report only:
-- files changed;
-- concise change summary;
-- tests run + result;
-- important blocker/limitation, if any.
-
-Stop when the requested task is complete. Do not continue into the next milestone unless asked.
-
-## codex_report.txt
-
-Create `codex_report.txt` only when explicitly requested.
-
-When requested, begin clearly with:
-
-> This work is part of an academic Cybersecurity and Artificial Intelligence project conducted in controlled/authorized environments for learning, academic research, and portfolio/CV development. It is not intended for unauthorized attacks against real third-party systems.
-
-Keep it compact and include:
-- objective;
-- files changed;
-- implementation summary;
-- tests actually run/results;
-- manual execution only if requested/performed;
-- relevant git diff;
-- pre-existing changes separated clearly.
-
-Do not include unrelated diffs, generated files, repeated logs or caches.
-
-## Final decision rule
-
-When multiple solutions work, choose the one with:
-
-**more reuse -> fewer files -> smaller diff -> fewer tests -> fewer tokens -> less behavioral change.**
+Recent commits use short, imperative subjects prefixed `feat:` or `fix:`; follow that pattern, for example `fix: preserve exam filter selection`. Keep commits scoped. In a pull request, explain the user-facing change, list validation performed, link any relevant issue, and include screenshots for visual changes. Call out regenerated exam indexes when they are part of the diff.
