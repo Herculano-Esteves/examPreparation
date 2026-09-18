@@ -17,6 +17,7 @@ import { initPracticeHub } from './practiceHub.js';
 import { openDangerConfirmModal, initDangerConfirmModal } from './confirmModal.js';
 import { initSettingsPopover } from './settingsPopover.js';
 import { initSingleExamImport } from './examSharing.js';
+import { initCadeiraIconPicker } from './cadeiraIconPicker.js';
 
 // Initialization
 function initApp() {
@@ -259,27 +260,7 @@ function setupLocalCreationListeners() {
     const btnSaveCadeira = document.getElementById('btn-save-cadeira');
     const inputCadeiraNome = document.getElementById('cadeira-nome');
     const inputCadeiraDesc = document.getElementById('cadeira-desc');
-    const iconGrid = document.getElementById('cadeira-icon-grid');
-    let selectedIcon = 'fa-laptop-code';
-
-    if (iconGrid) {
-        iconGrid.querySelectorAll('.icon-option').forEach(opt => {
-            const selectIconOpt = () => {
-                const prevSel = iconGrid.querySelector('.icon-option.selected');
-                if (prevSel) prevSel.classList.remove('selected');
-                opt.classList.add('selected');
-                selectedIcon = opt.getAttribute('data-icon');
-            };
-
-            opt.addEventListener('click', selectIconOpt);
-            opt.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    selectIconOpt();
-                }
-            });
-        });
-    }
+    const getSelectedIcon = initCadeiraIconPicker();
 
     const updateCadeiraSubmitState = () => {
         if (!btnSaveCadeira || !inputCadeiraNome) return;
@@ -348,7 +329,7 @@ function setupLocalCreationListeners() {
                 id: 'local_' + Date.now(),
                 nome: nome,
                 descricao: desc || '',
-                icon: selectedIcon,
+                icon: getSelectedIcon(),
                 exames_count: 0,
                 isLocal: true,
                 index_path: null,

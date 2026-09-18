@@ -1,0 +1,103 @@
+/* Presentation of the course and exam menus. Colors stay in colors.css. */
+#screen-cadeiras,
+#screen-menu {
+    --typo-block-title-transform: none;
+    --typo-block-title-weight: 600;
+    --typo-block-title-letter-spacing: -0.01em;
+    --typo-block-desc-letter-spacing: 0;
+}
+
+#screen-cadeiras .exam-list-row,
+#screen-menu .exam-list-row {
+    border-bottom-style: solid;
+    border-bottom-color: var(--divider-subtle);
+    transition: background-color var(--transition-speed) ease;
+}
+
+#screen-cadeiras .exam-list-row:last-child,
+#screen-menu .exam-list-row:last-child {
+    border-bottom: none;
+}
+
+#screen-cadeiras .exam-list-row:hover,
+#screen-cadeiras .exam-list-row:focus-visible,
+#screen-menu .exam-list-row:hover,
+#screen-menu .exam-list-row:focus-visible {
+    transform: none;
+}
+
+#screen-cadeiras .exam-list-row:focus-visible,
+#screen-menu .exam-list-row:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+#screen-cadeiras .exam-list-action,
+#screen-menu .exam-list-action,
+#screen-menu .floating-filter-label,
+#screen-menu .dropdown-trigger-btn,
+#screen-menu .header-search-input,
+#screen-menu .floating-search-input {
+    font-family: var(--font-inter);
+    letter-spacing: 0;
+}
+
+#screen-menu .floating-filter-label {
+    text-transform: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+#screen-menu .floating-filter-label i,
+#screen-menu .btn-practice-launch:not(:disabled) > i,
+#screen-cadeiras .cadeira-title-icon {
+    color: var(--text-dim);
+}
+
+#screen-cadeiras .exam-list-row:hover .exam-list-action,
+#screen-cadeiras .exam-list-row:focus-visible .exam-list-action,
+#screen-menu .exam-list-row:hover .exam-list-action,
+#screen-menu .exam-list-row:focus-visible .exam-list-action,
+#screen-cadeiras .exam-list-row:hover .cadeira-title-icon,
+#screen-cadeiras .exam-list-row:focus-visible .cadeira-title-icon {
+    transform: none;
+    text-shadow: none;
+}
+
+#screen-menu .search-input-wrapper:focus-within,
+#screen-menu .custom-dropdown.open .dropdown-trigger-btn {
+    box-shadow: none;
+}
+
+#screen-menu .dropdown-trigger-btn,
+#screen-menu .dropdown-menu,
+#screen-menu .exam-types-capsule {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+#screen-menu .dropdown-menu {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+#screen-menu .btn-practice-launch:not(:disabled) {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--text-secondary);
+    font-family: var(--font-inter);
+    box-shadow: none;
+}
+
+#screen-menu .btn-practice-launch:hover:not(:disabled) {
+    background: var(--card-bg-hover);
+    border-color: var(--card-border-hover);
+    color: var(--text-primary);
+    transform: none;
+    box-shadow: none;
+}
+
+#screen-menu .btn-floating-header-back:hover,
+#screen-menu .btn-floating-header-back:hover i {
+    transform: none;
+    box-shadow: none;
+}

@@ -402,7 +402,7 @@ export function renderCadeirasMenu() {
 
         row.innerHTML = `
             <div class="exam-list-header">
-                <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome.toUpperCase())}${cadeira.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
+                <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome)}${cadeira.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
                 <div class="exam-list-header-right">
                     ${deleteBtnHTML}
                     <span class="exam-list-action">[ ${countLabel} ]</span>

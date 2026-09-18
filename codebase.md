@@ -10,7 +10,7 @@ This is a static exam simulator served by GitHub Pages. `index.html` provides th
 | --- | --- |
 | `index.html` | Page markup, UI containers, and the `static/js/main.js` module entry point. |
 | `static/js/` | Browser behavior, split into ES modules. |
-| `static/style.css`, `static/colors.css`, `static/typography.css` | Layout, color tokens, and typography. `static/fonts/` holds local font files. |
+| `static/style.css`, `static/colors.css`, `static/typography.css`, `static/menu.css` | Base layout, color tokens, typography, and menu presentation. `static/fonts/` holds local font files. |
 | `exames/<course-id>/cadeira.json` | Course name, abbreviation, icon, and description. Current IDs: `adi`, `ssi`, `tso`. |
 | `exames/<course-id>/*.json` | Source exam questions and metadata. |
 | `exames/<course-id>/index.json`, `exames/cadeiras.json` | Generated exam and course listings; rebuild with `python run.py --build-only`. |
@@ -20,7 +20,7 @@ This is a static exam simulator served by GitHub Pages. `index.html` provides th
 ## Browser Modules
 
 - `main.js` initializes the app and wires events. `elements.js` centralizes DOM lookups; `events.js`, `navigation.js`, and `state.js` handle interaction and navigation state.
-- `cadeiras.js`, `exams.js`, `examService.js`, `examCard.js`, and `examSorting.js` load and present course and exam listings.
+- `cadeiras.js`, `exams.js`, `examService.js`, `examCard.js`, and `examSorting.js` load and present course and exam listings. `cadeiraIconPicker.js` renders the categorized icon selector for new local courses.
 - `examFilters.js`, `filterState.js`, `dualRangeSlider.js`, and `practiceHub.js` implement filtering and practice selection.
 - `question.js`, `questionTypes.js`, and `renderer.js` render exam questions and results.
 - `examBuilder.js`, `examSharing.js`, `zipService.js`, `validation.js`, and `storage.js` support local exam creation, import/export, validation, and browser persistence.

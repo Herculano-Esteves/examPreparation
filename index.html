@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="static/style.css?v=1.2.1">
     <link rel="stylesheet" href="static/colors.css?v=1.2.1">
     <link rel="stylesheet" href="static/typography.css?v=1.2.1">
+    <link rel="stylesheet" href="static/menu.css?v=1.0.0">
 </head>
 
 <body>
@@ -830,46 +831,7 @@
                         <i class="fa-solid fa-plus-circle" aria-hidden="true"></i> <span
                             data-i18n="add_cadeira_title">Adicionar Nova Cadeira</span>
                     </h3>
-                </div>
-                <div class="question-card">
-                    <div class="form-group" id="group-cadeira-nome">
-                        <label for="cadeira-nome" data-i18n="label_cadeira_nome">Nome da Cadeira</label>
-                        <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos"
-                            data-i18n-placeholder="placeholder_cadeira_nome" required>
-                        <span class="form-field-error hidden" id="cadeira-nome-error">
-                            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
-                            <span data-i18n="error_required_field">Campo obrigatório</span>
-                        </span>
-                    </div>
-                    <div class="form-group" id="group-cadeira-desc">
-                        <label for="cadeira-desc" data-i18n="label_cadeira_desc">Descrição / Subtítulo</label>
-                        <input type="text" id="cadeira-desc" class="form-control"
-                            placeholder="Ex: Escalonamento, Processos e I/O"
-                            data-i18n-placeholder="placeholder_cadeira_desc">
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="label_cadeira_icon">Selecione um Ícone</label>
-                        <div class="icon-select-grid" id="cadeira-icon-grid">
-                            <div class="icon-option selected" data-icon="fa-laptop-code" tabindex="0" role="button"
-                                aria-label="Ícone portátil"><i class="fa-solid fa-laptop-code" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-option" data-icon="fa-shield-halved" tabindex="0" role="button"
-                                aria-label="Ícone escudo"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-option" data-icon="fa-database" tabindex="0" role="button"
-                                aria-label="Ícone base de dados"><i class="fa-solid fa-database" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-option" data-icon="fa-server" tabindex="0" role="button"
-                                aria-label="Ícone servidor"><i class="fa-solid fa-server" aria-hidden="true"></i></div>
-                            <div class="icon-option" data-icon="fa-network-wired" tabindex="0" role="button"
-                                aria-label="Ícone rede"><i class="fa-solid fa-network-wired" aria-hidden="true"></i>
-                            </div>
-                            <div class="icon-option" data-icon="fa-microchip" tabindex="0" role="button"
-                                aria-label="Ícone microchip"><i class="fa-solid fa-microchip" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="exam-controls exam-controls-spaced">
+                    <div class="exam-controls">
                         <button id="btn-cancel-cadeira" class="btn-control btn-secondary">
                             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                             <span data-i18n="btn_cancel">Cancelar</span>
@@ -878,6 +840,31 @@
                             <i class="fa-solid fa-floppy-disk" aria-hidden="true"></i>
                             <span data-i18n="btn_create_cadeira">Criar Cadeira</span>
                         </button>
+                    </div>
+                </div>
+                <div class="cadeira-create-layout">
+                    <div class="cadeira-details">
+                        <div class="form-group" id="group-cadeira-nome">
+                            <label for="cadeira-nome" data-i18n="label_cadeira_nome">Nome da Cadeira</label>
+                            <input type="text" id="cadeira-nome" class="form-control" placeholder="Ex: Sistemas Operativos"
+                                data-i18n-placeholder="placeholder_cadeira_nome" required>
+                            <span class="form-field-error hidden" id="cadeira-nome-error">
+                                <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                                <span data-i18n="error_required_field">Campo obrigatório</span>
+                            </span>
+                        </div>
+                        <div class="form-group" id="group-cadeira-desc">
+                            <label for="cadeira-desc" data-i18n="label_cadeira_desc">Descrição / Subtítulo</label>
+                            <input type="text" id="cadeira-desc" class="form-control"
+                                placeholder="Ex: Escalonamento, Processos e I/O"
+                                data-i18n-placeholder="placeholder_cadeira_desc">
+                        </div>
+                    </div>
+                    <div class="form-group cadeira-icon-field">
+                        <label id="cadeira-icon-label" data-i18n="label_cadeira_icon">Selecione um Ícone</label>
+                        <div id="cadeira-icon-categories" class="cadeira-icon-categories" role="group"
+                            data-i18n-aria-label="cadeira_icon_categories" aria-label="Categorias de símbolos"></div>
+                        <div class="icon-select-grid" id="cadeira-icon-grid" role="group" aria-labelledby="cadeira-icon-label"></div>
                     </div>
                 </div>
             </section>

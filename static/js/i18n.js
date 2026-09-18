@@ -211,6 +211,7 @@ export const TRANSLATIONS = {
         label_cadeira_desc: 'Descrição / Subtítulo',
         placeholder_cadeira_desc: 'Ex: Escalonamento, Processos e I/O',
         label_cadeira_icon: 'Selecione um Ícone',
+        cadeira_icon_categories: 'Categorias de símbolos',
         btn_create_cadeira: 'Criar Cadeira',
 
         // Add Exam Screen (Dual-Pane Builder)
@@ -526,6 +527,7 @@ export const TRANSLATIONS = {
         label_cadeira_desc: 'Description / Subtitle',
         placeholder_cadeira_desc: 'E.g. Scheduling, Processes and I/O',
         label_cadeira_icon: 'Select an Icon',
+        cadeira_icon_categories: 'Icon categories',
         btn_create_cadeira: 'Create Subject',
 
         // Add Exam Screen (Dual-Pane Builder)

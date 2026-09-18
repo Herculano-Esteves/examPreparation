@@ -182,7 +182,7 @@ export function createExamCardElement(exam, onStartExam) {
 
     row.innerHTML = `
         <div class="exam-list-header">
-            <h4 class="exam-list-title">${escapeHTML(localizedTitle.toUpperCase())}${exam.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
+            <h4 class="exam-list-title">${escapeHTML(localizedTitle)}${exam.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
             <div class="exam-list-header-right">
                 ${scoreBadgeHTML}
                 ${flagBadgeHTML}
