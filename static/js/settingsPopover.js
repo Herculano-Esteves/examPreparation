@@ -180,6 +180,8 @@ export function updateLanguageButtonsState() {
     });
 }
 
+let settingsPopoverInitialized = false;
+
 /**
  * Initializes the Settings Popover component and hooks up all listeners.
  * 
@@ -191,16 +193,19 @@ export function updateLanguageButtonsState() {
 export function initSettingsPopover(callbacks = {}) {
     popoverCallbacks = callbacks;
 
+    if (settingsPopoverInitialized) return;
+    settingsPopoverInitialized = true;
+
     const popover = elements.settingsDropdownMenu;
     if (!popover) return;
 
     // Trigger buttons (header main settings button, exam top bar, builder top bar, and sticky buttons)
-    const getSettingsButtons = () => [
+    const getSettingsButtons = () => Array.from(new Set([
         elements.btnSettings,
         elements.btnExamSettings,
         elements.btnBuilderSettings,
         ...document.querySelectorAll('.btn-sticky-settings')
-    ].filter(Boolean);
+    ].filter(Boolean)));
 
     getSettingsButtons().forEach(btn => {
         btn.addEventListener('click', (e) => {

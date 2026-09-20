@@ -48,10 +48,9 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button id="btn-settings" class="btn-control btn-secondary btn-pill" aria-label="Abrir Definições"
-                    data-i18n-aria-label="btn_settings">
+                <button id="btn-settings" class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições"
+                    title="Definições" data-i18n-title="btn_settings" data-i18n-aria-label="btn_settings">
                     <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                    <span data-i18n="btn_settings">Definições</span>
                 </button>
             </div>
         </header>
@@ -75,10 +74,9 @@
                 </div>
             </div>
             <div class="exam-top-bar-right">
-                <button id="btn-exam-settings" class="btn-control btn-secondary btn-pill" aria-label="Abrir Definições"
-                    data-i18n-aria-label="btn_settings">
+                <button id="btn-exam-settings" class="btn-control btn-secondary btn-sticky-settings" aria-label="Abrir Definições"
+                    title="Definições" data-i18n-title="btn_settings" data-i18n-aria-label="btn_settings">
                     <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                    <span data-i18n="btn_settings">Definições</span>
                 </button>
             </div>
         </div>
@@ -152,6 +150,12 @@
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
+                                <button type="button" id="btn-toggle-cadeira-filters" class="btn-control btn-secondary btn-sm btn-filter-toggle"
+                                    aria-expanded="false" aria-controls="cadeiras-sidebar-filters" title="Filtros"
+                                    data-i18n-title="filter_toggle">
+                                    <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                                    <span data-i18n="filter_toggle">Filtros</span>
+                                </button>
                                 <button id="btn-add-cadeira-top" class="btn-control btn-primary btn-sm">
                                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
                                     <span data-i18n="btn_add_cadeira">Adicionar Cadeira</span>
@@ -357,6 +361,12 @@
                                         <i class="fa-solid fa-xmark"></i>
                                     </button>
                                 </div>
+                                <button type="button" id="btn-toggle-exam-filters" class="btn-control btn-secondary btn-sm btn-filter-toggle"
+                                    aria-expanded="false" aria-controls="exams-sidebar-filters" title="Filtros"
+                                    data-i18n-title="filter_toggle">
+                                    <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                                    <span data-i18n="filter_toggle">Filtros</span>
+                                </button>
                                 <button id="btn-add-exame-top" class="btn-control btn-primary btn-sm">
                                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
                                     <span data-i18n="btn_add_exame">Adicionar Exame</span>
@@ -720,17 +730,10 @@
                                 <div id="question-cabecalho" class="question-cabecalho hidden"></div>
                             </div>
                         </div>
-
-                        <!-- Fixed exit control on the left -->
-                        <div class="exam-left-controls">
-                            <button id="btn-exit" class="btn-control btn-danger">
-                                <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
-                                <span data-i18n="btn_leave_exam">Sair do Exame</span>
-                            </button>
-                        </div>
                     </div>
+                    <!-- /exam-left-pane -->
 
-                    <!-- RIGHT COLUMN (Options and choices + navigation) -->
+                    <!-- RIGHT COLUMN (Options and choices) -->
                     <div class="exam-right-pane">
                         <div class="exam-right-scroll-content" id="exam-right-scroll-content">
                             <div class="pane-top-spacer" id="right-pane-spacer" aria-hidden="true"></div>
@@ -748,20 +751,30 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Fixed navigation controls on the right (answer side) -->
-                        <div class="exam-right-controls">
-                            <button id="btn-prev" class="btn-control btn-secondary">
-                                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-                                <span data-i18n="btn_prev">Anterior</span>
-                            </button>
-                            <button id="btn-next" class="btn-control btn-primary">
-                                <span data-i18n="btn_next">Seguinte</span>
-                                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
                     </div>
+                    <!-- /exam-right-pane -->
 
+                </div>
+                <!-- /exam-split-container -->
+
+                <!-- BOTTOM CONTROLS BAR: Exit on left, navigation on right -->
+                <div class="exam-bottom-bar" id="exam-bottom-bar">
+                    <div class="exam-left-controls">
+                        <button id="btn-exit" class="btn-control btn-danger">
+                            <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
+                            <span data-i18n="btn_leave_exam">Sair do Exame</span>
+                        </button>
+                    </div>
+                    <div class="exam-right-controls">
+                        <button id="btn-prev" class="btn-control btn-secondary">
+                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                            <span data-i18n="btn_prev">Anterior</span>
+                        </button>
+                        <button id="btn-next" class="btn-control btn-primary">
+                            <span data-i18n="btn_next">Seguinte</span>
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
             </section>
 

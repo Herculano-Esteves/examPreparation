@@ -72,6 +72,17 @@ function initCadeirasSearch() {
             scheduleRenderCadeirasMenu();
         });
     }
+
+    // Toggle de filtros para ecrãs compactos
+    const btnToggleCadeiraFilters = elements.btnToggleCadeiraFilters || document.getElementById('btn-toggle-cadeira-filters');
+    const cadeirasFiltersSidebar = elements.cadeirasSidebarFilters || document.getElementById('cadeiras-sidebar-filters');
+    if (btnToggleCadeiraFilters && cadeirasFiltersSidebar) {
+        btnToggleCadeiraFilters.addEventListener('click', () => {
+            const isExpanded = cadeirasFiltersSidebar.classList.toggle('filters-expanded');
+            btnToggleCadeiraFilters.classList.toggle('active', isExpanded);
+            btnToggleCadeiraFilters.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        });
+    }
 }
 
 let sortCadeirasDropdownInitialized = false;

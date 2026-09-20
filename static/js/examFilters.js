@@ -60,6 +60,17 @@ export function initFloatingFilters(onFilterChange) {
         });
     }
 
+    // Toggle de filtros para ecrãs compactos
+    const btnToggleFilters = elements.btnToggleExamFilters || document.getElementById('btn-toggle-exam-filters');
+    const filtersSidebar = elements.examsSidebarFilters || document.getElementById('exams-sidebar-filters');
+    if (btnToggleFilters && filtersSidebar) {
+        btnToggleFilters.addEventListener('click', () => {
+            const isExpanded = filtersSidebar.classList.toggle('filters-expanded');
+            btnToggleFilters.classList.toggle('active', isExpanded);
+            btnToggleFilters.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        });
+    }
+
     if (examSearchClear) {
         examSearchClear.addEventListener('click', () => {
             State.examSearch = '';

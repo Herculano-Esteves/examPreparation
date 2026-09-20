@@ -63,7 +63,7 @@ The catalog screens use a central column bounded by two floating sidebars:
   This centers the sidebar within the lateral gutter. A matching negative opposite margin (`margin-right: calc(-1 * width)`) prevents the floated element from displacing the centered content flow.
 - **Breakpoints**:
   - `≥ 1080px`: Sidebars float laterally beside the center column; exams start immediately at the top without vertical displacement.
-  - `< 1080px`: Sidebars stack inline above the content. The practice hub collapses into a compact horizontal 38px button strip, and filters wrap cleanly into a compact row, preventing excessive vertical space before exams.
+  - `< 1080px`: Sidebars stack inline above the content with dedicated `.btn-filter-toggle` buttons (`#btn-toggle-exam-filters`, `#btn-toggle-cadeira-filters`). Filters are collapsed by default to keep the screen organized and toggle open smoothly upon click. The sub-header organizes controls into structured responsive tiers (andares) preventing horizontal overflow.
 
 ### 3. Unified Sticky Sub-Header
 The sub-header (`.sticky-menu-header-wrapper`) provides a blur-backed bar that docks smoothly on scroll:
