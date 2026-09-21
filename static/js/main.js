@@ -17,6 +17,7 @@ import { initPracticeHub } from './practiceHub.js';
 import { openDangerConfirmModal, initDangerConfirmModal } from './confirmModal.js';
 import { initSettingsPopover } from './settingsPopover.js';
 import { initSingleExamImport } from './examSharing.js';
+import { initCadeiraImport } from './cadeiraSharing.js';
 import { initCadeiraIconPicker } from './cadeiraIconPicker.js';
 
 // Initialization
@@ -26,6 +27,9 @@ function initApp() {
     setupLocalCreationListeners();
     initSingleExamImport(() => {
         if (State.activeCadeira) fetchExams(State.activeCadeira.index_path);
+    });
+    initCadeiraImport(() => {
+        renderCadeirasMenu();
     });
     loadLocalData(State);
     initDangerConfirmModal();

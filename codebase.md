@@ -118,6 +118,7 @@ static/js/
 │
 ├── examBuilder.js           # Local interactive exam builder and question editor
 ├── examSharing.js           # Exam export and import (JSON, custom bundles)
+├── cadeiraSharing.js        # Course ZIP export and native sharing
 ├── zipService.js            # In-browser ZIP archive compression and extraction
 ├── validation.js            # Client-side schema and question syntax validation
 ├── storage.js               # LocalStorage wrapper (progress, stats, custom exams, dark mode)

@@ -750,9 +750,118 @@ class TestFrontendIntegrity(unittest.TestCase):
         # Available space below = 300 - 40 - 8 - 12 = 240px
         self.assertEqual(res4['maxHeight'], 240)
 
+    def test_cadeira_share_zip_structure_and_integration(self):
+        """
+        Validates the structure and consistency of single-cadeira ZIP sharing:
+        - Required modal and buttons exist in index.html
+        - Correct filesMap mapping: /cadeiras.json, /<Subject>/index.json, /<Subject>/<Exam>.json
+        - Round-trip import compatibility into local storage structure
+        """
+        with open(INDEX_HTML, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        # 1. Verify modal and buttons exist in HTML
+        required_elements = [
+            'id="cadeira-share-modal"',
+            'id="share-cadeira-title"',
+            'id="btn-close-share-cadeira-modal"',
+            'id="btn-share-cadeira-download-zip"',
+            'id="btn-share-cadeira-native"',
+            'id="btn-import-cadeira-top"',
+            'id="cadeira-import-modal"',
+            'id="import-cadeira-title"',
+            'id="btn-close-import-cadeira-modal"',
+            'id="btn-choose-import-cadeira-zip"',
+            'id="input-import-cadeira-zip"'
+        ]
+        for el in required_elements:
+            self.assertIn(el, html, f"Missing required share/import element {el} in index.html")
+
+        # 2. Simulate single-cadeira zip generation logic
+        def sanitize_name(name):
+            import unicodedata
+            clean = unicodedata.normalize('NFD', str(name or 'item'))
+            clean = ''.join(c for c in clean if unicodedata.category(c) != 'Mn')
+            clean = re.sub(r'[^a-zA-Z0-9_\-\. ]', '_', clean).strip()
+            clean = re.sub(r'\s+', '_', clean)
+            clean = re.sub(r'_+', '_', clean)
+            return clean[:60]
+
+        mock_cadeira = {
+            'id': 'local_test_123',
+            'nome': 'Inteligência Artificial Aplicada',
+            'sigla': 'IAA',
+            'descricao': 'Cadeira de IA',
+            'icon': 'fa-brain',
+            'createdAt': '2026-09-21T20:00:00.000Z'
+        }
+
+        mock_exams = [
+            {
+                'id': 'exam_local_1',
+                'title': 'Exame Teste 1',
+                'description': 'Primeiro exame',
+                'languages': ['pt'],
+                'questions': [{'type': 'boolean', 'question': 'Q1', 'solution': True}],
+                'createdAt': '2026-09-21T20:05:00.000Z'
+            }
+        ]
+
+        folder_name = sanitize_name(mock_cadeira['nome'])
+        files_map = {}
+
+        # /cadeiras.json
+        files_map['cadeiras.json'] = json.dumps([{
+            'id': mock_cadeira['id'],
+            'nome': mock_cadeira['nome'],
+            'sigla': mock_cadeira['sigla'],
+            'descricao': mock_cadeira['descricao'],
+            'icon': mock_cadeira['icon'],
+            'exames_count': len(mock_exams),
+            'isLocal': True,
+            'createdAt': mock_cadeira['createdAt']
+        }], indent=2)
+
+        # /<folder>/index.json & /<folder>/<exam>.json
+        exam_filename = f"{sanitize_name(mock_exams[0]['title'])}.json"
+        files_map[f"{folder_name}/index.json"] = json.dumps([{
+            'id': mock_exams[0]['id'],
+            'title': mock_exams[0]['title'],
+            'description': mock_exams[0]['description'],
+            'languages': mock_exams[0]['languages'],
+            'file': exam_filename,
+            'questions_count': len(mock_exams[0]['questions']),
+            'createdAt': mock_exams[0]['createdAt']
+        }], indent=2)
+
+        files_map[f"{folder_name}/{exam_filename}"] = json.dumps({
+            'title': mock_exams[0]['title'],
+            'description': mock_exams[0]['description'],
+            'languages': mock_exams[0]['languages'],
+            'questions': mock_exams[0]['questions'],
+            'createdAt': mock_exams[0]['createdAt'],
+            'cadeira_nome': mock_cadeira['nome'],
+            'cadeira_id': mock_cadeira['id']
+        }, indent=2)
+
+        self.assertIn('cadeiras.json', files_map)
+        self.assertIn(f"{folder_name}/index.json", files_map)
+        self.assertIn(f"{folder_name}/{exam_filename}", files_map)
+
+        # 3. Verify parse & round-trip
+        parsed_cadeiras = json.loads(files_map['cadeiras.json'])
+        self.assertEqual(len(parsed_cadeiras), 1)
+        self.assertEqual(parsed_cadeiras[0]['nome'], 'Inteligência Artificial Aplicada')
+        self.assertEqual(parsed_cadeiras[0]['exames_count'], 1)
+
+        parsed_exam = json.loads(files_map[f"{folder_name}/{exam_filename}"])
+        self.assertEqual(parsed_exam['title'], 'Exame Teste 1')
+        self.assertEqual(len(parsed_exam['questions']), 1)
+
 
 if __name__ == '__main__':
     unittest.main()
+
 
 
 

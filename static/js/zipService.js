@@ -246,6 +246,19 @@ export function sanitizeFilename(name) {
         .slice(0, 60);
 }
 
+function getValidISOString(dateVal, fallbackId, prefix = '') {
+    if (dateVal) {
+        const d = new Date(dateVal);
+        if (!Number.isNaN(d.getTime())) return d.toISOString();
+    }
+    const cleanNum = parseInt(String(fallbackId || '').replace(prefix, ''), 10);
+    if (!Number.isNaN(cleanNum) && cleanNum > 0) {
+        const d = new Date(cleanNum);
+        if (!Number.isNaN(d.getTime())) return d.toISOString();
+    }
+    return new Date().toISOString();
+}
+
 /**
  * Converts local subjects and exams into an organized ZIP archive Blob.
  *
@@ -270,7 +283,7 @@ export function createExamsZipBlob(localCadeiras = [], localExames = []) {
         icon: c.icon || 'fa-graduation-cap',
         exames_count: (localExames.filter(e => e.cadeira_id === c.id)).length,
         isLocal: true,
-        createdAt: c.createdAt || new Date(parseInt((c.id || '').replace('local_', ''), 10) || Date.now()).toISOString()
+        createdAt: getValidISOString(c.createdAt, c.id, 'local_')
     }));
 
     filesMap['cadeiras.json'] = JSON.stringify(cleanCadeiras, null, 2);
@@ -280,12 +293,22 @@ export function createExamsZipBlob(localCadeiras = [], localExames = []) {
         const folderName = sanitizeFilename(cadeira.nome);
         const subjectExams = localExames.filter(e => e.cadeira_id === cadeira.id);
 
+        const usedFilenames = new Set();
+        const fileNames = subjectExams.map((exam, idx) => {
+            const rawTitle = exam.title || exam.titulo || `Exame_${idx + 1}`;
+            const titleStr = typeof rawTitle === 'object' ? (rawTitle.pt || rawTitle.en || Object.values(rawTitle)[0]) : rawTitle;
+            let filename = `${sanitizeFilename(titleStr)}.json`;
+
+            if (usedFilenames.has(filename)) {
+                filename = `${sanitizeFilename(titleStr)}_${idx + 1}.json`;
+            }
+            usedFilenames.add(filename);
+            return filename;
+        });
+
         // Subject index.json
         const indexList = subjectExams.map((e, idx) => {
-            const rawTitle = e.title || e.titulo || `Exame ${idx + 1}`;
-            const titleStr = typeof rawTitle === 'object' ? (rawTitle.pt || rawTitle.en || Object.values(rawTitle)[0]) : rawTitle;
-            const filename = `${sanitizeFilename(titleStr)}.json`;
-
+            const filename = fileNames[idx];
             return {
                 id: e.id,
                 title: e.title || e.titulo,
@@ -293,31 +316,21 @@ export function createExamsZipBlob(localCadeiras = [], localExames = []) {
                 languages: e.languages || e.linguas || ['pt'],
                 file: filename,
                 questions_count: (e.questions || e.perguntas || []).length,
-                createdAt: e.createdAt || new Date(parseInt((e.id || '').replace('exam_local_', ''), 10) || Date.now()).toISOString()
+                createdAt: getValidISOString(e.createdAt, e.id, 'exam_local_')
             };
         });
 
         filesMap[`${folderName}/index.json`] = JSON.stringify(indexList, null, 2);
 
         // Individual Exam JSON files
-        const usedFilenames = new Set();
         subjectExams.forEach((exam, idx) => {
-            const rawTitle = exam.title || exam.titulo || `Exame_${idx + 1}`;
-            const titleStr = typeof rawTitle === 'object' ? (rawTitle.pt || rawTitle.en || Object.values(rawTitle)[0]) : rawTitle;
-            let filename = `${sanitizeFilename(titleStr)}.json`;
-
-            // Avoid collisions in the same folder
-            if (usedFilenames.has(filename)) {
-                filename = `${sanitizeFilename(titleStr)}_${idx + 1}.json`;
-            }
-            usedFilenames.add(filename);
-
+            const filename = fileNames[idx];
             const examObj = {
                 title: exam.title || exam.titulo,
                 description: exam.description || exam.descricao || '',
                 languages: exam.languages || exam.linguas || ['pt'],
                 questions: exam.questions || exam.perguntas || [],
-                createdAt: exam.createdAt || new Date(parseInt((exam.id || '').replace('exam_local_', ''), 10) || Date.now()).toISOString(),
+                createdAt: getValidISOString(exam.createdAt, exam.id, 'exam_local_'),
                 cadeira_nome: cadeira.nome,
                 cadeira_id: cadeira.id
             };
@@ -328,6 +341,43 @@ export function createExamsZipBlob(localCadeiras = [], localExames = []) {
 
     return createZipBlob(filesMap);
 }
+
+/**
+ * Creates a ZIP archive Blob for a single Cadeira and its exams.
+ * Structure matches full backup:
+ * /cadeiras.json
+ * /<Cadeira_Nome>/index.json
+ * /<Cadeira_Nome>/<Exame_Titulo>.json
+ *
+ * @param {object} cadeira
+ * @param {object[]} exams
+ * @returns {Blob}
+ */
+export function createSingleCadeiraZipBlob(cadeira, exams = []) {
+    if (!cadeira) throw new Error('Cadeira não especificada.');
+
+    const cleanCadeira = {
+        id: cadeira.id,
+        nome: (cadeira.nome || '').trim(),
+        sigla: (cadeira.sigla || (cadeira.nome || '').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 5)).trim(),
+        descricao: cadeira.descricao || '',
+        icon: cadeira.icon || 'fa-graduation-cap',
+        exames_count: exams.length,
+        isLocal: true,
+        createdAt: getValidISOString(cadeira.createdAt, cadeira.id, 'local_')
+    };
+
+    const preparedExams = exams.map((exam, idx) => ({
+        ...exam,
+        id: exam.id || `exam_${idx + 1}`,
+        cadeira_id: cleanCadeira.id,
+        cadeira_nome: cleanCadeira.nome,
+        createdAt: getValidISOString(exam.createdAt, exam.id, 'exam_local_')
+    }));
+
+    return createExamsZipBlob([cleanCadeira], preparedExams);
+}
+
 
 /**
  * Parses an imported ZIP ArrayBuffer / Uint8Array and returns reconstructed local data.

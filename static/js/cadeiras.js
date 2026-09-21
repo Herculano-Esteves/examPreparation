@@ -15,6 +15,7 @@ import { Events, APP_EVENTS } from './events.js';
 import { ALL_QUESTION_TYPES } from './examFilters.js';
 import { deleteLocalCadeira } from './storage.js';
 import { openDangerConfirmModal } from './confirmModal.js';
+import { openCadeiraShareDialog } from './cadeiraSharing.js';
 
 let renderTimer = null;
 function scheduleRenderCadeirasMenu() {
@@ -411,16 +412,36 @@ export function renderCadeirasMenu() {
                </button>`
             : '';
 
+        const shareBtnHTML = `<button type="button" class="btn-card-share" title="${escapeHTML(t('btn_share_cadeira'))}" aria-label="${escapeHTML(t('aria_share_cadeira', { name: cadeira.nome }))}"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i></button>`;
+
         row.innerHTML = `
             <div class="exam-list-header">
                 <h4 class="exam-list-title"><i class="${iconClass} cadeira-title-icon" aria-hidden="true"></i> ${escapeHTML(sigla)} - ${escapeHTML(cadeira.nome)}${cadeira.isLocal ? ` <span class="badge-local">${escapeHTML(t('badge_local'))}</span>` : ''}</h4>
                 <div class="exam-list-header-right">
+                    ${shareBtnHTML}
                     ${deleteBtnHTML}
                     <span class="exam-list-action">[ ${countLabel} ]</span>
                 </div>
             </div>
             <p class="exam-list-desc">${escapeHTML(cadeira.descricao)}</p>
         `;
+
+        const btnShare = row.querySelector('.btn-card-share');
+        if (btnShare) {
+            const handleShare = (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                openCadeiraShareDialog(cadeira, btnShare);
+            };
+            btnShare.addEventListener('click', handleShare);
+            btnShare.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleShare(e);
+                }
+            });
+        }
 
         if (cadeira.isLocal) {
             const btnDelete = row.querySelector('.btn-card-delete');

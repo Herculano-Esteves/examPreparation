@@ -4214,6 +4214,10 @@ body.header-scrolled .sticky-corner-right {
 .exam-transfer-description { color: var(--text-dim, #9494a0); font-size: 0.82rem; line-height: 1.45; margin: 0; }
 .exam-transfer-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem; }
 .exam-transfer-actions .btn-popover-backup { min-width: 0; }
+.exam-transfer-actions .btn-popover-backup.btn-single-action,
+.exam-transfer-actions .btn-popover-backup:only-of-type {
+    grid-column: 1 / -1;
+}
 
 .danger-modal-header {
     padding-bottom: 0.75rem;

@@ -160,6 +160,10 @@
                                     <i class="fa-solid fa-plus-circle" aria-hidden="true"></i>
                                     <span data-i18n="btn_add_cadeira">Adicionar Cadeira</span>
                                 </button>
+                                <button id="btn-import-cadeira-top" class="btn-control btn-secondary btn-sm">
+                                    <i class="fa-solid fa-file-import" aria-hidden="true"></i>
+                                    <span data-i18n="btn_import_cadeira">Importar cadeira</span>
+                                </button>
                             </div>
                         </div>
 
@@ -1196,6 +1200,22 @@
         </div>
     </div>
 
+    <div id="cadeira-share-modal" class="modal-backdrop exam-transfer-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="share-cadeira-title">
+        <div class="exam-transfer-modal-card">
+            <div class="settings-popover-header exam-transfer-header">
+                <h2 id="share-cadeira-title" class="settings-popover-title"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> <span data-i18n="share_cadeira_title">Partilhar cadeira</span></h2>
+                <button id="btn-close-share-cadeira-modal" type="button" class="btn-close-popover" aria-label="Fechar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="settings-popover-body exam-transfer-body">
+                <p class="exam-transfer-description" data-i18n="share_cadeira_desc">Partilhe a cadeira e todos os seus exames num arquivo comprimido (.zip). O seu progresso não é incluído.</p>
+                <div class="exam-transfer-actions">
+                    <button id="btn-share-cadeira-download-zip" type="button" class="btn-popover-backup"><i class="fa-solid fa-download" aria-hidden="true"></i> <span data-i18n="btn_download_zip">Descarregar .zip</span></button>
+                    <button id="btn-share-cadeira-native" type="button" class="btn-popover-backup hidden"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i> <span data-i18n="btn_share_native">Partilhar</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="exam-import-modal" class="modal-backdrop exam-transfer-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="import-exam-title">
         <div class="exam-transfer-modal-card">
             <div class="settings-popover-header exam-transfer-header">
@@ -1208,6 +1228,22 @@
                     <button id="btn-import-exam-clipboard" type="button" class="btn-popover-backup"><i class="fa-solid fa-clipboard" aria-hidden="true"></i> <span data-i18n="btn_read_clipboard">Ler área de transferência</span></button>
                     <button id="btn-choose-import-exam-json" type="button" class="btn-popover-backup"><i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i> <span data-i18n="btn_choose_json">Escolher ficheiro .json</span></button>
                     <input id="input-import-exam-json" type="file" accept="application/json,.json" class="hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cadeira-import-modal" class="modal-backdrop exam-transfer-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="import-cadeira-title">
+        <div class="exam-transfer-modal-card">
+            <div class="settings-popover-header exam-transfer-header">
+                <h2 id="import-cadeira-title" class="settings-popover-title"><i class="fa-solid fa-file-import" aria-hidden="true"></i> <span data-i18n="import_cadeira_title">Importar cadeira</span></h2>
+                <button id="btn-close-import-cadeira-modal" type="button" class="btn-close-popover" aria-label="Fechar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <div class="settings-popover-body exam-transfer-body">
+                <p class="exam-transfer-description" data-i18n="import_cadeira_desc">A cadeira e os seus exames serão importados a partir de um ficheiro .zip.</p>
+                <div class="exam-transfer-actions">
+                    <button id="btn-choose-import-cadeira-zip" type="button" class="btn-popover-backup btn-single-action"><i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i> <span data-i18n="btn_choose_zip">Escolher ficheiro .zip</span></button>
+                    <input id="input-import-cadeira-zip" type="file" accept="application/zip,.zip" class="hidden">
                 </div>
             </div>
         </div>
