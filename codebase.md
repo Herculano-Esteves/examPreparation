@@ -25,8 +25,9 @@ Local development, index generation, and data integrity verification are orchest
 | `exames/<course-id>/cadeira.json` | Metadata for a specific course (display title, sigla, icon, description). |
 | `exames/<course-id>/*.json` | Individual exam files holding question collections, answers, explanations, and configurations. |
 | `exames/<course-id>/index.json` | Generated course manifest listing available exams and question count summaries. |
-| `tests/` | Python `unittest` suite testing index generation, data integrity, and frontend module contracts. |
+| `tests/` | Unit and integrity tests (`test_*.py`) and automated Playwright E2E browser tests (`tests/e2e/`). |
 | `run.py` | Local development CLI: dev server (`:5000`), index compilation (`--build-only`), schema validator (`--validate`), and starter generator (`--new-exam`). |
+| `requirements-dev.txt` | Python dependencies for automated headless E2E testing with Playwright & Pytest inside `.venv`. |
 | `FORMATO_PERGUNTAS.md` | Reference specification for supported question types (`escolha_multipla`, `boolean`, `escrita`) and solution indexing. |
 | `HOW_TO_USE.md` | Guide for course creation, exam authoring, and question structure. |
 | `AGENTS.md` | Repository guidelines, coding style, test rules, and pull request conventions. |
@@ -171,9 +172,13 @@ python run.py --validate
 # Generate a scaffolded exam JSON file for a specific course
 python run.py --new-exam <course-id> <ExamName>
 
-# Run the complete Python test suite
+# Run the standard library Python test suite
 python -m unittest discover -s tests -p "test_*.py"
+
+# Run automated Playwright E2E tests (inside .venv)
+.\.venv\Scripts\pytest tests/e2e
 ```
+
 
 ### Coding & Contribution Conventions
 - **Indentation**: 4 spaces in Python and JavaScript; 2 spaces in JSON.

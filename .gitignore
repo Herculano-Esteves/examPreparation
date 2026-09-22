@@ -7,3 +7,14 @@ __pycache__/
 .idea/
 
 Test/*
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Test artifacts
+.pytest_cache/
+test-results/
+playwright-report/

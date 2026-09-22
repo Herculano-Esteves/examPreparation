@@ -1,0 +1,5 @@
+# Dependencies for E2E automated testing with Playwright and Pytest
+# Note: Install inside a Python virtual environment (.venv).
+pytest>=8.0.0
+playwright>=1.40.0
+pytest-playwright>=0.5.0

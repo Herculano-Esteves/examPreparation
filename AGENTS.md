@@ -8,14 +8,43 @@ Use [codebase.md](codebase.md) as the maintained map of entry points, modules, d
 
 ## Build, Test, and Development Commands
 
-Run these from the repository root with Python 3; the main tooling uses the standard library.
+Run core tooling from the repository root with Python 3 using the standard library:
 
 - `python run.py` rebuilds indexes and starts the local server at `http://127.0.0.1:5000`.
 - `python run.py --build-only` regenerates `exames/*/index.json` and `exames/cadeiras.json` without serving.
 - `python run.py --validate` checks exam JSON syntax, fields, and references.
-- `python -m unittest discover -s tests -p "test_*.py"` runs the maintained test suite.
+- `python -m unittest discover -s tests -p "test_*.py"` runs the maintained standard library test suite.
 
 When adding content, `python run.py --new-exam adi ExamName` can create a starter exam. Rebuild indexes after editing exam files and review the generated changes before committing.
+
+### Python Virtual Environment (`.venv`) & E2E Testing with Playwright
+
+**Rule:** The core repository tooling runs on Python standard library without external dependencies. Any external Python packages, browser automation tools, or test runners (such as Playwright, Pytest) **MUST** be installed and run inside a virtual environment (`.venv`). Do not install external packages into the global system Python.
+
+1. Create the virtual environment:
+   ```powershell
+   python -m venv .venv
+   ```
+2. Activate the virtual environment:
+   ```powershell
+   .\.venv\Scripts\Activate.ps1
+   ```
+3. Install development/test dependencies:
+   ```powershell
+   pip install -r requirements-dev.txt
+   ```
+4. Install Playwright browser binaries (Chromium headless):
+   ```powershell
+   playwright install chromium
+   ```
+5. Run automated E2E headless tests:
+   ```powershell
+   pytest tests/e2e
+   ```
+   Or without manual activation:
+   ```powershell
+   .\.venv\Scripts\pytest tests/e2e
+   ```
 
 ## Coding Style & Naming Conventions
 
@@ -23,7 +52,9 @@ Follow the surrounding code: four-space indentation in Python and JavaScript, se
 
 ## Testing Guidelines
 
-Tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and the test suite before a pull request. There is no stated coverage threshold.
+- **Unit & Integrity Tests**: Maintained standard library tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and `python -m unittest discover -s tests -p "test_*.py"` before a pull request.
+- **E2E & UI Automation**: Browser automation and interaction tests live under `tests/e2e/` and use Playwright with Pytest inside `.venv`. They validate user flows (navigation, button clicks, state transitions) in headless mode.
+
 
 ## Commit & Pull Request Guidelines
 
