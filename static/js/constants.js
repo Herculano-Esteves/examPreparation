@@ -128,7 +128,7 @@ Em "options", cada idioma deve ter um array com a mesma quantidade de opções e
 ================================================================================
 - Markdown e LaTeX: Todos os textos suportam formatação Markdown (negrito, itálico, listas, tabelas) e fórmulas matemáticas KaTeX ($inline$ ou $$display$$).
 - Escape de Caracteres: Em strings JSON, use sempre escape em quebras de linha (\\n), aspas internas (\\") e barras de LaTeX (\\\\frac{a}{b}).
-- Saída: Devolva EXCLUSIVAMENTE o código JSON puro e válido, sem blocos de código Markdown (\`\`\`json) ou texto de conversa.
+- Saída: Devolva EXCLUSIVAMENTE o código JSON puro e válido, sem blocos de código Markdown (\`\`\`json) ou texto de conversa. Apresente todo o output numa única resposta contínua, pronta para ser copiada integralmente de uma só vez.
 
 --------------------------------------------------------------------------------
 Sabendo as instruções anteriores quero que faça um exame segundo o que o utilizador pede:
@@ -261,7 +261,7 @@ In "options", each language must contain an array with identical option count an
 ================================================================================
 - Markdown & LaTeX: All text fields support Markdown formatting (bold, italics, lists, tables) and KaTeX math notation ($inline$ or $$display$$).
 - Character Escaping: In JSON strings, always escape newlines (\\n), internal quotes (\\"), and LaTeX backslashes (\\\\frac{a}{b}).
-- Output: Return EXCLUSIVELY raw, valid JSON with no markdown code fences (\`\`\`json) or conversational preamble.
+- Output: Return EXCLUSIVELY raw, valid JSON with no markdown code fences (\`\`\`json) or conversational preamble. Present the entire output as one continuous response that can be copied in full in a single action.
 
 --------------------------------------------------------------------------------
 Based on the instructions above, please generate an exam according to what the user requests:
