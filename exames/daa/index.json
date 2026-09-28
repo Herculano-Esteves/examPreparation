@@ -1,0 +1,158 @@
+[
+  {
+    "id": "1_Fundamentos_DataScience_e_Estatistica",
+    "title": {
+      "en": "Exam 1: Foundations of Data Science and Descriptive Statistics",
+      "pt": "Exame 1: Fundamentos de Ciência de Dados e Estatística Descritiva"
+    },
+    "description": {
+      "en": "Comprehensive theoretical and applied exam on data science foundations, data taxonomy (numerical continuous/discrete, categorical, ordinal), measures of central tendency (mean, median, mode), dispersion and variability (variance, standard deviation, empirical rule), probability distributions (PDF vs PMF), percentiles, IQR, outlier detection, covariance, and Pearson correlation versus causation.",
+      "pt": "Exame teórico e aplicado abrangente sobre os fundamentos de ciência de dados, taxonomia de tipos de dados (numéricos contínuos/discretos, categóricos, ordinais), medidas de tendência central (média, mediana, moda), dispersão e variabilidade (variância, desvio-padrão, regra empírica), distribuições de probabilidade (PDF vs PMF), percentis, amplitude interquartil (IQR), deteção de anomalias (outliers), covariância e correlação linear de Pearson vs causalidade."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 13,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 10,
+      "boolean": 2,
+      "escrita": 1
+    },
+    "path": "exames/daa/1_Fundamentos_DataScience_e_Estatistica.json"
+  },
+  {
+    "id": "2_Conceitos_Fundamentais_ML_e_Paradigmas",
+    "title": {
+      "en": "Exam 2: Core Machine Learning Concepts and Learning Paradigms",
+      "pt": "Exame 2: Conceitos Fundamentais de Machine Learning e Paradigmas de Aprendizagem"
+    },
+    "description": {
+      "en": "Comprehensive theoretical exam covering formal definitions of Machine Learning (Tom Mitchell, AAAI), traditional programming versus machine learning paradigms, taxonomy of learning systems (supervised, unsupervised, reinforcement), core model families (linear, decision trees, neural networks, ensembles, natural computation), the DIKW hierarchy, data formats, and the CRISP-DM / KDD knowledge extraction lifecycle.",
+      "pt": "Exame teórico aprofundado sobre as definições formais de Aprendizagem Automática (Tom Mitchell, AAAI), a transição paradigmática entre programação tradicional e aprendizagem automática, a taxonomia dos sistemas de aprendizagem (supervisionada, não-supervisionada, por reforço), as grandes famílias de modelos (lineares, árvores de decisão, redes neuronais artificiais, ensembles, computação natural), a pirâmide DIKW, formatos de dados e os ciclos de vida CRISP-DM e KDD."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 10,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 8,
+      "boolean": 1,
+      "escrita": 1
+    },
+    "path": "exames/daa/2_Conceitos_Fundamentais_ML_e_Paradigmas.json"
+  },
+  {
+    "id": "3_Arvores_Decisao_Classificacao_Regressao",
+    "title": {
+      "en": "Exam 3: Decision Trees - Classification and Regression",
+      "pt": "Exame 3: Árvores de Decisão - Classificação e Regressão"
+    },
+    "description": {
+      "en": "Comprehensive theoretical and algorithmic exam on Decision Trees (DTs): topological architecture (root, internal decision nodes, branches, leaf nodes), orthogonal feature space partitioning, Decision Tree Classifier versus Regressor, splitting criteria (Gini Impurity, Shannon Entropy, Information Gain, Variance Reduction/MSE, MAE), scikit-learn specifics and handling of categorical data, hyperparameter regularization (max_depth, min_samples_split, min_samples_leaf, max_features), pre-pruning versus cost-complexity post-pruning, and the bias-variance tradeoff.",
+      "pt": "Exame teórico e algorítmico aprofundado sobre Árvores de Decisão: arquitetura topológica (raiz, nós internos de decisão, ramos, folhas terminais), particionamento geométrico ortogonal do espaço de atributos, Classificador vs Regressor em Árvores, critérios de divisão de nós (Impureza de Gini, Entropia de Shannon, Ganho de Informação, Redução de Variância/MSE, MAE), particularidades do scikit-learn no tratamento de variáveis categóricas, hiperparâmetros de regularização e combate ao sobreajuste (max_depth, min_samples_split, min_samples_leaf, max_features), pré-poda vs pós-poda e o dilema viés-variância."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 10,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 8,
+      "boolean": 1,
+      "escrita": 1
+    },
+    "path": "exames/daa/3_Arvores_Decisao_Classificacao_Regressao.json"
+  },
+  {
+    "id": "4_Metricas_Qualidade_Classificacao_e_Regressao",
+    "title": {
+      "en": "Exam 4: Model Quality Metrics - Classification and Regression",
+      "pt": "Exame 4: Métricas de Qualidade de Modelos - Classificação e Regressão"
+    },
+    "description": {
+      "en": "Extensive, highly rigorous theoretical exam on performance evaluation metrics: Confusion Matrix components (TP, TN, FP - Type I error, FN - Type II error), the Accuracy Paradox under severe class imbalance, Precision, Recall/Sensitivity, Specificity, harmonic derivation of the F1-Score, the F-beta generalized metric and beta parameter weighting, ROC curve dynamics, AUC geometric and probabilistic interpretation, multiclass averaging strategies (macro vs micro vs weighted), and regression metrics (MAE, MSE, RMSE) including error distribution analysis and outlier sensitivity.",
+      "pt": "Exame teórico aprofundado e altamente rigoroso sobre métricas de avaliação de desempenho: componentes formais da Matriz de Confusão (TP, TN, FP - Erro Tipo I, FN - Erro Tipo II), o Paradoxo da Acurácia sob desequilíbrio severo de classes, Precisão, Sensibilidade/Recall, Especificidade, dedução matemática do F1-Score, métrica generalizada F-beta e ponderação pelo parâmetro beta, dinâmica da curva ROC, interpretação geométrica e probabilística da AUC, agregação multi-classe (macro vs micro vs ponderada) e métricas de regressão (MAE, MSE, RMSE) com análise de sensibilidade a desvios extremos."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 10,
+    "question_types": [
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 9,
+      "escrita": 1
+    },
+    "path": "exames/daa/4_Metricas_Qualidade_Classificacao_e_Regressao.json"
+  },
+  {
+    "id": "5_Validacao_Modelos_e_Afinacao_Hiperparametros",
+    "title": {
+      "en": "Exam 5: Model Validation, Cross-Validation, and Hyperparameter Tuning",
+      "pt": "Exame 5: Validação de Modelos, Validação Cruzada e Afinação de Hiperparâmetros"
+    },
+    "description": {
+      "en": "Comprehensive theoretical and applied exam covering model validation methodologies: the danger of training set evaluation, Hold-out validation and the critical role of random_state, k-Fold Cross-Validation algorithmic mechanics, fold count selection tradeoffs (k=10 rule of thumb), Leave-One-Out Cross-Validation (LOOCV), Stratified k-Fold under class imbalance, Data Leakage prevention during preprocessing, and systematic hyperparameter optimization using GridSearchCV and RandomizedSearchCV.",
+      "pt": "Exame teórico e aplicado aprofundado sobre metodologias de validação de modelos: os perigos da avaliação sobre os dados de treino, validação por partição Hold-out e o papel fulcral do random_state, mecânica algorítmica da validação cruzada k-Fold, compromissos na seleção do número de dobras (regra heurística k=10), Leave-One-Out Cross-Validation (LOOCV), Stratified k-Fold em cenários de desbalanceamento, prevenção de fuga de informação (Data Leakage) no pré-processamento e otimização sistemática de hiperparâmetros com GridSearchCV e RandomizedSearchCV."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 9,
+    "question_types": [
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 8,
+      "escrita": 1
+    },
+    "path": "exames/daa/5_Validacao_Modelos_e_Afinacao_Hiperparametros.json"
+  },
+  {
+    "id": "6_Pratica_Laboratorial_Python_Sklearn_Telecom_Churn",
+    "title": {
+      "en": "Exam 6: Practical Laboratory - Python, Scikit-Learn, and Telecom Churn Case Study",
+      "pt": "Exame 6: Prática Laboratorial - Python, Scikit-Learn e Caso de Estudo de Churn"
+    },
+    "description": {
+      "en": "Hands-on, applied practical exam based on the DAA laboratory sheets: Python virtual environments (Miniconda vs venv, CLI package lifecycle), data science software stack (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn, JupyterLab), Pandas dataset merging by composite primary keys ('Area Code' + 'Phone'), categorical type transformations, scikit-learn DecisionTreeClassifier training pipelines, feature/target matrix partitioning, manual and automated cross-validation loops, and critical business analysis of the Telecommunications Churn confusion matrix.",
+      "pt": "Exame prático de cariz laboratorial e aplicado com base nos guiões práticos de DAA: gestão de ambientes virtuais em Python (Miniconda vs venv, comandos de ciclo de vida), ecossistema científico (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn, JupyterLab), fusão relacional de DataFrames com Pandas via chaves compostas ('Area Code' + 'Phone'), conversão de tipos de atributos, pipeline de treino com DecisionTreeClassifier, partição de matrizes de features e target, loops manuais e automatizados de validação cruzada e análise crítica e económica da matriz de confusão no problema de Churn de Telecomunicações."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 9,
+    "question_types": [
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 8,
+      "escrita": 1
+    },
+    "path": "exames/daa/6_Pratica_Laboratorial_Python_Sklearn_Telecom_Churn.json"
+  }
+]

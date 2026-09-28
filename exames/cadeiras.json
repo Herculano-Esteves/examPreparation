@@ -9,6 +9,15 @@
     "index_path": "exames/adi/index.json"
   },
   {
+    "id": "daa",
+    "nome": "Dados e Aprendizagem Automática",
+    "sigla": "DAA",
+    "icon": "fa-chart-pie",
+    "descricao": "Ciência de dados, estatística descritiva, tipos de dados, aprendizagem supervisionada e não-supervisionada, árvores de decisão, métricas de qualidade (classificação e regressão) e validação de modelos.",
+    "exames_count": 6,
+    "index_path": "exames/daa/index.json"
+  },
+  {
     "id": "fmse",
     "nome": "Métodos Formais em Engenharia de Software",
     "sigla": "FMSE",

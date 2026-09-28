@@ -1,0 +1,299 @@
+{
+  "title": {
+    "en": "Exam 4: Model Quality Metrics - Classification and Regression",
+    "pt": "Exame 4: Métricas de Qualidade de Modelos - Classificação e Regressão"
+  },
+  "description": {
+    "en": "Extensive, highly rigorous theoretical exam on performance evaluation metrics: Confusion Matrix components (TP, TN, FP - Type I error, FN - Type II error), the Accuracy Paradox under severe class imbalance, Precision, Recall/Sensitivity, Specificity, harmonic derivation of the F1-Score, the F-beta generalized metric and beta parameter weighting, ROC curve dynamics, AUC geometric and probabilistic interpretation, multiclass averaging strategies (macro vs micro vs weighted), and regression metrics (MAE, MSE, RMSE) including error distribution analysis and outlier sensitivity.",
+    "pt": "Exame teórico aprofundado e altamente rigoroso sobre métricas de avaliação de desempenho: componentes formais da Matriz de Confusão (TP, TN, FP - Erro Tipo I, FN - Erro Tipo II), o Paradoxo da Acurácia sob desequilíbrio severo de classes, Precisão, Sensibilidade/Recall, Especificidade, dedução matemática do F1-Score, métrica generalizada F-beta e ponderação pelo parâmetro beta, dinâmica da curva ROC, interpretação geométrica e probabilística da AUC, agregação multi-classe (macro vs micro vs ponderada) e métricas de regressão (MAE, MSE, RMSE) com análise de sensibilidade a desvios extremos."
+  },
+  "languages": [
+    "en",
+    "pt"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "A binary classification confusion matrix is defined with true classes in rows and predicted classes in columns:\n```\n               Predicted Negative (0)    Predicted Positive (1)\nActual Neg (0)         TN                        FP\nActual Pos (1)         FN                        TP\n```",
+        "pt": "Considere a matriz de confusão binária canónica onde as classes reais figuram nas linhas e as classes previstas nas colunas:\n```\n               Previsto Negativo (0)    Previsto Positivo (1)\nReal Neg (0)           TN                       FP\nReal Pos (1)           FN                       TP\n```"
+      },
+      "question": {
+        "en": "In statistical hypothesis testing terminology, what do False Positives (FP) and False Negatives (FN) correspond to, respectively?",
+        "pt": "Na terminologia formal de testes de hipóteses estatísticas, a que correspondem respetivamente os Falsos Positivos (FP) e os Falsos Negativos (FN)?"
+      },
+      "options": {
+        "en": [
+          "False Positives correspond to Type I Errors (false alarms); False Negatives correspond to Type II Errors (misses/omissions).",
+          "False Positives correspond to Type II Errors; False Negatives correspond to Type I Errors.",
+          "Both correspond to Type III Errors in non-parametric distributions.",
+          "False Positives represent systematic bias; False Negatives represent irreducible stochastic noise."
+        ],
+        "pt": [
+          "Falsos Positivos correspondem a Erros do Tipo I (falsos alarmes); Falsos Negativos correspondem a Erros do Tipo II (omissões).",
+          "Falsos Positivos correspondem a Erros do Tipo II; Falsos Negativos correspondem a Erros do Tipo I.",
+          "Ambos correspondem a Erros do Tipo III em distribuições não-paramétricas.",
+          "Falsos Positivos representam o viés sistemático; Falsos Negativos representam o ruído estocástico irredutível."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "A Type I error (False Positive) rejects a true null hypothesis: the system claims something is positive when it is actually negative (e.g., classifying a safe email as spam). A Type II error (False Negative) fails to reject a false null hypothesis: the system claims something is negative when it is positive (e.g., failing to diagnose a disease).",
+        "pt": "O Erro do Tipo I (Falso Positivo) ocorre quando se rejeita erroneamente a hipótese nula verdadeira: o modelo sinaliza positivo quando a realidade é negativa (ex: falso alarme de incêndio). O Erro do Tipo II (Falso Negativo) ocorre ao aceitar a hipótese nula quando ela é falsa: o modelo falha em detetar o evento positivo (ex: não detetar uma fraude bancária real)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "In a medical screening study for an uncommon condition, 990 out of 1,000 tested patients are healthy (negative), and 10 have the condition (positive). A naive baseline classifier predicts 'healthy' (negative) for 100% of patients.",
+        "pt": "Num rastreio médico para uma doença rara, 990 em cada 1.000 pacientes testados são saudáveis (negativos) e apenas 10 são portadores da doença (positivos). Um classificador ingénuo decide prever 'saudável' (negativo) para absolutamente todos os pacientes."
+      },
+      "question": {
+        "en": "What are the Accuracy and the Recall (Sensitivity) of this naive classifier, and what does this demonstrate?",
+        "pt": "Quais são a Acurácia e o Recall (Sensibilidade) deste classificador ingénuo e o que é que este fenómeno demonstra?"
+      },
+      "options": {
+        "en": [
+          "Accuracy = 99.0%; Recall = 0.0%; This demonstrates the 'Accuracy Paradox', proving that accuracy is completely misleading for severely imbalanced datasets.",
+          "Accuracy = 99.0%; Recall = 99.0%; This demonstrates that the model is medically optimal.",
+          "Accuracy = 10.0%; Recall = 99.0%; This demonstrates that precision is equivalent to sensitivity.",
+          "Accuracy = 50.0%; Recall = 50.0%; This proves that class imbalance produces random performance."
+        ],
+        "pt": [
+          "Acurácia = 99.0%; Recall = 0.0%; Isto demonstra o 'Paradoxo da Acurácia', comprovando que a acurácia é uma métrica profundamente enganadora em conjuntos de dados com classes desbalanceadas.",
+          "Acurácia = 99.0%; Recall = 99.0%; Isto demonstra que o modelo é clinicamente excelente.",
+          "Acurácia = 10.0%; Recall = 99.0%; Isto demonstra que a precisão coincide com a sensibilidade.",
+          "Acurácia = 50.0%; Recall = 50.0%; Isto comprova que o desequilíbrio de classes anula a capacidade preditiva."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Total samples = 1000. Correct predictions: 990 healthy people correctly predicted as healthy (TN = 990, TP = 0, FP = 0, FN = 10). Accuracy = (990 + 0)/1000 = 99.0%. However, Recall = TP / (TP + FN) = 0 / (0 + 10) = 0.0%. The model caught zero sick patients despite boasting 99% accuracy.",
+        "pt": "Total = 1000. Previsões corretas: 990 negativos previstos como negativos (TN = 990, TP = 0, FP = 0, FN = 10). Acurácia = (990+0)/1000 = 99%. Contudo, o Recall (capacidade de capturar os doentes reais) é TP / (TP+FN) = 0 / 10 = 0%. O modelo tem 99% de acurácia mas utilidade clínica nula, o que corporiza o clássico 'Accuracy Paradox'."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How are Precision and Recall mathematically formulated, and what trade-off exists between them?",
+        "pt": "Como se formulam matematicamente a Precisão e o Recall (Sensibilidade) e que compromisso (trade-off) existe entre ambos?"
+      },
+      "options": {
+        "en": [
+          "$\\text{Precision} = \\frac{TP}{TP + FP}$ (exactness of positive predictions); $\\text{Recall} = \\frac{TP}{TP + FN}$ (completeness of finding actual positives). Lowering the classification decision threshold increases Recall but usually reduces Precision, and vice-versa.",
+          "$\\text{Precision} = \\frac{TN}{TN + FP}$; $\\text{Recall} = \\frac{TN}{TN + FN}$. Both always increase monotonically together.",
+          "$\\text{Precision} = \\frac{TP + TN}{Total}$; $\\text{Recall} = \\frac{FP + FN}{Total}$. Their sum is always equal to 1.0.",
+          "$\\text{Precision}$ is computed only on training data, whereas $\\text{Recall}$ is computed only on test data."
+        ],
+        "pt": [
+          "$\\text{Precisão} = \\frac{TP}{TP + FP}$ (exatidão das previsões positivas); $\\text{Recall} = \\frac{TP}{TP + FN}$ (completude na captura dos positivos reais). Diminuir o limiar de decisão de classificação aumenta o Recall mas tipicamente degrada a Precisão, e vice-versa.",
+          "$\\text{Precisão} = \\frac{TN}{TN + FP}$; $\\text{Recall} = \\frac{TN}{TN + FN}$. Ambas as métricas crescem sempre em simultâneo de forma monótona.",
+          "$\\text{Precisão} = \\frac{TP + TN}{Total}$; $\\text{Recall} = \\frac{FP + FN}{Total}$. A soma de ambas totaliza sempre exatamente 1.0.",
+          "A Precisão é aferida exclusivamente sobre os dados de treino, enquanto o Recall se restringe aos dados de teste."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Precision answers 'Out of all instances predicted as positive, how many were truly positive?'. Recall answers 'Out of all actual positive instances, how many did the model find?'. As you become more aggressive in flagging positives (lowering the probability threshold), you capture more true positives (higher recall), but also capture more false alarms (lower precision).",
+        "pt": "A Precisão questiona: 'De todas as instâncias que o modelo classificou como positivas, quantas são verdadeiramente positivas?'. O Recall questiona: 'De todas as instâncias positivas existentes na realidade, quantas foram identificadas pelo modelo?'. Ao diminuir o limiar de corte, o modelo apanha mais positivos reais (Recall sobe), mas comete mais falsos alarmes (Precisão desce)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Why is the $F_1$-Score defined as the harmonic mean of Precision and Recall, rather than their simple arithmetic mean?",
+        "pt": "Por que razão o $F_1$-Score é formulado como a média harmónica entre a Precisão e o Recall, em vez de recorrer à média aritmética simples?"
+      },
+      "options": {
+        "en": [
+          "Because the harmonic mean heavily penalizes extreme imbalances between Precision and Recall; if either metric approaches zero, the harmonic mean approaches zero, whereas an arithmetic mean would still yield an artificially high score of ~0.50.",
+          "Because the arithmetic mean cannot be calculated for fractions between 0 and 1.",
+          "Because harmonic means are linear while arithmetic means are quadratic.",
+          "Because the harmonic mean eliminates the need to specify True Negatives."
+        ],
+        "pt": [
+          "Porque a média harmónica penaliza severamente discrepâncias extremas entre Precisão e Recall; se uma das componentes for próxima de zero, a média harmónica aproxima-se de zero, ao passo que a média aritmética produziria uma pontuação artificialmente inflacionada de ~0.50.",
+          "Porque a média aritmética é indefinida para grandezas normalizadas no intervalo $[0, 1]$.",
+          "Porque a média harmónica é uma transformação puramente linear enquanto a aritmética é estritamente quadrática.",
+          "Porque a média harmónica dispensa a necessidade de contabilizar os Verdadeiros Negativos."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Consider a pathological model with Precision = 1.0 (1 true positive, 0 false positives) and Recall = 0.01 (missed 99 positive cases). The arithmetic mean is (1.0 + 0.01)/2 = 0.505 (misleadingly acceptable). The harmonic mean is $2 \\cdot \\frac{1.0 \\cdot 0.01}{1.0 + 0.01} = \\frac{0.02}{1.01} \\approx 0.0198$, correctly reflecting the model's severe inadequacy.",
+        "pt": "Suponha um modelo com Precisão = 1.0 e Recall = 0.01 (deixou escapar 99% dos doentes). A média aritmética seria (1.0 + 0.01)/2 = 0.505, sugerindo erroneamente um desempenho mediano. A média harmónica ($F_1$) é $2 \\cdot \\frac{1.0 \\cdot 0.01}{1.0 + 0.01} \\approx 0.0198$, espelhando com fidelidade a falha crítica do sistema."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "The generalized $F_\\beta$ score is expressed by the formula:\n$$F_\\beta = (1 + \\beta^2) \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\beta^2 \\cdot \\text{Precision} + \\text{Recall}}$$",
+        "pt": "A métrica generalizada $F_\\beta$ é expressa pela seguinte formulação:\n$$F_\\beta = (1 + \\beta^2) \\cdot \\frac{\\text{Precisão} \\cdot \\text{Recall}}{\\beta^2 \\cdot \\text{Precisão} + \\text{Recall}}$$"
+      },
+      "question": {
+        "en": "How does varying the parameter $\\beta$ adjust the relative importance of Recall versus Precision?",
+        "pt": "De que modo é que a variação do parâmetro $\\beta$ afina a importância relativa do Recall em detrimento da Precisão?"
+      },
+      "options": {
+        "en": [
+          "Setting $\\beta = 1.0$ weights Precision and Recall equally ($F_1$); setting $\\beta > 1$ (e.g., $\\beta=2.0$) gives more weight to Recall than Precision; setting $\\beta < 1$ (e.g., $\\beta=0.5$) gives more weight to Precision than Recall.",
+          "Setting $\\beta > 1$ gives more weight to Precision; setting $\\beta < 1$ gives more weight to Recall.",
+          "$\\beta$ represents the number of cross-validation folds.",
+          "Setting $\\beta = 0$ calculates the Root Mean Squared Error."
+        ],
+        "pt": [
+          "Definir $\\beta = 1.0$ atribui o mesmo peso à Precisão e ao Recall ($F_1$); definir $\\beta > 1$ (ex: $\\beta=2.0$) confere maior peso ao Recall do que à Precisão; definir $\\beta < 1$ (ex: $\\beta=0.5$) confere maior peso à Precisão do que ao Recall.",
+          "Definir $\\beta > 1$ prioriza a Precisão; definir $\\beta < 1$ prioriza o Recall.",
+          "O parâmetro $\\beta$ estipula o número de dobras da validação cruzada.",
+          "Definir $\\beta = 0$ calcula automaticamente o Root Mean Squared Error."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "In $F_\\beta$, $\\beta$ controls how many times more important Recall is compared to Precision. When detecting life-threatening illnesses, missing a patient (False Negative) is catastrophic, so clinicians use $F_2$ ($\\beta=2$). In spam detection, sending critical client emails to spam (False Positive) is unacceptable, so engineers prefer $F_{0.5}$ ($\\beta=0.5$).",
+        "pt": "O parâmetro $\\beta$ indica quantas vezes o Recall é considerado mais relevante do que a Precisão. No diagnóstico de doenças graves, um Falso Negativo custa vidas, recorrendo-se a $F_2$ ($\\beta=2$). Na classificação de spam, um Falso Positivo destrói e-mails de negócios legítimos, priorizando-se a Precisão através de $F_{0.5}$ ($\\beta=0.5$)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What do the axes of a Receiver Operating Characteristic (ROC) curve represent, and what is plotted on each axis?",
+        "pt": "O que representam os eixos de uma curva ROC (Receiver Operating Characteristic) e que grandezas constam em cada eixo?"
+      },
+      "options": {
+        "en": [
+          "Y-axis: True Positive Rate (Recall / Sensitivity: $\\frac{TP}{TP + FN}$); X-axis: False Positive Rate ($1 - \\text{Specificity}$: $\\frac{FP}{FP + TN}$). Each point corresponds to a different probability decision threshold.",
+          "Y-axis: Accuracy; X-axis: Model Depth in number of nodes.",
+          "Y-axis: Mean Squared Error; X-axis: Number of training epochs.",
+          "Y-axis: Precision; X-axis: Training Set Size."
+        ],
+        "pt": [
+          "Eixo Y: Taxa de Verdadeiros Positivos (Recall / Sensibilidade: $\\frac{TP}{TP + FN}$); Eixo X: Taxa de Falsos Positivos ($1 - \\text{Especificidade}$: $\\frac{FP}{FP + TN}$). Cada ponto da curva reflete a performance para um determinado limiar de corte de probabilidade.",
+          "Eixo Y: Acurácia global; Eixo X: Profundidade da árvore em número de nós.",
+          "Eixo Y: Erro Quadrático Médio; Eixo X: Épocas de treino executadas.",
+          "Eixo Y: Precisão; Eixo X: Dimensão da amostra de treino."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "The ROC curve plots TPR vs FPR across all possible decision thresholds from 1.0 (top-left/origin where everything is predicted negative) down to 0.0 (where everything is predicted positive). A random classifier follows the diagonal line $y = x$.",
+        "pt": "A curva ROC ilustra a evolução da Taxa de Verdadeiros Positivos (TPR) contra a Taxa de Falsos Positivos (FPR) à medida que o limiar de decisão varia entre 1.0 e 0.0. Um classificador puramente aleatório gera uma reta diagonal que liga $(0,0)$ a $(1,1)$ com inclinação unitária."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the probabilistic interpretation of the Area Under the ROC Curve (AUC)?",
+        "pt": "Qual é a interpretação probabilística exata da Área sob a Curva ROC (AUC)?"
+      },
+      "options": {
+        "en": [
+          "The AUC equals the probability that the classifier will assign a higher predicted score (or probability) to a randomly chosen positive instance than to a randomly chosen negative instance.",
+          "The AUC equals the percentage of correctly classified training instances when threshold is 0.5.",
+          "The AUC measures the correlation between input features and target labels.",
+          "The AUC is the ratio of False Positives to True Negatives."
+        ],
+        "pt": [
+          "A AUC equivale à probabilidade de o classificador atribuir uma pontuação (ou probabilidade prevista) superior a uma instância positiva selecionada aleatoriamente do que a uma instância negativa sorteada ao acaso.",
+          "A AUC representa a percentagem de instâncias de treino acertadas quando o limiar é fixado em 0.5.",
+          "A AUC quantifica a correlação linear de Pearson entre as variáveis explicativas e a classe alvo.",
+          "A AUC é o rácio aritmético entre Falsos Positivos e Verdadeiros Negativos."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "AUC measures ranking quality rather than calibration. An AUC of 1.0 means perfect separability (every positive case is scored higher than every negative case). An AUC of 0.5 indicates random guessing performance. AUC is independent of any single arbitrary threshold.",
+        "pt": "A AUC avalia a capacidade intrínseca de ordenação do modelo: um valor de 1.0 indica separabilidade perfeita (qualquer exemplo positivo recebe score superior a qualquer exemplo negativo). Um valor de 0.5 reflete um desempenho equivalente ao lançamento de uma moeda ao ar (aleatório). É independente da fixação de um limiar específico."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In multiclass or imbalanced evaluation with scikit-learn, what is the key difference between `f1_macro` and `f1_weighted`?",
+        "pt": "Na avaliação multi-classe ou com desequilíbrio no scikit-learn, qual é a distinção fulcral entre `f1_macro` e `f1_weighted`?"
+      },
+      "options": {
+        "en": [
+          "`f1_macro` calculates the F1-score independently for each class and takes their unweighted average (treating all classes equally regardless of frequency); `f1_weighted` weights each class's F1-score by its support (number of true instances).",
+          "`f1_macro` is for regression problems, while `f1_weighted` is for clustering.",
+          "`f1_macro` squares the errors, whereas `f1_weighted` takes the absolute value.",
+          "`f1_macro` ignores True Positives and only evaluates False Positives."
+        ],
+        "pt": [
+          "`f1_macro` calcula o F1-score de cada classe individualmente e extrai a sua média aritmética simples (atribuindo o mesmo peso a todas as classes, independentemente da sua representatividade); `f1_weighted` pondera o F1-score de cada classe pela sua frequência real (suporte na amostra).",
+          "`f1_macro` destina-se a regressão, enquanto `f1_weighted` se aplica exclusivamente a agrupamento.",
+          "`f1_macro` eleva os erros ao quadrado, enquanto `f1_weighted` utiliza a norma L1.",
+          "`f1_macro` ignora os Verdadeiros Positivos avaliando unicamente os Falsos Positivos."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Because `f1_macro` treats all classes with equal importance, if a model performs poorly on a rare minority class (e.g., Churn = 1), the macro F1 score will plummet significantly. In contrast, `f1_weighted` will be dominated by the majority class.",
+        "pt": "Como o `f1_macro` confere o mesmo peso a todas as classes, se o modelo falhar redondamente na classe minoritária rara (ex: Churn = 1), a média macro desaba drasticamente. Já o `f1_weighted` é dominado pelo desempenho na classe maioritária, podendo camuflar deficiências graves nas classes raras."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider two sets of prediction errors across 4 observations:\nModel A errors: `[1, -1, 3, 3]` -> Absolute: `[1, 1, 3, 3]`; Squared: `[1, 1, 9, 9]`\nModel B errors: `[0, 0, 0, 10]` -> Absolute: `[0, 0, 0, 10]`; Squared: `[0, 0, 0, 100]`",
+        "pt": "Considere dois conjuntos de erros de predição em 4 observações numéricas:\nErros Modelo A: `[1, -1, 3, 3]` -> Absolutos: `[1, 1, 3, 3]`; Quadráticos: `[1, 1, 9, 9]`\nErros Modelo B: `[0, 0, 0, 10]` -> Absolutos: `[0, 0, 0, 10]`; Quadráticos: `[0, 0, 0, 100]`"
+      },
+      "question": {
+        "en": "What are the MAE and MSE for Model A and Model B, and why does MSE penalize Model B much more severely?",
+        "pt": "Quais são o MAE e o MSE para o Modelo A e Modelo B, e por que razão o MSE penaliza o Modelo B muito mais severamente?"
+      },
+      "options": {
+        "en": [
+          "Model A: MAE = 2.0, MSE = 5.0; Model B: MAE = 2.5, MSE = 25.0; MSE penalizes Model B much more because squaring errors ($10^2 = 100$) disproportionately magnifies large deviations.",
+          "Model A: MAE = 5.0, MSE = 2.0; Model B: MAE = 25.0, MSE = 2.5; MAE penalizes outliers more than MSE.",
+          "Model A: MAE = 2.0, MSE = 20.0; Model B: MAE = 2.5, MSE = 10.0; MSE is indifferent to error magnitude.",
+          "Both models have identical MAE and MSE because their sum of errors is positive."
+        ],
+        "pt": [
+          "Modelo A: MAE = 2.0, MSE = 5.0; Modelo B: MAE = 2.5, MSE = 25.0; O MSE penaliza o Modelo B de forma muito mais drástica porque elevar o erro ao quadrado ($10^2 = 100$) amplia desproporcionalmente desvios individuais de grande magnitude.",
+          "Modelo A: MAE = 5.0, MSE = 2.0; Modelo B: MAE = 25.0, MSE = 2.5; O MAE penaliza anomalias mais do que o MSE.",
+          "Modelo A: MAE = 2.0, MSE = 20.0; Modelo B: MAE = 2.5, MSE = 10.0; O MSE é insensível à magnitude individual do desvio.",
+          "Ambos os modelos registam MAE e MSE perfeitamente idênticos porque a soma dos erros é positiva."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Model A: MAE = (1+1+3+3)/4 = 8/4 = 2.0; MSE = (1+1+9+9)/4 = 20/4 = 5.0 (RMSE = 2.24).\nModel B: MAE = (0+0+0+10)/4 = 10/4 = 2.5; MSE = (0+0+0+100)/4 = 100/4 = 25.0 (RMSE = 5.0).\nBecause squaring amplifies errors quadratically, a single large error of 10 blows up the MSE to 25.0, demonstrating why MSE/RMSE is preferred when large errors are especially undesirable.",
+        "pt": "Modelo A: MAE = (1+1+3+3)/4 = 2.0; MSE = (1+1+9+9)/4 = 5.0.\nModelo B: MAE = (0+0+0+10)/4 = 2.5; MSE = (0+0+0+100)/4 = 25.0.\nEmbora no MAE a diferença seja pequena (2.0 vs 2.5), no MSE a disparidade é colossal (5.0 vs 25.0). A potenciação ao quadrado confere um peso exponencial a desvios grosseiros, tornando o MSE e o RMSE ideais para cenários onde grandes falhas acarretam riscos inaceitáveis."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "en": "Given a test set of 100 binary predictions with the following confusion matrix:\n- True Positives (TP) = 40\n- False Positives (FP) = 10\n- False Negatives (FN) = 20\n- True Negatives (TN) = 30\nCalculate: (1) Accuracy, (2) Precision, (3) Recall, and (4) F1-Score.",
+        "pt": "Dado um conjunto de teste com 100 predições binárias e a seguinte matriz de confusão:\n- Verdadeiros Positivos (TP) = 40\n- Falsos Positivos (FP) = 10\n- Falsos Negativos (FN) = 20\n- Verdadeiros Negativos (TN) = 30\nCalcule: (1) Acurácia, (2) Precisão, (3) Recall (Sensibilidade) e (4) F1-Score."
+      },
+      "solution": {
+        "en": "1. Accuracy = (TP + TN) / (TP + TN + FP + FN) = (40 + 30) / (40 + 30 + 10 + 20) = 70 / 100 = 0.70 (70%).\n2. Precision = TP / (TP + FP) = 40 / (40 + 10) = 40 / 50 = 0.80 (80%).\n3. Recall = TP / (TP + FN) = 40 / (40 + 20) = 40 / 60 = 2/3 ≈ 0.667 (66.7%).\n4. F1-Score = 2 * (Precision * Recall) / (Precision + Recall) = 2 * (0.80 * 0.6667) / (0.80 + 0.6667) = (2 * 0.5333) / 1.4667 ≈ 1.0667 / 1.4667 ≈ 0.727 (72.7%).",
+        "pt": "1. Acurácia = (TP + TN) / Total = (40 + 30) / 100 = 70 / 100 = 0.70 (70.0%).\n2. Precisão = TP / (TP + FP) = 40 / (40 + 10) = 40 / 50 = 0.80 (80.0%).\n3. Recall (Sensibilidade) = TP / (TP + FN) = 40 / (40 + 20) = 40 / 60 = 2/3 ≈ 0.667 (66.7%).\n4. F1-Score = 2 * (Precisão * Recall) / (Precisão + Recall) = 2 * (0.80 * (2/3)) / (0.80 + 2/3) = (16/15) / (22/15) = 16 / 22 = 8 / 11 ≈ 0.727 (72.7%)."
+      },
+      "explanation": {
+        "en": "These four foundational metrics provide a complete diagnostic of binary classifier performance across both correct predictions and specific error types.",
+        "pt": "Estas quatro métricas canónicas fornecem um diagnóstico analítico exaustivo sobre a capacidade de discriminação e a natureza dos erros cometidos pelo classificador."
+      }
+    }
+  ]
+}

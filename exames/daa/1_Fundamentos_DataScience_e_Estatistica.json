@@ -1,0 +1,355 @@
+{
+  "title": {
+    "en": "Exam 1: Foundations of Data Science and Descriptive Statistics",
+    "pt": "Exame 1: Fundamentos de Ciência de Dados e Estatística Descritiva"
+  },
+  "description": {
+    "en": "Comprehensive theoretical and applied exam on data science foundations, data taxonomy (numerical continuous/discrete, categorical, ordinal), measures of central tendency (mean, median, mode), dispersion and variability (variance, standard deviation, empirical rule), probability distributions (PDF vs PMF), percentiles, IQR, outlier detection, covariance, and Pearson correlation versus causation.",
+    "pt": "Exame teórico e aplicado abrangente sobre os fundamentos de ciência de dados, taxonomia de tipos de dados (numéricos contínuos/discretos, categóricos, ordinais), medidas de tendência central (média, mediana, moda), dispersão e variabilidade (variância, desvio-padrão, regra empírica), distribuições de probabilidade (PDF vs PMF), percentis, amplitude interquartil (IQR), deteção de anomalias (outliers), covariância e correlação linear de Pearson vs causalidade."
+  },
+  "languages": [
+    "en",
+    "pt"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Which of the following correctly classifies the three primary data types in data science based on their mathematical properties?",
+        "pt": "Qual das seguintes opções classifica corretamente os três tipos fundamentais de dados em ciência de dados com base nas suas propriedades matemáticas?"
+      },
+      "options": {
+        "en": [
+          "Numerical (quantitative measurements), Categorical (qualitative groups with no inherent mathematical order), and Ordinal (categories with meaningful mathematical order).",
+          "Continuous (floating-point numbers), Discrete (signed integers), and Boolean (binary bits).",
+          "Structured (relational tables), Semi-structured (JSON documents), and Unstructured (raw text and images).",
+          "Deterministic (fixed measurements), Stochastic (random variables), and Chaotic (non-linear measurements)."
+        ],
+        "pt": [
+          "Numéricos (medidas quantitativas), Categóricos (grupos qualitativos sem ordem matemática intrínseca) e Ordinais (categorias qualitativas com ordenação matemática significativa).",
+          "Contínuos (números de vírgula flutuante), Discretos (inteiros com sinal) e Booleanos (bits binários).",
+          "Estruturados (tabelas relacionais), Semi-estruturados (documentos JSON) e Não-estruturados (texto livre e imagens).",
+          "Determinísticos (medidas fixas), Estocásticos (variáveis aleatórias) e Caóticos (medições não-lineares)."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Data is fundamentally categorized into: (1) Numerical (quantitative measurements, further divided into discrete and continuous); (2) Categorical (qualitative attributes without inherent arithmetic ordering, such as gender or country); and (3) Ordinal (a blend of categorical and numeric, where classes exhibit a defined relative hierarchy, such as movie ratings 1-5).",
+        "pt": "Os dados são fundamentalmente classificados em: (1) Numéricos (medições quantitativas, subdivididos em discretos e contínuos); (2) Categóricos (atributos qualitativos sem relação aritmética de ordem intrínseca, ex: país ou género); e (3) Ordinais (híbrido entre categórico e numérico, onde os rótulos possuem uma hierarquia ou ordenação matemática relativa definida, ex: avaliações de 1 a 5 estrelas)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the following four variables collected in a clinical study:\n1. Body temperature measured with high precision in degrees Celsius\n2. Number of hospital visits in the last 12 months\n3. Patient blood type (A, B, AB, O)\n4. Self-reported pain level evaluated on a scale: 1 - Mild, 2 - Moderate, 3 - Severe",
+        "pt": "Considere as seguintes quatro variáveis recolhidas num estudo clínico:\n1. Temperatura corporal medida com alta precisão em graus Celsius\n2. Número de visitas ao hospital nos últimos 12 meses\n3. Grupo sanguíneo do paciente (A, B, AB, O)\n4. Nível de dor autorreportado avaliado numa escala: 1 - Leve, 2 - Moderada, 3 - Severa"
+      },
+      "question": {
+        "en": "What is the exact classification of variables 1, 2, 3, and 4, respectively?",
+        "pt": "Qual é a classificação exata das variáveis 1, 2, 3 e 4, respetivamente?"
+      },
+      "options": {
+        "en": [
+          "Continuous numerical, discrete numerical, categorical, and ordinal.",
+          "Discrete numerical, continuous numerical, ordinal, and categorical.",
+          "Continuous numerical, discrete numerical, ordinal, and categorical.",
+          "Continuous numerical, continuous numerical, categorical, and ordinal."
+        ],
+        "pt": [
+          "Numérica contínua, numérica discreta, categórica e ordinal.",
+          "Numérica discreta, numérica contínua, ordinal e categórica.",
+          "Numérica contínua, numérica discreta, ordinal e categórica.",
+          "Numérica contínua, numérica contínua, categórica e ordinal."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Temperature is continuous numerical (can assume infinitely many fractional values). Visit count is discrete numerical (integer-based count of events). Blood type is categorical (nominal groups with no intrinsic ranking). Pain scale is ordinal (categories with a clear, ranked mathematical hierarchy where 3 > 2 > 1, but arithmetic differences are subjective).",
+        "pt": "A temperatura é numérica contínua (pode assumir infinitos valores fracionários na reta real). O número de visitas é numérico discreto (contagem inteira finita de eventos). O tipo de sangue é categórico/nominal (grupos sem ordenação intrínseca). O nível de dor é ordinal (categorias com ordenação matemática hierárquica bem definida onde 3 > 2 > 1, embora a distância entre níveis não seja estritamente métrica)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the annual household income in a neighborhood with 9 residents (in thousands of dollars):\n`[25, 28, 30, 32, 35, 38, 42, 50, 1200]`",
+        "pt": "Considere o rendimento anual das famílias num bairro composto por 9 residentes (em milhares de euros):\n`[25, 28, 30, 32, 35, 38, 42, 50, 1200]`"
+      },
+      "question": {
+        "en": "Why does the median serve as a better measure of central tendency than the mean for describing the 'typical' household income in this community?",
+        "pt": "Por que razão a mediana serve como uma medida de tendência central significativamente melhor do que a média para descrever o rendimento familiar 'típico' nesta comunidade?"
+      },
+      "options": {
+        "en": [
+          "Because the mean is strongly skewed upwards by extreme outliers (the billionaire at 1200k), pulling the mean to ~164.4k, whereas the median (35k) is robust to outliers and represents the midpoint of the distribution.",
+          "Because the median can only be calculated when data is normally distributed, which guarantees zero variance.",
+          "Because the mean cannot be computed for non-integer financial distributions.",
+          "Because the median is mathematically identical to the mode whenever the sample size is odd."
+        ],
+        "pt": [
+          "Porque a média é fortemente enviesada para cima por valores discrepantes extremos (o residente com 1200k), elevando a média para ~164.4k, enquanto a mediana (35k) é robusta a outliers e reflete fielmente o indivíduo central da distribuição.",
+          "Porque a mediana só pode ser calculada quando a distribuição é perfeitamente normal, o que anula a variância.",
+          "Porque a média aritmética é matematicamente indefinida para distribuições financeiras não-inteiras.",
+          "Porque a mediana é matematicamente forçada a coincidir com a moda sempre que a dimensão da amostra é ímpar."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "The mean is computed by summing all values and dividing by N, making every observation contribute linearly; an extreme outlier will dramatically shift the average. The median is a position-based metric (the 50th percentile after sorting): changing the extreme value 1200 to 12,000,000 does not affect the median at 35k at all, preserving its robustness.",
+        "pt": "A média aritmética é calculada somando todas as observações e dividindo por N, fazendo com que cada ponto contribua diretamente; um único outlier extremo puxa a média para valores irreais face à realidade da maioria. A mediana baseia-se na posição (50º percentil ordenado): alterar 1200 para 12.000.000 não alteraria em nada a mediana (35k), comprovando a sua elevada robustez estatística a anomalias."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "A discrete sample of observations is given by:\n$$X = \\{1, 4, 5, 4, 8\\}$$",
+        "pt": "Uma amostra discreta de observações é dada pelo conjunto:\n$$X = \\{1, 4, 5, 4, 8\\}$$"
+      },
+      "question": {
+        "en": "What are the exact mean ($\\mu$), population variance ($\\sigma^2$), and standard deviation ($\\sigma$) of this dataset?",
+        "pt": "Quais são o valor exato da média ($\\mu$), da variância populacional ($\\sigma^2$) e do desvio-padrão ($\\sigma$) deste conjunto de dados?"
+      },
+      "options": {
+        "en": [
+          "Mean = 4.4; Variance = 5.04; Standard Deviation = 2.24",
+          "Mean = 4.0; Variance = 4.80; Standard Deviation = 2.19",
+          "Mean = 4.4; Variance = 6.30; Standard Deviation = 2.51",
+          "Mean = 5.0; Variance = 5.04; Standard Deviation = 2.24"
+        ],
+        "pt": [
+          "Média = 4.4; Variância = 5.04; Desvio-Padrão = 2.24",
+          "Média = 4.0; Variância = 4.80; Desvio-Padrão = 2.19",
+          "Média = 4.4; Variância = 6.30; Desvio-Padrão = 2.51",
+          "Média = 5.0; Variância = 5.04; Desvio-Padrão = 2.24"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Step 1: Mean = (1+4+5+4+8)/5 = 22/5 = 4.4.\nStep 2: Deviations from mean: (1 - 4.4) = -3.4; (4 - 4.4) = -0.4; (5 - 4.4) = 0.6; (4 - 4.4) = -0.4; (8 - 4.4) = 3.6.\nStep 3: Squared deviations: (-3.4)^2 = 11.56; (-0.4)^2 = 0.16; (0.6)^2 = 0.36; (-0.4)^2 = 0.16; (3.6)^2 = 12.96.\nStep 4: Variance = (11.56 + 0.16 + 0.36 + 0.16 + 12.96) / 5 = 25.2 / 5 = 5.04.\nStep 5: Standard Deviation = sqrt(5.04) = 2.2449... approx 2.24.",
+        "pt": "Passo 1: Média = (1+4+5+4+8)/5 = 22/5 = 4.4.\nPasso 2: Desvios em relação à média: (1 - 4.4) = -3.4; (4 - 4.4) = -0.4; (5 - 4.4) = 0.6; (4 - 4.4) = -0.4; (8 - 4.4) = 3.6.\nPasso 3: Desvios quadráticos: (-3.4)² = 11.56; (-0.4)² = 0.16; (0.6)² = 0.36; (-0.4)² = 0.16; (3.6)² = 12.96.\nPasso 4: Variância populacional = (11.56 + 0.16 + 0.36 + 0.16 + 12.96) / 5 = 25.2 / 5 = 5.04.\nPasso 5: Desvio-Padrão = raiz(5.04) ≈ 2.24."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "In descriptive statistics, the mode is well-defined and widely used for continuous numerical data without any discretization or binning.",
+        "pt": "Na estatística descritiva, a moda é uma métrica natural, relevante e diretamente aplicável a variáveis numéricas estritamente contínuas sem recurso a discretização ou agrupamento em intervalos."
+      },
+      "solution": 1,
+      "explanation": {
+        "en": "False. For continuous numerical data, the probability of obtaining two identical real-valued observations is virtually zero. Thus, the mode is typically not relevant or well-defined for raw continuous data unless it is first discretized into bins (histograms). The mode is primarily relevant for discrete numerical and categorical data.",
+        "pt": "Falso. Em variáveis estritamente contínuas, a probabilidade teórica de dois valores reais serem exatamente idênticos até à última casa decimal é nula. Por essa razão, a moda não é uma medida relevante nem informativa para dados contínuos brutos, a menos que estes sejam prévia e arbitrariamente agrupados em intervalos discretos (bins). A moda aplica-se por excelência a dados discretos e categóricos."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How is a data point's distance from the sample mean commonly standardized and expressed to detect potential outliers?",
+        "pt": "De que forma é habitualmente padronizada e expressa a distância de um ponto de dados em relação à média para efeitos de deteção de outliers ou anomalias?"
+      },
+      "options": {
+        "en": [
+          "In terms of standard deviations ('how many sigmas' away: $z = \\frac{x - \\mu}{\\sigma}$), where points beyond 2 or 3 sigmas are flagged as unusual.",
+          "As the absolute difference multiplied by the median of the distribution.",
+          "By dividing the observation by the maximum value observed in the training partition.",
+          "By projecting the data onto the orthogonal kernel of the covariance matrix."
+        ],
+        "pt": [
+          "Em termos de desvios-padrão ('quantos sigmas' de distância: $z = \\frac{x - \\mu}{\\sigma}$), onde observações a mais de 2 ou 3 sigmas são sinalizadas como anomalias.",
+          "Pela diferença absoluta multiplicada diretamente pela mediana da distribuição amostral.",
+          "Dividindo o valor bruto da observação pelo valor máximo registado na partição de treino.",
+          "Projetando os dados no núcleo ortogonal da matriz de covariância populacional."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Standardizing distances using the standard deviation yields the z-score ($z = (x - \\mu) / \\sigma$). Under a normal distribution, ~68.27% of observations lie within 1 sigma, ~95.45% within 2 sigmas, and ~99.73% within 3 sigmas (Empirical Rule). Points falling beyond 2 or 3 sigmas are statistically unusual outliers.",
+        "pt": "Ao normalizar a distância pelo desvio-padrão obtém-se o z-score ($z = (x - \\mu) / \\sigma$). Numa distribuição normal, ~68.3% dos pontos recaem no intervalo de 1 sigma, ~95.5% a 2 sigmas e ~99.7% a 3 sigmas (Regra Empírica). Observações que distem mais de 2 ou 3 sigmas da média são consideradas raras ou anomalias estatísticas."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the key theoretical distinction between a Probability Density Function (PDF) and a Probability Mass Function (PMF)?",
+        "pt": "Qual é a distinção teórica fundamental entre uma Função Densidade de Probabilidade (PDF) e uma Função Massa de Probabilidade (PMF)?"
+      },
+      "options": {
+        "en": [
+          "A PMF assigns discrete probabilities directly to specific individual values ($P(X = x)$), whereas a PDF is defined for continuous variables where the probability of any single point is zero, and probabilities are obtained by integrating over an interval.",
+          "A PDF is only valid for uniform distributions, whereas a PMF models Gaussian distributions exclusively.",
+          "A PMF values can exceed 1, whereas a PDF can never exceed 1 at any point.",
+          "A PDF applies only to categorical labels, whereas a PMF applies to real-valued vectors."
+        ],
+        "pt": [
+          "A PMF atribui probabilidades pontuais discretas a valores específicos ($P(X = x)$), enquanto a PDF é definida para variáveis contínuas onde a probabilidade de um ponto pontual infinitesimal é zero, sendo a probabilidade calculada através do integral sobre um intervalo.",
+          "A PDF aplica-se exclusivamente a distribuições uniformes, ao passo que a PMF modela unicamente curvas gaussianas.",
+          "Os valores de uma PMF podem exceder 1, enquanto a densidade numa PDF nunca pode ultrapassar 1 em ponto algum.",
+          "A PDF aplica-se apenas a rótulos categóricos, enquanto a PMF é reservada a vetores reais."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "A PMF is used for discrete random variables, where probabilities sum to 1 over all discrete outcomes: $\\sum P(X=x_i) = 1$. A PDF is used for continuous variables, where the density $f(x) \\ge 0$ integrates to 1: $\\int_{-\\infty}^{+\\infty} f(x) dx = 1$. Notice that $f(x)$ itself is a density, not a probability, and can exceed 1, but the integral over any interval $[a, b]$ gives the probability.",
+        "pt": "A PMF (Função Massa de Probabilidade) aplica-se a variáveis discretas, onde a probabilidade pontual é atribuída diretamente a cada elemento e o seu somatório é 1. A PDF (Função Densidade de Probabilidade) aplica-se a variáveis contínuas, onde a probabilidade num único valor exato é matematicamente zero ($P(X=x) = 0$), sendo a probabilidade definida pela área sob a curva (integral) num dado intervalo $[a, b]$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "In a nationwide economic dataset, the 99th percentile of annual income is reported as $506,553.",
+        "pt": "Num estudo económico nacional, o 99º percentil do rendimento anual dos cidadãos foi fixado em 506.553€."
+      },
+      "question": {
+        "en": "What is the exact interpretation of this percentile value?",
+        "pt": "Qual é a interpretação estatística rigorosa deste valor de percentil?"
+      },
+      "options": {
+        "en": [
+          "Exactly 99% of the population earns less than $506,553 annually, and only 1% earns that amount or more.",
+          "The top 1% of the population earns on average exactly $506,553.",
+          "The mean income of the entire population is equal to 99% of $506,553.",
+          "A randomly selected citizen has a 99% chance of earning between 0 and the median income."
+        ],
+        "pt": [
+          "Exatamente 99% da população aufere um rendimento inferior a 506.553€ anuais, e apenas o 1% de topo aufere igual ou superior a esse montante.",
+          "O 1% mais rico da população aufere em média exatamente 506.553€ por ano.",
+          "O rendimento médio de toda a população corresponde a 99% do valor 506.553€.",
+          "Um cidadão sorteado aleatoriamente tem 99% de probabilidade de auferir entre zero e a mediana populacional."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "By definition, the P-th percentile is the threshold value below which P percent of the sorted observations in a group fall. Hence, the 99th percentile of income means 99% of the surveyed population earns less than $506,553.",
+        "pt": "Por definição formal, o P-ésimo percentil representa o valor limite abaixo do qual se situa uma percentagem P de observações ordenadas da amostra. Assim, estar no percentil 99 significa que 99% dos indivíduos da população auferem rendimentos estritamente inferiores a esse limiar."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What does the Interquartile Range (IQR = Q3 - Q1) represent in data analysis?",
+        "pt": "O que representa a Amplitude Interquartil (IQR = Q3 - Q1) na análise exploratória de dados?"
+      },
+      "options": {
+        "en": [
+          "The range spanned by the central 50% of the data distribution, measuring dispersion in a way that is robust to extreme outliers.",
+          "The total range between the absolute minimum and maximum values of the dataset.",
+          "The distance between the mean and the single furthest outlier in the distribution.",
+          "The ratio between the first quartile and the variance of the sample."
+        ],
+        "pt": [
+          "O intervalo ocupado pelos 50% centrais da distribuição de dados, medindo a dispersão de forma altamente robusta contra anomalias e extremos.",
+          "O alcance total absoluto entre o valor mínimo e o valor máximo observados na amostra.",
+          "A distância matemática euclidiana entre a média e o outlier mais afastado do conjunto de dados.",
+          "A razão aritmética entre o primeiro quartil (Q1) e a variância observada na amostra."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "The first quartile (Q1) is the 25th percentile, and the third quartile (Q3) is the 75th percentile. The difference $IQR = Q3 - Q1$ captures the middle 50% of the distribution. It is central to constructing boxplots and defining Tukey outlier fences ($[Q1 - 1.5\\times IQR, Q3 + 1.5\\times IQR]$).",
+        "pt": "O primeiro quartil (Q1) corresponde ao percentil 25 e o terceiro quartil (Q3) ao percentil 75. A diferença $IQR = Q3 - Q1$ delimita exatamente os 50% centrais das observações. Esta métrica é a base dos diagramas de extremos e quartis (boxplots) e da regra de Tukey para filtrar outliers ($[Q1 - 1.5\\times IQR, Q3 + 1.5\\times IQR]$)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Let $X$ and $Y$ be two numerical features. Their sample covariance is defined as:\n$$\\text{Cov}(X, Y) = \\frac{1}{N} \\sum_{i=1}^N (X_i - \\bar{X})(Y_i - \\bar{Y})$$",
+        "pt": "Sejam $X$ e $Y$ duas variáveis numéricas. A sua covariância amostral é expressa por:\n$$\\text{Cov}(X, Y) = \\frac{1}{N} \\sum_{i=1}^N (X_i - \\bar{X})(Y_i - \\bar{Y})$$"
+      },
+      "question": {
+        "en": "Why is covariance often difficult to interpret directly, leading analysts to prefer the Pearson correlation coefficient?",
+        "pt": "Por que razão a covariância é de interpretação direta difícil, levando os analistas a preferirem o coeficiente de correlação de Pearson?"
+      },
+      "options": {
+        "en": [
+          "Because covariance depends on the scale and units of measurement of both variables and is unbounded ($-\\infty$ to $+\\infty$), whereas Pearson correlation normalizes it by dividing by the product of both standard deviations, producing a dimensionless value in $[-1, +1]$.",
+          "Because covariance can only be computed when both variables have a mean equal to exactly zero.",
+          "Because covariance is always strictly negative for non-linear relationships.",
+          "Because Pearson correlation measures non-linear polynomial interactions while covariance only detects Boolean logic."
+        ],
+        "pt": [
+          "Porque a covariância depende da escala e unidades de medida de ambas as variáveis e não possui limites fixos ($-\\infty$ a $+\\infty$), ao passo que a correlação de Pearson normaliza a covariância dividindo-a pelo produto dos desvios-padrão, resultando num valor adimensional contido em $[-1, +1]$.",
+          "Porque a covariância só é matematicamente válida quando ambas as variáveis possuem média estritamente nula.",
+          "Porque a covariância assume sistematicamente valores negativos na presença de relações não-lineares.",
+          "Porque a correlação de Pearson afere interações polinomiais não-lineares, enquanto a covariância se limita à lógica booleana."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Covariance measures directional co-variation: if you measure height in meters vs millimeters, the covariance with weight changes by a factor of 1000. Dividing covariance by $\\sigma_X \\cdot \\sigma_Y$ produces the Pearson correlation coefficient $r = \\frac{\\text{Cov}(X, Y)}{\\sigma_X \\sigma_Y}$, which is scale-invariant and bounded strictly between -1 and +1.",
+        "pt": "A covariância mede a tendência de variação conjunta: se a variável altura for medida em milímetros em vez de metros, a covariância com o peso multiplicará por 1000 sem que a relação real se altere. Ao dividir pelo produto dos respetivos desvios-padrão obtém-se o coeficiente de Pearson $r = \\frac{\\text{Cov}(X, Y)}{\\sigma_X \\sigma_Y}$, invariante à escala e estritamente confinado ao intervalo $[-1, +1]$."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "A Pearson correlation coefficient of $r = 0$ between two numerical variables guarantees that there is absolutely no mathematical or statistical relationship between them.",
+        "pt": "Um coeficiente de correlação de Pearson de $r = 0$ entre duas variáveis numéricas garante cabalmente que não existe qualquer tipo de relação matemática ou dependência funcional entre elas."
+      },
+      "solution": 1,
+      "explanation": {
+        "en": "False. Pearson correlation measures only linear relationships. Two variables can have a perfect deterministic non-linear relationship (such as $Y = X^2$ over the symmetric interval $[-10, +10]$) and yield a Pearson correlation of exactly $r = 0$.",
+        "pt": "Falso. O coeficiente de correlação de Pearson avalia exclusivamente relações lineares. Duas variáveis podem exibir uma dependência não-linear perfeita (como $Y = X^2$ no intervalo simétrico $[-10, +10]$) e registar um coeficiente de Pearson de exatamente $r = 0$, pois não há tendência linear monótona global."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Why does the scientific principle 'correlation does not imply causation' hold in observational data?",
+        "pt": "Por que razão o princípio científico 'correlação não implica causalidade' é uma lei imperativa na análise de dados observacionais?"
+      },
+      "options": {
+        "en": [
+          "Because an observed correlation between X and Y may be driven by an unobserved confounding variable (Z) or reverse causality, and only randomized controlled trials (RCTs) can rigorously establish true causal links.",
+          "Because correlation coefficients are inherently stochastic and do not satisfy the triangle inequality.",
+          "Because causation only applies to categorical features while correlation applies to continuous data.",
+          "Because the Pearson correlation formula inverts the signs of explanatory variables."
+        ],
+        "pt": [
+          "Porque a correlação observada entre X e Y pode ser induzida por uma variável de confusão oculta (Z) ou causalidade inversa, sendo necessários ensaios controlados aleatorizados (RCTs / testes A/B) para demonstrar nexos de causalidade de forma rigorosa.",
+          "Porque os coeficientes de correlação são puramente estocásticos e não respeitam a desigualdade triangular métrica.",
+          "Porque a causalidade apenas rege atributos categóricos, enquanto a correlação governa apenas números contínuos.",
+          "Porque a fórmula de Pearson inverte aleatoriamente os sinais algébricos das variáveis explicativas."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "A classic example is ice cream sales and drowning incidents, both positively correlated because hot summer weather (the lurking confounding variable) increases both. Without randomized intervention to isolate variables, one cannot conclude that eating ice cream causes drowning.",
+        "pt": "O exemplo clássico é a correlação positiva entre o consumo de gelados e afogamentos em praias: ambos aumentam no verão devido a uma variável de confusão externa (temperatura elevada). Sem intervenção experimental controlada com grupos de controlo e tratamento, é falacioso deduzir que consumir gelados causa afogamentos."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "en": "Explain step by step how to calculate the sample variance and standard deviation of the numbers: [2, 4, 6]. Show every intermediate operation.",
+        "pt": "Explique passo a passo como calcular a variância populacional e o desvio-padrão do conjunto de valores: [2, 4, 6]. Apresente todas as operações intermédias."
+      },
+      "solution": {
+        "en": "1. Calculate the mean: (2 + 4 + 6) / 3 = 12 / 3 = 4.\n2. Compute the deviations from the mean:\n   - (2 - 4) = -2\n   - (4 - 4) = 0\n   - (6 - 4) = +2\n3. Square each deviation:\n   - (-2)^2 = 4\n   - (0)^2 = 0\n   - (+2)^2 = 4\n4. Sum the squared deviations and divide by N (3):\n   - Sum = 4 + 0 + 4 = 8\n   - Population variance (sigma^2) = 8 / 3 ≈ 2.67\n5. Take the square root of the variance to obtain the standard deviation:\n   - Standard deviation (sigma) = sqrt(8 / 3) ≈ 1.63.",
+        "pt": "1. Calcular a média aritmética: (2 + 4 + 6) / 3 = 12 / 3 = 4.\n2. Calcular os desvios em relação à média:\n   - (2 - 4) = -2\n   - (4 - 4) = 0\n   - (6 - 4) = +2\n3. Elevar cada desvio ao quadrado:\n   - (-2)² = 4\n   - (0)² = 0\n   - (+2)² = 4\n4. Somar os desvios quadráticos e dividir pela dimensão da população N (3):\n   - Soma = 4 + 0 + 4 = 8\n   - Variância (sigma²) = 8 / 3 ≈ 2.67\n5. Calcular a raiz quadrada da variância para obter o desvio-padrão:\n   - Desvio-padrão (sigma) = raiz(8 / 3) ≈ 1.63."
+      },
+      "explanation": {
+        "en": "Variance measures the average squared distance from the mean, and the standard deviation returns this dispersion metric to the original units of measurement.",
+        "pt": "A variância quantifica a dispersão quadrática média em torno da média, e o desvio-padrão reconverte essa dispersão para as mesmas unidades lineares da variável original."
+      }
+    }
+  ]
+}

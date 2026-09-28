@@ -1,0 +1,271 @@
+{
+  "title": {
+    "en": "Exam 2: Core Machine Learning Concepts and Learning Paradigms",
+    "pt": "Exame 2: Conceitos Fundamentais de Machine Learning e Paradigmas de Aprendizagem"
+  },
+  "description": {
+    "en": "Comprehensive theoretical exam covering formal definitions of Machine Learning (Tom Mitchell, AAAI), traditional programming versus machine learning paradigms, taxonomy of learning systems (supervised, unsupervised, reinforcement), core model families (linear, decision trees, neural networks, ensembles, natural computation), the DIKW hierarchy, data formats, and the CRISP-DM / KDD knowledge extraction lifecycle.",
+    "pt": "Exame teórico aprofundado sobre as definições formais de Aprendizagem Automática (Tom Mitchell, AAAI), a transição paradigmática entre programação tradicional e aprendizagem automática, a taxonomia dos sistemas de aprendizagem (supervisionada, não-supervisionada, por reforço), as grandes famílias de modelos (lineares, árvores de decisão, redes neuronais artificiais, ensembles, computação natural), a pirâmide DIKW, formatos de dados e os ciclos de vida CRISP-DM e KDD."
+  },
+  "languages": [
+    "en",
+    "pt"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "According to Tom Mitchell's canonical definition (1997), when is a computer program said to learn?",
+        "pt": "De acordo com a definição formal canónica de Tom Mitchell (1997), quando se diz que um programa de computador aprende?"
+      },
+      "options": {
+        "en": [
+          "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.",
+          "When it successfully stores all input-output training pairs in an associative in-memory hash table.",
+          "When it can synthesize code in a Turing-complete language without human intervention.",
+          "When its execution runtime decreases monotonically with each iteration through compiled bytecode."
+        ],
+        "pt": [
+          "Diz-se que um programa de computador aprende a partir da experiência E, relativamente a uma classe de tarefas T e medida de desempenho P, se o seu desempenho nas tarefas em T, avaliado por P, melhora com a experiência E.",
+          "Quando consegue memorizar e indexar exaustivamente todos os pares de treino numa tabela hash em memória.",
+          "Quando é capaz de sintetizar código executável numa linguagem Turing-completa sem intervenção humana.",
+          "Quando o seu tempo de execução de bytecode diminui monotonicamente a cada iteração do ciclo de processamento."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Mitchell's seminal definition decomposes machine learning into three formal components: Tasks (T), Performance Measure (P), and Experience (E). Learning is quantified explicitly as the improvement in P on T when exposed to more E.",
+        "pt": "A definição seminal de Tom Mitchell decompõe o problema da aprendizagem em três componentes formais rigorosos: Tarefa (T), Medida de Desempenho (P) e Experiência (E). A aprendizagem é comprovada se e só se o valor medido por P na execução de T evolui positivamente à medida que mais experiência E é acumulada."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the architectural shift from traditional computer programming to the machine learning paradigm.",
+        "pt": "Considere a mudança arquitetural entre o paradigma da programação tradicional e o paradigma da aprendizagem automática."
+      },
+      "question": {
+        "en": "Which of the following correctly characterizes the relationship between Inputs, Logic, and Outputs in both paradigms?",
+        "pt": "Qual das seguintes opções caracteriza com precisão o fluxo de Entradas, Lógica e Resultados em ambos os paradigmas?"
+      },
+      "options": {
+        "en": [
+          "Traditional Programming: Rules/Code + Data -> Answers/Results; Machine Learning: Data + Answers/Results -> Rules/Model.",
+          "Traditional Programming: Data + Results -> Model; Machine Learning: Rules + Data -> Results.",
+          "Traditional Programming uses only continuous data, whereas Machine Learning requires symbolic strings.",
+          "Traditional Programming requires human feedback at inference time, whereas Machine Learning eliminates data preprocessing."
+        ],
+        "pt": [
+          "Programação Tradicional: Regras/Programa + Dados -> Resultados; Aprendizagem Automática: Dados + Resultados -> Regras/Modelo.",
+          "Programação Tradicional: Dados + Resultados -> Modelo; Aprendizagem Automática: Regras + Dados -> Resultados.",
+          "A Programação Tradicional processa unicamente dados contínuos, ao passo que o Machine Learning requer exclusivamente símbolos discretos.",
+          "A Programação Tradicional exige validação humana em tempo de inferência, enquanto a Aprendizagem Automática dispensa pré-processamento."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "In traditional software engineering, human engineers formulate deterministic rules (algorithms) that operate on data to output answers. In machine learning, algorithms ingest input data and corresponding historical outcomes (experience) to induce an underlying mathematical model (rules/patterns) that can predict outcomes for novel, unseen inputs.",
+        "pt": "Na engenharia de software tradicional, o programador codifica regras lógicas explícitas que atuam sobre dados de entrada para produzir resultados. No Machine Learning, o algoritmo ingere dados empíricos e os respetivos resultados observados para inferir e parametrizar um modelo (as regras latentes), capaz de generalizar para novas instâncias."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the primary distinguishing characteristic of Supervised Learning compared to Unsupervised Learning?",
+        "pt": "Qual é a característica distintiva primordial da Aprendizagem Supervisionada em contraste com a Aprendizagem Não-Supervisionada?"
+      },
+      "options": {
+        "en": [
+          "Supervised learning trains on labeled data (each instance has an explicit ground-truth target feature $y$), whereas unsupervised learning seeks intrinsic patterns, clusters, or structures within unlabeled data ($X$ only).",
+          "Supervised learning requires constant online intervention by a human teacher during every gradient step.",
+          "Supervised learning only works on regression problems, while unsupervised learning only solves classification.",
+          "Supervised learning models do not use loss functions during optimization."
+        ],
+        "pt": [
+          "A aprendizagem supervisionada treina sobre dados rotulados (cada instância possui uma variável-alvo ou rótulo real $y$), enquanto a aprendizagem não-supervisionada identifica padrões latentes, agrupamentos ou estruturas intrínsecas em dados não rotulados (apenas matriz $X$).",
+          "A aprendizagem supervisionada requer a intervenção em tempo real de um operador humano em cada passo de descida de gradiente.",
+          "A aprendizagem supervisionada restringe-se a problemas de regressão, enquanto a não-supervisionada resolve exclusivamente classificação.",
+          "Os modelos supervisionados dispensam funções de custo ou erro durante o processo de otimização."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "In supervised learning, the dataset consists of input-output pairs $(x_i, y_i)$, and the goal is to approximate the mapping function $f(x) \\approx y$. In unsupervised learning, target labels $y$ do not exist; the goal is exploratory (e.g., density estimation, dimensionality reduction, or clustering).",
+        "pt": "Na aprendizagem supervisionada, o conjunto de dados é formado por pares $(x_i, y_i)$, tendo como objetivo aproximar a função mapeadora $f(x) \\approx y$. Na aprendizagem não-supervisionada inexistem rótulos $y$, visando a descoberta autónoma de estruturas latentes nos dados (como agrupamento ou redução dimensional)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How is Reinforcement Learning (RL) fundamentally formulated?",
+        "pt": "Como se formula conceptualmente a Aprendizagem por Reforço (Reinforcement Learning)?"
+      },
+      "options": {
+        "en": [
+          "An autonomous agent interacts with an environment by observing states, choosing actions, and receiving numerical rewards or penalties, seeking an optimal policy that maximizes cumulative expected return.",
+          "A model minimizes cross-entropy loss over a static batch of labeled text tokens without environment feedback.",
+          "An ensemble of decision trees generates random subsets of features to vote on majority classes.",
+          "A database query engine partitions relational tables based on foreign key cardinalities."
+        ],
+        "pt": [
+          "Um agente autónomo interage dinamicamente com um ambiente através da observação de estados, execução de ações e receção de recompensas ou penalizações escalares, aprendendo uma política ótima que maximiza o retorno acumulado esperado.",
+          "Um modelo minimiza a entropia cruzada sobre lotes estáticos de texto sem qualquer interação com um ambiente dinâmico.",
+          "Um conjunto de árvores de decisão gera subconjuntos aleatórios de variáveis para efetuar votação por maioria simples.",
+          "Um motor de base de dados relacional efetua a partição de tabelas com base na cardinalidade de chaves estrangeiras."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Reinforcement learning is framed around the Markov Decision Process (MDP) tuple: (States, Actions, Transition Probabilities, Rewards). Algorithms like Q-Learning and SARSA learn value functions and state-action policies through trial and error.",
+        "pt": "A aprendizagem por reforço baseia-se no paradigma do Processo de Decisão de Markov (MDP), integrando Estados, Ações, Transições e Recompensas. Algoritmos como Q-Learning e SARSA calculam funções de valor e convergem para políticas ótimas através de tentativa, erro e recompensa desfasada no tempo."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In the DIKW pyramid (Data, Information, Knowledge, Wisdom), what transforms raw 'Data' into 'Information' and subsequently into 'Knowledge'?",
+        "pt": "Na pirâmide DIKW (Dados, Informação, Conhecimento, Sabedoria), o que transforma 'Dados' brutos em 'Informação' e, subsequentemente, em 'Conhecimento'?"
+      },
+      "options": {
+        "en": [
+          "Context and structuring turn raw unstructured facts (Data) into meaningful, contextualized facts (Information); synthesizing patterns, relationships, and actionable insights turns Information into predictive models and actionable understanding (Knowledge).",
+          "Compression algorithms convert bytes into bits (Information), and encrypting them produces Knowledge.",
+          "Sorting rows alphabetically turns Data into Information, and storing them in an SQL database creates Knowledge.",
+          "Data becomes Information when stored in RAM, and becomes Knowledge only when compiled into binary assembly."
+        ],
+        "pt": [
+          "A contextualização e estruturação transformam factos e símbolos brutos (Dados) em factos dotados de significado e relevância (Informação); a extração de padrões, relações causais e regras generalizáveis transforma a Informação em modelos preditivos e compreensão aplicável (Conhecimento).",
+          "Algoritmos de compressão convertem bytes em bits (Informação), e a encriptação criptográfica desses bits gera Conhecimento.",
+          "A ordenação alfabética de registos transforma Dados em Informação, e o seu carregamento numa base de dados relacional cria Conhecimento.",
+          "Os Dados convertem-se em Informação ao serem lidos na memória RAM, transformando-se em Conhecimento unicamente quando compilados em linguagem máquina."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Data is symbols or raw observation measurements without context (e.g., '39'). Information adds context (e.g., '39°C body temperature measured for patient X'). Knowledge integrates patterns, experience, and predictive frameworks (e.g., 'A temperature of 39°C accompanied by high leukocyte counts indicates a severe bacterial infection requiring antibiotics').",
+        "pt": "Dados são registos e símbolos em estado bruto (ex: '39'). A Informação confere contexto e semântica (ex: '39ºC de temperatura corporal no paciente X'). O Conhecimento extrai padrões acionáveis e modelos preditivos (ex: 'febre de 39ºC com leucocitose sugere infeção bacteriana grave que exige antibioterapia')."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "CRISP-DM (Cross-Industry Standard Process for Data Mining) is a strictly linear, one-directional waterfall model where returning to previous phases is explicitly prohibited.",
+        "pt": "A metodologia CRISP-DM (Cross-Industry Standard Process for Data Mining) é um modelo de desenvolvimento estritamente sequencial e linear (em cascata), no qual o retorno a fases anteriores é formalmente proibido."
+      },
+      "solution": 1,
+      "explanation": {
+        "en": "False. CRISP-DM is inherently iterative and cyclic. The outcomes of later phases (such as Evaluation or Modeling) often require circling back to earlier phases (such as Business Understanding, Data Understanding, or Data Preparation) to refine features or rethink problem formulation.",
+        "pt": "Falso. O CRISP-DM é um processo intrinsecamente iterativo e cíclico. O feedback obtido em fases como Modelização ou Avaliação frequentemente obriga a revisitar fases preliminares como Compreensão dos Dados ou Preparação de Dados para refinar atributos, corrigir ruído ou reformular a questão de negócio."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What are the six recognized phases of the CRISP-DM standard process in data science and machine learning projects?",
+        "pt": "Quais são as seis fases consagradas pelo processo de referência CRISP-DM em projetos de ciência de dados e aprendizagem automática?"
+      },
+      "options": {
+        "en": [
+          "Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment.",
+          "Requirements Gathering, Architecture Design, Coding, Unit Testing, Integration Testing, and Maintenance.",
+          "Data Ingestion, Schema Migration, SQL Indexing, Microservice Creation, Dockerization, and Monitoring.",
+          "Feature Extraction, Hyperparameter Tuning, Cross Validation, Ensembling, Calibration, and Visualization."
+        ],
+        "pt": [
+          "Compreensão do Negócio (Business Understanding), Compreensão dos Dados, Preparação dos Dados, Modelação, Avaliação e Implementação/Disponibilização (Deployment).",
+          "Levantamento de Requisitos, Desenho de Arquitetura, Codificação, Testes Unitários, Testes de Integração e Manutenção.",
+          "Ingestão de Dados, Migração de Esquema, Indexação SQL, Criação de Microsserviços, Contentorização e Monitorização.",
+          "Extração de Features, Ajuste de Hiperparâmetros, Validação Cruzada, Ensembles, Calibração e Visualização."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "The six phases of CRISP-DM cover the entire machine learning lifecycle: understanding business objectives, exploring raw data, cleaning and engineering features (Data Preparation, which typically takes 70-80% of project time), selecting and training models, evaluating against business metrics, and deploying into production.",
+        "pt": "As seis fases canónicas do CRISP-DM compreendem: alinhamento dos objetivos com o domínio de negócio, exploração inicial dos dados, limpeza e engenharia de características (Preparação de Dados, que absorve até 80% do esforço), treino de modelos, avaliação face a critérios de eficácia e rentabilidade, e integração em ambiente de produção."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Which major machine learning paradigm does the Random Forest and Gradient Boosting (e.g., XGBoost) family belong to?",
+        "pt": "A que grande paradigma ou abordagem metodológica de aprendizagem automática pertence a família dos métodos Random Forest e Gradient Boosting (ex: XGBoost)?"
+      },
+      "options": {
+        "en": [
+          "Ensemble Learning (combining multiple individual base learners to produce a stronger, more generalized predictor).",
+          "Natural Evolutionary Computation (purely genetic mutation and chromosome crossover).",
+          "Unsupervised Dimensionality Reduction (eigenvalue decomposition).",
+          "Linear Single-Layer Perceptrons."
+        ],
+        "pt": [
+          "Aprendizagem por Conjuntos / Ensemble Learning (combinação estratégica de múltiplos modelos base para criar um preditor com menor erro e superior capacidade de generalização).",
+          "Computação Evolucionária Natural (mutação e cruzamento de cromossomas estritamente genéticos).",
+          "Redução Dimensional Não-Supervisionada (decomposição espectral de autovalores).",
+          "Perceptrões Lineares de Camada Única."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Ensemble learning combines multiple models (e.g., hundreds of decision trees) using techniques like Bagging (Bootstrap Aggregating in Random Forest, which reduces variance) or Boosting (sequential residual correction in XGBoost, which reduces bias and variance) to outperform any single model.",
+        "pt": "A abordagem de Ensemble Learning combina estrategicamente vários modelos base (ex: árvores de decisão) através de técnicas como Bagging (agregação por bootstrap em Random Forest, reduzindo a variância) ou Boosting (aprendizagem sequencial sobre resíduos em Gradient Boosting/XGBoost, reduzindo o viés e a variância)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the key difference between Bagging and Boosting in ensemble learning?",
+        "pt": "Qual é a diferença fulcral entre Bagging e Boosting na aprendizagem por conjuntos (Ensemble Learning)?"
+      },
+      "options": {
+        "en": [
+          "Bagging trains multiple base models independently in parallel on bootstrap samples and aggregates their predictions, whereas Boosting trains models sequentially, where each new model focuses on correcting the errors made by prior models.",
+          "Bagging only works on neural networks, whereas Boosting only works on linear regression.",
+          "Bagging increases model complexity to reduce bias, whereas Boosting removes features to reduce memory consumption.",
+          "Bagging uses unlabeled data, whereas Boosting requires reinforcement learning rewards."
+        ],
+        "pt": [
+          "O Bagging treina múltiplos modelos base em paralelo de forma independente sobre amostras de bootstrap e agrega as suas previsões, enquanto o Boosting treina os modelos sequencialmente, focando cada novo estimador na correção dos erros residuais cometidos pelos modelos anteriores.",
+          "O Bagging aplica-se exclusivamente a redes neuronais, ao passo que o Boosting se restringe à regressão linear.",
+          "O Bagging aumenta a complexidade para minimizar o viés, enquanto o Boosting reduz variáveis para poupar memória.",
+          "O Bagging utiliza dados não rotulados, ao passo que o Boosting exige recompensas de aprendizagem por reforço."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Bagging (Bootstrap Aggregation, e.g., Random Forest) builds parallel estimators independently on random data samples to reduce variance. Boosting (e.g., AdaBoost, Gradient Boosting, XGBoost) is sequential: subsequent trees are trained to predict the pseudo-residuals or misclassified samples of the existing ensemble, aggressively reducing bias.",
+        "pt": "O Bagging (ex: Random Forest) instancia modelos em paralelo sobre réplicas aleatórias dos dados com reposição (bootstrap) com o intuito primordial de mitigar a variância. O Boosting (ex: XGBoost, LightGBM) é sequencial: cada árvore subsequente é especializada na modelação dos resíduos ou erros das árvores que a precederam, reduzindo drasticamente o viés."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "en": "Define what constitutes a 'Supervised Classification' problem versus a 'Supervised Regression' problem, and provide one real-world example of each.",
+        "pt": "Defina o que distingue um problema de 'Classificação Supervisionada' de um problema de 'Regressão Supervisionada', fornecendo um exemplo real e concreto de cada um."
+      },
+      "solution": {
+        "en": "In Supervised Classification, the target variable y is categorical (discrete classes or qualitative labels). The model learns to predict class membership (e.g., predicting whether a customer will churn: 0 = Stays, 1 = Churns; or medical diagnosis: Benign vs Malignant).\nIn Supervised Regression, the target variable y is numerical and continuous (real-valued). The model learns a function that outputs a continuous quantity (e.g., predicting the exact ticket price (Fare) paid by a passenger in dollars, or predicting future housing market sales prices in euros).",
+        "pt": "Na Classificação Supervisionada, a variável-alvo y é qualitativa ou discreta (pertencente a um conjunto finito de classes nominais). O objetivo do modelo é prever a classe correta de novas instâncias (ex: prever se um cliente de telecomunicações irá cancelar o serviço: 0 = Fica, 1 = Abandona/Churn; ou diagnóstico: Benigno vs Maligno).\nNa Regressão Supervisionada, a variável-alvo y é estritamente numérica e contínua (valores reais na reta numérica). O modelo estima uma função de aproximação que mapeia as entradas num valor escalar contínuo (ex: prever o preço exato pago por um bilhete de comboio/navio em euros, ou estimar o consumo de combustível em litros por 100 km)."
+      },
+      "explanation": {
+        "en": "The distinction lies entirely in the mathematical nature of the target feature: discrete classes require decision boundaries and probability distributions (Classification), whereas continuous targets require function approximation and residual distance minimization (Regression).",
+        "pt": "A distinção assenta na natureza matemática da variável-alvo: alvos discretos exigem delimitação de fronteiras de decisão e probabilidades de classe (Classificação), enquanto alvos contínuos exigem aproximação funcional com minimização de resíduos métricos (Regressão)."
+      }
+    }
+  ]
+}

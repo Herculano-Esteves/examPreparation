@@ -1,0 +1,271 @@
+{
+  "title": {
+    "en": "Exam 6: Practical Laboratory - Python, Scikit-Learn, and Telecom Churn Case Study",
+    "pt": "Exame 6: Prática Laboratorial - Python, Scikit-Learn e Caso de Estudo de Churn"
+  },
+  "description": {
+    "en": "Hands-on, applied practical exam based on the DAA laboratory sheets: Python virtual environments (Miniconda vs venv, CLI package lifecycle), data science software stack (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn, JupyterLab), Pandas dataset merging by composite primary keys ('Area Code' + 'Phone'), categorical type transformations, scikit-learn DecisionTreeClassifier training pipelines, feature/target matrix partitioning, manual and automated cross-validation loops, and critical business analysis of the Telecommunications Churn confusion matrix.",
+    "pt": "Exame prático de cariz laboratorial e aplicado com base nos guiões práticos de DAA: gestão de ambientes virtuais em Python (Miniconda vs venv, comandos de ciclo de vida), ecossistema científico (NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn, JupyterLab), fusão relacional de DataFrames com Pandas via chaves compostas ('Area Code' + 'Phone'), conversão de tipos de atributos, pipeline de treino com DecisionTreeClassifier, partição de matrizes de features e target, loops manuais e automatizados de validação cruzada e análise crítica e económica da matriz de confusão no problema de Churn de Telecomunicações."
+  },
+  "languages": [
+    "en",
+    "pt"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the primary rationale for creating and using isolated Python virtual environments (such as via Miniconda or venv) in machine learning projects?",
+        "pt": "Qual é a razão primordial para criar e operar no interior de ambientes virtuais isolados em Python (como via Miniconda ou venv) em projetos de aprendizagem automática?"
+      },
+      "options": {
+        "en": [
+          "To isolate dependencies and library versions per project (e.g., maintaining an older project on Scikit-Learn 0.17 while developing a new one with Scikit-Learn 0.18 or Python 3.14), preventing package version conflicts and ensuring reproducibility.",
+          "To automatically convert Python code into native C++ binaries.",
+          "To bypass operating system user permission restrictions on corporate networks.",
+          "Because Python libraries cannot be imported without root access."
+        ],
+        "pt": [
+          "Para isolar dependências e versões de bibliotecas por projeto (ex: manter um projeto legado a correr em Scikit-Learn 0.17 e outro moderno em Scikit-Learn 0.18 ou Python 3.14), prevenindo conflitos destrutivos entre pacotes e garantindo reprodutibilidade estrita.",
+          "Para transpilar automaticamente o código Python para binários executáveis em C++.",
+          "Para contornar restrições de permissões administrativas no sistema operativo hospedeiro.",
+          "Porque os módulos de Python são incapazes de ser importados sem privilégios de superutilizador (root)."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Virtual environments prevent dependency hell. Different machine learning libraries often have conflicting version requirements (e.g., PyTorch needing a specific NumPy version vs an older TensorFlow module). Virtual environments keep each project's environment hermetic.",
+        "pt": "Os ambientes virtuais evitam incompatibilidades entre bibliotecas. Projetos distintos exigem frequentemente versões incompatíveis das mesmas dependências (ex: uma versão de NumPy exigida pelo SciPy versus um pacote legado). O ambiente virtual mantém cada instalação completamente hermética e reprodutível."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the following sequence of terminal commands in a Miniconda environment:\n```bash\nconda create --name daa_env python=3.14 numpy\nconda activate daa_env\nconda install pandas scikit-learn matplotlib seaborn jupyterlab\n```",
+        "pt": "Considere a seguinte sequência de comandos de terminal no utilitário Miniconda:\n```bash\nconda create --name daa_env python=3.14 numpy\nconda activate daa_env\nconda install pandas scikit-learn matplotlib seaborn jupyterlab\n```"
+      },
+      "question": {
+        "en": "What is the correct command to terminate and exit the active `daa_env` environment, and what command completely removes it from disk?",
+        "pt": "Qual é o comando correto para desativar e sair do ambiente ativo `daa_env` e que comando o elimina integralmente do disco rígido?"
+      },
+      "options": {
+        "en": [
+          "Exit: `conda deactivate`; Remove: `conda env remove --name daa_env`",
+          "Exit: `exit`; Remove: `delete env daa_env`",
+          "Exit: `conda stop`; Remove: `conda purge daa_env`",
+          "Exit: `quit()`; Remove: `rmdir conda/daa_env`"
+        ],
+        "pt": [
+          "Sair: `conda deactivate`; Eliminar: `conda env remove --name daa_env`",
+          "Sair: `exit`; Eliminar: `delete env daa_env`",
+          "Sair: `conda stop`; Eliminar: `conda purge daa_env`",
+          "Sair: `quit()`; Eliminar: `rmdir conda/daa_env`"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "To exit an active Conda environment back to the base environment, use `conda deactivate`. To permanently delete an environment and all its installed packages, use `conda env remove --name <env_name>`.",
+        "pt": "Para desativar o ambiente corrente e regressar ao ambiente base executa-se `conda deactivate`. Para eliminar permanentemente o ambiente e todos os pacotes compilados na pasta associada executa-se `conda env remove --name <nome_do_ambiente>`."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Which of the following correctly pairs each core Python data science library with its primary role in the machine learning workflow?",
+        "pt": "Qual das seguintes opções emparelha corretamente cada biblioteca essencial do ecossistema de Data Science em Python com a sua função primordial no fluxo de trabalho?"
+      },
+      "options": {
+        "en": [
+          "NumPy (multidimensional array compute); Pandas (DataFrame manipulation and merging); Matplotlib/Seaborn (data exploration and statistical plotting); Scikit-learn (ML modeling, pipelines, metrics).",
+          "NumPy (web scraping); Pandas (cryptographic hashing); Matplotlib (relational database queries); Scikit-learn (operating system virtualization).",
+          "NumPy (audio processing); Pandas (neural network backprop); Matplotlib (compiling C extensions); Scikit-learn (file compression).",
+          "All four libraries are interchangeable duplicates that perform identical matrix multiplications."
+        ],
+        "pt": [
+          "NumPy (computação matricial e arrays multidimensionais rápidos); Pandas (estruturas tabulares DataFrame, limpeza e junções relacionais); Matplotlib/Seaborn (visualização gráfica exploratória de dados e distribuições); Scikit-learn (algoritmos de aprendizagem automática, pipelines e avaliação).",
+          "NumPy (recolha de páginas web); Pandas (hashing criptográfico); Matplotlib (consultas a bases de dados relacionais); Scikit-learn (virtualização do sistema operativo).",
+          "NumPy (processamento de sinal de áudio); Pandas (retropropagação de redes neuronais); Matplotlib (compilação de extensões C); Scikit-learn (compressão de ficheiros).",
+          "As quatro bibliotecas são redundantes e desempenham exatamente a mesma função matricial."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "The Python data stack operates synergistically: NumPy supplies vector math, Pandas handles tabular datasets and ingestion, Matplotlib/Seaborn visualizes distributions (e.g., ROC curves, histograms), and Scikit-learn implements estimators and validation routines.",
+        "pt": "O stack científico de Python funciona de forma modular: NumPy garante operações numéricas de alto desempenho em vetores, Pandas gere tabelas e fusões relacionais, Matplotlib/Seaborn produz gráficos analíticos (curvas ROC, boxplots) e Scikit-learn implementa os modelos de machine learning e métricas."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "In Practical Exercise no. 2, telecom operator data is distributed across two separate CSV files:\n- `CallsData`: Contains customer usage metrics along with `'Area Code'` and `'Phone'`.\n- `ContractData`: Contains contract details along with `'Area Code'`, `'Phone'`, and the target attribute `'Churn'`.",
+        "pt": "No Exercício Prático nº 2 de DAA, os dados da operadora de telecomunicações encontram-se distribuídos por dois ficheiros CSV distintos:\n- `CallsData`: Contém métricas de chamadas do cliente, juntamente com `'Area Code'` e `'Phone'`.\n- `ContractData`: Contém especificações contratuais, juntamente com `'Area Code'`, `'Phone'` e o atributo alvo `'Churn'`."
+      },
+      "question": {
+        "en": "What is the proper Pandas syntax to perform an inner merge combining these two DataFrames on their composite key?",
+        "pt": "Qual é a sintaxe rigorosa em Pandas para realizar a junção relacional (merge) entre os dois DataFrames com base na chave composta?"
+      },
+      "options": {
+        "en": [
+          "`merged_df = pd.merge(calls_df, contract_df, on=['Area Code', 'Phone'])`",
+          "`merged_df = calls_df.append(contract_df, axis=1)`",
+          "`merged_df = pd.concat([calls_df, contract_df], keys='Phone')`",
+          "`merged_df = calls_df.join(contract_df, where='Area Code == Phone')`"
+        ],
+        "pt": [
+          "`merged_df = pd.merge(calls_df, contract_df, on=['Area Code', 'Phone'])`",
+          "`merged_df = calls_df.append(contract_df, axis=1)`",
+          "`merged_df = pd.concat([calls_df, contract_df], keys='Phone')`",
+          "`merged_df = calls_df.join(contract_df, where='Area Code == Phone')`"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Because neither `Area Code` nor `Phone` alone is guaranteed to be globally unique without the other, they form a composite key. `pd.merge(df1, df2, on=['Area Code', 'Phone'])` performs a relational inner join matching rows with identical values across both columns.",
+        "pt": "Visto que nem o código de área nem o número de telefone isolados garantem unicidade global sem o respetivo par, formam uma chave primária composta. O comando `pd.merge(calls_df, contract_df, on=['Area Code', 'Phone'])` realiza o join relacional alinhando os registos que partilham os mesmos identificadores."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Why should identifier attributes like `'Phone'` and `'Area Code'` be dropped from the feature matrix $X$ before fitting a Decision Tree?",
+        "pt": "Por que razão identificadores exclusivos como `'Phone'` e `'Area Code'` devem ser expressamente removidos da matriz de atributos $X$ antes de treinar uma Árvore de Decisão?"
+      },
+      "options": {
+        "en": [
+          "Because unique identifiers have zero real predictive power; a decision tree would split on unique phone numbers to achieve 100% training purity through pure memorization, leading to disastrous generalization failure on new customers.",
+          "Because phone numbers contain strings that exceed Python's 64-bit integer limit.",
+          "Because scikit-learn prohibits datasets with more than 10 columns.",
+          "Because phone numbers invert the direction of the ROC curve."
+        ],
+        "pt": [
+          "Porque identificadores únicos não possuem qualquer poder preditivo causal generalizável; a árvore criaria divisões triviais baseadas em números de telefone específicos para memorizar o conjunto de treino, resultando em sobreajuste catastrófico e incapacidade de generalizar.",
+          "Porque os números de telefone ultrapassam a capacidade de inteiros de 64 bits do Python.",
+          "Porque o scikit-learn rejeita matrizes com mais de 10 atributos de entrada.",
+          "Porque identificadores alteram estocasticamente a curvatura da métrica ROC."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Attributes with high cardinality and uniqueness (like Phone, ID, SSN) provide near-infinite information gain on the training set because a single split can isolate an individual sample. However, no future customer will share that phone number, so the learned rule is completely useless noise.",
+        "pt": "Atributos com cardinalidade máxima (como números de telefone ou IDs) produzem divisões com ganho de informação artificialmente perfeito no treino, isolando clientes individuais. Todavia, novos clientes futuros terão números de telefone diferentes, pelo que a regra aprendida é mero ruído sem qualquer utilidade prática."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider evaluating a Decision Tree classifier using 10-fold cross validation with macro F1-score on the churn dataset:\n```python\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import cross_val_score\n\nclf = DecisionTreeClassifier(criterion='entropy', max_depth=5, random_state=42)\nscores = cross_val_score(clf, X, y, cv=10, scoring='f1_macro')\n```",
+        "pt": "Considere a avaliação de um classificador de Árvore de Decisão através de validação cruzada 10-fold com métrica f1_macro sobre os dados de churn:\n```python\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import cross_val_score\n\nclf = DecisionTreeClassifier(criterion='entropy', max_depth=5, random_state=42)\nscores = cross_val_score(clf, X, y, cv=10, scoring='f1_macro')\n```"
+      },
+      "question": {
+        "en": "What does `scores` contain, and how should the final validation performance be reported?",
+        "pt": "O que contém a variável `scores` e como deve ser reportada a performance final da validação?"
+      },
+      "options": {
+        "en": [
+          "`scores` is a NumPy array of length 10 containing the macro F1 score for each of the 10 folds; performance is reported as the mean and standard deviation: `scores.mean()` +/- `scores.std()`.",
+          "`scores` is a single scalar representing the global accuracy.",
+          "`scores` contains the feature importances of the decision tree.",
+          "`scores` contains the execution runtimes in milliseconds."
+        ],
+        "pt": [
+          "`scores` é um array NumPy de dimensão 10 contendo o valor do f1_macro obtido em cada uma das 10 dobras de teste; o desempenho final é reportado através da média e do desvio-padrão: `scores.mean()` +/- `scores.std()`.",
+          "`scores` é um número escalar único correspondente à acurácia global.",
+          "`scores` guarda o vetor de importância relativa de cada variável da árvore.",
+          "`scores` regista os tempos de execução do processador em milissegundos."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "`cross_val_score` returns an array of scores evaluated on each fold. Printing `scores.mean()` conveys the expected generalization performance, and `scores.std()` indicates how sensitive the model is to training fold fluctuations.",
+        "pt": "A função `cross_val_score` devolve um array unidimensional com as pontuações apuradas em cada dobra. A média `scores.mean()` expressa a estimativa central de generalização e o desvio-padrão `scores.std()` quantifica a dispersão e estabilidade do estimador."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "In customer churn prediction, the target is defined as: `churn = 0` (customer stays), `churn = 1` (customer cancels service).\nSuppose a telecom operator's model produces a confusion matrix where:\n- True Positives (churners correctly identified) = 80\n- False Negatives (churners predicted to stay) = 120\n- False Positives (loyal customers predicted to churn) = 30\n- True Negatives (loyal customers correctly predicted to stay) = 770",
+        "pt": "Na previsão de cancelamento (churn), a variável-alvo é: `churn = 0` (o cliente permanece na operadora), `churn = 1` (o cliente rescinde contrato).\nSuponha que o modelo da operadora produz uma matriz de confusão com:\n- Verdadeiros Positivos (clientes que saíram e foram detetados) = 80\n- Falsos Negativos (clientes que saíram mas o modelo previu que ficariam) = 120\n- Falsos Positivos (clientes leais previstos erradamente como churners) = 30\n- Verdadeiros Negativos (clientes leais previstos corretamente) = 770"
+      },
+      "question": {
+        "en": "From a commercial and business perspective, what is the critical impact of the 120 False Negatives compared to the 30 False Positives?",
+        "pt": "De uma perspetiva estratégica de negócio e gestão de clientes, qual é o impacto crítico dos 120 Falsos Negativos em comparação com os 30 Falsos Positivos?"
+      },
+      "options": {
+        "en": [
+          "False Negatives represent lost customers who silently defect to competitors without any retention intervention, destroying Customer Lifetime Value (LTV); False Positives merely result in offering minor retention incentives to customers who were not planning to leave anyway.",
+          "False Negatives are beneficial because lost customers reduce server load on the network.",
+          "False Positives are infinitely worse because offering discounts causes bankruptcy.",
+          "Both errors have identical financial impact because both are off-diagonal entries."
+        ],
+        "pt": [
+          "Os Falsos Negativos representam clientes perdidos que rescindem e migram para a concorrência sem que a empresa tenha oportunidade de intervir, destruindo o Lifetime Value (LTV); os Falsos Positivos apenas causam o envio desnecessário de ofertas promocionais a clientes que já pretendiam ficar.",
+          "Os Falsos Negativos são benéficos porque a perda de clientes alivia a infraestrutura de rede da operadora.",
+          "Os Falsos Positivos são infinitamente mais graves porque oferecer descontos conduz à insolvência imediata.",
+          "Ambos os erros acarretam exatamente o mesmo custo monetário por serem elementos fora da diagonal da matriz."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "In churn prevention, acquiring a new customer costs 5 to 10 times more than retaining an existing one. A False Negative means losing high recurring revenue permanently. A False Positive costs only a retention phone call or discount voucher. Thus, operators prioritize Recall (minimizing False Negatives).",
+        "pt": "No negócio de telecomunicações, captar um novo cliente custa entre 5 a 10 vezes mais do que reter um cliente atual. O Falso Negativo acarreta a perda definitiva de receitas mensais. O Falso Positivo apenas custa o valor de uma chamada do call center ou um desconto ligeiro. Por isso, a prioridade estratégica recai na maximização do Recall (minimizando os FN)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What happens when you adjust the `max_depth` hyperparameter in `DecisionTreeClassifier` from 1 to 20 on the telecom churn dataset?",
+        "pt": "O que se observa ao variar o hiperparâmetro `max_depth` do `DecisionTreeClassifier` de 1 até 20 sobre os dados de telecomunicações?"
+      },
+      "options": {
+        "en": [
+          "Very low depth (e.g., depth 1-2) underfits with high bias; as depth increases, validation performance rises to an optimum (e.g., depth 4-6); beyond that optimum, the tree overfits training noise, causing training score to near 100% while cross-validation F1-score degrades.",
+          "Cross-validation score increases monotonically to 100% at depth 20.",
+          "The training time decreases exponentially as depth increases.",
+          "The tree converts automatically into a deep neural network at depth 10."
+        ],
+        "pt": [
+          "Profundidades muito reduzidas (ex: 1-2) causam subajuste (underfitting) com alto viés; ao aumentar a profundidade, o score de validação atinge um pico ótimo (ex: 4-6); além desse limiar, a árvore sobreajusta o ruído de treino, elevando o score de treino a ~100% enquanto o F1-score de validação cruzada se degrada.",
+          "O score de validação cruzada cresce de forma estritamente monótona até atingir 100% na profundidade 20.",
+          "O tempo de treino do modelo diminui exponencialmente com o aumento da profundidade.",
+          "A árvore transforma-se automaticamente numa rede neuronal convolucional a partir da profundidade 10."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "This is the classic bias-variance curve: shallow trees have high bias and underfit. Extremely deep trees have high variance and overfit. Tuning `max_depth` finds the sweet spot with minimal generalization error.",
+        "pt": "Esta dinâmica ilustra com clareza a curva canónica de viés-variância: árvores superficiais sofrem de subajuste (alto viés). Árvores profundas memorizam particularidades irrelevantes dos dados (alta variância). A afinação de hiperparâmetros localiza o ponto ideal com o menor erro de generalização."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "en": "Write a complete Python code snippet using scikit-learn that:\n1. Loads X and y.\n2. Iterates manually over 10 folds using `KFold(n_splits=10, shuffle=True, random_state=42)`.\n3. Fits a `DecisionTreeClassifier(max_depth=5)` on each training fold.\n4. Computes and prints the confusion matrix for each test fold.\n5. Computes the average accuracy across all 10 folds.",
+        "pt": "Escreva um excerto de código Python completo e funcional utilizando o scikit-learn que:\n1. Considere X e y já definidos.\n2. Itere manualmente sobre 10 dobras com `KFold(n_splits=10, shuffle=True, random_state=42)`.\n3. Ajuste um `DecisionTreeClassifier(max_depth=5)` no conjunto de treino de cada dobra.\n4. Calcule e imprima a matriz de confusão para cada dobra de teste.\n5. Calcule a acurácia média ao longo das 10 iterações."
+      },
+      "solution": {
+        "en": "```python\nimport numpy as np\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import KFold\nfrom sklearn.metrics import confusion_matrix, accuracy_score\n\nkf = KFold(n_splits=10, shuffle=True, random_state=42)\nclf = DecisionTreeClassifier(max_depth=5, random_state=42)\nscores = []\n\nfor fold, (train_idx, test_idx) in enumerate(kf.split(X)):\n    X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]\n    y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]\n    \n    clf.fit(X_train, y_train)\n    preds = clf.predict(X_test)\n    \n    cm = confusion_matrix(y_test, preds)\n    acc = accuracy_score(y_test, preds)\n    scores.append(acc)\n    \n    print(f'Fold {fold+1} Confusion Matrix:\\n{cm}')\n    print(f'Fold {fold+1} Accuracy: {acc:.4f}\\n')\n\nprint(f'Mean Accuracy: {np.mean(scores):.4f} +/- {np.std(scores):.4f}')\n```",
+        "pt": "```python\nimport numpy as np\nfrom sklearn.tree import DecisionTreeClassifier\nfrom sklearn.model_selection import KFold\nfrom sklearn.metrics import confusion_matrix, accuracy_score\n\nkf = KFold(n_splits=10, shuffle=True, random_state=42)\nclf = DecisionTreeClassifier(max_depth=5, random_state=42)\nscores = []\n\nfor fold, (train_idx, test_idx) in enumerate(kf.split(X)):\n    X_train, X_test = X.iloc[train_idx], X.iloc[test_idx]\n    y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]\n    \n    clf.fit(X_train, y_train)\n    preds = clf.predict(X_test)\n    \n    cm = confusion_matrix(y_test, preds)\n    acc = accuracy_score(y_test, preds)\n    scores.append(acc)\n    \n    print(f'Fold {fold+1} - Matriz de Confusão:\\n{cm}')\n    print(f'Fold {fold+1} - Acurácia: {acc:.4f}\\n')\n\nprint(f'Acurácia Média: {np.mean(scores):.4f} (+/- {np.std(scores):.4f})')\n```"
+      },
+      "explanation": {
+        "en": "Manual iteration with KFold provides direct access to test fold predictions, allowing customized matrix logging and fold-level error analysis that high-level wrappers like cross_val_score abstract away.",
+        "pt": "A iteração manual com KFold concede visibilidade total sobre as previsões de cada partição de teste, possibilitando a inspeção analítica de matrizes de confusão e erros específicos que funções de alto nível como `cross_val_score` abstraem."
+      }
+    }
+  ]
+}

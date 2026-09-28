@@ -1,0 +1,275 @@
+{
+  "title": {
+    "en": "Exam 3: Decision Trees - Classification and Regression",
+    "pt": "Exame 3: Árvores de Decisão - Classificação e Regressão"
+  },
+  "description": {
+    "en": "Comprehensive theoretical and algorithmic exam on Decision Trees (DTs): topological architecture (root, internal decision nodes, branches, leaf nodes), orthogonal feature space partitioning, Decision Tree Classifier versus Regressor, splitting criteria (Gini Impurity, Shannon Entropy, Information Gain, Variance Reduction/MSE, MAE), scikit-learn specifics and handling of categorical data, hyperparameter regularization (max_depth, min_samples_split, min_samples_leaf, max_features), pre-pruning versus cost-complexity post-pruning, and the bias-variance tradeoff.",
+    "pt": "Exame teórico e algorítmico aprofundado sobre Árvores de Decisão: arquitetura topológica (raiz, nós internos de decisão, ramos, folhas terminais), particionamento geométrico ortogonal do espaço de atributos, Classificador vs Regressor em Árvores, critérios de divisão de nós (Impureza de Gini, Entropia de Shannon, Ganho de Informação, Redução de Variância/MSE, MAE), particularidades do scikit-learn no tratamento de variáveis categóricas, hiperparâmetros de regularização e combate ao sobreajuste (max_depth, min_samples_split, min_samples_leaf, max_features), pré-poda vs pós-poda e o dilema viés-variância."
+  },
+  "languages": [
+    "en",
+    "pt"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In a Decision Tree model, what do the internal nodes, branches, and leaf nodes represent, respectively?",
+        "pt": "Numa estrutura hierárquica de Árvore de Decisão, o que representam respetivamente os nós internos, os ramos e os nós folhas (terminais)?"
+      },
+      "options": {
+        "en": [
+          "Internal nodes represent a test or condition on a feature; branches represent the outcome of that test leading to subtrees; leaf nodes represent the final class prediction or continuous output value.",
+          "Internal nodes represent loss function gradients; branches represent learning rate decay steps; leaf nodes represent neural activation weights.",
+          "Internal nodes represent dataset rows; branches represent feature covariance; leaf nodes represent regularization penalty terms.",
+          "Internal nodes represent cross-validation folds; branches represent random subsamples; leaf nodes represent hyperparameter grids."
+        ],
+        "pt": [
+          "Os nós internos representam um teste ou condição de divisão sobre um atributo; os ramos representam os resultados desse teste conduzindo a subárvores; os nós folhas representam a predição final de classe (classificação) ou o valor contínuo estimado (regressão).",
+          "Os nós internos representam os gradientes da função de perda; os ramos representam passos de decaimento do learning rate; os nós folhas representam os pesos sinápticos.",
+          "Os nós internos representam linhas individuais da base de dados; os ramos representam a covariância entre variáveis; os nós folhas representam os termos de penalização de regularização.",
+          "Os nós internos representam dobras de validação cruzada; os ramos representam subamostras aleatórias; os nós folhas representam grelhas de hiperparâmetros."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "A Decision Tree is a hierarchical graph: the root and internal nodes test a condition on an input attribute (e.g., $X_j \\le \\theta$); each branch corresponds to a path matching the test condition; and leaf nodes are terminal nodes that store the predicted target class or continuous numerical regression mean.",
+        "pt": "Uma Árvore de Decisão é um grafo hierárquico dirigido: o nó raiz e nós internos testam uma condição sobre um atributo de entrada (ex: $X_j \\le \\theta$); cada ramo expressa o resultado dessa seleção; e as folhas constituem os nós terminais que contêm a classe predita (na classificação) ou o valor numérico médio estimado (na regressão)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Geometrically, how does a standard univariate Decision Tree partition the input feature space?",
+        "pt": "Geometricamente, de que forma é que uma Árvore de Decisão univariada padrão divide e particiona o espaço de características de entrada?"
+      },
+      "options": {
+        "en": [
+          "Into recursive hyper-rectangles (boxes) using decision boundaries that are strictly orthogonal (perpendicular) to the coordinate axes of the features.",
+          "Into circular Voronoi cells centered around nearest neighbor exemplars.",
+          "Into smooth non-linear contours defined by radial basis kernels.",
+          "Into arbitrary rotated diagonal hyperplanes formed by linear feature combinations."
+        ],
+        "pt": [
+          "Em hiper-retângulos recursivos (caixas ortogonais) delimitados por fronteiras de decisão estritamente perpendiculares aos eixos de coordenadas de cada característica.",
+          "Em células circulares de Voronoi centradas nos vizinhos mais próximos.",
+          "Em contornos não-lineares suaves governados por funções de base radial gaussianas.",
+          "Em hiperplanos diagonais arbitrariamente inclinados resultantes de combinações lineares contínuas."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Because standard decision trees evaluate one single feature at a time ($x_i \\le \\theta$), every split divides the feature space with a hyperplane parallel to the remaining axes (perpendicular to axis $i$), resulting in axis-aligned hyper-rectangular partitions.",
+        "pt": "Como os nós de árvores univariadas padrão avaliam uma única variável de cada vez com testes do tipo $x_i \\le \\theta$, cada divisão é um hiperplano paralelo a todos os restantes eixos coordenados (perpendicular ao eixo $i$), gerando partições ortogonais alinhadas com os eixos sob a forma de hiper-retângulos."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Let a node $t$ have $K$ classes, where $p(i|t)$ is the proportion of training instances belonging to class $i$ in node $t$.",
+        "pt": "Considere um nó $t$ com $K$ classes possíveis, onde $p(i|t)$ representa a fração de instâncias de treino da classe $i$ presentes no nó $t$."
+      },
+      "question": {
+        "en": "How is the Gini Impurity $I_G(t)$ mathematically defined, and what are its minimum and maximum values for a binary classification problem?",
+        "pt": "Como se define matematicamente a Impureza de Gini $I_G(t)$ e quais são os seus valores mínimo e máximo num problema de classificação binária ($K=2$)?"
+      },
+      "options": {
+        "en": [
+          "$I_G(t) = 1 - \\sum_{i=1}^K p(i|t)^2$; Minimum is 0.0 (pure node, all samples belong to one class); Maximum is 0.5 (maximum impurity, equal 50/50 distribution).",
+          "$I_G(t) = -\\sum_{i=1}^K p(i|t) \\log_2 p(i|t)$; Minimum is 0.0; Maximum is 1.0.",
+          "$I_G(t) = \\frac{1}{K} \\sum_{i=1}^K (p(i|t) - 0.5)^2$; Minimum is -1.0; Maximum is +1.0.",
+          "$I_G(t) = \\sqrt{1 - \\sum_{i=1}^K p(i|t)}$; Minimum is 0.0; Maximum is 2.0."
+        ],
+        "pt": [
+          "$I_G(t) = 1 - \\sum_{i=1}^K p(i|t)^2$; Mínimo é 0.0 (nó perfeitamente puro, todas as instâncias pertencem à mesma classe); Máximo é 0.5 (impureza máxima, distribuição equilibrada 50%/50%).",
+          "$I_G(t) = -\\sum_{i=1}^K p(i|t) \\log_2 p(i|t)$; Mínimo é 0.0; Máximo é 1.0.",
+          "$I_G(t) = \\frac{1}{K} \\sum_{i=1}^K (p(i|t) - 0.5)^2$; Mínimo é -1.0; Máximo é +1.0.",
+          "$I_G(t) = \\sqrt{1 - \\sum_{i=1}^K p(i|t)}$; Mínimo é 0.0; Máximo é 2.0."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Gini Impurity measures the probability of incorrectly classifying a randomly chosen element from the node if it were randomly labeled according to the class distribution. For binary classification ($p_1, p_2 = 1 - p_1$), if $p_1 = 1$, $I_G = 1 - (1^2 + 0^2) = 0$. If $p_1 = 0.5$, $I_G = 1 - (0.5^2 + 0.5^2) = 1 - 0.5 = 0.5$.",
+        "pt": "A Impureza de Gini afere a probabilidade de um elemento selecionado aleatoriamente ser incorretamente rotulado se a etiqueta for sorteada segundo a distribuição do nó. Para classificação binária, se o nó for puro ($p_1=1$), $I_G = 1 - (1^2 + 0^2) = 0$. Se as classes estiverem em empate absoluto ($p_1=0.5$), $I_G = 1 - (0.25 + 0.25) = 0.5$ (valor de impureza máxima)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the primary computational advantage of using Gini Impurity over Shannon Entropy as the splitting criterion in classification trees?",
+        "pt": "Qual é a principal vantagem computacional do Índice de Gini face à Entropia de Shannon como critério de divisão em árvores de classificação?"
+      },
+      "options": {
+        "en": [
+          "Gini does not require computing logarithmic functions ($\\log_2$), relying solely on simple multiplications and subtractions, making it faster to compute across large candidate split sets while yielding almost identical trees.",
+          "Gini eliminates the need to hold out validation data.",
+          "Gini allows the decision tree to learn diagonal decision boundaries automatically.",
+          "Gini guarantees that the tree will never overfit the training dataset."
+        ],
+        "pt": [
+          "O índice de Gini não requer o cálculo de funções logarítmicas transcendentais ($\\log_2$), dependendo apenas de multiplicações e subtrações simples, o que acelera significativamente a avaliação exaustiva de candidatos a divisões em grandes volumes de dados, gerando tipicamente árvores com desempenho praticamente idêntico.",
+          "O índice de Gini elimina a necessidade de particionar dados para validação.",
+          "O índice de Gini capacita a árvore a traçar fronteiras de decisão diagonais automaticamente.",
+          "O índice de Gini fornece uma garantia matemática absoluta de ausência de sobreajuste (overfitting)."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Evaluating potential splits requires computing impurity scores hundreds of thousands of times across continuous feature values. Computing $\\log_2(p)$ involves heavy floating-point transcendentals, whereas Gini ($1 - \\sum p_i^2$) only requires basic arithmetic multiplication and addition.",
+        "pt": "Encontrar a divisão ótima obriga a calcular o critério de impureza centenas de milhares de vezes para todos os limiares de todas as características. A Entropia exige computação de logaritmos em base 2 (operações transcendentais dispendiosas em CPU), enquanto o Gini ($1 - \\sum p_i^2$) envolve unicamente operações aritméticas básicas de soma e multiplicação."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "When attempting to fit a scikit-learn `DecisionTreeClassifier` directly on a raw DataFrame containing columns such as `['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']` without preprocessing, the model raises a `ValueError`.",
+        "pt": "Ao tentar treinar um `DecisionTreeClassifier` do scikit-learn diretamente sobre um DataFrame contendo colunas em formato de texto bruto como `['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked']` sem pré-processamento, é lançado um `ValueError`."
+      },
+      "question": {
+        "en": "Why does this error occur in scikit-learn, and what standard techniques resolve it?",
+        "pt": "Por que razão ocorre este erro no scikit-learn e quais são as técnicas consagradas para o solucionar?"
+      },
+      "options": {
+        "en": [
+          "Scikit-learn's underlying tree implementation does not natively handle strings or categorical features (requiring purely numerical 2D float arrays); it requires converting categorical data via One-Hot Encoding, Label/Ordinal Encoding, or dropping non-numerical columns.",
+          "Because the Titanic dataset contains fewer than 1,000 samples, violating scikit-learn's minimum data constraint.",
+          "Because strings cause memory leaks in Python 3.14 virtual environments.",
+          "Because decision trees can only operate on negative integers."
+        ],
+        "pt": [
+          "A implementação do scikit-learn (baseada em arrays NumPy C otimizados) não processa nativamente strings ou variáveis categóricas, exigindo matrizes numéricas de vírgula flutuante; é obrigatório converter atributos categóricos via One-Hot Encoding (`pd.get_dummies`), Ordinal/Label Encoding, ou descartar colunas não numéricas.",
+          "Porque o dataset Titanic possui menos de 1.000 instâncias, violando o requisito mínimo do algoritmo.",
+          "Porque variáveis textuais provocam fugas de memória na máquina virtual de Python.",
+          "Porque as árvores de decisão em scikit-learn apenas aceitam números inteiros estritamente negativos."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Unlike some implementations in R (like rpart), scikit-learn's `DecisionTreeClassifier` expects an input matrix $X$ of numeric dtype (`np.float32` or `np.float64`). Categorical columns with strings must be encoded numerically (One-Hot Encoding or Ordinal Encoding) or removed prior to calling `fit()`.",
+        "pt": "Ao contrário de ferramentas estatísticas em R ou pacotes especializados, a árvore do scikit-learn exige uma matriz numérica contínua em formato NumPy C-array. Se encontrar strings, lança 'ValueError: could not convert string to float'. As variáveis categóricas devem ser transformadas por One-Hot Encoding, Ordinal Encoding ou ser descartadas antes do `fit()`."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "In a Decision Tree Regressor (`DecisionTreeRegressor`), the predicted value for any test sample landing in a leaf node is typically the arithmetic mean of the target variable $y$ among all training instances contained in that leaf.",
+        "pt": "Num Regressor de Árvore de Decisão (`DecisionTreeRegressor`), o valor predito para qualquer nova observação que alcance um determinado nó folha corresponde habitualmente à média aritmética da variável-alvo $y$ de todas as instâncias de treino presentes nessa folha."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. In regression trees optimizing Mean Squared Error (variance reduction), the constant prediction that minimizes squared error within a region is the sample mean of the target values in that leaf: $\\hat{y} = \\frac{1}{N_{leaf}} \\sum_{i \\in leaf} y_i$. (If using MAE loss, the median is used).",
+        "pt": "Verdadeiro. Em árvores de regressão baseadas na redução de variância (critério MSE), o valor constante que minimiza a soma dos erros quadráticos no interior de cada partição é exatamente a média aritmética dos valores-alvo das amostras alocadas à folha terminal: $\\hat{y} = \\frac{1}{N} \\sum y_i$. Se o critério for MAE, a predição foliar é a mediana."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What will happen if a Decision Tree is trained with no depth limits (`max_depth=None`) and default stopping parameters on noisy training data?",
+        "pt": "O que acontecerá se uma Árvore de Decisão for treinada sem qualquer restrição de profundidade (`max_depth=None`) e com parâmetros padrão de paragem sobre dados com ruído?"
+      },
+      "options": {
+        "en": [
+          "The tree will continue growing until every leaf is 100% pure (often containing single instances), achieving ~100% accuracy on training data but suffering from extreme overfitting and poor generalization on unseen test data.",
+          "The tree will underfit the data and predict a constant value equal to zero for all inputs.",
+          "The algorithm will enter an infinite loop and fail to terminate.",
+          "The tree will automatically prune itself into a single linear regression model."
+        ],
+        "pt": [
+          "A árvore continuará a expandir-se até que todas as folhas sejam 100% puras (frequentemente contendo amostras isoladas), atingindo ~100% de acurácia no treino, mas sofrendo de sobreajuste severo (overfitting) e péssima capacidade de generalização em dados de teste.",
+          "A árvore sofrerá de subajuste (underfitting), prevendo um valor constante e nulo para qualquer entrada.",
+          "O algoritmo entrará num ciclo recursivo infinito sem nunca convergir.",
+          "A árvore efetua autopoda automática convertendo-se num modelo de regressão linear simples."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Unconstrained decision trees have immense expressive capacity and high variance: they will memorize every outlier, label error, and noise artifact in the training set to achieve zero training impurity. This causes severe overfitting.",
+        "pt": "Árvores de decisão sem restrições de crescimento exibem uma elevadíssima capacidade expressiva acompanhada de alta variância: continuam a particionar os dados até isolarem cada outlier e ruído individual do conjunto de treino, obtendo erro zero no treino mas falhando criticamente na generalização para novos dados (overfitting clássico)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Which of the following hyperparameters in `sklearn.tree.DecisionTreeClassifier` act as pre-pruning mechanisms to mitigate overfitting?",
+        "pt": "Quais dos seguintes hiperparâmetros do `DecisionTreeClassifier` funcionam como mecanismos de pré-poda (pre-pruning / paragem antecipada) para prevenir o sobreajuste?"
+      },
+      "options": {
+        "en": [
+          "`max_depth`, `min_samples_split`, `min_samples_leaf`, and `max_leaf_nodes`.",
+          "`learning_rate`, `momentum`, and `dropout`.",
+          "`n_neighbors`, `metric`, and `weights`.",
+          "`alpha`, `l1_ratio`, and `penalty`."
+        ],
+        "pt": [
+          "`max_depth`, `min_samples_split`, `min_samples_leaf` e `max_leaf_nodes`.",
+          "`learning_rate`, `momentum` e `dropout`.",
+          "`n_neighbors`, `metric` e `weights`.",
+          "`alpha`, `l1_ratio` e `penalty`."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Pre-pruning restricts tree growth during construction: `max_depth` caps tree height; `min_samples_split` prevents splitting nodes with too few samples; `min_samples_leaf` guarantees a minimum sample count in leaves; and `max_leaf_nodes` bounds total terminal nodes.",
+        "pt": "A pré-poda impõe restrições ao crescimento da árvore durante a sua indução: `max_depth` limita a altura vertical da árvore; `min_samples_split` impede a divisão de nós que contenham menos do que um dado número de instâncias; `min_samples_leaf` assegura que nenhuma folha contenha menos amostras do que o limiar estipulado; e `max_leaf_nodes` controla o número total de folhas."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is one major advantage and one major disadvantage of single Decision Trees compared to models like Linear Regression or Deep Neural Networks?",
+        "pt": "Qual é uma grande vantagem e uma grande desvantagem de Árvores de Decisão isoladas em comparação com modelos como Regressão Linear ou Redes Neuronais Profundas?"
+      },
+      "options": {
+        "en": [
+          "Advantage: High interpretability (white-box rules) and scale-invariance (no need for feature normalization/scaling); Disadvantage: High variance and instability (small shifts in training data can yield completely different tree structures).",
+          "Advantage: Guaranteed convergence to global optima in non-convex spaces; Disadvantage: Inability to process numerical features.",
+          "Advantage: Naturally continuous smooth decision boundaries; Disadvantage: Quadratic inference runtime in sample size.",
+          "Advantage: Zero hyperparameter configuration; Disadvantage: Only operates on binary inputs."
+        ],
+        "pt": [
+          "Vantagem: Elevada interpretabilidade (regras se-então transparentes tipo 'white-box') e invariância à escala das características (dispensa normalização/estandardização); Desvantagem: Elevada variância e instabilidade estrutural (pequenas perturbações no dataset de treino podem gerar árvores completamente diferentes).",
+          "Vantagem: Convergência estocástica garantida para o ótimo global; Desvantagem: Incapacidade intrínseca de processar atributos numéricos contínuos.",
+          "Vantagem: Geração de fronteiras de decisão perfeitamente contínuas e curvas; Desvantagem: Complexidade de inferência quadrática face ao número de amostras.",
+          "Vantagem: Ausência total de hiperparâmetros de configuração; Desvantagem: Restrição a entradas booleanas binárias."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "en": "Trees are loved for explainability: decision rules mimic human reasoning, and monotonic scaling of inputs does not alter splitting thresholds. However, their greedy axis-aligned splitting makes them prone to high variance, which is precisely why ensemble methods like Random Forest were invented.",
+        "pt": "As árvores são célebres pela sua transparência interpretável: as regras de decisão são auditáveis por especialistas de domínio e independem de transformações de escala monótonas (ex: StandardScaler não altera os splits). Em contrapartida, a sua natureza gulosa e ortogonal torna-as instáveis e de alta variância, motivação basilar para a criação de Random Forests."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "en": "Compare the splitting criteria between a Decision Tree Classifier (`gini` vs `entropy`) and a Decision Tree Regressor (`squared_error`/MSE vs `absolute_error`/MAE). Explain the mathematical objective of each.",
+        "pt": "Compare os critérios de divisão de nós entre um Classificador de Árvore de Decisão (`gini` vs `entropy`) e um Regressor de Árvore de Decisão (`squared_error`/MSE vs `absolute_error`/MAE). Explique o objetivo matemático de cada um."
+      },
+      "solution": {
+        "en": "In Classification:\n- Gini Impurity: measures the probability of misclassification under random sampling from the node distribution: 1 - sum(p_i^2). It reaches 0 for pure nodes and 0.5 for equal binary distributions. It is computationally fast because it avoids logarithms.\n- Shannon Entropy: measures information disorder: - sum(p_i * log2(p_i)). Splits maximize Information Gain (reduction in entropy). Reaches 0 for pure nodes and 1.0 for equal binary distributions.\n\nIn Regression:\n- Squared Error (MSE / Variance Reduction): minimizes the sum of squared differences from the node mean: (1/N) * sum((y_i - mean(y))^2). It heavily penalizes large residual deviations, and the predicted leaf value is the mean.\n- Absolute Error (MAE): minimizes the sum of absolute deviations: (1/N) * sum(|y_i - median(y)|). It is robust against outliers, and the predicted leaf value is the median.",
+        "pt": "Na Classificação:\n- Impureza de Gini: quantifica a probabilidade de rotulagem incorreta: 1 - sum(p_i^2). Varia entre 0 (nó puro) e 0.5 (duas classes equiprováveis). É computacionalmente rápida por dispensar cálculos logarítmicos.\n- Entropia de Shannon: afere o grau de desordem ou incerteza da informação: - sum(p_i * log2(p_i)). As divisões procuram maximizar o Ganho de Informação. Varia entre 0 (nó puro) e 1.0 (máxima incerteza binária).\n\nNa Regressão:\n- Erro Quadrático (MSE / Redução de Variância): minimiza a variância intra-nó em torno da média foliar: (1/N) * sum((y_i - media(y))^2). Penaliza severamente erros residuais expressivos, usando a média dos exemplos como preditor foliar.\n- Erro Absoluto (MAE): minimiza os desvios absolutos: (1/N) * sum(|y_i - mediana(y)|). Apresenta elevada robustez face a valores discrepantes (outliers), adotando a mediana foliar como estimativa."
+      },
+      "explanation": {
+        "en": "Classification criteria quantify probabilistic purity of categorical distributions, whereas regression criteria quantify deviation from a central point (mean for L2 loss, median for L1 loss).",
+        "pt": "Os critérios de classificação medem a pureza estocástica de rótulos nominais, ao passo que os de regressão minimizam a distância métrica residual em relação a um ponto central (média no erro quadrático L2, mediana no erro absoluto L1)."
+      }
+    }
+  ]
+}
