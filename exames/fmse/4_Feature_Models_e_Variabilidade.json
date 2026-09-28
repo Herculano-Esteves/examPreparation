@@ -1,0 +1,364 @@
+{
+  "title": {
+    "en": "Exam 4: Feature Models and Variability Analysis",
+    "pt": "Exame 4: Feature Models e Análise de Variabilidade"
+  },
+  "description": {
+    "en": "Exhaustive exam on Software Product Line (SPL) modelling using Feature Models and their formal translation into Propositional Logic. Covers the exact encoding of structural relationships (mandatory, optional, OR, XOR/alternative), cross-tree dependencies (requires, excludes), and automated analyses using SAT solvers: consistency/non-void checks, dead feature detection, core feature detection, and variant counting.",
+    "pt": "Exame exaustivo sobre a modelação de Linhas de Produtos de Software (SPL) através de Feature Models e a sua tradução formal para Lógica Proposicional. Abrange a codificação exata de relações estruturais (mandatory, optional, OR, XOR/alternative), dependências cross-tree (requires, excludes) e as análises automáticas com SAT solvers: verificação de consistência/não-vazio, deteção de features mortas (dead), features nucleares (core) e contagem de variantes."
+  },
+  "languages": ["en", "pt"],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In the context of software engineering and Software Product Lines (SPL), what does a 'Feature Model' conceptually represent?",
+        "pt": "No contexto da engenharia de software e linhas de produtos de software (SPL), o que representa conceptualmente um 'Feature Model'?"
+      },
+      "options": {
+        "en": [
+          "A compact, structured representation of the variability and commonality within a software product family, where each valid product corresponds to an allowed configuration of features.",
+          "A UML class diagram specifying the physical architecture of microservices in production.",
+          "A regression test plan mapping test cases to functional requirements.",
+          "A probabilistic model predicting failure rates in hardware components."
+        ],
+        "pt": [
+          "Uma representação compacta e estruturada da variabilidade e comunalidade de uma família de produtos de software, onde cada produto válido corresponde a uma configuração permitida de funcionalidades (features).",
+          "Um diagrama de classes UML que especifica a arquitetura física de microserviços em produção.",
+          "Um plano de testes de regressão que mapeia os casos de teste para os requisitos funcionais.",
+          "Um modelo probabilístico que prevê a probabilidade de falha de componentes de hardware."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "A Feature Model is the formal standard for modelling SPL variability. It defines all features shared across family members (commonalities) or selected (variabilities), along with logical rules determining whether a given selection forms a valid product.",
+        "pt": "Um Feature Model é o padrão formal para modelar a variabilidade de uma SPL (Software Product Line). Ele define todas as características possíveis que os membros da família podem partilhar (comunalidades) ou selecionar (variabilidades), bem como as regras lógicas que determinam se uma dada seleção de features constitui um produto válido."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider a root feature $r$, a parent feature $f$, and a sub-feature $f_1$.",
+        "pt": "Considere uma feature raiz $r$, uma feature pai $f$ e uma sub-feature $f_1$."
+      },
+      "question": {
+        "en": "What is the exact propositional encoding for a 'Mandatory' sub-feature and an 'Optional' sub-feature?",
+        "pt": "Qual é a codificação proposicional exata para uma sub-feature 'Obrigatória' (*Mandatory*) e para uma sub-feature 'Opcional' (*Optional*)?"
+      },
+      "options": {
+        "en": [
+          "Mandatory: $f_1 \\leftrightarrow f$; Optional: $f_1 \\to f$.",
+          "Mandatory: $f_1 \\to f$; Optional: $f_1 \\leftrightarrow f$.",
+          "Mandatory: $f_1 \\wedge f$; Optional: $f_1 \\vee f$.",
+          "Mandatory: $f \\to f_1$; Optional: $\\neg f_1 \\vee \\neg f$."
+        ],
+        "pt": [
+          "Obrigatória: $f_1 \\leftrightarrow f$; Opcional: $f_1 \\to f$.",
+          "Obrigatória: $f_1 \\to f$; Opcional: $f_1 \\leftrightarrow f$.",
+          "Obrigatória: $f_1 \\wedge f$; Opcional: $f_1 \\vee f$.",
+          "Obrigatória: $f \\to f_1$; Opcional: $\\neg f_1 \\vee \\neg f$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "For a mandatory sub-feature: selecting parent $f$ requires $f_1$ ($f \\to f_1$), and $f_1$ can only be present if $f$ is present ($f_1 \\to f$), yielding the bi-implication $f_1 \\leftrightarrow f$. For an optional sub-feature: $f_1$ can only appear if parent $f$ is present, meaning $f_1 \\to f$.",
+        "pt": "Para sub-feature obrigatória: se o pai $f$ for selecionado, $f_1$ tem obrigatoriamente de ser selecionada ($f \\to f_1$), e $f_1$ só pode existir se o pai existir ($f_1 \\to f$). A conjunção de ambos resulta na equivalência $f_1 \\leftrightarrow f$. Para sub-feature opcional: $f_1$ só pode estar presente se o pai $f$ estiver presente, ou seja, $f_1 \\to f$ (se o pai for falso, $f_1$ tem forçosamente de ser falso; se o pai for verdadeiro, $f_1$ pode ser verdadeiro ou falso)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Let $f$ be a parent feature with three sub-features: $f_1, f_2, f_3$ grouped under an **OR** group.",
+        "pt": "Seja $f$ uma feature pai com três sub-features: $f_1, f_2, f_3$ agrupadas sob um grupo **OR**."
+      },
+      "question": {
+        "en": "Which propositional formula strictly encodes the semantics of an OR group?",
+        "pt": "Qual é a fórmula proposicional que codifica rigorosamente a semântica do grupo OR?"
+      },
+      "options": {
+        "en": [
+          "$(f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f$",
+          "$(f_1 \\vee f_2 \\vee f_3) \\to f$",
+          "$f \\to (f_1 \\wedge f_2 \\wedge f_3)$",
+          "$(f_1 \\leftrightarrow f) \\vee (f_2 \\leftrightarrow f) \\vee (f_3 \\leftrightarrow f)$"
+        ],
+        "pt": [
+          "$(f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f$",
+          "$(f_1 \\vee f_2 \\vee f_3) \\to f$",
+          "$f \\to (f_1 \\wedge f_2 \\wedge f_3)$",
+          "$(f_1 \\leftrightarrow f) \\vee (f_2 \\leftrightarrow f) \\vee (f_3 \\leftrightarrow f)$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "In an OR group: if parent $f$ is selected, at least one child must be chosen ($f \\to (f_1 \\vee f_2 \\vee f_3)$). Conversely, any child requires the parent to be selected ($(f_1 \\vee f_2 \\vee f_3) \\to f$). Combining both implications yields the equivalence $(f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f$.",
+        "pt": "Num grupo OR: se o pai $f$ for incluído no produto, pelo menos uma das sub-features tem de ser selecionada ($f \\to (f_1 \\vee f_2 \\vee f_3)$). Por outro lado, qualquer uma dessas sub-features só pode ser selecionada se o pai estiver ativo ($(f_1 \\vee f_2 \\vee f_3) \\to f$). A conjunção destas duas implicações é exatamente a bi-implicação $(f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Let $f$ be a parent feature with three sub-features: $f_1, f_2, f_3$ grouped under an **XOR / Alternative** group.",
+        "pt": "Seja $f$ uma feature pai com três sub-features: $f_1, f_2, f_3$ agrupadas sob um grupo **XOR / Alternativa**."
+      },
+      "question": {
+        "en": "How is alternative group semantics (exactly one child chosen when parent is selected) formally expressed in propositional logic?",
+        "pt": "Como se expressa formalmente em lógica proposicional a semântica de grupo alternativo (exatamente uma filha selecionada quando o pai está presente)?"
+      },
+      "options": {
+        "en": [
+          "$((f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f) \\wedge (\\neg f_1 \\vee \\neg f_2) \\wedge (\\neg f_1 \\vee \\neg f_3) \\wedge (\\neg f_2 \\vee \\neg f_3)$",
+          "$(f_1 \\leftrightarrow f) \\wedge (f_2 \\leftrightarrow \\neg f) \\wedge (f_3 \\leftrightarrow \\neg f)$",
+          "$(f_1 \\vee f_2 \\vee f_3) \\wedge \\neg(f_1 \\wedge f_2 \\wedge f_3)$",
+          "$(f_1 \\to f) \\wedge (f_2 \\to f) \\wedge (f_3 \\to f)$"
+        ],
+        "pt": [
+          "$((f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f) \\wedge (\\neg f_1 \\vee \\neg f_2) \\wedge (\\neg f_1 \\vee \\neg f_3) \\wedge (\\neg f_2 \\vee \\neg f_3)$",
+          "$(f_1 \\leftrightarrow f) \\wedge (f_2 \\leftrightarrow \\neg f) \\wedge (f_3 \\leftrightarrow \\neg f)$",
+          "$(f_1 \\vee f_2 \\vee f_3) \\wedge \\neg(f_1 \\wedge f_2 \\wedge f_3)$",
+          "$(f_1 \\to f) \\wedge (f_2 \\to f) \\wedge (f_3 \\to f)$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "An alternative (XOR) group requires: (1) at least one child feature is active iff parent $f$ is active: $(f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f$; and (2) no pair of children can be chosen together: $\\bigwedge_{i < j} \\neg(f_i \\wedge f_j) \\equiv \\bigwedge_{i < j} (\\neg f_i \\vee \\neg f_j)$.",
+        "pt": "O grupo alternativo (XOR) exige que: (1) pelo menos uma filha esteja presente sse o pai estiver presente: $(f_1 \\vee f_2 \\vee f_3) \\leftrightarrow f$; e (2) nenhuma dupla de filhas possa estar presente simultaneamente: $\\bigwedge_{i < j} \\neg(f_i \\wedge f_j) \\equiv \\bigwedge_{i < j} (\\neg f_i \\vee \\neg f_j)$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How are the cross-tree constraints 'Feature $A$ requires feature $B$' (*Requires*) and 'Feature $A$ excludes feature $C$' (*Excludes*) translated into propositional logic?",
+        "pt": "Como se traduzem as restrições transversais (*cross-tree constraints*) 'A funcionalidade $A$ requer a funcionalidade $B$' (*Requires*) e 'A funcionalidade $A$ exclui a funcionalidade $C$' (*Excludes*)?"
+      },
+      "options": {
+        "en": [
+          "Requires: $A \\to B$; Excludes: $\\neg(A \\wedge C) \\equiv \\neg A \\vee \\neg C$.",
+          "Requires: $A \\leftrightarrow B$; Excludes: $A \\leftrightarrow \\neg C$.",
+          "Requires: $B \\to A$; Excludes: $\\neg A \\wedge \\neg C$.",
+          "Requires: $A \\wedge B$; Excludes: $A \\vee C$."
+        ],
+        "pt": [
+          "Requires: $A \\to B$; Excludes: $\\neg(A \\wedge C) \\equiv \\neg A \\vee \\neg C$.",
+          "Requires: $A \\leftrightarrow B$; Excludes: $A \\leftrightarrow \\neg C$.",
+          "Requires: $B \\to A$; Excludes: $\\neg A \\wedge \\neg C$.",
+          "Requires: $A \\wedge B$; Excludes: $A \\vee C$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "'$A$ requires $B$' means selecting $A$ forces $B$ to be selected: $A \\to B$. '$A$ excludes $C$' means $A$ and $C$ cannot co-exist in the same product: $\\neg(A \\wedge C)$, which is $\\neg A \\vee \\neg C$ by De Morgan's laws.",
+        "pt": "'$A$ requer $B$' significa que se $A$ for selecionado, $B$ tem obrigatoriamente de ser selecionado: $A \\to B$. '$A$ exclui $C$' significa que $A$ e $C$ não podem coexistir no mesmo produto: $\\neg(A \\wedge C)$, que por De Morgan equivale a $\\neg A \\vee \\neg C$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Given formula $\\phi$ encoding the full semantics of a Feature Model, how do we verify that the model is **non-void** (i.e., admits valid products)?",
+        "pt": "Dada a fórmula proposicional $\\phi$ que codifica a semântica completa de um Feature Model, como se verifica se o modelo **não é vazio** (*non-void*, isto é, admite produtos válidos)?"
+      },
+      "options": {
+        "en": [
+          "Check whether $\\phi$ is satisfiable (SAT). If $\\phi$ is SAT, the model is non-void and admits at least one valid product.",
+          "Check whether $\\phi$ is unsatisfiable (UNSAT).",
+          "Verify whether $\\neg\\phi$ is a tautology.",
+          "Submit $\\phi \\wedge \\bot$ to the SAT solver."
+        ],
+        "pt": [
+          "Verifica-se se $\\phi$ é satisfazível (SAT). Se $\\phi$ for SAT, o modelo não é vazio e admite pelo menos um produto válido.",
+          "Verifica-se se $\\phi$ é insatisfazível (UNSAT).",
+          "Verifica-se se a fórmula $\\neg\\phi$ é uma tautologia.",
+          "Submete-se $\\phi \\wedge \\bot$ ao SAT solver."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "A Feature Model is non-void if there is at least one feature configuration satisfying all structural and cross-tree constraints. Since each valid product is a satisfying valuation of $\\phi$, we check whether $\\phi$ is SAT. If UNSAT, the model is void.",
+        "pt": "Um Feature Model é dito não-vazio (*non-void*) se existir pelo menos uma configuração de features que respeite todas as regras da árvore e restrições cruzadas. Como cada produto válido é uma valoração satisfazível de $\\phi$, basta testar se $\\phi$ é SAT. Se for UNSAT, o modelo é vazio (contém erros graves de especificação)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is a 'Dead Feature', and how is a feature $f$ proven to be dead using a SAT solver?",
+        "pt": "O que é uma 'Feature Morta' (*Dead Feature*) e como se prova formalmente que uma dada feature $f$ é morta recorrendo a um SAT solver?"
+      },
+      "options": {
+        "en": [
+          "A feature is dead if it belongs to no valid product of the SPL; this is proven by checking that $\\phi \\wedge f$ is unsatisfiable (UNSAT).",
+          "A feature is dead if it belongs to every product; proven by checking that $\\phi \\wedge f$ is SAT.",
+          "A feature is dead if it has no child nodes in the tree; checked by syntactic inspection.",
+          "A feature is dead if $\\phi \\wedge \\neg f$ is UNSAT."
+        ],
+        "pt": [
+          "Uma feature é morta se não pertencer a nenhum produto válido da SPL; prova-se verificando que $\\phi \\wedge f$ é insatisfazível (UNSAT).",
+          "Uma feature é morta se pertencer a todos os produtos; prova-se verificando que $\\phi \\wedge f$ é SAT.",
+          "Uma feature é morta se não tiver filhos na árvore hierárquica; prova-se por inspeção sintática do grafo.",
+          "Uma feature é morta se $\\phi \\wedge \\neg f$ for UNSAT."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Feature $f$ is dead if no valid product can contain it. Enforcing $f$ along with the model constraints via $\\phi \\wedge f$, if the SAT solver returns UNSAT, then $f$ cannot be active without violating rules, proving it is a dead feature.",
+        "pt": "Uma feature $f$ é dita morta se for impossível construir qualquer produto válido que a contenha. Para testar isso, forçamos a inclusão de $f$ juntamente com as regras do modelo: $\\phi \\wedge f$. Se o SAT solver devolver UNSAT, é absolutamente impossível ter $f$ ativo sem violar regras, confirmando que $f$ é uma *dead feature*."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is a 'Core Feature', and how do we check whether $f$ is a core feature with a SAT solver?",
+        "pt": "O que é uma 'Feature Nuclear' (*Core Feature* ou característica comum) e como se verifica com um SAT solver se $f$ é nuclear?"
+      },
+      "options": {
+        "en": [
+          "A feature is core if it is present in EVERY valid product of the SPL; proven by checking that $\\phi \\wedge \\neg f$ is unsatisfiable (UNSAT).",
+          "A feature is core if it is the root of the tree; checked by checking whether $f$ has connectives.",
+          "A feature is core if it can be omitted without breaking the system; checked by showing $\\phi \\wedge \\neg f$ is SAT.",
+          "A feature is core if it belongs to at least 50% of valid products."
+        ],
+        "pt": [
+          "Uma feature é nuclear se estiver obrigatoriamente presente em TODOS os produtos válidos da SPL; prova-se verificando que $\\phi \\wedge \\neg f$ é insatisfazível (UNSAT).",
+          "Uma feature é nuclear se for a raiz da árvore; testa-se se $f$ tem conetivos lógicos associados.",
+          "Uma feature é nuclear se puder ser desligada sem quebrar o sistema; testa-se se $\\phi \\wedge \\neg f$ é SAT.",
+          "Uma feature é nuclear se pertencer a pelo menos 50% dos produtos válidos."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "A feature $f$ is core if it is part of 100% of valid configurations, meaning $\\phi \\models f$. Negating $f$ via $\\phi \\wedge \\neg f$, if the solver returns UNSAT, no valid product can omit $f$, establishing that $f$ is a core feature.",
+        "pt": "Uma feature $f$ é dita nuclear (*core feature*) se fizer parte de 100% dos produtos válidos, ou seja, $\\phi \\models f$. Pelo método de refutação com SAT solver, nega-se a inclusão de $f$: $\\phi \\wedge \\neg f$. Se for UNSAT, significa que nenhum produto sobrevive sem $f$, provando que $f$ é estritamente nuclear."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "The root feature of any valid, non-void Feature Model is always guaranteed to be a core feature.",
+        "pt": "A feature raiz de qualquer Feature Model válido e não-vazio é sempre garantidamente uma *core feature*."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. Feature Model semantics enforce the unit clause $r$ (root must be true in every configuration). In a non-void model, every valid product satisfies $r = 1$, making root a core feature by definition.",
+        "pt": "Verdadeiro. A própria semântica do Feature Model impõe a cláusula unitária $r$ (a raiz tem de ser verdadeira em qualquer configuração). Como qualquer produto válido satisfaz $r=1$, a raiz pertence a todos os produtos possíveis, sendo por definição uma *core feature*."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Consider a Feature Model where feature $A$ is optional ($A \\to r$), but a cross-tree constraint enforces that $A$ excludes the root: $\\neg(A \\wedge r)$.",
+        "pt": "Considere um Feature Model onde a feature $A$ é opcional ($A \\to r$), mas existe uma restrição cruzada que impõe que $A$ exclui a raiz: $\\neg(A \\wedge r)$."
+      },
+      "question": {
+        "en": "Feature $A$ in this model is a dead feature.",
+        "pt": "A funcionalidade $A$ neste modelo é uma *dead feature* (funcionalidade morta)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. In every valid product, root $r$ must be true ($r = 1$). The exclusion constraint $\\neg(A \\wedge r)$ forces $A = 0$ whenever $r = 1$. Thus, no model can set $A = 1$, making $\\phi \\wedge A$ UNSAT.",
+        "pt": "Verdadeiro. Em qualquer produto válido, a raiz $r$ tem de ser verdadeira ($r=1$). A restrição de exclusão $\\neg(A \\wedge r)$ impõe que se $r=1$, então $A$ tem forçosamente de ser falso ($A=0$). Portanto, não existe nenhum modelo em que $A=1$, tornando $\\phi \\wedge A$ insatisfazível (UNSAT), logo $A$ é uma feature morta."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the following simplified mobile phone model:\n- Root: $Phone$\n- Mandatory sub-feature: $Screen \\leftrightarrow Phone$\n- Alternative (XOR) group under $Screen$: $Color$ and $Highres$\n- Optional sub-feature: $Camera \\to Phone$\n- Cross-tree constraint: $Camera \\to Highres$",
+        "pt": "Considere o seguinte modelo simplificado de telemóveis:\n- Raiz: $Phone$\n- Sub-feature obrigatória: $Screen \\leftrightarrow Phone$\n- Grupo alternativo (XOR) sob $Screen$: $Color$ e $Highres$\n- Sub-feature opcional: $Camera \\to Phone$\n- Restrição cruzada: $Camera \\to Highres$"
+      },
+      "question": {
+        "en": "If a customer chooses the $Color$ screen, what happens to the $Camera$ feature?",
+        "pt": "Se um cliente optar pelo ecrã $Color$, o que acontece com a funcionalidade $Camera$?"
+      },
+      "options": {
+        "en": [
+          "Feature $Camera$ cannot be selected, being forced to false by the rules of the model.",
+          "Feature $Camera$ becomes mandatory because it is optional in the parent.",
+          "Feature $Highres$ is activated simultaneously with $Color$.",
+          "The model becomes void and the SAT solver returns UNSAT."
+        ],
+        "pt": [
+          "A funcionalidade $Camera$ não pode ser selecionada, sendo forçada a falso pelas regras do modelo.",
+          "A funcionalidade $Camera$ torna-se obrigatória por ser opcional no pai.",
+          "A funcionalidade $Highres$ é ativada em simultâneo com $Color$.",
+          "O modelo torna-se vazio e o SAT solver devolve UNSAT."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Because $Color$ and $Highres$ belong to an XOR group, choosing $Color$ forces $Highres = 0$. By the contrapositive of $Camera \\to Highres$ ($\\neg Highres \\to \\neg Camera$), $Highres = 0$ forces $Camera = 0$.",
+        "pt": "Como $Color$ e $Highres$ estão num grupo alternativo (XOR), a escolha de $Color$ implica $Highres = 0$. Pela restrição contrapositiva de $Camera \\to Highres$ ($\neg Highres \\to \\neg Camera$), como $Highres$ é falso, $Camera$ tem obrigatoriamente de ser falso. O cliente não pode ter câmara com ecrã a cores básico."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the phone model:\n- Root: $Phone$\n- Mandatory sub-features: $Calls$, $Screen$\n- Under $Screen$, XOR between $Basic$ and $Color$\n- Optional sub-feature under $Phone$: $GPS$\n- Constraint: $GPS$ excludes $Basic$ ($\\neg(GPS \\wedge Basic)$)",
+        "pt": "Considere o modelo do telemóvel:\n- Raiz: $Phone$\n- Sub-features obrigatórias: $Calls$, $Screen$\n- Sob $Screen$, XOR entre $Basic$ e $Color$\n- Sub-feature opcional sob $Phone$: $GPS$\n- Restrição: $GPS$ exclui $Basic$ ($\\neg(GPS \\wedge Basic)$)"
+      },
+      "question": {
+        "en": "How many valid products (variants) exist in this system?",
+        "pt": "Quantos produtos válidos (variantes) existem neste sistema?"
+      },
+      "options": {
+        "en": [
+          "3 valid products: (1) {Phone, Calls, Screen, Basic}; (2) {Phone, Calls, Screen, Color}; (3) {Phone, Calls, Screen, Color, GPS}.",
+          "4 valid products, corresponding to all Boolean combinations of Screen and GPS.",
+          "2 valid products, because GPS is incompatible with root.",
+          "8 valid products."
+        ],
+        "pt": [
+          "3 produtos válidos: (1) {Phone, Calls, Screen, Basic}; (2) {Phone, Calls, Screen, Color}; (3) {Phone, Calls, Screen, Color, GPS}.",
+          "4 produtos válidos, correspondendo a todas as combinações booleanas de Screen e GPS.",
+          "2 produtos válidos, porque GPS é incompatível com a raiz.",
+          "8 produtos válidos."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Breakdown:\n- Phone, Calls, Screen are always present (mandatory).\n- For Screen, 2 exclusive choices: Basic or Color.\n- Case 1 (Screen = Basic): GPS is forbidden by exclusion with Basic. Yields 1 product: {Phone, Calls, Screen, Basic}.\n- Case 2 (Screen = Color): GPS may be omitted (product 2) or included (product 3).\nTotal: 3 valid variants.",
+        "pt": "Analisando as combinações:\n- Phone, Calls e Screen estão sempre presentes (obrigatórias).\n- Para Screen, temos 2 opções exclusivas: Basic ou Color.\n- Caso 1 (Screen = Basic): GPS não pode ser escolhido devido à exclusão com Basic. Resulta em 1 produto: {Phone, Calls, Screen, Basic}.\n- Caso 2 (Screen = Color): GPS pode ser omitido (produto 2: {Phone, Calls, Screen, Color}) ou incluído (produto 3: {Phone, Calls, Screen, Color, GPS}).\nTotal: 3 variantes válidas."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "If sub-feature $B$ is optional under mandatory sub-feature $A$, but a cross-tree constraint makes $B$ mandatory ($r \\to B$), then both $A$ and $B$ become core features of the system.",
+        "pt": "Se uma sub-feature $B$ for opcional relativamente a uma sub-feature obrigatória $A$, mas existir uma dependência transversal que torne $B$ obrigatório ($r \\to B$), então tanto $A$ como $B$ passam a ser *core features* do sistema."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. Root $r$ is true in all products, so $r \\to B$ forces $B = 1$ in all products (making $B$ core). Since $B$ is a child of $A$ ($B \\to A$), $B = 1$ forces $A = 1$ in all products. Thus both are core features.",
+        "pt": "Verdadeiro. Sendo a raiz $r$ verdadeira em todos os produtos, $r \\to B$ força $B=1$ em todos os produtos (tornando $B$ uma core feature). Como $B$ é sub-feature de $A$ ($B \\to A$), $B=1$ força $A=1$ em todos os produtos. Logo, ambas passam a ser features nucleares."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "en": "Consider the propositional formula encoding a Feature Model $\\phi$ with $n$ features.",
+        "pt": "Considere a fórmula proposicional que codifica um Feature Model $\\phi$ com $n$ features."
+      },
+      "question": {
+        "en": "Explain in detail how to design an automated algorithm that takes $\\phi$ and outputs the complete list of all **Dead Features** and all **Core Features**, specifying the formulas submitted to the SAT solver at each step.",
+        "pt": "Explique detalhadamente como conceber um algoritmo automático que recebe $\\phi$ e calcula a lista completa de todas as **Features Mortas** (*Dead Features*) e de todas as **Features Nucleares** (*Core Features*), indicando as fórmulas passadas ao SAT solver em cada passo."
+      },
+      "solution": {
+        "en": "Feature Analysis Algorithm:\n\n1. Initialization:\n   - Empty lists: DeadFeatures = [], CoreFeatures = [].\n   - Retrieve all feature variables $F = \\{f_1, f_2, \\dots, f_n\\}$.\n   - Check whether the model is non-void by testing if $\\phi$ is SAT. If UNSAT, terminate (model is void/inconsistent).\n\n2. Dead Feature Detection (for each $f_i \\in F$):\n   - Submit formula to SAT solver: $\\phi \\wedge f_i$.\n   - If the solver returns UNSAT: no valid configuration can include $f_i$. Add $f_i$ to DeadFeatures.\n\n3. Core Feature Detection (for each non-dead $f_i \\in F$):\n   - Submit formula to SAT solver: $\\phi \\wedge \\neg f_i$.\n   - If the solver returns UNSAT: no valid configuration can exclude $f_i$ (i.e., $\\phi \\models f_i$). Add $f_i$ to CoreFeatures.\n\n4. Output:\n   - Return both lists. Computational cost involves at most $2n + 1$ SAT solver calls.",
+        "pt": "Algoritmo de Análise de Features:\n\n1. Inicialização:\n   - Listas vazias: DeadFeatures = [], CoreFeatures = [].\n   - Obter a lista de todas as variáveis de features $F = \\{f_1, f_2, \\dots, f_n\\}$.\n   - Verificar se o modelo é não-vazio testando se $\\phi$ é SAT. Se for UNSAT, interromper (o modelo é inválido/vazio).\n\n2. Deteção de Dead Features (para cada $f_i \\in F$):\n   - Submeter ao SAT solver a fórmula: $\\phi \\wedge f_i$.\n   - Se o solver devolver UNSAT: significa que não existe nenhuma configuração válida onde $f_i$ esteja ativo. Adicionar $f_i$ à lista DeadFeatures.\n\n3. Deteção de Core Features (para cada $f_i \\in F$ não morta):\n   - Submeter ao SAT solver a fórmula: $\\phi \\wedge \\neg f_i$.\n   - Se o solver devolver UNSAT: significa que é impossível construir um produto válido sem a presença de $f_i$ (ou seja, $\\phi \\models f_i$). Adicionar $f_i$ à lista CoreFeatures.\n\n4. Retorno:\n   - O algoritmo devolve as duas listas. O custo computacional total envolve no máximo $2n + 1$ chamadas ao SAT solver."
+      },
+      "explanation": {
+        "en": "Grading criteria: initial satisfiability test ($\\phi$ is SAT); precise formulation of $\\phi \\wedge f_i$ yielding UNSAT for dead features; precise formulation of $\\phi \\wedge \\neg f_i$ yielding UNSAT for core features; and description of the iteration over the feature set.",
+        "pt": "Critérios de correção: teste prévio de satisfatibilidade do modelo ($\\phi$ é SAT); explicitação precisa da fórmula $\\phi \\wedge f_i$ com veredicto UNSAT para feature morta; explicitação precisa da fórmula $\\phi \\wedge \\neg f_i$ com veredicto UNSAT para feature nuclear; e explicação do fluxo iterativo sobre o conjunto de features."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "In a Feature Model, a given feature $f$ can be both a dead feature and a core feature only in the pathological case where the model itself is void ($\\phi$ is unsatisfiable).",
+        "pt": "Num Feature Model, é possível que uma dada funcionalidade $f$ seja simultaneamente uma *dead feature* e uma *core feature* apenas no caso patológico em que o próprio modelo é vazio ($\\phi$ é insatisfazível)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True! If $\\phi$ is unsatisfiable (void model), then both $\\phi \\wedge f$ and $\\phi \\wedge \\neg f$ are UNSAT vacuously. In a non-void model (where at least one product exists), a feature can never be both dead and core.",
+        "pt": "Verdadeiro! Se $\\phi$ for insatisfazível (modelo vazio), então tanto $\\phi \\wedge f$ como $\\phi \\wedge \\neg f$ são contradições (UNSAT por vacuidade). Num modelo não-vazio (onde existe pelo menos um produto), uma feature nunca pode ser simultaneamente morta e nuclear."
+      }
+    }
+  ]
+}

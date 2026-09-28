@@ -1,0 +1,368 @@
+{
+  "title": {
+    "en": "Exam 1: Foundations and Semantics of Propositional Logic",
+    "pt": "Exame 1: Fundamentos e Semântica de Lógica Proposicional"
+  },
+  "description": {
+    "en": "Comprehensive exam covering the formal foundations of Propositional Logic (PL), including syntax and well-formed formulas, precedence rules, semantic valuations, truth tables, formula classification (tautologies, SAT, UNSAT, and refutable), semantic consequence, logical equivalences, and decidability.",
+    "pt": "Exame abrangente sobre os fundamentos formais da Lógica Proposicional (LP), incluindo sintaxe e fórmulas bem-formadas, regras de precedência, valorações semânticas, tabelas de verdade, classificação de fórmulas (tautologias, SAT, UNSAT e refutáveis), consequência semântica, equivalências lógicas e decidibilidade."
+  },
+  "languages": ["en", "pt"],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "According to the foundations of formal methods, what are the three pillars that constitute a formal logic?",
+        "pt": "De acordo com os fundamentos dos métodos formais, quais são os três pilares que compõem uma lógica formal?"
+      },
+      "options": {
+        "en": [
+          "A formal language (syntax), a semantics (meaning/truth), and a proof system (rules to derive valid judgments).",
+          "A lexical analyser, a bytecode compiler, and an execution virtual machine.",
+          "A context-free grammar, an abstract syntax tree (AST), and a symbol table.",
+          "A set of static axioms, a relational database, and an exhaustive search algorithm."
+        ],
+        "pt": [
+          "Uma linguagem formal (sintaxe), uma semântica (significado/verdade) e um sistema de prova (regras para derivar julgamentos válidos).",
+          "Um analisador léxico, um compilador de bytecode e uma máquina virtual de execução.",
+          "Uma gramática livre de contexto, uma árvore sintática abstrata (AST) e uma tabela de símbolos.",
+          "Um conjunto de axiomas estáticos, uma base de dados relacional e um algoritmo de pesquisa exaustiva."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "A formal logic is rigorously composed of: (1) a formal language that defines well-formed formulas; (2) a semantics that assigns meaning and truth values to expressions; and (3) a proof system that establishes sound inference rules to derive valid judgments.",
+        "pt": "Uma lógica formal é rigorosamente constituída por: (1) uma linguagem formal que define as frases ou fórmulas bem-formadas; (2) uma semântica que atribui significado e valor de verdade às expressões; e (3) um sistema de prova que estabelece regras sólidas de inferência para derivar juízos válidos."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the propositional formula without parentheses:\n$$\\neg A \\wedge B \\to C \\vee D \\leftrightarrow E$$",
+        "pt": "Considere a fórmula proposicional sem parênteses:\n$$\\neg A \\wedge B \\to C \\vee D \\leftrightarrow E$$"
+      },
+      "question": {
+        "en": "What is the correct order of evaluation for logical connectives according to standard precedence conventions?",
+        "pt": "Qual é a ordem correta de aplicação dos conetivos lógicos ao avaliar esta fórmula de acordo com as convenções padrão de precedência?"
+      },
+      "options": {
+        "en": [
+          "Negation ($\\neg$), Conjunction ($\\wedge$), Disjunction ($\\vee$), Implication ($\\to$), and Equivalence ($\\leftrightarrow$).",
+          "Equivalence ($\\leftrightarrow$), Implication ($\\to$), Disjunction ($\\vee$), Conjunction ($\\wedge$), and Negation ($\\neg$).",
+          "Precedence is strictly from left to right, regardless of operators.",
+          "Conjunction and Disjunction have equal priority, overriding Negation and Implication."
+        ],
+        "pt": [
+          "Negação ($\\neg$), Conjunção ($\\wedge$), Disjunção ($\\vee$), Implicação ($\\to$) e Equivalência ($\\leftrightarrow$).",
+          "Equivalência ($\\leftrightarrow$), Implicação ($\\to$), Disjunção ($\\vee$), Conjunção ($\\wedge$) e Negação ($\\neg$).",
+          "A precedência é estritamente da esquerda para a direita, independentemente dos operadores.",
+          "Conjunção e Disjunção têm igual prioridade, sobrepondo-se à Negação e à Implicação."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "In Propositional Logic precedence conventions, negation $\\neg$ has the highest precedence, followed by conjunction $\\wedge$, disjunction $\\vee$, implication $\\to$ (which is right-associative), and finally equivalence $\\leftrightarrow$ with the lowest precedence. The formula above is parsed as $(((\\neg A) \\wedge B) \\to (C \\vee D)) \\leftrightarrow E$.",
+        "pt": "Na convenção de precedência da Lógica Proposicional, a negação $\\neg$ tem a precedência mais elevada, seguida da conjunção $\\wedge$, depois da disjunção $\\vee$, a seguir da implicação $\\to$ (que é associativa à direita), e finalmente da equivalência $\\leftrightarrow$ com a precedência mais baixa. A fórmula acima interpreta-se como $(((\\neg A) \\wedge B) \\to (C \\vee D)) \\leftrightarrow E$."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "A semantic valuation $\\mathcal{A}$ in Propositional Logic is initially an assignment $\\mathcal{A}: \\mathcal{V} \\to \\{0, 1\\}$ to atomic variables, and is inductively and deterministically extended to all well-formed formulas $\\mathcal{A}: \\text{Form} \\to \\{0, 1\\}$.",
+        "pt": "Uma valoração semântica $\\mathcal{A}$ em Lógica Proposicional é inicialmente uma atribuição $\\mathcal{A}: \\mathcal{V} \\to \\{0, 1\\}$ às variáveis atómicas, sendo estendida de forma indutiva e determinística a todas as fórmulas bem-formadas $\\mathcal{A}: \\text{Form} \\to \\{0, 1\\}."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. A valuation (or interpretation) fixes the truth values of atomic variables $\\mathcal{V}$, and the inductive semantic rules (truth tables for connectives $\\neg, \\wedge, \\vee, \\to, \\leftrightarrow$) uniquely determine the truth value of any compound formula.",
+        "pt": "Verdadeiro. Uma valoração (ou interpretação) define os valores das variáveis atómicas $\\mathcal{V}$, e as regras da semântica indutiva (tabelas de verdade dos conetivos $\\neg, \\wedge, \\vee, \\to, \\leftrightarrow$) determinam de modo unívoco o valor de verdade de qualquer fórmula composta."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider valuation $\\mathcal{A}$ such that $\\mathcal{A}(A) = 1$, $\\mathcal{A}(B) = 0$, and $\\mathcal{A}(C) = 1$.\nConsider formula $\\phi = (A \\to B) \\vee (\\neg B \\wedge C)$.",
+        "pt": "Considere a valoração $\\mathcal{A}$ tal que $\\mathcal{A}(A) = 1$, $\\mathcal{A}(B) = 0$ e $\\mathcal{A}(C) = 1$.\nConsidere a fórmula $\\phi = (A \\to B) \\vee (\\neg B \\wedge C)$."
+      },
+      "question": {
+        "en": "What is the truth value of $\\phi$ under valuation $\\mathcal{A}$?",
+        "pt": "Qual é o valor de verdade de $\\phi$ sob a valoração $\\mathcal{A}$?"
+      },
+      "options": {
+        "en": [
+          "$\\phi$ is true (1), because although $(A \\to B)$ is 0, $(\\neg B \\wedge C)$ is 1.",
+          "$\\phi$ is false (0), because $(A \\to B)$ evaluates to 0 and disjunction propagates this value.",
+          "$\\phi$ is undefined, because it requires constructing the full 8-row truth table.",
+          "$\\phi$ is false (0), because $\\neg B$ cancels out the conjunction with $C$."
+        ],
+        "pt": [
+          "$\\phi$ é verdadeira (1), pois embora $(A \\to B)$ seja 0, $(\\neg B \\wedge C)$ é 1.",
+          "$\\phi$ é falsa (0), porque $(A \\to B)$ avalia para 0 e a disjunção propaga esse valor.",
+          "$\\phi$ é indefinida, pois requer a construção da tabela de verdade completa com 8 linhas.",
+          "$\\phi$ é falsa (0), porque $\\neg B$ anula o termo da conjunção com $C$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Evaluating step by step: $\\mathcal{A}(A \\to B) = 1 \\to 0 = 0$. For the second term: $\\mathcal{A}(\\neg B) = 1$, so $\\mathcal{A}(\\neg B \\wedge C) = 1 \\wedge 1 = 1$. Since the main connective is disjunction $\\vee$, we obtain $0 \\vee 1 = 1$. Therefore, $\\mathcal{A} \\models \\phi$.",
+        "pt": "Calculando termo a termo: $\\mathcal{A}(A \\to B) = 1 \\to 0 = 0$. Para o segundo termo: $\\mathcal{A}(\\neg B) = 1$, logo $\\mathcal{A}(\\neg B \\wedge C) = 1 \\wedge 1 = 1$. Como a operação principal é uma disjunção $\\vee$, temos $0 \\vee 1 = 1$. Portanto, $\\mathcal{A} \\models \\phi$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In Propositional Logic, what is the rigorous definition of a formula being refutable?",
+        "pt": "Em Lógica Proposicional, qual é a definição rigorosa de uma fórmula ser refutável?"
+      },
+      "options": {
+        "en": [
+          "The formula is false under at least one possible valuation.",
+          "The formula is false under all possible valuations.",
+          "The formula cannot be simplified using equivalence rules.",
+          "The formula has a negation as its primary connective."
+        ],
+        "pt": [
+          "A fórmula é falsa sob pelo menos uma valoração possível.",
+          "A fórmula é falsa sob todas as valorações possíveis.",
+          "A fórmula não pode ser simplificada usando regras de equivalência.",
+          "A fórmula possui uma negação no seu operador principal."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "A formula $\\phi$ is refutable (falsifiable) if there exists at least one interpretation $\\mathcal{A}$ that makes it false (i.e., $\\mathcal{A} \\not\\models \\phi$). Note the distinction: unsatisfiable (contradiction) requires falsity in all valuations, while refutable requires only that it fails in at least one valuation.",
+        "pt": "Uma fórmula $\\phi$ é refutável se existir pelo menos uma interpretação $\\mathcal{A}$ que a torne falsa (ou seja, $\\mathcal{A} \\not\\models \\phi$). Note a distinção: ser insatisfazível (contradição) exige falsidade em todas as valorações, enquanto ser refutável exige apenas que falhe em pelo menos uma valoração."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "Every valid formula (tautology) is necessarily satisfiable (SAT).",
+        "pt": "Qualquer fórmula válida (tautologia) é necessariamente satisfazível (SAT)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. A valid formula is true under all valuations. Since at least one valuation exists, the formula is satisfied by that valuation (and all others), fulfilling the definition of satisfiability.",
+        "pt": "Verdadeiro. Uma fórmula válida é verdadeira sob todas as valorações. Como existe pelo menos uma valoração possível, a fórmula é satisfeita por essa valoração (e por todas as outras), cumprindo a definição de satisfazibilidade."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the fundamental duality relationship between validity and unsatisfiability that underpins automated theorem provers and SAT solvers?",
+        "pt": "Qual é a relação fundamental de dualidade entre validade e insatisfatibilidade que fundamenta os demonstradores automáticos de teoremas e SAT solvers?"
+      },
+      "options": {
+        "en": [
+          "A formula $\\phi$ is valid if and only if its negation $\\neg\\phi$ is unsatisfiable (UNSAT).",
+          "A formula $\\phi$ is valid if and only if its negation $\\neg\\phi$ is satisfiable (SAT).",
+          "A formula $\\phi$ is unsatisfiable if and only if $\\phi \\to \\bot$ is refutable.",
+          "The validity of $\\phi$ has no formal correlation with the satisfiability of $\\neg\\phi$."
+        ],
+        "pt": [
+          "Uma fórmula $\\phi$ é válida se e só se a sua negação $\\neg\\phi$ for insatisfazível (UNSAT).",
+          "Uma fórmula $\\phi$ é válida se e só se a sua negação $\\neg\\phi$ for satisfazível (SAT).",
+          "Uma fórmula $\\phi$ é insatisfazível se e só se $\\phi \\to \\bot$ for refutável.",
+          "A validade de $\\phi$ não tem qualquer correlação formal com a satisfatibilidade de $\\neg\\phi$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "$\\models \\phi \\iff \\neg\\phi$ is UNSAT. If $\\phi$ is true in all valuations, then $\\neg\\phi$ must be false in all valuations (hence unsatisfiable). For this reason, SAT solvers verify theorems or assertions by refuting the negation of the target formula.",
+        "pt": "$\\models \\phi \\iff \\neg\\phi$ é UNSAT. Se $\\phi$ é verdadeira em todas as valorações, então $\\neg\\phi$ tem de ser falsa em todas as valorações (portanto insatisfazível). É por este motivo que os SAT solvers conseguem verificar a validade de teoremas ou asserções: basta refutar a negação da fórmula."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "We say that formula $\\phi$ is a semantic consequence of formula $\\psi$ (denoted $\\psi \\models \\phi$) if and only if:",
+        "pt": "Dizemos que uma fórmula $\\phi$ é consequência semântica de um conjunto de fórmulas $\\psi$ (denotado por $\\psi \\models \\phi$) se e só se:"
+      },
+      "options": {
+        "en": [
+          "For every valuation $\\mathcal{A}$ where $\\mathcal{A} \\models \\psi$, it is mandatory that $\\mathcal{A} \\models \\phi$ (which is equivalent to $\\models \\psi \\to \\phi$).",
+          "There exists at least one valuation satisfying $\\psi$ and $\\phi$ simultaneously.",
+          "The truth tables of $\\psi$ and $\\phi$ have exactly the same number of true rows.",
+          "Formula $\\phi$ was derived solely using De Morgan's laws applied to $\\psi$."
+        ],
+        "pt": [
+          "Para toda a valoração $\\mathcal{A}$ onde $\\mathcal{A} \\models \\psi$, tem-se obrigatoriamente $\\mathcal{A} \\models \\phi$ (o que equivale a $\\models \\psi \\to \\phi$).",
+          "Existe pelo menos uma valoração que satisfaz $\\psi$ e $\\phi$ em simultâneo.",
+          "As tabelas de verdade de $\\psi$ e $\\phi$ possuem exatamente o mesmo número de linhas verdadeiras.",
+          "A fórmula $\\phi$ foi derivada usando apenas as leis de De Morgan aplicadas a $\\psi$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Semantic consequence $\\psi \\models \\phi$ means that whenever the premises $\\psi$ are true in a valuation, the conclusion $\\phi$ is also necessarily true in that valuation. By the semantic deduction theorem, $\\psi \\models \\phi \\iff \\models \\psi \\to \\phi$.",
+        "pt": "Consequência semântica $\\psi \\models \\phi$ significa que sempre que as premissas $\\psi$ são verdadeiras numa valoração, a conclusão $\\phi$ também é obrigatoriamente verdadeira nessa mesma valoração. Pelo teorema da dedução semântica, $\\psi \\models \\phi \\iff \\models \\psi \\to \\phi$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the negated formula:\n$$\\neg((A \\vee B) \\wedge \\neg C)$$",
+        "pt": "Considere a fórmula negada:\n$$\\neg((A \\vee B) \\wedge \\neg C)$$"
+      },
+      "question": {
+        "en": "Which of the following formulas is logically equivalent after applying De Morgan's laws and double negation?",
+        "pt": "Qual das seguintes fórmulas é logicamente equivalente após a aplicação rigorosa das Leis de De Morgan e dupla negação?"
+      },
+      "options": {
+        "en": [
+          "$(\\neg A \\wedge \\neg B) \\vee C$",
+          "$(\\neg A \\vee \\neg B) \\wedge C$",
+          "$(\\neg A \\wedge \\neg B) \\wedge \\neg C$",
+          "$\\neg A \\vee \\neg B \\vee \\neg C$"
+        ],
+        "pt": [
+          "$(\\neg A \\wedge \\neg B) \\vee C$",
+          "$(\\neg A \\vee \\neg B) \\wedge C$",
+          "$(\\neg A \\wedge \\neg B) \\wedge \\neg C$",
+          "$\\neg A \\vee \\neg B \\vee \\neg C$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Applying De Morgan to the outer conjunction: $\\neg(X \\wedge Y) \\equiv \\neg X \\vee \\neg Y$. Here $X = (A \\vee B)$ and $Y = \\neg C$. This yields $\\neg(A \\vee B) \\vee \\neg(\\neg C)$. Applying De Morgan to the first term gives $\\neg(A \\vee B) \\equiv \\neg A \\wedge \\neg B$. Applying double negation to the second term gives $\\neg(\\neg C) \\equiv C$. Thus, we obtain $(\\neg A \\wedge \\neg B) \\vee C$.",
+        "pt": "Aplicando De Morgan sobre a conjunção exterior: $\\neg(X \\wedge Y) \\equiv \\neg X \\vee \\neg Y$. Aqui $X = (A \\vee B)$ e $Y = \\neg C$. Fica $\\neg(A \\vee B) \\vee \\neg(\\neg C)$. Aplicando De Morgan ao primeiro termo: $\\neg(A \\vee B) \\equiv \\neg A \\wedge \\neg B$. Aplicando dupla negação ao segundo termo: $\\neg(\\neg C) \\equiv C$. Obtém-se $(\\neg A \\wedge \\neg B) \\vee C$."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "Material implication $\\phi \\to \\psi$ is semantically equivalent to $\\neg\\phi \\vee \\psi$, meaning an implication is false only when premise $\\phi$ is true and conclusion $\\psi$ is false.",
+        "pt": "A implicação material $\\phi \\to \\psi$ é semanticamente equivalente a $\\neg\\phi \\vee \\psi$, o que significa que uma implicação só é falsa quando a premissa $\\phi$ é verdadeira e a conclusão $\\psi$ é falsa."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. The truth table of $\\phi \\to \\psi$ evaluates to 0 only when $\\phi=1$ and $\\psi=0$. When $\\phi=0$, the implication is vacuously true (ex falso quodlibet), matching $\\neg\\phi \\vee \\psi$.",
+        "pt": "Verdadeiro. A tabela de verdade da implicação $\\phi \\to \\psi$ apenas produz valor 0 quando $\\phi=1$ e $\\psi=0$. Se $\\phi=0$, a implicação é trivialmente verdadeira por vacuidade (ex falso quodlibet), correspondendo exatamente a $\\neg\\phi \\vee \\psi$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Which of the following expressions describes the canonical expansion of logical equivalence $\\phi \\leftrightarrow \\psi$ using simple conjunctions and disjunctions?",
+        "pt": "Qual das seguintes expressões descreve a expansão canónica da equivalência lógica $\\phi \\leftrightarrow \\psi$ em termos de conjunções e disjunções simples?"
+      },
+      "options": {
+        "en": [
+          "$(\\neg\\phi \\vee \\psi) \\wedge (\\neg\\psi \\vee \\phi)$",
+          "$(\\phi \\wedge \\psi) \\vee (\\neg\\phi \\wedge \\neg\\psi)$",
+          "Both previous formulations are valid equivalent representations of $\\phi \\leftrightarrow \\psi$.",
+          "Neither formulation, since $\\leftrightarrow$ cannot be expanded without quantifiers."
+        ],
+        "pt": [
+          "$(\\neg\\phi \\vee \\psi) \\wedge (\\neg\\psi \\vee \\phi)$",
+          "$(\\phi \\wedge \\psi) \\vee (\\neg\\phi \\wedge \\neg\\psi)$",
+          "Ambas as formulações anteriores são formas equivalentes válidas de expressar $\\phi \\leftrightarrow \\psi$.",
+          "Nenhuma das formulações anteriores, pois $\\leftrightarrow$ não pode ser decomposto sem quantificadores."
+        ]
+      },
+      "solution": [2],
+      "explanation": {
+        "en": "Both forms are valid: $(\\phi \\to \\psi) \\wedge (\\psi \\to \\phi) \\equiv (\\neg\\phi \\vee \\psi) \\wedge (\\neg\\psi \\vee \\phi)$ corresponds to Conjunctive Normal Form (CNF), and $(\\phi \\wedge \\psi) \\vee (\\neg\\phi \\wedge \\neg\\psi)$ corresponds to Disjunctive Normal Form (DNF).",
+        "pt": "Ambas estão perfeitamente corretas: $(\\phi \\to \\psi) \\wedge (\\psi \\to \\phi) \\equiv (\\neg\\phi \\vee \\psi) \\wedge (\\neg\\psi \\vee \\phi)$ (Forma Normal Conjuntiva - CNF) e $(\\phi \\wedge \\psi) \\vee (\\neg\\phi \\wedge \\neg\\psi)$ (Forma Normal Disjuntiva - DNF, ambas verdadeiras ou ambas falsas)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "According to the fundamental laws of Propositional Logic, what does $\\phi \\wedge (\\phi \\vee \\psi)$ simplify to?",
+        "pt": "De acordo com as leis fundamentais da Lógica Proposicional, a que se simplifica a fórmula $\\phi \\wedge (\\phi \\vee \\psi)$?"
+      },
+      "options": {
+        "en": [
+          "$\\phi$, by the Absorption Law.",
+          "$\\phi \\vee \\psi$, by the Idempotence Law.",
+          "$\\psi$, by the Annihilation Law.",
+          "$\\top$, by the Law of Excluded Middle."
+        ],
+        "pt": [
+          "$\\phi$, pela Lei da Absorção.",
+          "$\\phi \\vee \\psi$, pela Lei da Idempotência.",
+          "$\\psi$, pela Lei da Aniquilação.",
+          "$\\top$, pela Lei do Terceiro Excluído."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "By the Absorption Law, $\\phi \\wedge (\\phi \\vee \\psi) \\equiv \\phi$. If $\\phi$ is false, the conjunction evaluates to false; if $\\phi$ is true, $(\\phi \\vee \\psi)$ is true and the conjunction evaluates to true, depending solely on $\\phi$.",
+        "pt": "Pela Lei da Absorção, $\\phi \\wedge (\\phi \\vee \\psi) \\equiv \\phi$. Se $\\phi$ for falso, a conjunção é falsa; se $\\phi$ for verdadeiro, $(\\phi \\vee \\psi)$ é verdadeiro e a conjunção avalia a verdadeiro, dependendo única e exclusivamente do valor de $\\phi$."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "A propositional formula that is simultaneously satisfiable and refutable is called a contingency (or contingent formula).",
+        "pt": "Uma fórmula proposicional que seja simultaneamente satisfazível e refutável designa-se por contingência (ou fórmula contingente)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. A contingency is a formula satisfied by at least one valuation and falsified by at least one valuation. It is neither a tautology nor an unsatisfiable contradiction.",
+        "pt": "Verdadeiro. Uma contingência é uma fórmula que tem pelo menos uma valoração que a torna verdadeira (é satisfazível) e pelo menos uma valoração que a torna falsa (é refutável). Não é uma tautologia nem uma contradição."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Regarding the decidability and computational complexity of the Boolean Satisfiability Problem (SAT) in Propositional Logic, which statement is correct?",
+        "pt": "Sobre a decidibilidade e complexidade computacional do problema de satisfatibilidade booleana (SAT) em Lógica Proposicional, qual das seguintes afirmações é rigorosa?"
+      },
+      "options": {
+        "en": [
+          "SAT is decidable; a naive truth-table approach takes exponential time $O(2^n)$ in the number of variables, and the general problem is NP-complete (Cook-Levin Theorem).",
+          "SAT is undecidable in general, with no algorithmic procedure capable of deciding the satisfiability of finite propositional formulas.",
+          "SAT is solvable in deterministic linear time $O(n)$ by eliminating double negations.",
+          "The decidability of SAT depends exclusively on whether the formula contains equivalence connectives $\\leftrightarrow$."
+        ],
+        "pt": [
+          "O problema SAT é decidível; uma abordagem ingénua por tabela de verdade exige tempo exponencial $O(2^n)$ no número de variáveis, sendo o problema geral NP-completo (Teorema de Cook-Levin).",
+          "O problema SAT é indecidível no caso geral, não existindo qualquer algoritmo capaz de determinar a satisfatibilidade de fórmulas proposicionais finitas.",
+          "O problema SAT é solucionável em tempo linear determinístico $O(n)$ através da eliminação de duplas negações.",
+          "A decidibilidade de SAT depende exclusivamente de a fórmula conter conetivos de equivalência $\\leftrightarrow$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "SAT is decidable because any formula with $n$ variables has a finite space of $2^n$ interpretations. By the Cook-Levin Theorem (1971), SAT is the canonical NP-complete problem. Modern CDCL solvers routinely solve practical instances with hundreds of thousands of variables.",
+        "pt": "O problema SAT é decidível porque qualquer fórmula com $n$ variáveis tem um espaço finito de $2^n$ valorações possíveis. Pelo Teorema de Cook-Levin (1971), SAT é o problema canónico NP-completo. Apesar da complexidade de pior caso exponencial, solvers modernos CDCL conseguem resolver instâncias práticas com centenas de milhares de variáveis."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "en": "Consider the propositional formula:\n$$\\phi = B \\vee (A \\to \\neg B)$$",
+        "pt": "Considere a fórmula proposicional:\n$$\\phi = B \\vee (A \\to \\neg B)$$"
+      },
+      "question": {
+        "en": "Formally demonstrate, using step-by-step logical equivalences or semantic case analysis, whether $\\phi$ is a tautology (valid), a contingency, or a contradiction.",
+        "pt": "Demonstre formalmente, através de equivalências lógicas passo a passo ou por análise de casos semântica, se a fórmula $\\phi$ é uma tautologia (válida), contingência ou contradição."
+      },
+      "solution": {
+        "en": "Formal derivation using logical equivalences:\n1. Expand the inner implication: $A \\to \\neg B \\equiv \\neg A \\vee \\neg B$.\n2. Substitute back into the expression: $\\phi \\equiv B \\vee (\\neg A \\vee \\neg B)$.\n3. Apply associativity and commutativity of disjunction: $\\phi \\equiv (B \\vee \\neg B) \\vee \\neg A$.\n4. Apply the law of excluded middle (complementarity): $B \\vee \\neg B \\equiv \\top$.\n5. Apply annihilation/dominance: $\\top \\vee \\neg A \\equiv \\top$.\n\nConclusion: Since the formula simplifies to $\\top$ for any truth assignment of $A$ and $B$, $\\phi$ is a **tautologia (valid formula)**.",
+        "pt": "Resolução formal por equivalências lógicas:\n1. Expandir a implicação interior $A \\to \\neg B \\equiv \\neg A \\vee \\neg B$.\n2. Substituir na fórmula original: $\\phi \\equiv B \\vee (\\neg A \\vee \\neg B)$.\n3. Aplicar a associatividade e comutatividade da disjunção: $\\phi \\equiv (B \\vee \\neg B) \\vee \\neg A$.\n4. Aplicar o princípio do terceiro excluído (complementaridade): $B \\vee \\neg B \\equiv \\top$.\n5. Aplicar a lei da aniquilação/identidade: $\\top \\vee \\neg A \\equiv \\top$.\n\nConclusão: Como a fórmula é equivalente a $\\top$ para qualquer valoração de $A$ e $B$, $\\phi$ é uma **tautologia (fórmula válida)**."
+      },
+      "explanation": {
+        "en": "Grading criteria: correctly identifying that the formula is a tautology; providing valid justification via propositional equivalences (eliminating $A \\to \\neg B$, grouping $B \\vee \\neg B = \\top$) or an exhaustive 4-row truth table for $A$ and $B$.",
+        "pt": "Critérios de correção: identificação de que a fórmula é uma tautologia; justificação correta através de equivalências (eliminação da implicação $A \\to \\neg B$, agrupamento de $B \\vee \\neg B = \\top$) ou através da tabela de verdade exaustiva para as 4 combinações de $A$ e $B$."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Consider the propositional formula:\n$$\\psi = A \\wedge \\neg(A \\vee B)$$",
+        "pt": "Considere a fórmula proposicional:\n$$\\psi = A \\wedge \\neg(A \\vee B)$$"
+      },
+      "question": {
+        "en": "The formula $\\psi$ above is unsatisfiable (a contradiction).",
+        "pt": "A fórmula $\\psi$ acima é insatisfazível (uma contradição)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. Applying De Morgan's law: $\\neg(A \\vee B) \\equiv \\neg A \\wedge \\neg B$. Substituting back: $A \\wedge (\\neg A \\wedge \\neg B) \\equiv (A \\wedge \\neg A) \\wedge \\neg B$. Since $A \\wedge \\neg A \\equiv \\bot$, we have $\\bot \\wedge \\neg B \\equiv \\bot$. The formula evaluates to false under every valuation, making it unsatisfiable.",
+        "pt": "Verdadeiro. Aplicando a lei de De Morgan: $\\neg(A \\vee B) \\equiv \\neg A \\wedge \\neg B$. Substituindo na fórmula original: $A \\wedge (\\neg A \\wedge \\neg B) \\equiv (A \\wedge \\neg A) \\wedge \\neg B$. Como $A \\wedge \\neg A \\equiv \\bot$, temos $\\bot \\wedge \\neg B \\equiv \\bot$. A fórmula é falsa sob qualquer valoração, logo é insatisfazível."
+      }
+    }
+  ]
+}

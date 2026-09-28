@@ -1,0 +1,137 @@
+[
+  {
+    "id": "1_Fundamentos_e_Semantica_LP",
+    "title": {
+      "en": "Exam 1: Foundations and Semantics of Propositional Logic",
+      "pt": "Exame 1: Fundamentos e Semântica de Lógica Proposicional"
+    },
+    "description": {
+      "en": "Comprehensive exam covering the formal foundations of Propositional Logic (PL), including syntax and well-formed formulas, precedence rules, semantic valuations, truth tables, formula classification (tautologies, SAT, UNSAT, and refutable), semantic consequence, logical equivalences, and decidability.",
+      "pt": "Exame abrangente sobre os fundamentos formais da Lógica Proposicional (LP), incluindo sintaxe e fórmulas bem-formadas, regras de precedência, valorações semânticas, tabelas de verdade, classificação de fórmulas (tautologias, SAT, UNSAT e refutáveis), consequência semântica, equivalências lógicas e decidibilidade."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 10,
+      "boolean": 5,
+      "escrita": 1
+    },
+    "path": "exames/fmse/1_Fundamentos_e_Semantica_LP.json"
+  },
+  {
+    "id": "2_Modelacao_e_Problemas_de_Alocacao",
+    "title": {
+      "en": "Exam 2: Formal Modelling and Allocation Problems",
+      "pt": "Exame 2: Modelação Formal e Problemas de Alocação"
+    },
+    "description": {
+      "en": "In-depth exam on modelling real-world problems in Propositional Logic. Focus on item-to-container allocation problems, Boolean variable matrix declarations, systematic formulation of generic constraints (at-least-one, at-most-one, exactly-one), capacity limits, and adjacency and precedence constraints.",
+      "pt": "Exame aprofundado sobre a modelação de problemas do mundo real em Lógica Proposicional. Foco em problemas de alocação de itens em contentores, declaração de matrizes de variáveis booleanas, formulação sistemática de restrições genéricas (at-least-one, at-most-one, exactly-one), limites de capacidade e restrições de vizinhança e precedência."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 10,
+      "boolean": 5,
+      "escrita": 1
+    },
+    "path": "exames/fmse/2_Modelacao_e_Problemas_de_Alocacao.json"
+  },
+  {
+    "id": "3_SAT_Solvers_e_Verificacao",
+    "title": {
+      "en": "Exam 3: SAT Solvers and Property Verification",
+      "pt": "Exame 3: SAT Solvers e Verificação de Propriedades"
+    },
+    "description": {
+      "en": "Advanced exam on SAT solver operations and automated proof techniques. Covers problem reduction to CNF, assertion and invariant verification by refutation (UNSAT of negated formulas), automated counterexamples, model enumeration and counting via blocking clauses (All-SAT), and CDCL solver architecture.",
+      "pt": "Exame avançado sobre o funcionamento de SAT solvers e técnicas de prova automatizada. Abrange a redução de problemas a CNF, verificação de asserções e invariantes por refutação (UNSAT de fórmulas negadas), contraexemplos automáticos, enumeração e contagem de modelos via cláusulas de bloqueio (All-SAT) e arquitetura de solvers CDCL."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 15,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 9,
+      "boolean": 5,
+      "escrita": 1
+    },
+    "path": "exames/fmse/3_SAT_Solvers_e_Verificacao.json"
+  },
+  {
+    "id": "4_Feature_Models_e_Variabilidade",
+    "title": {
+      "en": "Exam 4: Feature Models and Variability Analysis",
+      "pt": "Exame 4: Feature Models e Análise de Variabilidade"
+    },
+    "description": {
+      "en": "Exhaustive exam on Software Product Line (SPL) modelling using Feature Models and their formal translation into Propositional Logic. Covers the exact encoding of structural relationships (mandatory, optional, OR, XOR/alternative), cross-tree dependencies (requires, excludes), and automated analyses using SAT solvers: consistency/non-void checks, dead feature detection, core feature detection, and variant counting.",
+      "pt": "Exame exaustivo sobre a modelação de Linhas de Produtos de Software (SPL) através de Feature Models e a sua tradução formal para Lógica Proposicional. Abrange a codificação exata de relações estruturais (mandatory, optional, OR, XOR/alternative), dependências cross-tree (requires, excludes) e as análises automáticas com SAT solvers: verificação de consistência/não-vazio, deteção de features mortas (dead), features nucleares (core) e contagem de variantes."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 15,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 10,
+      "boolean": 4,
+      "escrita": 1
+    },
+    "path": "exames/fmse/4_Feature_Models_e_Variabilidade.json"
+  },
+  {
+    "id": "5_Ficha1_Exercicios_Praticos",
+    "title": {
+      "en": "Exam 5: Practical Resolution of Worksheet 1 (Modelling and SAT)",
+      "pt": "Exame 5: Resolução Prática da Ficha 1 (Modelação e SAT)"
+    },
+    "description": {
+      "en": "Practical exam focused on the detailed resolution of Worksheet 1 exercises: Decorative panel arrangement, Office allocation with capacity bounds, Instructor assignment to consecutive lectures, and formal analysis of the Survey Feature Model using SAT Solvers.",
+      "pt": "Exame prático focado na resolução detalhada dos exercícios da Ficha 1 da unidade curricular: Colocação de Painéis decorativos, Distribuição de Gabinetes com limites de capacidade, Alocação de Formadores a Aulas consecutivas e Análise formal do Feature Model de Questionários com SAT Solvers."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "escolha_multipla",
+      "escrita"
+    ],
+    "types_count": {
+      "escolha_multipla": 11,
+      "boolean": 4,
+      "escrita": 1
+    },
+    "path": "exames/fmse/5_Ficha1_Exercicios_Praticos.json"
+  }
+]

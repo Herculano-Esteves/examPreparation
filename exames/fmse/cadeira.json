@@ -1,0 +1,6 @@
+{
+  "nome": "Métodos Formais em Engenharia de Software",
+  "sigla": "FMSE",
+  "icon": "fa-cube",
+  "descricao": "Lógica proposicional, modelação formal, problemas de alocação, SAT solvers, verificação de asserções, feature models e análise de variabilidade."
+}

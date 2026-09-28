@@ -18,7 +18,9 @@ class TestFilterStateMath(unittest.TestCase):
     def test_canonical_question_types(self):
         """Valida os tipos de questão canónicos ('escolha_multipla', 'boolean', 'escrita')."""
         import re
-        with open(r"c:\Users\Pedro\source\repos\examPreparation\static\js\filterState.js", "r", encoding="utf-8") as f:
+        import os
+        filter_state_path = os.path.join(os.path.dirname(__file__), "..", "static", "js", "filterState.js")
+        with open(filter_state_path, "r", encoding="utf-8") as f:
             content = f.read()
         match = re.search(r"export\s+const\s+ALL_QUESTION_TYPES\s*=\s*\[(.*?)\];", content)
         self.assertIsNotNone(match)
@@ -28,7 +30,9 @@ class TestFilterStateMath(unittest.TestCase):
     def test_canonical_languages(self):
         """Valida as línguas canónicas ('pt', 'en')."""
         import re
-        with open(r"c:\Users\Pedro\source\repos\examPreparation\static\js\filterState.js", "r", encoding="utf-8") as f:
+        import os
+        filter_state_path = os.path.join(os.path.dirname(__file__), "..", "static", "js", "filterState.js")
+        with open(filter_state_path, "r", encoding="utf-8") as f:
             content = f.read()
         match = re.search(r"export\s+const\s+ALL_LANGUAGES\s*=\s*\[(.*?)\];", content)
         self.assertIsNotNone(match)

@@ -1,0 +1,334 @@
+{
+  "title": {
+    "en": "Exam 3: SAT Solvers and Property Verification",
+    "pt": "Exame 3: SAT Solvers e Verificação de Propriedades"
+  },
+  "description": {
+    "en": "Advanced exam on SAT solver operations and automated proof techniques. Covers problem reduction to CNF, assertion and invariant verification by refutation (UNSAT of negated formulas), automated counterexamples, model enumeration and counting via blocking clauses (All-SAT), and CDCL solver architecture.",
+    "pt": "Exame avançado sobre o funcionamento de SAT solvers e técnicas de prova automatizada. Abrange a redução de problemas a CNF, verificação de asserções e invariantes por refutação (UNSAT de fórmulas negadas), contraexemplos automáticos, enumeração e contagem de modelos via cláusulas de bloqueio (All-SAT) e arquitetura de solvers CDCL."
+  },
+  "languages": ["en", "pt"],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How is a SAT solver used to verify whether an assertion $\\psi$ is a necessary logical consequence of system constraints $\\Gamma$ (i.e., whether $\\Gamma \\models \\psi$)?",
+        "pt": "Como se utiliza um SAT solver para verificar se uma asserção $\\psi$ é uma consequência lógica necessária das restrições do sistema $\\Gamma$ (ou seja, se $\\Gamma \\models \\psi$)?"
+      },
+      "options": {
+        "en": [
+          "Submit formula $\\Gamma \\wedge \\neg\\psi$ to the SAT solver. If the result is UNSAT, assertion $\\psi$ is valid; if SAT, the assertion is not valid.",
+          "Submit formula $\\Gamma \\wedge \\psi$ to the SAT solver. If the result is SAT, assertion $\\psi$ is valid.",
+          "Submit formula $\\neg\\Gamma \\wedge \\psi$ and expect the solver to return SAT.",
+          "Run the solver on $\\Gamma$ and verify that the truth table has exactly $2^n$ rows."
+        ],
+        "pt": [
+          "Submete-se ao SAT solver a fórmula $\\Gamma \\wedge \\neg\\psi$. Se o resultado for UNSAT, a asserção $\\psi$ é válida; se for SAT, a asserção não é válida.",
+          "Submete-se ao SAT solver a fórmula $\\Gamma \\wedge \\psi$. Se o resultado for SAT, a asserção $\\psi$ é válida.",
+          "Submete-se a fórmula $\\neg\\Gamma \\wedge \\psi$ e espera-se que o solver devolva SAT.",
+          "Executa-se o solver em $\\Gamma$ e verifica-se se a tabela de verdade tem exatamente $2^n$ linhas."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "By the principle of refutation, $\\Gamma \\models \\psi \\iff \\Gamma \\wedge \\neg\\psi$ is unsatisfiable (UNSAT). If there is no truth assignment that satisfies constraints $\\Gamma$ while violating property $\\psi$, then $\\psi$ holds across all reachable states of the system.",
+        "pt": "Pelo princípio da refutação, $\\Gamma \\models \\psi \\iff \\Gamma \\wedge \\neg\\psi$ é insatisfazível (UNSAT). Se não existir qualquer valoração que satisfaça as regras $\\Gamma$ violando a propriedade $\\psi$, então $\\psi$ é garantidamente válida em todos os estados do sistema."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "When we submit formula $\\Gamma \\wedge \\neg\\psi$ to a SAT solver and it returns a SAT verdict accompanied by a valuation $\\mathcal{A}$, what is the formal and practical meaning of this outcome in software engineering?",
+        "pt": "Quando submetemos a fórmula $\\Gamma \\wedge \\neg\\psi$ a um SAT solver e este devolve o veredicto SAT acompanhado de uma valoração $\\mathcal{A}$, qual é o significado formal e prático desse resultado na engenharia de software?"
+      },
+      "options": {
+        "en": [
+          "Assertion $\\psi$ is false in the system, and valuation $\\mathcal{A}$ acts as a concrete counterexample demonstrating requirement violation while satisfying all rules in $\\Gamma$.",
+          "Assertion $\\psi$ has been formally proven true for the specific case $\\mathcal{A}$.",
+          "Model $\\Gamma$ contains contradictory rules and the SAT solver aborted due to internal inconsistency.",
+          "Valuation $\\mathcal{A}$ represents the unique state in which assertion $\\psi$ holds."
+        ],
+        "pt": [
+          "A asserção $\\psi$ é falsa no sistema, e a valoração $\\mathcal{A}$ funciona como um contraexemplo concreto que demonstra a violação do requisito cumprindo todas as regras de $\\Gamma$.",
+          "A asserção $\\psi$ foi formalmente provada como verdadeira para o caso particular $\\mathcal{A}$.",
+          "O modelo $\\Gamma$ contém regras contraditórias e o SAT solver falhou por inconsistência interna.",
+          "A valoração $\\mathcal{A}$ representa o único estado onde a asserção $\\psi$ é válida."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "A SAT verdict for $\\Gamma \\wedge \\neg\\psi$ signifies that the solver found a variable assignment where all specifications $\\Gamma$ are true, yet $\\psi$ evaluates to false. In formal verification, model $\\mathcal{A}$ provides an actionable counterexample for debugging specification flaws.",
+        "pt": "Um veredicto SAT para $\\Gamma \\wedge \\neg\\psi$ significa que o solver encontrou uma atribuição de variáveis onde todas as restrições $\\Gamma$ são verdadeiras, mas $\\psi$ é falsa. Em engenharia de software formal, este modelo $\\mathcal{A}$ é um contraexemplo de enorme valor para depuração e deteção de falhas de especificação."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "To verify whether a given configuration $\\theta$ is feasible or permitted in a system specified by $\\Gamma$, one must submit $\\Gamma \\wedge \\theta$ to the SAT solver: if SAT, the configuration is feasible; if UNSAT, it is strictly impossible.",
+        "pt": "Para verificar se uma dada configuração $\\theta$ é viável ou permitida num sistema especificado por $\\Gamma$, deve submeter-se $\\Gamma \\wedge \\theta$ ao SAT solver: se for SAT, a configuração é viável; se for UNSAT, é estritamente impossível."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. Testing the feasibility (or consistency) of scenario $\\theta$ amounts to checking if there exists at least one valid state admitting it. Hence, $\\Gamma \\wedge \\theta$ being SAT proves feasibility and yields a witness execution trace.",
+        "pt": "Verdadeiro. Testar a possibilidade (ou consistência) de um cenário $\\theta$ equivale a perguntar se existe pelo menos um estado válido que o admita. Logo, $\\Gamma \\wedge \\theta$ ser SAT prova a viabilidade e fornece um exemplo de execução."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Suppose a SAT solver found the first valid model for formula $\\phi$, given by valuation:\n$$\\mathcal{A}_1 = \\{A \\mapsto 1,\\ B \\mapsto 1,\\ C \\mapsto 0,\\ D \\mapsto 0\\}$$",
+        "pt": "Considere que um SAT solver encontrou a primeira solução válida para uma fórmula $\\phi$, dada pela valoração:\n$$\\mathcal{A}_1 = \\{A \\mapsto 1,\\ B \\mapsto 1,\\ C \\mapsto 0,\\ D \\mapsto 0\\}$$"
+      },
+      "question": {
+        "en": "Which 'blocking clause' must be added in conjunction to formula $\\phi$ to compel the solver to find the next distinct solution in an All-SAT enumeration?",
+        "pt": "Qual é a 'cláusula de bloqueio' (*blocking clause*) que deve ser adicionada em conjunção à fórmula $\\phi$ para forçar o solver a procurar a próxima solução distinta no processo All-SAT?"
+      },
+      "options": {
+        "en": [
+          "$\\neg A \\vee \\neg B \\vee C \\vee D$",
+          "$\\neg A \\wedge \\neg B \\wedge C \\wedge D$",
+          "$A \\wedge B \\wedge \\neg C \\wedge \\neg D$",
+          "$A \\vee B \\vee \\neg C \\vee \\neg D$"
+        ],
+        "pt": [
+          "$\\neg A \\vee \\neg B \\vee C \\vee D$",
+          "$\\neg A \\wedge \\neg B \\wedge C \\wedge D$",
+          "$A \\wedge B \\wedge \\neg C \\wedge \\neg D$",
+          "$A \\vee B \\vee \\neg C \\vee \\neg D$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Assignment $\\mathcal{A}_1$ corresponds to the conjunctive term $(A \\wedge B \\wedge \\neg C \\wedge \\neg D)$. To rule out this exact valuation, conjoin its negation: $\\neg(A \\wedge B \\wedge \\neg C \\wedge \\neg D)$. Applying De Morgan's laws yields the disjunctive blocking clause: $(\\neg A \\vee \\neg B \\vee C \\vee D)$.",
+        "pt": "A atribuição $\\mathcal{A}_1$ corresponde ao termo conjuntivo $(A \\wedge B \\wedge \\neg C \\wedge \\neg D)$. Para proibir especificamente esta atribuição exata, adiciona-se a sua negação: $\\neg(A \\wedge B \\wedge \\neg C \\wedge \\neg D)$. Aplicando as leis de De Morgan, obtemos a cláusula disjuntiva de bloqueio: $(\\neg A \\vee \\neg B \\vee C \\vee D)$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How does the All-SAT algorithm count the total number of variants or solutions for a propositional formula $\\phi$?",
+        "pt": "Como funciona o algoritmo All-SAT para contar o número total de variantes ou soluções de uma fórmula proposicional $\\phi$?"
+      },
+      "options": {
+        "en": [
+          "Runs the SAT solver iteratively: while $\\phi$ is SAT, increments the counter, extracts model $\\mathcal{A}$, appends blocking clause $\\neg\\mathcal{A}$ to $\\phi$, and repeats until $\\phi$ becomes UNSAT.",
+          "Computes the sum of conditional probabilities across clauses using a Bayesian network.",
+          "Executes Dijkstra's algorithm on the variable implication graph and returns shortest path length.",
+          "Multiplies the count of atomic variables by the total number of $\\wedge$ connectives."
+        ],
+        "pt": [
+          "Executa o SAT solver iterativamente: enquanto $\\phi$ for SAT, incrementa o contador, extrai o modelo $\\mathcal{A}$, adiciona a cláusula de bloqueio $\\neg\\mathcal{A}$ a $\\phi$ e repete até que $\\phi$ se torne UNSAT.",
+          "Calcula a soma das probabilidades condicionais de cada cláusula através de uma rede Bayesiana.",
+          "Executa o algoritmo de Dijkstra no grafo de implicação das variáveis e devolve o comprimento do caminho mais curto.",
+          "Multiplica o número de variáveis atómicas pelo número de conetivos $\\wedge$ da fórmula."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The standard All-SAT algorithm relies on blocking-clause-driven enumeration: at each iteration, if the formula is satisfiable, record the model and eliminate it from the search space by conjoining $\\neg\\mathcal{A}$. Once the augmented formula evaluates to UNSAT, all models have been exhausted.",
+        "pt": "O algoritmo padrão All-SAT baseia-se na enumeração exaustiva guiada por bloqueio: a cada iteração, se a fórmula for satisfazível, regista-se a solução encontrada e elimina-se essa mesma solução do espaço de pesquisa através da conjunção da respetiva cláusula de bloqueio $\\neg\\mathcal{A}$. Quando a fórmula enriquecida for UNSAT, todas as soluções possíveis foram contabilizadas."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "In standard benchmark input formats for industrial SAT solvers (such as DIMACS CNF), formulas must be supplied in Conjunctive Normal Form (CNF), i.e., as a conjunction of disjunctive clauses.",
+        "pt": "Na representação padrão de entrada de problemas para SAT solvers industriais (como o formato DIMACS CNF), as fórmulas têm de ser fornecidas em Forma Normal Conjuntiva (CNF), ou seja, como uma conjunção de cláusulas disjuntivas."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. The DIMACS CNF format and virtually all modern SAT engines operate natively on Conjunctive Normal Form (CNF), wherein the overall formula is a $\\bigwedge$ of clauses, and each clause is a $\\bigvee$ of literals.",
+        "pt": "Verdadeiro. O formato padrão DIMACS CNF e a esmagadora maioria dos motores SAT operam nativamente sobre Forma Normal Conjuntiva (CNF), em que a fórmula global é um $\\bigwedge$ de cláusulas, e cada cláusula é um $\\bigvee$ de literais (variáveis ou variáveis negadas)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "What is the primary advantage of the Tseitin transformation compared to naive application of distributive laws when converting arbitrary propositional formulas to CNF?",
+        "pt": "Qual é a principal vantagem da transformação de Tseitin em relação à aplicação ingénua de leis distributivas para converter uma fórmula proposicional arbitrária em CNF?"
+      },
+      "options": {
+        "en": [
+          "The Tseitin transformation introduces auxiliary variables for each subformula, guaranteeing linear growth in formula size while preserving equisatisfiability, whereas distributive laws can trigger exponential explosion.",
+          "The Tseitin transformation eliminates the need for Boolean variables entirely, turning the problem into differential equations.",
+          "Distributive laws preserve strict logical equivalence in $O(1)$ constant complexity, and are always preferred over Tseitin.",
+          "The Tseitin transformation only applies to formulas already containing implication connectives."
+        ],
+        "pt": [
+          "A transformação de Tseitin introduz variáveis auxiliares para cada subfórmula, garantindo uma tradução com crescimento linear no tamanho da fórmula e preservando a equissatisfatibilidade, enquanto as leis distributivas podem provocar uma explosão exponencial.",
+          "A transformação de Tseitin elimina por completo a necessidade de variáveis booleanas, transformando o problema num sistema de equações diferenciais.",
+          "As leis distributivas preservam a equivalência lógica e têm complexidade constante $O(1)$, sendo sempre preferíveis a Tseitin.",
+          "A transformação de Tseitin só funciona para fórmulas que já contenham operadores de implicação."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Naive distributive expansion (e.g., $(A_1 \\wedge B_1) \\vee \\dots \\vee (A_k \\wedge B_k)$) can generate an exponential number of clauses ($2^k$). The Tseitin transformation circumvents this by introducing fresh variables for internal subformulas, creating an equisatisfiable CNF of linear size $O(n)$.",
+        "pt": "A expansão por distributividade ingénua (ex: $(A_1 \\wedge B_1) \\vee \\dots \\vee (A_k \\wedge B_k)$) pode gerar um número exponencial de cláusulas ($2^k$). A transformação de Tseitin contorna este problema criando uma nova variável proposicional para representar cada subfórmula interna, gerando uma CNF de tamanho linear $O(n)$ que é equissatisfazível à fórmula original."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In modern Conflict-Driven Clause Learning (CDCL) SAT solvers, what role is performed by Unit Propagation?",
+        "pt": "Nos modernos SAT solvers baseados em CDCL (*Conflict-Driven Clause Learning*), qual é o papel do mecanismo de 'Unit Propagation' (Propagação Unitária)?"
+      },
+      "options": {
+        "en": [
+          "Identifies clauses where all literals but one have evaluated to false, forcing an immediate assignment of the remaining literal to true without branching decisions.",
+          "Randomly shuffles variable identifiers to escape local search minima.",
+          "Replaces all negative literals with positive literals via sign flipping.",
+          "Computes full truth tables directly on secondary storage."
+        ],
+        "pt": [
+          "Identificar cláusulas onde todos os literais menos um já estão atribuídos a falso, forçando a atribuição imediata do literal restante a verdadeiro sem necessidade de ramificação (decisão).",
+          "Baralhar aleatoriamente os nomes das variáveis para evitar mínimos locais.",
+          "Substituir todos os literais negativos por literais positivos através de inversão de sinal.",
+          "Calcular a tabela de verdade completa em memória secundária."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Unit Propagation (inheriting from DPLL's unit clause rule) detects clauses where $k-1$ literals are false. For the clause to be satisfied, the sole unassigned literal must evaluate to true, triggering deterministic deductions without speculative branching.",
+        "pt": "A Propagação Unitária (baseada na regra da cláusula unitária do DPLL) analisa cláusulas onde $k-1$ literais já foram avaliados para falso. Para que a cláusula seja satisfeita, o único literal não atribuído tem forçosamente de ser verdadeiro. Isto propaga deduções imediatas e acelera drasticamente a pesquisa sem adivinhação."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "When a CDCL SAT solver encounters a conflict during search (a clause whose literals have all evaluated to false), it learns a new conflict clause (*learned clause*) by analyzing the implication graph, backjumping to undo faulty decisions.",
+        "pt": "Quando um SAT solver CDCL deteta um conflito durante a pesquisa (uma cláusula cujos literais ficaram todos avaliados para falso), ele aprende uma nova cláusula de conflito (*learned clause*) através da análise do grafo de implicação, retrocedendo (*backtracking/backjumping*) para desfazer decisões erradas."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. The core of CDCL is conflict clause learning. Upon detecting a conflict, the solver analyzes the antecedent nodes in the implication graph, derives an asserting clause preventing this assignment conflict, and performs non-chronological backjumping.",
+        "pt": "Verdadeiro. O cerne do CDCL é a aprendizagem de cláusulas de conflito. Ao atingir um conflito, o solver analisa os nós do grafo de implicação que originaram o conflito, deriva uma nova cláusula de conflito válida (que impede a repetição do mesmo erro) e retrocede de forma não-cronológica para o nível de decisão adequado."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Which statement best characterizes the relationship between Propositional Logic and First-Order Logic (FOL) in formal specification and software verification?",
+        "pt": "Qual das seguintes afirmações melhor caracteriza a relação entre Lógica Proposicional e Lógica de Primeira Ordem (FOL) no contexto da especificação formal e verificação de software?"
+      },
+      "options": {
+        "en": [
+          "Propositional Logic is decidable and enables fully automated reasoning via SAT solvers, but has limited expressiveness; First-Order Logic with quantifiers and background theories is far more expressive, but semi-decidable in general, requiring SMT solvers.",
+          "First-Order Logic is polynomial-time decidable, whereas Propositional Logic is strictly undecidable.",
+          "Any program written in Java or C can be directly mapped to Propositional Logic without domain bounds.",
+          "SAT solvers natively operate on infinite universal ($\\forall$) and existential ($\\exists$) quantifiers."
+        ],
+        "pt": [
+          "A Lógica Proposicional é decidível e permite resolução totalmente automática por SAT solvers, mas tem poder expressivo limitado; a Lógica de Primeira Ordem com quantificadores e teorias é muito mais expressiva, mas é semi-decidível no caso geral, recorrendo a SMT solvers.",
+          "A Lógica de Primeira Ordem é decidível em tempo polinomial, enquanto a Lógica Proposicional é estritamente indecidível.",
+          "Qualquer programa escrito em Java ou C pode ser convertido em Lógica Proposicional sem qualquer bound ou limite finito nos domínios.",
+          "Os SAT solvers operam diretamente sobre quantificadores universais ($\\forall$) e existenciais ($\\exists$) infinitos."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Propositional Logic is decidable (SAT is NP-complete, yet decidable). Conversely, general FOL with functions and predicates is semi-decidable (Church-Turing Theorem). Formal verification engines like Alloy Analyzer bound domain scopes finite-wise to lower verification instances to Boolean SAT.",
+        "pt": "A Lógica Proposicional é plenamente decidível (SAT é NP-completo, mas decidível). Em contrapartida, FOL geral com igualdade e símbolos de função é semi-decidível (Teorema da Indecidibilidade de Church-Turing). Por essa razão, ferramentas baseadas em SAT (como Alloy Analyzer) limitam finita e telescopicamente o domínio (*scope*) para reduzir o problema a Lógica Proposicional booleana."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "If a SAT solver determines that formula $\\Gamma$ modelling a specification is unsatisfiable (UNSAT), it reveals that the system requirements contain mutual contradictions, leaving no valid system state.",
+        "pt": "Se um SAT solver determinar que a fórmula $\\Gamma$ que modela um problema é insatisfazível (UNSAT), isso indica que os requisitos do sistema contêm inconsistências lógicas ou contradições mútuas, não existindo qualquer estado válido que cumpra todas as regras."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. When $\\Gamma$ is UNSAT, no truth assignment satisfies all axioms simultaneously. This flags an inconsistency in software requirements.",
+        "pt": "Verdadeiro. Se $\\Gamma$ é UNSAT, não existe nenhuma combinação de valores de verdade capaz de satisfazer todos os axiomas e restrições em simultâneo. Isto é um alerta crítico no desenho formal de software, evidenciando requisitos mutuamente incompatíveis."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider an access-control specification $\\Gamma$ and the safety property:\n$$\\text{Security} = \\neg(\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})$$",
+        "pt": "Considere uma especificação $\\Gamma$ de controlo de acessos e a propriedade de segurança:\n$$\\text{Seguranca} = \\neg(\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})$$"
+      },
+      "question": {
+        "en": "To verify formally whether the safety property is guaranteed by $\\Gamma$, which formula must be supplied to the SAT solver?",
+        "pt": "Para verificar formalmente se a propriedade de segurança é garantida por $\\Gamma$, que fórmula deve ser passada ao SAT solver?"
+      },
+      "options": {
+        "en": [
+          "$\\Gamma \\wedge (\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})$",
+          "$\\Gamma \\wedge \\neg(\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})$",
+          "$\\neg\\Gamma \\wedge (\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})$",
+          "$\\Gamma \\vee (\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})$"
+        ],
+        "pt": [
+          "$\\Gamma \\wedge (\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})$",
+          "$\\Gamma \\wedge \\neg(\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})$",
+          "$\\neg\\Gamma \\wedge (\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})$",
+          "$\\Gamma \\vee (\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "To prove $\\Gamma \\models \\text{Security}$, negate the property and conjoin with $\\Gamma$: $\\Gamma \\wedge \\neg\\text{Security} \\equiv \\Gamma \\wedge \\neg(\\neg(\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})) \\equiv \\Gamma \\wedge (\\text{AccessGranted} \\wedge \\neg\\text{Authenticated})$. If UNSAT, no unauthorized access is possible, verifying safety.",
+        "pt": "Para provar $\\Gamma \\models \\text{Seguranca}$, nega-se a propriedade e conjuga-se com $\\Gamma$: $\\Gamma \\wedge \\neg\\text{Seguranca} \\equiv \\Gamma \\wedge \\neg(\\neg(\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})) \\equiv \\Gamma \\wedge (\\text{AcessoConcedido} \\wedge \\neg\\text{Autenticado})$. Se esta fórmula for UNSAT, é impossível conceder acesso a um utilizador não autenticado, provando o sistema seguro!"
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "en": "Suppose you are developing a formal verification engine for a robotic assembly line.\nYou have a specification $\\Gamma$ comprising 50 propositional formulas and want to check whether the robot can collide ($Collision$).",
+        "pt": "Suponha que está a desenvolver um verificador formal para uma linha de montagem robótica.\nTem uma especificação $\\Gamma$ com 50 fórmulas proposicionais e deseja verificar se o robô pode colidir ($Colisao$)."
+      },
+      "question": {
+        "en": "Explain in detail:\n1. Which test you submit to the SAT solver to verify if a collision is POSSIBLE.\n2. Which test you submit to the SAT solver to PROVE that the system is collision-free (safety invariant).\n3. How you interpret the result (SAT / UNSAT) in each of the two tests.",
+        "pt": "Explique detalhadamente:\n1. Que teste realiza com o SAT solver para verificar se uma colisão é POSSÍVEL.\n2. Que teste realiza com o SAT solver para PROVAR que o sistema é totalmente livre de colisões (invariante de segurança).\n3. Como interpreta o resultado (SAT / UNSAT) em cada um dos dois testes."
+      },
+      "solution": {
+        "en": "1. Collision possibility test:\n   - Submit formula: $\\Gamma \\wedge Collision$.\n   - If SAT: Collision is POSSIBLE. The valuation returned by the solver is the concrete failure trace/scenario.\n   - If UNSAT: Collision is impossible under $\\Gamma$.\n\n2. Safety invariant verification (proving absence of collision):\n   - Property to prove: $\\psi = \\neg Collision$ (i.e., $\\Gamma \\models \\neg Collision$).\n   - By refutation, negate the target property: $\\Gamma \\wedge \\neg(\\neg Collision) \\equiv \\Gamma \\wedge Collision$.\n   - If UNSAT: System is formally proven SAFE (no reachable collision state exists).\n   - If SAT: Safety fails; the valuation serves as a counterexample.\n\n3. Conclusion:\n   Both checks execute on formula $\\Gamma \\wedge Collision$, but carry symmetric objectives: SAT represents success when searching for bug reachability, whereas UNSAT represents mathematical certification of safety.",
+        "pt": "1. Teste de possibilidade de colisão:\n   - Submete-se ao SAT solver a fórmula: $\\Gamma \\wedge Colisao$.\n   - Se o resultado for SAT: A colisão é POSSÍVEL no sistema. O modelo (valoração) devolvido pelo solver representa a sequência/cenário exato de falha (traço de execução que culmina no acidente).\n   - Se o resultado for UNSAT: A colisão é impossível.\n\n2. Prova de invariante de segurança (garantia de ausência de colisão):\n   - A propriedade a provar é $\\psi = \\neg Colisao$ (ou seja, $\\Gamma \\models \\neg Colisao$).\n   - Pelo método de refutação, nega-se a propriedade e testa-se: $\\Gamma \\wedge \\neg(\\neg Colisao) \\equiv \\Gamma \\wedge Colisao$.\n   - Se for UNSAT: Prova-se formalmente que o sistema é SEGURO (não existe nenhum estado acessível que permita colisão).\n   - Se for SAT: A prova de segurança falha e o modelo serve de contraexemplo à segurança.\n\n3. Conclusão:\n   Ambos os testes recaem matematicamente na mesma fórmula $\\Gamma \\wedge Colisao$, mas a leitura metodológica é simétrica: SAT é sucesso no teste de alcançabilidade de perigo (encontra um bug), enquanto UNSAT é o veredicto de certificação formal de segurança."
+      },
+      "explanation": {
+        "en": "Grading criteria: clear formulation of the query formula ($\\Gamma \\wedge Collision$); conceptual distinction between reachability checking vs invariant proof; and accurate semantic interpretation of SAT (counterexample/witness) and UNSAT (formal refutational proof).",
+        "pt": "Critérios de correção: identificação clara das fórmulas submetidas ($\\Gamma \\wedge Colisao$); correta distinção conceptual entre verificar alcançabilidade de um estado vs. provar um invariante de segurança; e correta interpretação semântica dos veredictos SAT (existência de cenário/contraexemplo) e UNSAT (prova matemática por refutação)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "The VSIDS heuristic (Variable State Independent Decaying Sum) used in CDCL solvers prioritizes branching decisions on variables that were most recently involved in conflict resolutions.",
+        "pt": "A heurística VSIDS (*Variable State Independent Decaying Sum*) usada nos solvers CDCL prioriza a tomada de decisões de ramificação sobre as variáveis que estiveram mais recentemente envolvidas em conflitos."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. VSIDS maintains dynamic activity scores based on participation in conflict derivation, applying decay to older scores to concentrate decisions on contentious formula variables.",
+        "pt": "Verdadeiro. A heurística VSIDS mantém um ranking dinâmico de variáveis com base na sua participação recente em conflitos (aplicando um fator de decaimento periódico às pontuações mais antigas). Isto foca a pesquisa nas variáveis mais problemáticas e restritas da fórmula."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "If a constraint set $\\Gamma$ contains 10 Boolean variables and the All-SAT algorithm terminates with UNSAT after 7 successful iterations, what is the exact number of valid solutions and invalid states?",
+        "pt": "Se um conjunto de restrições $\\Gamma$ tiver 10 variáveis booleanas e o algoritmo All-SAT for executado até devolver UNSAT, tendo iterado 7 vezes com sucesso, qual é o número exato de soluções e de estados inválidos?"
+      },
+      "options": {
+        "en": [
+          "There are 7 valid solutions and $2^{10} - 7 = 1024 - 7 = 1017$ invalid states.",
+          "There are 10 valid solutions and 7 invalid states.",
+          "There are $7 \\times 10 = 70$ valid solutions.",
+          "The solution count cannot be established without knowing the number of clauses."
+        ],
+        "pt": [
+          "Existem 7 soluções válidas e $2^{10} - 7 = 1024 - 7 = 1017$ estados inválidos.",
+          "Existem 10 soluções válidas e 7 estados inválidos.",
+          "Existem $7 \\times 10 = 70$ soluções válidas.",
+          "O número de soluções não pode ser determinado sem saber a quantidade de cláusulas da fórmula."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Across 10 Boolean variables, the space of truth assignments is $2^{10} = 1024$. If the solver iterated 7 times before reaching UNSAT, there are exactly 7 satisfying models and $1024 - 7 = 1017$ invalid assignments.",
+        "pt": "Com 10 variáveis booleanas, o espaço total de atribuições de verdade possíveis é $2^{10} = 1024$. Se o solver encontrou um modelo em 7 iterações distintas antes de a fórmula passar a UNSAT após os 7 bloqueios, existem exatamente 7 modelos satisfatíveis no sistema e $1024 - 7 = 1017$ atribuições inválidas."
+      }
+    }
+  ]
+}

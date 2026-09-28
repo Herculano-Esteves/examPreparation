@@ -1,0 +1,376 @@
+{
+  "title": {
+    "en": "Exam 2: Formal Modelling and Allocation Problems",
+    "pt": "Exame 2: Modelação Formal e Problemas de Alocação"
+  },
+  "description": {
+    "en": "In-depth exam on modelling real-world problems in Propositional Logic. Focus on item-to-container allocation problems, Boolean variable matrix declarations, systematic formulation of generic constraints (at-least-one, at-most-one, exactly-one), capacity limits, and adjacency and precedence constraints.",
+    "pt": "Exame aprofundado sobre a modelação de problemas do mundo real em Lógica Proposicional. Foco em problemas de alocação de itens em contentores, declaração de matrizes de variáveis booleanas, formulação sistemática de restrições genéricas (at-least-one, at-most-one, exactly-one), limites de capacidade e restrições de vizinhança e precedência."
+  },
+  "languages": ["en", "pt"],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "In a general allocation problem where we have $k$ items to distribute across $l$ containers, what is the standard propositional variable matrix representation in Propositional Logic?",
+        "pt": "Num problema geral de alocação em que temos $k$ itens para distribuir por $l$ contentores, qual é a representação matricial padrão de variáveis proposicionais em Lógica Proposicional?"
+      },
+      "options": {
+        "en": [
+          "A matrix of $k \\times l$ variables $p_{i, c}$, where $p_{i, c}$ is true iff item $i$ is allocated to container $c$.",
+          "A single integer variable per item indicating the container index from 1 to $l$.",
+          "A linked list of atomic variables where each variable represents the residual capacity of each container.",
+          "An upper triangular matrix of size $(k+l)$ with Boolean counting variables."
+        ],
+        "pt": [
+          "Uma matriz de $k \\times l$ variáveis $p_{i, c}$, onde $p_{i, c}$ é verdadeira sse o item $i$ for alocado ao contentor $c$.",
+          "Uma única variável inteira por item indicando o índice do contentor de 1 a $l$.",
+          "Uma lista encadeada de variáveis atómicas onde cada variável representa a capacidade residual de cada contentor.",
+          "Uma matriz triangular superior de tamanho $(k+l)$ com variáveis booleanas de contagem."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "In classical Propositional Logic, there are no primitive integer types. The standard technique for modelling allocations is to define a matrix of Boolean variables of dimensions $|Items| \\times |Containers|$, where each variable $p_{i, c}$ carries the atomic Boolean meaning: 'item $i$ is allocated to container $c$'.",
+        "pt": "Na Lógica Proposicional clássica, não existem tipos inteiros primitivos. A abordagem padrão para modelar alocações é declarar uma matriz de variáveis booleanas de dimensão $|Items| \\times |Containers|$, onde cada variável $p_{i, c}$ tem o significado atómico booleano: 'o item $i$ está alocado ao contentor $c$'."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider an item $i_0$ and 3 possible containers: $c_1, c_2, c_3$.\nThe associated variables are $p_{i_0, c_1}, p_{i_0, c_2}, p_{i_0, c_3}$.",
+        "pt": "Considere um item $i_0$ e 3 contentores possíveis: $c_1, c_2, c_3$.\nAs variáveis associadas são $p_{i_0, c_1}, p_{i_0, c_2}, p_{i_0, c_3}$."
+      },
+      "question": {
+        "en": "How is the constraint 'item $i_0$ must be placed in at least one container' (*at least one*) encoded in propositional logic?",
+        "pt": "Como se codifica em lógica proposicional a restrição 'o item $i_0$ tem de ficar em pelo menos um contentor' (*at least one*)?"
+      },
+      "options": {
+        "en": [
+          "$p_{i_0, c_1} \\vee p_{i_0, c_2} \\vee p_{i_0, c_3}$",
+          "$p_{i_0, c_1} \\wedge p_{i_0, c_2} \\wedge p_{i_0, c_3}$",
+          "$\\neg(p_{i_0, c_1} \\vee p_{i_0, c_2} \\vee p_{i_0, c_3})$",
+          "$p_{i_0, c_1} \\leftrightarrow (p_{i_0, c_2} \\vee p_{i_0, c_3})$"
+        ],
+        "pt": [
+          "$p_{i_0, c_1} \\vee p_{i_0, c_2} \\vee p_{i_0, c_3}$",
+          "$p_{i_0, c_1} \\wedge p_{i_0, c_2} \\wedge p_{i_0, c_3}$",
+          "$\\neg(p_{i_0, c_1} \\vee p_{i_0, c_2} \\vee p_{i_0, c_3})$",
+          "$p_{i_0, c_1} \\leftrightarrow (p_{i_0, c_2} \\vee p_{i_0, c_3})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The 'at least one' condition is modelled by a disjunction over all possible containers for that item: $\\bigvee_{c} p_{i, c}$. It suffices for at least one of the variables to evaluate to true for the disjunction to be satisfied.",
+        "pt": "A condição 'pelo menos um' (*at least one*) é modelada por uma disjunção de todas as variáveis possíveis para aquele item: $\\bigvee_{c} p_{i, c}$. Basta que uma das variáveis seja verdadeira para que a disjunção seja satisfeita."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider an item $i_0$ and 3 possible containers: $c_1, c_2, c_3$.\nThe associated variables are $p_{i_0, c_1}, p_{i_0, c_2}, p_{i_0, c_3}$.",
+        "pt": "Considere um item $i_0$ e 3 contentores possíveis: $c_1, c_2, c_3$.\nAs variáveis associadas são $p_{i_0, c_1}, p_{i_0, c_2}, p_{i_0, c_3}$."
+      },
+      "question": {
+        "en": "How is the constraint 'item $i_0$ can be placed in at most one container' (*at most one*) encoded in Conjunctive Normal Form (CNF)?",
+        "pt": "Como se codifica em Forma Normal Conjuntiva (CNF) a restrição 'o item $i_0$ pode ficar no máximo num contentor' (*at most one*)?"
+      },
+      "options": {
+        "en": [
+          "$(\\neg p_{i_0, c_1} \\vee \\neg p_{i_0, c_2}) \\wedge (\\neg p_{i_0, c_1} \\vee \\neg p_{i_0, c_3}) \\wedge (\\neg p_{i_0, c_2} \\vee \\neg p_{i_0, c_3})$",
+          "$(\\neg p_{i_0, c_1} \\wedge \\neg p_{i_0, c_2}) \\vee (\\neg p_{i_0, c_1} \\wedge \\neg p_{i_0, c_3}) \\vee (\\neg p_{i_0, c_2} \\wedge \\neg p_{i_0, c_3})$",
+          "$\\neg(p_{i_0, c_1} \\vee p_{i_0, c_2} \\vee p_{i_0, c_3})$",
+          "$(p_{i_0, c_1} \\to p_{i_0, c_2}) \\wedge (p_{i_0, c_2} \\to p_{i_0, c_3})$"
+        ],
+        "pt": [
+          "$(\\neg p_{i_0, c_1} \\vee \\neg p_{i_0, c_2}) \\wedge (\\neg p_{i_0, c_1} \\vee \\neg p_{i_0, c_3}) \\wedge (\\neg p_{i_0, c_2} \\vee \\neg p_{i_0, c_3})$",
+          "$(\\neg p_{i_0, c_1} \\wedge \\neg p_{i_0, c_2}) \\vee (\\neg p_{i_0, c_1} \\wedge \\neg p_{i_0, c_3}) \\vee (\\neg p_{i_0, c_2} \\wedge \\neg p_{i_0, c_3})$",
+          "$\\neg(p_{i_0, c_1} \\vee p_{i_0, c_2} \\vee p_{i_0, c_3})$",
+          "$(p_{i_0, c_1} \\to p_{i_0, c_2}) \\wedge (p_{i_0, c_2} \\to p_{i_0, c_3})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "'At most one' states that no pair of distinct containers may simultaneously hold the item: for each pair {c_a, c_b}, $\\neg(p_{i_0, c_a} \\wedge p_{i_0, c_b}) \\equiv (\\neg p_{i_0, c_a} \\vee \\neg p_{i_0, c_b})$. The conjunction of these pairwise clauses ensures at most one variable can evaluate to true.",
+        "pt": "'No máximo um' significa que nenhum par de contentores distintos pode conter o mesmo item simultaneamente: para cada par {c_a, c_b}, ¬(p_{i_0, c_a} ∧ p_{i_0, c_b}) ≡ (¬p_{i_0, c_a} ∨ ¬p_{i_0, c_b}). A conjunção de todas estas cláusulas para todos os pares garante que no máximo uma variável é verdadeira."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "If an item can be assigned to one of $l$ containers, how many 2-literal disjunctive clauses are produced by the classical pairwise encoding of 'at most one container' (*at most one*)?",
+        "pt": "Se um item puder ser colocado num de $l$ contentores, quantas cláusulas disjuntivas de 2 literais são geradas pela codificação clássica pairwise de 'no máximo um contentor' (*at most one*)?"
+      },
+      "options": {
+        "en": [
+          "$\\binom{l}{2} = \\frac{l(l - 1)}{2}$ clauses.",
+          "$l^2$ clauses.",
+          "$2^l$ clauses.",
+          "$l - 1$ clauses."
+        ],
+        "pt": [
+          "$\\binom{l}{2} = \\frac{l(l - 1)}{2}$ cláusulas.",
+          "$l^2$ cláusulas.",
+          "$2^l$ cláusulas.",
+          "$l - 1$ cláusulas."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The pairwise encoding considers every unordered pair of distinct containers {c_a, c_b} with $1 \\le a < b \\le l$. The number of 2-combinations from an $l$-element set is $\\frac{l(l - 1)}{2}$.",
+        "pt": "A codificação pairwise compara todos os pares de contentores distintos não ordenados {c_a, c_b} com 1 ≤ a < b ≤ l. O número de combinações de l elementos tomados 2 a 2 é l*(l - 1)/2."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "To guarantee that each item is assigned to 'exactly one' container, it is sufficient to conjoin the 'at least one' clause with the 'at most one' clauses.",
+        "pt": "Para garantir que cada item fica em 'exatamente um' contentor, basta conjugar a fórmula de 'pelo menos um contentor' (*at least one*) com a fórmula de 'no máximo um contentor' (*at most one*)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. 'Exactly one' mathematically decomposes into the logical conjunction of 'at least one' (preventing unassigned items) and 'at most one' (preventing multi-container assignment).",
+        "pt": "Verdadeiro. 'Exatamente um' (exactly-one) decompõe-se matematicamente na conjunção lógica de 'pelo menos um' (garante que não fica vazio) com 'no máximo um' (garante que não fica em múltiplos contentores)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Let $c$ be a specific container and $I = \\{i_1, i_2, i_3, i_4\\}$ the set of 4 items to allocate.\nThe Boolean variables are $p_{i, c}$.",
+        "pt": "Seja $c$ um contentor específico e $I = \\{i_1, i_2, i_3, i_4\\}$ o conjunto de 4 itens a alocar.\nAs variáveis booleanas são $p_{i, c}$."
+      },
+      "question": {
+        "en": "How is the capacity constraint 'container $c$ can hold at most 2 items' encoded in propositional logic?",
+        "pt": "Como se codifica a regra de capacidade 'o contentor $c$ pode acomodar no máximo 2 itens' em lógica proposicional?"
+      },
+      "options": {
+        "en": [
+          "By forbidding any group of 3 distinct items from occupying container $c$ simultaneously: for every subset of 3 items $\\{i_a, i_b, i_d\\}$, add $(\\neg p_{i_a, c} \\vee \\neg p_{i_b, c} \\vee \\neg p_{i_d, c})$.",
+          "By stating that at least 2 variables in the set $\\{p_{i_1, c}, p_{i_2, c}, p_{i_3, c}, p_{i_4, c}\\}$ must be false via a single disjunction.",
+          "By asserting that $p_{i_1, c} \\wedge p_{i_2, c} \\wedge p_{i_3, c} \\wedge p_{i_4, c} \\equiv \\bot$.",
+          "By introducing a direct equivalence $p_{i_1, c} \\leftrightarrow (\\neg p_{i_2, c} \\wedge \\neg p_{i_3, c})$."
+        ],
+        "pt": [
+          "Proibindo que qualquer grupo de 3 itens distintos ocupe o contentor $c$ simultaneamente: para cada subconjunto de 3 itens $\\{i_a, i_b, i_d\\}$, adiciona-se $(\\neg p_{i_a, c} \\vee \\neg p_{i_b, c} \\vee \\neg p_{i_d, c})$.",
+          "Afirmando que pelo menos 2 variáveis do conjunto $\\{p_{i_1, c}, p_{i_2, c}, p_{i_3, c}, p_{i_4, c}\\}$ têm de ser falsas através de uma única disjunção.",
+          "Exigindo que $p_{i_1, c} \\wedge p_{i_2, c} \\wedge p_{i_3, c} \\wedge p_{i_4, c} \\equiv \\bot$.",
+          "Criando uma equivalência direta $p_{i_1, c} \\leftrightarrow (\\neg p_{i_2, c} \\wedge \\neg p_{i_3, c})$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The condition 'at most 2' is equivalent to 'no 3 or more items may be active simultaneously'. Thus, for every subset of 3 distinct items {a, b, d}, we enforce $\\neg(p_{a, c} \\wedge p_{b, c} \\wedge p_{d, c}) \\equiv (\\neg p_{a, c} \\vee \\neg p_{b, c} \\vee \\neg p_{d, c})$. With 4 items, there are $\\binom{4}{3} = 4$ ternary clauses.",
+        "pt": "A condição 'no máximo 2' equivale a 'não podem existir 3 ou mais ativos em simultâneo'. Logo, para todos os subconjuntos de 3 itens distintos {a, b, d}, impõe-se ¬(p_{a, c} ∧ p_{b, c} ∧ p_{d, c}) ≡ (¬p_{a, c} ∨ ¬p_{b, c} ∨ ¬p_{d, c}). Com 4 itens, existem C(4, 3) = 4 cláusulas ternárias."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Consider the dinner problem with 3 guests (Anne, Susan, Peter) and 3 linearly arranged chairs (Left, Center, Right).\nVariables: $x_{a, l}, x_{a, c}, x_{a, r}, x_{s, l}, \\dots, x_{p, r}$.",
+        "pt": "Considere o problema do jantar com 3 convidados (Anne, Susan, Peter) e 3 cadeiras em linha (Left, Center, Right).\nVariáveis: $x_{a, l}, x_{a, c}, x_{a, r}, x_{s, l}, \\dots, x_{p, r}$."
+      },
+      "question": {
+        "en": "How is the requirement 'Anne cannot sit next to Peter' formally encoded in Propositional Logic?",
+        "pt": "Como se codifica formalmente em LP o requisito: 'A Anne não se pode sentar ao lado do Peter'?"
+      },
+      "options": {
+        "en": [
+          "$(x_{a, c} \\to (\\neg x_{p, l} \\wedge \\neg x_{p, r})) \\wedge ((x_{a, l} \\vee x_{a, r}) \\to \\neg x_{p, c})$",
+          "$(x_{a, c} \\wedge \\neg x_{p, c}) \\vee (x_{a, l} \\wedge \\neg x_{p, r})$",
+          "$\\neg(x_{a, l} \\wedge x_{s, c} \\wedge x_{p, r})$",
+          "$(x_{a, l} \\to x_{p, r}) \\wedge (x_{a, r} \\to x_{p, l})$"
+        ],
+        "pt": [
+          "$(x_{a, c} \\to (\\neg x_{p, l} \\wedge \\neg x_{p, r})) \\wedge ((x_{a, l} \\vee x_{a, r}) \\to \\neg x_{p, c})$",
+          "$(x_{a, c} \\wedge \\neg x_{p, c}) \\vee (x_{a, l} \\wedge \\neg x_{p, r})$",
+          "$\\neg(x_{a, l} \\wedge x_{s, c} \\wedge x_{p, r})$",
+          "$(x_{a, l} \\to x_{p, r}) \\wedge (x_{a, r} \\to x_{p, l})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Adjacent positions in a line of 3 are: Left is adjacent to Center, Right is adjacent to Center, and Center is adjacent to both. Hence: if Anne is in Center ($x_{a, c}$), Peter cannot be in Left or Right: $x_{a, c} \\to (\\neg x_{p, l} \\wedge \\neg x_{p, r})$. If Anne is on either end ($x_{a, l} \\vee x_{a, r}$), Peter cannot be in Center: $(x_{a, l} \\vee x_{a, r}) \\to \\neg x_{p, c}$.",
+        "pt": "As posições adjacentes na linha são: Left é adjacente ao Center, Right é adjacente ao Center, e Center é adjacente a Left e Right. Portanto: se Anne estiver no Center ($x_{a, c}$), Peter não pode estar nem em Left nem em Right: $x_{a, c} \\to (\\neg x_{p, l} \\wedge \\neg x_{p, r})$. Se Anne estiver numa ponta ($x_{a, l} \\vee x_{a, r}$), Peter não pode estar no Center: $(x_{a, l} \\vee x_{a, r}) \\to \\neg x_{p, c}$."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Problem of 3 guests (Anne, Susan, Peter) across 3 linear chairs (Left, Center, Right).\nVariables: $x_{g, pos}$.",
+        "pt": "Problema dos 3 convidados (Anne, Susan, Peter) em 3 cadeiras em linha (Left, Center, Right).\nVariáveis: $x_{g, pos}$."
+      },
+      "question": {
+        "en": "The constraint 'Susan cannot sit to the left of Peter' translates formally to implications $(x_{p, r} \\to \\neg x_{s, c}) \\wedge (x_{p, c} \\to \\neg x_{s, l})$, given that Susan also cannot share a chair with Peter.",
+        "pt": "A regra 'A Susan não se pode sentar à esquerda do Peter' traduz-se formalmente pelas implicações $(x_{p, r} \\to \\neg x_{s, c}) \\wedge (x_{p, c} \\to \\neg x_{s, l})$ considerando que Susan também não pode partilhar a mesma cadeira com Peter."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. If Peter is in Right ($x_{p, r}$), Susan cannot occupy Center or Left; if Peter is in Center ($x_{p, c}$), Susan cannot occupy Left ($x_{s, l}$). If Peter is in Left ($x_{p, l}$), no chairs exist to his left. Combined with chair exclusivity, these implications block every configuration where Susan sits to the left of Peter.",
+        "pt": "Verdadeiro. Se Peter estiver na cadeira da direita ($x_{p, r}$), Susan não pode estar nem no centro nem à esquerda; se Peter estiver no centro ($x_{p, c}$), Susan não pode estar à esquerda ($x_{s, l}$). E se Peter estiver na cadeira da esquerda ($x_{p, l}$), não há posições à sua esquerda. Conjugando com a exclusão de cadeira partilhada, estas implicações proíbem todas as configurações em que Susan esteja à esquerda de Peter."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "In the 3-guest (Anne, Susan, Peter) and 3-chair problem (Left, Center, Right):\n- 9 propositional variables in total.\n- Generic constraints: 1 chair per person, 1 person per chair.\n- Specific constraints: Anne does not sit next to Peter; Anne does not sit in Left; Susan does not sit to the left of Peter.",
+        "pt": "No problema dos 3 convidados (Anne, Susan, Peter) e 3 cadeiras (Left, Center, Right):\n- 9 variáveis proposicionais no total.\n- Restrições genéricas: 1 cadeira por pessoa, 1 pessoa por cadeira.\n- Restrições específicas: Anne não se senta ao lado de Peter; Anne não se senta na cadeira Left; Susan não se senta à esquerda de Peter."
+      },
+      "question": {
+        "en": "How many total truth assignments exist across the 9-variable state space, and how many valid solutions satisfy this constraint set?",
+        "pt": "Quantas atribuições de verdade possíveis existem no espaço total de 9 variáveis e quantas soluções válidas satisfazem este conjunto de restrições?"
+      },
+      "options": {
+        "en": [
+          "There are $2^9 = 512$ possible valuations and exactly 1 unique valid solution ($x_{p, l}=1, x_{a, c}=1, x_{s, r}=1$).",
+          "There are $3! = 6$ possible valuations and 3 valid solutions.",
+          "There are $2^9 = 512$ possible valuations and zero solutions (the problem is unsatisfiable).",
+          "There are 9! possible valuations and 2 symmetric valid solutions."
+        ],
+        "pt": [
+          "Existem $2^9 = 512$ valorações possíveis e exatamente 1 única solução válida ($x_{p, l}=1, x_{a, c}=1, x_{s, r}=1$).",
+          "Existem $3! = 6$ valorações possíveis e 3 soluções válidas.",
+          "Existem $2^9 = 512$ valorações possíveis e nenhuma solução (o problema é insatisfazível).",
+          "Existem 9! valorações possíveis e 2 soluções válidas simétricas."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "With 9 Boolean variables, the space of valuations is $2^9 = 512$. Applying all bijective permutation constraints and the three specific problem constraints leaves exactly one valid configuration: Peter in Left, Anne in Center, and Susan in Right ($x_{p, l} \\wedge x_{a, c} \\wedge x_{s, r}$).",
+        "pt": "Com 9 variáveis booleanas, o espaço de valorações possíveis é 2^9 = 512. Aplicando todas as restrições genéricas de permutação e as três restrições específicas do problema, resta uma única combinação válida: Peter na cadeira Left, Anne na cadeira Center, e Susan na cadeira Right ($x_{p, l} \\wedge x_{a, c} \\wedge x_{s, r}$)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "In an allocation problem of $n$ items into $n$ containers where each item occupies exactly one container and each container accommodates at most one item, the number of theoretical solutions prior to specific domain constraints is precisely $n!$.",
+        "pt": "Num problema de alocação de $n$ itens em $n$ contentores onde cada item ocupa exatamente um contentor e cada contentor acomoda no máximo um item, o número de soluções teóricas antes de aplicar restrições específicas é exatamente a permutação $n!$."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. A bijective mapping between two sets of size $n$ corresponds to a permutation, of which there are $n!$ configurations (for example, with 3 people and 3 chairs, there are $3! = 6$ bijective mappings out of $2^9 = 512$ variable assignments).",
+        "pt": "Verdadeiro. Uma bijeção de um conjunto de $n$ elementos para outro conjunto de $n$ elementos corresponde a uma permutação, cujo número total de atribuições é $n!$ (por exemplo, com 3 pessoas e 3 cadeiras, há $3! = 6$ atribuições bijetivas de entre as $2^9 = 512$ valorações da matriz de variáveis booleanas)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "Suppose you want to encode: 'If task T1 is allocated to Server S1, then task T2 must be allocated to Server S2 or Server S3'. What is the correct propositional formula?",
+        "pt": "Suponha que quer codificar a restrição: 'Se a tarefa T1 for alocada ao Servidor S1, então a tarefa T2 terá obrigatoriamente de ser alocada ao Servidor S2 ou ao Servidor S3'. Qual é a fórmula proposicional correta?"
+      },
+      "options": {
+        "en": [
+          "$p_{T1, S1} \\to (p_{T2, S2} \\vee p_{T2, S3})$",
+          "$(p_{T1, S1} \\wedge p_{T2, S2}) \\vee p_{T2, S3}$",
+          "$p_{T1, S1} \\leftrightarrow (p_{T2, S2} \\wedge p_{T2, S3})$",
+          "$\\neg p_{T1, S1} \\wedge (p_{T2, S2} \\vee p_{T2, S3})$"
+        ],
+        "pt": [
+          "$p_{T1, S1} \\to (p_{T2, S2} \\vee p_{T2, S3})$",
+          "$(p_{T1, S1} \\wedge p_{T2, S2}) \\vee p_{T2, S3}$",
+          "$p_{T1, S1} \\leftrightarrow (p_{T2, S2} \\wedge p_{T2, S3})$",
+          "$\\neg p_{T1, S1} \\wedge (p_{T2, S2} \\vee p_{T2, S3})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The structure 'If P then (Q or R)' directly maps to the material implication $P \\to (Q \\vee R)$, which is $p_{T1, S1} \\to (p_{T2, S2} \\vee p_{T2, S3})$. In CNF form, this clause is $(\\neg p_{T1, S1} \\vee p_{T2, S2} \\vee p_{T2, S3})$.",
+        "pt": "A estrutura da frase em linguagem natural é 'Se P então (Q ou R)', o que se traduz diretamente em lógica proposicional pela implicação material P → (Q ∨ R), ou seja, p_{T1, S1} → (p_{T2, S2} ∨ p_{T2, S3}). Na forma clausal CNF seria (¬p_{T1, S1} ∨ p_{T2, S2} ∨ p_{T2, S3})."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "How is the constraint that two distinct tasks, T1 and T2, cannot run on the same server $S$ simultaneously modelled?",
+        "pt": "Como se modela a restrição de que duas tarefas distintas, T1 e T2, não podem ser executadas no mesmo servidor $S$ em simultâneo?"
+      },
+      "options": {
+        "en": [
+          "$\\neg(p_{T1, S} \\wedge p_{T2, S}) \\equiv \\neg p_{T1, S} \\vee \\neg p_{T2, S}$",
+          "$p_{T1, S} \\leftrightarrow \\neg p_{T2, S}$",
+          "$\\neg p_{T1, S} \\wedge \\neg p_{T2, S}$",
+          "$(p_{T1, S} \\vee p_{T2, S}) \\to \\bot$"
+        ],
+        "pt": [
+          "$\\neg(p_{T1, S} \\wedge p_{T2, S}) \\equiv \\neg p_{T1, S} \\vee \\neg p_{T2, S}$",
+          "$p_{T1, S} \\leftrightarrow \\neg p_{T2, S}$",
+          "$\\neg p_{T1, S} \\wedge \\neg p_{T2, S}$",
+          "$(p_{T1, S} \\vee p_{T2, S}) \\to \\bot$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Mutual incompatibility means both variables cannot be true simultaneously: $\\neg(p_{T1, S} \\wedge p_{T2, S})$. By De Morgan's laws, this clause is logically equivalent to $\\neg p_{T1, S} \\vee \\neg p_{T2, S}$.",
+        "pt": "A incompatibilidade mútua significa que é proibido ter ambas as variáveis verdadeiras em simultâneo: ¬(p_{T1, S} ∧ p_{T2, S}). Pela lei de De Morgan, esta cláusula equivale a ¬p_{T1, S} ∨ ¬p_{T2, S}."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "The formula $p_{T1, S} \\leftrightarrow \\neg p_{T2, S}$ is an accurate translation for 'T1 and T2 cannot share server S'.",
+        "pt": "A fórmula $p_{T1, S} \\leftrightarrow \\neg p_{T2, S}$ é uma tradução correta para 'T1 e T2 não podem partilhar o servidor S'."
+      },
+      "solution": 1,
+      "explanation": {
+        "en": "False! $p_{T1, S} \\leftrightarrow \\neg p_{T2, S}$ is an XOR operation, which forces exactly one of the tasks to reside on server S (preventing both from being assigned elsewhere). 'Cannot share' permits neither task to be on S, requiring only $\\neg p_{T1, S} \\vee \\neg p_{T2, S}$.",
+        "pt": "Falso! A fórmula $p_{T1, S} \\leftrightarrow \\neg p_{T2, S}$ é um XOR (ou exclusivo), o que forçaria a que exatamente uma das tarefas estivesse no servidor S (impedindo que ambas estivessem fora de S). A restrição 'não podem partilhar' permite que nenhuma delas esteja em S, exigindo apenas a cláusula $\\neg p_{T1, S} \\vee \\neg p_{T2, S}$."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "en": "Consider 4 processes $P = \\{p_1, p_2, p_3, p_4\\}$ and 2 CPU cores $C = \\{c_1, c_2\\}$.\nPropositional variables: $x_{i, j}$ indicates that process $p_i$ runs on core $c_j$.",
+        "pt": "Considere 4 processos $P = \\{p_1, p_2, p_3, p_4\\}$ e 2 núcleos de CPU $C = \\{c_1, c_2\\}$.\nVariáveis proposicionais: $x_{i, j}$ indica que o processo $p_i$ é executado no núcleo $c_j$."
+      },
+      "question": {
+        "en": "Write all propositional formulas required to formally model:\n1. Each process is assigned to exactly one core.\n2. No core can be empty (each core receives at least one process).\n3. Process $p_1$ and process $p_2$ must run on the same core.",
+        "pt": "Escreva todas as fórmulas proposicionais necessárias para modelar formalmente que:\n1. Cada processo é atribuído a exatamente um núcleo.\n2. Nenhum núcleo pode ficar vazio (cada núcleo recebe pelo menos um processo).\n3. O processo $p_1$ e o processo $p_2$ têm obrigatoriamente de correr no mesmo núcleo."
+      },
+      "solution": {
+        "en": "Propositional Logic Modelling:\n\n1. Each process on exactly one core (for each $i \\in \\{1, 2, 3, 4\\}$):\n   - At least one: $(x_{i, 1} \\vee x_{i, 2})$\n   - At most one: $(\\neg x_{i, 1} \\vee \\neg x_{i, 2})$\n   - Conjunction: $\\bigwedge_{i=1}^4 ((x_{i, 1} \\vee x_{i, 2}) \\wedge (\\neg x_{i, 1} \\vee \\neg x_{i, 2}))$\n\n2. No core left empty (at least one process per core $j \\in \\{1, 2\\}$):\n   - Core 1: $(x_{1, 1} \\vee x_{2, 1} \\vee x_{3, 1} \\vee x_{4, 1})$\n   - Core 2: $(x_{1, 2} \\vee x_{2, 2} \\vee x_{3, 2} \\vee x_{4, 2})$\n\n3. Processes $p_1$ and $p_2$ on the same core:\n   - $(x_{1, 1} \\leftrightarrow x_{2, 1}) \\wedge (x_{1, 2} \\leftrightarrow x_{2, 2})$\n   (or simply $x_{1, 1} \\leftrightarrow x_{2, 1}$, since core 2 variables are exact complements).",
+        "pt": "Modelagem em Lógica Proposicional:\n\n1. Cada processo em exatamente um núcleo (para cada $i \\in \\{1, 2, 3, 4\\}$):\n   - At least one: $(x_{i, 1} \\vee x_{i, 2})$\n   - At most one: $(\\neg x_{i, 1} \\vee \\neg x_{i, 2})$\n   - Em conjunto: $\\bigwedge_{i=1}^4 ((x_{i, 1} \\vee x_{i, 2}) \\wedge (\\neg x_{i, 1} \\vee \\neg x_{i, 2}))$\n\n2. Nenhum núcleo vazio (pelo menos um processo em cada núcleo $j \\in \\{1, 2\\}$):\n   - Núcleo 1: $(x_{1, 1} \\vee x_{2, 1} \\vee x_{3, 1} \\vee x_{4, 1})$\n   - Núcleo 2: $(x_{1, 2} \\vee x_{2, 2} \\vee x_{3, 2} \\vee x_{4, 2})$\n\n3. Processos $p_1$ e $p_2$ no mesmo núcleo:\n   - $(x_{1, 1} \\leftrightarrow x_{2, 1}) \\wedge (x_{1, 2} \\leftrightarrow x_{2, 2})$\n   (ou simplesmente $x_{1, 1} \\leftrightarrow x_{2, 1}$, visto que as variáveis do núcleo 2 são os complementos diretos)."
+      },
+      "explanation": {
+        "en": "Grading criteria: correctly stating the exactly-one formulation (disjunction + pairwise exclusion) across all 4 processes; specifying the non-empty disjunctions for both cores; and formulating the equivalence or co-implication between $p_1$ and $p_2$ on both cores.",
+        "pt": "Critérios de correção: declaração correta da condição exactly-one (disjunção + exclusão pairwise) para os 4 processos; formulação das disjunções de preenchimento para ambos os núcleos; e formulação da equivalência ou implicação mútua entre $p_1$ e $p_2$ nos mesmos núcleos."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "en": "When adding a temporal order constraint 'lecture A must occur before lecture B' in a model with time-slot variables $t_{A, k}$ and $t_{B, m}$ (where $k, m \\in \\{1, 2, 3\\}$ designate time slots), which option correctly encodes the constraint?",
+        "pt": "Ao adicionar uma restrição de ordem temporal 'a aula A tem de ocorrer antes da aula B' num modelo com variáveis de posição temporal $t_{A, k}$ e $t_{B, m}$ (onde $k, m \\in \\{1, 2, 3\\}$ representam os slots horários), qual das seguintes opções codifica corretamente a restrição?"
+      },
+      "options": {
+        "en": [
+          "$(t_{A, 2} \\to t_{B, 3}) \\wedge (t_{A, 3} \\to \\bot) \\wedge (t_{B, 1} \\to \\bot)$ (assuming each lecture occupies exactly one slot)",
+          "$t_{A, 1} \\wedge t_{B, 2} \\wedge t_{B, 3}$",
+          "$t_{A, k} \\leftrightarrow \\neg t_{B, k}$ for all $k$",
+          "$\\neg(t_{A, 1} \\wedge t_{B, 1}) \\wedge (t_{A, 2} \\vee t_{B, 2})$"
+        ],
+        "pt": [
+          "$(t_{A, 2} \\to t_{B, 3}) \\wedge (t_{A, 3} \\to \\bot) \\wedge (t_{B, 1} \\to \\bot)$ (assumindo que cada aula ocupa exatamente um slot)",
+          "$t_{A, 1} \\wedge t_{B, 2} \\wedge t_{B, 3}$",
+          "$t_{A, k} \\leftrightarrow \\neg t_{B, k}$ para todo o $k$",
+          "$\\neg(t_{A, 1} \\wedge t_{B, 1}) \\wedge (t_{A, 2} \\vee t_{B, 2})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "If lecture A precedes B: A cannot occur in the last slot ($t_{A, 3} \\to \\bot$); B cannot occur in the first slot ($t_{B, 1} \\to \\bot$); and if A occurs in slot 2 ($t_{A, 2}$), B must take slot 3 ($t_{B, 3}$). This rules out any schedule where B coincides with or precedes A.",
+        "pt": "Se a aula A ocorre antes da aula B: A não pode ocorrer no último slot ($t_{A, 3} \\to \\bot$); B não pode ocorrer no primeiro slot ($t_{B, 1} \\to \\bot$); e se A ocorrer no slot 2 ($t_{A, 2}$), B tem obrigatoriamente de ocorrer no slot 3 ($t_{B, 3}$). Esta formulação veda qualquer alocação onde B preceda ou coincida com A."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "en": "If a container has unlimited capacity, no 'at-most-one' or upper-bound clauses are needed for that container in the problem specification.",
+        "pt": "Se um contentor tem capacidade ilimitada, não são necessárias quaisquer cláusulas de 'no máximo' (*at-most-one* ou limites superiores) sobre esse contentor na especificação do problema."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. If a container can accommodate an arbitrary number of items without an upper limit, no exclusion clauses restricting the count of active variables for that container are required.",
+        "pt": "Verdadeiro. Se o contentor pode acomodar qualquer quantidade arbitrária de itens (capacidade ilimitada), não há limite superior a impor sobre o número de variáveis ativas associadas a esse contentor, poupando a geração de cláusulas de exclusão."
+      }
+    }
+  ]
+}

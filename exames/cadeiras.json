@@ -9,6 +9,15 @@
     "index_path": "exames/adi/index.json"
   },
   {
+    "id": "fmse",
+    "nome": "Métodos Formais em Engenharia de Software",
+    "sigla": "FMSE",
+    "icon": "fa-cube",
+    "descricao": "Lógica proposicional, modelação formal, problemas de alocação, SAT solvers, verificação de asserções, feature models e análise de variabilidade.",
+    "exames_count": 5,
+    "index_path": "exames/fmse/index.json"
+  },
+  {
     "id": "ssi",
     "nome": "Segurança de Sistemas de Informação",
     "sigla": "SSI",

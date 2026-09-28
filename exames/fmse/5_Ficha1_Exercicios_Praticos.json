@@ -1,0 +1,426 @@
+{
+  "title": {
+    "en": "Exam 5: Practical Resolution of Worksheet 1 (Modelling and SAT)",
+    "pt": "Exame 5: Resolução Prática da Ficha 1 (Modelação e SAT)"
+  },
+  "description": {
+    "en": "Practical exam focused on the detailed resolution of Worksheet 1 exercises: Decorative panel arrangement, Office allocation with capacity bounds, Instructor assignment to consecutive lectures, and formal analysis of the Survey Feature Model using SAT Solvers.",
+    "pt": "Exame prático focado na resolução detalhada dos exercícios da Ficha 1 da unidade curricular: Colocação de Painéis decorativos, Distribuição de Gabinetes com limites de capacidade, Alocação de Formadores a Aulas consecutivas e Análise formal do Feature Model de Questionários com SAT Solvers."
+  },
+  "languages": ["en", "pt"],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 1 (Panels): Decorate a wall with 7 juxtaposed panels of Wood (1), Metal (2), or Glass (3).\nVariables: $x_{p, m}$ ($p \\in \\{1..7\\}, m \\in \\{1..3\\}$).",
+        "pt": "Exercício 1 (Painéis): Decorar parede com 7 painéis justapostos de Madeira (1), Metal (2) ou Vidro (3).\nVariáveis: $x_{p, m}$ ($p \\in \\{1..7\\}, m \\in \\{1..3\\})."
+      },
+      "question": {
+        "en": "How is rule (c) formally encoded: 'The end panels cannot be made of the same type of material'?",
+        "pt": "Como se codifica formalmente a regra (c): 'Os painéis das extremidades não podem ser do mesmo tipo de material'?"
+      },
+      "options": {
+        "en": [
+          "$\\bigwedge_{m=1}^3 \\neg(x_{1, m} \\wedge x_{7, m}) \\equiv (\\neg x_{1, 1} \\vee \\neg x_{7, 1}) \\wedge (\\neg x_{1, 2} \\vee \\neg x_{7, 2}) \\wedge (\\neg x_{1, 3} \\vee \\neg x_{7, 3})$",
+          "$(x_{1, 1} \\leftrightarrow \\neg x_{7, 1}) \\wedge (x_{1, 2} \\leftrightarrow \\neg x_{7, 2})$",
+          "$\\neg(x_{1, 1} \\wedge x_{1, 2} \\wedge x_{1, 3} \\wedge x_{7, 1} \\wedge x_{7, 2} \\wedge x_{7, 3})$",
+          "$\\bigvee_{m=1}^3 (x_{1, m} \\wedge x_{7, m})$"
+        ],
+        "pt": [
+          "$\\bigwedge_{m=1}^3 \\neg(x_{1, m} \\wedge x_{7, m}) \\equiv (\\neg x_{1, 1} \\vee \\neg x_{7, 1}) \\wedge (\\neg x_{1, 2} \\vee \\neg x_{7, 2}) \\wedge (\\neg x_{1, 3} \\vee \\neg x_{7, 3})$",
+          "$(x_{1, 1} \\leftrightarrow \\neg x_{7, 1}) \\wedge (x_{1, 2} \\leftrightarrow \\neg x_{7, 2})$",
+          "$\\neg(x_{1, 1} \\wedge x_{1, 2} \\wedge x_{1, 3} \\wedge x_{7, 1} \\wedge x_{7, 2} \\wedge x_{7, 3})$",
+          "$\\bigvee_{m=1}^3 (x_{1, m} \\wedge x_{7, m})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The rule enforces that positions 1 and 7 cannot share the same material. For each material $m \\in {1, 2, 3}$, having both ends made of $m$ is forbidden: $\\neg(x_{1, m} \\wedge x_{7, m})$. Applying De Morgan's laws yields the conjunction $(\\neg x_{1, 1} \\vee \\neg x_{7, 1}) \\wedge (\\neg x_{1, 2} \\vee \\neg x_{7, 2}) \\wedge (\\neg x_{1, 3} \\vee \\neg x_{7, 3})$.",
+        "pt": "A regra impõe que as posições 1 e 7 não tenham o mesmo material. Para cada material $m \\in {1, 2, 3}$, é proibido que ambas as extremidades o contenham em simultâneo: ¬(x_{1, m} ∧ x_{7, m}). Aplicando De Morgan a cada material, obtemos a conjunção de cláusulas (¬x_{1, 1} ∨ ¬x_{7, 1}) ∧ (¬x_{1, 2} ∨ ¬x_{7, 2}) ∧ (¬x_{1, 3} ∨ ¬x_{7, 3})."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 1 (Panels):\nVariables: $x_{p, m}$.",
+        "pt": "Exercício 1 (Painéis):\nVariáveis: $x_{p, m}$."
+      },
+      "question": {
+        "en": "Which formula encodes rule (d): 'The middle panel cannot be glass' and rule (f): 'Two glass panels cannot be consecutive'?",
+        "pt": "Qual é a fórmula que codifica a regra (d): 'O painel do meio não pode ser de vidro' e a regra (f): 'Não podem ficar dois painéis de vidro seguidos'?"
+      },
+      "options": {
+        "en": [
+          "Rule (d): $\\neg x_{4, 3}$; Rule (f): $\\bigwedge_{p=1}^6 (\\neg x_{p, 3} \\vee \\neg x_{p+1, 3})$.",
+          "Rule (d): $x_{4, 1} \\vee x_{4, 2}$; Rule (f): $\\bigwedge_{p=1}^7 \\neg(x_{p, 3} \\wedge x_{p, 3})$.",
+          "Rule (d): $\\neg x_{3, 3}$; Rule (f): $\\bigwedge_{p=1}^6 (x_{p, 3} \\to x_{p+1, 1})$.",
+          "Rule (d): $x_{4, 3} \\to \\bot$; Rule (f): $\\bigvee_{p=1}^6 (\\neg x_{p, 3} \\wedge \\neg x_{p+1, 3})$."
+        ],
+        "pt": [
+          "Regra (d): $\\neg x_{4, 3}$; Regra (f): $\\bigwedge_{p=1}^6 (\\neg x_{p, 3} \\vee \\neg x_{p+1, 3})$.",
+          "Regra (d): $x_{4, 1} \\vee x_{4, 2}$; Regra (f): $\\bigwedge_{p=1}^7 \\neg(x_{p, 3} \\wedge x_{p, 3})$.",
+          "Regra (d): $\\neg x_{3, 3}$; Regra (f): $\\bigwedge_{p=1}^6 (x_{p, 3} \\to x_{p+1, 1})$.",
+          "Regra (d): $x_{4, 3} \\to \\bot$; Regra (f): $\\bigvee_{p=1}^6 (\\neg x_{p, 3} \\wedge \\neg x_{p+1, 3})$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "In a sequence of 7 positions (1 to 7), the central position is 4. Glass corresponds to material 3, so rule (d) is $\\neg x_{4, 3}$. Rule (f) forbids two consecutive glass panels for any adjacent pair $(p, p+1)$ with $p \\in \\{1..6\\}$: $\\neg(x_{p, 3} \\wedge x_{p+1, 3}) \\equiv \\neg x_{p, 3} \\vee \\neg x_{p+1, 3}$.",
+        "pt": "Na sequência de 7 posições (1 a 7), a posição central é a posição 4. O vidro corresponde ao material 3, logo a regra (d) é ¬x_{4, 3}. A regra (f) proíbe dois vidros consecutivos em qualquer par adjacente (p, p+1) para p de 1 até 6: ¬(x_{p, 3} ∧ x_{p+1, 3}) ≡ ¬x_{p, 3} ∨ ¬x_{p+1, 3}."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 1 (Panels):\nRule (g): 'Next to a metal panel there must be at least one wood panel'.",
+        "pt": "Exercício 1 (Painéis):\nRegra (g): 'Junto a um painel de metal terá de haver pelo menos um painel de madeira'."
+      },
+      "question": {
+        "en": "How is this rule encoded for an inner position $p \\in \\{2..6\\}$ and for the first boundary position $p = 1$?",
+        "pt": "Como se codifica esta regra para uma posição interior $p \\in \\{2..6\\}$ e para a posição extrema inicial $p = 1$?"
+      },
+      "options": {
+        "en": [
+          "For $p \\in \\{2..6\\}$: $x_{p, 2} \\to (x_{p-1, 1} \\vee x_{p+1, 1})$; For $p = 1$: $x_{1, 2} \\to x_{2, 1}$.",
+          "For $p \\in \\{2..6\\}$: $x_{p, 2} \\wedge (x_{p-1, 1} \\vee x_{p+1, 1})$; For $p = 1$: $x_{1, 2} \\leftrightarrow x_{2, 1}$.",
+          "For all $p$: $x_{p, 2} \\to (x_{p-1, 1} \\wedge x_{p+1, 1})$.",
+          "For $p = 1$: $x_{1, 2} \\to \\bot$."
+        ],
+        "pt": [
+          "Para $p \\in \\{2..6\\}$: $x_{p, 2} \\to (x_{p-1, 1} \\vee x_{p+1, 1})$; Para $p = 1$: $x_{1, 2} \\to x_{2, 1}$.",
+          "Para $p \\in \\{2..6\\}$: $x_{p, 2} \\wedge (x_{p-1, 1} \\vee x_{p+1, 1})$; Para $p = 1$: $x_{1, 2} \\leftrightarrow x_{2, 1}$.",
+          "Para todos os $p$: $x_{p, 2} \\to (x_{p-1, 1} \\wedge x_{p+1, 1})$.",
+          "Para $p = 1$: $x_{1, 2} \\to \\bot$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "If position $p$ is metal ($x_{p, 2}$), at least one adjacent neighbour must be wood (1). For an inner position $p$, neighbours are $p-1$ and $p+1$, giving $x_{p, 2} \\to (x_{p-1, 1} \\vee x_{p+1, 1})$. For the left boundary ($p=1$), the only neighbour is position 2, yielding $x_{1, 2} \\to x_{2, 1}$. Similarly, for $p=7$, $x_{7, 2} \\to x_{6, 1}$.",
+        "pt": "Se a posição $p$ for de metal ($x_{p, 2}$), um dos seus vizinhos adjacentes tem de ser madeira (material 1). Para uma posição interior $p$, os vizinhos são $p-1$ e $p+1$, logo $x_{p, 2} \\to (x_{p-1, 1} \\vee x_{p+1, 1})$. Para o extremo esquerdo ($p=1$), o único vizinho existente é a posição 2, logo $x_{1, 2} \\to x_{2, 1}$. Similarmente, para $p=7$, temos $x_{7, 2} \\to x_{6, 1}$."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Exercise 1 (Panels):\nRule (e): 'All materials must be used'.",
+        "pt": "Exercício 1 (Painéis):\nRegra (e): 'Todos os materiais têm que ser usados'."
+      },
+      "question": {
+        "en": "Rule (e) is encoded by the conjunction of three disjunctions: $(\\bigvee_{p=1}^7 x_{p, 1}) \\wedge (\\bigvee_{p=1}^7 x_{p, 2}) \\wedge (\\bigvee_{p=1}^7 x_{p, 3})$.",
+        "pt": "A regra (e) codifica-se pela conjunção de três disjunções: $(\\bigvee_{p=1}^7 x_{p, 1}) \\wedge (\\bigvee_{p=1}^7 x_{p, 2}) \\wedge (\\bigvee_{p=1}^7 x_{p, 3})$."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. To guarantee that wood (1), metal (2), and glass (3) are each used at least once, there must exist at least one position assigned to each material, which corresponds precisely to conjoining the three disjunctions over all positions $p \\in \\{1..7\\}$.",
+        "pt": "Verdadeiro. Para garantir que a madeira (1), o metal (2) e o vidro (3) são todos obrigatoriamente utilizados, deve existir pelo menos uma posição para a madeira, pelo menos uma para o metal e pelo menos uma para o vidro, o que corresponde exatamente à conjunção das três disjunções sobre todas as posições $p \\in \\{1..7\\}$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 1 (Panels):\nQuestion 3: We want to test whether the claim 'It is possible to place a wood panel in the last position' holds under rules $\\Gamma$.",
+        "pt": "Exercício 1 (Painéis):\nAlínea 3: Pretende-se testar se a afirmação 'É possível colocar um painel de madeira na última posição' é verdadeira face às regras $\\Gamma$."
+      },
+      "question": {
+        "en": "How is this test formulated using a SAT solver?",
+        "pt": "Como se formula o teste com um SAT solver?"
+      },
+      "options": {
+        "en": [
+          "Run the SAT solver with formula $\\Gamma \\wedge x_{7, 1}$. If SAT, the claim is true (it is possible); if UNSAT, it is impossible.",
+          "Run the SAT solver with $\\Gamma \\wedge \\neg x_{7, 1}$ and expect UNSAT.",
+          "Run the SAT solver with $\\neg\\Gamma \\wedge x_{7, 1}$.",
+          "Check whether $x_{7, 1}$ is an isolated tautology."
+        ],
+        "pt": [
+          "Executa-se o SAT solver com a fórmula $\\Gamma \\wedge x_{7, 1}$. Se for SAT, a afirmação é verdadeira (é possível); se for UNSAT, é impossível.",
+          "Executa-se o SAT solver com $\\Gamma \\wedge \\neg x_{7, 1}$ e exige-se UNSAT.",
+          "Executa-se o SAT solver com $\\neg\\Gamma \\wedge x_{7, 1}$.",
+          "Verifica-se se $x_{7, 1}$ é uma tautologia isolada."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The query asks whether it is POSSIBLE (i.e., whether there exists at least one valid solution where position 7 is wood). To test consistency/feasibility, conjoin the assumption with system rules: $\\Gamma \\wedge x_{7, 1}$. A SAT outcome provides a satisfying witness configuration.",
+        "pt": "A afirmação pergunta se é POSSÍVEL (ou seja, se existe pelo menos uma solução onde a última posição tenha madeira). Para testar a consistência/possibilidade, basta conjugar a hipótese com as regras: $\\Gamma \\wedge x_{7, 1}$. Se o solver devolver SAT, encontramos um arranjo válido com madeira no fim."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 2 (Office Allocation):\n4 people (Ana, Nuno, Pedro, Maria) and 3 offices (1, 2, 3).\nVariables: $x_{p, g}$ where $p \\in \\{A, N, P, M\\}$ and $g \\in \\{1, 2, 3\\}$.",
+        "pt": "Exercício 2 (Distribuição de Gabinetes):\n4 pessoas (Ana, Nuno, Pedro, Maria) e 3 gabinetes (1, 2, 3).\nVariáveis: $x_{p, g}$ onde $p \\in \\{A, N, P, M\\}$ e $g \\in \\{1, 2, 3\\}$."
+      },
+      "question": {
+        "en": "How is rule (b) encoded: 'Nuno and Pedro cannot share an office'?",
+        "pt": "Como se codifica a regra (b): 'O Nuno e o Pedro não podem partilhar gabinete'?"
+      },
+      "options": {
+        "en": [
+          "$\\bigwedge_{g=1}^3 \\neg(x_{N, g} \\wedge x_{P, g}) \\equiv \\bigwedge_{g=1}^3 (\\neg x_{N, g} \\vee \\neg x_{P, g})$",
+          "$\\bigvee_{g=1}^3 (\\neg x_{N, g} \\wedge \\neg x_{P, g})$",
+          "$(x_{N, 1} \\leftrightarrow \\neg x_{P, 1}) \\wedge (x_{N, 2} \\leftrightarrow \\neg x_{P, 2})$",
+          "$\\bigwedge_{g=1}^3 (x_{N, g} \\to x_{P, g})$"
+        ],
+        "pt": [
+          "$\\bigwedge_{g=1}^3 \\neg(x_{N, g} \\wedge x_{P, g}) \\equiv \\bigwedge_{g=1}^3 (\\neg x_{N, g} \\vee \\neg x_{P, g})$",
+          "$\\bigvee_{g=1}^3 (\\neg x_{N, g} \\wedge \\neg x_{P, g})$",
+          "$(x_{N, 1} \\leftrightarrow \\neg x_{P, 1}) \\wedge (x_{N, 2} \\leftrightarrow \\neg x_{P, 2})$",
+          "$\\bigwedge_{g=1}^3 (x_{N, g} \\to x_{P, g})$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "In no office $g \\in \\{1, 2, 3\\}$ can Nuno and Pedro be assigned simultaneously: for each $g$, $\\neg(x_{N, g} \\wedge x_{P, g}) \\equiv \\neg x_{N, g} \\vee \\neg x_{P, g}$.",
+        "pt": "Em nenhum gabinete $g \\in \\{1, 2, 3\\}$ podem estar o Nuno e o Pedro ao mesmo tempo: para cada $g$, $\\neg(x_{N, g} \\wedge x_{P, g}) \\equiv \\neg x_{N, g} \\vee \\neg x_{P, g}$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 2 (Offices):\nRule (d): 'Each office can accommodate at most 2 people'.",
+        "pt": "Exercício 2 (Gabinetes):\nRegra (d): 'Cada gabinete só pode acomodar, no máximo, 2 pessoas'."
+      },
+      "question": {
+        "en": "How many ternary clauses are generated to enforce this maximum capacity across all 3 offices?",
+        "pt": "Quantas cláusulas ternárias são geradas para garantir esta capacidade máxima nos 3 gabinetes?"
+      },
+      "options": {
+        "en": [
+          "12 clauses: for each of the 3 offices, pick all $\\binom{4}{3} = 4$ groups of 3 distinct individuals ($3 \\times 4 = 12$).",
+          "3 clauses: one per office.",
+          "64 clauses.",
+          "4 clauses in total."
+        ],
+        "pt": [
+          "12 cláusulas: para cada um dos 3 gabinetes, escolhem-se todos os $\\binom{4}{3} = 4$ grupos de 3 pessoas distintas ($3 \\times 4 = 12$).",
+          "3 cláusulas: uma por gabinete.",
+          "64 cláusulas.",
+          "4 cláusulas no total."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "With 4 people {A, N, P, M}, 'at most 2 per office' means no triplet can occupy the same office. The number of triplets from 4 individuals is $\\binom{4}{3} = 4$. Multiplying across 3 offices produces $3 \\times 4 = 12$ exclusion clauses.",
+        "pt": "Com 4 pessoas {A, N, P, M}, 'no máximo 2 por gabinete' significa que nenhum trio pode estar no mesmo gabinete. O número de trios possíveis com 4 pessoas é C(4, 3) = 4: {A, N, P}, {A, N, M}, {A, P, M}, {N, P, M}. Como temos 3 gabinetes, geram-se 4 cláusulas de exclusão ternárias por gabinete, totalizando 3 × 4 = 12 cláusulas."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Exercise 2 (Offices):\nRule (c): 'If Ana is alone in an office, then Pedro must also be alone in an office'.",
+        "pt": "Exercício 2 (Gabinetes):\nRegra (c): 'Se a Ana ficar sozinha num gabinete, então o Pedro também terá que ficar sozinho num gabinete'."
+      },
+      "question": {
+        "en": "The condition 'Ana is alone in office $g$' is expressed logically by $x_{A, g} \\wedge \\neg x_{N, g} \\wedge \\neg x_{P, g} \\wedge \\neg x_{M, g}$.",
+        "pt": "A condição 'A Ana está sozinha no gabinete $g$' expressa-se logicamente por $x_{A, g} \\wedge \\neg x_{N, g} \\wedge \\neg x_{P, g} \\wedge \\neg x_{M, g}$."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. Being alone in office $g$ requires Ana to be in office $g$ ($x_{A, g}$) and every other person in the problem domain (Nuno, Pedro, Maria) to not be in office $g$.",
+        "pt": "Verdadeiro. Ficar sozinha no gabinete $g$ significa que a Ana está nesse gabinete ($x_{A, g}$) e que nenhuma das outras três pessoas do problema (Nuno, Pedro, Maria) ocupa esse mesmo gabinete."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 2 (Offices):\nQuestion 3(a): We want to verify whether claim $\\alpha = (x_{M, 1} \\to (\\neg x_{A, 1} \\wedge \\neg x_{N, 1} \\wedge \\neg x_{P, 1}))$ is a necessary consequence of rules $\\Gamma$.",
+        "pt": "Exercício 2 (Gabinetes):\nAlínea 3(a): Pretende-se verificar se a afirmação $\\alpha = (x_{M, 1} \\to (\\neg x_{A, 1} \\wedge \\neg x_{N, 1} \\wedge \\neg x_{P, 1}))$ é uma consequência necessária das regras $\\Gamma$."
+      },
+      "question": {
+        "en": "What is the procedure with a SAT solver to prove whether Maria is necessarily alone when placed in office 1?",
+        "pt": "Qual é o procedimento rigoroso com o SAT solver para provar se a Maria fica necessariamente sozinha quando colocada no gabinete 1?"
+      },
+      "options": {
+        "en": [
+          "Submit $\\Gamma \\wedge \\neg \\alpha \\equiv \\Gamma \\wedge x_{M, 1} \\wedge (x_{A, 1} \\vee x_{N, 1} \\vee x_{P, 1})$. If UNSAT, the assertion holds; if SAT, the returned model shows someone sharing office 1 with Maria.",
+          "Submit $\\Gamma \\wedge \\alpha$ and conclude it is universally true if SAT.",
+          "Check whether Ana can be assigned to office 2.",
+          "Add the unit clause $x_{M, 1}$ and count total variables."
+        ],
+        "pt": [
+          "Submete-se $\\Gamma \\wedge \\neg \\alpha \\equiv \\Gamma \\wedge x_{M, 1} \\wedge (x_{A, 1} \\vee x_{N, 1} \\vee x_{P, 1})$. Se for UNSAT, a afirmação é verdadeira; se for SAT, o modelo devolvido mostra alguém a partilhar o gabinete 1 com a Maria.",
+          "Submete-se $\\Gamma \\wedge \\alpha$ e se der SAT conclui-se que é sempre verdadeira.",
+          "Verifica-se se a Ana pode ir para o gabinete 2.",
+          "Adiciona-se a cláusula unitária $x_{M, 1}$ e conta-se o número de variáveis."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "To prove $\\Gamma \\models \\alpha$, negate $\\alpha$. Since $\\neg(P \\to Q) \\equiv P \\wedge \\neg Q$, we have $\\neg \\alpha \\equiv x_{M, 1} \\wedge \\neg(\\neg x_{A, 1} \\wedge \\neg x_{N, 1} \\wedge \\neg x_{P, 1}) \\equiv x_{M, 1} \\wedge (x_{A, 1} \\vee x_{N, 1} \\vee x_{P, 1})$. If conjoining this with $\\Gamma$ is UNSAT, no valid state allows another person in office 1 with Maria, proving the claim.",
+        "pt": "Para provar que $\\Gamma \\models \\alpha$, nega-se $\\alpha$. Sabendo que $\\neg(P \\to Q) \\equiv P \\wedge \\neg Q$, temos $\\neg \\alpha \\equiv x_{M, 1} \\wedge \\neg(\\neg x_{A, 1} \\wedge \\neg x_{N, 1} \\wedge \\neg x_{P, 1}) \\equiv x_{M, 1} \\wedge (x_{A, 1} \\vee x_{N, 1} \\vee x_{P, 1})$. Se esta conjunção com $\\Gamma$ for UNSAT, não existe nenhuma solução viável com a Maria acompanhada no gabinete 1, provando a afirmação."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 3 (Lecture Scheduling):\n5 consecutive lectures ($a \\in \\{1..5\\}$), 3 instructors (Ana, Beatriz, Carlos).\nVariables: $x_{f, a}$ where $f \\in \\{A, B, C\\}$.",
+        "pt": "Exercício 3 (Alocação de aulas):\n5 aulas consecutivas ($a \\in \\{1..5\\}$), 3 formadores (Ana, Beatriz, Carlos).\nVariáveis: $x_{f, a}$ onde $f \\in \\{A, B, C\\}$."
+      },
+      "question": {
+        "en": "How is rule (f) modelled: 'No instructor can teach 4 consecutive lectures'?",
+        "pt": "Como se modela a regra (f): 'Nenhum formador pode dar 4 aulas consecutivas'?"
+      },
+      "options": {
+        "en": [
+          "For each instructor $f \\in \\{A, B, C\\}$: $\\neg(x_{f, 1} \\wedge x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4}) \\wedge \\neg(x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4} \\wedge x_{f, 5})$.",
+          "For each instructor $f$: $\\neg(x_{f, 1} \\wedge x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4} \\wedge x_{f, 5})$.",
+          "$\\bigwedge_{a=1}^4 (\\neg x_{A, a} \\vee \\neg x_{B, a+1})$.",
+          "$(x_{f, 1} \\vee x_{f, 2}) \\to \\neg(x_{f, 3} \\vee x_{f, 4})$."
+        ],
+        "pt": [
+          "Para cada formador $f \\in \\{A, B, C\\}$: $\\neg(x_{f, 1} \\wedge x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4}) \\wedge \\neg(x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4} \\wedge x_{f, 5})$.",
+          "Para cada formador $f$: $\\neg(x_{f, 1} \\wedge x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4} \\wedge x_{f, 5})$.",
+          "$\\bigwedge_{a=1}^4 (\\neg x_{A, a} \\vee \\neg x_{B, a+1})$.",
+          "$(x_{f, 1} \\vee x_{f, 2}) \\to \\neg(x_{f, 3} \\vee x_{f, 4})$."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Across 5 lectures, there are exactly two windows of 4 consecutive slots: {1, 2, 3, 4} and {2, 3, 4, 5}. Preventing 4 consecutive lectures requires forbidding both sequences for each of the 3 instructors: $\\neg(x_{f, 1} \\wedge x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4})$ and $\\neg(x_{f, 2} \\wedge x_{f, 3} \\wedge x_{f, 4} \\wedge x_{f, 5})$.",
+        "pt": "Em 5 aulas, existem exatamente duas janelas possíveis de 4 aulas consecutivas: aulas {1, 2, 3, 4} e aulas {2, 3, 4, 5}. Para que nenhum formador dê 4 consecutivas, proíbem-se ambas as sequências para cada um dos 3 formadores: ¬(x_{f, 1} ∧ x_{f, 2} ∧ x_{f, 3} ∧ x_{f, 4}) e ¬(x_{f, 2} ∧ x_{f, 3} ∧ x_{f, 4} ∧ x_{f, 5})."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Exercise 3 (Lecture Scheduling):\nRule (d): 'The first four lectures have at most one instructor'.\nRule (e): 'The last lecture can have at most two instructors'.",
+        "pt": "Exercício 3 (Alocação de aulas):\nRegra (d): 'As quatro primeiras aulas têm no máximo um formador'.\nRegra (e): 'A última aula pode ter no máximo dois formadores'."
+      },
+      "question": {
+        "en": "Rule (e) is encoded simply by forbidding all 3 instructors from teaching lecture 5 simultaneously: $\\neg(x_{A, 5} \\wedge x_{B, 5} \\wedge x_{C, 5}) \\equiv \\neg x_{A, 5} \\vee \\neg x_{B, 5} \\vee \\neg x_{C, 5}$.",
+        "pt": "A regra (e) codifica-se simplesmente proibindo que os 3 formadores estejam todos presentes na aula 5: $\\neg(x_{A, 5} \\wedge x_{B, 5} \\wedge x_{C, 5}) \\equiv \\neg x_{A, 5} \\vee \\neg x_{B, 5} \\vee \\neg x_{C, 5}$."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True. With 3 available instructors, 'at most 2' means having all 3 active simultaneously is strictly disallowed. A single clause with the negation of all 3 literals guarantees that at most 2 instructors are assigned.",
+        "pt": "Verdadeiro. Com 3 formadores disponíveis no total, 'no máximo 2' significa que é estritamente proibido terem os 3 em simultâneo. Uma única cláusula disjuntiva com a negação dos 3 literais garante que no máximo 2 estarão ativos."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 4 (Survey Feature Model):\n- Root: $Survey$\n- $License$ mandatory ($License \\leftrightarrow Survey$); XOR between $Basic$ and $Advanced$\n- $QA$ mandatory ($QA \\leftrightarrow Survey$); OR between $QABasic$ and $QAMultimedia$\n- Optionals: $ABTesting \\to Survey$, $Statistics \\to Survey$\n- Dependency: $ABTesting \\to Statistics$",
+        "pt": "Exercício 4 (Feature Model de Questionários):\n- Raiz: $Survey$\n- $License$ obrigatória ($License \\leftrightarrow Survey$); XOR entre $Basic$ e $Advanced$\n- $QA$ obrigatório ($QA \\leftrightarrow Survey$); OR entre $QABasic$ e $QAMultimedia$\n- Opcionais: $ABTesting \\to Survey$, $Statistics \\to Survey$\n- Dependência: $ABTesting \\to Statistics$"
+      },
+      "question": {
+        "en": "Which propositional formula encodes that the basic license ($Basic$) prevents the use of $ABTesting$ and $QAMultimedia$?",
+        "pt": "Qual é a fórmula proposicional que codifica que a licença básica ($Basic$) impede o uso de $ABTesting$ e de $QAMultimedia$?"
+      },
+      "options": {
+        "en": [
+          "$Basic \\to (\\neg ABTesting \\wedge \\neg QAMultimedia)$",
+          "$Basic \\wedge \\neg ABTesting \\wedge \\neg QAMultimedia$",
+          "$Basic \\leftrightarrow (\\neg ABTesting \\vee \\neg QAMultimedia)$",
+          "$(ABTesting \\vee QAMultimedia) \\to Basic$"
+        ],
+        "pt": [
+          "$Basic \\to (\\neg ABTesting \\wedge \\neg QAMultimedia)$",
+          "$Basic \\wedge \\neg ABTesting \\wedge \\neg QAMultimedia$",
+          "$Basic \\leftrightarrow (\\neg ABTesting \\vee \\neg QAMultimedia)$",
+          "$(ABTesting \\vee QAMultimedia) \\to Basic$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "If the license selected is Basic ($Basic$), neither advanced feature may be activated, translating into the implication $Basic \\to (\\neg ABTesting \\wedge \\neg QAMultimedia) \\equiv (\\neg Basic \\vee \\neg ABTesting) \\wedge (\\neg Basic \\vee \\neg QAMultimedia)$.",
+        "pt": "Se a licença for a Básica ($Basic$), nenhuma das funcionalidades avançadas pode ser selecionada, traduzindo-se na implicação $Basic \\to (\\neg ABTesting \\wedge \\neg QAMultimedia) \\equiv (\\neg Basic \\vee \\neg ABTesting) \\wedge (\\neg Basic \\vee \\neg QAMultimedia)$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 4 (Surveys):\nSuppose we temporarily enforce that $ABTesting$ becomes mandatory: $Survey \\to ABTesting$.",
+        "pt": "Exercício 4 (Questionários):\nSuponha que adicionamos a restrição temporária de que o $ABTesting$ passa a ser obrigatório: $Survey \\to ABTesting$."
+      },
+      "question": {
+        "en": "What do the **core features** of the system become?",
+        "pt": "Quais passam a ser as **funcionalidades nucleares** (*core features*) do sistema?"
+      },
+      "options": {
+        "en": [
+          "$Survey$, $License$, $Advanced$, $QA$, $ABTesting$, and $Statistics$.",
+          "Only $Survey$ and $License$.",
+          "$Basic$, $QABasic$, and $ABTesting$.",
+          "None, the system becomes void."
+        ],
+        "pt": [
+          "$Survey$, $License$, $Advanced$, $QA$, $ABTesting$ e $Statistics$.",
+          "Apenas $Survey$ e $License$.",
+          "$Basic$, $QABasic$ e $ABTesting$.",
+          "Nenhuma, o sistema torna-se vazio."
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "Tracing propagations:\n1. $Survey$ is root $\\implies$ core feature.\n2. $License$ and $QA$ are mandatory under $Survey$ $\\implies$ core features.\n3. Making $ABTesting$ mandatory $\\implies$ $ABTesting$ is core.\n4. Since $ABTesting \\to Statistics$, it forces $Statistics = 1$ in all products $\\implies$ $Statistics$ is core.\n5. Basic license forbids $ABTesting$ ($Basic \\to \\neg ABTesting$). Since $ABTesting = 1$, by contraposition $Basic = 0$. Since License is an XOR between $Basic$ and $Advanced$, $Basic = 0$ forces $Advanced = 1$ in all products $\\implies$ $Advanced$ is core!",
+        "pt": "Analisando as propagações:\n1. $Survey$ é raiz $\\implies$ core feature.\n2. $License$ e $QA$ são obrigatórias em $Survey$ $\\implies$ core features.\n3. Sendo $ABTesting$ obrigatório $\\implies$ $ABTesting$ é core feature.\n4. Como $ABTesting \\to Statistics$, obriga $Statistics = 1$ em todos os produtos $\\implies$ $Statistics$ é core feature.\n5. A licença básica proíbe $ABTesting$ ($Basic \\to \\neg ABTesting$). Como $ABTesting=1$, por contraposição temos $Basic = 0$. Como a licença é XOR entre $Basic$ e $Advanced$, ter $Basic=0$ força $Advanced = 1$ em todos os produtos $\\implies$ $Advanced$ é core feature!"
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "en": "Exercise 4 (Surveys):\nSuppose a new rule specifies that $QABasic$ requires $ABTesting$ ($QABasic \\to ABTesting$).",
+        "pt": "Exercício 4 (Questionários):\nSuponha que uma nova regra impõe que $QABasic$ requer $ABTesting$ ($QABasic \\to ABTesting$)."
+      },
+      "question": {
+        "en": "Under this new rule, the basic license feature ($Basic$) becomes a **dead feature**.",
+        "pt": "Sob esta nova regra, a funcionalidade de licença básica ($Basic$) torna-se uma **feature morta** (*dead feature*)."
+      },
+      "solution": 0,
+      "explanation": {
+        "en": "True! Deduction: In every product, $QA$ is mandatory ($QA = 1$). Since $QABasic$ and $QAMultimedia$ form an OR group under $QA$, choosing $Basic$ forces $QAMultimedia = 0$ (via basic license restrictions). To satisfy the OR group, $QABasic = 1$ is required. However, by the new rule $QABasic = 1 \\to ABTesting = 1$, but $Basic$ forbids $ABTesting$ ($ABTesting = 0$). This produces an irremediable contradiction whenever $Basic = 1$. Hence, $\\phi \\wedge Basic$ is UNSAT, making $Basic$ a dead feature.",
+        "pt": "Verdadeiro! Vamos deduzir: Em qualquer produto, $QA$ é obrigatório ($QA=1$). Como $QABasic$ e $QAMultimedia$ estão em grupo OR sob $QA$, se escolhermos $Basic$, a restrição da licença básica força $QAMultimedia=0$. Para satisfazer o grupo OR de $QA$, teríamos obrigatoriamente de ter $QABasic=1$. No entanto, pela nova regra, $QABasic=1 \\to ABTesting=1$, mas a licença básica também proíbe $ABTesting$ ($ABTesting=0$)! Temos uma contradição insanável se $Basic=1$. Logo, $\\phi \\wedge Basic$ é UNSAT, tornando $Basic$ uma feature morta."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "en": "Exercise 1 (Decorative panels):\nConsider the 7-panel problem with materials Wood (1), Metal (2), and Glass (3).\nRule (h): 'If the first panel is glass and the second is wood, the last panel must be metal'.",
+        "pt": "Exercício 1 (Painéis decorativos):\nConsidere as regras dos 7 painéis com materiais Madeira (1), Metal (2) e Vidro (3).\nRegra (h): 'Se o primeiro painel for de vidro e o segundo de madeira, o último terá que ser de metal'."
+      },
+      "question": {
+        "en": "1. Write the propositional formula corresponding to rule (h).\n2. Convert this formula into Conjunctive Normal Form (CNF).\n3. Explain how a SAT solver uses this clause alongside unit propagation when the user assigns $x_{1, 3} = 1$ and $x_{2, 1} = 1$.",
+        "pt": "1. Escreva a fórmula proposicional correspondente à regra (h).\n2. Converta essa fórmula para Forma Normal Conjuntiva (CNF).\n3. Explique como um SAT solver utiliza esta cláusula em conjunto com a propagação unitária quando o utilizador fixa $x_{1, 3} = 1$ e $x_{2, 1} = 1$."
+      },
+      "solution": {
+        "en": "1. Direct propositional formula:\n   $$(x_{1, 3} \\wedge x_{2, 1}) \\to x_{7, 2}$$\n\n2. CNF conversion (disjunctive clause):\n   Using implication equivalence $P \\to Q \\equiv \\neg P \\vee Q$:\n   $$\\neg(x_{1, 3} \\wedge x_{2, 1}) \\vee x_{7, 2}$$\n   Applying De Morgan's Law:\n   $$\\neg x_{1, 3} \\vee \\neg x_{2, 1} \\vee x_{7, 2}$$\n   This is a CNF clause with 3 literals.\n\n3. Unit Propagation in the SAT Solver:\n   - If the solver assigns $x_{1, 3} = 1$, the literal $\\neg x_{1, 3}$ evaluates to false (0).\n   - If it also assigns $x_{2, 1} = 1$, the literal $\\neg x_{2, 1}$ evaluates to false (0).\n   - The clause $(\\neg x_{1, 3} \\vee \\neg x_{2, 1} \\vee x_{7, 2})$ now contains two false literals and a single unassigned literal: $x_{7, 2}$.\n   - It becomes a unit clause. The Unit Propagation routine immediately deduces $x_{7, 2} = 1$ without branching, deterministically forcing the last panel to be metal.",
+        "pt": "Resolução:\n1. Fórmula proposicional direta:\n   $$(x_{1, 3} \\wedge x_{2, 1}) \\to x_{7, 2}$$\n\n2. Conversão para CNF (cláusula disjuntiva):\n   Pela equivalência $P \\to Q \\equiv \\neg P \\vee Q$:\n   $$\\neg(x_{1, 3} \\wedge x_{2, 1}) \\vee x_{7, 2}$$\n   Aplicando a Lei de De Morgan:\n   $$\\neg x_{1, 3} \\vee \\neg x_{2, 1} \\vee x_{7, 2}$$\n   Esta é uma cláusula CNF com 3 literais.\n\n3. Propagação Unitária no SAT Solver:\n   - Se o utilizador ou uma decisão de pesquisa fixar $x_{1, 3} = 1$, o literal $\\neg x_{1, 3}$ avalia para falso (0).\n   - Se também fixar $x_{2, 1} = 1$, o literal $\\neg x_{2, 1}$ avalia para falso (0).\n   - A cláusula $(\\neg x_{1, 3} \\vee \\neg x_{2, 1} \\vee x_{7, 2})$ fica com dois literais falsos e um único literal não atribuído: $x_{7, 2}$.\n   - Torna-se uma 'cláusula unitária'! O algoritmo de Propagação Unitária força imediatamente $x_{7, 2} = 1$ sem necessidade de tentativa/adivinhação, deduzindo deterministicamente que o último painel tem de ser de metal."
+      },
+      "explanation": {
+        "en": "Grading criteria: correct implication $(x_{1, 3} \\wedge x_{2, 1}) \\to x_{7, 2}$; exact CNF clause $\\neg x_{1, 3} \\vee \\neg x_{2, 1} \\vee x_{7, 2}$; and clear explanation of unit propagation when the two literals are falsified, forcing $x_{7, 2} = 1$.",
+        "pt": "Critérios de correção: tradução correta para implicação $(x_{1, 3} \\wedge x_{2, 1}) \\to x_{7, 2}$; conversão exata para cláusula CNF $\\neg x_{1, 3} \\vee \\neg x_{2, 1} \\vee x_{7, 2}$; e explicação do funcionamento da propagação unitária com os literais a falsificarem-se e a forçarem a dedução imediata de $x_{7, 2}=1$."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "en": "Exercise 3 (Lecture Scheduling):\nRule (b): 'If Beatriz teaches the first lecture, she cannot teach the last lecture'.\nVariables: $x_{B, 1}$ and $x_{B, 5}$.",
+        "pt": "Exercício 3 (Alocação de aulas):\nRegra (b): 'Se a Beatriz der a primeira aula, não poderá dar a última aula'.\nVariáveis: $x_{B, 1}$ e $x_{B, 5}$."
+      },
+      "question": {
+        "en": "Which CNF formulation represents rule (b) with absolute rigor?",
+        "pt": "Qual das seguintes formulações em CNF representa com rigor absoluto a regra (b)?"
+      },
+      "options": {
+        "en": [
+          "$\\neg x_{B, 1} \\vee \\neg x_{B, 5}$",
+          "$x_{B, 1} \\wedge \\neg x_{B, 5}$",
+          "$\\neg(x_{B, 1} \\vee x_{B, 5})$",
+          "$x_{B, 1} \\leftrightarrow \\neg x_{B, 5}$"
+        ],
+        "pt": [
+          "$\\neg x_{B, 1} \\vee \\neg x_{B, 5}$",
+          "$x_{B, 1} \\wedge \\neg x_{B, 5}$",
+          "$\\neg(x_{B, 1} \\vee x_{B, 5})$",
+          "$x_{B, 1} \\leftrightarrow \\neg x_{B, 5}$"
+        ]
+      },
+      "solution": [0],
+      "explanation": {
+        "en": "The rule is expressed as $x_{B, 1} \\to \\neg x_{B, 5}$. Applying material implication equivalence yields the CNF clause $\\neg x_{B, 1} \\vee \\neg x_{B, 5}$. This prevents Beatriz from taking both lectures simultaneously, while allowing her to teach either one or neither.",
+        "pt": "A regra expressa-se por $x_{B, 1} \\to \\neg x_{B, 5}$. Aplicando a equivalência da implicação material, obtém-se diretamente a cláusula CNF $\\neg x_{B, 1} \\vee \\neg x_{B, 5}$. Isto significa que a Beatriz não pode dar as duas aulas em simultâneo, mas pode dar apenas uma delas ou nenhuma das duas."
+      }
+    }
+  ]
+}
