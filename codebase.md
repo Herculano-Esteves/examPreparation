@@ -14,12 +14,13 @@ Local development, index generation, and data integrity verification are orchest
 | --- | --- |
 | `index.html` | Application HTML skeleton, persistent top bars, screen sections, modal dialogs, and ES module entry point (`static/js/main.js`). |
 | `static/` | Static frontend assets. |
-| `static/style.css` | Primary stylesheet: resets, typography, floating 3-column layout, split solver, animations, and responsive breakpoints. |
+| `static/style.css` | Master CSS manifest importing domain modular stylesheets via `@import`. |
+| `static/css/` | Modular stylesheets organized by feature domain (`base`, `header`, `catalog`, `solver`, `results`, `forms`, `builder`, `modals`, `responsive`). |
 | `static/colors.css` | CSS color design tokens (monochromatic slate/black aesthetic with purple/amber/emerald semantic accents). |
 | `static/typography.css` | Typography definitions and font-family declarations. |
 | `static/menu.css` | Navigation menus, custom dropdowns, and button styles. |
 | `static/fonts/` | Local self-hosted WOFF/WOFF2 font files (`Share Tech Mono`, `JetBrains Mono`, `Inter`). |
-| `static/js/` | Client-side application logic split into focused ES modules. |
+| `static/js/` | Client-side application logic split into focused ES modules and feature folders (`builder/`, `questions/`, `locales/`). |
 | `exames/` | Course and exam content storage. |
 | `exames/cadeiras.json` | Generated global catalog listing all system courses (`adi`, `ssi`, `tso`). |
 | `exames/<course-id>/cadeira.json` | Metadata for a specific course (display title, sigla, icon, description). |
@@ -91,6 +92,17 @@ The sub-header (`.sticky-menu-header-wrapper`) provides a blur-backed bar that d
 Browser logic is modularized under `static/js/`:
 
 ```
+static/css/                  # Modular domain stylesheets (imported by static/style.css)
+├── base.css                 # Resets, typography scaling, ambient glows, container
+├── header.css               # Header navigation, logo, sticky sub-header
+├── catalog.css              # Course grids, exam cards, floating filter sidebars, sliders
+├── solver.css               # Exam solving UI, top bar, split-pane, options, feedback
+├── results.css              # Exam results screen, dashboard metrics, review actions
+├── forms.css                # Form controls, add-course dialogs, icon picker grid
+├── builder.css              # Dual-pane exam builder interface, question cards, code pane
+├── modals.css               # Settings popovers, danger modals, language/privacy dialogs, toasts
+└── responsive.css           # Global media queries and screen responsive breakpoints
+
 static/js/
 ├── main.js                  # Application bootstrapper and lifecycle coordinator
 ├── elements.js              # Centralized DOM selector getters
@@ -113,18 +125,29 @@ static/js/
 ├── dualRangeSlider.js       # Dual-thumb range slider for score and question count
 ├── practiceHub.js           # Dedicated practice session generation (difficult / incorrect questions)
 │
-├── question.js              # Question rendering, selection handling, answer evaluation
+├── question.js              # Question session coordinator and façade
+├── questions/               # Modular question solver sub-features
+│   ├── questionUI.js        # Sub-renderers (written inputs, choice buttons, feedback banner)
+│   ├── questionEvaluation.js# Selection handling, answer confirmation, self-assessment
+│   └── questionResults.js   # Results calculation, score breakdown, finish transition
 ├── questionTypes.js         # Per-type logic (escolha_multipla, boolean, escrita)
 ├── renderer.js              # Markdown-like rendering, code syntax styling, math display
 │
-├── examBuilder.js           # Local interactive exam builder and question editor
+├── examBuilder.js           # Interactive exam builder coordinator and façade
+├── builder/                 # Modular exam builder sub-features
+│   ├── builderTemplates.js  # Default question factories & bilingual mode detection
+│   ├── builderParser.js     # Bi-directional DOM <-> JSON parser
+│   └── builderQuestionBox.js# Visual question card DOM, option rows, reordering
 ├── examSharing.js           # Exam export and import (JSON, custom bundles)
 ├── cadeiraSharing.js        # Course ZIP export and native sharing
 ├── zipService.js            # In-browser ZIP archive compression and extraction
 ├── validation.js            # Client-side schema and question syntax validation
 ├── storage.js               # LocalStorage wrapper (progress, stats, custom exams, dark mode)
 │
-├── i18n.js                  # Multi-language translation engine (pt, en)
+├── i18n.js                  # Multi-language translation engine and DOM attribute applier
+├── locales/                 # Modular language translation dictionaries
+│   ├── pt.js                # Portuguese locale dictionary
+│   └── en.js                # British English locale dictionary
 ├── layout.js                # Window resize observer and dynamic layout coordination
 ├── settingsPopover.js       # Floating settings menu (theme, font, sound, reset)
 └── notifications.js         # Non-blocking toast notifications

@@ -50,6 +50,38 @@ When adding content, `python run.py --new-exam adi ExamName` can create a starte
 
 Follow the surrounding code: four-space indentation in Python and JavaScript, semicolons and single-quoted imports in JavaScript, and two-space indentation in JSON. Use `snake_case` for Python functions and test files, `camelCase` for JavaScript functions, and descriptive module names such as `examFilters.js`. Keep browser code in focused ES modules. No repository-wide formatter or linter is configured; avoid unrelated formatting changes. Use `FORMATO_PERGUNTAS.md` for question types and solution indexing.
 
+## Modularity & Feature Architecture Guidelines
+
+To keep the codebase maintainable, readable, and scalable, **monolithic files are strictly forbidden**. All future additions and refactorings must adhere to these rules:
+
+1. **File Size Guideline (< 400 Lines)**:
+   - Keep files focused on a single responsibility.
+   - When a module approaches or exceeds ~400 lines, or when it mixes multiple distinct concerns (e.g. DOM rendering, state parsing, event binding, calculation), it **must** be divided into smaller, focused modules inside a dedicated feature folder.
+
+2. **Feature Folders (`static/js/<feature>/`)**:
+   - Complex features must be grouped in dedicated subfolders:
+     - `static/js/builder/`: Exam Builder submodules (`builderTemplates.js`, `builderParser.js`, `builderQuestionBox.js`).
+     - `static/js/questions/`: Question solver submodules (`questionUI.js`, `questionEvaluation.js`, `questionResults.js`).
+     - `static/js/locales/`: Localization dictionaries (`pt.js`, `en.js`), keeping `i18n.js` strictly as the translation engine.
+   - For new multi-component features, create a new subfolder under `static/js/<feature-name>/`.
+
+3. **Public Façades / Barrel Pattern**:
+   - The top-level module (e.g. `static/js/question.js`, `static/js/examBuilder.js`) acts as the coordinator and entry point.
+   - It re-exports symbols from internal feature submodules to preserve backwards compatibility with tests and callers (`main.js`, `exams.js`, E2E suites).
+
+4. **Modular CSS (`static/css/`)**:
+   - `static/style.css` is a master manifest importing modular stylesheets via `@import`.
+   - Never dump general component styles into `static/style.css` directly. Add or edit styles in the respective domain file under `static/css/`:
+     - `base.css`: resets, fonts, CSS variables, body layout, scrollbars.
+     - `header.css`: top navigation, logo, sticky menu headers.
+     - `catalog.css`: course grids, exam rows, floating sidebar filters, dual-range sliders.
+     - `solver.css`: question split-pane, options, feedback banners, self-assessment.
+     - `results.css`: results screen, dashboard metrics, review controls.
+     - `forms.css`: form controls, custom course dialogs, icon picker grid.
+     - `builder.css`: exam builder dual-pane layout, question cards, JSON editor.
+     - `modals.css`: dialog backdrops, popovers, danger modals, toasts.
+     - `responsive.css`: global media queries and screen breakpoint rules.
+
 ## Testing Guidelines
 
 - **Unit & Integrity Tests**: Maintained standard library tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and `python -m unittest discover -s tests -p "test_*.py"` before a pull request.

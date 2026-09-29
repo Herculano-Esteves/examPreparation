@@ -1,0 +1,455 @@
+/* --------------------------------------------------------------------------
+   7. Application Header (Monochrome Clean Surface Layout)
+   -------------------------------------------------------------------------- */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.15rem 3.5rem;
+    margin-bottom: 2rem;
+    background: var(--pane-bg);
+    border: none;
+    border-bottom: 1px solid var(--card-border);
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+}
+
+.logo-icon-wrapper {
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    background: var(--logo-box-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--primary-border);
+    flex-shrink: 0;
+}
+
+.app-logo-icon {
+    font-size: 1.35rem;
+    color: var(--text-primary);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.logo-text h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin: 0;
+}
+
+.logo-text .subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. Buttons & Interactive Controls (Monochrome / Purple Accents)
+   -------------------------------------------------------------------------- */
+.btn-control {
+    font-family: var(--font-geist-mono);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.55rem 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    transition: all var(--transition-speed) cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+}
+
+.btn-control:hover:not(:disabled):not(.is-disabled):not([aria-disabled="true"]) {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.btn-control:active:not(:disabled):not(.is-disabled):not([aria-disabled="true"]) {
+    transform: translateY(0);
+}
+
+.btn-control:disabled,
+.btn-control.is-disabled,
+.btn-control[aria-disabled="true"] {
+    opacity: 0.40;
+    cursor: not-allowed !important;
+    transform: none !important;
+    pointer-events: auto;
+}
+
+.btn-primary {
+    background: var(--btn-primary-gradient);
+    border-color: rgba(168, 85, 247, 0.35);
+    color: #ffffff;
+    box-shadow: 0 2px 12px var(--primary-glow);
+}
+
+.btn-primary:hover:not(:disabled):not(.is-disabled):not([aria-disabled="true"]) {
+    background: var(--btn-primary-gradient-hover);
+    border-color: rgba(168, 85, 247, 0.55);
+    box-shadow: 0 6px 20px var(--primary-glow);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+.btn-secondary:hover:not(:disabled):not(.is-disabled):not([aria-disabled="true"]) {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.btn-danger {
+    background: var(--danger-bg);
+    border-color: var(--danger-border);
+    color: #fca5a5;
+}
+
+.btn-danger:hover:not(:disabled):not(.is-disabled):not([aria-disabled="true"]) {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #ffffff;
+    box-shadow: 0 4px 18px var(--danger-glow);
+}
+
+.input-shake-error {
+    animation: inputShakeAnim 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes inputShakeAnim {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+.btn-pill {
+    border-radius: var(--border-radius-pill);
+}
+
+.btn-sm {
+    height: 36px;
+    padding: 0 0.95rem;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   9. Screen Management & Content
+   -------------------------------------------------------------------------- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    letter-spacing: -0.01em;
+}
+
+.section-title i {
+    color: var(--primary);
+}
+
+.header-exams-count,
+.header-exams-count-badge {
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    line-height: 1;
+    white-space: nowrap;
+    user-select: none;
+    margin-left: 0.25rem;
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Sticky Menu Header Bar (Unified Sticky Row across Left, Center, Right)
+   Follows the page smoothly during scroll with seamless backdrop mask
+   Matematicamente centrado: 1.0rem top + 36px bar + 1.0rem bottom + border
+   -------------------------------------------------------------------------- */
+.sticky-menu-header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding-top: 1rem;
+    margin-top: -1rem;
+    margin-bottom: 0.59rem;
+    background: linear-gradient(180deg, 
+        rgba(15, 15, 17, 0.98) 0%, 
+        rgba(15, 15, 17, 0.95) 75%, 
+        rgba(15, 15, 17, 0) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.sticky-menu-header-container {
+    position: relative;
+    max-width: var(--menu-center-width);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sticky-header-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: var(--menu-center-width);
+    width: 100%;
+    height: 36px;
+    padding: 0 0 1.0rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 1rem;
+    box-sizing: content-box;
+}
+
+.sticky-header-left {
+    position: absolute;
+    left: calc(-25vw + 25% + var(--sidebar-position-adjust));
+    transform: translateX(-50%);
+    width: var(--sidebar-floating-width);
+    max-width: var(--sidebar-floating-max-width);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0 1.0rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: content-box;
+}
+
+#btn-back-cadeiras {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+    height: 36px;
+    padding: 0 1rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    box-sizing: border-box;
+}
+
+#btn-cancel-exame {
+    width: auto;
+    max-width: fit-content;
+    flex: 0 0 auto;
+    height: 36px;
+    padding: 0 0.85rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+.sticky-header-right {
+    position: absolute;
+    right: calc(-25vw + 25% + var(--sidebar-position-adjust));
+    transform: translateX(50%);
+    width: var(--sidebar-floating-width);
+    max-width: var(--sidebar-floating-max-width);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 0 1.0rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-sizing: content-box;
+    user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   Sticky Corner Elements (Anchored outside the 300px lateral gutter slots)
+   - Left: Subject / Cadeira Logo Box sitting to the LEFT of the filters/back slot
+   - Right: Settings Gear Icon Button sitting to the RIGHT of the symmetry slot
+   -------------------------------------------------------------------------- */
+.sticky-corner-left {
+    position: absolute;
+    right: calc(100% + 1.25rem);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 105;
+}
+
+.sticky-corner-right {
+    position: absolute;
+    left: calc(100% + 1.25rem);
+    top: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 105;
+}
+
+body.header-scrolled .sticky-corner-left {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+body.header-scrolled .sticky-corner-right {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.sticky-corner-right button {
+    pointer-events: auto;
+}
+
+@media (max-width: 1720px) {
+    .sticky-corner-left {
+        right: auto;
+        left: 0;
+    }
+    .sticky-corner-right {
+        left: auto;
+        right: 0;
+    }
+}
+
+.sticky-mini-logo-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--logo-box-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--primary-border);
+    box-sizing: border-box;
+}
+
+.sticky-mini-logo-box i {
+    color: var(--primary);
+}
+
+.btn-sticky-settings {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn-sticky-settings i {
+    color: var(--text-secondary);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color var(--transition-speed) ease;
+}
+
+.btn-sticky-settings:hover i {
+    color: #ffffff;
+    transform: rotate(45deg);
+}
+
+.menu-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 36px;
+}
+
+.btn-filter-toggle {
+    display: none !important;
+}
+

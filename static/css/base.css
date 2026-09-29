@@ -1,0 +1,416 @@
+/* ==========================================================================
+   SIMULADOR DE EXAMES - MONOCHROMATIC (BLACK & GRAY WITH PURPLE ACCENTS)
+   Design monocromático sofisticado (pretos profundos, cinzentos carvão/ardósia,
+   brancos limpos e acentos refinados em roxo).
+   Conformidade total com RGPD, WCAG 2.1 AA / EAA 2025 e ePrivacy.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Local Font Self-Hosting (RGPD Compliance - Zero External Calls)
+   -------------------------------------------------------------------------- */
+@font-face {
+    font-family: 'Share Tech Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/share-tech-mono-latin-400-normal.woff2') format('woff2'),
+         url('../fonts/share-tech-mono-latin-400-normal.woff') format('woff');
+}
+
+/* --------------------------------------------------------------------------
+   2. Sizing & Structural System Variables (As cores estão em static/colors.css)
+   -------------------------------------------------------------------------- */
+:root {
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-inter: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --font-jetbrains-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --font-geist-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --border-radius: 14px;
+    --border-radius-sm: 9px;
+    --border-radius-pill: 9999px;
+    --transition-speed: 0.22s;
+    --glow-shadow: 0 6px 22px rgba(0, 0, 0, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   3. Resets & Global Body (Scaled by +20% for Generous Readability)
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 19.2px; /* 120% base scale on 1080p and high-res */
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 1600px) {
+    html {
+        font-size: 16.5px;
+    }
+}
+
+@media (max-width: 1200px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Ambient Background Glow (Eclipse Ultra Subtil Estático nas Laterais) */
+.bg-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: 0;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    contain: paint;
+}
+
+.bg-glow-1 {
+    width: 46vw;
+    height: 46vw;
+    max-width: 650px;
+    max-height: 650px;
+    background: var(--ambient-glow-1);
+    top: 15%;
+    left: -20vw;
+}
+
+.bg-glow-2 {
+    width: 50vw;
+    height: 50vw;
+    max-width: 700px;
+    max-height: 700px;
+    background: var(--ambient-glow-2);
+    top: 45%;
+    right: -22vw;
+}
+
+/* Custom Text Selection */
+::selection {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+::-moz-selection {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+/* Custom SVG Cursor */
+html,
+body,
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='19' viewBox='0 0 12 19' shape-rendering='crispEdges'><path fill='white' stroke='black' stroke-width='1' d='M0,0 L0,15 L3.5,11.5 L6.5,16.5 L8,15.5 L5,10.5 L9.5,10.5 Z' /></svg>") 0 0, auto !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. Accessibility: WCAG 2.1 AA / EAA 2025 Focus Indicators
+   -------------------------------------------------------------------------- */
+:focus-visible {
+    outline: 2px dashed var(--primary) !important;
+    outline-offset: 3px !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. Custom Scrollbars
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: rgba(10, 10, 12, 0.7);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(147, 51, 234, 0.5);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) rgba(10, 10, 12, 0.7);
+}
+
+/* --------------------------------------------------------------------------
+   6. Main App Container (Full-Screen 100% Width)
+   -------------------------------------------------------------------------- */
+.app-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    z-index: 1;
+}
+
+.main-content {
+    flex: 1;
+    padding: 0 3.5rem 3.5rem 3.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Exam Mode Full Viewport Lock */
+body.layout-exam {
+    overflow: hidden !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+}
+
+body.layout-exam .app-container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+    overflow: hidden;
+}
+
+body.layout-exam .app-header,
+body.layout-exam .app-footer,
+body.layout-exam .builder-top-bar {
+    display: none !important;
+}
+
+body.layout-exam .exam-top-bar {
+    display: flex;
+}
+
+body.layout-exam .main-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+body.layout-exam #screen-exam {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Builder Mode Layout (Full Viewport IDE Split) */
+body.layout-builder {
+    overflow: hidden !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+}
+
+body.layout-builder .app-container {
+    max-width: 100%;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+    overflow: hidden;
+}
+
+body.layout-builder .app-header,
+body.layout-builder .app-footer,
+body.layout-builder .exam-top-bar {
+    display: none !important;
+}
+
+body.layout-builder .builder-top-bar {
+    display: flex;
+}
+
+body.layout-builder .main-content {
+    flex: 1;
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+body.layout-builder #screen-add-exame {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   15. Toast Notifications & Loading State
+   -------------------------------------------------------------------------- */
+
+
+.loading-state,
+.error-state {
+    grid-column: 1 / -1;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.loading-state i,
+.error-state i {
+    font-size: 2.2rem;
+    color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   16. Application Footer (EU Directive 2000/31/CE)
+   -------------------------------------------------------------------------- */
+.app-footer {
+    margin-top: auto;
+    padding: 0.9rem 3.5rem 1.15rem 3.5rem;
+    border-top: 1px solid var(--card-border);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.app-footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+.app-footer a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-dev-text {
+    color: var(--text-dim);
+    font-size: 0.80rem;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   16. Discreet Notification Toast (Top-Center, Fitted to Content, Click-Through)
+   -------------------------------------------------------------------------- */
+.toast {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(18, 18, 22, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--border-radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-family: var(--font-jetbrains-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #e4e4e7;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none !important; /* Nunca bloqueia cliques */
+    user-select: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    width: fit-content;
+    max-width: calc(100vw - 2.5rem);
+    box-sizing: border-box;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast i {
+    font-size: 0.85rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.toast.toast-warning {
+    border-color: rgba(245, 158, 11, 0.35);
+    background: rgba(24, 20, 14, 0.94);
+}
+
+.toast.toast-warning i {
+    color: #fbbf24;
+}
+
+.toast.toast-error {
+    border-color: var(--danger-border);
+    background: rgba(26, 15, 15, 0.95);
+}
+
+.toast.toast-error i {
+    color: #f87171;
+}
+
+.toast.toast-info {
+    border-color: rgba(59, 130, 246, 0.35);
+    background: rgba(15, 20, 30, 0.94);
+}
+
+.toast.toast-info i {
+    color: #60a5fa;
+}
+
+.toast.toast-success {
+    border-color: var(--success-border);
+}
+
+.toast.toast-success i {
+    color: var(--success-text);
+}
+

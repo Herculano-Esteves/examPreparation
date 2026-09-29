@@ -10,7 +10,11 @@ INDEX_HTML = os.path.join(PROJECT_ROOT, 'index.html')
 class TestFrontendIntegrity(unittest.TestCase):
     def test_js_exports_and_imports(self):
         """Validates that every JS module imports only symbols that are actually exported."""
-        js_files = [os.path.join(STATIC_JS_DIR, f) for f in os.listdir(STATIC_JS_DIR) if f.endswith('.js')]
+        js_files = []
+        for root, _, files in os.walk(STATIC_JS_DIR):
+            for f in files:
+                if f.endswith('.js'):
+                    js_files.append(os.path.join(root, f))
         
         exports = {}
         for js_file in js_files:
@@ -59,14 +63,98 @@ class TestFrontendIntegrity(unittest.TestCase):
             pattern = r'id=["\']' + re.escape(el_id) + r'["\']'
             self.assertTrue(bool(re.search(pattern, html)), f"DOM Element with id '{el_id}' not found in index.html")
 
+    def test_all_elements_property_accesses(self):
+        """
+        Validates that any property accessed via `elements.<property>` across all JS files
+        is actually defined as a getter or property on `elements` in elements.js.
+        Prevents runtime TypeError: (intermediate value).<property> is undefined.
+        """
+        with open(os.path.join(STATIC_JS_DIR, 'elements.js'), 'r', encoding='utf-8') as f:
+            elements_code = f.read()
+
+        getters = set(re.findall(r'get\s+(\w+)\s*\(', elements_code))
+        props = set(re.findall(r'(\w+)\s*:\s*', elements_code))
+        valid_props = getters.union(props).union({'screens'})
+
+        js_files = []
+        for root, _, files in os.walk(STATIC_JS_DIR):
+            for f in files:
+                if f.endswith('.js') and f != 'elements.js':
+                    js_files.append(os.path.join(root, f))
+
+        errors = []
+        for js_file in js_files:
+            with open(js_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            # Match elements.<prop> where <prop> is not 'js' (which comes from import path ./elements.js)
+            accesses = re.findall(r'elements\.(\w+)', content)
+            for prop in accesses:
+                if prop == 'js':
+                    continue
+                if prop not in valid_props:
+                    errors.append(f"{os.path.relpath(js_file, PROJECT_ROOT)} accesses undefined 'elements.{prop}'")
+
+        self.assertEqual(errors, [], f"Found undefined property accesses on 'elements':\n" + "\n".join(errors))
+
+    def test_question_solver_dom_contracts(self):
+        """
+        Validates that all DOM elements required by question.js and questionUI.js
+        for rendering questions, progress, options, and feedback are defined in elements.js
+        and actually exist in index.html.
+        """
+        required_elements = [
+            'currentExamTitle',
+            'questionCounter',
+            'progressPercentage',
+            'progressBarFill',
+            'questionText',
+            'questionCabecalho',
+            'optionsContainer',
+            'answerFeedback',
+            'feedbackTitle',
+            'feedbackMessage',
+            'btnPrev',
+            'btnNext',
+            'btnToggleDifficult',
+            'btnToggleDifficultText'
+        ]
+
+        with open(os.path.join(STATIC_JS_DIR, 'elements.js'), 'r', encoding='utf-8') as f:
+            elements_code = f.read()
+
+        with open(INDEX_HTML, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+        for req in required_elements:
+            # 1. Must be a getter in elements.js
+            pattern_getter = r'get\s+' + re.escape(req) + r'\s*\('
+            self.assertTrue(bool(re.search(pattern_getter, elements_code)),
+                            f"Required question solver element '{req}' is missing getter in elements.js")
+
+            # 2. Extract DOM IDs accessed by this getter
+            getter_match = re.search(r'get\s+' + re.escape(req) + r'\s*\(\)\s*\{([^}]+)\}', elements_code)
+            self.assertIsNotNone(getter_match, f"Could not parse body of getter '{req}' in elements.js")
+            body = getter_match.group(1)
+            ids = re.findall(r"getElementById\('([^']+)'\)", body)
+            self.assertTrue(len(ids) > 0, f"No getElementById call found in getter '{req}'")
+
+            # At least one candidate ID must exist in index.html
+            exists_in_html = any(re.search(r'id=["\']' + re.escape(el_id) + r'["\']', html) for el_id in ids)
+            self.assertTrue(exists_in_html, f"None of the DOM IDs {ids} for elements.{req} exist in index.html")
+
     def test_i18n_keys_completeness(self):
         """Validates that all data-i18n attributes in index.html have matching translations."""
         with open(INDEX_HTML, 'r', encoding='utf-8') as f:
             html = f.read()
+        code_to_check = ''
+        locales_pt = os.path.join(STATIC_JS_DIR, 'locales', 'pt.js')
+        if os.path.exists(locales_pt):
+            with open(locales_pt, 'r', encoding='utf-8') as f:
+                code_to_check += f.read()
         with open(os.path.join(STATIC_JS_DIR, 'i18n.js'), 'r', encoding='utf-8') as f:
-            i18n_code = f.read()
+            code_to_check += f.read()
         
-        pt_keys = set(re.findall(r'(\w+):\s*[\'"`]', i18n_code))
+        pt_keys = set(re.findall(r'(\w+):\s*[\'"`]', code_to_check))
         data_keys = re.findall(r'data-i18n(?:-placeholder|-title|-aria-label)?=["\']([^"\']+)["\']', html)
         
         for k in set(data_keys):
@@ -159,12 +247,18 @@ class TestFrontendIntegrity(unittest.TestCase):
 
     def test_subject_empty_and_local_exams_loading(self):
         """Validates that local subjects with no exams or custom exams are handled without errors and have i18n strings."""
+        code_to_check = ''
+        for lp in ('pt.js', 'en.js'):
+            loc_path = os.path.join(STATIC_JS_DIR, 'locales', lp)
+            if os.path.exists(loc_path):
+                with open(loc_path, 'r', encoding='utf-8') as f:
+                    code_to_check += f.read()
         with open(os.path.join(STATIC_JS_DIR, 'i18n.js'), 'r', encoding='utf-8') as f:
-            i18n_code = f.read()
+            code_to_check += f.read()
 
         # Check that empty exams title and desc are present in both PT and EN
-        self.assertIn("empty_exams_title:", i18n_code)
-        self.assertIn("empty_exams_desc:", i18n_code)
+        self.assertIn("empty_exams_title:", code_to_check)
+        self.assertIn("empty_exams_desc:", code_to_check)
 
         # Ensure examService.js handles absent/local index_path safely
         with open(os.path.join(STATIC_JS_DIR, 'examService.js'), 'r', encoding='utf-8') as f:
