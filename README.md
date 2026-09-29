@@ -1,69 +1,88 @@
-# Exam Preparation
+<div align="center">
 
-This repository contains the static and modular version of the **Exam Simulator**, optimized to run directly on **GitHub Pages** (`github.io`) with zero runtime backend dependencies.
+# 🎓 Exam Simulator
 
----
+**Interactive, client-side exam preparation platform optimized for GitHub Pages with zero backend dependencies.**
 
-## Current State and Vision
+<p align="center">
+  <a href="https://herculano-esteves.github.io/examPreparation/">
+    <img src="https://img.shields.io/badge/Exam%20Simulator-Live%20Demo-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white" alt="Exam Simulator Live Demo" />
+  </a>
+</p>
 
-* **What we have today**: An interactive single-page exam preparation platform with multi-faceted filtering, dual-pane exam authoring, customizable practice sessions (targeting difficult and incorrect questions), local storage persistence, and native bilingual support (PT/EN).
-* **Future enhancements**:
-  * **Explanations per question**: Continue expanding detailed solution walk-throughs across all questions.
-  * **Integrated Study Material**: Provide topic-specific summaries and theoretical references linked directly into practice sessions.
-  * **Curriculum Expansion**: Add new university subjects and question types using the modular index-generation system.
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg?style=flat-square)](LICENSE)
+[![i18n: PT / EN](https://img.shields.io/badge/i18n-PT%20%7C%20EN-blueviolet.svg?style=flat-square)](#features)
 
----
+<br />
 
-## Architecture
+[🚀 **Launch Simulator**](https://herculano-esteves.github.io/examPreparation/) • [📖 **User Guide**](HOW_TO_USE.md) • [📝 **Question Formats**](QUESTION_FORMATS.md) • [🗺️ **Codebase Map**](codebase.md)
 
-To run entirely client-side on GitHub Pages, the application is structured as follows:
-
-* `index.html`: Main single-page application (SPA) shell, top navigation bars, screen containers, and modal dialogs.
-* `static/`:
-  * `static/js/`: Focused native ES modules handling routing, state management, question rendering, filtering, and storage.
-  * `static/fonts/`: Local, self-hosted WOFF2 web fonts (Inter, JetBrains Mono, Share Tech Mono) for strict privacy compliance.
-  * `static/style.css`, `colors.css`, `typography.css`, `menu.css`: Design system tokens, responsive floating layouts, and dark theme styles.
-* `exames/`: Course data and exam questions stored as JSON.
-  * `exames/cadeiras.json`: Generated global catalog listing all active courses.
-  * `exames/<course-id>/cadeira.json`: Course metadata (Name, Abbreviation, Icon, Description).
-  * `exames/<course-id>/index.json`: Generated exam manifest for that specific course.
-  * `exames/<course-id>/*.json`: Individual exam files containing questions, solutions, and explanations.
-* `run.py`: Auxiliary Python CLI that compiles manifests, validates schema integrity, and serves the local development server.
-* `tests/`:
-  * `tests/test_*.py`: Python standard library unit and integrity tests (import/export coherence, schema verification, DOM contracts).
-  * `tests/e2e/`: Automated End-to-End headless browser tests powered by Playwright and Pytest.
-* `requirements-dev.txt`: Optional development dependencies for Playwright E2E browser automation.
+</div>
 
 ---
 
-## Local Development & Testing
+## ✨ Features
 
-### 1. Run the Local Development Server
-The core application tooling runs with Python 3 using the **standard library** without external dependencies:
+- **🎯 Interactive Practice Modes**:
+  - Full exam simulations or targeted practice sessions.
+  - Multi-faceted filters: filter by subject, specific exam, question count, difficulty ranges, and review missed or unanswered questions.
+  - Performance analytics and score tracking with local storage persistence.
+- **📋 Multiple Question Formats**:
+  - **Multiple Choice**: Single or multi-select with dynamic option shuffling.
+  - **True or False (`boolean`)**: Clean binary format with fixed ordering.
+  - **Open / Written Response (`escrita`)**: Text input with guided self-assessment against the official solution.
+  - Contextual headers (`cabecalho` field) for code snippets, markdown, or scenario descriptions across any question type.
+  - For full JSON schema definitions and formatting rules, see [QUESTION_FORMATS.md](QUESTION_FORMATS.md).
+- **🛠️ Exam Builder & Course Management**:
+  - Visual dual-pane editor to create, validate, and preview questions and exams in real time.
+  - Import and export courses and exams as JSON or ZIP archives (persisted in browser storage).
+- **🌍 Internationalization (i18n)**:
+  - Native bilingual support for Portuguese and English (PT/EN), switchable on the fly.
+- **🔒 Privacy & Performance**:
+  - 100% client-side execution; all web fonts (Inter, JetBrains Mono, Share Tech Mono) are self-hosted with zero third-party tracking.
+
+---
+
+## 🗺️ Architecture & Codebase Map
+
+The project is structured into focused ES modules, domain-specific modular stylesheets, and JSON-based exam data compiled via a standard library Python toolchain.
+
+- For an in-depth breakdown of modules, entry points, and directory layout, see [codebase.md](codebase.md).
+- For step-by-step instructions on adding new courses, creating exam JSON files, and rebuild commands, see [HOW_TO_USE.md](HOW_TO_USE.md).
+- Development rules, modularity standards, and contribution guidelines are detailed in [AGENTS.md](AGENTS.md).
+
+---
+
+## 💻 Local Development & Testing
+
+### 1. Local Tooling & Development Server
+Core development tooling uses Python 3 standard library with zero external dependencies:
 
 ```bash
-# Starts local server at http://127.0.0.1:5000 and watches for exam JSON changes
+# Start local server at http://127.0.0.1:5000 and rebuild indexes
 python run.py
 
-# Recompile exam indexes and global catalog only (without starting the server)
+# Recompile exam manifests and global catalog only (without starting the server)
 python run.py --build-only
 
-# Run strict schema and content validation on all JSON files
+# Run strict schema and content validation on all exam files
 python run.py --validate
 ```
 
-### 2. Run Standard Unit & Integrity Tests
+### 2. Standard Unit & Integrity Tests
+Run unit and integrity tests verifying schemas, import/export contracts, and DOM bindings:
+
 ```bash
 python -m unittest discover -s tests -p "test_*.py"
 ```
 
 ---
 
-## Automated E2E Testing with Playwright
+## 🧪 Automated E2E Testing with Playwright
 
-Automated end-to-end tests simulate real user clicks, screen navigation, question solving, filters, and settings in **headless mode** (running invisibly in the background).
+Automated end-to-end tests simulate real user flows (navigation, question solving, filters, and state transitions) in **headless mode**.
 
-> **Note:** All external dependencies **must** be installed inside a Python virtual environment (`.venv`) to keep the global system Python clean.
+> **Note:** External packages (such as Playwright and Pytest) must be installed inside a Python virtual environment (`.venv`) to keep the global system clean.
 
 1. **Create and activate the virtual environment**:
    ```powershell

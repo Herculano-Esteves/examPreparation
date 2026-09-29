@@ -48,7 +48,7 @@ When adding content, `python run.py --new-exam adi ExamName` can create a starte
 
 ## Coding Style & Naming Conventions
 
-Follow the surrounding code: four-space indentation in Python and JavaScript, semicolons and single-quoted imports in JavaScript, and two-space indentation in JSON. Use `snake_case` for Python functions and test files, `camelCase` for JavaScript functions, and descriptive module names such as `examFilters.js`. Keep browser code in focused ES modules. No repository-wide formatter or linter is configured; avoid unrelated formatting changes. Use `FORMATO_PERGUNTAS.md` for question types and solution indexing.
+Follow the surrounding code: four-space indentation in Python and JavaScript, semicolons and single-quoted imports in JavaScript, and two-space indentation in JSON. Use `snake_case` for Python functions and test files, `camelCase` for JavaScript functions, and descriptive module names such as `examFilters.js`. Keep browser code in focused ES modules. No repository-wide formatter or linter is configured; avoid unrelated formatting changes. Use `QUESTION_FORMATS.md` for question types and solution indexing.
 
 ## Modularity & Feature Architecture Guidelines
 
@@ -87,6 +87,12 @@ To keep the codebase maintainable, readable, and scalable, **monolithic files ar
 - **Unit & Integrity Tests**: Maintained standard library tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and `python -m unittest discover -s tests -p "test_*.py"` before a pull request.
 - **E2E & UI Automation**: Browser automation and interaction tests live under `tests/e2e/` and use Playwright with Pytest inside `.venv`. They validate user flows (navigation, button clicks, state transitions) in headless mode.
 
+## Documentation & README Maintenance Guidelines
+
+- **Evaluate `README.md` at the End of Every Feature**:
+  - After completing a feature or significant functionality update, review `README.md` to determine whether the user-facing documentation or project description needs to be updated.
+  - **When to update `README.md`**: Update it when adding or altering core features, architecture, public capabilities, or data formats (e.g., introducing a new question type, a new practice mode, new CLI commands, or new directory structures).
+  - **When NOT to update `README.md`**: Do **not** modify `README.md` for minor bug fixes, internal refactorings, or cosmetic styling changes (e.g., adjusting button colors, hover effects, margins, or padding).
 
 ## Commit & Pull Request Guidelines
 

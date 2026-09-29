@@ -29,7 +29,7 @@ Local development, index generation, and data integrity verification are orchest
 | `tests/` | Unit and integrity tests (`test_*.py`) and automated Playwright E2E browser tests (`tests/e2e/`). |
 | `run.py` | Local development CLI: dev server (`:5000`), index compilation (`--build-only`), schema validator (`--validate`), and starter generator (`--new-exam`). |
 | `requirements-dev.txt` | Python dependencies for automated headless E2E testing with Playwright & Pytest inside `.venv`. |
-| `FORMATO_PERGUNTAS.md` | Reference specification for supported question types (`escolha_multipla`, `boolean`, `escrita`) and solution indexing. |
+| `QUESTION_FORMATS.md` | Reference specification for supported question types (`escolha_multipla`, `boolean`, `escrita`) and solution indexing. |
 | `HOW_TO_USE.md` | Guide for course creation, exam authoring, and question structure. |
 | `AGENTS.md` | Repository guidelines, coding style, test rules, and pull request conventions. |
 | `scripts/`, `scratch/`, `debug_tools/`, `Test/` | Ad hoc tools and development aids (`Test/` is git-ignored). |
