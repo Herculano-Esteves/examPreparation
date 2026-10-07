@@ -8,20 +8,13 @@
     <link class="favicon" rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
 
-    <!-- Typography: Inter (UI & Leitura) & JetBrains Mono (Código & Contadores) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- FontAwesome for icons (Self-Hosted, Zero External CDNs) -->
+    <link rel="stylesheet" href="static/vendor/fontawesome/css/all.min.css">
 
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- KaTeX for high-performance LaTeX math rendering -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- KaTeX for high-performance LaTeX math rendering (Self-Hosted, Zero External CDNs) -->
+    <link rel="stylesheet" href="static/vendor/katex/katex.min.css">
+    <script src="static/vendor/katex/katex.min.js"></script>
+    <script src="static/vendor/katex/auto-render.min.js"></script>
 
     <!-- Core Stylesheet, Centralized Colors & Typography Configuration -->
     <link rel="stylesheet" href="static/style.css?v=1.2.1">
@@ -1061,8 +1054,10 @@
         <!-- FOOTER (EU Directive 2000/31/CE Compliance) -->
         <footer class="app-footer">
             <p>&copy; <span data-i18n="footer_copyright">Simulador de Exames</span> • <span
-                    data-i18n="footer_dev_by">Desenvolvido por</span> <a href="https://github.com/Herculano-Esteves"
-                    target="_blank" rel="noopener noreferrer">github.com/Herculano-Esteves</a> • <span
+                    data-i18n="footer_dev_by">Desenvolvido por</span> <a href="https://herculano-esteves.github.io"
+                    target="_blank" rel="noopener noreferrer">herculano-esteves.github.io</a> • <a
+                    href="mailto:PedroHerculano@proton.me" class="footer-contact-link"
+                    aria-label="Contacto por email"><i class="fa-solid fa-envelope" aria-hidden="true"></i> PedroHerculano@proton.me</a> • <span
                     class="footer-dev-text" data-i18n="footer_dev_status">Ainda em desenvolvimento</span></p>
         </footer>
     </div>
@@ -1146,12 +1141,10 @@
                 <div class="lang-modal-privacy-notice">
                     <div class="privacy-notice-badge">
                         <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-                        <span data-i18n="privacy_badge_text">100% Local & Private • Privacy by Design</span>
+                        <span data-i18n="privacy_badge_text">100% Local & Privado • Privacidade desde a Conceção</span>
                     </div>
                     <p class="privacy-notice-text" data-i18n="modal_lang_privacy_notice">
-                        This site does not collect personal information or browsing data. All progress, exams, and
-                        preferences are stored exclusively on your computer. You can delete all data at any time, either
-                        in your browser settings or in the simulator settings.
+                        Este simulador funciona a 100% no seu dispositivo e não recolhe quaisquer dados pessoais ou de navegação. Todo o progresso, exames e preferências são guardados exclusivamente no seu computador através do armazenamento local (localStorage) do navegador, sem prazo de expiração automático.
                     </p>
                 </div>
             </div>

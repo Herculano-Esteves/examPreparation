@@ -328,7 +328,8 @@
 /* Rodapé */
 .app-footer,
 .app-footer p,
-.app-footer span {
+.app-footer span,
+.app-footer a {
     font-family: var(--typo-footer-font) !important;
     font-size: var(--typo-footer-size) !important;
     font-weight: var(--typo-footer-weight) !important;

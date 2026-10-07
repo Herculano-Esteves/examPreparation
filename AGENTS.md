@@ -8,43 +8,76 @@ Use [codebase.md](codebase.md) as the maintained map of entry points, modules, d
 
 ## Build, Test, and Development Commands
 
-Run core tooling from the repository root with Python 3 using the standard library:
+Run core tooling from the repository root with Python 3 using the standard library (use `python3` on Linux/macOS or `python` on Windows):
 
-- `python run.py` rebuilds indexes and starts the local server at `http://127.0.0.1:5000`.
-- `python run.py --build-only` regenerates `exames/*/index.json` and `exames/cadeiras.json` without serving.
-- `python run.py --validate` checks exam JSON syntax, fields, and references.
-- `python -m unittest discover -s tests -p "test_*.py"` runs the maintained standard library test suite.
+- `python3 run.py` rebuilds indexes and starts the local server at `http://127.0.0.1:5000`.
+- `python3 run.py --build-only` regenerates `exames/*/index.json` and `exames/cadeiras.json` without serving.
+- `python3 run.py --validate` checks exam JSON syntax, fields, and references.
+- `python3 -m unittest discover -s tests -p "test_*.py"` runs the maintained standard library test suite.
+- `python3 run.py --new-exam <course-id> <ExamName>` scaffolds a starter exam for a course.
 
-When adding content, `python run.py --new-exam adi ExamName` can create a starter exam. Rebuild indexes after editing exam files and review the generated changes before committing.
+### Exam Content & Index Hygiene Rule
+
+Whenever creating, modifying, or deleting course or exam JSON files in `exames/`:
+1. Rebuild indexes: `python3 run.py --build-only`
+2. Validate integrity: `python3 run.py --validate`
+3. Verify test suite: `python3 -m unittest discover -s tests -p "test_*.py"`
+Always include generated manifest diffs (`index.json` and `cadeiras.json`) in the same commit.
 
 ### Python Virtual Environment (`.venv`) & E2E Testing with Playwright
 
 **Rule:** The core repository tooling runs on Python standard library without external dependencies. Any external Python packages, browser automation tools, or test runners (such as Playwright, Pytest) **MUST** be installed and run inside a virtual environment (`.venv`). Do not install external packages into the global system Python.
 
 1. Create the virtual environment:
-   ```powershell
-   python -m venv .venv
-   ```
+   - Linux/macOS: `python3 -m venv .venv`
+   - Windows: `python -m venv .venv`
 2. Activate the virtual environment:
-   ```powershell
-   .\.venv\Scripts\Activate.ps1
-   ```
+   - Linux/macOS: `source .venv/bin/activate`
+   - Windows (PowerShell): `.\.venv\Scripts\Activate.ps1`
 3. Install development/test dependencies:
-   ```powershell
-   pip install -r requirements-dev.txt
-   ```
+   `pip install -r requirements-dev.txt`
 4. Install Playwright browser binaries (Chromium headless):
-   ```powershell
-   playwright install chromium
-   ```
+   `playwright install chromium`
 5. Run automated E2E headless tests:
-   ```powershell
-   pytest tests/e2e
-   ```
-   Or without manual activation:
-   ```powershell
-   .\.venv\Scripts\pytest tests/e2e
-   ```
+   - Linux/macOS: `.venv/bin/pytest tests/e2e` (or `pytest tests/e2e` if activated)
+   - Windows: `.\.venv\Scripts\pytest tests/e2e`
+
+## Strict Architectural Invariants
+
+### 1. Mandatory Legal & Regulatory Compliance
+AI agents working on this codebase MUST strictly adhere to applicable European and international regulations, ensuring full legal compliance at all times:
+- **GDPR / RGPD (EU 2016/679) & ePrivacy Directive (2002/58/EC)**:
+  - The application must NEVER track users, collect personal identifiers, transmit telemetry/analytics, or set tracking cookies (`document.cookie`).
+  - User progress and preferences must remain strictly local to the user's browser (`localStorage`).
+  - To respect court rulings on unauthorized IP transmission (e.g. LG München Google Fonts ruling), no user IP address may ever be leaked to external CDNs or third-party servers.
+  - Privacy notices and user data deletion controls (e.g., "Apagar Dados Locais") must always be maintained and kept transparent.
+- **EU Directive 2000/31/EC (e-Commerce Directive / Portuguese DL n.º 7/2004, Art. 5.º)**:
+  - Identification and direct contact information of the author (`herculano-esteves.github.io` and `PedroHerculano@proton.me`) must always remain prominently and legibly accessible in footers (`index.html`, `404.html`). Agents must never remove or obfuscate these credentials.
+- **Intellectual Property & Open Source Licensing**:
+  - Any imported library, icon set, font, or code snippet MUST be verified as legally compatible open-source software (e.g. MIT, SIL OFL 1.1, Apache 2.0, CC BY 4.0).
+  - Agents MUST maintain and update [CREDITS.md](CREDITS.md) whenever any third-party dependency or asset is added, modified, or removed, preserving author attribution and copyright notices.
+  - Proprietary, unlicensed, or restrictively copyrighted assets are strictly forbidden.
+- **European Accessibility Act (EAA 2025) & WCAG 2.1**:
+  - Semantic HTML, keyboard accessibility, accessible color contrast tokens, and screen reader labels must be preserved in all UI changes.
+
+### 2. Privacy First, Offline Operation & Zero External CDNs
+The application is a client-side Single Page Application (SPA) designed to function 100% offline with zero runtime backend dependencies:
+- **NEVER insert external CDN links** (`<script>`, `<link rel="stylesheet">`, or web fonts from Google Fonts, unpkg, cdnjs, jsdelivr, etc.) into `index.html` or other documents.
+- All fonts (`Inter`, `JetBrains Mono`) must be self-hosted locally in `static/fonts/`.
+- All CSS, icons, and client scripts must reside locally under `static/`.
+
+### 3. Internationalization (i18n) Mandate
+The application supports bilingual localization (Portuguese and British English):
+- **NO HARDCODED USER-FACING STRINGS**: Every user-visible text, placeholder, or tooltip in HTML must use `data-i18n="<key>"`.
+- In JavaScript, dynamic text must be resolved via the translation engine (`t('<key>')` from `static/js/i18n.js`).
+- When introducing or altering text, **always update both locale dictionaries simultaneously**:
+  - `static/js/locales/pt.js` (Portuguese)
+  - `static/js/locales/en.js` (British English)
+
+### 4. Design System & CSS Tokens
+- Do not introduce ad-hoc arbitrary hex colors or rogue font declarations.
+- Reusable design tokens live in `static/colors.css` (semantic dark slate palette, accent purples, ambers, emeralds) and `static/typography.css` (root fluid scaling, typography tokens).
+- Maintain responsive geometric proportion rules as documented in `codebase.md`.
 
 ## Coding Style & Naming Conventions
 
@@ -84,7 +117,7 @@ To keep the codebase maintainable, readable, and scalable, **monolithic files ar
 
 ## Testing Guidelines
 
-- **Unit & Integrity Tests**: Maintained standard library tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and `python -m unittest discover -s tests -p "test_*.py"` before a pull request.
+- **Unit & Integrity Tests**: Maintained standard library tests use Python's `unittest` and follow `tests/test_*.py` with `test_*` methods. Add or update a focused test when changing index generation, exam data rules, or frontend module contracts. Run `--validate` for content changes and `python3 -m unittest discover -s tests -p "test_*.py"` before a pull request.
 - **E2E & UI Automation**: Browser automation and interaction tests live under `tests/e2e/` and use Playwright with Pytest inside `.venv`. They validate user flows (navigation, button clicks, state transitions) in headless mode.
 
 ## Documentation & README Maintenance Guidelines

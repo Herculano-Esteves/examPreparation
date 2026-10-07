@@ -277,7 +277,7 @@ export const pt = {
         lang_pt: 'Português',
         lang_en: 'Inglês',
         settings_storage_title: 'Armazenamento Local',
-        settings_storage_desc: 'Todas as cadeiras e exames criados localmente são guardados apenas no seu browser. Não existem cookies de rastreio nem dados transmitidos para terceiros.',
+        settings_storage_desc: 'Todas as cadeiras e exames criados localmente são guardados exclusivamente no seu navegador (sem prazo de expiração automático). Não existem cookies de rastreio nem dados transmitidos para servidores ou terceiros.',
         danger_zone_title: 'Zona de Perigo',
         danger_zone_desc: 'Esta ação é irreversível e irá apagar permanentemente todas as cadeiras e exames criados localmente.',
         btn_clear_storage: 'Apagar Dados Locais',
@@ -309,8 +309,8 @@ export const pt = {
 
         // Modal de Seleção de Idioma & Privacidade UE
         modal_lang_title: 'Selecione o seu Idioma / Select your Language',
-        privacy_badge_text: '100% Local & Private • Privacy by Design',
-        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.',
+        privacy_badge_text: '100% Local & Privado • Privacidade desde a Conceção',
+        modal_lang_privacy_notice: 'Este simulador funciona a 100% no seu dispositivo e não recolhe quaisquer dados pessoais ou de navegação. Todo o progresso, exames e preferências são guardados exclusivamente no seu computador através do armazenamento local (localStorage) do navegador, sem prazo de expiração automático. Os dados permanecem guardados até que decida apagá-los através do botão "Apagar Dados Locais" nas definições ou através da limpeza de dados do próprio navegador. Nenhum dado é transmitido a servidores ou terceiros.',
 
         // Modal de Confirmação Zona de Perigo
         modal_danger_title: 'Apagar dados locais',

@@ -277,7 +277,7 @@ export const en = {
         lang_pt: 'Portuguese',
         lang_en: 'English',
         settings_storage_title: 'Local Storage',
-        settings_storage_desc: 'All locally created subjects and exams are stored solely in your browser. There are no tracking cookies or third-party data transfers.',
+        settings_storage_desc: 'All locally created subjects and exams are stored solely in your browser (with no automatic expiration date). There are no tracking cookies or third-party data transfers.',
         danger_zone_title: 'Danger Zone',
         danger_zone_desc: 'This action is irreversible and will permanently delete all locally created subjects and exams.',
         btn_clear_storage: 'Clear Local Data',
@@ -310,7 +310,7 @@ export const en = {
         // Language Selection & EU Privacy Modal
         modal_lang_title: 'Select your Language / Selecione o seu Idioma',
         privacy_badge_text: '100% Local & Private • Privacy by Design',
-        modal_lang_privacy_notice: 'This site does not collect personal information or browsing data. All progress, exams, and preferences are stored exclusively on your computer. You can delete all data at any time, either in your browser settings or in the simulator settings.',
+        modal_lang_privacy_notice: 'This simulator operates 100% on your device and does not collect any personal or browsing data. All progress, exams, and preferences are stored exclusively on your computer using browser local storage (localStorage), with no automatic expiration date. Your data remains stored until you choose to delete it via the "Clear Local Data" button in settings or through your browser data clearing options. No data is ever transmitted to remote servers or third parties.',
 
         // Danger Confirmation Modal
         modal_danger_title: 'Delete local data',

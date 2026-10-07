@@ -8,13 +8,64 @@
 /* --------------------------------------------------------------------------
    1. Local Font Self-Hosting (RGPD Compliance - Zero External Calls)
    -------------------------------------------------------------------------- */
+/* Inter (SIL OFL) - Leitura & Interface (Regular 400/500, Bold 600/700) */
 @font-face {
-    font-family: 'Share Tech Mono';
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/share-tech-mono-latin-400-normal.woff2') format('woff2'),
-         url('../fonts/share-tech-mono-latin-400-normal.woff') format('woff');
+    src: url('../fonts/inter-latin-400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter-latin-400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter-latin-700.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/inter-latin-700.woff2') format('woff2');
+}
+
+/* JetBrains Mono (SIL OFL) - Código, Contadores & Badges (Regular 400/500, Semibold 600/700) */
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-400.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-600.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-600.woff2') format('woff2');
 }
 
 /* --------------------------------------------------------------------------
@@ -326,6 +377,22 @@ body.layout-builder #screen-add-exame {
 .app-footer a:hover {
     color: #ffffff;
     text-decoration: underline;
+}
+
+.footer-contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.footer-contact-link i {
+    font-size: 0.72rem;
+    color: var(--accent-purple, #c084fc);
+    transition: transform var(--transition-speed) ease;
+}
+
+.footer-contact-link:hover i {
+    transform: scale(1.15);
 }
 
 .footer-dev-text {

@@ -496,9 +496,17 @@ class CORSRequestHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
     def do_GET(self):
-        """Map /teste and /teste/ cleanly to /teste.html."""
-        if self.path in ('/teste', '/teste/'):
-            self.path = '/teste.html'
+        """Map /teste, /teste/, and /teste.html cleanly to /scratch/teste.html in local dev."""
+        clean_path = self.path.split('?')[0]
+        if clean_path == '/teste/':
+            self.send_response(301)
+            self.send_header('Location', '/teste')
+            self.end_headers()
+            return
+        if clean_path in ('/teste', '/teste.html'):
+            scratch_test = os.path.join(ROOT_DIR, 'scratch', 'teste.html')
+            if os.path.exists(scratch_test):
+                self.path = '/scratch/teste.html'
         super().do_GET()
 
     def send_error(self, code, message=None, explain=None):
