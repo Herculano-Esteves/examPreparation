@@ -18,7 +18,7 @@ except ImportError:
 def test_page_loads_and_has_title(page: Page, base_url: str):
     """Verifies that the application loads properly and displays the main header."""
     page.goto(base_url)
-    expect(page).to_have_title("Simulador de Exames")
+    expect(page).to_have_title("Exam Simulator - Free Online Exam Preparation & Quiz Builder")
 
     main_title = page.locator("#app-main-title")
     expect(main_title).to_be_visible()

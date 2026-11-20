@@ -1,8 +1,10 @@
 <div align="center">
 
-# 🎓 Exam Simulator
+# 🎓 ExamPreparation — Free Exam Simulator & Quiz Builder
 
-**Interactive, client-side exam preparation platform optimized for GitHub Pages with zero backend dependencies.**
+A free, open-source exam simulator and quiz builder that runs directly in your browser—no account, backend, or installation required.
+
+Build your own exams with a visual editor or import existing ones from JSON and ZIP files. Organize multiple courses, filter questions by topic or difficulty, track your scores locally, and review anything you missed.
 
 <p align="center">
   <a href="https://herculano-esteves.github.io/examPreparation/">
@@ -39,7 +41,7 @@
 - **🌍 Internationalization (i18n)**:
   - Native bilingual support for Portuguese and English (PT/EN), switchable on the fly.
 - **🔒 Privacy & Performance**:
-  - 100% client-side execution; all web fonts (Inter, JetBrains Mono, Share Tech Mono) are self-hosted with zero third-party tracking.
+  - 100% client-side execution; all web fonts (Inter, JetBrains Mono) are self-hosted with zero third-party tracking.
 
 ---
 
