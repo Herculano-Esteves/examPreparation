@@ -1,0 +1,490 @@
+{
+  "title": {
+    "pt": "MFES — Exame 4: Alloy, Assinaturas e Análise Estrutural",
+    "en": "MFES — Exam 4: Alloy, Signatures, and Structural Analysis"
+  },
+  "description": {
+    "pt": "Nível 4/6 — Introdução à modelação estrutural com Alloy. Abrange signatures, extends, in, abstract, multiplicidades, fields, facts, run, check, scopes, instances e validação orientada a cenários. Constrói progressivamente os conceitos necessários para compreender modelos Alloy e interpretar os resultados do Analyzer.",
+    "en": "Level 4/6 — Introduction to structural modeling with Alloy. Covers signatures (sig), subtyping (extends vs in), abstract signatures, field multiplicities (one, lone, some, set), facts, predicate execution (run), property assertion checking (check), bounded scopes, instance generation, and scenario-oriented model validation. Progressively builds the skills required to write Alloy models and interpret Analyzer outputs."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Em que formalismo lógico se baseia o Alloy?",
+        "en": "On what logical formalism is Alloy based?"
+      },
+      "options": {
+        "pt": [
+          "Exclusivamente lógica proposicional",
+          "Lógica relacional, uma extensão da lógica de primeira ordem",
+          "Lógica temporal exclusivamente",
+          "Cálculo diferencial"
+        ],
+        "en": [
+          "Exclusively propositional logic",
+          "Relational logic, an extension of first-order logic with relational operators and transitive closure",
+          "Temporal logic exclusively",
+          "Differential calculus"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O Alloy é uma linguagem de modelação formal baseada em lógica relacional, que estende a lógica de primeira ordem com operadores sobre relações.",
+        "en": "Alloy is a declarative formal specification language grounded in first-order relational logic, combining first-order quantifiers with relational algebra (union, intersection, relational composition, transposition, and transitive closure)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que representa uma assinatura declarada através de sig A {}?",
+        "en": "What does a signature declared as sig A {} represent in Alloy?"
+      },
+      "options": {
+        "pt": [
+          "Uma variável proposicional obrigatoriamente verdadeira",
+          "Uma relação unária, isto é, um conjunto de átomos",
+          "Uma função de aridade dois",
+          "Uma propriedade que tem de ser sempre satisfeita"
+        ],
+        "en": [
+          "A propositional variable that is unconditionally true",
+          "A unary relation, that is, a set of indivisible atoms",
+          "A binary function of arity two",
+          "A property that must always be satisfied"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "As signatures representam conjuntos de átomos do universo de discurso. Podem corresponder a entidades de um modelo estrutural.",
+        "en": "Signatures in Alloy represent sets of uninterpreted atoms (unary relations). They model entities/types in structural domain models."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "pt": "```alloy\nsig A {}\nsig B {}\n```",
+        "en": "```alloy\nsig A {}\nsig B {}\n```"
+      },
+      "question": {
+        "pt": "As assinaturas A e B são disjuntas.",
+        "en": "Top-level signatures A and B are mutually disjoint."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Em Alloy, assinaturas top-level distintas são disjuntas. Um mesmo átomo não pode pertencer simultaneamente a A e B.",
+        "en": "True. In Alloy, distinct top-level signatures partition the universe of atoms: no atom can belong to both A and B."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nsig Object {}\nsig Dir extends Object {}\nsig File extends Object {}\n```",
+        "en": "```alloy\nsig Object {}\nsig Dir extends Object {}\nsig File extends Object {}\n```"
+      },
+      "question": {
+        "pt": "Qual das afirmações é correta?",
+        "en": "Which statement is correct regarding this declaration?"
+      },
+      "options": {
+        "pt": [
+          "Dir e File são subconjuntos de Object e são disjuntos entre si",
+          "Dir e File podem partilhar livremente átomos",
+          "Todos os átomos de Object pertencem obrigatoriamente a Dir",
+          "Object está contido em File"
+        ],
+        "en": [
+          "Dir and File are subsets of Object and are mutually disjoint from each other",
+          "Dir and File can freely share atoms",
+          "All atoms of Object mandatorily belong to Dir",
+          "Object is a subset of File"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma assinatura declarada com extends representa uma extensão disjunta das restantes extensões do mesmo pai.",
+        "en": "Subsignatures declared with extends create mutually disjoint subsets of the parent signature: Dir and File are subsets of Object with no overlapping atoms."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nsig Dir {}\nsig Root in Dir {}\n```",
+        "en": "```alloy\nsig Dir {}\nsig Root in Dir {}\n```"
+      },
+      "question": {
+        "pt": "Qual é a principal diferença entre in e extends?",
+        "en": "What is the key difference between in and extends when declaring subsignatures?"
+      },
+      "options": {
+        "pt": [
+          "in cria uma assinatura completamente independente",
+          "in define um subconjunto que pode sobrepor-se a outros subconjuntos, enquanto extends estabelece extensões disjuntas",
+          "in obriga a assinatura a ter exatamente um átomo",
+          "extends não estabelece qualquer relação de inclusão"
+        ],
+        "en": [
+          "in creates a completely independent top-level signature",
+          "in defines a subset that can overlap with other subsets, whereas extends establishes mutually disjoint subsets",
+          "in forces the signature to contain exactly one atom",
+          "extends establishes no inclusion relationship"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Uma assinatura declarada com in é um subconjunto. Diferentemente das extensões com extends, não fica automaticamente disjunta de outros subconjuntos.",
+        "en": "An in subsignature is simply a subset: multiple in subsignatures of the same parent can overlap. In contrast, extends subsignatures partition the extended signature into mutually disjoint sets."
+      }
+    },
+    {
+      "type": "boolean",
+      "header": {
+        "pt": "```alloy\nabstract sig Object {}\nsig Dir extends Object {}\nsig File extends Object {}\n```",
+        "en": "```alloy\nabstract sig Object {}\nsig Dir extends Object {}\nsig File extends Object {}\n```"
+      },
+      "question": {
+        "pt": "A assinatura Object pode conter átomos que não pertencem nem a Dir nem a File.",
+        "en": "The signature Object can contain atoms that belong to neither Dir nor File."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Uma assinatura abstract contém apenas átomos pertencentes às suas extensões. Neste exemplo, Object corresponde à união de Dir e File.",
+        "en": "False. An abstract signature has no direct instances: every atom of Object must belong to at least one of its extending subsignatures. Therefore, Object = Dir + File."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\none sig Root in Dir {}\n```",
+        "en": "```alloy\none sig Root in Dir {}\n```"
+      },
+      "question": {
+        "pt": "Qual é o significado desta declaração?",
+        "en": "What is the meaning of this declaration?"
+      },
+      "options": {
+        "pt": [
+          "Root contém exatamente um átomo e é subconjunto de Dir",
+          "Root contém no máximo um átomo",
+          "Root contém um ou mais átomos",
+          "Dir contém exatamente um átomo"
+        ],
+        "en": [
+          "Root contains exactly one atom, and that atom belongs to Dir",
+          "Root contains at most one atom",
+          "Root contains one or more atoms",
+          "Dir contains exactly one atom"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A multiplicidade one exige exatamente um átomo. A palavra in indica que esse átomo pertence também à assinatura Dir.",
+        "en": "The multiplicity keyword one constrains the signature cardinality to exactly 1 atom. The in clause specifies that this atom is a subset of Dir."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nsig Dir {\n  contains: set Entry\n}\n```",
+        "en": "```alloy\nsig Dir {\n  contains: set Entry\n}\n```"
+      },
+      "question": {
+        "pt": "O que significa a multiplicidade set neste campo?",
+        "en": "What does the multiplicity keyword set signify on this relation field?"
+      },
+      "options": {
+        "pt": [
+          "Cada diretório contém exatamente uma entrada",
+          "Cada diretório contém pelo menos uma entrada",
+          "Cada diretório pode estar relacionado com zero ou mais entradas",
+          "Todas as entradas pertencem ao mesmo diretório"
+        ],
+        "en": [
+          "Each directory contains exactly one entry",
+          "Each directory contains at least one entry",
+          "Each directory may be related to zero or more entries",
+          "All entries belong to the identical directory"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "set permite qualquer número de elementos no conjunto de destino, incluindo zero.",
+        "en": "set allows any number of elements in the target relation (zero, one, or many). A directory may contain zero or multiple entries."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nsig Entry {\n  refersTo: Object\n}\n```",
+        "en": "```alloy\nsig Entry {\n  refersTo: Object\n}\n```"
+      },
+      "question": {
+        "pt": "Qual é a multiplicidade implícita do campo refersTo?",
+        "en": "What is the default multiplicity of the field refersTo when omitted?"
+      },
+      "options": {
+        "pt": [
+          "set",
+          "lone",
+          "some",
+          "one"
+        ],
+        "en": [
+          "set",
+          "lone",
+          "some",
+          "one"
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "Quando não é indicada uma multiplicidade no destino de um campo, a multiplicidade predefinida é one. Cada Entry refere exatamente um Object.",
+        "en": "When no explicit multiplicity is declared on a relation field in Alloy, the default multiplicity is one (functional relation: each Entry maps to exactly one Object)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função de um fact em Alloy?",
+        "en": "What is the function of a fact paragraph in Alloy?"
+      },
+      "options": {
+        "pt": [
+          "Pedir ao Analyzer um contraexemplo",
+          "Declarar uma restrição que todas as instâncias válidas devem satisfazer",
+          "Representar apenas uma anotação sem significado lógico",
+          "Definir a dimensão do universo sem outras restrições"
+        ],
+        "en": [
+          "Asking the Analyzer to search for a counterexample",
+          "Declaring an invariant constraint that all valid instances of the model must satisfy",
+          "Representing an informal comment with no logical meaning",
+          "Defining the scope size of the universe"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Os facts representam pressupostos e invariantes do modelo. Todas as instâncias consideradas pelos comandos de análise devem satisfazê-los.",
+        "en": "A fact paragraph defines model axioms and domain invariants that are assumed to hold true unconditionally across all generated instances."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nrun { some Entry }\n```",
+        "en": "```alloy\nrun { some Entry }\n```"
+      },
+      "question": {
+        "pt": "Qual é o objetivo deste comando?",
+        "en": "What is the objective of this command in Alloy?"
+      },
+      "options": {
+        "pt": [
+          "Encontrar uma instância que satisfaça os facts e tenha pelo menos uma Entry",
+          "Provar que todas as instâncias possuem Entry",
+          "Eliminar as instâncias que contêm Entry",
+          "Verificar que Entry é obrigatoriamente vazia"
+        ],
+        "en": [
+          "Finding an instance that satisfies the model facts and contains at least one Entry",
+          "Proving that every valid instance mandatorily contains an Entry",
+          "Filtering out instances that contain an Entry",
+          "Verifying that Entry is empty"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "run procura uma instância que satisfaça os facts e as restrições adicionais do próprio comando.",
+        "en": "A run command instructs the Alloy Analyzer to find and visualize a satisfying instance (model) of the given predicate/constraint within the specified scope."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nassert P {\n  some Entry\n}\ncheck P\n```",
+        "en": "```alloy\nassert P {\n  some Entry\n}\ncheck P\n```"
+      },
+      "question": {
+        "pt": "O que procura o comando check P?",
+        "en": "What does the command check P instruct the Alloy Analyzer to find?"
+      },
+      "options": {
+        "pt": [
+          "Uma instância que satisfaz P",
+          "Uma instância que satisfaz os facts e viola P",
+          "Uma instância que ignora todos os facts",
+          "Uma prova de satisfatibilidade sem limitações de domínio"
+        ],
+        "en": [
+          "An instance that satisfies P",
+          "A counterexample instance that satisfies all facts but violates assertion P",
+          "An instance that ignores all model facts",
+          "An unbounded mathematical induction proof"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "check procura contraexemplos. Um contraexemplo satisfaz os pressupostos do modelo e viola a propriedade enunciada.",
+        "en": "A check command searches for counterexamples to an assertion: it translates Facts ∧ ¬P to SAT. If a solution is found, it refutes the assertion."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Se check não encontrar contraexemplos, a propriedade foi matematicamente demonstrada para todos os domínios finitos e infinitos possíveis.",
+        "en": "If the check command finds no counterexamples, the property has been mathematically proven for all possible finite and infinite domains."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "A análise é limitada pelo scope. A ausência de contraexemplos apenas confirma que nenhum foi encontrado dentro do universo analisado.",
+        "en": "False. Alloy performs bounded verification within a finite scope (small scope hypothesis). Finding no counterexamples within scope k does not constitute a proof for universes larger than k or infinite domains."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o limite predefinido do scope em Alloy, segundo os slides?",
+        "en": "What is the default scope limit in Alloy when no scope is specified?"
+      },
+      "options": {
+        "pt": [
+          "Exatamente um átomo por assinatura",
+          "No máximo 3 átomos por assinatura top-level",
+          "Exatamente 10 átomos no universo",
+          "Um número infinito de átomos"
+        ],
+        "en": [
+          "Exactly one atom per signature",
+          "At most 3 atoms per top-level signature",
+          "Exactly 10 atoms in the entire universe",
+          "An unbounded number of atoms"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O scope predefinido limita cada assinatura top-level a um máximo de 3 átomos, sujeito às restantes restrições do modelo.",
+        "en": "By default, Alloy limits searches to at most 3 atoms per top-level signature (run {} is equivalent to run {} for 3)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nrun {} for 4 but exactly 2 Dir, 3 Name\n```",
+        "en": "```alloy\nrun {} for 4 but exactly 2 Dir, 3 Name\n```"
+      },
+      "question": {
+        "pt": "Qual é a interpretação correta?",
+        "en": "What is the correct interpretation of this scope specification?"
+      },
+      "options": {
+        "pt": [
+          "Todos os conjuntos têm exatamente 4 átomos",
+          "Dir tem exatamente 2 átomos, Name tem no máximo 3 e aplica-se o limite geral de 4 às restantes assinaturas relevantes",
+          "Dir e Name têm ambos exatamente 3 átomos",
+          "O comando não admite instâncias com menos de 4 átomos"
+        ],
+        "en": [
+          "All signatures have exactly 4 atoms",
+          "Dir has exactly 2 atoms, Name has at most 3 atoms, and the general upper bound of 4 atoms applies to all other top-level signatures",
+          "Dir and Name both have exactly 3 atoms",
+          "The command rejects instances with fewer than 4 atoms"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "exactly fixa a dimensão de Dir. Sem exactly, 3 Name corresponde a um máximo de três átomos. O scope geral é 4.",
+        "en": "exactly 2 Dir fixes Dir to 2 atoms; 3 Name sets the upper bound for Name to 3; for 4 establishes an upper bound of 4 atoms for all other top-level signatures."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```alloy\nall e: Entry | one contains.e\n```",
+        "en": "```alloy\nall e: Entry | one contains.e\n```"
+      },
+      "question": {
+        "pt": "O que garante esta expressão, assumindo contains: Dir -> Entry?",
+        "en": "What does this expression guarantee, assuming contains: Dir -> Entry?"
+      },
+      "options": {
+        "pt": [
+          "Cada diretório contém exatamente uma entrada",
+          "Cada entrada pertence exatamente a um diretório",
+          "Cada entrada refere exatamente um objeto",
+          "Todos os diretórios são não vazios"
+        ],
+        "en": [
+          "Each directory contains exactly one entry",
+          "Each entry belongs to exactly one directory",
+          "Each entry refers to exactly one object",
+          "All directories are non-empty"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "contains.e corresponde ao conjunto de diretórios relacionados com a entrada e. A multiplicidade one exige exatamente um desses diretórios.",
+        "en": "contains.e navigates backward from entry e to find the set of directories containing it. Constraining this set with one ensures every entry belongs to exactly one directory."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Escreva um modelo Alloy básico para um sistema de ficheiros com objetos, diretórios, ficheiros, uma raiz, entradas e nomes. Utilize assinaturas e campos para representar: diretórios e ficheiros são objetos; existe exatamente uma raiz que é diretório; diretórios podem conter várias entradas; cada entrada refere exatamente um objeto e possui exatamente um nome.",
+        "en": "Write a basic Alloy structural model for a file system with objects, directories, files, a root, entries, and names. Use signatures and field declarations to represent: directories and files are disjoint objects; there exists exactly one root, which is a directory; directories can contain multiple entries; each entry refers to exactly one object and has exactly one name."
+      },
+      "solution": {
+        "pt": "```alloy\nabstract sig Object {}\nsig Dir extends Object {\n  contains: set Entry\n}\nsig File extends Object {}\none sig Root in Dir {}\nsig Name {}\nsig Entry {\n  refersTo: one Object,\n  has: one Name\n}\n```\n\n**Justificação:** abstract impede objetos fora das extensões Dir e File; extends garante que Dir e File são disjuntos; one sig Root garante uma única raiz; set permite zero ou mais entradas por diretório; one nos campos de Entry garante uma referência e um nome por entrada.\n\nO modelo apresentado ainda não exige que cada Entry pertença a exatamente um diretório. Essa restrição deve ser adicionada separadamente, caso faça parte dos requisitos.\n\n**Critérios de avaliação:** 20% pela hierarquia de objetos; 15% pela raiz; 20% por contains; 30% pelos campos de Entry; 15% pela explicação das multiplicidades e limitações.",
+        "en": "```alloy\nabstract sig Object {}\nsig Dir extends Object {\n  contains: set Entry\n}\nsig File extends Object {}\none sig Root in Dir {}\nsig Name {}\nsig Entry {\n  refersTo: one Object,\n  has: one Name\n}\n```\n\n**Justification:**\n- `abstract sig Object` ensures no raw objects exist outside of Dir and File.\n- `extends Object` partitions Object into disjoint subsignatures Dir and File.\n- `one sig Root in Dir` guarantees exactly one root which is a Dir.\n- `contains: set Entry` permits zero or more entries per directory.\n- Multiplicity `one` on Entry fields ensures each entry refers to exactly one Object and has exactly one Name.\n\n**Grading criteria:** 20% for object hierarchy; 15% for Root; 20% for contains; 30% for Entry fields; 15% for explanations."
+      },
+      "explanation": {
+        "pt": "Alloy permite representar através de declarações compactas várias restrições que, em primeira ordem, exigiriam fórmulas explícitas de tipagem, existência, inclusão, disjunção e unicidade.",
+        "en": "Alloy allows compact representation of structural constraints through signature declarations, multiplicities, and subtyping hierarchies."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Explique a diferença entre validação e verificação num modelo Alloy. Indique como utilizaria run, check, expect e scopes para aumentar a confiança no modelo.",
+        "en": "Explain the difference between validation and verification in an Alloy model. Describe how you would systematically use run, check, expect, and scopes to build confidence in the specification."
+      },
+      "solution": {
+        "pt": "**Validação:** procura determinar se o modelo representa corretamente os requisitos pretendidos. Devem ser definidos cenários positivos e negativos com run. Um cenário positivo deve ser satisfatível e pode ser documentado com expect 1; um cenário negativo deve ser insatisfatível e pode utilizar expect 0.\n\n**Verificação:** procura determinar se determinadas propriedades decorrem dos facts. Utiliza-se check para procurar contraexemplos às assertions.\n\n**Scopes:** limitam o universo analisado. Uma propriedade sem contraexemplos num scope pequeno pode falhar num scope maior. Aumentar o scope e introduzir cenários adicionais aumenta a confiança, mas não constitui, por si só, uma prova geral.\n\nSempre que os facts são alterados, os cenários devem ser novamente analisados.\n\n**Critérios de avaliação:** 25% pela validação; 25% pela verificação; 20% pelo papel de expect; 20% pelas limitações dos scopes; 10% pela importância de repetir as análises.",
+        "en": "**1. Validation ('Building the right model'):**\n- Tests whether the specification accurately reflects intended requirements and avoids unintended over-constraint.\n- Uses `run` commands on positive scenarios (which should be satisfiable, documented with `expect 1`) and negative scenarios (which should be unsatisfiable, documented with `expect 0`).\n\n**2. Verification ('Building the model right'):**\n- Checks whether critical safety and invariant properties follow logically from model facts.\n- Formulates properties in `assert` blocks and uses `check` commands to search for counterexamples (expect 0 counterexamples).\n\n**3. Scopes & Regression:**\n- Scopes bound universe sizes. Escalating scopes (e.g. for 3, 5, 7) verifies properties across larger instances.\n- Automated regression with `expect` flags ensures that modifying facts does not break previously validated scenarios.\n\n**Grading criteria:** 25% for validation; 25% for verification; 20% for expect role; 20% for scope escalation; 10% for regression analysis."
+      },
+      "explanation": {
+        "pt": "Uma especificação pode ser internamente consistente e, ainda assim, representar incorretamente os requisitos. Por isso, validar exemplos e verificar propriedades são atividades complementares.",
+        "en": "Validation ensures we modeled the right system (scenarios); verification checks that we modeled the system right (assertions)."
+      }
+    }
+  ]
+}

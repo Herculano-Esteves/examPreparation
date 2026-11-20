@@ -4,66 +4,68 @@ This document describes the three question formats supported by the Exam Simulat
 
 ---
 
-## 1. Multiple Choice (Standard)
+## 1. Multiple Choice (`multiple_choice`)
 The default format for multiple-choice questions. It supports both single-answer and multiple-answer (multi-select) questions. The alternative options are dynamically shuffled in the frontend upon each exam session initialization.
 
 ### JSON Structure:
 ```json
 {
-  "pergunta": "Qual é a largura de bits de cada registador virtual da máquina virtual do eBPF?",
-  "opcoes": [
+  "type": "multiple_choice",
+  "question": "What is the bit width of each virtual register in the eBPF virtual machine?",
+  "options": [
     "16 bits.",
     "32 bits.",
-    "64 bits (R0 a R10).",
+    "64 bits (R0 to R10).",
     "128 bits."
   ],
-  "solucao": [
+  "solution": [
     2
   ]
 }
 ```
 
-* **`pergunta`** (string): The question statement / prompt.
-* **`opcoes`** (array of strings): The list of choices presented to the user.
-* **`solucao`** (array of integers): Zero-based indices corresponding to the correct answer(s). In this example, `2` points to the option `"64 bits (R0 a R10)."`.
+* **`type`** (string): `"multiple_choice"` (default if omitted; legacy `"escolha_multipla"` is also accepted).
+* **`question`** (string or `{pt, en}` object): The question statement / prompt.
+* **`options`** (array of strings or `{pt, en}` object): The list of choices presented to the user.
+* **`solution`** (array of integers): Zero-based indices corresponding to the correct answer(s). In this example, `2` points to `"64 bits (R0 to R10)."`.
 
 ---
 
 ## 2. True or False (`boolean`)
-Designed specifically for True or False questions. It does not require an `opcoes` array in the JSON file, as options are generated implicitly by the browser. The presentation order ("True" on top, "False" on bottom, localized based on the active language) is never shuffled.
+Designed specifically for True or False questions. It does not require an `options` array in the JSON file, as options are generated implicitly by the browser. The presentation order ("True" on top, "False" on bottom, localized based on the active language) is never shuffled.
 
 ### JSON Structure:
 ```json
 {
-  "tipo": "boolean",
-  "pergunta": "O mecanismo seccomp no Linux permite restringir proativamente as chamadas de sistema (syscalls).",
-  "solucao": 0
+  "type": "boolean",
+  "question": "Linux seccomp allows proactively restricting system calls (syscalls).",
+  "solution": 0
 }
 ```
 
-* **`tipo`** (string): Must be `"boolean"`.
-* **`pergunta`** (string): The statement to be evaluated.
-* **`solucao`** (integer or array of integers): Defines the correct choice:
-  * `0` for **True** (`Verdadeiro`)
-  * `1` for **False** (`Falso`)
+* **`type`** (string): Must be `"boolean"`.
+* **`question`** (string or `{pt, en}` object): The statement to be evaluated.
+* **`solution`** (integer or array of integers): Defines the correct choice:
+  * `0` for **True**
+  * `1` for **False**
 
 ---
 
-## 3. Written / Essay Response (`escrita`)
+## 3. Written / Essay Response (`written`)
 Designed for open-ended or theoretical explanation questions. The user can optionally type their answer in an interactive text field and submit to compare against the official expected answer for self-assessment.
 
 ### JSON Structure:
 ```json
 {
-  "tipo": "escrita",
-  "pergunta": "Explique o papel do Verificador eBPF na segurança do kernel.",
-  "solucao": "O Verificador realiza uma análise estática do Grafo de Fluxo de Controlo (CFG) para garantir terminação e simula a execução para rastrear o estado dos registadores e da stack..."
+  "type": "written",
+  "question": "Explain the role of the eBPF Verifier in kernel security.",
+  "solution": "The Verifier performs static analysis on the Control Flow Graph (CFG) to guarantee termination and simulates execution to track register and stack state..."
 }
 ```
 
-* **`tipo`** (string): Must be `"escrita"`.
-* **`pergunta`** (string): The open-ended question or problem statement.
-* **`solucao`** (string): The expected solution, explanation, or assessment criteria. Supports **Markdown** and **KaTeX/LaTeX** mathematical expressions (`$` for inline math, `$$` for block math).
+* **`type`** (string): Must be `"written"` (legacy `"escrita"` is also accepted).
+* **`question`** (string or `{pt, en}` object): The open-ended question or problem statement.
+* **`solution`** (string or `{pt, en}` object): The expected solution, explanation, or assessment criteria. Supports **Markdown** and **KaTeX/LaTeX** mathematical expressions (`$` for inline math, `$$` for block math).
 
 ---
 

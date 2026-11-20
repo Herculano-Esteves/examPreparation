@@ -37,6 +37,34 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 EXAMS_DIR = os.path.join(ROOT_DIR, 'exames')
 CADEIRAS_FILE = os.path.join(EXAMS_DIR, 'cadeiras.json')
 
+# Canonical English question type identifiers (single source of truth for Python tooling)
+QUESTION_TYPE_MULTIPLE_CHOICE = 'multiple_choice'
+QUESTION_TYPE_BOOLEAN = 'boolean'
+QUESTION_TYPE_WRITTEN = 'written'
+
+QUESTION_TYPE_ALIASES = {
+    'multiple_choice': QUESTION_TYPE_MULTIPLE_CHOICE,
+    'multiple-choice': QUESTION_TYPE_MULTIPLE_CHOICE,
+    'escolha_multipla': QUESTION_TYPE_MULTIPLE_CHOICE,
+    'multipla': QUESTION_TYPE_MULTIPLE_CHOICE,
+    'boolean': QUESTION_TYPE_BOOLEAN,
+    'true_false': QUESTION_TYPE_BOOLEAN,
+    'verdadeiro_falso': QUESTION_TYPE_BOOLEAN,
+    'tf': QUESTION_TYPE_BOOLEAN,
+    'written': QUESTION_TYPE_WRITTEN,
+    'escrita': QUESTION_TYPE_WRITTEN,
+    'essay': QUESTION_TYPE_WRITTEN,
+    'aberta': QUESTION_TYPE_WRITTEN,
+    'redacao': QUESTION_TYPE_WRITTEN,
+    'desenvolvimento': QUESTION_TYPE_WRITTEN,
+}
+
+def normalize_question_type(raw_type):
+    """Normalizes a question type string (including legacy PT aliases) to its canonical English ID."""
+    if not raw_type or not isinstance(raw_type, str):
+        return QUESTION_TYPE_MULTIPLE_CHOICE
+    return QUESTION_TYPE_ALIASES.get(raw_type.lower().strip(), QUESTION_TYPE_MULTIPLE_CHOICE)
+
 def natural_sort_key(s):
     match = re.match(r'^(\d+)', s)
     return (0, int(match.group(1)), s) if match else (1, 0, s)
@@ -130,12 +158,12 @@ def build_exams_json(silent=False):
                                 logging.warning(f"A saltar questão {idx} em {filename}: faltam campos obrigatórios (question/solution)")
                                 continue
                             
-                            tipo = q.get('type', q.get('tipo', 'escolha_multipla'))
-                            if tipo in ('escrita', 'written', 'desenvolvimento'):
+                            q_type = normalize_question_type(q.get('type', q.get('tipo')))
+                            if q_type == QUESTION_TYPE_WRITTEN:
                                 if not isinstance(q_sol, (str, dict)):
-                                    logging.warning(f"A saltar questão {idx} em {filename}: tipo 'escrita' requer 'solution' como string ou dicionário de idiomas")
+                                    logging.warning(f"A saltar questão {idx} em {filename}: tipo '{QUESTION_TYPE_WRITTEN}' requer 'solution' como string ou dicionário de idiomas")
                                     continue
-                            elif tipo in ('boolean', 'true_false', 'verdadeiro_falso'):
+                            elif q_type == QUESTION_TYPE_BOOLEAN:
                                 if isinstance(q_sol, list):
                                     if len(q_sol) == 0 or q_sol[0] not in (0, 1):
                                         logging.warning(f"A saltar questão {idx} em {filename}: tipo 'boolean' requer 'solution' 0 ou 1")
@@ -187,7 +215,7 @@ def build_exams_json(silent=False):
                         exam_id = os.path.splitext(filename)[0]
                         types_counts = {}
                         for q in valid_questions:
-                            t = q.get('type', q.get('tipo', 'escolha_multipla'))
+                            t = normalize_question_type(q.get('type', q.get('tipo')))
                             types_counts[t] = types_counts.get(t, 0) + 1
                         
                         question_types = sorted(list(types_counts.keys()))
@@ -297,8 +325,8 @@ def validate_all_exams():
                         print(f"  ❌ [{cadeira_id}/{filename}] Questão #{q_idx+1}: Solução ausente")
                         errors_count += 1
 
-                    q_type = q.get('type', q.get('tipo', 'escolha_multipla'))
-                    if q_type in ('escolha_multipla', 'multiple_choice', 'multipla'):
+                    q_type = normalize_question_type(q.get('type', q.get('tipo')))
+                    if q_type == QUESTION_TYPE_MULTIPLE_CHOICE:
                         opts = q.get('options', q.get('opcoes'))
                         if not opts:
                             print(f"  ❌ [{cadeira_id}/{filename}] Questão #{q_idx+1}: Opções ausentes")
@@ -369,7 +397,7 @@ def create_new_exam_template(cadeira_id, exam_name=None):
                     "pt": "Qual é a principal função de um sistema operativo?",
                     "en": "What is the primary purpose of an operating system?"
                 },
-                "type": "escolha_multipla",
+                "type": QUESTION_TYPE_MULTIPLE_CHOICE,
                 "options": {
                     "pt": [
                         "Gerir recursos de hardware e fornecer uma abstração ao utilizador.",
@@ -407,7 +435,7 @@ def create_new_exam_template(cadeira_id, exam_name=None):
                     "pt": "Explique brevemente a diferença entre um processo e uma thread.",
                     "en": "Briefly explain the difference between a process and a thread."
                 },
-                "type": "escrita",
+                "type": QUESTION_TYPE_WRITTEN,
                 "solution": {
                     "pt": "Um processo possui o seu próprio espaço de memória isolado, enquanto threads do mesmo processo partilham memória e recursos.",
                     "en": "A process has its own isolated memory space, whereas threads within the same process share memory and resources."

@@ -26,9 +26,60 @@ export const APP_CONFIG = {
         difficultQuestions: 'simulador_perguntas_dificeis'
     },
 
+    // Canonical question type identifiers (English-first)
+    questionTypes: {
+        MULTIPLE_CHOICE: 'multiple_choice',
+        BOOLEAN: 'boolean',
+        WRITTEN: 'written'
+    },
+
+    // Accepted type aliases mapped to canonical English question types (backwards compatibility)
+    questionTypeAliases: {
+        multiple_choice: 'multiple_choice',
+        'multiple-choice': 'multiple_choice',
+        escolha_multipla: 'multiple_choice',
+        multipla: 'multiple_choice',
+        boolean: 'boolean',
+        true_false: 'boolean',
+        verdadeiro_falso: 'boolean',
+        tf: 'boolean',
+        written: 'written',
+        escrita: 'written',
+        essay: 'written',
+        aberta: 'written',
+        redacao: 'written',
+        desenvolvimento: 'written'
+    },
+
     // Storage version for automatic schema migrations
     storageVersion: '1.1.0'
 };
+
+/**
+ * Normalizes a question type string (including legacy Portuguese aliases)
+ * to its canonical English identifier defined in APP_CONFIG.questionTypes.
+ * Returns null if rawType is non-empty and unrecognized.
+ *
+ * @param {string} rawType
+ * @returns {string|null}
+ */
+export function resolveQuestionType(rawType) {
+    if (!rawType || typeof rawType !== 'string') {
+        return APP_CONFIG.questionTypes.MULTIPLE_CHOICE;
+    }
+    const key = rawType.toLowerCase().trim();
+    return APP_CONFIG.questionTypeAliases[key] || null;
+}
+
+/**
+ * Normalizes a question type string with safe fallback to MULTIPLE_CHOICE.
+ *
+ * @param {string} rawType
+ * @returns {string}
+ */
+export function normalizeQuestionType(rawType) {
+    return resolveQuestionType(rawType) || APP_CONFIG.questionTypes.MULTIPLE_CHOICE;
+}
 
 /**
  * Checks whether the user has explicitly selected/configured their language preference.

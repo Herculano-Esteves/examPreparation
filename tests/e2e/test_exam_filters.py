@@ -84,7 +84,7 @@ def test_sort_exams_dropdown(page: Page, base_url: str):
 
 def test_filter_by_question_types(page: Page, base_url: str):
     """
-    Tests toggling question type checkboxes (e.g. escrita)
+    Tests toggling question type checkboxes (e.g. written)
     and verifying catalog cards filter dynamically.
     """
     page.goto(base_url)
@@ -93,17 +93,17 @@ def test_filter_by_question_types(page: Page, base_url: str):
     page.locator("#cadeiras-grid .exam-list-row:has-text('ADI')").click()
     expect(page.locator("#exams-grid .exam-list-row").first).to_be_visible(timeout=5000)
 
-    # Locate escrita checkbox item and click to uncheck
-    escrita_item = page.locator(".floating-checkbox-item[data-type='escrita']")
-    expect(escrita_item).to_be_visible()
-    escrita_item.click()
+    # Locate written checkbox item and click to uncheck
+    written_item = page.locator(".floating-checkbox-item[data-type='written']")
+    expect(written_item).to_be_visible()
+    written_item.click()
 
-    # Exame ADI 10 (which is 100% escrita) should now be filtered out
+    # Exame ADI 10 (which is 100% written) should now be filtered out
     exam_adi10 = page.locator("#exams-grid .exam-list-row:has-text('Exame ADI 10')")
     expect(exam_adi10).to_have_count(0)
 
     # Click again to check back
-    escrita_item.click()
+    written_item.click()
     expect(page.locator("#exams-grid .exam-list-row:has-text('Exame ADI 10')")).to_have_count(1)
 
 

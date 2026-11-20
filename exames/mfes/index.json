@@ -1,0 +1,299 @@
+[
+  {
+    "id": "1_Fundamentos_Logica_Proposicional",
+    "title": {
+      "pt": "MFES — Exame 1: Fundamentos de Lógica Proposicional",
+      "en": "MFES — Exam 1: Foundations of Propositional Logic"
+    },
+    "description": {
+      "pt": "Nível 1/6 — Introdução aos métodos formais e à lógica proposicional. Progressão desde a sintaxe e semântica até à satisfatibilidade, validade, equivalências e consequência lógica. Baseado nos conteúdos teóricos de Propositional Logic. Objetivo: compreender os fundamentos antes de avançar para a modelação e resolução automática.",
+      "en": "Level 1/6 — Introduction to formal methods and propositional logic. Progression from syntax and semantics to satisfiability, validity, equivalences, and logical consequence. Based on theoretical Propositional Logic course materials. Objective: master core foundations before progressing to formal modeling and automated SAT solving."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 18,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 12,
+      "boolean": 4,
+      "written": 2
+    },
+    "path": "exames/mfes/1_Fundamentos_Logica_Proposicional.json"
+  },
+  {
+    "id": "1_Fundamentos_e_Semantica_LP",
+    "title": {
+      "en": "Exam 1: Foundations and Semantics of Propositional Logic",
+      "pt": "Exame 1: Fundamentos e Semântica de Lógica Proposicional"
+    },
+    "description": {
+      "en": "Comprehensive exam covering the formal foundations of Propositional Logic (PL), including syntax and well-formed formulas, precedence rules, semantic valuations, truth tables, formula classification (tautologies, SAT, UNSAT, and refutable), semantic consequence, logical equivalences, and decidability.",
+      "pt": "Exame abrangente sobre os fundamentos formais da Lógica Proposicional (LP), incluindo sintaxe e fórmulas bem-formadas, regras de precedência, valorações semânticas, tabelas de verdade, classificação de fórmulas (tautologias, SAT, UNSAT e refutáveis), consequência semântica, equivalências lógicas e decidibilidade."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 10,
+      "boolean": 5,
+      "written": 1
+    },
+    "path": "exames/mfes/1_Fundamentos_e_Semantica_LP.json"
+  },
+  {
+    "id": "2_Modelacao_Proposicional_e_Variabilidade",
+    "title": {
+      "pt": "MFES — Exame 2: Modelação Proposicional e Análise de Variabilidade",
+      "en": "MFES — Exam 2: Propositional Modeling and Variability Analysis"
+    },
+    "description": {
+      "pt": "Nível 2/6 — Aplicação dos fundamentos de lógica proposicional à modelação de problemas. Abrange problemas de alocação, restrições genéricas, verificação de propriedades, software product lines, feature models, features opcionais, obrigatórias, dead e core. Progressão das restrições elementares para a formalização e análise de modelos.",
+      "en": "Level 2/6 — Application of propositional logic foundations to problem modeling. Covers allocation problems, generic constraints, property verification, Software Product Lines (SPL), feature models, optional/mandatory features, and dead/core feature analysis. Progression from elementary constraints to model formalization and automated analysis."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 18,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "boolean": 2,
+      "multiple_choice": 14,
+      "written": 2
+    },
+    "path": "exames/mfes/2_Modelacao_Proposicional_e_Variabilidade.json"
+  },
+  {
+    "id": "2_Modelacao_e_Problemas_de_Alocacao",
+    "title": {
+      "en": "Exam 2: Formal Modelling and Allocation Problems",
+      "pt": "Exame 2: Modelação Formal e Problemas de Alocação"
+    },
+    "description": {
+      "en": "In-depth exam on modelling real-world problems in Propositional Logic. Focus on item-to-container allocation problems, Boolean variable matrix declarations, systematic formulation of generic constraints (at-least-one, at-most-one, exactly-one), capacity limits, and adjacency and precedence constraints.",
+      "pt": "Exame aprofundado sobre a modelação de problemas do mundo real em Lógica Proposicional. Foco em problemas de alocação de itens em contentores, declaração de matrizes de variáveis booleanas, formulação sistemática de restrições genéricas (at-least-one, at-most-one, exactly-one), limites de capacidade e restrições de vizinhança e precedência."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 10,
+      "boolean": 5,
+      "written": 1
+    },
+    "path": "exames/mfes/2_Modelacao_e_Problemas_de_Alocacao.json"
+  },
+  {
+    "id": "3_Logica_Primeira_Ordem_e_Modelacao",
+    "title": {
+      "pt": "MFES — Exame 3: Lógica de Primeira Ordem e Modelação de Domínios",
+      "en": "MFES — Exam 3: First-Order Logic and Domain Modeling"
+    },
+    "description": {
+      "pt": "Nível 3/6 — Progressão da lógica proposicional para a lógica de primeira ordem. Inclui predicados, relações, funções, constantes, termos, quantificadores, variáveis livres, semântica, equivalências, modelação UML e decidibilidade. O objetivo é compreender rigorosamente como expressar propriedades sobre objetos e relações.",
+      "en": "Level 3/6 — Progression from propositional logic to First-Order Logic (FOL). Covers predicates, relations, functions, constants, terms, quantifiers (universal and existential), free and bound variables, model-theoretic semantics, logical equivalences, UML-to-FOL domain modeling, and decidability boundaries. Objective: master rigorous expression of properties over objects and structural relations."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 18,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 13,
+      "boolean": 4,
+      "written": 1
+    },
+    "path": "exames/mfes/3_Logica_Primeira_Ordem_e_Modelacao.json"
+  },
+  {
+    "id": "3_SAT_Solvers_e_Verificacao",
+    "title": {
+      "en": "Exam 3: SAT Solvers and Property Verification",
+      "pt": "Exame 3: SAT Solvers e Verificação de Propriedades"
+    },
+    "description": {
+      "en": "Advanced exam on SAT solver operations and automated proof techniques. Covers problem reduction to CNF, assertion and invariant verification by refutation (UNSAT of negated formulas), automated counterexamples, model enumeration and counting via blocking clauses (All-SAT), and CDCL solver architecture.",
+      "pt": "Exame avançado sobre o funcionamento de SAT solvers e técnicas de prova automatizada. Abrange a redução de problemas a CNF, verificação de asserções e invariantes por refutação (UNSAT de fórmulas negadas), contraexemplos automáticos, enumeração e contagem de modelos via cláusulas de bloqueio (All-SAT) e arquitetura de solvers CDCL."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 15,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 9,
+      "boolean": 5,
+      "written": 1
+    },
+    "path": "exames/mfes/3_SAT_Solvers_e_Verificacao.json"
+  },
+  {
+    "id": "4_Alloy_Assinaturas_e_Analise_Estrutural",
+    "title": {
+      "pt": "MFES — Exame 4: Alloy, Assinaturas e Análise Estrutural",
+      "en": "MFES — Exam 4: Alloy, Signatures, and Structural Analysis"
+    },
+    "description": {
+      "pt": "Nível 4/6 — Introdução à modelação estrutural com Alloy. Abrange signatures, extends, in, abstract, multiplicidades, fields, facts, run, check, scopes, instances e validação orientada a cenários. Constrói progressivamente os conceitos necessários para compreender modelos Alloy e interpretar os resultados do Analyzer.",
+      "en": "Level 4/6 — Introduction to structural modeling with Alloy. Covers signatures (sig), subtyping (extends vs in), abstract signatures, field multiplicities (one, lone, some, set), facts, predicate execution (run), property assertion checking (check), bounded scopes, instance generation, and scenario-oriented model validation. Progressively builds the skills required to write Alloy models and interpret Analyzer outputs."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 18,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 13,
+      "boolean": 3,
+      "written": 2
+    },
+    "path": "exames/mfes/4_Alloy_Assinaturas_e_Analise_Estrutural.json"
+  },
+  {
+    "id": "4_Feature_Models_e_Variabilidade",
+    "title": {
+      "en": "Exam 4: Feature Models and Variability Analysis",
+      "pt": "Exame 4: Feature Models e Análise de Variabilidade"
+    },
+    "description": {
+      "en": "Exhaustive exam on Software Product Line (SPL) modelling using Feature Models and their formal translation into Propositional Logic. Covers the exact encoding of structural relationships (mandatory, optional, OR, XOR/alternative), cross-tree dependencies (requires, excludes), and automated analyses using SAT solvers: consistency/non-void checks, dead feature detection, core feature detection, and variant counting.",
+      "pt": "Exame exaustivo sobre a modelação de Linhas de Produtos de Software (SPL) através de Feature Models e a sua tradução formal para Lógica Proposicional. Abrange a codificação exata de relações estruturais (mandatory, optional, OR, XOR/alternative), dependências cross-tree (requires, excludes) e as análises automáticas com SAT solvers: verificação de consistência/não-vazio, deteção de features mortas (dead), features nucleares (core) e contagem de variantes."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 15,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 10,
+      "boolean": 4,
+      "written": 1
+    },
+    "path": "exames/mfes/4_Feature_Models_e_Variabilidade.json"
+  },
+  {
+    "id": "5_Ficha1_Exercicios_Praticos",
+    "title": {
+      "en": "Exam 5: Practical Resolution of Worksheet 1 (Modelling and SAT)",
+      "pt": "Exame 5: Resolução Prática da Ficha 1 (Modelação e SAT)"
+    },
+    "description": {
+      "en": "Practical exam focused on the detailed resolution of Worksheet 1 exercises: Decorative panel arrangement, Office allocation with capacity bounds, Instructor assignment to consecutive lectures, and formal analysis of the Survey Feature Model using SAT Solvers.",
+      "pt": "Exame prático focado na resolução detalhada dos exercícios da Ficha 1 da unidade curricular: Colocação de Painéis decorativos, Distribuição de Gabinetes com limites de capacidade, Alocação de Formadores a Aulas consecutivas e Análise formal do Feature Model de Questionários com SAT Solvers."
+    },
+    "languages": [
+      "en",
+      "pt"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 11,
+      "boolean": 4,
+      "written": 1
+    },
+    "path": "exames/mfes/5_Ficha1_Exercicios_Praticos.json"
+  },
+  {
+    "id": "5_SAT_DPLL_CDCL_e_Raciocinio_Formal",
+    "title": {
+      "pt": "MFES — Exame 5: Aprofundamento em SAT, DPLL, CDCL e Raciocínio Formal",
+      "en": "MFES — Exam 5: Advanced SAT, DPLL, CDCL, and Automated Reasoning"
+    },
+    "description": {
+      "pt": "Nível 5/6 — Exame avançado de raciocínio lógico e resolução automática. Aprofunda complexidade computacional, NP-completude, codificação de problemas, CNF, propagação unitária, DPLL, CDCL, DIMACS, SAT e SMT. Inclui execução manual de algoritmos, análise de conflitos, contraexemplos e distinções entre decidibilidade e complexidade.",
+      "en": "Level 5/6 — Advanced exam on automated formal reasoning and SAT solving. Thoroughly covers computational complexity, NP-completeness, SAT reductions, Conjunctive Normal Form (CNF), unit propagation (BCP), the DPLL algorithm, Conflict-Driven Clause Learning (CDCL), the DIMACS format, and Satisfiability Modulo Theories (SMT). Includes manual algorithm trace execution, conflict graph analysis, and boundary distinctions between decidability and complexity."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 15,
+      "boolean": 2,
+      "written": 3
+    },
+    "path": "exames/mfes/5_SAT_DPLL_CDCL_e_Raciocinio_Formal.json"
+  },
+  {
+    "id": "6_Logica_Relacional_Alloy_e_Verificacao",
+    "title": {
+      "pt": "MFES — Exame 6: Aprofundamento em Lógica Relacional, Alloy e Verificação",
+      "en": "MFES — Exam 6: Advanced Relational Logic, Alloy, and Formal Verification"
+    },
+    "description": {
+      "pt": "Nível 6/6 — Exame final de aprofundamento. Integra lógica relacional, composição e inversão de relações, fechos transitivos, alcançabilidade, ciclos, multiplicidades relacionais, equivalência de especificações, scopes e contraexemplos. Exige interpretar fórmulas, detetar requisitos em falta e justificar formalmente propriedades estruturais.",
+      "en": "Level 6/6 — Final comprehensive advanced exam. Integrates relational logic, relational composition, inversion/transposition, transitive closures (^R and *R), reachability analysis, cycle detection, relational multiplicities, specification equivalence, bounded scopes, and counterexample analysis. Requires formula interpretation, identifying missing structural invariants, and formally proving structural properties."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 14,
+      "boolean": 2,
+      "written": 4
+    },
+    "path": "exames/mfes/6_Logica_Relacional_Alloy_e_Verificacao.json"
+  }
+]

@@ -8,12 +8,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/1_Recap.json"
   },
@@ -26,12 +26,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/2_Observability.json"
   },
@@ -44,12 +44,12 @@
     ],
     "questions_count": 31,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 27,
-      "escrita": 4
+      "multiple_choice": 27,
+      "written": 4
     },
     "path": "exames/tso/3_eBPF.json"
   },
@@ -62,12 +62,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/4_Benchmarking.json"
   },
@@ -80,12 +80,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/5_FUSE.json"
   },
@@ -98,12 +98,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/6_DataReduction.json"
   },
@@ -116,12 +116,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/7_DataCaching.json"
   },
@@ -134,12 +134,12 @@
     ],
     "questions_count": 18,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 15,
-      "escrita": 3
+      "multiple_choice": 15,
+      "written": 3
     },
     "path": "exames/tso/8_ModernStorageAPIs.json"
   },
@@ -153,13 +153,13 @@
     "questions_count": 31,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 20,
+      "multiple_choice": 20,
       "boolean": 8,
-      "escrita": 3
+      "written": 3
     },
     "path": "exames/tso/9_CPUScheduling.json"
   },
@@ -173,13 +173,13 @@
     "questions_count": 10,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 6,
+      "multiple_choice": 6,
       "boolean": 2,
-      "escrita": 2
+      "written": 2
     },
     "path": "exames/tso/ExameEstudo1.json"
   },
@@ -193,13 +193,13 @@
     "questions_count": 10,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 6,
+      "multiple_choice": 6,
       "boolean": 2,
-      "escrita": 2
+      "written": 2
     },
     "path": "exames/tso/ExameEstudo2.json"
   },
@@ -212,10 +212,10 @@
     ],
     "questions_count": 8,
     "question_types": [
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 8
+      "written": 8
     },
     "path": "exames/tso/ExameEstudo3.json"
   },
@@ -228,10 +228,10 @@
     ],
     "questions_count": 10,
     "question_types": [
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 10
+      "multiple_choice": 10
     },
     "path": "exames/tso/ExameEstudo4.json"
   },
@@ -244,12 +244,12 @@
     ],
     "questions_count": 12,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 10,
-      "escrita": 2
+      "multiple_choice": 10,
+      "written": 2
     },
     "path": "exames/tso/ExameGlobal1.json"
   },
@@ -262,12 +262,12 @@
     ],
     "questions_count": 12,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 10,
-      "escrita": 2
+      "multiple_choice": 10,
+      "written": 2
     },
     "path": "exames/tso/ExameGlobal2.json"
   },
@@ -280,12 +280,12 @@
     ],
     "questions_count": 12,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 10,
-      "escrita": 2
+      "multiple_choice": 10,
+      "written": 2
     },
     "path": "exames/tso/ExameGlobal3.json"
   },
@@ -298,12 +298,12 @@
     ],
     "questions_count": 30,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 20,
-      "escrita": 10
+      "multiple_choice": 20,
+      "written": 10
     },
     "path": "exames/tso/TSO_ExameTeoricoModelo.json"
   },
@@ -316,12 +316,12 @@
     ],
     "questions_count": 8,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 5,
-      "escrita": 3
+      "multiple_choice": 5,
+      "written": 3
     },
     "path": "exames/tso/TSO_TesteModelo.json"
   }

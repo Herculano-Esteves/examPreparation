@@ -1,0 +1,490 @@
+{
+  "title": {
+    "pt": "Exame 1 — Fundamentos: Aplicações, Infraestrutura e Distribuição",
+    "en": "Exam 1 — Foundations: Applications, Infrastructure, and Distribution"
+  },
+  "description": {
+    "pt": "Nível 1/6 — Introdutório. Objetivo: compreender a estrutura de uma aplicação, os desafios operacionais, as motivações para distribuir sistemas e os primeiros mecanismos de distribuição. A sequência começa nas aplicações tradicionais e termina na análise de arquiteturas distribuídas.",
+    "en": "Level 1/6 — Introductory. Objective: understand application structure, operational challenges, motivations for distributed systems, and initial distribution mechanisms. The sequence progresses from traditional applications to distributed architecture analysis."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Numa aplicação organizada em três camadas, qual é a principal responsabilidade da camada de aplicação?",
+        "en": "In a three-tier application, what is the primary responsibility of the application tier?"
+      },
+      "options": {
+        "pt": [
+          "Gerir exclusivamente a apresentação visual e os dispositivos dos utilizadores.",
+          "Implementar a lógica funcional e coordenar operações sobre os dados.",
+          "Assegurar exclusivamente a persistência e a organização física dos dados.",
+          "Controlar diretamente os recursos físicos utilizados pelas restantes camadas."
+        ],
+        "en": [
+          "Exclusively manage visual presentation and user devices.",
+          "Implement business logic and coordinate data operations.",
+          "Exclusively ensure data persistence and physical data organisation.",
+          "Directly control the physical resources used by the remaining tiers."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A camada de aplicação implementa a lógica funcional. A camada de apresentação trata da interação com o utilizador, enquanto a camada de dados gere a persistência. Esta separação introduz o conceito de modularidade.",
+        "en": "The application tier implements business logic. The presentation tier handles user interaction, while the data tier manages persistence. This separation introduces modularity."
+      }
+    },
+    {
+      "id": 2,
+      "type": "boolean",
+      "question": {
+        "pt": "Uma aplicação composta por várias camadas lógicas é necessariamente um sistema distribuído.",
+        "en": "An application composed of multiple logical layers is necessarily a distributed system."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. As diferentes camadas podem executar no mesmo servidor físico ou virtual. A separação lógica não implica, por si só, distribuição por vários servidores.",
+        "en": "False. Different logical layers can execute on the same physical or virtual server. Logical separation does not in itself imply physical distribution across multiple servers."
+      }
+    },
+    {
+      "id": 3,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes situações representa mais diretamente um desafio de deployment apresentado na matéria introdutória?",
+        "en": "Which of the following situations most directly represents a deployment challenge introduced in the foundational material?"
+      },
+      "options": {
+        "pt": [
+          "Identificar dependências diferentes entre componentes e ambientes heterogéneos.",
+          "Determinar a frequência ideal de recolha de métricas de desempenho.",
+          "Escolher a estratégia de distribuição de pedidos pelos servidores disponíveis.",
+          "Definir o mecanismo de sincronização entre diferentes réplicas de dados."
+        ],
+        "en": [
+          "Identifying differing dependencies between components and heterogeneous environments.",
+          "Determining the optimal frequency for gathering performance metrics.",
+          "Choosing a request distribution strategy across available servers.",
+          "Defining the synchronization mechanism between different data replicas."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O deployment é dificultado pela existência de componentes com requisitos distintos de hardware, software e bibliotecas. A monitorização, distribuição de pedidos e sincronização são outros problemas relevantes, mas pertencem a preocupações diferentes.",
+        "en": "Deployment is hindered by components with heterogeneous requirements for hardware, operating systems, and libraries. Monitoring, request distribution, and synchronization are other distinct concerns."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que caracteriza principalmente um sistema monolítico no modelo apresentado nas aulas?",
+        "en": "What primarily characterizes a monolithic system in the model presented in class?"
+      },
+      "options": {
+        "pt": [
+          "Os componentes são organizados em servidores diferentes segundo as suas funções.",
+          "Os dados são distribuídos por servidores independentes segundo os seus identificadores.",
+          "Os componentes e funcionalidades encontram-se concentrados no mesmo servidor.",
+          "Os serviços são replicados em vários servidores com sincronização permanente."
+        ],
+        "en": [
+          "Components are organised across different servers according to their functions.",
+          "Data is distributed across independent servers based on keys or identifiers.",
+          "Components and functionalities are concentrated on the same server.",
+          "Services are replicated across multiple servers with continuous synchronization."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "No modelo monolítico apresentado, armazenamento, base de dados e servidor aplicacional encontram-se no mesmo servidor. Esta organização simplifica algumas interações, mas concentra os recursos e os riscos de falha.",
+        "en": "In the monolithic model shown, storage, database, and application server reside on the same machine. This simplifies some interactions but concentrates resources and points of failure."
+      }
+    },
+    {
+      "id": 5,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quais são as três motivações principais para desenvolver sistemas distribuídos, segundo os diapositivos?",
+        "en": "What are the three primary motivations for developing distributed systems, according to the lecture slides?"
+      },
+      "options": {
+        "pt": [
+          "Modularidade, escalabilidade e disponibilidade.",
+          "Virtualização, automatização e faturação.",
+          "Persistência, autenticação e monitorização.",
+          "Isolamento, portabilidade e compilação."
+        ],
+        "en": [
+          "Modularity, scalability, and availability.",
+          "Virtualization, automation, and billing.",
+          "Persistence, authentication, and monitoring.",
+          "Isolation, portability, and compilation."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "As motivações destacadas são modularidade e desacoplamento, desempenho e escalabilidade, e disponibilidade e dependabilidade.",
+        "en": "The key motivations highlighted are modularity and decoupling, performance and scalability, and availability and dependability."
+      }
+    },
+    {
+      "id": 6,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal diferença entre scale-up e scale-out?",
+        "en": "What is the main difference between scale-up and scale-out?"
+      },
+      "options": {
+        "pt": [
+          "Scale-up adiciona servidores; scale-out aumenta a capacidade de cada servidor.",
+          "Scale-up aumenta recursos por servidor; scale-out aumenta o número de servidores.",
+          "Scale-up replica informação; scale-out modifica a organização dos dados existentes.",
+          "Scale-up distribui funcionalidades; scale-out elimina dependências entre serviços."
+        ],
+        "en": [
+          "Scale-up adds servers; scale-out increases the capacity of each server.",
+          "Scale-up increases resources per server; scale-out increases the number of servers.",
+          "Scale-up replicates information; scale-out modifies the organisation of existing data.",
+          "Scale-up distributes functionalities; scale-out eliminates dependencies between services."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Scale-up corresponde à escalabilidade vertical, aumentando recursos como CPU e memória de um servidor. Scale-out corresponde à escalabilidade horizontal, aumentando o número de servidores.",
+        "en": "Scale-up corresponds to vertical scaling (increasing resources such as CPU and RAM on a single machine). Scale-out corresponds to horizontal scaling (adding more server machines or instances)."
+      }
+    },
+    {
+      "id": 7,
+      "type": "boolean",
+      "question": {
+        "pt": "Aumentar a memória RAM de um servidor constitui um exemplo de scale-out.",
+        "en": "Increasing the RAM of a server is an example of scale-out."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. Aumentar os recursos de uma máquina é scale-up. Scale-out implica adicionar novas máquinas ou instâncias.",
+        "en": "False. Upgrading the hardware resources of a single machine is scale-up (vertical scaling). Scale-out involves adding new machines or instances."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Um servidor suporta corretamente 200 utilizadores simultâneos, mas começa a apresentar tempos de resposta elevados com 800 utilizadores. Qual é o problema principal?",
+        "en": "A server correctly supports 200 concurrent users, but begins experiencing high response times with 800 users. What is the primary problem?"
+      },
+      "options": {
+        "pt": [
+          "Insuficiência de capacidade perante o aumento da carga.",
+          "Inconsistência dos dados entre servidores replicados.",
+          "Indisponibilidade provocada pela ausência de autenticação.",
+          "Incompatibilidade entre as interfaces dos componentes."
+        ],
+        "en": [
+          "Insufficient capacity in the face of increased load.",
+          "Data inconsistency between replicated servers.",
+          "Unavailability caused by a lack of authentication.",
+          "Incompatibility between component interfaces."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O cenário descreve uma limitação de capacidade e desempenho. É precisamente um dos problemas que motivam a escalabilidade dos sistemas.",
+        "en": "The scenario illustrates a capacity and performance bottleneck under increasing load. This is one of the classic problems motivating horizontal or vertical scaling."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a característica central da replicação?",
+        "en": "What is the core characteristic of replication?"
+      },
+      "options": {
+        "pt": [
+          "Separar funcionalidades distintas por máquinas independentes.",
+          "Dividir os dados em conjuntos exclusivos entre servidores.",
+          "Manter várias cópias da mesma informação ou funcionalidade.",
+          "Concentrar os pedidos num servidor com mais recursos."
+        ],
+        "en": [
+          "Separating distinct functionalities across independent machines.",
+          "Dividing data into disjoint sets across servers.",
+          "Maintaining multiple copies of the same data or functionality.",
+          "Concentrating requests on a single server with more resources."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A replicação mantém várias cópias de dados e/ou funcionalidades. Pode melhorar a disponibilidade e permitir distribuir determinados pedidos por vários servidores.",
+        "en": "Replication keeps multiple copies of data and/or functionality. It can improve availability and allow distributing certain requests across multiple servers."
+      }
+    },
+    {
+      "id": 10,
+      "type": "boolean",
+      "question": {
+        "pt": "A replicação pode contribuir simultaneamente para a escalabilidade e para a tolerância a falhas.",
+        "en": "Replication can contribute simultaneously to scalability and fault tolerance."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. As réplicas podem dividir pedidos e permitir que outra instância continue a servir pedidos quando uma falha. O benefício depende da organização e sincronização das réplicas.",
+        "en": "True. Replicas can share request loads while allowing surviving instances to continue serving requests when a failure occurs. The benefit depends on replica organisation and synchronization."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a característica central do partitioning, também designado sharding?",
+        "en": "What is the core characteristic of partitioning, also known as sharding?"
+      },
+      "options": {
+        "pt": [
+          "Criar cópias equivalentes de todos os dados em cada servidor.",
+          "Distribuir subconjuntos de dados ou computação por servidores diferentes.",
+          "Separar exclusivamente os servidores aplicacionais dos servidores de armazenamento.",
+          "Manter todas as funcionalidades numa máquina com recursos adicionais."
+        ],
+        "en": [
+          "Creating identical copies of all data on every server.",
+          "Distributing subsets of data or computation across different servers.",
+          "Exclusively separating application servers from storage servers.",
+          "Keeping all functionalities on a single machine with additional resources."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O partitioning divide horizontalmente dados ou computação. Diferentes servidores ficam responsáveis por diferentes partições, permitindo distribuir a carga.",
+        "en": "Partitioning horizontally divides data or computation. Different servers become responsible for different partitions, allowing workload distribution."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma aplicação distribui os dados dos utilizadores A–M pelo servidor 1 e N–Z pelo servidor 2. Qual é o mecanismo utilizado?",
+        "en": "An application distributes user data A–M to server 1 and N–Z to server 2. What mechanism is being used?"
+      },
+      "options": {
+        "pt": [
+          "Replicação integral.",
+          "Replicação funcional.",
+          "Particionamento horizontal.",
+          "Decomposição vertical."
+        ],
+        "en": [
+          "Full replication.",
+          "Functional replication.",
+          "Horizontal partitioning.",
+          "Vertical decomposition."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Os servidores possuem subconjuntos diferentes dos dados. Trata-se de particionamento horizontal, não de replicação.",
+        "en": "The servers store different disjoint subsets of data. This represents horizontal partitioning (sharding), not replication."
+      }
+    },
+    {
+      "id": 13,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Na abordagem Service-Oriented Architecture apresentada, o que significa dividir verticalmente um sistema?",
+        "en": "In the presented Service-Oriented Architecture approach, what does vertically dividing a system mean?"
+      },
+      "options": {
+        "pt": [
+          "Distribuir diferentes funcionalidades ou serviços por servidores distintos.",
+          "Distribuir diferentes subconjuntos de clientes pelos mesmos componentes.",
+          "Duplicar integralmente cada componente em servidores independentes.",
+          "Aumentar os recursos físicos de cada servidor mantendo a arquitetura."
+        ],
+        "en": [
+          "Distributing different functionalities or services across distinct servers.",
+          "Distributing different subsets of clients across the same components.",
+          "Fully duplicating each component on independent servers.",
+          "Increasing physical resources on each server while retaining the architecture."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A divisão vertical separa responsabilidades funcionais, como armazenamento, base de dados e aplicação. A divisão horizontal distribui dados ou trabalho da mesma natureza.",
+        "en": "Vertical division separates functional responsibilities, such as storage, database, and application logic. Horizontal division distributes data or work of the same nature."
+      }
+    },
+    {
+      "id": 14,
+      "type": "boolean",
+      "question": {
+        "pt": "Replicação, particionamento e orientação a serviços são mecanismos mutuamente exclusivos.",
+        "en": "Replication, partitioning, and service orientation are mutually exclusive mechanisms."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. Os diapositivos indicam explicitamente que podem ser combinados. Por exemplo, um sistema pode separar os serviços por função, particionar a base de dados e replicar os servidores aplicacionais.",
+        "en": "False. The lecture slides explicitly state that they can be combined. For example, a system can vertically separate services, partition the database, and replicate application servers."
+      }
+    },
+    {
+      "id": 15,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes configurações combina replicação e particionamento?",
+        "en": "Which of the following examples simultaneously combines replication and partitioning?"
+      },
+      "options": {
+        "pt": [
+          "Dois servidores mantêm cópias completas da mesma base de dados.",
+          "Dois servidores armazenam exclusivamente partições diferentes dos dados.",
+          "Cada partição de dados é mantida em dois servidores diferentes.",
+          "Um servidor disponibiliza a aplicação e outro disponibiliza a base de dados."
+        ],
+        "en": [
+          "Two servers maintain full copies of the same database.",
+          "Two servers exclusively store different partitions of the data.",
+          "Each data partition is maintained across two different servers.",
+          "One server provides the application and another provides the database."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A divisão dos dados em partições corresponde ao partitioning. A manutenção de duas cópias de cada partição corresponde à replicação.",
+        "en": "Splitting data into partitions corresponds to partitioning. Keeping two copies of each partition corresponds to replication."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal vantagem da decomposição de uma aplicação em microserviços?",
+        "en": "What is the main advantage of decomposing an application into microservices?"
+      },
+      "options": {
+        "pt": [
+          "Eliminar a necessidade de comunicação entre componentes.",
+          "Permitir que diferentes funcionalidades evoluam e escalem independentemente.",
+          "Garantir que todas as operações distribuídas permanecem consistentes.",
+          "Reduzir automaticamente o número de servidores necessários."
+        ],
+        "en": [
+          "Eliminating the need for inter-component communication.",
+          "Allowing different features to evolve and scale independently.",
+          "Guaranteeing that all distributed operations remain consistent.",
+          "Automatically reducing the required number of servers."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Cada microserviço implementa uma funcionalidade específica e pode ser escalado independentemente. Contudo, surgem desafios de comunicação, consistência, deployment e testes.",
+        "en": "Each microservice implements a specific capability and can be scaled independently. However, challenges in communication, consistency, deployment, and testing emerge."
+      }
+    },
+    {
+      "id": 17,
+      "type": "boolean",
+      "question": {
+        "pt": "A divisão de um monólito em microserviços elimina os problemas de consistência de dados.",
+        "en": "Splitting a monolith into microservices eliminates data consistency problems."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. A consistência entre serviços constitui precisamente um dos desafios destacados nos diapositivos sobre microserviços.",
+        "en": "False. Cross-service data consistency is explicitly one of the major challenges highlighted in microservice architectures."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma aplicação apresenta uma camada de apresentação, uma camada aplicacional e uma camada de dados em três servidores diferentes. Que forma de distribuição é mais diretamente ilustrada?",
+        "en": "An application places its presentation tier, application tier, and data tier across three different servers. What form of distribution is most directly illustrated?"
+      },
+      "options": {
+        "pt": [
+          "Particionamento de dados dentro da mesma funcionalidade.",
+          "Replicação integral de uma aplicação em várias máquinas.",
+          "Distribuição vertical de funcionalidades por componentes.",
+          "Escalabilidade vertical de um único servidor monolítico."
+        ],
+        "en": [
+          "Data partitioning within the same functionality.",
+          "Full replication of an application across multiple machines.",
+          "Vertical functional distribution across components.",
+          "Vertical scaling of a single monolithic server."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Separar as camadas por servidores representa distribuição vertical de funcionalidades. A organização em camadas pode também ser designada arquitetura multi-tier.",
+        "en": "Separating tiers across distinct servers represents vertical distribution of functionalities (multi-tier architecture)."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escrita",
+      "question": {
+        "pt": "Explica a diferença entre replicação, particionamento e orientação a serviços. Apresenta um exemplo de cada mecanismo e identifica a motivação principal para o utilizar.",
+        "en": "Explain the difference between replication, partitioning, and service orientation. Provide an example of each mechanism and identify the primary motivation for using it."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**Replicação:** manutenção de várias cópias da mesma informação ou funcionalidade. Exemplo: dois servidores aplicacionais equivalentes recebem pedidos dos clientes. Pode melhorar escalabilidade e disponibilidade.\n\n**Particionamento:** divisão horizontal dos dados ou da computação em subconjuntos distribuídos por servidores. Exemplo: diferentes servidores armazenam diferentes conjuntos de utilizadores. O objetivo principal é distribuir carga e aumentar a capacidade de processamento ou armazenamento.\n\n**Orientação a serviços:** separação vertical das funcionalidades em componentes ou serviços distintos. Exemplo: armazenamento, base de dados e aplicação em servidores diferentes. Favorece modularidade e escalabilidade independente.\n\n**Critérios de avaliação — 10 pontos:** definição correta de replicação (2); definição correta de particionamento (2); definição correta de orientação a serviços (2); exemplos adequados (3); identificação das motivações e possibilidade de combinação (1).",
+        "en": "Model answer:\n\n**Replication:** maintaining multiple copies of the same data or functionality. Example: two identical application servers handle client requests. Can improve scalability and availability.\n\n**Partitioning:** horizontal division of data or computation into subsets distributed across servers. Example: different servers store different subsets of user accounts. The primary goal is to distribute load and increase processing or storage capacity.\n\n**Service orientation:** vertical separation of functionalities into distinct components or services. Example: storage, database, and application logic on separate servers. Promotes modularity and independent scalability.\n\n**Grading criteria — 10 points:** correct definition of replication (2); correct definition of partitioning (2); correct definition of service orientation (2); appropriate examples (3); identification of motivations and possibility of combination (1)."
+      },
+      "explanation": {
+        "pt": "Esta pergunta consolida os três mecanismos centrais de distribuição apresentados na matéria.",
+        "en": "This question consolidates the three central distribution mechanisms presented in the course."
+      }
+    },
+    {
+      "id": 20,
+      "type": "escrita",
+      "question": {
+        "pt": "Uma aplicação universitária está instalada num único servidor. Quando aumentam os utilizadores, o desempenho degrada-se. Além disso, quando o servidor falha, todos os serviços ficam indisponíveis. Propõe duas alterações arquiteturais e justifica como respondem aos problemas.",
+        "en": "A university application is hosted on a single server. When user traffic surges, performance degrades. Furthermore, when the server fails, all services become unavailable. Propose two architectural modifications and justify how they address these problems."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\nO primeiro problema é a insuficiência de capacidade perante o aumento da carga. Pode ser tratado através de scale-up, aumentando recursos, ou scale-out, adicionando servidores. Uma alternativa interessante consiste em criar várias instâncias da camada aplicacional e distribuir os pedidos.\n\nO segundo problema é a ausência de redundância. A replicação dos componentes críticos pode permitir que outra instância continue a prestar o serviço quando uma falha.\n\nÉ necessário considerar que replicar apenas a aplicação não garante a disponibilidade se a base de dados continuar a ser um ponto único de falha. A solução completa deve identificar os componentes críticos e ponderar mecanismos de redundância para esses componentes.\n\n**Critérios de avaliação — 10 pontos:** identificação do problema de capacidade (2); solução adequada de escalabilidade (2); identificação do problema de disponibilidade (2); solução de redundância (2); discussão de limitações e pontos únicos de falha (2).",
+        "en": "Model answer:\n\nThe first problem is insufficient capacity under increasing load. It can be tackled via scale-up (increasing hardware resources) or scale-out (adding servers). An effective solution is to deploy multiple instances of the application tier and load-balance incoming requests.\n\nThe second problem is lack of redundancy. Replicating critical components allows surviving instances to continue providing service upon failure.\n\nNote that replicating only the application tier does not guarantee availability if the database remains a single point of failure. A complete solution must identify critical components and implement redundancy across all layers.\n\n**Grading criteria — 10 points:** identification of capacity bottleneck (2); appropriate scaling solution (2); identification of availability/redundancy problem (2); redundancy solution (2); discussion of limitations and single points of failure (2)."
+      },
+      "explanation": {
+        "pt": "A escalabilidade responde ao aumento de carga. A redundância responde às falhas. São propriedades relacionadas, mas não equivalentes.",
+        "en": "Scalability addresses increased load; redundancy addresses failures. They are related but distinct architectural properties."
+      }
+    }
+  ]
+}

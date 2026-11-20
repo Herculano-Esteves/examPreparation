@@ -124,17 +124,15 @@ export const en = {
         flag_title_en: 'English',
 
         // Question Types
-        type_escolha_multipla: 'Multiple Choice',
         type_multiple_choice: 'Multiple Choice',
-        type_escolha_multipla_short: 'Multiple',
-        type_escolha_multipla_desc: 'Questions with multiple selectable options (options A, B, C, D).',
+        type_multiple_choice_short: 'Multiple',
+        type_multiple_choice_desc: 'Questions with multiple selectable options (options A, B, C, D).',
         type_boolean: 'True / False',
         type_boolean_short: 'T / F',
         type_boolean_desc: 'Binary questions with true or false statements.',
-        type_escrita: 'Essay / Written',
         type_written: 'Essay / Written',
-        type_escrita_short: 'Written',
-        type_escrita_desc: 'Open-ended essay and written reflection questions with model solutions.',
+        type_written_short: 'Written',
+        type_written_desc: 'Open-ended essay and written reflection questions with model solutions.',
 
         // Copy Buttons
         btn_copy: 'Copy',

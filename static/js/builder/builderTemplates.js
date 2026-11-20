@@ -5,6 +5,7 @@
  */
 
 import { State } from '../state.js';
+import { APP_CONFIG } from '../config.js';
 
 /**
  * Returns array of selected language codes (e.g. ['pt'], ['en'], or ['pt', 'en'])
@@ -32,30 +33,31 @@ export function isBilingualMode() {
 
 /**
  * Generates an empty default question item respecting active language mode
- * @param {string} type - 'escolha_multipla' | 'boolean' | 'escrita'
+ * @param {string} [type=APP_CONFIG.questionTypes.MULTIPLE_CHOICE] - 'multiple_choice' | 'boolean' | 'written'
  * @returns {object}
  */
-export function createDefaultQuestion(type = 'escolha_multipla') {
+export function createDefaultQuestion(type = APP_CONFIG.questionTypes.MULTIPLE_CHOICE) {
     const bilingual = isBilingualMode();
+    const { MULTIPLE_CHOICE, BOOLEAN, WRITTEN } = APP_CONFIG.questionTypes;
 
-    if (type === 'boolean') {
+    if (type === BOOLEAN) {
         return {
-            type: 'boolean',
+            type: BOOLEAN,
             question: bilingual ? { pt: '', en: '' } : '',
             solution: 0,
             explanation: bilingual ? { pt: '', en: '' } : ''
         };
     }
-    if (type === 'escrita') {
+    if (type === WRITTEN) {
         return {
-            type: 'escrita',
+            type: WRITTEN,
             question: bilingual ? { pt: '', en: '' } : '',
             solution: bilingual ? { pt: '', en: '' } : '',
             explanation: bilingual ? { pt: '', en: '' } : ''
         };
     }
     return {
-        type: 'escolha_multipla',
+        type: MULTIPLE_CHOICE,
         question: bilingual ? { pt: '', en: '' } : '',
         options: bilingual ? { pt: ['', '', '', ''], en: ['', '', '', ''] } : ['', '', '', ''],
         solution: [0],

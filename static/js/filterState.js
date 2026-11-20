@@ -6,9 +6,11 @@
  * Sem acoplamento com o DOM para assegurar testabilidade e robustez.
  */
 
-export const ALL_QUESTION_TYPES = ['escolha_multipla', 'boolean', 'escrita'];
+import { APP_CONFIG } from './config.js';
+
+export const ALL_QUESTION_TYPES = Object.values(APP_CONFIG.questionTypes);
 export const ALL_EXAM_STATES = ['completed', 'pending'];
-export const ALL_LANGUAGES = ['pt', 'en'];
+export const ALL_LANGUAGES = APP_CONFIG.supportedLanguages;
 
 /**
  * Determina modularmente o idioma efetivo a utilizar para títulos, descrições e flags.

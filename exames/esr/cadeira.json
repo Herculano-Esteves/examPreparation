@@ -1,0 +1,6 @@
+{
+  "nome": "Engenharia de Serviços em Rede",
+  "sigla": "ESR",
+  "icon": "fa-network-wired",
+  "descricao": "Conceitos fundamentais da camada de aplicação, arquiteturas cliente-servidor e P2P, sockets, streaming multimédia (DASH, CDN), multicast IP (IGMP, MLD) e routing multicast (PIM-SM, PIM-DM)."
+}

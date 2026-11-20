@@ -1,0 +1,506 @@
+{
+  "title": {
+    "pt": "Exame 3 — DevOps, Infrastructure as Code e System Provisioning",
+    "en": "Exam 3 — DevOps, Infrastructure as Code, and System Provisioning"
+  },
+  "description": {
+    "pt": "Nível 3/6 — Intermédio. Desenvolve os conceitos de desenvolvimento ágil, operações, Infrastructure as Code, provisioning, deployment, gestão de configuração e Ansible. As questões progridem da motivação teórica para a interpretação de mecanismos de automatização.",
+    "en": "Level 3/6 — Intermediate. Covers agile development, operations, Infrastructure as Code, provisioning, deployment, configuration management, and Ansible. Questions progress from theoretical rationale to interpreting automation mechanisms."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é uma das principais vantagens de manter código-fonte, binários e documentação em repositórios versionados?",
+        "en": "What is one of the primary advantages of maintaining source code, binaries, and documentation in version-controlled repositories?"
+      },
+      "options": {
+        "pt": [
+          "Permitir identificar estados anteriores e acompanhar alterações.",
+          "Garantir que todos os servidores executam sem configuração.",
+          "Eliminar a necessidade de testar alterações ao software.",
+          "Assegurar que todas as versões apresentam o mesmo desempenho."
+        ],
+        "en": [
+          "Allowing prior states to be identified and changes to be tracked.",
+          "Guaranteeing that all servers run without configuration.",
+          "Eliminating the need to test software changes.",
+          "Ensuring that all versions exhibit identical performance."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O versionamento proporciona um estado identificável e permite regressar a versões anteriores. É uma das bases do desenvolvimento ágil apresentado nos diapositivos.",
+        "en": "Version control provides an identifiable state and allows rollback to prior versions. It is a cornerstone of agile development."
+      }
+    },
+    {
+      "id": 2,
+      "type": "boolean",
+      "question": {
+        "pt": "A automatização de builds e testes contribui para ciclos de desenvolvimento mais rápidos através de feedback frequente.",
+        "en": "Automating builds and tests contributes to faster development cycles through frequent feedback."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Os diapositivos associam desenvolvimento ágil a repositórios versionados, builds e testes automatizados e iterações rápidas.",
+        "en": "True. The lecture slides associate agile development with version-controlled repositories, automated builds and testing, and rapid iteration."
+      }
+    },
+    {
+      "id": 3,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual dos seguintes problemas está associado ao provisioning e à configuração manuais?",
+        "en": "Which of the following problems is associated with manual provisioning and configuration?"
+      },
+      "options": {
+        "pt": [
+          "Aumento da previsibilidade entre ambientes independentes.",
+          "Redução da diversidade de configurações entre servidores.",
+          "Dificuldade de reprodução e aparecimento de configuration drift.",
+          "Eliminação de diferenças entre ambientes de teste e produção."
+        ],
+        "en": [
+          "Increased predictability across independent environments.",
+          "Reduced configuration diversity across servers.",
+          "Difficulty of reproducibility and the emergence of configuration drift.",
+          "Elimination of discrepancies between test and production environments."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Processos manuais podem produzir configurações inconsistentes e difíceis de reproduzir, dando origem a configuration drift e a servidores snowflake.",
+        "en": "Manual processes lead to inconsistent, difficult-to-reproduce setups, causing configuration drift and snowflake servers."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que caracteriza um snowflake server no contexto apresentado?",
+        "en": "What characterizes a snowflake server in the presented context?"
+      },
+      "options": {
+        "pt": [
+          "Um servidor cujos recursos são ajustados automaticamente à carga.",
+          "Um servidor com configuração particular e difícil de reproduzir.",
+          "Um servidor que mantém cópias de segurança em várias localizações.",
+          "Um servidor utilizado exclusivamente para executar testes automatizados."
+        ],
+        "en": [
+          "A server whose resources are automatically adjusted to workload demand.",
+          "A server with a unique, fragile configuration that is difficult to reproduce.",
+          "A server that maintains backup copies across multiple locations.",
+          "A server exclusively used to run automated test suites."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Um snowflake server possui uma configuração singular, muitas vezes resultado de alterações manuais acumuladas. Isto dificulta manutenção e substituição.",
+        "en": "A snowflake server has a unique, hand-crafted configuration resulting from accumulated manual tweaks, making maintenance, scaling, and recovery challenging."
+      }
+    },
+    {
+      "id": 5,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o princípio central de Infrastructure as Code?",
+        "en": "What is the core principle of Infrastructure as Code (IaC)?"
+      },
+      "options": {
+        "pt": [
+          "Gerir infraestrutura através de descrições e scripts versionáveis.",
+          "Administrar servidores exclusivamente através de interfaces gráficas.",
+          "Substituir a infraestrutura física por aplicações sem persistência.",
+          "Eliminar a necessidade de especificar os recursos dos sistemas."
+        ],
+        "en": [
+          "Managing infrastructure through versionable descriptions and scripts.",
+          "Managing servers exclusively through graphical user interfaces.",
+          "Replacing physical infrastructure with stateless applications.",
+          "Eliminating the need to specify system resources."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Infrastructure as Code representa provisionamento e configuração através de código, permitindo automatização, versionamento e reprodução.",
+        "en": "Infrastructure as Code represents provisioning and configuration as declarative code or scripts, enabling automation, version control, and reproducibility."
+      }
+    },
+    {
+      "id": 6,
+      "type": "boolean",
+      "question": {
+        "pt": "Segundo a matéria introdutória, DevOps resulta da aproximação entre desenvolvimento ágil e práticas de Infrastructure as Code.",
+        "en": "According to the introductory material, DevOps arises from bridging agile software development with Infrastructure as Code practices."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Os diapositivos apresentam explicitamente a relação entre Agile Development, Infrastructure as Code e DevOps.",
+        "en": "True. The lecture slides explicitly depict DevOps as the intersection between agile development practices, automation, and Infrastructure as Code."
+      }
+    },
+    {
+      "id": 7,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença entre provisioning e deployment, conforme definidos nos diapositivos?",
+        "en": "What is the difference between provisioning and deployment, as defined in the lecture slides?"
+      },
+      "options": {
+        "pt": [
+          "Provisioning instala aplicações; deployment cria exclusivamente utilizadores.",
+          "Provisioning fornece recursos; deployment instala ou atualiza aplicações e serviços.",
+          "Provisioning executa testes; deployment recolhe métricas dos sistemas.",
+          "Provisioning distribui pedidos; deployment sincroniza os servidores."
+        ],
+        "en": [
+          "Provisioning installs applications; deployment exclusively creates users.",
+          "Provisioning allocates resources; deployment installs or updates applications and services.",
+          "Provisioning executes test suites; deployment collects system metrics.",
+          "Provisioning distributes requests; deployment synchronizes servers."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Provisioning fornece recursos para utilização, incluindo servidores, redes, armazenamento, VMs e utilizadores. Deployment instala ou atualiza uma aplicação ou serviço.",
+        "en": "Provisioning supplies resources for use (servers, networks, storage, VMs, user accounts). Deployment installs, configures, or updates an application or service on top of that infrastructure."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes operações é um exemplo de server provisioning?",
+        "en": "Which of the following operations is an example of server provisioning?"
+      },
+      "options": {
+        "pt": [
+          "Criar uma máquina virtual para disponibilizar capacidade computacional.",
+          "Atualizar o código de uma aplicação instalada numa máquina existente.",
+          "Reiniciar um serviço após alterar o respetivo ficheiro de configuração.",
+          "Executar testes de integração sobre uma aplicação recentemente instalada."
+        ],
+        "en": [
+          "Creating a virtual machine to make computing capacity available.",
+          "Updating application code installed on an existing machine.",
+          "Restarting a service after modifying its configuration file.",
+          "Executing integration tests against a newly deployed application."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A disponibilização de capacidade computacional constitui provisioning. Instalar ou atualizar aplicações corresponde a deployment.",
+        "en": "Allocating compute capacity (such as spinning up a VM) constitutes provisioning. Installing or updating application code constitutes deployment."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o objetivo principal da Configuration Management?",
+        "en": "What is the primary objective of Configuration Management?"
+      },
+      "options": {
+        "pt": [
+          "Controlar alterações sistemáticas preservando a integridade dos sistemas.",
+          "Impedir que os sistemas recebam atualizações após a instalação.",
+          "Concentrar a configuração numa sequência de operações exclusivamente manuais.",
+          "Substituir a necessidade de definir configurações por monitorização contínua."
+        ],
+        "en": [
+          "Controlling systematic changes while preserving system integrity.",
+          "Preventing systems from receiving updates after installation.",
+          "Concentrating configuration in an exclusively manual sequence of steps.",
+          "Replacing the need to define configurations with continuous monitoring."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A gestão de configuração procura aplicar alterações controladas ao longo do ciclo de vida da infraestrutura.",
+        "en": "Configuration management systematically maintains and enforces consistent desired state across the entire infrastructure lifecycle."
+      }
+    },
+    {
+      "id": 10,
+      "type": "boolean",
+      "question": {
+        "pt": "O versionamento das configurações permite acompanhar a evolução da infraestrutura ao longo do tempo.",
+        "en": "Version controlling configurations allows tracking infrastructure evolution over time."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. A combinação entre gestão de configuração e sistemas como Git permite manter histórico de alterações.",
+        "en": "True. Combining configuration management with version control systems (like Git) creates an auditable commit history for infrastructure."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes descrições corresponde melhor a uma recipe no contexto de gestão de configuração?",
+        "en": "Which of the following descriptions best corresponds to a recipe in the context of configuration management?"
+      },
+      "options": {
+        "pt": [
+          "Uma sequência de diretivas que descreve tarefas de automatização.",
+          "Um registo histórico de métricas recolhidas durante a execução.",
+          "Uma representação gráfica da distribuição dos pedidos pelos servidores.",
+          "Um conjunto de mensagens trocadas entre serviços durante uma operação."
+        ],
+        "en": [
+          "A sequence of directives describing automation tasks.",
+          "A historical log of metrics collected during execution.",
+          "A graphical representation of request distribution across servers.",
+          "A set of messages exchanged between services during an operation."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma recipe expressa tarefas de automatização através de diretivas numa linguagem definida.",
+        "en": "A recipe expresses automation tasks through directives written in a defined configuration language or DSL."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No modelo de funcionamento do Ansible apresentado, qual é a função do inventory?",
+        "en": "In the presented Ansible operational model, what is the role of the inventory?"
+      },
+      "options": {
+        "pt": [
+          "Definir os servidores e grupos de servidores que serão geridos.",
+          "Guardar exclusivamente os resultados das tarefas já executadas.",
+          "Armazenar as versões binárias dos serviços que serão instalados.",
+          "Determinar automaticamente o número de réplicas de cada aplicação."
+        ],
+        "en": [
+          "Defining the target servers and server groups to be managed.",
+          "Storing exclusively the results of previously executed tasks.",
+          "Storing binary packages of the services to be installed.",
+          "Automatically determining the number of replicas for each application."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O inventory identifica os hosts e permite organizá-los em grupos utilizados pelos playbooks.",
+        "en": "The inventory identifies managed target nodes (hosts) and organises them into logical groups targeted by playbooks."
+      }
+    },
+    {
+      "id": 13,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a relação correta entre management node, inventory e playbook no Ansible?",
+        "en": "What is the correct relationship between management node, inventory, and playbook in Ansible?"
+      },
+      "options": {
+        "pt": [
+          "O management node executa playbooks sobre hosts identificados no inventory.",
+          "O inventory executa tarefas locais e comunica resultados aos playbooks.",
+          "O playbook armazena os hosts e o management node apenas recolhe métricas.",
+          "O management node sincroniza dados e o inventory configura aplicações."
+        ],
+        "en": [
+          "The management node executes playbooks against hosts defined in the inventory.",
+          "The inventory executes local tasks and reports results to playbooks.",
+          "The playbook stores hosts while the management node only collects metrics.",
+          "The management node synchronizes data while the inventory configures applications."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O management node executa os comandos Ansible. O inventory identifica os hosts e os playbooks descrevem as tarefas.",
+        "en": "The control/management node runs Ansible CLI commands, reading target hosts from the inventory and applying tasks described in playbooks."
+      }
+    },
+    {
+      "id": 14,
+      "type": "boolean",
+      "question": {
+        "pt": "No funcionamento do Ansible descrito nos diapositivos, a comunicação com os hosts remotos utiliza SSH.",
+        "en": "In the Ansible workflow described in the lecture slides, communication with remote hosts uses SSH."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Os diapositivos apresentam o Ansible a estabelecer ligações SSH a partir do management node.",
+        "en": "True. Ansible is agentless and connects to remote target machines over standard SSH (or WinRM on Windows) from the control node."
+      }
+    },
+    {
+      "id": 15,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que significa idempotência no contexto de automatização da configuração?",
+        "en": "What does idempotence mean in the context of configuration automation?"
+      },
+      "options": {
+        "pt": [
+          "Executar a mesma configuração repetidamente sem alterações desnecessárias ao estado final.",
+          "Executar cada tarefa uma única vez durante todo o ciclo de vida da infraestrutura.",
+          "Garantir que cada execução altera pelo menos uma propriedade do sistema.",
+          "Repetir as tarefas falhadas até que todas produzam resultados diferentes."
+        ],
+        "en": [
+          "Executing the same configuration repeatedly without unnecessary alterations to the desired state.",
+          "Executing each task exactly once during the entire infrastructure lifecycle.",
+          "Ensuring that each execution alters at least one system property.",
+          "Retrying failed tasks until each produces a different result."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma operação idempotente pode ser repetida mantendo o mesmo estado desejado. No Ansible, os módulos procuram modificar recursos apenas quando necessário.",
+        "en": "An idempotent operation can be executed repeatedly, leaving the target system in the identical desired end state without redundant side effects."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a interpretação mais correta deste playbook?",
+        "en": "What is the most accurate interpretation of this playbook?"
+      },
+      "options": {
+        "pt": [
+          "Assegura que o pacote nginx está instalado nos hosts do grupo webservers.",
+          "Reinstala obrigatoriamente o pacote nginx em todos os servidores existentes.",
+          "Remove o pacote nginx dos servidores que não pertencem ao grupo webservers.",
+          "Inicia automaticamente uma réplica adicional sempre que o nginx já existe."
+        ],
+        "en": [
+          "It ensures the nginx package is installed on hosts in the webservers group.",
+          "It forcefully reinstalls nginx across all existing servers.",
+          "It removes the nginx package from servers not in the webservers group.",
+          "It automatically spins up an extra replica whenever nginx is already present."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O playbook aplica a tarefa aos hosts do grupo webservers. O estado present indica que o pacote deve existir, sem exigir reinstalação quando já está instalado.",
+        "en": "The playbook targets the webservers host group. The state: present directive enforces that the package exists, without performing a redundant reinstall if it is already present."
+      }
+    },
+    {
+      "id": 17,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal função de um handler no Ansible?",
+        "en": "What is the primary role of an Ansible handler?"
+      },
+      "options": {
+        "pt": [
+          "Executar uma ação em resposta a uma notificação de uma tarefa.",
+          "Definir os grupos de hosts disponíveis num ficheiro inventory.",
+          "Armazenar credenciais em ficheiros de configuração não encriptados.",
+          "Substituir todos os módulos por comandos executados diretamente na shell."
+        ],
+        "en": [
+          "Executing an action in response to a task notification.",
+          "Defining available host groups within an inventory file.",
+          "Storing credentials in unencrypted configuration files.",
+          "Replacing all modules with commands executed directly in the shell."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Handlers são tarefas especiais desencadeadas por notificações. Um exemplo comum é reiniciar um serviço quando a configuração é alterada.",
+        "en": "Handlers are triggered only when notified by tasks that have made changes (e.g., restarting a daemon only if a configuration template was modified)."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Assumindo um handler corretamente definido, em que situação será normalmente notificado para reiniciar o nginx?",
+        "en": "Assuming a properly defined handler, under what condition is it typically notified to restart nginx?"
+      },
+      "options": {
+        "pt": [
+          "Sempre que o playbook iniciar, mesmo sem alterações no ficheiro.",
+          "Quando a execução da tarefa produzir uma alteração na configuração.",
+          "Apenas quando o servidor remoto deixar de responder ao management node.",
+          "Quando o inventory incluir um novo host que não pertence ao grupo."
+        ],
+        "en": [
+          "Every time the playbook runs, even if no file changes occurred.",
+          "When the task execution results in a state change in the configuration.",
+          "Only when the remote server stops responding to the management node.",
+          "When the inventory includes a new host not belonging to the group."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O handler é notificado quando a tarefa apresenta o estado changed. Isto evita reinícios desnecessários.",
+        "en": "Handlers are only invoked when a preceding task reports a changed state. If the configuration file was already up to date, the handler is skipped."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escrita",
+      "question": {
+        "pt": "Explica como Infrastructure as Code e Configuration Management contribuem para evitar configuration drift e snowflake servers. Relaciona a resposta com DevOps.",
+        "en": "Explain how Infrastructure as Code and Configuration Management contribute to avoiding configuration drift and snowflake servers. Relate your answer to DevOps."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\nInfrastructure as Code permite descrever a infraestrutura e a sua configuração através de código versionado. Configuration Management permite aplicar essas descrições de forma sistemática, procurando manter o estado desejado dos sistemas.\n\nAo automatizar instalações e configurações, reduz-se a dependência de intervenções manuais que originam diferenças entre servidores. O versionamento permite identificar alterações e reproduzir configurações anteriores.\n\nA idempotência facilita a repetição das operações sem alterações desnecessárias. Desta forma, os servidores tornam-se mais consistentes e substituíveis, evitando configurações únicas difíceis de reproduzir.\n\nEstas práticas integram-se em DevOps porque aproximam desenvolvimento e operações, permitindo deployment reproduzível, alterações frequentes e gestão versionada.\n\n**Critérios de avaliação — 10 pontos:** definição de IaC (2); gestão de configuração (2); explicação do configuration drift (2); importância da automatização e do versionamento (2); relação com DevOps (2).",
+        "en": "Model answer:\n\nInfrastructure as Code allows describing infrastructure and its configuration through version-controlled code. Configuration Management applies these specifications systematically, continuously converging systems toward the desired state.\n\nBy automating provisioning and configuration, reliance on manual, undocumented ad-hoc changes that cause server divergence is minimized. Version control tracks the provenance of every change and allows reverting to prior stable configurations.\n\nIdempotence ensures that reapplying configurations fixes drift without unwanted side effects. As a result, servers remain consistent, disposable, and easily reproducible, preventing unique \"snowflake\" servers.\n\nThese practices embody DevOps by bridging development and operations, facilitating continuous integration, automated deployments, frequent releases, and infrastructure auditability.\n\n**Grading criteria — 10 points:** definition of IaC (2); configuration management (2); explanation of configuration drift (2); importance of automation and version control (2); relationship with DevOps culture (2)."
+      },
+      "explanation": {
+        "pt": "O objetivo não é apenas executar tarefas mais rapidamente. É obter ambientes consistentes, reproduzíveis e documentados.",
+        "en": "The goal is not merely faster execution, but obtaining consistent, reproducible, and well-documented infrastructure environments."
+      }
+    },
+    {
+      "id": 20,
+      "type": "escrita",
+      "question": {
+        "pt": "Uma organização pretende instalar e manter a mesma aplicação em 50 servidores. Explica como estruturarias uma solução baseada em Ansible, identificando o papel de inventory, playbooks, roles, templates, handlers e variables.",
+        "en": "An organisation wishes to deploy and maintain the same application across 50 servers. Explain how you would structure an Ansible-based solution, identifying the role of inventory, playbooks, roles, templates, handlers, and variables."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\nO inventory identifica os 50 servidores e organiza-os em grupos segundo as suas responsabilidades, por exemplo, webservers e database.\n\nOs playbooks descrevem o conjunto de operações e identificam os hosts a configurar.\n\nAs roles permitem organizar tarefas relacionadas, como instalação de pacotes, configuração de serviços e criação de utilizadores.\n\nOs templates permitem gerar ficheiros de configuração utilizando valores específicos de cada ambiente ou servidor.\n\nAs variables evitam repetir valores fixos e permitem parametrizar configurações.\n\nOs handlers executam ações quando ocorrem alterações relevantes, como reiniciar um serviço após modificar o ficheiro de configuração.\n\nO management node executa os playbooks e estabelece as ligações necessárias aos hosts. A idempotência permite repetir a execução para corrigir desvios sem refazer todas as operações.\n\n**Critérios de avaliação — 10 pontos:** inventory (1,5); playbooks (1,5); roles (1,5); templates (1,5); handlers (1); variables (1); idempotência e organização global (2).",
+        "en": "Model answer:\n\nThe inventory defines the 50 managed nodes, organizing them into logical groups according to responsibility (e.g., `webservers`, `dbservers`).\n\nPlaybooks specify the orchestration workflow, mapping tasks to target host groups.\n\nRoles structure and modularize related tasks, default variables, templates, and handlers into reusable directory hierarchies (e.g., package installation, service tuning).\n\nJinja2 templates dynamically render configuration files using host-specific or environment-specific values.\n\nVariables parameterize configurations across dev, staging, and production environments without hardcoding values.\n\nHandlers perform reactive actions, such as restarting the service daemon only when configuration templates report changes.\n\nThe control node executes playbooks over SSH. Idempotent tasks ensure that subsequent runs safely rectify configuration drift without redoing already-applied changes.\n\n**Grading criteria — 10 points:** inventory (1.5); playbooks (1.5); roles (1.5); templates (1.5); handlers (1); variables (1); idempotence and overall architecture (2)."
+      },
+      "explanation": {
+        "pt": "A questão avalia a capacidade de relacionar os conceitos apresentados em System Provisioning numa solução coerente.",
+        "en": "Evaluates the ability to synthesize System Provisioning concepts into an end-to-end automation architecture."
+      }
+    }
+  ]
+}

@@ -12,6 +12,7 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { showToast, getLocalizedText, getLocalizedList } from './utils.js';
 import { t, getCurrentLanguage } from './i18n.js';
+import { APP_CONFIG, normalizeQuestionType } from './config.js';
 
 /**
  * Build a plain-text representation of the current question and copy it.
@@ -39,16 +40,16 @@ export function copyQuestionToClipboard(includeAnswer = false) {
         textToCopy += `\n${t('clip_scenario')}:\n${headerText}\n`;
     }
 
-    const qType = q.type || q.tipo;
+    const qType = normalizeQuestionType(q.type || q.tipo);
     const rawSolution = q.solution !== undefined ? q.solution : q.solucao;
     const rawExplanation = q.explanation || q.explicacao;
 
-    if (qType === 'escrita') {
+    if (qType === APP_CONFIG.questionTypes.WRITTEN) {
         if (includeAnswer && rawSolution) {
             textToCopy += `\n${t('feedback_expected_solution')}\n${getLocalizedText(rawSolution)}\n`;
         }
     } else {
-        const isBoolean   = qType === 'boolean';
+        const isBoolean   = qType === APP_CONFIG.questionTypes.BOOLEAN;
         const rawOptions  = q.options || q.opcoes;
         const optionsList = isBoolean 
             ? (getCurrentLanguage() === 'en' ? ['True', 'False'] : ['Verdadeiro', 'Falso'])

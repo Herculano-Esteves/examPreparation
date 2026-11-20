@@ -1,0 +1,511 @@
+{
+  "title": {
+    "pt": "Exame 6 — Aprofundamento II: Integração Global e Decisões de Arquitetura Cloud",
+    "en": "Exam 6 — Advanced Focus II: Global Integration and Cloud Architecture Decisions"
+  },
+  "description": {
+    "pt": "Nível 6/6 — Avançado. Exame final integrador. Combina os quatro conjuntos teóricos através de problemas que exigem selecionar serviços cloud, compreender responsabilidades, planear automação, analisar armazenamento, avaliar falhas e estabelecer compromissos. A dificuldade aumenta até às questões finais de desenho e justificação arquitetural.",
+    "en": "Level 6/6 — Advanced. Final capstone exam. Combines all four theoretical modules through real-world scenarios: selecting cloud services, shared responsibility models, automation planning, storage trade-offs, fault evaluation, and architectural decision justification."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o modelo cloud que proporciona maior controlo inicial sobre o ambiente de execução?",
+        "en": "Which cloud service model provides the greatest initial control over the execution environment?"
+      },
+      "options": {
+        "pt": [
+          "IaaS, porque permite administrar o sistema operativo e as dependências.",
+          "PaaS, porque exige administrar diretamente os servidores físicos utilizados.",
+          "SaaS, porque permite substituir livremente todos os componentes internos.",
+          "PaaS, porque disponibiliza necessariamente o mesmo ambiente de uma instalação local."
+        ],
+        "en": [
+          "IaaS, because it allows administering the operating system and dependencies.",
+          "PaaS, because it requires directly administering the physical servers used.",
+          "SaaS, because it allows freely replacing all internal components.",
+          "PaaS, because it necessarily provides the identical environment of an on-premises setup."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "IaaS é frequentemente adequado à migração de aplicações tradicionais que necessitam de controlo sobre o sistema operativo e as dependências.",
+        "en": "IaaS is often best suited for migrating traditional applications requiring fine-grained control over the operating system, system libraries, and custom dependencies."
+      }
+    },
+    {
+      "id": 2,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a classificação mais adequada?",
+        "en": "What is the most appropriate classification?"
+      },
+      "options": {
+        "pt": [
+          "IaaS com escalabilidade obrigatoriamente manual dos servidores físicos.",
+          "PaaS com elasticidade gerida ao nível da aplicação.",
+          "SaaS com gestão direta do sistema operativo pelo utilizador.",
+          "IaaS sem abstração de recursos computacionais."
+        ],
+        "en": [
+          "IaaS with strictly manual physical server scaling.",
+          "PaaS with elasticity managed at the application level.",
+          "SaaS with direct user management of the operating system.",
+          "IaaS without abstraction of compute resources."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O cenário corresponde ao modelo PaaS apresentado, no qual os recursos são abstraídos e a escalabilidade pode ser gerida ao nível das instâncias aplicacionais.",
+        "en": "The scenario corresponds to PaaS, where underlying infrastructure resources are abstracted away and elasticity is managed at the application runtime level."
+      }
+    },
+    {
+      "id": 3,
+      "type": "boolean",
+      "question": {
+        "pt": "Migrar uma aplicação de IaaS para PaaS pode diminuir o esforço de administração da infraestrutura, mas também reduzir o controlo sobre o ambiente de execução.",
+        "en": "Migrating an application from IaaS to PaaS can reduce infrastructure administration overhead, but may also decrease control over the underlying execution environment."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Trata-se de um compromisso essencial entre conveniência e controlo.",
+        "en": "True. This is an essential architectural trade-off between operational convenience and low-level control."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a solução de armazenamento mais apropriada?",
+        "en": "What is the most appropriate storage solution?"
+      },
+      "options": {
+        "pt": [
+          "Utilizar armazenamento efémero associado exclusivamente à instância original.",
+          "Utilizar um volume persistente gerido pelo serviço Cinder.",
+          "Utilizar apenas o repositório de imagens disponibilizado pelo Glance.",
+          "Utilizar exclusivamente os metadados mantidos pelo serviço Placement."
+        ],
+        "en": [
+          "Using ephemeral storage tied exclusively to the original instance.",
+          "Using a persistent volume managed by the Cinder service.",
+          "Using solely the image catalog provided by Glance.",
+          "Using exclusively metadata maintained by the Placement service."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Cinder fornece block storage persistente. O armazenamento efémero não deve ser utilizado como única localização de dados que precisam de sobreviver à terminação da instância.",
+        "en": "Cinder provides persistent block storage. Ephemeral instance storage must never be relied upon for data that must outlive the lifecycle of a virtual machine instance."
+      }
+    },
+    {
+      "id": 5,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o serviço OpenStack mais alinhado com este requisito?",
+        "en": "Which OpenStack service is most aligned with this requirement?"
+      },
+      "options": {
+        "pt": [
+          "Cinder, pela disponibilização de volumes persistentes em blocos.",
+          "Swift, pela disponibilização de objetos através de uma API.",
+          "Manila, pela disponibilização de sistemas de ficheiros partilhados.",
+          "Glance, pela disponibilização de imagens de instâncias."
+        ],
+        "en": [
+          "Cinder, for providing persistent block storage volumes.",
+          "Swift, for providing object storage via a REST API.",
+          "Manila, for providing shared file systems (NFS/CIFS).",
+          "Glance, for providing compute instance disk images."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Manila é o serviço de ficheiros partilhados. Cinder e Swift respondem a modelos de armazenamento diferentes.",
+        "en": "Manila provides Shared File Systems as a Service, whereas Cinder and Swift cater to block and object storage paradigms respectively."
+      }
+    },
+    {
+      "id": 6,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a solução mais adequada?",
+        "en": "What is the most appropriate solution?"
+      },
+      "options": {
+        "pt": [
+          "Swift, utilizando armazenamento distribuído por objetos.",
+          "Cinder, utilizando exclusivamente volumes de blocos associados a VMs.",
+          "Manila, utilizando exclusivamente diretórios de um sistema de ficheiros.",
+          "Nova, utilizando exclusivamente armazenamento efémero da instância."
+        ],
+        "en": [
+          "Swift, utilizing distributed object storage.",
+          "Cinder, utilizing exclusively block storage volumes attached to VMs.",
+          "Manila, utilizing exclusively file system directories.",
+          "Nova, utilizing exclusively ephemeral instance storage."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O armazenamento de objetos é adequado a grandes quantidades de dados não estruturados.",
+        "en": "Object storage (Swift) is the industry-standard architecture for storing massive volumes of unstructured multimedia objects accessible via HTTP APIs."
+      }
+    },
+    {
+      "id": 7,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o conjunto de serviços que melhor corresponde a essas responsabilidades?",
+        "en": "Which set of services best corresponds to these responsibilities?"
+      },
+      "options": {
+        "pt": [
+          "Nova, Keystone, Glance e Neutron.",
+          "Cinder, Keystone, Manila e Telemetry.",
+          "Nova, Swift, Placement e Cinder.",
+          "Glance, Manila, Swift e Telemetry."
+        ],
+        "en": [
+          "Nova, Keystone, Glance, and Neutron.",
+          "Cinder, Keystone, Manila, and Telemetry.",
+          "Nova, Swift, Placement, and Cinder.",
+          "Glance, Manila, Swift, and Telemetry."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Nova gere computação, Keystone identidade, Glance imagens e Neutron redes.",
+        "en": "Nova manages compute instances, Keystone handles identity, Glance stores images, and Neutron orchestrates software-defined networking."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a relação funcional mais adequada?",
+        "en": "What is the most appropriate functional relationship?"
+      },
+      "options": {
+        "pt": [
+          "Telemetry recolhe métricas e desencadeia ações; Nova pode criar instâncias.",
+          "Neutron recolhe métricas e Cinder administra as instâncias computacionais.",
+          "Glance monitoriza CPU e Swift gere a distribuição dos servidores.",
+          "Keystone monitoriza desempenho e Manila ajusta recursos computacionais."
+        ],
+        "en": [
+          "Telemetry collects metrics and triggers alarms; Nova can spawn new compute instances.",
+          "Neutron collects metrics and Cinder administers compute instances.",
+          "Glance monitors CPU utilization and Swift manages server distribution.",
+          "Keystone monitors performance and Manila scales compute resources."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Telemetry disponibiliza recolha e análise de métricas e ações baseadas em regras. A criação de instâncias computacionais é responsabilidade de Nova, integrado com os restantes serviços necessários.",
+        "en": "Telemetry collects time-series telemetry data and evaluates threshold alarms, signaling Nova (compute) to spin up or tear down VM instances to satisfy autoscaling policies."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a conclusão mais adequada?",
+        "en": "What is the most appropriate conclusion?"
+      },
+      "options": {
+        "pt": [
+          "A replicação aplicacional não elimina dependências de componentes partilhados.",
+          "A disponibilidade das réplicas garante a disponibilidade integral de todos os dados.",
+          "O problema é necessariamente causado pelo número insuficiente de réplicas aplicacionais.",
+          "A utilização de armazenamento persistente impede qualquer falha de acesso ao serviço."
+        ],
+        "en": [
+          "Application tier replication does not eliminate dependencies on shared back-end components.",
+          "Replica availability guarantees complete availability of all persistent data.",
+          "The problem is necessarily caused by an insufficient number of application replicas.",
+          "Using persistent storage prevents any service access failure."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A arquitetura deve ser analisada como um conjunto de dependências. Componentes partilhados podem continuar a comprometer a disponibilidade global.",
+        "en": "Distributed systems must be analyzed holistically as graphs of dependencies. Shared databases or network gateways can undermine availability despite stateless compute replication."
+      }
+    },
+    {
+      "id": 10,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a propriedade cloud mais diretamente relacionada com este requisito?",
+        "en": "Which cloud computing capability is most directly related to this requirement?"
+      },
+      "options": {
+        "pt": [
+          "Elasticidade, permitindo ajustar recursos ou instâncias à procura.",
+          "Persistência, permitindo conservar dados após terminar instâncias.",
+          "Modularidade, permitindo dividir funcionalidades por componentes.",
+          "Versionamento, permitindo recuperar configurações anteriores."
+        ],
+        "en": [
+          "Elasticity, allowing dynamic adjustment of resources or instances to match workload demand.",
+          "Persistence, enabling data retention after instance termination.",
+          "Modularity, allowing functionality to be partitioned across components.",
+          "Version control, allowing restoration of prior configurations."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Elasticidade é a capacidade de aumentar ou diminuir recursos e componentes em função das necessidades.",
+        "en": "Elasticity is the ability to dynamically scale compute, storage, and networking resources up or down in response to fluctuating real-time demand."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o problema central desta estratégia?",
+        "en": "What is the core problem with this strategy?"
+      },
+      "options": {
+        "pt": [
+          "O deployment continua vulnerável a erros e diferenças entre ambientes.",
+          "O provisioning deixa de poder ser executado através de ferramentas automáticas.",
+          "A infraestrutura deixa de permitir a instalação de aplicações distribuídas.",
+          "A utilização de sistemas de versionamento passa a impedir atualizações."
+        ],
+        "en": [
+          "Deployment remains vulnerable to manual human error and environmental configuration drift.",
+          "Provisioning can no longer be executed via automated tools.",
+          "The infrastructure no longer allows the deployment of distributed applications.",
+          "Using version control systems prevents software updates."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A automatização do provisioning deve ser acompanhada por práticas de deployment e configuração reproduzíveis.",
+        "en": "Automating VM provisioning alone is insufficient if application deployment and runtime configuration remain manual, ad-hoc, and unversioned."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal vantagem operacional desta estratégia?",
+        "en": "What is the primary operational advantage of this strategy?"
+      },
+      "options": {
+        "pt": [
+          "Permitir reproduzir configurações e acompanhar alterações na infraestrutura.",
+          "Garantir automaticamente que todas as alterações melhoram o desempenho.",
+          "Eliminar a necessidade de validar o comportamento dos serviços instalados.",
+          "Assegurar que todas as tarefas executadas são independentes da ordem de execução."
+        ],
+        "en": [
+          "Enabling reproducible configurations and auditable change tracking across the infrastructure.",
+          "Automatically guaranteeing that all changes improve system performance.",
+          "Eliminating the need to validate the runtime behavior of installed services.",
+          "Ensuring that all executed tasks are independent of execution order."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O versionamento das configurações contribui para rastreabilidade, reprodução e gestão sistemática de alterações.",
+        "en": "Version-controlled configuration management provides traceability, reproducibility, auditability, and systematic rollback capabilities across all server fleets."
+      }
+    },
+    {
+      "id": 13,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o comportamento desejável quando o ficheiro já corresponde ao estado pretendido?",
+        "en": "What is the desired behavior when the target file already matches the desired state?"
+      },
+      "options": {
+        "pt": [
+          "A tarefa não produz alterações e o reinício não é desencadeado por essa notificação.",
+          "A tarefa substitui sempre o ficheiro e o serviço é reiniciado em todas as execuções.",
+          "O handler é executado antes da verificação do estado atual da configuração.",
+          "O playbook interrompe-se porque não existe trabalho de configuração a realizar."
+        ],
+        "en": [
+          "The task reports no changes and service restart is not triggered.",
+          "The task unconditionally overwrites the file and restarts the daemon on every run.",
+          "The handler is executed prior to inspecting the current configuration state.",
+          "The playbook aborts execution because no configuration tasks remain."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A idempotência e a utilização de handlers permitem evitar operações desnecessárias.",
+        "en": "Idempotence ensures that unchanged resources result in an ok status rather than changed, so notified restart handlers are skipped to avoid unnecessary downtime."
+      }
+    },
+    {
+      "id": 14,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é uma explicação tecnicamente plausível?",
+        "en": "What is a technically plausible explanation?"
+      },
+      "options": {
+        "pt": [
+          "A comunicação e a coordenação entre componentes introduzem novos comportamentos.",
+          "A distribuição garante que os componentes executam sempre na mesma ordem.",
+          "A existência de vários servidores elimina todos os problemas de sincronização.",
+          "A separação de componentes impede a ocorrência de falhas de comunicação."
+        ],
+        "en": [
+          "Inter-component communication and coordination introduce emergent behaviors and race conditions.",
+          "Distribution guarantees that components always execute in the same order.",
+          "The existence of multiple servers eliminates all synchronization problems.",
+          "Separation of components prevents communication failures from occurring."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Sistemas distribuídos introduzem dependências de rede, coordenação e consistência, tornando alguns problemas mais difíceis de reproduzir e diagnosticar.",
+        "en": "Distributed systems introduce network dependencies, coordination overhead, and consistency challenges, making certain concurrency bugs and edge cases harder to reproduce and diagnose."
+      }
+    },
+    {
+      "id": 15,
+      "type": "boolean",
+      "question": {
+        "pt": "A utilização de serviços PaaS ou SaaS elimina completamente as preocupações de disponibilidade, segurança e dependabilidade para o utilizador.",
+        "en": "Adopting PaaS or SaaS services completely eliminates availability, security, and dependability concerns for the end user."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. A transferência de responsabilidades para o fornecedor não elimina a necessidade de considerar disponibilidade, segurança e dependabilidade dos serviços utilizados.",
+        "en": "False. While operational burden is shared, the tenant remains responsible for identity management, data classification, client configuration, and disaster recovery planning under the shared responsibility model."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a avaliação mais adequada desta solução?",
+        "en": "What is the most accurate assessment of this solution?"
+      },
+      "options": {
+        "pt": [
+          "É possível combinar abstrações cloud diferentes conforme as necessidades dos componentes.",
+          "Todos os componentes de uma aplicação têm obrigatoriamente de utilizar o mesmo modelo cloud.",
+          "A utilização de uma base de dados como serviço obriga a abandonar armazenamento de objetos.",
+          "A combinação de serviços elimina automaticamente todos os problemas de integração."
+        ],
+        "en": [
+          "Different cloud service abstractions can be combined according to the distinct needs of each tier.",
+          "All components of an application must strictly use the same cloud service model.",
+          "Using a database-as-a-service necessitates abandoning object storage.",
+          "Combining services automatically eliminates all inter-service integration challenges."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma aplicação pode recorrer a diferentes modelos de serviço cloud. Contudo, a integração e interoperabilidade continuam a ser preocupações relevantes.",
+        "en": "Modern cloud architectures commonly blend IaaS (custom compute), PaaS (application runtimes), and SaaS/managed services (DBaaS, object storage) across different tiers."
+      }
+    },
+    {
+      "id": 17,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Seleciona as TRÊS afirmações corretas sobre os compromissos associados à utilização de serviços cloud.",
+        "en": "Select the THREE correct statements regarding the trade-offs associated with cloud adoption."
+      },
+      "options": {
+        "pt": [
+          "Uma maior abstração pode diminuir o esforço de gestão direta da infraestrutura.",
+          "Uma maior abstração pode reduzir o controlo sobre determinados componentes.",
+          "A elasticidade pode permitir ajustar recursos ou instâncias às necessidades.",
+          "A utilização de SaaS garante controlo integral sobre o sistema operativo do fornecedor."
+        ],
+        "en": [
+          "Higher abstraction can reduce the burden of direct infrastructure management.",
+          "Higher abstraction can reduce control over low-level runtime components.",
+          "Elasticity allows dynamic scaling of resources or instances to match demands.",
+          "Using SaaS guarantees complete control over the vendor's underlying operating system."
+        ]
+      },
+      "solution": [
+        0,
+        1,
+        2
+      ],
+      "explanation": {
+        "pt": "Os modelos cloud proporcionam conveniência, velocidade e elasticidade, mas podem implicar perda de controlo e dependência de serviços externos.",
+        "en": "Cloud models deliver agility, elasticity, and operational convenience, balanced against reduced low-level control, vendor lock-in, and reliance on provider SLAs."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escrita",
+      "question": {
+        "pt": "A Universidade pretende disponibilizar a aplicação Swap a todas as universidades portuguesas. O sistema deve suportar muitos utilizadores, ser facilmente reproduzível, permitir atualizações frequentes e reduzir interrupções. Propõe uma solução completa relacionando arquitetura distribuída, cloud computing, provisioning, deployment e configuração.",
+        "en": "The University intends to make the Swap application available to all Portuguese universities. The system must support heavy user concurrency, be easily reproducible, facilitate frequent zero-downtime updates, and minimize outages. Propose a comprehensive end-to-end solution integrating distributed architecture, cloud computing, provisioning, deployment, and configuration management."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**1. Arquitetura distribuída**\n\nSeparar as responsabilidades da aplicação, incluindo camada web/aplicacional e base de dados. Criar várias instâncias dos componentes que necessitem de maior capacidade.\n\n**2. Escalabilidade**\n\nUtilizar scale-out para aumentar o número de instâncias aplicacionais. Caso necessário, avaliar replicação ou particionamento dos dados, considerando a distribuição da carga.\n\n**3. Disponibilidade**\n\nIntroduzir redundância dos componentes críticos. A base de dados, o encaminhamento de pedidos e os restantes serviços essenciais devem ser analisados para evitar pontos únicos de falha.\n\n**4. Cloud Computing**\n\nUma solução IaaS oferece maior controlo sobre as VMs e a configuração dos serviços. Uma abordagem PaaS pode reduzir a administração direta dos recursos e facilitar deployment e elasticidade aplicacional. A escolha depende do grau de controlo pretendido.\n\n**5. Provisioning**\n\nAutomatizar a criação dos recursos necessários, incluindo computação, armazenamento e rede.\n\n**6. Deployment e configuração**\n\nUtilizar ferramentas de automatização, como Ansible, para instalar dependências, configurar servidores e realizar deployment de forma consistente.\n\n**7. Infrastructure as Code**\n\nVersionar scripts e ficheiros de configuração para permitir reprodução, auditoria e evolução controlada dos ambientes.\n\n**8. Monitorização**\n\nRecolher métricas de desempenho e disponibilidade para identificar problemas e apoiar decisões de escalabilidade.\n\n**9. Atualizações**\n\nPlanear mecanismos que reduzam interrupções, tirando partido de instâncias redundantes e processos de deployment reproduzíveis.\n\n**10. Compromissos**\n\nA solução distribuída introduz maior complexidade de comunicação, consistência, coordenação e operação. As decisões devem considerar o equilíbrio entre desempenho, disponibilidade e esforço operacional.\n\n**Critérios de avaliação — 20 pontos:** arquitetura distribuída (4); escalabilidade (3); disponibilidade (3); escolha do modelo cloud (2); provisioning e deployment (3); IaC e gestão de configuração (2); monitorização e compromissos (3).",
+        "en": "Model answer:\n\n**1. Distributed Architecture:**\nDecouple the application into modular tiers: presentation, stateless application services, and persistence. Utilize a reverse proxy/load balancing tier to distribute incoming user sessions across stateless application instances.\n\n**2. Scalability:**\nEmploy horizontal scaling (scale-out) for application worker nodes. For the persistence tier, evaluate read-replica clustering and horizontal database partitioning (sharding) based on university tenant IDs.\n\n**3. High Availability:**\nEliminate single points of failure across all layers through redundant active-passive load balancers, multi-AZ database clustering, and health check-driven automatic failover.\n\n**4. Cloud Computing Service Model:**\nAdopt IaaS for low-level OS tuning and custom networking, or PaaS/container orchestrators (e.g., Kubernetes) to abstract compute nodes and automate container lifecycle management and elasticity.\n\n**5. Automated Provisioning:**\nUse Infrastructure as Code (e.g., OpenStack Heat or Terraform) to declaratively provision virtual machines, software-defined networks (Neutron), security groups, and storage volumes (Cinder).\n\n**6. Configuration Management & Deployment:**\nUse Ansible playbooks and roles to configure node dependencies, harden security profiles, and orchestrate zero-downtime rolling deployments across target host groups.\n\n**7. Infrastructure as Code & Versioning:**\nMaintain all infrastructure templates, playbooks, and deployment manifests under Git version control to ensure auditability, repeatable staging environments, and rapid disaster recovery.\n\n**8. Observability & Telemetry:**\nImplement centralized metrics collection and logging (e.g., OpenStack Telemetry/Ceilometer, Prometheus, Grafana) with automated alerts to inform autoscaling policies.\n\n**9. Zero-Downtime Releases:**\nLeverage blue/green or canary deployment patterns supported by redundant load-balanced replicas to deploy updates without user session interruption.\n\n**10. Operational Trade-offs:**\nAcknowledge that distributing the system introduces network latency, distributed data consistency challenges, and complex coordination overhead that must be balanced against scalability goals.\n\n**Grading criteria — 20 points:** distributed architecture (4); scalability (3); availability & fault tolerance (3); cloud model selection (2); provisioning & deployment (3); IaC & configuration management (2); monitoring & trade-off analysis (3)."
+      },
+      "explanation": {
+        "pt": "Esta questão integra praticamente todos os conceitos fundamentais dos quatro conjuntos de diapositivos. O caso Swap é utilizado como contexto, mas a avaliação incide principalmente sobre os princípios teóricos.",
+        "en": "Comprehensive capstone question evaluating the end-to-end synthesis of the course curriculum."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escrita",
+      "question": {
+        "pt": "Uma empresa pretende escolher entre duas soluções. A solução A utiliza IaaS, máquinas virtuais administradas internamente, uma aplicação distribuída e automatização através de Ansible. A solução B utiliza PaaS para a aplicação e serviços cloud geridos para os restantes componentes. Compara as soluções relativamente a controlo, conveniência, deployment, elasticidade, dependabilidade, segurança e complexidade operacional. Indica em que circunstâncias escolherias cada uma.",
+        "en": "An enterprise must choose between two cloud architectures: Solution A uses IaaS with self-managed virtual machines, a distributed application, and Ansible automation. Solution B uses PaaS for the application runtime and fully managed cloud services for all supporting tiers. Compare both solutions regarding control, convenience, deployment, elasticity, dependability, security, and operational complexity. State under what circumstances you would select each."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**Solução A — IaaS com gestão interna**\n\nOferece maior controlo sobre sistemas operativos, configuração de servidores, dependências e organização da aplicação.\n\nPermite adaptar os ambientes a aplicações com requisitos específicos ou legadas.\n\nPor outro lado, exige maior responsabilidade na configuração, manutenção, deployment, monitorização e operação dos recursos geridos pelo utilizador.\n\nAnsible e Infrastructure as Code permitem reduzir o esforço manual e melhorar a reprodução dos ambientes, embora não eliminem toda a complexidade operacional.\n\nA elasticidade pode ser implementada através do aumento ou diminuição dos recursos e instâncias, manualmente ou com ferramentas de automatização.\n\n**Solução B — PaaS e serviços geridos**\n\nProporciona maior abstração e permite concentrar esforços na aplicação e nos seus requisitos funcionais.\n\nA plataforma pode oferecer mecanismos de deployment, desenvolvimento, monitorização e elasticidade já integrados.\n\nReduz a necessidade de administrar diretamente vários componentes de infraestrutura, mas pode limitar o controlo sobre o ambiente de execução e determinadas opções técnicas.\n\nA dependabilidade e a segurança continuam a exigir análise, incluindo configuração adequada, responsabilidades do utilizador e dependência dos serviços fornecidos.\n\n**Comparação e decisão**\n\nEscolheria A quando fosse necessário maior controlo, compatibilidade com software legado ou configurações muito específicas.\n\nEscolheria B quando a prioridade fosse acelerar o desenvolvimento e deployment e reduzir o esforço de administração da infraestrutura.\n\nUma solução híbrida também pode ser adequada, utilizando diferentes modelos para componentes com requisitos distintos.\n\n**Critérios de avaliação — 20 pontos:** controlo (3); conveniência e responsabilidades (3); deployment (3); elasticidade (3); dependabilidade e segurança (3); complexidade operacional (3); justificação da decisão (2).",
+        "en": "Model answer:\n\n**Solution A — Self-Managed IaaS with Ansible Automation:**\n- *Control:* Complete control over operating systems, kernel parameters, runtime libraries, and network topologies.\n- *Convenience & Operations:* High operational burden. The enterprise is responsible for OS patching, vulnerability remediation, backup orchestration, and HA clustering.\n- *Deployment & IaC:* Ansible and GitOps automate provisioning and configuration, ensuring reproducibility, though managing playbooks incurs maintenance costs.\n- *Elasticity:* Requires custom autoscaling scripts or integration with cloud provider APIs; scaling latency is higher due to VM spin-up times.\n- *Dependability & Security:* Full responsibility under the shared responsibility model. Complete flexibility to enforce custom compliance controls.\n\n**Solution B — PaaS and Managed Cloud Services:**\n- *Control:* Low-level OS and kernel access are abstracted away; runtime configurations must adhere to provider-supported buildpacks and APIs.\n- *Convenience & Operations:* Maximum operational convenience. The provider manages physical hardware, hypervisors, OS patching, and automated backups.\n- *Deployment & Elasticity:* Streamlined Git-push deployments or container registries with native, rapid sub-minute horizontal pod/container autoscaling.\n- *Dependability & Security:* High baseline resilience backed by provider SLAs. Security is simplified, though users must manage access policies and trust provider data privacy.\n\n**Decision Criteria:**\n- *Choose Solution A:* When handling legacy applications, strict regulatory/sovereignty mandates requiring bespoke encryption modules, or specialized hardware/kernel dependencies.\n- *Choose Solution B:* When prioritizing time-to-market, lean operations teams, rapid development cycles, and native cloud autoscaling without dedicated sysadmin overhead.\n- *Hybrid alternative:* Organizations can combine PaaS for customer-facing web services with managed IaaS for specialized computational back-ends.\n\n**Grading criteria — 20 points:** control analysis (3); convenience & shared responsibility (3); deployment workflows (3); elasticity mechanisms (3); dependability & security (3); operational complexity (3); justified decision criteria (2)."
+      },
+      "explanation": {
+        "pt": "Não existe um modelo cloud universalmente superior. A decisão deve resultar dos requisitos técnicos e operacionais, considerando as vantagens e limitações de cada abstração.",
+        "en": "Evaluates the ability to conduct rigorous, multi-dimensional architectural trade-off analyses based on business and technical constraints."
+      }
+    }
+  ]
+}

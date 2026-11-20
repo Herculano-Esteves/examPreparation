@@ -9,6 +9,15 @@
     "index_path": "exames/adi/index.json"
   },
   {
+    "id": "ascn",
+    "nome": "Aplicações e Serviços de Computação em Nuvem",
+    "sigla": "ASCN",
+    "icon": "fa-cloud",
+    "descricao": "Aplicações distribuídas, DevOps, Infrastructure as Code, provisionamento de sistemas, Cloud Computing (IaaS, PaaS, SaaS), OpenStack e arquiteturas cloud.",
+    "exames_count": 6,
+    "index_path": "exames/ascn/index.json"
+  },
+  {
     "id": "daa",
     "nome": "Dados e Aprendizagem Automática",
     "sigla": "DAA",
@@ -18,13 +27,22 @@
     "index_path": "exames/daa/index.json"
   },
   {
-    "id": "fmse",
+    "id": "esr",
+    "nome": "Engenharia de Serviços em Rede",
+    "sigla": "ESR",
+    "icon": "fa-network-wired",
+    "descricao": "Conceitos fundamentais da camada de aplicação, arquiteturas cliente-servidor e P2P, sockets, streaming multimédia (DASH, CDN), multicast IP (IGMP, MLD) e routing multicast (PIM-SM, PIM-DM).",
+    "exames_count": 6,
+    "index_path": "exames/esr/index.json"
+  },
+  {
+    "id": "mfes",
     "nome": "Métodos Formais em Engenharia de Software",
-    "sigla": "FMSE",
-    "icon": "fa-cube",
-    "descricao": "Lógica proposicional, modelação formal, problemas de alocação, SAT solvers, verificação de asserções, feature models e análise de variabilidade.",
-    "exames_count": 5,
-    "index_path": "exames/fmse/index.json"
+    "sigla": "MFES",
+    "icon": "fa-diagram-project",
+    "descricao": "Lógica proposicional, modelação formal, problemas de alocação, feature models, SAT solvers (DPLL, CDCL), lógica de primeira ordem, modelação relacional estrutural com Alloy e verificação formal.",
+    "exames_count": 11,
+    "index_path": "exames/mfes/index.json"
   },
   {
     "id": "ssi",

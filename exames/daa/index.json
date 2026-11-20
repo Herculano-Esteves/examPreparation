@@ -16,13 +16,13 @@
     "questions_count": 13,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 10,
+      "multiple_choice": 10,
       "boolean": 2,
-      "escrita": 1
+      "written": 1
     },
     "path": "exames/daa/1_Fundamentos_DataScience_e_Estatistica.json"
   },
@@ -43,13 +43,13 @@
     "questions_count": 10,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 8,
+      "multiple_choice": 8,
       "boolean": 1,
-      "escrita": 1
+      "written": 1
     },
     "path": "exames/daa/2_Conceitos_Fundamentais_ML_e_Paradigmas.json"
   },
@@ -70,13 +70,13 @@
     "questions_count": 10,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 8,
+      "multiple_choice": 8,
       "boolean": 1,
-      "escrita": 1
+      "written": 1
     },
     "path": "exames/daa/3_Arvores_Decisao_Classificacao_Regressao.json"
   },
@@ -96,12 +96,12 @@
     ],
     "questions_count": 10,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 9,
-      "escrita": 1
+      "multiple_choice": 9,
+      "written": 1
     },
     "path": "exames/daa/4_Metricas_Qualidade_Classificacao_e_Regressao.json"
   },
@@ -121,12 +121,12 @@
     ],
     "questions_count": 9,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 8,
-      "escrita": 1
+      "multiple_choice": 8,
+      "written": 1
     },
     "path": "exames/daa/5_Validacao_Modelos_e_Afinacao_Hiperparametros.json"
   },
@@ -146,12 +146,12 @@
     ],
     "questions_count": 9,
     "question_types": [
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
-      "escolha_multipla": 8,
-      "escrita": 1
+      "multiple_choice": 8,
+      "written": 1
     },
     "path": "exames/daa/6_Pratica_Laboratorial_Python_Sklearn_Telecom_Churn.json"
   }

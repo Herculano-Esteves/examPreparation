@@ -1,0 +1,502 @@
+{
+  "title": {
+    "pt": "Exame 6 — Aprofundamento II: Integração de P2P, Streaming, Transporte e Multicast",
+    "en": "Exam 6 — Advanced Study II: Synthesis of P2P, Streaming, Transport, and Multicast"
+  },
+  "description": {
+    "pt": "NÍVEL 6 — DOMÍNIO AVANÇADO E SÍNTESE | 18 questões | Dificuldade: avançada a muito avançada. Exame final de integração. Combina os conteúdos dos dois PowerPoints teóricos em problemas de raciocínio, cálculos de distribuição, decisões de arquitetura, adaptação de streaming, mecanismos de transporte, identificação de gargalos, escalabilidade e routing multicast. Alguns cenários utilizam o trabalho prático TP1 como contexto conceptual, sem exigir conhecimentos de instalação, comandos ou operação de ferramentas. O objetivo é verificar se o estudante consegue explicar consequências, comparar alternativas e tomar decisões tecnicamente justificadas.",
+    "en": "LEVEL 6 — ADVANCED MASTERY AND SYNTHESIS | 18 questions | Difficulty: advanced to very advanced. Final comprehensive capstone exam. Synthesises the contents of both theoretical slide decks through complex reasoning problems, distribution time calculations, architectural trade-offs, adaptive streaming dynamics, transport mechanism selection, bottleneck identification, scalability analysis, and multicast routing. Select scenarios utilise Lab Project TP1 as conceptual context without requiring operational tooling commands. Objective: verify whether the student can analyse consequences, critically compare competing paradigms, and make technically sound architectural decisions."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um servidor com capacidade de upload de 20 MB/s precisa de distribuir um ficheiro de 200 MB a 10 clientes. Todos os clientes têm capacidade de download de pelo menos 25 MB/s. Admita o modelo teórico cliente-servidor apresentado nos slides.",
+        "en": "A server with upload capacity of 20 MB/s needs to distribute a 200 MB file to 10 clients. All clients have download capacities of at least 25 MB/s. Assume the theoretical client-server model presented in lectures."
+      },
+      "question": {
+        "pt": "Qual é o limite inferior do tempo de distribuição?",
+        "en": "What is the theoretical lower bound for the distribution time?"
+      },
+      "options": {
+        "pt": [
+          "10 segundos.",
+          "25 segundos.",
+          "100 segundos.",
+          "200 segundos."
+        ],
+        "en": [
+          "10 seconds.",
+          "25 seconds.",
+          "100 seconds.",
+          "200 seconds."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O servidor necessita de enviar 10 × 200 = 2000 MB. Com upload de 20 MB/s, necessita de pelo menos 100 segundos. O cliente mais lento necessita de pelo menos 200/25 = 8 segundos. Assim, Dcs ≥ max(100, 8) = 100 segundos.",
+        "en": "The server must transmit 10 × 200 = 2000 MB. With us = 20 MB/s, NF / us = 2000 / 20 = 100 s. The slowest client download requires F / dmin = 200 / 25 = 8 s. Thus Dcs ≥ max(100, 8) = 100 seconds."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere uma distribuição P2P com F = 100 MB, N = 4, us = 10 MB/s, dmin = 20 MB/s e capacidade de upload de 5 MB/s para cada peer. Utilize o modelo teórico apresentado nos slides.",
+        "en": "Consider a P2P distribution with F = 100 MB, N = 4, us = 10 MB/s, dmin = 20 MB/s, and upload capacity of 5 MB/s per peer. Use the theoretical model presented in lectures."
+      },
+      "question": {
+        "pt": "Qual é aproximadamente o limite inferior do tempo de distribuição P2P?",
+        "en": "What is approximately the theoretical lower bound for P2P distribution time?"
+      },
+      "options": {
+        "pt": [
+          "5 segundos.",
+          "13,33 segundos.",
+          "20 segundos.",
+          "40 segundos."
+        ],
+        "en": [
+          "5 seconds.",
+          "13.33 seconds.",
+          "20 seconds.",
+          "40 seconds."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "F/us = 100/10 = 10 segundos. F/dmin = 100/20 = 5 segundos. A capacidade agregada de upload é 10 + 4 × 5 = 30 MB/s. NF/(us + Σui) = 400/30 ≈ 13,33 segundos. O limite inferior é o máximo destes valores, aproximadamente 13,33 segundos.",
+        "en": "F / us = 100 / 10 = 10 s, F / dmin = 100 / 20 = 5 s. Aggregate upload capacity is us + Σui = 10 + 4 × 5 = 30 MB/s. Then NF / (us + Σui) = 400 / 30 ≈ 13.33 s. The lower bound is max(10, 5, 13.33) ≈ 13.33 seconds."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes conclusões sobre a escalabilidade P2P é mais rigorosa?",
+        "en": "Which of the following conclusions regarding P2P scalability is technically rigorous?"
+      },
+      "options": {
+        "pt": [
+          "A entrada de peers reduz sempre o tempo de distribuição.",
+          "O P2P elimina completamente as limitações de upload e download.",
+          "O desempenho P2P é independente da disponibilidade dos participantes.",
+          "A capacidade agregada pode crescer com os peers, mas o desempenho continua condicionado pelos recursos disponíveis e pela participação efetiva."
+        ],
+        "en": [
+          "The arrival of additional peers always reduces absolute distribution time.",
+          "P2P completely eliminates upload and download capacity bottlenecks.",
+          "P2P performance is completely independent of peer availability.",
+          "Aggregate capacity scales with participating peers, but performance remains bounded by actual contributed bandwidth, chunk availability, and churn."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "A self-scalability não significa capacidade infinita ou desempenho garantido. O sistema depende da capacidade de upload, das ligações dos participantes, da disponibilidade dos chunks e das condições de comunicação.",
+        "en": "P2P self-scalability means aggregate system upload capacity increases alongside demand as peers join, but performance remains bounded by the real bandwidth contributions of nodes, chunk availability, and peer churn."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um cliente DASH reproduz vídeo a 2000 kbps. A capacidade disponível diminui de forma sustentada para aproximadamente 900 kbps. Existem representações de 500, 1000 e 2000 kbps.",
+        "en": "A DASH client is playing video at 2000 kbps. Available throughput sustainedly drops to approximately 900 kbps. Available representations are 500, 1000, and 2000 kbps."
+      },
+      "question": {
+        "pt": "Qual é a decisão mais adequada segundo o modelo simplificado de adaptação DASH?",
+        "en": "What is the most appropriate action according to the simplified DASH adaptation model?"
+      },
+      "options": {
+        "pt": [
+          "Reduzir a representação para 500 kbps enquanto a capacidade estimada não sustentar as opções superiores.",
+          "Manter sempre 2000 kbps, independentemente do buffer.",
+          "Aumentar a taxa de codificação para compensar a diminuição da rede.",
+          "Desativar obrigatoriamente o streaming HTTP."
+        ],
+        "en": [
+          "Step down chunk requests to the 500 kbps representation while estimated bandwidth cannot sustain higher bitrates.",
+          "Always maintain 2000 kbps regardless of playback buffer depletion.",
+          "Increase the encoding rate to compensate for network congestion.",
+          "Mandatorily abort HTTP streaming."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Com apenas 900 kbps sustentáveis, a representação de 1000 kbps já excede a capacidade estimada. A opção de 500 kbps é a maior das disponíveis que respeita esse limite. Em situações reais, a decisão também depende do buffer e das estimativas de capacidade.",
+        "en": "With only 900 kbps sustained throughput, the 1000 kbps stream will cause buffer depletion. Selecting 500 kbps ensures uninterrupted playback while remaining within available bandwidth."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é que a utilização de uma CDN não elimina a necessidade de mecanismos de streaming adaptativo?",
+        "en": "Why does deploying a Content Distribution Network (CDN) not eliminate the need for client-side adaptive streaming (such as DASH)?"
+      },
+      "options": {
+        "pt": [
+          "Porque uma CDN funciona apenas com ficheiros de texto.",
+          "Porque os servidores CDN não podem disponibilizar vídeos.",
+          "Porque a distribuição geográfica do conteúdo não elimina as diferenças de capacidade, congestionamento e condições de acesso dos utilizadores.",
+          "Porque o DASH só pode ser utilizado com servidores centrais."
+        ],
+        "en": [
+          "Because CDNs can only cache static plaintext files.",
+          "Because CDN edge servers are prohibited from caching multimedia content.",
+          "Because geographic edge caching brings content closer to the access network, but does not eliminate last-mile link fluctuations, wireless fading, and client heterogeneity.",
+          "Because DASH can only operate with a single central origin server."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A CDN procura disponibilizar conteúdo a partir de locais adequados, mas os clientes continuam a apresentar condições de rede diferentes e variáveis. O DASH permite ajustar as representações às condições observadas.",
+        "en": "A CDN optimizes wide-area transit and core latency by caching content at the network edge, but last-mile access links (e.g. Wi-Fi, cellular, home broadband) still suffer from dynamic congestion, requiring DASH adaptation."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes relações entre P2P, CDN e multicast está correta?",
+        "en": "Which of the following statements accurately characterizes the relationships among P2P, CDN, and IP Multicast?"
+      },
+      "options": {
+        "pt": [
+          "Todos exigem obrigatoriamente um RP.",
+          "P2P distribui recursos entre peers, CDN distribui cópias por servidores e multicast permite partilhar a entrega de dados para grupos de recetores.",
+          "P2P é um protocolo de transporte que substitui TCP e UDP.",
+          "CDN e multicast são exatamente a mesma arquitetura."
+        ],
+        "en": [
+          "All three paradigms mandatorily require configuring a Rendezvous Point (RP).",
+          "P2P pools resources across client peers, CDNs replicate content across edge servers, and IP Multicast replicates packets inside network routers for receiver groups.",
+          "P2P is a transport-layer protocol replacing TCP and UDP.",
+          "CDNs and IP multicast are architecturally identical mechanisms."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Estas soluções atuam sobre problemas relacionados com distribuição, mas apresentam mecanismos diferentes. P2P utiliza a capacidade dos participantes, CDN distribui infraestrutura de conteúdo e multicast otimiza a entrega de informação destinada a múltiplos recetores.",
+        "en": "Each paradigm solves distribution at a different architectural plane: P2P leverages end-system upload bandwidth, CDNs deploy server caches at the application layer, and IP Multicast replicates packets inside network-layer routers."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é que o tamanho e a frequência dos pedidos de segmentos DASH podem influenciar o comportamento da reprodução?",
+        "en": "Why do chunk duration (segment size) and request scheduling in DASH significantly influence video playback behaviour?"
+      },
+      "options": {
+        "pt": [
+          "Porque cada segmento exige obrigatoriamente a reconstrução de todos os routers.",
+          "Porque o tamanho do segmento altera automaticamente a arquitetura da Internet.",
+          "Porque o DASH não utiliza buffers.",
+          "Porque as decisões sobre quando solicitar segmentos, quanto conteúdo manter em buffer e que representação utilizar afetam a capacidade de adaptação e a continuidade da reprodução."
+        ],
+        "en": [
+          "Because each segment requires re-converging routing tables across all core routers.",
+          "Because chunk duration dynamically reconfigures autonomous system boundaries.",
+          "Because DASH media players operate without local playback buffers.",
+          "Because decisions on chunk request timing, buffer target levels, and segment duration trade off adaptation responsiveness against playback stability and HTTP header overhead."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "O cliente DASH decide quando solicitar os segmentos e qual a representação adequada. Essas decisões influenciam o estado do buffer, a frequência de adaptação e o risco de interrupções.",
+        "en": "Smaller chunks (e.g. 2s) allow faster adaptation to sudden throughput changes but increase HTTP request overhead; larger chunks (e.g. 10s) maximize compression efficiency but respond more sluggishly to bandwidth drops."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Uma imagem sem compressão possui resolução de 1920 × 1080 pixels e cada pixel é representado por 24 bits RGB. Ignore cabeçalhos e outros dados adicionais.",
+        "en": "An uncompressed image has a resolution of 1920 × 1080 pixels, with each pixel encoded using 24 bits RGB. Ignore container headers and padding."
+      },
+      "question": {
+        "pt": "Qual é aproximadamente a dimensão da imagem em megabytes decimais?",
+        "en": "What is approximately the raw image size in decimal megabytes (MB)?"
+      },
+      "options": {
+        "pt": [
+          "2,07 MB.",
+          "4,15 MB.",
+          "6,22 MB.",
+          "24 MB."
+        ],
+        "en": [
+          "2.07 MB.",
+          "4.15 MB.",
+          "6.22 MB.",
+          "24 MB."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O número de pixels é 1920 × 1080 = 2 073 600. Cada pixel utiliza 24 bits, equivalentes a 3 bytes. A dimensão é 2 073 600 × 3 = 6 220 800 bytes, aproximadamente 6,22 MB.",
+        "en": "Total pixels = 1920 × 1080 = 2,073,600. At 24 bits (3 bytes) per pixel, total raw size = 2,073,600 × 3 = 6,220,800 bytes ≈ 6.22 MB."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é que a compressão espacial e temporal é importante para distribuir vídeo através da Internet?",
+        "en": "Why are spatial and temporal compression indispensable for video distribution over the Internet?"
+      },
+      "options": {
+        "pt": [
+          "Porque permite reduzir a quantidade de informação necessária para representar o conteúdo, diminuindo os requisitos de transmissão e armazenamento.",
+          "Porque elimina todas as perdas de pacotes da rede.",
+          "Porque substitui a necessidade de endereçamento IP.",
+          "Porque garante que todas as imagens ocupam exatamente o mesmo número de bits."
+        ],
+        "en": [
+          "Because it drastically reduces the bitrate required to represent video by eliminating intra-frame and inter-frame redundancy, making streaming feasible over realistic network links.",
+          "Because it eliminates all packet loss across the transit network.",
+          "Because it eliminates the need for layer-3 IP addressing.",
+          "Because it guarantees that every encoded frame occupies an identical number of bits."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "As técnicas de codificação exploram redundância dentro das imagens e entre frames. Ao reduzir a quantidade de bits transmitidos, tornam a distribuição de vídeo mais eficiente.",
+        "en": "Uncompressed raw 1080p video at 30 fps requires ≈ 1.5 Gbps. Spatial and temporal compression compress streams by 100× to 300× (down to 5–15 Mbps), enabling transmission across standard broadband links."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma aplicação de voz em tempo real necessita de atraso reduzido e consegue tolerar pequenas perdas. Uma aplicação de transferência de ficheiros necessita de entregar todos os dados corretamente. Qual é a associação mais apropriada segundo os serviços de transporte estudados?",
+        "en": "A real-time voice application requires low latency and tolerates minor packet loss. A file transfer application requires complete data integrity. What is the most appropriate transport protocol pairing?"
+      },
+      "options": {
+        "pt": [
+          "UDP para ambas, porque garante fiabilidade.",
+          "TCP para voz e UDP para ficheiros, porque UDP garante ordenação.",
+          "TCP para ambas, porque garante atraso máximo.",
+          "UDP como possibilidade para voz e TCP como escolha adequada para transferência de ficheiros."
+        ],
+        "en": [
+          "UDP for both, because UDP guarantees byte reliability.",
+          "TCP for voice and UDP for file transfer, because UDP guarantees in-order sequencing.",
+          "TCP for both, because TCP provides hard delay bounds.",
+          "UDP (or RTP/UDP) for voice to avoid retransmission stalls, and TCP for file transfer to guarantee reliable, in-order delivery."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "O UDP pode adequar-se a aplicações que valorizam a temporização e toleram determinadas perdas. O TCP é adequado a transferências que exigem fiabilidade e ordenação. A escolha final depende dos requisitos concretos.",
+        "en": "Real-time interactive voice cannot tolerate the retransmission stalls and head-of-line blocking of TCP; it benefits from UDP. File transfer strictly requires TCP's error-free, byte-stream reliability."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Na comparação conceptual proposta pelo TP1, HTTP/2 sobre TCP e HTTP/3 sobre QUIC representam soluções de transporte que podem ser estudadas sob condições equivalentes de atraso, largura de banda e perda de pacotes.",
+        "en": "In the conceptual evaluation proposed in Lab TP1, HTTP/2 over TCP and HTTP/3 over QUIC represent competing transport architectures that can be benchmarked under equivalent network delay, bandwidth, and packet loss conditions."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. O guião prático propõe comparar soluções baseadas em HTTP/2/TCP e HTTP/3/QUIC sob condições equivalentes. A camada de aplicação dos slides identifica HTTP/3 como uma solução que utiliza QUIC sobre UDP. A comparação experimental não implica que um protocolo seja sempre superior em todas as condições.",
+        "en": "True. HTTP/2 runs over TCP (susceptible to head-of-line blocking on loss), whereas HTTP/3 runs over QUIC on top of UDP, enabling independent per-stream loss recovery under identical emulated network conditions."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal finalidade de comparar unicast e multicast na distribuição de um mesmo fluxo RTP/RTCP a vários clientes, como no contexto conceptual do TP1?",
+        "en": "What is the primary objective of comparing unicast versus multicast when streaming the same RTP/RTCP feed to multiple clients, as in the conceptual context of Lab TP1?"
+      },
+      "options": {
+        "pt": [
+          "Demonstrar que os clientes multicast nunca necessitam de sockets.",
+          "Avaliar o tráfego gerado e a escalabilidade quando aumenta o número de recetores.",
+          "Demonstrar que o RTP substitui o protocolo IP.",
+          "Verificar se os ficheiros de vídeo ficam obrigatoriamente mais pequenos."
+        ],
+        "en": [
+          "To prove that multicast client applications never create network sockets.",
+          "To measure generated network bandwidth consumption and evaluate scalability as the number of concurrent receivers increases.",
+          "To demonstrate that RTP replaces layer-3 IP.",
+          "To verify whether video file containers automatically shrink in byte size."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A comparação pretende observar como o número de clientes afeta o tráfego da rede. No unicast podem existir várias transmissões independentes, enquanto o multicast permite partilhar o fluxo em segmentos comuns e replicá-lo onde necessário.",
+        "en": "The benchmark demonstrates that unicast load on the server uplink scales linearly (N × R), whereas multicast load remains constant (1 × R) on common links regardless of the number of receivers."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um emissor transmite um fluxo de 2 Mbps a quatro recetores localizados para além de uma ligação comum de capacidade limitada. Admita uma transmissão unicast independente para cada recetor e, alternativamente, uma distribuição multicast corretamente configurada, sem contabilizar overhead.",
+        "en": "A sender transmits a 2 Mbps stream to four receivers located across a common shared bottleneck link. Assume independent unicast streams per receiver versus a configured IP multicast distribution, ignoring packet header overhead."
+      },
+      "question": {
+        "pt": "Qual é a comparação esperada para o tráfego do fluxo nessa ligação comum?",
+        "en": "What is the expected traffic load comparison across that shared bottleneck link?"
+      },
+      "options": {
+        "pt": [
+          "Unicast: aproximadamente 2 Mbps; multicast: aproximadamente 8 Mbps.",
+          "Unicast e multicast: obrigatoriamente 8 Mbps.",
+          "Unicast: aproximadamente 8 Mbps; multicast: aproximadamente 2 Mbps.",
+          "Unicast e multicast: tráfego nulo."
+        ],
+        "en": [
+          "Unicast: ≈ 2 Mbps; Multicast: ≈ 8 Mbps.",
+          "Unicast and Multicast: identically 8 Mbps.",
+          "Unicast: ≈ 8 Mbps; Multicast: ≈ 2 Mbps.",
+          "Unicast and Multicast: zero traffic."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Com quatro transmissões unicast independentes, podem atravessar a ligação quatro cópias de 2 Mbps, totalizando aproximadamente 8 Mbps. Com multicast, uma cópia pode atravessar a ligação comum e ser replicada depois, utilizando aproximadamente 2 Mbps nessa ligação.",
+        "en": "Four unicast streams transmit 4 × 2 Mbps = 8 Mbps over the shared link. Multicast transmits only a single copy (2 Mbps) across the shared link, replicating packets downstream only where paths branch."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num sistema multicast, qual é a distinção correta entre IGMP e um protocolo como PIM-SM?",
+        "en": "In an IP multicast architecture, what is the clear distinction between IGMP and PIM-SM?"
+      },
+      "options": {
+        "pt": [
+          "IGMP identifica interesse de hosts nas redes locais; PIM-SM contribui para construir e manter os caminhos multicast entre routers.",
+          "IGMP determina obrigatoriamente o percurso completo dos pacotes entre todos os routers.",
+          "PIM-SM é utilizado exclusivamente para descobrir processos TCP.",
+          "IGMP e PIM-SM são dois nomes para o mesmo protocolo."
+        ],
+        "en": [
+          "IGMP operates locally between hosts and default routers to signal membership; PIM-SM operates between routers across the network to build and maintain multicast distribution trees.",
+          "IGMP computes the full end-to-end routing paths across core transit routers.",
+          "PIM-SM is used exclusively to discover listening TCP processes on end systems.",
+          "IGMP and PIM-SM are synonymous names for the same protocol."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A descoberta de membros e o routing multicast são funções distintas. O IGMP permite aos hosts comunicar interesse local, enquanto o PIM utiliza mecanismos de controlo para construir as estruturas de distribuição.",
+        "en": "IGMP is a host-to-router membership reporting protocol. PIM-SM is a router-to-router routing protocol that builds tree forwarding states across the core network."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um router PIM-DM recebeu anteriormente pacotes multicast da fonte S pela interface A. A informação de routing passa a indicar que a interface B é a interface upstream correta para S. Chega um novo pacote de S pela interface A.",
+        "en": "A PIM-DM router previously accepted multicast packets from source S on interface A. Unicast routing reconverges, making interface B the new correct upstream RPF interface toward S. A new packet from S arrives on interface A."
+      },
+      "question": {
+        "pt": "Qual é o comportamento coerente com a nova informação RPF?",
+        "en": "What is the correct router action according to the updated RPF state?"
+      },
+      "options": {
+        "pt": [
+          "Aceitar o pacote porque A foi utilizada anteriormente.",
+          "Encaminhar o pacote para todas as interfaces sem verificação.",
+          "Converter automaticamente o pacote num pedido IGMP.",
+          "Descartar o pacote, porque já não chegou pela interface upstream esperada."
+        ],
+        "en": [
+          "Accept the packet because interface A was previously considered valid.",
+          "Forward the packet onto all interfaces without performing checks.",
+          "Convert the packet into an IGMP membership query.",
+          "Drop the packet silently because it failed the RPF check (incoming interface A does not match current RPF interface B)."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "A verificação RPF depende da informação de encaminhamento relevante no momento. Se a interface upstream esperada passou a ser B, um pacote recebido por A pode falhar o RPF e ser descartado.",
+        "en": "RPF evaluation is dynamic and evaluated against the current MRIB. Since interface B is now the RPF interface toward S, any packet from S arriving on interface A fails RPF and is immediately dropped."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma aplicação pretende receber dados multicast apenas de uma fonte S pertencente ao grupo G. Qual é a combinação conceptual mais apropriada?",
+        "en": "An application intends to receive multicast traffic exclusively from source S for group G. Which conceptual protocol combination is most appropriate?"
+      },
+      "options": {
+        "pt": [
+          "ASM sem identificação de fonte e uma árvore partilhada obrigatória.",
+          "SSM com identificação (S,G), recorrendo a uma árvore source-based.",
+          "Broadcast IP para todos os equipamentos.",
+          "Uma ligação TCP exclusiva para cada router."
+        ],
+        "en": [
+          "ASM without source specification over a mandatory shared tree (*, G).",
+          "Source-Specific Multicast (SSM) with (S, G) subscription using a source-based Shortest Path Tree (SPT).",
+          "Subnet-directed IP broadcast to all hosts.",
+          "A dedicated point-to-point TCP circuit to every intermediate router."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O SSM identifica o interesse num par fonte-grupo. As árvores source-based permitem construir distribuição associada a fontes específicas. O IGMPv3 pode ser utilizado para expressar preferências de fontes em IPv4.",
+        "en": "SSM allows receivers to explicitly subscribe to an (S, G) channel using IGMPv3/MLD2, constructing an (S, G) source-based SPT directly toward S without requiring an RP or shared trees."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Uma organização pretende disponibilizar uma transmissão vídeo em direto para funcionários distribuídos por uma grande rede empresarial. Alguns segmentos possuem muitos recetores, outros não possuem nenhum. A organização pretende evitar tráfego desnecessário e garantir que novos recetores possam começar a receber a transmissão. Proponha uma solução multicast baseada nos conteúdos teóricos estudados. Explique a adesão dos hosts, o funcionamento do routing, a escolha entre PIM-SM e PIM-DM, o papel do RPF e as consequências de utilizar árvores partilhadas ou árvores por fonte.",
+        "en": "An enterprise plans to broadcast a live internal video stream across its campus network to hundreds of employees across multiple facilities. Certain subnets have interested viewers, whereas others have none. Develop a comprehensive technical proposal for the distribution architecture. Explain why IP Multicast is advantageous, describe how receivers signal interest via IGMP/MLD, justify the selection between PIM-SM and PIM-DM, detail the roles of the Designated Router, Rendezvous Point, and Join messages, and explain RPF checks. Conclude by analysing the trade-offs between shared trees and source-based trees."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. Caracterização do problema:**\n- Existe um fluxo de dados comum destinado a múltiplos recetores.\n- A distribuição dos recetores é heterogénea.\n- Alguns segmentos da rede não possuem interesse no conteúdo.\n- Pretende-se evitar replicação desnecessária sobre ligações partilhadas.\n\n**2. Utilização de multicast:**\n- O emissor envia dados destinados a um grupo multicast.\n- Os routers encaminham e replicam o tráfego quando necessário.\n- Os caminhos de distribuição devem alcançar as redes com recetores interessados.\n\n**3. Adesão dos hosts:**\n- Em IPv4, os hosts podem utilizar IGMP para indicar interesse no grupo.\n- Os routers podem enviar Queries e receber Reports.\n- O IGMPv2 permite sinalização explícita de saída.\n- O IGMPv3 permite especificar preferências de fontes.\n- Em IPv6, o mecanismo correspondente é MLD.\n\n**4. Escolha do protocolo de routing:**\n- O PIM-SM é uma escolha adequada para uma rede extensa com interesse disperso.\n- O seu funcionamento opt-in permite evitar distribuição generalizada por segmentos sem recetores.\n- O PIM-DM poderia originar flooding inicial por partes da rede onde não existe interesse.\n\n**5. PIM-SM:**\n- Um DR participa no processo de adesão a partir da rede local.\n- O PIM-SM pode construir árvores partilhadas em direção a um RP.\n- Mensagens (*,G) Join criam estado de encaminhamento.\n- O protocolo utiliza soft-state, com atualizações periódicas.\n- Pode utilizar árvores por fonte quando isso permite maior eficiência.\n\n**6. RPF:**\n- Os routers determinam a interface upstream esperada.\n- Pacotes recebidos por interfaces incorretas podem ser descartados.\n- O mecanismo contribui para prevenir duplicações e loops.\n\n**7. Escolha do tipo de árvore:**\n- Shared trees permitem reduzir a necessidade de manter uma árvore independente por fonte.\n- Podem introduzir percursos indiretos através do RP.\n- Source-based trees podem oferecer percursos mais eficientes.\n- Exigem manutenção de estado associado a fontes específicas.\n\n**8. Conclusão:**\n- A solução multicast com PIM-SM permite distribuir o tráfego de acordo com o interesse existente.\n- A seleção entre árvore partilhada e árvore por fonte envolve compromissos entre escalabilidade, complexidade de estado e eficiência dos percursos.\n\n**CRITÉRIOS DE CORREÇÃO — 20 pontos:**\n- Caracterizar corretamente o problema e justificar multicast: 3 pontos.\n- Explicar a participação dos hosts através de IGMP/MLD: 3 pontos.\n- Justificar a escolha PIM-SM versus PIM-DM: 4 pontos.\n- Explicar a construção da árvore através de DR, RP e Join: 4 pontos.\n- Explicar corretamente o mecanismo RPF: 2 pontos.\n- Comparar shared trees e source-based trees: 3 pontos.\n- Apresentar uma conclusão coerente: 1 ponto.",
+        "en": "MODEL ANSWER:\n\n**1. Problem characterization & Multicast justification:**\n- A single live video feed must be distributed concurrently to hundreds of receivers across multiple buildings.\n- Unicast streaming would replicate the stream hundreds of times ($N \\times R$), congesting the broadcaster's local uplink and core inter-building campus links.\n- IP Multicast solves this by transmitting only one packet stream addressed to a Class D group, with intermediate routers replicating packets only where paths diverge.\n\n**2. Receiver signaling (IGMP/MLD):**\n- Interested hosts use IGMPv2/IGMPv3 (IPv4) or MLDv1/v2 (IPv6) to declare membership to their local subnet default router.\n- Unsolicited Membership Reports allow instant subscription; periodic General Queries and timer suppression verify continued presence.\n- Explicit Leave Group messages allow prompt termination of unwanted feeds.\n\n**3. Routing protocol selection (PIM-SM vs PIM-DM):**\n- PIM-SM (Sparse Mode) is selected.\n- Because receiver subnets are unevenly distributed and many subnets have zero viewers, PIM-DM's flood-and-prune model would periodically saturate quiet links.\n- PIM-SM's explicit opt-in model ensures packets are delivered exclusively along branches with verified receiver interest.\n\n**4. Tree construction (DR, RP, and Joins):**\n- Receiver Designated Routers (DR) receive IGMP reports and initiate upstream PIM (*, G) Joins toward a pre-configured Rendezvous Point (RP).\n- Routers along the path instantiate (*, G) state, creating a shared Rendezvous Point Tree (RPT).\n- The source DR registers with the RP (initially via unicast encapsulation), completing the path from source to receivers.\n\n**5. Reverse Path Forwarding (RPF):**\n- Every router performs RPF checks against its unicast MRIB: packets arriving on an interface other than the upstream RPF interface toward the RP (or source) are discarded, preventing loops.\n\n**6. Tree trade-offs & SPT switchover:**\n- Shared trees (*, G) minimize router memory overhead by using a single tree rooted at the RP for all sources, but can introduce latency from dogleg routing.\n- Source-based trees (S, G) provide optimal, direct shortest paths, but require router state proportional to $S \\times G$.\n- For high-bitrate live video, the receiver DR can initiate an SPT switchover via (S, G) Joins once data starts flowing, bypassing the RP.\n\n**GRADING CRITERIA — 20 points:**\n- Characterize workload and justify IP Multicast: 3 points.\n- Explain host membership discovery (IGMP/MLD): 3 points.\n- Justify PIM-SM over PIM-DM based on sparse distribution: 4 points.\n- Explain tree building via DR, RP, and Join messages: 4 points.\n- Explain RPF verification mechanism: 2 points.\n- Compare shared trees vs source-based trees: 3 points.\n- Provide a technically coherent conclusion: 1 point."
+      },
+      "explanation": {
+        "pt": "Esta pergunta avalia a capacidade de relacionar os mecanismos multicast numa arquitetura completa. A resposta deve explicar por que razão o interesse dos hosts se traduz em estados de encaminhamento e como a escolha do protocolo afeta a utilização de recursos.",
+        "en": "This question tests end-to-end multicast architectural design. Strong answers clearly articulate how host signaling translates into router forwarding state, and how sparse-mode choices conserve network bandwidth."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Desenvolva uma comparação crítica entre quatro estratégias para distribuir conteúdo multimédia: cliente-servidor tradicional, P2P, CDN e multicast IP. Considere a escalabilidade, a utilização da largura de banda, o papel da infraestrutura, a complexidade de gestão, a localização dos recetores e a adequação a conteúdo armazenado ou a transmissões em direto. Inclua uma explicação sobre como o DASH pode complementar uma arquitetura de distribuição de vídeo.",
+        "en": "Develop a rigorous comparative analysis of four content distribution strategies: traditional client-server, P2P, CDN, and IP Multicast. Contrast their scalability, bandwidth utilization, infrastructure dependencies, operational management complexity, receiver distribution, and suitability for on-demand stored catalog streaming versus live broadcasting. Include an explanation of how client-driven adaptive streaming (DASH) complements video distribution architectures."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. Cliente-servidor tradicional:**\n- Os clientes obtêm dados de um servidor central.\n- O servidor suporta a distribuição das cópias solicitadas.\n- A capacidade de upload do servidor pode tornar-se um gargalo.\n- A gestão é relativamente centralizada.\n- A arquitetura pode ser adequada a serviços de dimensão controlada ou que exigem gestão centralizada.\n\n**2. P2P:**\n- Os peers podem desempenhar simultaneamente funções de cliente e servidor.\n- A sua capacidade de upload contribui para a distribuição.\n- Pode beneficiar de self-scalability.\n- A gestão é mais complexa devido ao churn, à heterogeneidade e à disponibilidade dos recursos.\n- É especialmente relevante no exemplo de distribuição de ficheiros através de BitTorrent.\n\n**3. CDN:**\n- O conteúdo é replicado em servidores distribuídos geograficamente.\n- Os utilizadores podem ser direcionados para cópias adequadas.\n- Reduz a dependência de um único servidor central.\n- Procura melhorar escalabilidade e proximidade do conteúdo.\n- É particularmente relevante para a distribuição de grandes catálogos de vídeo e outros conteúdos.\n\n**4. Multicast IP:**\n- Permite distribuir o mesmo fluxo a um grupo de recetores interessados.\n- A rede pode replicar os pacotes nos pontos de ramificação.\n- Pode reduzir significativamente o tráfego em ligações partilhadas relativamente a múltiplas transmissões unicast.\n- Exige mecanismos de gestão de membros e routing multicast.\n- É especialmente interessante para fluxos comuns recebidos simultaneamente por vários utilizadores.\n- A sua eficiência depende da topologia, dos recetores e do suporte de multicast na rede.\n\n**5. DASH:**\n- Permite que o cliente selecione diferentes representações de segmentos multimédia.\n- Ajusta a taxa de codificação às condições estimadas da rede.\n- Gere o buffer e o momento dos pedidos de segmentos.\n- Pode funcionar em conjunto com uma CDN, obtendo segmentos adaptativos de servidores distribuídos.\n\n**6. Comparação por cenário:**\n- Distribuição de um ficheiro grande a muitos participantes com capacidade de upload disponível: P2P pode ser vantajoso.\n- Serviço de vídeo armazenado para utilizadores geograficamente distribuídos: CDN combinada com DASH é uma solução adequada.\n- Transmissão comum em direto para muitos recetores numa infraestrutura multicast controlada: multicast IP pode reduzir a duplicação de tráfego.\n- Serviço pequeno que exige controlo centralizado: cliente-servidor pode ser suficiente.\n\n**7. Conclusão:**\n- As quatro estratégias não são equivalentes.\n- Diferem no local onde ocorre a replicação, na utilização dos recursos e nas exigências de infraestrutura.\n- A arquitetura deve ser escolhida de acordo com o tipo de conteúdo, a distribuição dos recetores, as condições da rede e os requisitos da aplicação.\n- Podem existir soluções que combinam mecanismos de diferentes arquiteturas.\n\n**CRITÉRIOS DE CORREÇÃO — 20 pontos:**\n- Caracterizar corretamente cliente-servidor: 2 pontos.\n- Caracterizar corretamente P2P e self-scalability: 3 pontos.\n- Caracterizar corretamente CDN: 3 pontos.\n- Caracterizar corretamente multicast: 3 pontos.\n- Comparar escalabilidade e utilização da largura de banda: 3 pontos.\n- Explicar a função do DASH e a sua complementaridade com a CDN: 2 pontos.\n- Justificar escolhas para diferentes cenários: 3 pontos.\n- Apresentar uma conclusão crítica e coerente: 1 ponto.",
+        "en": "MODEL ANSWER:\n\n**1. Traditional Client-Server:**\n- Architecture: Centralized servers serve individual unicast sessions.\n- Scalability: Low; server uplink bandwidth scales linearly ($N \\times R$), becoming a severe bottleneck.\n- Management: Highly centralized and simple.\n- Best suited for: Low-concurrency private services and transactional workloads.\n\n**2. Peer-to-Peer (P2P):**\n- Architecture: End-user nodes act as both consumers and upload seeders.\n- Scalability: Highly scalable (self-scalability); total service capacity grows as peer population increases.\n- Management: High complexity due to peer churn, free-riding incentives (mitigated by tit-for-tat), and chunk tracking.\n- Best suited for: Massive asynchronous file downloads (e.g. BitTorrent OS distribution, game updates).\n\n**3. Content Distribution Networks (CDNs):**\n- Architecture: Application-layer overlay of caching proxy edge servers deployed close to access networks (Enter Deep or Bring Home).\n- Scalability: High; requests are load-balanced via DNS redirection to local edge caches, shielding the origin server.\n- Management: Managed commercial infrastructure with high deployment and operational costs.\n- Best suited for: Large on-demand video catalogs (VoD) and global web delivery.\n\n**4. IP Multicast:**\n- Architecture: Network-layer packet replication by intermediate routers along a distribution tree.\n- Scalability: Extremely high for concurrent listeners; common links transmit only a single packet copy regardless of receiver population ($1 \\times R$).\n- Management: Complex; requires multicast-enabled routers, IGMP/MLD, and routing protocols (PIM), generally confined to controlled enterprise, IPTV, or ISP domains.\n- Best suited for: Simultaneous live broadcasting to large concurrent audiences in managed networks.\n\n**5. Role of MPEG-DASH:**\n- Operates at the application layer on client media players over standard HTTP/TCP.\n- Dynamically selects chunk bitrates based on real-time client throughput and buffer occupancy.\n- Complements CDNs: CDNs distribute chunks globally over HTTP, while DASH adapts to last-mile client link volatility.\n\n**6. Comparative Summary by Workload:**\n- Massive software/disk image distribution: P2P.\n- Global on-demand movie streaming: CDN + DASH.\n- Live enterprise/IPTV broadcast across managed network: IP Multicast.\n- Small controlled departmental service: Client-Server.\n\n**GRADING CRITERIA — 20 points:**\n- Characterize client-server architecture and bottlenecks: 2 points.\n- Characterize P2P and self-scalability: 3 points.\n- Characterize CDN edge caching and redirection: 3 points.\n- Characterize IP Multicast and network-layer replication: 3 points.\n- Contrast scalability and bandwidth efficiency: 3 points.\n- Explain DASH adaptive streaming and CDN synergy: 2 points.\n- Justify optimal architectures across different workloads: 3 points.\n- Present a clear, well-structured, critical conclusion: 1 point."
+      },
+      "explanation": {
+        "pt": "Esta é a pergunta final do percurso. O domínio da matéria demonstra-se pela capacidade de comparar soluções que atuam em níveis diferentes, identificar os seus compromissos e justificar uma arquitetura adequada a um cenário concreto. O importante não é apresentar uma tecnologia como universalmente superior, mas compreender em que condições cada abordagem é vantajosa.",
+        "en": "This capstone synthesis question requires comparing technologies operating at different layers of the protocol stack. Mastery is shown by recognizing that no technology is universally superior; each architectural choice involves concrete trade-offs in complexity, cost, infrastructure support, and workload characteristics."
+      }
+    }
+  ]
+}

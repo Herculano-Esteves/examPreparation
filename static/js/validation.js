@@ -7,7 +7,7 @@
  * (e.g., { pt: '...', en: '...' }), with full backwards-compatibility for legacy Portuguese keys.
  */
 
-import { APP_CONFIG } from './config.js';
+import { APP_CONFIG, resolveQuestionType } from './config.js';
 
 export function validateExamJSON(jsonString) {
     try {
@@ -54,7 +54,14 @@ export function validateExamJSON(jsonString) {
                 return { valid: false, message: `Questão #${qNum}: Deve ser um objeto {...}.` };
             }
 
-            const qType = p.type || p.tipo || 'escolha_multipla';
+            const rawType = p.type || p.tipo;
+            const qType = resolveQuestionType(rawType);
+            if (!qType) {
+                return {
+                    valid: false,
+                    message: `Question #${qNum}: Invalid type '${rawType}'. Use '${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}', '${APP_CONFIG.questionTypes.BOOLEAN}' or '${APP_CONFIG.questionTypes.WRITTEN}'.`
+                };
+            }
             const qText = p.question !== undefined ? p.question : p.pergunta;
 
             if (!qText) {
@@ -85,61 +92,61 @@ export function validateExamJSON(jsonString) {
                 normalizedQ.header = qHeader;
             }
 
-            if (qType === 'escrita') {
+            const { MULTIPLE_CHOICE, BOOLEAN, WRITTEN } = APP_CONFIG.questionTypes;
+
+            if (qType === WRITTEN) {
                 if (qSolution === undefined) {
-                    return { valid: false, message: `Questão #${qNum} (escrita): A 'solution' é obrigatória.` };
+                    return { valid: false, message: `Question #${qNum} (${WRITTEN}): 'solution' is required.` };
                 }
                 if (typeof qSolution === 'object') {
                     for (let lang of languages) {
                         if (!qSolution[lang] || typeof qSolution[lang] !== 'string') {
-                            return { valid: false, message: `Questão #${qNum} (escrita): Falta a resolução esperada no idioma '${lang}'.` };
+                            return { valid: false, message: `Question #${qNum} (${WRITTEN}): Missing expected solution for language '${lang}'.` };
                         }
                     }
                 } else if (typeof qSolution !== 'string') {
-                    return { valid: false, message: `Questão #${qNum} (escrita): A 'solution' deve ser string ou objeto com resoluções por idioma.` };
+                    return { valid: false, message: `Question #${qNum} (${WRITTEN}): 'solution' must be a string or an object of solutions per language.` };
                 }
                 normalizedQ.solution = qSolution;
-            } else if (qType === 'boolean') {
+            } else if (qType === BOOLEAN) {
                 if (qSolution === undefined || (qSolution !== 0 && qSolution !== 1)) {
-                    return { valid: false, message: `Questão #${qNum} (boolean): A 'solution' deve ser 0 (Verdadeiro) ou 1 (Falso).` };
+                    return { valid: false, message: `Question #${qNum} (${BOOLEAN}): 'solution' must be 0 (True) or 1 (False).` };
                 }
                 normalizedQ.solution = qSolution;
-            } else if (qType === 'escolha_multipla') {
+            } else if (qType === MULTIPLE_CHOICE) {
                 if (!qOptions) {
-                    return { valid: false, message: `Questão #${qNum} (escolha múltipla): O campo 'options' é obrigatório.` };
+                    return { valid: false, message: `Question #${qNum} (${MULTIPLE_CHOICE}): 'options' field is required.` };
                 }
 
                 let optLength = 0;
                 if (Array.isArray(qOptions)) {
                     if (qOptions.length === 0) {
-                        return { valid: false, message: `Questão #${qNum}: O array 'options' não pode estar vazio.` };
+                        return { valid: false, message: `Question #${qNum}: 'options' array cannot be empty.` };
                     }
                     optLength = qOptions.length;
                 } else if (typeof qOptions === 'object') {
                     for (let lang of languages) {
                         if (!Array.isArray(qOptions[lang]) || qOptions[lang].length === 0) {
-                            return { valid: false, message: `Questão #${qNum}: Falta o array 'options' para o idioma '${lang}'.` };
+                            return { valid: false, message: `Question #${qNum}: Missing 'options' array for language '${lang}'.` };
                         }
                     }
                     optLength = qOptions[languages[0]].length;
                 } else {
-                    return { valid: false, message: `Questão #${qNum}: O campo 'options' deve ser um array ou objeto de opções por idioma.` };
+                    return { valid: false, message: `Question #${qNum}: 'options' must be an array or an object of options per language.` };
                 }
 
                 normalizedQ.options = qOptions;
 
                 if (!qSolution || !Array.isArray(qSolution) || qSolution.length === 0) {
-                    return { valid: false, message: `Questão #${qNum} (escolha múltipla): O campo 'solution' deve ser um array com os índices das respostas corretas (ex: [0]).` };
+                    return { valid: false, message: `Question #${qNum} (${MULTIPLE_CHOICE}): 'solution' must be an array of correct answer indices (e.g., [0]).` };
                 }
 
                 for (let s of qSolution) {
                     if (typeof s !== 'number' || s < 0 || s >= optLength) {
-                        return { valid: false, message: `Questão #${qNum}: O índice da resposta ${s} está fora do limite das opções (0 a ${optLength - 1}).` };
+                        return { valid: false, message: `Question #${qNum}: Solution index ${s} is out of bounds for options (0 to ${optLength - 1}).` };
                     }
                 }
                 normalizedQ.solution = qSolution;
-            } else {
-                return { valid: false, message: `Questão #${qNum}: Tipo '${qType}' inválido. Use 'escolha_multipla', 'boolean' ou 'escrita'.` };
             }
 
             if (qExplanation !== undefined) {

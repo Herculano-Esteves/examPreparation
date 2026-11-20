@@ -1,0 +1,534 @@
+{
+  "title": {
+    "pt": "MFES — Exame 5: Aprofundamento em SAT, DPLL, CDCL e Raciocínio Formal",
+    "en": "MFES — Exam 5: Advanced SAT, DPLL, CDCL, and Automated Reasoning"
+  },
+  "description": {
+    "pt": "Nível 5/6 — Exame avançado de raciocínio lógico e resolução automática. Aprofunda complexidade computacional, NP-completude, codificação de problemas, CNF, propagação unitária, DPLL, CDCL, DIMACS, SAT e SMT. Inclui execução manual de algoritmos, análise de conflitos, contraexemplos e distinções entre decidibilidade e complexidade.",
+    "en": "Level 5/6 — Advanced exam on automated formal reasoning and SAT solving. Thoroughly covers computational complexity, NP-completeness, SAT reductions, Conjunctive Normal Form (CNF), unit propagation (BCP), the DPLL algorithm, Conflict-Driven Clause Learning (CDCL), the DIMACS format, and Satisfiability Modulo Theories (SMT). Includes manual algorithm trace execution, conflict graph analysis, and boundary distinctions between decidability and complexity."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Como se classifica o problema SAT?",
+        "en": "How is the Boolean Satisfiability problem (SAT) classified?"
+      },
+      "options": {
+        "pt": [
+          "Indecidível",
+          "Decidível e NP-completo",
+          "NP-completo e necessariamente resolúvel em tempo polinomial",
+          "Resolúvel apenas através de lógica de primeira ordem"
+        ],
+        "en": [
+          "Undecidable",
+          "Decidable and NP-complete",
+          "NP-complete and necessarily solvable in polynomial time",
+          "Solvable exclusively through first-order logic"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "SAT é decidível e NP-completo. Isso significa que pertence a NP e que todos os problemas de NP podem ser reduzidos a SAT em tempo polinomial.",
+        "en": "SAT is decidable and NP-complete (Cook-Levin Theorem, 1971). It belongs to NP and any problem in NP can be reduced to SAT in polynomial time."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "O problema SAT pertence à classe NP porque uma atribuição satisfatória pode ser verificada em tempo polinomial relativamente ao tamanho da fórmula.",
+        "en": "The SAT problem belongs to the complexity class NP because a proposed satisfying truth assignment can be verified in polynomial time relative to formula size."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Uma atribuição de valores às variáveis funciona como certificado. Verificar se satisfaz uma fórmula proposicional pode ser realizado em tempo polinomial.",
+        "en": "True. A proposed variable truth assignment serves as a succinct polynomial-size certificate: evaluating the formula under that assignment takes linear/polynomial time."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes afirmações descreve corretamente a NP-completude?",
+        "en": "Which of the following statements correctly defines NP-completeness?"
+      },
+      "options": {
+        "pt": [
+          "O problema pertence a NP e todos os problemas de NP se reduzem a ele em tempo polinomial",
+          "O problema não possui algoritmo de decisão",
+          "O problema admite obrigatoriamente um algoritmo de tempo constante",
+          "O problema só pode ter instâncias insatisfatíveis"
+        ],
+        "en": [
+          "The problem belongs to NP and every problem in NP can be reduced to it in polynomial time",
+          "The problem possesses no decision algorithm",
+          "The problem mandatorily admits an O(1) constant-time algorithm",
+          "The problem can only have unsatisfiable instances"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Para ser NP-completo, um problema deve pertencer a NP e ser NP-difícil através de reduções polinomiais.",
+        "en": "A decision problem L is NP-complete iff L ∈ NP and L is NP-hard (every problem in NP is polynomial-time many-one reducible to L)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o objetivo do problema de coloração de grafos com k cores?",
+        "en": "What is the goal of the graph k-colouring decision problem?"
+      },
+      "options": {
+        "pt": [
+          "Determinar se é possível colorir todos os vértices utilizando k cores disponíveis sem que vértices adjacentes tenham a mesma cor",
+          "Atribuir obrigatoriamente a mesma cor a todos os vértices",
+          "Determinar o número de arestas de um grafo",
+          "Garantir que cada cor é utilizada exatamente uma vez"
+        ],
+        "en": [
+          "Determining whether it is possible to assign one of k available colours to every vertex such that no two adjacent vertices share the same colour",
+          "Mandatorily assigning the identical colour to all vertices",
+          "Counting the exact number of edges in a graph",
+          "Ensuring every colour is used exactly once"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Cada vértice recebe uma cor e quaisquer dois vértices adjacentes têm cores diferentes. Este problema pode ser codificado como SAT.",
+        "en": "Graph k-colouring asks whether vertices can be assigned colours from a palette of k colours such that adjacent vertices receive distinct colours. It can be reduced to propositional SAT."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quantas variáveis proposicionais são utilizadas na codificação direta de um grafo com 5 vértices e 3 cores?",
+        "en": "How many propositional variables are used in the direct encoding of a graph with 5 vertices and 3 colours?"
+      },
+      "options": {
+        "pt": [
+          "8",
+          "15",
+          "25",
+          "125"
+        ],
+        "en": [
+          "8",
+          "15",
+          "25",
+          "125"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Utiliza-se uma variável por par vértice-cor. Assim, 5 × 3 = 15 variáveis.",
+        "en": "Direct SAT encoding declares one boolean variable xv,c per vertex-colour pair: 5 × 3 = 15 variables."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere as variáveis xr, xg e xb, que indicam se um vértice recebe as cores vermelha, verde e azul.",
+        "en": "Consider variables xr, xg, and xb, indicating whether a vertex receives red, green, and blue respectively."
+      },
+      "question": {
+        "pt": "Qual das fórmulas garante que o vértice recebe no máximo uma cor?",
+        "en": "Which formula enforces that the vertex receives at most one colour?"
+      },
+      "options": {
+        "pt": [
+          "xr ∨ xg ∨ xb",
+          "(¬xr ∨ ¬xg) ∧ (¬xr ∨ ¬xb) ∧ (¬xg ∨ ¬xb)",
+          "xr ∧ xg ∧ xb",
+          "xr ↔ xg ↔ xb"
+        ],
+        "en": [
+          "xr ∨ xg ∨ xb",
+          "(¬xr ∨ ¬xg) ∧ (¬xr ∨ ¬xb) ∧ (¬xg ∨ ¬xb)",
+          "xr ∧ xg ∧ xb",
+          "xr ↔ xg ↔ xb"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "As cláusulas impedem que quaisquer duas cores sejam escolhidas simultaneamente. Para garantir exatamente uma cor, é necessário acrescentar xr ∨ xg ∨ xb.",
+        "en": "At-most-one encodes pairwise exclusion clauses ¬(xi ∧ xj) ≡ ¬xi ∨ ¬xj for all colour pairs."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Dois vértices adjacentes, 1 e 2, possuem variáveis x1r e x2r para a cor vermelha.",
+        "en": "Two adjacent vertices, 1 and 2, have variables x1r and x2r for colour red."
+      },
+      "question": {
+        "pt": "Qual é a restrição correta para impedir que ambos recebam vermelho?",
+        "en": "What is the correct constraint preventing both adjacent vertices from receiving red?"
+      },
+      "options": {
+        "pt": [
+          "x1r ∧ x2r",
+          "x1r ↔ x2r",
+          "¬x1r ∨ ¬x2r",
+          "x1r ∨ x2r"
+        ],
+        "en": [
+          "x1r ∧ x2r",
+          "x1r ↔ x2r",
+          "¬x1r ∨ ¬x2r",
+          "x1r ∨ x2r"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A cláusula é equivalente a ¬(x1r ∧ x2r), impedindo a seleção simultânea da cor vermelha nos dois vértices.",
+        "en": "The adjacency constraint asserts ¬(x1,r ∧ x2,r), which expands to the clause ¬x1,r ∨ ¬x2,r."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que caracteriza uma fórmula em Conjunctive Normal Form (CNF)?",
+        "en": "What characterizes a formula in Conjunctive Normal Form (CNF)?"
+      },
+      "options": {
+        "pt": [
+          "Uma disjunção de conjunções",
+          "Uma conjunção de cláusulas, sendo cada cláusula uma disjunção de literais",
+          "Uma fórmula constituída apenas por equivalências",
+          "Uma fórmula sem negações"
+        ],
+        "en": [
+          "A disjunction of conjunctions",
+          "A conjunction of clauses, where each clause is a disjunction of literals",
+          "A formula consisting purely of equivalences",
+          "A formula containing no negation operators"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "CNF é uma conjunção de cláusulas. Cada cláusula contém uma disjunção de literais, sendo um literal uma variável ou a sua negação.",
+        "en": "A CNF formula is a conjunction of one or more clauses (AND of ORs): ⋀_i (⋁_j l_i,j), where each literal l_i,j is an atomic variable or its negation."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Selecione todas as fórmulas que estão em CNF.",
+        "en": "Select all formulas that are in CNF."
+      },
+      "options": {
+        "pt": [
+          "(A ∨ ¬B) ∧ (B ∨ C)",
+          "A ∨ (B ∧ C)",
+          "A ∧ ¬B ∧ C",
+          "¬(A ∧ B)"
+        ],
+        "en": [
+          "(A ∨ ¬B) ∧ (B ∨ C)",
+          "A ∨ (B ∧ C)",
+          "A ∧ ¬B ∧ C",
+          "¬(A ∧ B)"
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "A primeira é uma conjunção de duas cláusulas. A terceira é uma conjunção de cláusulas unitárias. A segunda ainda exige distribuição e a quarta exige aplicar De Morgan para obter CNF.",
+        "en": "Option [0] is an AND of two binary clauses. Option [2] is an AND of three unit clauses (A) ∧ (¬B) ∧ (C). Option [1] requires distributive expansion and [3] requires applying De Morgan."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a conversão correta da fórmula A → B para CNF?",
+        "en": "What is the correct conversion of the formula A → B to CNF?"
+      },
+      "options": {
+        "pt": [
+          "A ∧ B",
+          "¬A ∨ B",
+          "A ∨ ¬B",
+          "¬A ∧ B"
+        ],
+        "en": [
+          "A ∧ B",
+          "¬A ∨ B",
+          "A ∨ ¬B",
+          "¬A ∧ B"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Uma implicação A → B é equivalente a ¬A ∨ B. Esta expressão corresponde a uma única cláusula em CNF.",
+        "en": "Implication elimination: A → B ≡ ¬A ∨ B, which is already a single CNF clause."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere a fórmula em CNF: (A) ∧ (¬A ∨ B).",
+        "en": "Consider the CNF formula: (A) ∧ (¬A ∨ B)."
+      },
+      "question": {
+        "pt": "Que valores são deduzidos por propagação unitária?",
+        "en": "Which values are deduced by unit propagation (Boolean Constraint Propagation - BCP)?"
+      },
+      "options": {
+        "pt": [
+          "A = 0 e B = 0",
+          "A = 1 e B = 0",
+          "A = 1 e B = 1",
+          "Não é possível deduzir qualquer valor"
+        ],
+        "en": [
+          "A = 0 and B = 0",
+          "A = 1 and B = 0",
+          "A = 1 and B = 1",
+          "No values can be deduced"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A cláusula unitária A obriga A = 1. A cláusula ¬A ∨ B reduz-se a B, obrigando B = 1.",
+        "en": "Unit clause (A) forces A = 1. Substituting A = 1 into (¬A ∨ B) reduces it to unit clause (B), which forces B = 1."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Durante a execução do DPLL, a obtenção de uma cláusula vazia representa um conflito.",
+        "en": "During DPLL execution, deriving an empty clause represents a conflict."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Uma cláusula vazia não contém literais capazes de a satisfazer. Representa uma contradição no ramo atual. É importante distingui-la do conjunto vazio de cláusulas, que significa que todas foram satisfeitas.",
+        "en": "True. An empty clause (□) contains zero satisfying literals, signaling a dead-end conflict on the current decision branch that necessitates backtracking."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "pt": "Considere a fórmula Φ = (A) ∧ (¬A ∨ B) ∧ (¬B ∨ C).",
+        "en": "Consider the formula Φ = (A) ∧ (¬A ∨ B) ∧ (¬B ∨ C)."
+      },
+      "question": {
+        "pt": "Execute manualmente a propagação unitária e determine se Φ é satisfatível. Justifique cada simplificação.",
+        "en": "Perform unit propagation manually and determine whether Φ is satisfiable. Justify each derivation step."
+      },
+      "solution": {
+        "pt": "**Passo 1:** A cláusula unitária (A) obriga A = 1.\n\n**Passo 2:** Substituindo A = 1, a cláusula (¬A ∨ B) reduz-se a (B). A primeira cláusula fica satisfeita.\n\n**Passo 3:** A cláusula unitária (B) obriga B = 1.\n\n**Passo 4:** Substituindo B = 1, a cláusula (¬B ∨ C) reduz-se a (C).\n\n**Passo 5:** A cláusula unitária (C) obriga C = 1.\n\nTodas as cláusulas ficam satisfeitas, restando um conjunto vazio de cláusulas.\n\n**Resultado:** Φ é SAT, com A = 1, B = 1 e C = 1. Não foi necessária qualquer decisão por tentativa.\n\n**Critérios de avaliação:** 20% pela primeira dedução; 20% pela segunda; 20% pela terceira; 20% pelas simplificações; 20% pela conclusão e distinção entre cláusula vazia e conjunto vazio de cláusulas.",
+        "en": "**Step 1:** The unit clause (A) unconditionally forces assignment A = 1.\n\n**Step 2:** Substitute A = 1 into the remaining clauses:\n- Clause (A) is satisfied and eliminated.\n- Clause (¬A ∨ B) becomes (0 ∨ B), which simplifies to the new unit clause (B).\n\n**Step 3:** The unit clause (B) unconditionally forces B = 1.\n\n**Step 4:** Substitute B = 1 into the remaining clauses:\n- Clause (¬B ∨ C) becomes (0 ∨ C), simplifying to the unit clause (C).\n\n**Step 5:** The unit clause (C) forces C = 1. All clauses are now satisfied.\n\n**Conclusion:** Φ is SAT with the unique satisfying assignment {A = 1, B = 1, C = 1}. The solver solved the formula entirely through BCP without any branching decisions.\n\n**Grading criteria:** 20% for step 1; 20% for step 2; 20% for step 3; 20% for clause simplifications; 20% for final SAT verdict and assignment."
+      },
+      "explanation": {
+        "pt": "O DPLL combina propagação unitária com decisões e backtracking. Algumas fórmulas podem ser completamente resolvidas por propagação, sem necessidade de decisões.",
+        "en": "DPLL interleaves unit propagation with decision heuristics and backtracking. Some formulas are solved entirely via propagation without branching."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal melhoria introduzida pelo CDCL relativamente ao DPLL clássico?",
+        "en": "What is the primary architectural enhancement introduced by CDCL over classic DPLL?"
+      },
+      "options": {
+        "pt": [
+          "Eliminar completamente a necessidade de atribuições de valores",
+          "Aprender cláusulas a partir de conflitos e permitir retrocesso não cronológico",
+          "Substituir todas as cláusulas por funções matemáticas",
+          "Garantir tempo de execução polinomial para qualquer instância de SAT"
+        ],
+        "en": [
+          "Completely eliminating variable truth assignments",
+          "Learning conflict clauses from deduction graphs and performing non-chronological backjumping",
+          "Replacing all clauses with continuous mathematical functions",
+          "Guaranteeing polynomial worst-case runtime for all SAT instances"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O CDCL utiliza informação dos conflitos, geralmente através de um grafo de implicações, para aprender cláusulas que evitam repetir combinações incompatíveis.",
+        "en": "Conflict-Driven Clause Learning (CDCL) analyzes conflict implication graphs to derive learned conflict clauses (preventing the solver from exploring identical dead-ends) and performs non-chronological backjumping."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```text\np cnf 3 2\n1 -2 0\n-1 3 0\n```",
+        "en": "```text\np cnf 3 2\n1 -2 0\n-1 3 0\n```"
+      },
+      "question": {
+        "pt": "O que indica a primeira linha do cabeçalho DIMACS?",
+        "en": "What does the first line of the DIMACS format header specify?"
+      },
+      "options": {
+        "pt": [
+          "3 cláusulas e 2 variáveis",
+          "3 variáveis e 2 cláusulas",
+          "3 fórmulas válidas e 2 inválidas",
+          "3 modelos e 2 contraexemplos"
+        ],
+        "en": [
+          "3 clauses and 2 variables",
+          "3 variables and 2 clauses",
+          "3 valid formulas and 2 invalid formulas",
+          "3 models and 2 counterexamples"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Em DIMACS, p cnf V C declara V variáveis e C cláusulas.",
+        "en": "In the standard DIMACS CNF format, the header line p cnf V C declares V variables and C clauses."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "```text\n1 -3 0\n```",
+        "en": "```text\n1 -3 0\n```"
+      },
+      "question": {
+        "pt": "Qual é o significado desta cláusula em DIMACS, assumindo que as variáveis 1 e 3 representam A e C?",
+        "en": "What is the meaning of this DIMACS clause line, assuming variables 1 and 3 denote A and C?"
+      },
+      "options": {
+        "pt": [
+          "A ∧ ¬C",
+          "A ∨ ¬C",
+          "¬A ∧ C",
+          "A ↔ C"
+        ],
+        "en": [
+          "A ∧ ¬C",
+          "A ∨ ¬C",
+          "¬A ∧ C",
+          "A ↔ C"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Os números positivos representam variáveis e os negativos representam as suas negações. O zero termina a cláusula. Assim, a linha representa A ∨ ¬C.",
+        "en": "Positive numbers represent positive literals and negative numbers represent negated literals, terminated by 0: 1 -3 0 represents clause A ∨ ¬C."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a relação entre SAT e SMT?",
+        "en": "What is the relationship between SAT and SMT solvers?"
+      },
+      "options": {
+        "pt": [
+          "SMT é mais restrito que SAT e não suporta teorias",
+          "SMT generaliza SAT ao permitir raciocinar sobre fórmulas relativamente a teorias, como aritmética e arrays",
+          "SAT permite quantificadores arbitrários e SMT não",
+          "SMT garante decidibilidade para toda a lógica de primeira ordem"
+        ],
+        "en": [
+          "SMT is more restrictive than SAT and forbids background theories",
+          "SMT generalizes SAT by enabling satisfiability checks modulo background theories (such as linear arithmetic, arrays, and bitvectors)",
+          "SAT supports arbitrary first-order quantifiers while SMT does not",
+          "SMT guarantees decidability across full unrestricted first-order logic"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "SMT significa Satisfiability Modulo Theories. Permite integrar teorias como aritmética linear e arrays. A decidibilidade depende da teoria e do fragmento utilizados.",
+        "en": "Satisfiability Modulo Theories (SMT) extends SAT by combining a core SAT solver engine with specialized decision procedures for background first-order theories (e.g. EUF, Linear Real/Integer Arithmetic, Bitvectors, Arrays)."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Considere um grafo triangular com vértices A, B e C, em que todos os vértices são adjacentes entre si. Explique por que motivo não é possível colori-lo com apenas duas cores. Relacione a conclusão com a satisfatibilidade da codificação SAT.",
+        "en": "Consider a triangular clique graph with vertices A, B, and C where all pairs of vertices are mutually adjacent (K3). Explain why it is impossible to 2-colour this graph. Relate this conclusion to the satisfiability of the corresponding SAT encoding."
+      },
+      "solution": {
+        "pt": "Suponha que existem apenas as cores vermelha e azul.\n\nA pode receber vermelho sem perda de generalidade. Como B é adjacente a A, B tem de receber azul. Como C também é adjacente a A, C tem de receber azul. Porém, B e C são adjacentes, pelo que não podem possuir a mesma cor.\n\nObtém-se uma contradição. O mesmo problema ocorre se A começar com azul, devido à simetria das cores.\n\nLogo, o grafo triangular não admite uma coloração com duas cores.\n\nA codificação SAT contém restrições para exatamente uma cor por vértice e para cores diferentes em vértices adjacentes. Como não existe qualquer atribuição que satisfaça todas essas restrições, a fórmula resultante é UNSAT.\n\n**Critérios de avaliação:** 20% pela definição das cores; 30% pela análise das adjacências; 20% pela contradição; 20% pela conclusão UNSAT; 10% pela relação com a codificação proposicional.",
+        "en": "**1. Graph chromatic proof:**\n- Palette: {Red, Blue}.\n- Without loss of generality, assign Red to vertex A.\n- Since B is adjacent to A, B cannot be Red and must be assigned Blue.\n- Since C is adjacent to A, C cannot be Red and must also be assigned Blue.\n- However, edge (B, C) connects B and C, which both have colour Blue. This violates the adjacency constraint.\n- By symmetry, starting with A = Blue leads to the same contradiction.\n\n**2. SAT translation & verdict:**\n- The SAT encoding specifies: (1) at-least-one colour per vertex; (2) at-most-one colour per vertex; (3) edge clauses ¬(u_c ∧ v_c) for all edges (u, v) and colours c.\n- Because no valid 2-colouring exists mathematically, no truth assignment satisfies all generated CNF clauses.\n- The SAT solver will terminate and report **UNSAT**.\n\n**Grading criteria:** 20% for palette/variable formulation; 30% for adjacency deduction; 20% for contradiction derivation; 20% for the UNSAT verdict; 10% for connecting graph colouring to SAT."
+      },
+      "explanation": {
+        "pt": "Uma redução correta preserva a existência de soluções: o grafo é colorível com k cores se e só se a fórmula proposicional correspondente for satisfatível.",
+        "en": "A correct reduction preserves satisfiability: the graph is 2-colourable if and only if the generated CNF encoding is SAT."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes afirmações sobre decidibilidade e complexidade é correta?",
+        "en": "Which statement correctly distinguishes decidability from computational complexity?"
+      },
+      "options": {
+        "pt": [
+          "Um problema decidível tem necessariamente um algoritmo de tempo polinomial",
+          "Um problema NP-completo é necessariamente indecidível",
+          "Decidibilidade diz respeito à existência de um algoritmo que termina; complexidade diz respeito aos recursos necessários",
+          "A indecidibilidade significa apenas que o problema demora muito tempo"
+        ],
+        "en": [
+          "A decidable problem necessarily possesses a polynomial-time algorithm",
+          "An NP-complete problem is necessarily undecidable",
+          "Decidability concerns the existence of an algorithm guaranteed to terminate with the correct answer; complexity concerns the computational resources (time/space) required by such an algorithm",
+          "Undecidability merely means that a problem takes a very long time to run"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Um problema pode ser decidível e extremamente difícil de resolver. SAT é decidível, mas NP-completo. Já a satisfatibilidade geral da lógica de primeira ordem é indecidível.",
+        "en": "Decidability is a qualitative property (does a terminating algorithm exist?), whereas complexity is quantitative (how do time and memory scale as a function of input size?). SAT is decidable, but NP-complete."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "pt": "Considere Φ = (A ∨ B) ∧ (¬A ∨ B) ∧ (A ∨ ¬B) ∧ (¬A ∨ ¬B).",
+        "en": "Consider Φ = (A ∨ B) ∧ (¬A ∨ B) ∧ (A ∨ ¬B) ∧ (¬A ∨ ¬B)."
+      },
+      "question": {
+        "pt": "Determine, através de uma árvore de decisões semelhante ao DPLL, se a fórmula é SAT ou UNSAT. Apresente os dois ramos principais e explique o resultado.",
+        "en": "Using a decision tree tracing the DPLL algorithm, determine whether the formula Φ is SAT or UNSAT. Present both decision branches and explain the final verdict."
+      },
+      "solution": {
+        "pt": "**Ramo A = 1:**\n\n(A ∨ B) e (A ∨ ¬B) ficam satisfeitas.\n\n(¬A ∨ B) reduz-se a B.\n\n(¬A ∨ ¬B) reduz-se a ¬B.\n\nExistem duas cláusulas unitárias contraditórias: B e ¬B. Este ramo é impossível.\n\n**Ramo A = 0:**\n\n(¬A ∨ B) e (¬A ∨ ¬B) ficam satisfeitas.\n\n(A ∨ B) reduz-se a B.\n\n(A ∨ ¬B) reduz-se a ¬B.\n\nO segundo ramo também produz uma contradição.\n\nComo ambos os valores possíveis de A originam conflitos, não existe uma valoração satisfatória.\n\n**Conclusão:** Φ é UNSAT.\n\n**Critérios de avaliação:** 20% pela escolha de A como variável de decisão; 25% pelo ramo A = 1; 25% pelo ramo A = 0; 20% pela conclusão UNSAT; 10% pela explicação do backtracking.",
+        "en": "**Branch 1 (Decision A = 1):**\n- Clauses (A ∨ B) and (A ∨ ¬B) are satisfied and removed.\n- Clause (¬A ∨ B) reduces to unit clause (B), forcing B = 1.\n- Clause (¬A ∨ ¬B) reduces to unit clause (¬B), forcing B = 0.\n- Unit propagation yields contradictory unit clauses (B) and (¬B), deriving the empty clause □ (conflict). This branch fails.\n\n**Branch 2 (Decision A = 0 / Backtrack):**\n- Clauses (¬A ∨ B) and (¬A ∨ ¬B) are satisfied and removed.\n- Clause (A ∨ B) reduces to unit clause (B), forcing B = 1.\n- Clause (A ∨ ¬B) reduces to unit clause (¬B), forcing B = 0.\n- Unit propagation again derives contradictory requirements on B, producing the empty clause □ (conflict).\n\n**Final Verdict:**\nAll decision branches terminate in irreconcilable conflicts. Therefore, the formula Φ is **UNSAT**.\n\n**Grading criteria:** 20% for decision variable choice; 25% for branch A=1 derivation; 25% for branch A=0 derivation; 20% for UNSAT conclusion; 10% for explaining DPLL backtracking."
+      },
+      "explanation": {
+        "pt": "Para demonstrar insatisfatibilidade através de DPLL, todos os ramos de decisão relevantes devem terminar em conflito. Um único conflito não é suficiente enquanto existirem ramos por explorar.",
+        "en": "To prove unsatisfiability with DPLL, every decision branch must terminate in an irreconcilable conflict (empty clause derivation)."
+      }
+    }
+  ]
+}

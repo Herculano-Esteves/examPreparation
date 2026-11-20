@@ -1,0 +1,419 @@
+{
+  "title": {
+    "pt": "Exame 4 — Multicast IP, IGMP, ASM, SSM e Árvores de Distribuição",
+    "en": "Exam 4 — IP Multicast, IGMP, ASM, SSM, and Distribution Trees"
+  },
+  "description": {
+    "pt": "NÍVEL 4 — FUNDAMENTOS DE MULTICAST | 16 questões | Dificuldade: intermédia a avançada. Quarto exame do percurso, dedicado ao segundo PowerPoint teórico. Desenvolve progressivamente os conceitos de unicast e multicast, grupos, replicação de tráfego, descoberta de membros, IGMP, MLD, IGMPv1/v2/v3, ASM, SSM, modelos opt-in e opt-out e árvores de distribuição. Prepara diretamente os conceitos necessários ao estudo aprofundado do PIM no Exame 5.",
+    "en": "LEVEL 4 — MULTICAST FOUNDATIONS | 16 questions | Difficulty: intermediate to advanced. Fourth exam in the track, dedicated to the second theoretical slide deck. Systematically develops unicast vs multicast concepts, multicast group addressing, in-network packet replication, group membership discovery, IGMP, MLD, IGMPv1/v2/v3 evolutions, ASM vs SSM, opt-in vs opt-out distribution models, and tree architectures. Directly prepares the foundational concepts required for in-depth study of PIM in Exam 5."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o principal objetivo do multicast IP?",
+        "en": "What is the primary objective of IP multicast?"
+      },
+      "options": {
+        "pt": [
+          "Transmitir dados exclusivamente para um único destinatário.",
+          "Enviar dados para vários destinatários interessados, procurando evitar transmissões duplicadas desnecessárias.",
+          "Garantir que todos os equipamentos da Internet recebem os mesmos pacotes.",
+          "Substituir todos os protocolos de transporte."
+        ],
+        "en": [
+          "Transmitting data exclusively to a single destination host.",
+          "Delivering data to multiple interested recipients while avoiding redundant, duplicate transmissions over shared links.",
+          "Ensuring all nodes across the global Internet receive identical packets.",
+          "Replacing all transport layer protocols."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O multicast permite transmitir informação destinada a um grupo de recetores. A rede pode replicar os pacotes nos pontos necessários, evitando que o emissor tenha de produzir uma transmissão unicast independente para cada destinatário.",
+        "en": "IP multicast allows a source to send a single stream to a multicast group address. Intermediate routers replicate packets only at branch points along the distribution tree, preventing source upload bottlenecks."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque pode a utilização de múltiplas transmissões unicast ser ineficiente quando muitos utilizadores pretendem receber o mesmo conteúdo?",
+        "en": "Why is using multiple independent unicast streams inefficient when many users wish to receive the same live content concurrently?"
+      },
+      "options": {
+        "pt": [
+          "Porque o unicast não permite comunicação através de routers.",
+          "Porque os dados não podem ser enviados para destinos diferentes.",
+          "Porque o emissor pode necessitar de enviar várias cópias idênticas, consumindo recursos de processamento e transmissão.",
+          "Porque o unicast não suporta aplicações multimédia."
+        ],
+        "en": [
+          "Because unicast cannot be routed across intermediate routers.",
+          "Because unicast cannot deliver packets to different network destinations.",
+          "Because the sender must transmit separate identical copies, saturating sender uplink and wasting shared backbone bandwidth.",
+          "Because unicast protocols cannot support multimedia streams."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A utilização de múltiplas sessões unicast pode provocar a transmissão repetida de conteúdo idêntico pelos mesmos segmentos da rede. O multicast procura reduzir essa duplicação.",
+        "en": "With multiple unicast streams, identical data traverses the sender's access link and shared network backbones N times. Multicast eliminates this duplication by replicating packets inside the network."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No multicast IP, como é identificado o conjunto de destinatários interessados?",
+        "en": "In IP multicast, how is the set of interested receivers identified?"
+      },
+      "options": {
+        "pt": [
+          "Através de um endereço multicast associado ao grupo.",
+          "Através de uma única porta TCP partilhada por toda a Internet.",
+          "Exclusivamente pelo endereço IP do primeiro destinatário.",
+          "Através da quantidade de memória disponível em cada cliente."
+        ],
+        "en": [
+          "By an IP multicast group address (Class D in IPv4).",
+          "Through a single reserved TCP port shared globally across the Internet.",
+          "Exclusively by the unicast IP address of the first receiver.",
+          "By the amount of RAM available on each client workstation."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Um grupo multicast é identificado por um endereço de grupo. Os sistemas interessados podem manifestar a intenção de receber tráfego destinado a esse grupo.",
+        "en": "Multicast uses a group identifier IP address (IPv4 Class D 224.0.0.0/4 or IPv6 ff00::/8). Receivers join the group address, and routers forward packets addressed to that destination group."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "No multicast, a replicação de pacotes pode ocorrer em routers da rede, quando é necessário encaminhar o mesmo conteúdo para diferentes ramos de distribuição.",
+        "en": "In IP multicast, packet replication is performed by intermediate network routers whenever the distribution tree branches off toward different receivers."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Uma das vantagens do multicast é permitir que os nós da rede dupliquem os pacotes apenas quando necessário para alcançar vários recetores.",
+        "en": "True. In multicast, replication occurs within the router fabric at divergence points, ensuring only a single packet copy traverses any given physical link."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal função do IGMP?",
+        "en": "What is the primary function of IGMP (Internet Group Management Protocol)?"
+      },
+      "options": {
+        "pt": [
+          "Determinar o caminho mais curto entre todos os routers da Internet.",
+          "Substituir o protocolo IP.",
+          "Estabelecer ligações TCP entre todos os participantes.",
+          "Permitir que hosts IPv4 informem os routers locais sobre o interesse em grupos multicast."
+        ],
+        "en": [
+          "Calculating shortest paths between all autonomous systems.",
+          "Replacing the network-layer IP protocol.",
+          "Establishing three-way TCP connections among all group members.",
+          "Allowing IPv4 hosts to report their multicast group memberships to immediately adjacent local routers."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "O Internet Group Management Protocol é utilizado na descoberta e gestão de membros de grupos multicast em redes IPv4. O IGMP não substitui os protocolos de routing multicast utilizados entre routers.",
+        "en": "IGMP operates strictly between hosts and their directly attached local router on an IPv4 subnet, allowing hosts to dynamically declare which multicast groups they wish to receive."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o protocolo correspondente ao IGMP para descoberta de membros multicast em IPv6?",
+        "en": "Which protocol serves as the IPv6 equivalent of IGMP for multicast group membership discovery?"
+      },
+      "options": {
+        "pt": [
+          "SMTP.",
+          "MLD.",
+          "FTP.",
+          "RTP."
+        ],
+        "en": [
+          "SMTP.",
+          "MLD (Multicast Listener Discovery).",
+          "FTP.",
+          "RTP."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O Multicast Listener Discovery é utilizado em IPv6 para identificar os listeners interessados em grupos multicast.",
+        "en": "MLD (Multicast Listener Discovery), incorporated into ICMPv6, is the IPv6 counterpart to IPv4 IGMP."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quando um host pretende aderir a um novo grupo multicast IPv4, que mensagem pode enviar segundo a operação básica do IGMP apresentada?",
+        "en": "When an IPv4 host wants to join a new multicast group immediately, which IGMP message does it transmit?"
+      },
+      "options": {
+        "pt": [
+          "Um IGMP Query.",
+          "Um PIM Prune.",
+          "Um IGMP Report não solicitado.",
+          "Um ACK TCP."
+        ],
+        "en": [
+          "An IGMP Membership Query.",
+          "A PIM Prune message.",
+          "An unsolicited IGMP Membership Report.",
+          "A TCP ACK segment."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Um host pode enviar um IGMP Report não solicitado para informar os routers locais do interesse num grupo. O router pode então recorrer a mecanismos de routing multicast para obter o tráfego desse grupo.",
+        "en": "Upon joining, a host immediately sends an unsolicited IGMP Membership Report to notify the local designated router without waiting for the next periodic Query."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função das mensagens IGMP Query?",
+        "en": "What is the function of IGMP Query messages?"
+      },
+      "options": {
+        "pt": [
+          "Verificar periodicamente a existência de hosts interessados em grupos multicast.",
+          "Transmitir os dados multimédia da aplicação.",
+          "Substituir os endereços multicast.",
+          "Garantir a entrega ordenada dos datagramas."
+        ],
+        "en": [
+          "Periodically polling the local subnet to check if hosts are still interested in receiving multicast groups.",
+          "Carrying application payload data.",
+          "Replacing multicast IP addresses with unicast aliases.",
+          "Guaranteeing in-order datagram sequence delivery."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O router querier envia mensagens Query para verificar que grupos continuam a ter membros interessados na rede local. Os hosts podem responder através de mensagens Report.",
+        "en": "The local querier router broadcasts periodic General Queries (typically every 125 seconds) to discover active group memberships on the subnet."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque utilizam os hosts temporizadores aleatórios ao responder a determinadas mensagens IGMP Query?",
+        "en": "Why do hosts use random countdown timers when responding to IGMP Membership Queries?"
+      },
+      "options": {
+        "pt": [
+          "Para aumentar obrigatoriamente o atraso de todas as transmissões.",
+          "Para permitir que todos os hosts enviem simultaneamente a mesma resposta.",
+          "Para impedir que os routers descubram os grupos multicast.",
+          "Para reduzir respostas redundantes e evitar a transmissão simultânea de muitos Reports."
+        ],
+        "en": [
+          "To deliberately inject latency into all application data transfers.",
+          "To force all hosts on the subnet to transmit reports at the exact same instant.",
+          "To prevent local routers from discovering active multicast groups.",
+          "To suppress redundant responses and prevent a flood of simultaneous Membership Reports (report suppression)."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "Cada host inicia um temporizador aleatório. Se receber entretanto um Report relevante para o mesmo grupo, pode cancelar a sua própria resposta, reduzindo o número de mensagens redundantes.",
+        "en": "In IGMPv1/v2, report suppression uses a random backoff timer: when a host hears another host on the LAN report for the same group, it cancels its own pending report, reducing broadcast overhead."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Se um router deixar de receber Reports de um determinado grupo durante tempo suficiente, pode assumir que já não existem membros desse grupo na rede local e deixar de manter a respetiva participação multicast.",
+        "en": "If a router stops receiving Membership Reports for a multicast group before the membership timer expires, it assumes no local receivers remain and prunes its multicast state for that group."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. A ausência prolongada de Reports pode indicar que deixou de existir interesse local no grupo. O estado correspondente pode então ser removido.",
+        "en": "True. IGMP relies on soft-state timeouts: if no Report is received within the group membership interval, the router ceases forwarding the group's traffic onto that subnet."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual foi uma das melhorias introduzidas pelo IGMPv2 relativamente ao IGMPv1?",
+        "en": "Which notable enhancement was introduced in IGMPv2 compared to IGMPv1?"
+      },
+      "options": {
+        "pt": [
+          "A eliminação de mensagens Query.",
+          "A introdução de um mecanismo de eleição do querier.",
+          "A substituição do routing multicast por routing unicast.",
+          "A garantia de transmissão fiável de datagramas."
+        ],
+        "en": [
+          "Complete elimination of Membership Query messages.",
+          "Standardization of a distributed Querier Election mechanism.",
+          "Replacement of multicast routing with unicast tunneling.",
+          "Enforcement of reliable in-order datagram transport."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Nos slides, o IGMPv1 depende do protocolo de routing multicast para determinar o querier, enquanto o IGMPv2 introduz um processo próprio de eleição.",
+        "en": "IGMPv2 formalized the Querier Election mechanism (the router with the lowest IP address on the subnet becomes the Querier) and added Leave Group messages and Group-Specific Queries."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é uma função da mensagem Leave Group introduzida pelo IGMPv2?",
+        "en": "What is the primary benefit of the Leave Group message introduced in IGMPv2?"
+      },
+      "options": {
+        "pt": [
+          "Permitir que o host indique explicitamente que está a abandonar um grupo.",
+          "Criar automaticamente uma ligação TCP.",
+          "Garantir que todos os routers recebem os dados do grupo.",
+          "Substituir as mensagens PIM Join entre routers."
+        ],
+        "en": [
+          "Allowing a departing host to explicitly signal that it is leaving the group, reducing prune latency.",
+          "Automatically establishing an end-to-end TCP connection.",
+          "Ensuring all routers receive group payload traffic indefinitely.",
+          "Replacing PIM Join control messages between routers."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A mensagem Leave Group permite comunicar explicitamente a saída de um grupo, contribuindo para reduzir o tempo necessário à atualização do estado de participação multicast.",
+        "en": "In IGMPv1, leaving was silent, taking up to 3 minutes for timeouts to expire. IGMPv2 Leave Group allows fast leave latency: the router immediately sends a Group-Specific Query to verify if any listeners remain."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é uma capacidade importante introduzida pelo IGMPv3?",
+        "en": "What major capability was introduced in IGMPv3?"
+      },
+      "options": {
+        "pt": [
+          "Eliminar a necessidade de endereços multicast.",
+          "Substituir todos os protocolos PIM.",
+          "Permitir expressar preferências de inclusão ou exclusão de fontes multicast.",
+          "Garantir ausência de congestionamento."
+        ],
+        "en": [
+          "Eliminating the need for Class D multicast addresses.",
+          "Replacing all PIM multicast routing protocols.",
+          "Enabling source filtering by expressing explicit inclusion (INCLUDE) or exclusion (EXCLUDE) of multicast sources.",
+          "Guaranteeing complete absence of network congestion."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O IGMPv3 introduz mecanismos de filtragem de fontes. Os hosts podem indicar conjuntos de fontes cujos dados pretendem receber ou excluir.",
+        "en": "IGMPv3 supports Source-Specific Multicast (SSM) by introducing source filtering: hosts can specify INCLUDE(S1, S2, ...) or EXCLUDE(S1, S2, ...), receiving traffic only from approved transmitters."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença fundamental entre Any Source Multicast (ASM) e Source-Specific Multicast (SSM)?",
+        "en": "What is the fundamental distinction between Any-Source Multicast (ASM) and Source-Specific Multicast (SSM)?"
+      },
+      "options": {
+        "pt": [
+          "ASM utiliza exclusivamente TCP e SSM utiliza exclusivamente UDP.",
+          "ASM funciona apenas em redes locais.",
+          "SSM aceita obrigatoriamente dados de todas as fontes.",
+          "ASM permite receber dados de diferentes fontes do grupo, enquanto SSM identifica uma fonte específica e um grupo."
+        ],
+        "en": [
+          "ASM operates strictly over TCP, while SSM operates strictly over UDP.",
+          "ASM is limited exclusively to single local area subnets.",
+          "SSM mandatorily accepts packets from any arbitrary source host.",
+          "ASM delivers traffic sent by any arbitrary source to group G (*, G), while SSM delivers traffic from a specific source S to group G (S, G)."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "Em ASM, a identificação do grupo é suficiente para expressar interesse no tráfego das fontes permitidas. Em SSM, o interesse é especificado por um par formado pela fonte e pelo grupo.",
+        "en": "In ASM, any node can transmit to group G and receivers subscribe to (*, G). In SSM, receivers explicitly subscribe to a channel (S, G), receiving traffic exclusively from source S, simplifying address allocation and access control."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes associações está correta?",
+        "en": "Which of the following comparisons between opt-in and opt-out multicast paradigms is correct?"
+      },
+      "options": {
+        "pt": [
+          "Opt-in: inundação inicial da rede; opt-out: participação apenas após pedidos Join.",
+          "Opt-in: os routers aderem quando existe interesse; opt-out: a distribuição pode começar amplamente e os routers sem interesse enviam Prune.",
+          "Opt-in e opt-out são mecanismos exclusivos do TCP.",
+          "Opt-in significa receber dados apenas através de servidores HTTP."
+        ],
+        "en": [
+          "Opt-in: initial network-wide flooding; Opt-out: traffic forwarding only after explicit Join requests.",
+          "Opt-in: routers join distribution trees only upon explicit downstream interest; Opt-out: traffic is initially flooded everywhere, and routers without receivers send Prune messages.",
+          "Opt-in and opt-out are mechanisms proprietary to TCP connections.",
+          "Opt-in means receiving data strictly via HTTP proxy servers."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Os protocolos opt-in constroem a distribuição em resposta a pedidos de participação. Os protocolos opt-out partem de uma distribuição mais abrangente e removem os ramos onde não existe interesse.",
+        "en": "Opt-in protocols (e.g., PIM-SM) require explicit Joins before forwarding traffic; opt-out protocols (e.g., PIM-DM) initially flood packets throughout the domain and prune branches that lack receivers."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Considere um emissor que pretende transmitir o mesmo fluxo de vídeo para vários recetores distribuídos por diferentes redes. Explique como o multicast IP pode melhorar a eficiência relativamente a múltiplas transmissões unicast. Descreva o papel do IGMP, dos protocolos de routing multicast e das árvores de distribuição. Termine distinguindo árvores source-based de shared trees.",
+        "en": "Consider a single video broadcaster streaming to multiple receivers across different autonomous networks. Explain how IP multicast improves transmission efficiency compared to multiple independent unicast streams. Describe the roles of IGMP, multicast routing protocols, and distribution trees. Conclude by comparing source-based trees with shared distribution trees."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. Unicast versus multicast:**\n- Com múltiplas transmissões unicast, o emissor pode necessitar de transmitir uma cópia independente do conteúdo para cada recetor.\n- Isso provoca consumo repetido de largura de banda em partes partilhadas do percurso.\n- No multicast, os dados são enviados para um grupo identificado por um endereço multicast.\n- A replicação pode ocorrer nos routers nos pontos em que os caminhos para os recetores se separam.\n\n**2. IGMP:**\n- Os hosts utilizam IGMP em IPv4 para informar os routers locais de que pretendem receber tráfego de um grupo.\n- Os routers podem enviar Queries e os hosts respondem com Reports.\n- Estes mecanismos permitem manter informação sobre o interesse local.\n\n**3. Routing multicast:**\n- Os routers utilizam protocolos de routing multicast para estabelecer os caminhos de distribuição.\n- O objetivo é fazer chegar os dados aos segmentos da rede com recetores interessados.\n- A estrutura de distribuição é representada através de uma árvore.\n\n**4. Source-based trees:**\n- Existe uma árvore distinta para cada fonte.\n- Os estados são identificados por pares (S,G).\n- Podem proporcionar percursos de dados eficientes, mas exigem mais estado quando existem muitas fontes.\n\n**5. Shared trees:**\n- Várias fontes utilizam uma árvore partilhada para o grupo.\n- O estado pode ser representado por (*,G).\n- A árvore possui uma raiz selecionada, como um Rendezvous Point no PIM-SM.\n- Esta abordagem pode reduzir o estado necessário, mas pode originar percursos menos eficientes.\n\n**CRITÉRIOS DE CORREÇÃO — 10 pontos:**\n- Comparar corretamente unicast e multicast: 2 pontos.\n- Explicar o papel dos routers na replicação: 1 ponto.\n- Descrever o IGMP: 2 pontos.\n- Explicar a função dos protocolos de routing multicast: 2 pontos.\n- Distinguir source-based trees e shared trees: 2 pontos.\n- Utilizar corretamente a terminologia (S,G), (*,G) e RP: 1 ponto.",
+        "en": "MODEL ANSWER:\n\n**1. Unicast versus multicast:**\n- With multiple independent unicast streams, the source server must upload a separate copy of the payload for every receiver, saturating sender uplink ($N \\times R$) and causing redundant data duplication on shared links.\n- In multicast, the broadcaster sends only one packet stream addressed to a Class D multicast group IP. Routers duplicate packets only at branch points where receiver paths diverge.\n\n**2. IGMP (Internet Group Management Protocol):**\n- Operates between hosts and their directly connected local default router on a LAN.\n- Hosts send Membership Reports to indicate interest in a group; routers periodically poll with Queries.\n\n**3. Multicast routing protocols:**\n- Protocols such as PIM operate between routers across the network core to construct loop-free distribution trees connecting sources to subnets with active receivers.\n\n**4. Source-based trees (Shortest Path Trees - SPT):**\n- Rooted directly at each individual source, maintaining state as (S, G) pairs.\n- Provides optimal, minimum-delay paths from source to receivers, but requires state scaling with the number of active sources ($S \\times G$).\n\n**5. Shared trees (Rendezvous Point Trees - RPT):**\n- Rooted at a designated central router (Rendezvous Point - RP), maintaining (*, G) state shared by all sources.\n- Reduces router memory requirements, but can introduce sub-optimal, dogleg paths through the RP.\n\n**GRADING CRITERIA — 10 points:**\n- Contrast unicast vs multicast bandwidth efficiency: 2 points.\n- Explain the in-network packet replication role of routers: 1 point.\n- Describe the function and operation of IGMP: 2 points.\n- Explain the role of multicast routing protocols in building trees: 2 points.\n- Distinguish source-based trees from shared trees: 2 points.\n- Correctly employ technical terminology (S,G), (*,G), and RP: 1 point."
+      },
+      "explanation": {
+        "pt": "Este exercício integra os fundamentos do multicast e prepara o estudo do PIM. É fundamental distinguir o mecanismo que identifica o interesse dos hosts do mecanismo que constrói os caminhos de distribuição entre routers.",
+        "en": "This exercise integrates multicast fundamentals and lays the groundwork for PIM. It is essential to distinguish local host membership signaling (IGMP) from inter-router multicast distribution tree routing (PIM)."
+      }
+    }
+  ]
+}

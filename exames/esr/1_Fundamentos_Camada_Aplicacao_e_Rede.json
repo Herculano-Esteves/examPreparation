@@ -1,0 +1,423 @@
+{
+  "title": {
+    "pt": "Exame 1 — Fundamentos da Camada de Aplicação e Comunicações em Rede",
+    "en": "Exam 1 — Application Layer Foundations and Network Communications"
+  },
+  "description": {
+    "pt": "NÍVEL 1 — FUNDAMENTOS | 16 questões | Dificuldade: introdutória. Primeiro exame do percurso de Engenharia de Serviços em Rede. Estuda os conceitos fundamentais da camada de aplicação, arquiteturas cliente-servidor e P2P, processos, sockets, identificação de serviços, protocolos de transporte, requisitos das aplicações, segurança e digitalização de informação. Baseado principalmente nas secções introdutórias e finais do PowerPoint Application Layer. Objetivo: compreender os conceitos e estabelecer as bases necessárias para os exames seguintes. Resolve as perguntas pela ordem apresentada.",
+    "en": "LEVEL 1 — FOUNDATIONS | 16 questions | Difficulty: introductory. First exam in the Network Services Engineering track. Covers fundamental concepts of the application layer, client-server and P2P architectures, processes, sockets, service identification, transport protocols, application requirements, security, and information digitisation. Primarily based on the introductory and concluding sections of the Application Layer slide deck. Objective: understand the core concepts and establish the necessary foundation for subsequent exams. Solve questions in the presented order."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Onde são normalmente executadas as aplicações de rede, segundo o princípio end-to-end apresentado nas aulas?",
+        "en": "Where are network applications typically executed, according to the end-to-end principle presented in lectures?"
+      },
+      "options": {
+        "pt": [
+          "Nos routers que constituem o núcleo da Internet.",
+          "Nos sistemas terminais, como computadores e servidores.",
+          "Exclusivamente nos switches da camada de ligação.",
+          "Em todos os equipamentos da rede, obrigatoriamente."
+        ],
+        "en": [
+          "In routers that make up the Internet core.",
+          "In end systems, such as computers and servers.",
+          "Exclusively in link-layer switches.",
+          "Mandatorily across all network equipment."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "As aplicações de rede são executadas nos sistemas terminais. Os equipamentos do núcleo da rede encaminham a informação, mas não precisam de executar as aplicações dos utilizadores. Esta organização permite desenvolver e distribuir novas aplicações sem modificar o funcionamento do núcleo da Internet.",
+        "en": "Network applications run on end systems (hosts). Network core devices forward data, but do not need to execute user applications. This architecture allows new applications to be developed and deployed without altering the operation of the Internet core."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Para desenvolver uma nova aplicação de rede é normalmente necessário modificar o software dos routers intermédios que encaminham as mensagens.",
+        "en": "Developing a new network application typically requires modifying the software on the intermediate routers that forward messages."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. Uma das ideias fundamentais do princípio end-to-end é colocar a complexidade das aplicações nos sistemas terminais. A infraestrutura da rede disponibiliza os serviços de comunicação necessários.",
+        "en": "False. A cornerstone of the end-to-end principle is placing application complexity at the end systems. The network infrastructure provides the required communication services without running user applications."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes afirmações caracteriza corretamente a arquitetura cliente-servidor?",
+        "en": "Which of the following statements correctly characterizes client-server architecture?"
+      },
+      "options": {
+        "pt": [
+          "Os clientes comunicam obrigatoriamente entre si para obter os serviços.",
+          "Todos os participantes funcionam simultaneamente como servidores.",
+          "Existe um servidor que disponibiliza serviços e recebe pedidos dos clientes.",
+          "O servidor só pode funcionar quando todos os clientes estiverem ligados."
+        ],
+        "en": [
+          "Clients must communicate with one another to obtain services.",
+          "All participants act simultaneously as servers.",
+          "There is an always-on server that provides services and receives client requests.",
+          "The server can only function when all clients are connected."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Na arquitetura cliente-servidor, o servidor é normalmente um sistema permanentemente disponível, com endereço IP estável. Os clientes iniciam a comunicação com esse servidor e podem estar ligados apenas intermitentemente.",
+        "en": "In client-server architecture, the server is typically an always-on host with a permanent IP address. Clients initiate communication with the server and may only be connected intermittently."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é uma característica fundamental da arquitetura Peer-to-Peer (P2P)?",
+        "en": "What is a fundamental characteristic of Peer-to-Peer (P2P) architecture?"
+      },
+      "options": {
+        "pt": [
+          "Os sistemas terminais podem comunicar diretamente e disponibilizar recursos uns aos outros.",
+          "Existe obrigatoriamente um servidor central que transmite todos os dados.",
+          "Os participantes nunca podem atuar como clientes.",
+          "Todos os participantes necessitam de endereços IP permanentes."
+        ],
+        "en": [
+          "End systems can communicate directly with each other and share resources.",
+          "A central server is mandatory to forward all data.",
+          "Participants can never act as clients.",
+          "All participants require permanent IP addresses."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Em P2P, os peers podem consumir e fornecer recursos. Esta característica permite que a capacidade global do sistema aumente com a entrada de novos participantes. Contudo, a gestão é mais complexa devido à entrada e saída de peers.",
+        "en": "In P2P, peers can both consume and provide resources. This self-scalability allows total system service capacity to increase as new peers join. However, management is more complex due to peer churn (peers joining and leaving)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No contexto das aplicações de rede, o que distingue um processo cliente de um processo servidor?",
+        "en": "In the context of network applications, what distinguishes a client process from a server process?"
+      },
+      "options": {
+        "pt": [
+          "O processo cliente utiliza sempre TCP e o servidor utiliza sempre UDP.",
+          "O cliente executa exclusivamente em computadores pessoais.",
+          "O servidor inicia sempre todas as comunicações.",
+          "O cliente inicia a comunicação e o servidor espera ser contactado."
+        ],
+        "en": [
+          "The client process always uses TCP, while the server always uses UDP.",
+          "The client runs exclusively on personal desktop computers.",
+          "The server always initiates all communication sessions.",
+          "The client initiates communication, while the server waits to be contacted."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "A distinção entre cliente e servidor refere-se ao papel desempenhado na comunicação. Mesmo numa arquitetura P2P podem existir processos que desempenham temporariamente o papel de cliente e outros o de servidor.",
+        "en": "The client-server distinction refers to communication roles. Even in a P2P architecture, individual communication sessions involve one process acting as client (initiator) and another as server (recipient)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal função de um socket numa aplicação de rede?",
+        "en": "What is the primary function of a socket in a network application?"
+      },
+      "options": {
+        "pt": [
+          "Substituir os protocolos da camada de transporte.",
+          "Permitir que um processo envie e receba mensagens através da infraestrutura de comunicação.",
+          "Determinar automaticamente o melhor caminho entre routers.",
+          "Armazenar permanentemente os dados recebidos."
+        ],
+        "en": [
+          "Replacing transport layer protocols.",
+          "Allowing a process to send and receive messages across the communication infrastructure.",
+          "Automatically determining the best route across routers.",
+          "Permanently storing received data."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Um socket funciona como uma interface entre o processo da aplicação e o serviço de transporte. A aplicação escreve e lê informação através do socket, enquanto o sistema operativo gere a comunicação subjacente.",
+        "en": "A socket serves as an application programming interface (API) between the application process and transport layer services. The application reads and writes through the socket, while the operating system handles underlying communication."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é que um endereço IP, isoladamente, não é normalmente suficiente para identificar o processo de destino?",
+        "en": "Why is an IP address alone typically insufficient to identify the destination process?"
+      },
+      "options": {
+        "pt": [
+          "Porque um endereço IP identifica apenas aplicações HTTP.",
+          "Porque o endereço IP muda obrigatoriamente em cada pacote.",
+          "Porque vários processos podem executar simultaneamente no mesmo sistema.",
+          "Porque as aplicações não utilizam endereços IP."
+        ],
+        "en": [
+          "Because an IP address only identifies HTTP applications.",
+          "Because the IP address must change on every individual packet.",
+          "Because multiple network processes can execute concurrently on the same host.",
+          "Because applications do not use IP addresses."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O endereço IP identifica o sistema de destino, enquanto o número da porta permite identificar o serviço ou endpoint de comunicação nesse sistema. Por isso, a identificação de um serviço de rede envolve normalmente IP e porta.",
+        "en": "The IP address identifies the destination host, whereas the port number identifies the specific communication socket/endpoint on that host. Identifying a network service therefore requires both an IP address and a port number."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Um protocolo da camada de aplicação define quais dos seguintes elementos? Selecione todas as opções corretas.",
+        "en": "An application-layer protocol defines which of the following elements? Select all that apply."
+      },
+      "options": {
+        "pt": [
+          "Os tipos de mensagens trocadas.",
+          "A disposição física dos computadores na rede.",
+          "A sintaxe e a semântica das mensagens.",
+          "As regras que determinam quando as mensagens são enviadas e respondidas."
+        ],
+        "en": [
+          "The types of messages exchanged.",
+          "The physical layout of computers in the network.",
+          "The syntax and semantics of message fields.",
+          "Rules determining when messages are sent and how to respond."
+        ]
+      },
+      "solution": [
+        0,
+        2,
+        3
+      ],
+      "explanation": {
+        "pt": "Um protocolo de aplicação estabelece os tipos de mensagens, a estrutura dos campos, o significado desses campos e as regras de comunicação. Não define necessariamente a topologia física da rede.",
+        "en": "An application protocol defines message types, field structure/syntax, semantic meaning of fields, and the exchange rules/actions. It does not govern the physical network topology."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quais são os principais requisitos de comunicação que devem ser considerados ao desenvolver uma aplicação de rede?",
+        "en": "What are the primary communication service requirements to consider when developing a network application?"
+      },
+      "options": {
+        "pt": [
+          "Apenas a velocidade do processador.",
+          "Fiabilidade, débito, atraso e segurança.",
+          "Exclusivamente a quantidade de memória RAM.",
+          "Apenas o número de routers presentes no caminho."
+        ],
+        "en": [
+          "Only CPU processor clock speed.",
+          "Reliability, throughput, latency/timing, and security.",
+          "Exclusively RAM capacity.",
+          "Only the number of routers along the path."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "As aplicações apresentam requisitos diferentes. A transferência de ficheiros exige elevada fiabilidade, enquanto aplicações interativas podem exigir atrasos reduzidos. Algumas aplicações multimédia necessitam também de um débito mínimo.",
+        "en": "Network applications have distinct transport service requirements: file transfers require data integrity/reliability, interactive real-time applications demand tight delay bounds, and multimedia streams often require a minimum guaranteed throughput."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quais das seguintes características são disponibilizadas pelo TCP? Selecione todas as opções corretas.",
+        "en": "Which of the following features are provided by TCP? Select all that apply."
+      },
+      "options": {
+        "pt": [
+          "Transferência fiável e ordenada de bytes.",
+          "Garantia absoluta de atraso máximo.",
+          "Controlo de fluxo.",
+          "Controlo de congestionamento."
+        ],
+        "en": [
+          "Reliable, in-order byte-stream transfer.",
+          "Absolute hard real-time delay guarantees.",
+          "Flow control.",
+          "Congestion control."
+        ]
+      },
+      "solution": [
+        0,
+        2,
+        3
+      ],
+      "explanation": {
+        "pt": "O TCP disponibiliza comunicação orientada à ligação, transferência fiável e ordenada, controlo de fluxo e controlo de congestionamento. Não garante um atraso máximo nem um débito mínimo.",
+        "en": "TCP provides connection-oriented, reliable and in-order byte stream delivery, flow control, and network congestion control. It offers no guarantees regarding maximum delay (timing) or minimum throughput (bandwidth)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "O UDP garante que todos os datagramas chegam ao destino pela mesma ordem em que foram enviados.",
+        "en": "UDP guarantees that all datagrams arrive at the destination in the exact order in which they were sent."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. O UDP não garante entrega, ordenação ou retransmissão automática de datagramas. A aplicação deve lidar com estas situações quando necessita dessas propriedades.",
+        "en": "False. UDP provides an unreliable, connectionless datagram service without delivery confirmation, ordering guarantees, or automatic retransmissions."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque pode uma aplicação multimédia em tempo real preferir UDP a TCP?",
+        "en": "Why might a real-time multimedia application prefer UDP over TCP?"
+      },
+      "options": {
+        "pt": [
+          "Porque UDP garante que nunca existem perdas de pacotes.",
+          "Porque UDP fornece obrigatoriamente maior largura de banda.",
+          "Porque UDP não exige estabelecimento de ligação e permite à aplicação gerir diretamente requisitos de tempo e tolerância a perdas.",
+          "Porque UDP inclui automaticamente encriptação."
+        ],
+        "en": [
+          "Because UDP guarantees zero packet loss.",
+          "Because UDP inherently provides higher guaranteed bandwidth.",
+          "Because UDP requires no connection setup and allows the application to directly manage timing requirements and packet loss tolerance.",
+          "Because UDP automatically incorporates data encryption."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O UDP disponibiliza um serviço simples de datagramas, sem estabelecimento de ligação nem mecanismos próprios de retransmissão. Algumas aplicações em tempo real preferem controlar as perdas e a temporização em vez de dependerem da recuperação de todos os dados.",
+        "en": "UDP offers a lightweight, connectionless datagram service without mandatory retransmission delays. Real-time applications often prefer tolerating minor packet loss rather than suffering unpredictable retransmission stalls."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função do TLS no contexto das comunicações sobre TCP?",
+        "en": "What is the primary function of TLS in the context of communications over TCP?"
+      },
+      "options": {
+        "pt": [
+          "Substituir o endereçamento IP.",
+          "Proporcionar mecanismos de encriptação, integridade e autenticação dos endpoints.",
+          "Eliminar a necessidade de estabelecer uma ligação TCP.",
+          "Garantir um débito mínimo de transmissão."
+        ],
+        "en": [
+          "Replacing IP addressing.",
+          "Providing cryptographic encryption, message integrity, and endpoint authentication.",
+          "Eliminating the need to establish a TCP connection.",
+          "Guaranteeing a minimum transmission throughput."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O TLS acrescenta mecanismos de segurança às comunicações. No modelo apresentado nos slides, as aplicações utilizam bibliotecas TLS sobre TCP para proteger os dados que, de outra forma, poderiam circular em texto simples.",
+        "en": "TLS enhances TCP by providing end-to-end security services: confidentiality via encryption, data integrity checks, and endpoint authentication, preventing plaintext eavesdropping and tampering."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Na digitalização de texto, quantos valores distintos podem ser representados utilizando 8 bits?",
+        "en": "In text digitisation, how many distinct values can be represented using 8 bits?"
+      },
+      "options": {
+        "pt": [
+          "8 valores.",
+          "16 valores.",
+          "128 valores.",
+          "256 valores."
+        ],
+        "en": [
+          "8 values.",
+          "16 values.",
+          "128 values.",
+          "256 values."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "Com n bits é possível representar 2^n combinações distintas. Assim, 8 bits permitem representar 2^8 = 256 valores. Esta relação é fundamental para compreender codificações de texto e outros tipos de informação digital.",
+        "en": "With $n$ bits, one can represent $2^n$ distinct binary states. Thus, 8 bits represent $2^8 = 256$ distinct values, forming the basis of single-byte character encodings (such as extended ASCII)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Numa imagem RGB convencional, cada pixel utiliza 8 bits para cada uma das três componentes de cor. Qual é a profundidade total de cor por pixel?",
+        "en": "In a conventional 24-bit RGB image, each pixel uses 8 bits for each of the three colour channels. What is the total colour depth per pixel?"
+      },
+      "options": {
+        "pt": [
+          "8 bits.",
+          "12 bits.",
+          "24 bits.",
+          "32 bits obrigatoriamente."
+        ],
+        "en": [
+          "8 bits.",
+          "12 bits.",
+          "24 bits.",
+          "32 bits mandatorily."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "RGB utiliza três componentes: vermelho, verde e azul. Com 8 bits por componente, cada pixel utiliza 3 × 8 = 24 bits, permitindo representar 2^24 = 16 777 216 combinações de cor.",
+        "en": "Standard RGB encodes three colour channels: red, green, and blue. With 8 bits per channel, each pixel requires $3 \\times 8 = 24$ bits (True Colour), supporting $2^{24} = 16,777,216$ distinct colours."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Uma empresa pretende desenvolver dois serviços: um sistema de transferência de documentos importantes e uma aplicação de comunicação áudio em tempo real. Explique os principais requisitos de cada serviço, indique que protocolo de transporte escolheria como ponto de partida e justifique a escolha. Relacione também a função dos sockets com a comunicação entre as aplicações.",
+        "en": "A company intends to develop two network services: an enterprise document transfer system and a real-time voice communication application. Explain the key requirements of each service, state which transport protocol you would choose as a baseline for each and justify your choices. Additionally, relate the function of sockets to the inter-process communication."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. Transferência de documentos:**\n- A integridade e a fiabilidade são fundamentais.\n- Não devem existir perdas definitivas de partes do documento.\n- O atraso é normalmente menos crítico do que a entrega correta.\n- O TCP constitui uma escolha adequada porque disponibiliza transmissão fiável, ordenação dos dados, controlo de fluxo e controlo de congestionamento.\n\n**2. Comunicação áudio em tempo real:**\n- O atraso reduzido é essencial para manter uma comunicação natural.\n- Pequenas perdas podem ser toleráveis, dependendo da aplicação.\n- O UDP pode constituir uma escolha adequada porque permite transmissão de datagramas sem os mecanismos de retransmissão obrigatórios do TCP.\n- A aplicação pode implementar mecanismos próprios para gerir perdas, temporização e reprodução.\n\n**3. Sockets:**\n- Os sockets são as interfaces utilizadas pelos processos para comunicar através dos serviços de transporte.\n- Os processos enviam e recebem dados através dessas interfaces.\n- A comunicação utiliza mecanismos de identificação como endereços IP e números de porta.\n\n**CRITÉRIOS DE CORREÇÃO — 10 pontos:**\n- Identificar corretamente os requisitos dos documentos: 2 pontos.\n- Justificar a utilização de TCP: 2 pontos.\n- Identificar os requisitos do áudio em tempo real: 2 pontos.\n- Justificar a possível utilização de UDP: 2 pontos.\n- Explicar corretamente a função dos sockets: 2 pontos.",
+        "en": "MODEL ANSWER:\n\n**1. Document transfer:**\n- Data integrity and absolute reliability are paramount.\n- No data loss or document corruption is permissible.\n- Latency/delay is generally less critical than correctness.\n- TCP is the appropriate choice because it guarantees reliable in-order byte stream delivery, flow control, and congestion control.\n\n**2. Real-time audio communication:**\n- Low and predictable latency (delay) is essential for natural interactive conversation.\n- Minor packet losses are tolerable (loss-tolerant application).\n- UDP is an appropriate choice as it delivers datagrams without mandatory TCP retransmission stalls or head-of-line blocking.\n- The application layer can implement custom playback buffers and loss concealment mechanisms.\n\n**3. Sockets:**\n- Sockets act as the software interface (door/API) between user application processes and the transport layer.\n- Processes read and write network payloads through these socket descriptors.\n- Communication endpoints are addressed via IP addresses and port numbers.\n\n**GRADING CRITERIA — 10 points:**\n- Correctly identify document transfer requirements: 2 points.\n- Justify the use of TCP: 2 points.\n- Correctly identify real-time audio requirements: 2 points.\n- Justify the use of UDP: 2 points.\n- Clearly explain the role and function of sockets: 2 points."
+      },
+      "explanation": {
+        "pt": "O objetivo é compreender que não existe um protocolo ideal para todas as aplicações. A escolha depende dos requisitos funcionais, especialmente fiabilidade, atraso e comportamento perante perdas.",
+        "en": "The objective is to understand that no single transport protocol fits all application workloads. Protocol selection depends directly on service requirements, notably reliability, latency tolerance, and loss tolerance."
+      }
+    }
+  ]
+}

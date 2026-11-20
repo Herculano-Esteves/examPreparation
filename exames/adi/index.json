@@ -16,10 +16,10 @@
     "questions_count": 31,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 7,
+      "written": 7,
       "boolean": 24
     },
     "path": "exames/adi/ExameADI1.json"
@@ -33,10 +33,10 @@
     ],
     "questions_count": 43,
     "question_types": [
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 43
+      "written": 43
     },
     "path": "exames/adi/ExameADI10.json"
   },
@@ -50,10 +50,10 @@
     "questions_count": 44,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 27,
+      "written": 27,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI11.json"
@@ -68,10 +68,10 @@
     "questions_count": 45,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 28,
+      "written": 28,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI12.json"
@@ -86,10 +86,10 @@
     "questions_count": 43,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 27,
+      "written": 27,
       "boolean": 16
     },
     "path": "exames/adi/ExameADI13.json"
@@ -104,10 +104,10 @@
     "questions_count": 45,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 28,
+      "written": 28,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI14.json"
@@ -122,10 +122,10 @@
     "questions_count": 45,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 28,
+      "written": 28,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI15.json"
@@ -140,10 +140,10 @@
     "questions_count": 43,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 26,
+      "written": 26,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI16.json"
@@ -158,10 +158,10 @@
     "questions_count": 60,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 38,
+      "written": 38,
       "boolean": 22
     },
     "path": "exames/adi/ExameADI17.json"
@@ -176,10 +176,10 @@
     "questions_count": 44,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 27,
+      "written": 27,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI18.json"
@@ -194,10 +194,10 @@
     "questions_count": 48,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 30,
+      "written": 30,
       "boolean": 18
     },
     "path": "exames/adi/ExameADI19.json"
@@ -212,10 +212,10 @@
     "questions_count": 35,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 3,
+      "written": 3,
       "boolean": 32
     },
     "path": "exames/adi/ExameADI2.json"
@@ -230,10 +230,10 @@
     "questions_count": 42,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 25,
+      "written": 25,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI20.json"
@@ -248,10 +248,10 @@
     "questions_count": 41,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 26,
+      "written": 26,
       "boolean": 15
     },
     "path": "exames/adi/ExameADI21.json"
@@ -266,10 +266,10 @@
     "questions_count": 45,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 28,
+      "written": 28,
       "boolean": 17
     },
     "path": "exames/adi/ExameADI22.json"
@@ -284,10 +284,10 @@
     "questions_count": 36,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 3,
+      "written": 3,
       "boolean": 33
     },
     "path": "exames/adi/ExameADI23.json"
@@ -302,10 +302,10 @@
     "questions_count": 36,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 3,
+      "written": 3,
       "boolean": 33
     },
     "path": "exames/adi/ExameADI24.json"
@@ -320,10 +320,10 @@
     "questions_count": 36,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 12,
+      "written": 12,
       "boolean": 24
     },
     "path": "exames/adi/ExameADI25.json"
@@ -338,10 +338,10 @@
     "questions_count": 36,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 12,
+      "written": 12,
       "boolean": 24
     },
     "path": "exames/adi/ExameADI26.json"
@@ -372,10 +372,10 @@
     "questions_count": 31,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 3,
+      "written": 3,
       "boolean": 28
     },
     "path": "exames/adi/ExameADI3.json"
@@ -390,10 +390,10 @@
     "questions_count": 31,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 3,
+      "written": 3,
       "boolean": 28
     },
     "path": "exames/adi/ExameADI4.json"
@@ -440,10 +440,10 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 5,
+      "written": 5,
       "boolean": 15
     },
     "path": "exames/adi/ExameADI7.json"
@@ -473,10 +473,10 @@
     ],
     "questions_count": 40,
     "question_types": [
-      "escrita"
+      "written"
     ],
     "types_count": {
-      "escrita": 40
+      "written": 40
     },
     "path": "exames/adi/ExameADI9.json"
   }

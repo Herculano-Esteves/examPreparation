@@ -9,10 +9,10 @@
     "questions_count": 55,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 30,
+      "multiple_choice": 30,
       "boolean": 25
     },
     "path": "exames/ssi/1AccessControlConcepts_completo.json"
@@ -27,11 +27,11 @@
     "questions_count": 34,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 20,
-      "escolha_multipla": 14
+      "multiple_choice": 14
     },
     "path": "exames/ssi/2SecurityConcepts_completo.json"
   },
@@ -45,11 +45,11 @@
     "questions_count": 49,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 21,
-      "escolha_multipla": 28
+      "multiple_choice": 28
     },
     "path": "exames/ssi/3SymmetricClassicCiphers_completo.json"
   },
@@ -63,10 +63,10 @@
     "questions_count": 50,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 24,
+      "multiple_choice": 24,
       "boolean": 26
     },
     "path": "exames/ssi/4ModernSymmetricCiphers_completo.json"
@@ -81,10 +81,10 @@
     "questions_count": 34,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 17,
+      "multiple_choice": 17,
       "boolean": 17
     },
     "path": "exames/ssi/5HashesAndMACs_completo.json"
@@ -99,10 +99,10 @@
     "questions_count": 49,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 30,
+      "multiple_choice": 30,
       "boolean": 19
     },
     "path": "exames/ssi/6MACsAndAuthenticatedEncryption_completo.json"
@@ -117,10 +117,10 @@
     "questions_count": 39,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 22,
+      "multiple_choice": 22,
       "boolean": 17
     },
     "path": "exames/ssi/7AsymmetricCryptographyPart1_completo.json"
@@ -135,10 +135,10 @@
     "questions_count": 38,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 22,
+      "multiple_choice": 22,
       "boolean": 16
     },
     "path": "exames/ssi/8AsymmetricCryptographyPart2_completo.json"
@@ -153,11 +153,11 @@
     "questions_count": 39,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 14,
-      "escolha_multipla": 25
+      "multiple_choice": 25
     },
     "path": "exames/ssi/9PublicKeyInfrastructure_completo.json"
   },
@@ -171,10 +171,10 @@
     "questions_count": 30,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 24,
+      "multiple_choice": 24,
       "boolean": 6
     },
     "path": "exames/ssi/10InternetProtocols_completo.json"
@@ -189,10 +189,10 @@
     "questions_count": 30,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
-      "escolha_multipla": 23,
+      "multiple_choice": 23,
       "boolean": 7
     },
     "path": "exames/ssi/11WebSecurityConcepts_completo.json"
@@ -207,11 +207,11 @@
     "questions_count": 32,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 20,
-      "escolha_multipla": 12
+      "multiple_choice": 12
     },
     "path": "exames/ssi/12WebSecurityOWASPTop10_completo.json"
   },
@@ -225,11 +225,11 @@
     "questions_count": 32,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 20,
-      "escolha_multipla": 12
+      "multiple_choice": 12
     },
     "path": "exames/ssi/13SoftwareSecurity_completo.json"
   },
@@ -243,11 +243,11 @@
     "questions_count": 32,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 20,
-      "escolha_multipla": 12
+      "multiple_choice": 12
     },
     "path": "exames/ssi/14OperatingSystemSecurity_completo.json"
   },
@@ -261,11 +261,11 @@
     "questions_count": 18,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 10,
-      "escolha_multipla": 8
+      "multiple_choice": 8
     },
     "path": "exames/ssi/ExameModelo.json"
   },
@@ -279,13 +279,13 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
       "boolean": 10,
-      "escrita": 2,
-      "escolha_multipla": 8
+      "written": 2,
+      "multiple_choice": 8
     },
     "path": "exames/ssi/ExameModelo2.json"
   },
@@ -299,13 +299,13 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
       "boolean": 10,
-      "escrita": 2,
-      "escolha_multipla": 8
+      "written": 2,
+      "multiple_choice": 8
     },
     "path": "exames/ssi/ExameModelo3.json"
   },
@@ -319,13 +319,13 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
       "boolean": 10,
-      "escrita": 2,
-      "escolha_multipla": 8
+      "written": 2,
+      "multiple_choice": 8
     },
     "path": "exames/ssi/ExameModelo4.json"
   },
@@ -339,13 +339,13 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escolha_multipla",
-      "escrita"
+      "multiple_choice",
+      "written"
     ],
     "types_count": {
       "boolean": 10,
-      "escrita": 3,
-      "escolha_multipla": 7
+      "written": 3,
+      "multiple_choice": 7
     },
     "path": "exames/ssi/ExameModelo5.json"
   },
@@ -359,11 +359,11 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 10,
-      "escolha_multipla": 10
+      "multiple_choice": 10
     },
     "path": "exames/ssi/ExameModelo6.json"
   },
@@ -377,11 +377,11 @@
     "questions_count": 20,
     "question_types": [
       "boolean",
-      "escolha_multipla"
+      "multiple_choice"
     ],
     "types_count": {
       "boolean": 10,
-      "escolha_multipla": 10
+      "multiple_choice": 10
     },
     "path": "exames/ssi/ExameModelo7.json"
   }

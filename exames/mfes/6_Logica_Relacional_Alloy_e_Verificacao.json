@@ -1,0 +1,514 @@
+{
+  "title": {
+    "pt": "MFES — Exame 6: Aprofundamento em Lógica Relacional, Alloy e Verificação",
+    "en": "MFES — Exam 6: Advanced Relational Logic, Alloy, and Formal Verification"
+  },
+  "description": {
+    "pt": "Nível 6/6 — Exame final de aprofundamento. Integra lógica relacional, composição e inversão de relações, fechos transitivos, alcançabilidade, ciclos, multiplicidades relacionais, equivalência de especificações, scopes e contraexemplos. Exige interpretar fórmulas, detetar requisitos em falta e justificar formalmente propriedades estruturais.",
+    "en": "Level 6/6 — Final comprehensive advanced exam. Integrates relational logic, relational composition, inversion/transposition, transitive closures (^R and *R), reachability analysis, cycle detection, relational multiplicities, specification equivalence, bounded scopes, and counterexample analysis. Requires formula interpretation, identifying missing structural invariants, and formally proving structural properties."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal extensão introduzida pela lógica relacional relativamente à lógica de primeira ordem apresentada nas aulas?",
+        "en": "What is the primary extension introduced by relational logic compared to first-order logic as presented in class?"
+      },
+      "options": {
+        "pt": [
+          "A eliminação dos quantificadores",
+          "A possibilidade de combinar relações através de operadores e utilizar fecho transitivo",
+          "A substituição da semântica por execução imperativa",
+          "A garantia de que toda a análise é ilimitada e decidível"
+        ],
+        "en": [
+          "The elimination of quantifiers",
+          "The ability to combine relations using operators and employ transitive closure",
+          "The replacement of declarative semantics with imperative execution",
+          "The guarantee that all analysis is unbounded and decidable"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A lógica relacional introduz termos que representam relações derivadas e operadores como união, interseção, composição, inversão e fecho transitivo.",
+        "en": "Relational logic introduces relational terms that denote derived relations, along with operators such as union, intersection, relational composition, transposition/inversion, and transitive closure."
+      }
+    },
+    {
+      "id": 2,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o resultado de A + B em Alloy?",
+        "en": "What is the result of A + B in Alloy?"
+      },
+      "options": {
+        "pt": [
+          "{b}",
+          "{a,b,c}",
+          "{a,c}",
+          "{}"
+        ],
+        "en": [
+          "{b}",
+          "{a,b,c}",
+          "{a,c}",
+          "{}"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O operador + representa a união de conjuntos ou relações. Todos os elementos pertencentes a A ou a B são incluídos no resultado.",
+        "en": "The + operator denotes set or relational union. All elements belonging to A or B are included in the result."
+      }
+    },
+    {
+      "id": 3,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o resultado de A & B?",
+        "en": "What is the result of A & B?"
+      },
+      "options": {
+        "pt": [
+          "{a,b,c}",
+          "{a,c}",
+          "{b}",
+          "{}"
+        ],
+        "en": [
+          "{a,b,c}",
+          "{a,c}",
+          "{b}",
+          "{}"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O operador & representa a interseção, devolvendo apenas os elementos comuns aos dois conjuntos.",
+        "en": "The & operator denotes intersection, returning only elements common to both sets."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o resultado da composição relacional R.S?",
+        "en": "What is the result of relational composition R.S?"
+      },
+      "options": {
+        "pt": [
+          "{(a,d),(b,e)}",
+          "{(a,b),(c,e)}",
+          "{(a,e),(b,d)}",
+          "{(b,a),(c,b)}"
+        ],
+        "en": [
+          "{(a,d),(b,e)}",
+          "{(a,b),(c,e)}",
+          "{(a,e),(b,d)}",
+          "{(b,a),(c,b)}"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A composição liga elementos através de um elemento intermédio comum. Como a R b e b S d, obtém-se (a,d). Como b R c e c S e, obtém-se (b,e).",
+        "en": "Relational composition connects elements through a shared intermediate element. Since a R b and b S d, we obtain (a,d). Since b R c and c S e, we obtain (b,e)."
+      }
+    },
+    {
+      "id": 5,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o resultado de ~R?",
+        "en": "What is the result of ~R?"
+      },
+      "options": {
+        "pt": [
+          "{(a,b),(b,c)}",
+          "{(b,a),(c,b)}",
+          "{(a,c)}",
+          "{}"
+        ],
+        "en": [
+          "{(a,b),(b,c)}",
+          "{(b,a),(c,b)}",
+          "{(a,c)}",
+          "{}"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O operador ~ representa a inversão ou transposição de uma relação. Cada par (x,y) é substituído por (y,x).",
+        "en": "The ~ operator denotes transposition or relational inversion. Each tuple (x,y) is replaced by (y,x)."
+      }
+    },
+    {
+      "id": 6,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença entre ^R e *R em Alloy?",
+        "en": "What is the difference between ^R and *R in Alloy?"
+      },
+      "options": {
+        "pt": [
+          "^R representa caminhos com pelo menos uma ligação e *R inclui também a identidade",
+          "^R inclui sempre a identidade e *R não",
+          "Ambos representam apenas ligações diretas",
+          "*R representa a inversão de R"
+        ],
+        "en": [
+          "^R represents paths of length at least one, whereas *R also includes the identity relation",
+          "^R always includes the identity relation, whereas *R does not",
+          "Both represent direct links only",
+          "*R represents the transposition of R"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "^R representa o fecho transitivo, isto é, caminhos com uma ou mais ligações. *R representa o fecho reflexivo-transitivo, incluindo caminhos de comprimento zero através da identidade.",
+        "en": "^R denotes transitive closure, i.e., paths consisting of one or more steps. *R denotes reflexive-transitive closure, including zero-length paths via the identity relation (iden)."
+      }
+    },
+    {
+      "id": 7,
+      "type": "boolean",
+      "question": {
+        "pt": "O fecho transitivo ^R inclui obrigatoriamente todos os pares (x,x), mesmo quando R não possui ciclos.",
+        "en": "The transitive closure ^R necessarily includes all pairs (x,x), even when R contains no cycles."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "O fecho transitivo não inclui automaticamente caminhos de comprimento zero. Um par (x,x) pertence a ^R apenas quando existe um caminho de comprimento positivo que começa e termina em x.",
+        "en": "False. Transitive closure does not automatically include paths of length zero. A pair (x,x) belongs to ^R only if there exists a positive-length directed path starting and ending at x."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Selecione todas as correspondências corretas entre lógica relacional e Alloy.",
+        "en": "Select all correct correspondences between relational logic and Alloy constants."
+      },
+      "options": {
+        "pt": [
+          "Conjunto vazio: none",
+          "Universo: univ",
+          "Identidade: none",
+          "Identidade: iden"
+        ],
+        "en": [
+          "Empty relation: none",
+          "Universe: univ",
+          "Identity: none",
+          "Identity: iden"
+        ]
+      },
+      "solution": [
+        0,
+        1,
+        3
+      ],
+      "explanation": {
+        "pt": "none representa a relação vazia, univ representa o universo de átomos e iden representa a relação identidade.",
+        "en": "none denotes the empty relation, univ denotes the universal relation/set of atoms, and iden denotes the identity relation."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que significa a expressão all e: Entry | one contains.e?",
+        "en": "What does the expression 'all e: Entry | one contains.e' signify?"
+      },
+      "options": {
+        "pt": [
+          "Cada entrada está contida em exatamente um diretório",
+          "Cada diretório contém exatamente uma entrada",
+          "Cada entrada possui exatamente um nome",
+          "Todos os diretórios contêm pelo menos uma entrada"
+        ],
+        "en": [
+          "Each entry is contained in exactly one directory",
+          "Each directory contains exactly one entry",
+          "Each entry has exactly one name",
+          "All directories contain at least one entry"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A expressão contains.e devolve os diretórios que contêm a entrada e. A multiplicidade one exige exatamente um diretório.",
+        "en": "The expression contains.e yields the directories that contain entry e. The multiplicity quantifier one requires exactly one directory."
+      }
+    },
+    {
+      "id": 10,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o significado de no refersTo.Root?",
+        "en": "What is the meaning of 'no refersTo.Root'?"
+      },
+      "options": {
+        "pt": [
+          "A raiz não contém entradas",
+          "Nenhuma entrada refere a raiz",
+          "A raiz refere exatamente uma entrada",
+          "Todas as entradas referem a raiz"
+        ],
+        "en": [
+          "The root contains no entries",
+          "No entry refers to the root",
+          "The root refers to exactly one entry",
+          "All entries refer to the root"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "refersTo.Root devolve o conjunto de entradas que referem algum elemento de Root. A expressão no exige que esse conjunto seja vazio.",
+        "en": "refersTo.Root evaluates to the set of entries that refer to some element of Root. The quantifier no asserts that this set is empty."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o significado de all d: Dir | lone refersTo.d?",
+        "en": "What is the meaning of 'all d: Dir | lone refersTo.d'?"
+      },
+      "options": {
+        "pt": [
+          "Todos os diretórios são referidos por exatamente uma entrada",
+          "Cada diretório é referido por no máximo uma entrada",
+          "Nenhum diretório pode ser referido",
+          "Todas as entradas referem diretórios"
+        ],
+        "en": [
+          "All directories are referred to by exactly one entry",
+          "Each directory is referred to by at most one entry",
+          "No directory may be referred to",
+          "All entries refer to directories"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "refersTo.d identifica as entradas que referem d. lone impõe cardinalidade zero ou um.",
+        "en": "refersTo.d evaluates to the entries that refer to d. The lone multiplicity enforces a cardinality of at most one (zero or one)."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a interpretação da restrição no iden & ^R?",
+        "en": "What is the interpretation of the constraint 'no iden & ^R'?"
+      },
+      "options": {
+        "pt": [
+          "Todos os diretórios têm exatamente uma entrada",
+          "Não existem ciclos na relação R",
+          "Todos os objetos são alcançáveis a partir da raiz",
+          "A relação R é obrigatoriamente vazia"
+        ],
+        "en": [
+          "All directories have exactly one entry",
+          "There are no cycles in relation R (acyclicity)",
+          "All objects are reachable from the root",
+          "Relation R is necessarily empty"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A interseção entre a identidade e o fecho transitivo contém os pares (x,x) correspondentes a ciclos. Exigir que essa interseção seja vazia impede ciclos.",
+        "en": "The intersection between the identity relation and the transitive closure contains tuples (x,x) denoting cycles. Requiring this intersection to be empty enforces acyclicity (no cycles)."
+      }
+    },
+    {
+      "id": 13,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que expressa Object in Root.*(contains.refersTo)?",
+        "en": "What does 'Object in Root.*(contains.refersTo)' express?"
+      },
+      "options": {
+        "pt": [
+          "Nenhum objeto está relacionado com a raiz",
+          "Todos os objetos são alcançáveis a partir da raiz através de zero ou mais passos",
+          "Todos os objetos são diretamente referidos pela raiz",
+          "Cada objeto contém obrigatoriamente uma entrada"
+        ],
+        "en": [
+          "No object is related to the root",
+          "All objects are reachable from the root in zero or more steps",
+          "All objects are directly referred to by the root",
+          "Each object necessarily contains an entry"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O fecho reflexivo-transitivo permite alcançar objetos através de cadeias de relações. O operador in exige que todos os elementos de Object pertençam ao conjunto dos alcançáveis.",
+        "en": "The reflexive-transitive closure captures objects reachable along navigation relational paths. The in subset operator requires all atoms in Object to belong to this reachable set."
+      }
+    },
+    {
+      "id": 14,
+      "type": "boolean",
+      "question": {
+        "pt": "Se um comando check encontrar um contraexemplo, a propriedade verificada não é uma consequência lógica dos facts do modelo.",
+        "en": "If a check command finds a counterexample, the verified property is not a logical consequence of the model's facts."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Um contraexemplo satisfaz os facts, mas viola a propriedade. É suficiente para demonstrar que os facts não implicam a assertion.",
+        "en": "True. A counterexample satisfies all facts while violating the asserted property. This is sufficient to disprove that the facts logically entail the assertion."
+      }
+    },
+    {
+      "id": 15,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é importante aumentar o scope de um comando check quando não são encontrados contraexemplos?",
+        "en": "Why is it important to increase the scope of a check command when no counterexamples are found?"
+      },
+      "options": {
+        "pt": [
+          "Porque scopes maiores transformam automaticamente o modelo numa prova matemática geral",
+          "Porque podem existir contraexemplos que exigem mais átomos do que os disponíveis no scope inicial",
+          "Porque um scope menor é sempre incorreto",
+          "Porque os facts deixam de ser considerados com scopes maiores"
+        ],
+        "en": [
+          "Because larger scopes automatically transform the bounded model check into a general mathematical proof",
+          "Because counterexamples may exist that require more atoms than those available in the initial scope",
+          "Because a smaller scope is always erroneous",
+          "Because facts are no longer considered in larger scopes"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A hipótese do small scope sugere que muitos defeitos são encontrados com universos pequenos, mas não garante que todos os contraexemplos tenham tamanho reduzido.",
+        "en": "The small scope hypothesis posits that many bugs can be found within small bounds, but it does not guarantee that every counterexample can be instantiated in a small scope."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escrita",
+      "question": {
+        "pt": "Determine os elementos de ^R e *R relevantes para a alcançabilidade a partir de a. Explique a existência de ciclos e indique se a condição no iden & ^R é satisfeita.",
+        "en": "Determine the elements of ^R and *R relevant to reachability from atom a. Explain the presence of cycles and state whether the constraint 'no iden & ^R' is satisfied."
+      },
+      "solution": {
+        "pt": "A partir de a existem os caminhos a→b, a→b→c, a→b→c→a e a→b→c→d.\n\nAssim, os elementos alcançáveis a partir de a através de caminhos de comprimento positivo são a, b, c e d. Em termos de relações, ^R contém (a,a), (a,b), (a,c) e (a,d).\n\nO par (a,a) pertence a ^R devido ao ciclo a→b→c→a, apesar de ^R não incluir automaticamente caminhos de comprimento zero.\n\n*R contém todos os pares de ^R e ainda os pares da identidade sobre o domínio considerado.\n\nA condição no iden & ^R é falsa, porque existe pelo menos um ciclo. Em particular, (a,a), (b,b) e (c,c) pertencem à interseção.\n\n**Critérios de avaliação:** 25% pela alcançabilidade; 20% pela interpretação do fecho transitivo; 20% pela interpretação do fecho reflexivo-transitivo; 20% pela identificação do ciclo; 15% pela avaliação da restrição.",
+        "en": "From node a, the reachable paths are a→b, a→b→c, a→b→c→a, and a→b→c→d.\n\nThus, the elements reachable from a via paths of positive length are a, b, c, and d. In terms of relational pairs, ^R contains (a,a), (a,b), (a,c), and (a,d).\n\nThe pair (a,a) belongs to ^R due to the directed cycle a→b→c→a, even though ^R does not automatically include paths of length zero.\n\n*R contains all tuples of ^R plus the identity tuples over the universe under consideration.\n\nThe constraint 'no iden & ^R' evaluates to false, because at least one cycle exists. Specifically, (a,a), (b,b), and (c,c) belong to this intersection.\n\n**Grading criteria:** 25% for reachability analysis; 20% for transitive closure interpretation; 20% for reflexive-transitive closure interpretation; 20% for cycle identification; 15% for constraint evaluation."
+      },
+      "explanation": {
+        "pt": "É fundamental distinguir alcançabilidade por caminhos positivos de alcançabilidade reflexiva. Num grafo com ciclos, o fecho transitivo também pode conter pares da identidade.",
+        "en": "It is crucial to distinguish positive-length reachability from reflexive reachability. In a graph with directed cycles, the transitive closure can also contain identity pairs."
+      }
+    },
+    {
+      "id": 17,
+      "type": "escrita",
+      "question": {
+        "pt": "Considere um sistema de ficheiros em que todos os objetos, exceto a raiz, são referidos por pelo menos uma entrada. Explique por que motivo esta condição, isoladamente, não garante que todos os objetos sejam alcançáveis a partir da raiz. Apresente um contraexemplo conceptual e indique uma propriedade adicional útil.",
+        "en": "Consider a file system specification where all objects except the root are referred to by at least one entry. Explain why this condition alone does not guarantee that all objects are reachable from the root. Present a conceptual counterexample and state a useful additional invariant."
+      },
+      "solution": {
+        "pt": "A existência de pelo menos uma referência para cada objeto não garante que as referências formem uma estrutura ligada à raiz.\n\n**Contraexemplo:** podem existir dois diretórios A e B fora da componente da raiz. Uma entrada contida em A refere B e outra entrada contida em B refere A. Ambos os diretórios são referidos, mas nenhum é alcançável a partir da raiz.\n\nO modelo satisfaz a condição de que todos os objetos não raiz são referidos, mas contém uma componente cíclica desligada.\n\nUma restrição adicional útil é impedir ciclos:\n\n```alloy\nfact NoCycles {\n  no iden & ^(contains.refersTo)\n}\n```\n\nNo modelo completo dos slides, a combinação desta restrição com a raiz única, a proibição de referências à raiz, a existência de referências para os restantes objetos, as multiplicidades apropriadas e a finitude do domínio permite eliminar componentes desligadas deste tipo.\n\nA propriedade desejada pode ser expressa por:\n\n```alloy\nassert NoPartitions {\n  Object in Root.*(contains.refersTo)\n}\n```\n\n**Critérios de avaliação:** 30% pelo reconhecimento de que referências não implicam alcançabilidade; 25% pelo contraexemplo; 20% pela restrição de ausência de ciclos; 15% pela assertion; 10% pela explicação da interação entre os requisitos.",
+        "en": "Requiring at least one reference to each non-root object does not guarantee that the navigation links form a connected component rooted at Root.\n\n**Counterexample:** there can exist two directories A and B detached from the root component. An entry in A refers to B, and an entry in B refers to A. Both directories are referred to by at least one entry, yet neither is reachable from Root.\n\nThe model satisfies the requirement that every non-root object is referred to, but admits a detached cyclic component.\n\nA useful additional constraint is cycle prevention:\n\n```alloy\nfact NoCycles {\n  no iden & ^(contains.refersTo)\n}\n```\n\nIn the full course model, combining this acyclicity constraint with a single root, prohibiting incoming references to the root, requiring incoming references for all other objects, appropriate relational multiplicities, and domain finiteness eliminates disconnected components of this kind.\n\nThe desired reachability property can be verified with:\n\n```alloy\nassert NoPartitions {\n  Object in Root.*(contains.refersTo)\n}\n```\n\n**Grading criteria:** 30% for recognizing references do not imply reachability; 25% for the counterexample; 20% for the cycle prevention constraint; 15% for the assertion; 10% for explaining the interaction between requirements."
+      },
+      "explanation": {
+        "pt": "Restrições locais podem não garantir propriedades globais. A alcançabilidade depende da estrutura completa da rede de relações, motivo pelo qual é importante verificar assertions sobre o modelo.",
+        "en": "Local constraints may fail to enforce global structural properties. Reachability depends on the overall topology of the relational network, which is why asserting and checking global properties is essential."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escrita",
+      "question": {
+        "pt": "Explique como construir uma estratégia de validação orientada a cenários para o requisito 'Todos os objetos, exceto a raiz, são referidos por pelo menos uma entrada'. Inclua um cenário positivo, um negativo e o significado de expect 1 e expect 0.",
+        "en": "Explain how to construct a scenario-based validation strategy for the requirement 'All objects, except the root, are referred to by at least one entry'. Include a positive scenario, a negative scenario, and the meaning of expect 1 and expect 0."
+      },
+      "solution": {
+        "pt": "**Cenário positivo:** construir uma instância em que existe uma raiz, um diretório não raiz e um ficheiro. Uma entrada refere o diretório e outra refere o ficheiro. Todas as restantes restrições estruturais devem ser respeitadas. O comando deve encontrar uma instância.\n\n**Cenário negativo:** construir uma instância em que existe um ficheiro não raiz sem nenhuma entrada que o refira, mantendo satisfeitas as restantes restrições que não estão a ser testadas. O comando deve ser insatisfatível quando o requisito está corretamente implementado.\n\n**Expectativas:** expect 1 indica que se espera uma execução satisfatível. expect 0 indica que se espera uma execução insatisfatível.\n\n**Requisito formalizado:**\n\n```alloy\nfact NoDanglingObjects {\n  all x: Object |\n    x not in Root implies some e: Entry | e->x in refersTo\n}\n```\n\nDevem ser especificados scopes suficientemente grandes para representar os cenários, evitando que um expect 0 resulte apenas de falta de átomos disponíveis ou de outras restrições não intencionais.\n\n**Critérios de avaliação:** 25% pelo cenário positivo; 25% pelo negativo; 20% pela interpretação de expect; 20% pela formalização; 10% pelos cuidados relativos a scopes e interação entre facts.",
+        "en": "**Positive scenario:** construct an instance containing a root, a non-root directory, and a file. One entry refers to the directory and another refers to the file. All other structural constraints must be respected. The command should find a satisfying instance.\n\n**Negative scenario:** construct an instance with a non-root file that has no entry referring to it, while keeping all other non-targeted structural constraints satisfied. The run command must be unsatisfiable when the invariant is correctly enforced.\n\n**Expectations:** `expect 1` specifies that the run/check command is expected to be satisfiable (an instance exists). `expect 0` specifies that the command is expected to be unsatisfiable (no instance exists).\n\n**Formalised invariant:**\n\n```alloy\nfact NoDanglingObjects {\n  all x: Object |\n    x not in Root implies some e: Entry | e->x in refersTo\n}\n```\n\nScopes must be sufficiently large to accommodate the scenarios, ensuring that `expect 0` does not arise simply from atom exhaustion or unintentional overconstraining facts.\n\n**Grading criteria:** 25% for positive scenario; 25% for negative scenario; 20% for expect interpretation; 20% for formalisation; 10% for scope considerations and fact interactions."
+      },
+      "explanation": {
+        "pt": "Cenários positivos e negativos ajudam a confirmar que o modelo aceita situações pretendidas e rejeita situações proibidas. A revisão desses cenários deve acompanhar a evolução da especificação.",
+        "en": "Positive and negative scenarios confirm that the model admits intended behaviours while rejecting invalid configurations. Reviewing these scenarios should accompany the evolution of the specification."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes afirmações é correta, no modelo de sistema de ficheiros apresentado nas aulas?",
+        "en": "Which of the following statements is correct regarding the file system model presented in class?"
+      },
+      "options": {
+        "pt": [
+          "As duas expressões impõem a ausência de ciclos de diretórios através da relação de navegação",
+          "A primeira exige um ciclo e a segunda proíbe ciclos",
+          "A segunda exige que todos os diretórios sejam vazios",
+          "As duas expressões garantem, por si só, que todos os objetos são alcançáveis a partir da raiz"
+        ],
+        "en": [
+          "Both expressions enforce the absence of directory cycles via the navigation relation",
+          "The first requires a cycle, whereas the second prohibits cycles",
+          "The second requires all directories to be empty",
+          "Both expressions guarantee on their own that all objects are reachable from the root"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A primeira impede que um diretório se alcance a si próprio através de um caminho positivo. A segunda proíbe pares reflexivos no fecho transitivo. Como a relação de navegação parte de diretórios, as condições representam a mesma propriedade de ausência de ciclos neste modelo.",
+        "en": "The first prevents a directory from reaching itself along a positive-length path. The second prohibits reflexive tuples in the transitive closure. Since the navigation relation originates from directories, both formulations express the same acyclicity property in this model."
+      }
+    },
+    {
+      "id": 20,
+      "type": "escrita",
+      "question": {
+        "pt": "Pretende verificar se duas especificações Alloy representam o mesmo requisito. Explique como utilizar check para verificar a sua equivalência, como interpretar os resultados e por que motivo a ausência de contraexemplos não constitui necessariamente uma demonstração geral.",
+        "en": "You wish to verify whether two Alloy specifications represent the same requirement. Explain how to use check to verify their equivalence, how to interpret the results, and why the absence of counterexamples does not necessarily constitute a general proof."
+      },
+      "solution": {
+        "pt": "Considere as propriedades P e Q. A sua equivalência significa que, para todas as instâncias admitidas pelos pressupostos, P é verdadeira se e só se Q for verdadeira.\n\nEm Alloy, pode verificar-se:\n\n```alloy\ncheck {\n  P iff Q\n} for 4\n```\n\nP e Q devem ser substituídas pelas respetivas fórmulas Alloy.\n\n**Se surgir um contraexemplo:** existe uma instância dentro do scope em que uma das propriedades é verdadeira e a outra é falsa. Logo, não são equivalentes relativamente aos pressupostos considerados.\n\n**Se não surgir um contraexemplo:** não foi encontrada qualquer diferença dentro do scope analisado. Isto aumenta a confiança, mas não garante equivalência para universos maiores.\n\n**Estratégias adicionais:** aumentar progressivamente o scope, validar exemplos positivos e negativos, analisar contraexemplos e verificar formulações alternativas dos requisitos.\n\n**Critérios de avaliação:** 25% pela utilização de iff; 20% pelo significado lógico da equivalência; 20% pela interpretação de contraexemplos; 20% pela limitação do scope; 15% pelas estratégias de validação adicional.",
+        "en": "Consider properties P and Q. Their equivalence means that, across all instances admitted by the model assumptions, P holds if and only if Q holds.\n\nIn Alloy, this can be verified with:\n\n```alloy\ncheck {\n  P iff Q\n} for 4\n```\n\nP and Q are replaced with their respective Alloy formulas.\n\n**If a counterexample is found:** an instance exists within the scope where one property holds while the other is false. Consequently, they are not equivalent under the given assumptions.\n\n**If no counterexample is found:** no divergence was detected within the analysed scope. This increases confidence, but does not prove general equivalence for larger universes.\n\n**Additional strategies:** progressively scale the scope, validate positive and negative scenarios, inspect counterexamples, and examine alternative formula encodings.\n\n**Grading criteria:** 25% for using iff; 20% for logical meaning of equivalence; 20% for counterexample interpretation; 20% for scope bounded limitations; 15% for additional validation strategies."
+      },
+      "explanation": {
+        "pt": "A equivalência de especificações permite comparar formalizações alternativas. Como a análise Alloy é limitada, os resultados devem ser interpretados tendo em conta os scopes e os restantes pressupostos do modelo.",
+        "en": "Specification equivalence allows comparing alternative formalisations. Because Alloy's analysis is scope-bounded, results must be interpreted taking into account the finite bounds and other underlying model assumptions."
+      }
+    }
+  ]
+}

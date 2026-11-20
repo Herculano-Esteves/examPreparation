@@ -8,6 +8,7 @@ import { isBilingualMode, getSelectedLanguages } from './builderTemplates.js';
 import { addQuestionBox, updateQuestionNumbers } from './builderQuestionBox.js';
 import { renderMetadataInputs } from '../examBuilder.js';
 import { t } from '../i18n.js';
+import { APP_CONFIG } from '../config.js';
 
 /**
  * Reads visual inputs and creates an exam object, gracefully detecting whether DOM
@@ -52,12 +53,13 @@ export function getExamDataFromVisualBoxes() {
         desc = descPt || descEn || '';
     }
 
+    const { MULTIPLE_CHOICE, BOOLEAN, WRITTEN } = APP_CONFIG.questionTypes;
     const questions = [];
     if (listContainer) {
         const qCards = listContainer.querySelectorAll('.builder-question-card');
         qCards.forEach((card) => {
             const typeSelect = card.querySelector('.builder-q-type-select');
-            const qType = typeSelect ? typeSelect.value : 'escolha_multipla';
+            const qType = typeSelect ? typeSelect.value : MULTIPLE_CHOICE;
 
             // Question prompt detection
             let promptPt = '';
@@ -107,17 +109,17 @@ export function getExamDataFromVisualBoxes() {
                 }
             }
 
-            if (qType === 'boolean') {
+            if (qType === BOOLEAN) {
                 const checkedRadio = card.querySelector('input[type="radio"]:checked');
                 const solution = checkedRadio ? parseInt(checkedRadio.value, 10) : 0;
                 const qObj = {
-                    type: 'boolean',
+                    type: BOOLEAN,
                     question: qPrompt,
                     solution: solution
                 };
                 if (qExpl !== undefined) qObj.explanation = qExpl;
                 questions.push(qObj);
-            } else if (qType === 'escrita') {
+            } else if (qType === WRITTEN) {
                 let solPt = '';
                 let solEn = '';
                 const ptSolInput = card.querySelector('.builder-q-written-pt');
@@ -140,14 +142,14 @@ export function getExamDataFromVisualBoxes() {
                 }
 
                 const qObj = {
-                    type: 'escrita',
+                    type: WRITTEN,
                     question: qPrompt,
                     solution: solution
                 };
                 if (qExpl !== undefined) qObj.explanation = qExpl;
                 questions.push(qObj);
             } else {
-                // escolha_multipla
+                // multiple_choice
                 const correctCheckboxes = card.querySelectorAll('.builder-opt-correct:checked');
                 const solution = [];
                 correctCheckboxes.forEach(cb => {
@@ -189,7 +191,7 @@ export function getExamDataFromVisualBoxes() {
                 }
 
                 const qObj = {
-                    type: 'escolha_multipla',
+                    type: MULTIPLE_CHOICE,
                     question: qPrompt,
                     options: options,
                     solution: solution.length > 0 ? solution : [0]

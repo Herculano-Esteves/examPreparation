@@ -14,6 +14,7 @@ import { toggleDifficultQuestion, isQuestionDifficult } from './storage.js';
 import { t } from './i18n.js';
 import { Events, APP_EVENTS } from './events.js';
 import { syncExamSplitLayout } from './layout.js';
+import { APP_CONFIG, normalizeQuestionType } from './config.js';
 
 import { renderWrittenQuestionUI, renderChoiceQuestionUI, renderFeedbackUI } from './questions/questionUI.js';
 import { selectOption, confirmMultipleChoiceAnswer, revealWrittenAnswer, assessWrittenAnswer } from './questions/questionEvaluation.js';
@@ -98,8 +99,8 @@ export function renderQuestion() {
     // --- Options / answer UI ---
     elements.optionsContainer.innerHTML = '';
 
-    const qType = q.type || q.tipo;
-    if (qType === 'escrita') {
+    const qType = normalizeQuestionType(q.type || q.tipo);
+    if (qType === APP_CONFIG.questionTypes.WRITTEN) {
         renderWrittenQuestionUI(q);
     } else {
         renderChoiceQuestionUI(q);

@@ -1,0 +1,439 @@
+{
+  "title": {
+    "pt": "MFES — Exame 1: Fundamentos de Lógica Proposicional",
+    "en": "MFES — Exam 1: Foundations of Propositional Logic"
+  },
+  "description": {
+    "pt": "Nível 1/6 — Introdução aos métodos formais e à lógica proposicional. Progressão desde a sintaxe e semântica até à satisfatibilidade, validade, equivalências e consequência lógica. Baseado nos conteúdos teóricos de Propositional Logic. Objetivo: compreender os fundamentos antes de avançar para a modelação e resolução automática.",
+    "en": "Level 1/6 — Introduction to formal methods and propositional logic. Progression from syntax and semantics to satisfiability, validity, equivalences, and logical consequence. Based on theoretical Propositional Logic course materials. Objective: master core foundations before progressing to formal modeling and automated SAT solving."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quais são os três componentes fundamentais de uma lógica formal?",
+        "en": "What are the three fundamental components of a formal logic?"
+      },
+      "options": {
+        "pt": [
+          "Linguagem formal, semântica e sistema de prova",
+          "Compilador, interpretador e sistema operativo",
+          "Variáveis, ciclos e funções",
+          "Algoritmos, estruturas de dados e bases de dados"
+        ],
+        "en": [
+          "Formal language, semantics, and proof system",
+          "Compiler, interpreter, and operating system",
+          "Variables, loops, and functions",
+          "Algorithms, data structures, and databases"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma lógica formal possui uma linguagem que define as expressões bem formadas, uma semântica que lhes atribui significado e um sistema de prova com regras para derivar juízos válidos.",
+        "en": "A formal logic comprises a formal language defining well-formed formulas (syntax), a semantics assigning mathematical truth values/meaning to formulas, and a proof system providing deductive rules to derive valid judgments."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Na lógica proposicional clássica, cada proposição pode assumir exatamente um de dois valores de verdade: verdadeiro ou falso.",
+        "en": "In classical propositional logic, every proposition assumes exactly one of two truth values: true or false (bivalence principle)."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "A lógica proposicional clássica é bivalente. Cada proposição assume o valor 1 (verdadeiro) ou 0 (falso) numa determinada valoração.",
+        "en": "Classical propositional logic is bivalent: under any given truth valuation, every proposition evaluates strictly to 1 (true) or 0 (false), with no intermediate or undefined values."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes expressões representa uma fórmula atómica da lógica proposicional?",
+        "en": "Which of the following expressions represents an atomic formula in propositional logic?"
+      },
+      "options": {
+        "pt": [
+          "A ∧ B",
+          "¬A",
+          "A",
+          "A → B"
+        ],
+        "en": [
+          "A ∧ B",
+          "¬A",
+          "A",
+          "A → B"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Uma fórmula atómica é uma variável proposicional isolada. As restantes expressões são fórmulas compostas, construídas através de conectivos lógicos.",
+        "en": "An atomic formula consists of an isolated propositional variable with no connectives. The other expressions are compound formulas constructed via logical connectives."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a ordem de precedência dos conectivos lógicos apresentada nas aulas, da maior para a menor?",
+        "en": "What is the standard precedence order of logical connectives from highest to lowest?"
+      },
+      "options": {
+        "pt": [
+          "∧, ∨, ¬, ↔, →",
+          "¬, ∧, ∨, →, ↔",
+          "¬, ∨, ∧, ↔, →",
+          "→, ↔, ∧, ∨, ¬"
+        ],
+        "en": [
+          "∧, ∨, ¬, ↔, →",
+          "¬, ∧, ∨, →, ↔",
+          "¬, ∨, ∧, ↔, →",
+          "→, ↔, ∧, ∨, ¬"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A precedência é ¬, ∧, ∨, →, ↔. Os parênteses permitem alterar a ordem de avaliação. Na convenção apresentada, os conectivos binários associam à direita.",
+        "en": "Standard operator precedence is ¬ (highest), followed by ∧, ∨, →, and ↔ (lowest). Parentheses override default precedence, and binary operators conventionally associate to the right."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "A fórmula A → B é falsa quando A é falso e B é verdadeiro.",
+        "en": "The implication formula A → B is false when A is false and B is true."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Uma implicação só é falsa quando o antecedente é verdadeiro e o consequente é falso. Quando o antecedente é falso, a implicação é verdadeira, independentemente do consequente.",
+        "en": "An implication is false if and only if its antecedent is true and its consequent is false (1 → 0 = 0). When the antecedent is false, the implication is vacuously true (0 → 1 = 1)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere a valoração A = 1 e B = 0.",
+        "en": "Consider the valuation A = 1 and B = 0."
+      },
+      "question": {
+        "pt": "Qual é o valor de verdade da fórmula ¬A ∨ B?",
+        "en": "What is the truth value of the formula ¬A ∨ B?"
+      },
+      "options": {
+        "pt": [
+          "Verdadeiro",
+          "Falso",
+          "Depende de uma terceira variável",
+          "A fórmula não está bem formada"
+        ],
+        "en": [
+          "True",
+          "False",
+          "Depends on a third variable",
+          "The formula is not well-formed"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Como A = 1, temos ¬A = 0. Como B = 0, resulta 0 ∨ 0 = 0. Portanto, a fórmula é falsa.",
+        "en": "Since A = 1, ¬A = 0. Since B = 0, we have 0 ∨ 0 = 0. Therefore, the formula evaluates to false."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere A = 0 e B = 1.",
+        "en": "Consider A = 0 and B = 1."
+      },
+      "question": {
+        "pt": "Qual é o valor de verdade de (A → B) ∧ (¬A ∨ B)?",
+        "en": "What is the truth value of (A → B) ∧ (¬A ∨ B)?"
+      },
+      "options": {
+        "pt": [
+          "0",
+          "1",
+          "Indeterminado",
+          "Depende da interpretação de uma função"
+        ],
+        "en": [
+          "0",
+          "1",
+          "Indeterminate",
+          "Depends on the interpretation of an uninterpreted function"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A → B é verdadeiro porque A é falso. ¬A ∨ B também é verdadeiro. Logo, 1 ∧ 1 = 1.",
+        "en": "A → B evaluates to 1 because A is 0. ¬A ∨ B evaluates to 1 because ¬A = 1 and B = 1. Therefore, 1 ∧ 1 = 1."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quando é verdadeira a equivalência A ↔ B?",
+        "en": "Under what condition is the biconditional equivalence A ↔ B true?"
+      },
+      "options": {
+        "pt": [
+          "Apenas quando A e B são verdadeiros",
+          "Quando A e B têm valores de verdade diferentes",
+          "Quando A e B têm o mesmo valor de verdade",
+          "Sempre que A é verdadeiro"
+        ],
+        "en": [
+          "Only when both A and B are true",
+          "When A and B have differing truth values",
+          "When A and B share the identical truth value",
+          "Whenever A is true"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A equivalência é verdadeira quando ambos os operandos possuem o mesmo valor de verdade: 0 e 0 ou 1 e 1.",
+        "en": "The equivalence A ↔ B evaluates to true if and only if both operands evaluate to the same truth value: both false (0 and 0) or both true (1 and 1)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "A fórmula A ∨ ¬A é válida.",
+        "en": "The formula A ∨ ¬A is logically valid (a tautology)."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Esta fórmula corresponde à lei do terceiro excluído. Independentemente do valor de A, pelo menos um dos disjuntos é verdadeiro. É uma tautologia.",
+        "en": "This formula represents the Law of Excluded Middle (tertium non datur). Under every possible truth assignment, at least one disjunct evaluates to true, making it a tautology."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Como se classifica a fórmula A ∧ ¬A?",
+        "en": "How is the formula A ∧ ¬A classified?"
+      },
+      "options": {
+        "pt": [
+          "Válida",
+          "Satisfatível mas refutável",
+          "Insatisfatível",
+          "Equivalente a A"
+        ],
+        "en": [
+          "Valid",
+          "Satisfiable but refutable",
+          "Unsatisfiable (contradiction)",
+          "Equivalent to A"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Não existe qualquer valoração em que A e ¬A sejam simultaneamente verdadeiros. A fórmula é uma contradição e, portanto, insatisfatível.",
+        "en": "No truth valuation can make both A and ¬A true simultaneously. The formula is a contradiction, and therefore unsatisfiable."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma fórmula satisfatível e refutável caracteriza-se por:",
+        "en": "A contingent formula that is both satisfiable and refutable is characterized by:"
+      },
+      "options": {
+        "pt": [
+          "Ser verdadeira em todas as valorações",
+          "Ser falsa em todas as valorações",
+          "Ser verdadeira em algumas valorações e falsa noutras",
+          "Não possuir variáveis proposicionais"
+        ],
+        "en": [
+          "Evaluating to true under all possible valuations",
+          "Evaluating to false under all possible valuations",
+          "Evaluating to true under some valuations and to false under others",
+          "Containing no propositional variables"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Satisfatível significa que existe pelo menos uma valoração que satisfaz a fórmula. Refutável significa que existe pelo menos uma valoração que a torna falsa.",
+        "en": "Satisfiable means at least one valuation satisfies the formula (makes it true). Refutable (falsifiable) means at least one valuation falsifies the formula (makes it false). A contingent formula exhibits both."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Selecione todas as equivalências lógicas corretas.",
+        "en": "Select all logically valid equivalences."
+      },
+      "options": {
+        "pt": [
+          "¬(A ∧ B) ≡ ¬A ∨ ¬B",
+          "A → B ≡ A ∨ ¬B",
+          "A → B ≡ ¬A ∨ B",
+          "¬(A ∨ B) ≡ ¬A ∨ ¬B"
+        ],
+        "en": [
+          "¬(A ∧ B) ≡ ¬A ∨ ¬B",
+          "A → B ≡ A ∨ ¬B",
+          "A → B ≡ ¬A ∨ B",
+          "¬(A ∨ B) ≡ ¬A ∨ ¬B"
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "A primeira corresponde a uma das leis de De Morgan. A terceira resulta da eliminação da implicação. A segunda inverte incorretamente a negação e a quarta deveria utilizar uma conjunção.",
+        "en": "Option [0] is De Morgan's Law. Option [2] is the standard implication elimination identity. Option [1] incorrectly negates the consequent, and option [3] should use conjunction instead of disjunction."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Uma fórmula é válida se e só se a sua negação for insatisfatível.",
+        "en": "A formula is valid if and only if its negation is unsatisfiable."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Se uma fórmula é verdadeira em todas as valorações, a sua negação é falsa em todas. Reciprocamente, se a negação não admite qualquer modelo, a fórmula original é válida.",
+        "en": "If a formula φ is valid (true under all models), then ¬φ evaluates to false under all models (is unsatisfiable). Conversely, if ¬φ has no satisfying models, φ must hold under all valuations."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes consequências lógicas é correta?",
+        "en": "Which of the following semantic entailments (logical consequences) is valid?"
+      },
+      "options": {
+        "pt": [
+          "A ∨ B ⊨ A",
+          "A ∧ B ⊨ A",
+          "A ⊨ A ∧ B",
+          "A → B ⊨ A"
+        ],
+        "en": [
+          "A ∨ B ⊨ A",
+          "A ∧ B ⊨ A",
+          "A ⊨ A ∧ B",
+          "A → B ⊨ A"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Sempre que A ∧ B é verdadeira, A também é verdadeira. As restantes consequências são inválidas porque existem valorações que satisfazem a premissa, mas não a conclusão.",
+        "en": "In every valuation where A ∧ B is true, A is guaranteed to be true (conjunction elimination). The other entailments are invalid because there exist countermodels where the premises hold but the conclusion fails."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes fórmulas é válida?",
+        "en": "Which of the following formulas is valid (tautological)?"
+      },
+      "options": {
+        "pt": [
+          "A → B",
+          "A ∧ B",
+          "A → (B → A)",
+          "A ↔ B"
+        ],
+        "en": [
+          "A → B",
+          "A ∧ B",
+          "A → (B → A)",
+          "A ↔ B"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A → (B → A) é sempre verdadeira. Se A for falso, a implicação exterior é verdadeira. Se A for verdadeiro, B → A também é verdadeira.",
+        "en": "A → (B → A) is an axiom of intuitionistic and classical propositional logic. If A is false, the outer implication is vacuously true. If A is true, B → A evaluates to true regardless of B."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Construa a tabela de verdade de A → B e demonstre que esta fórmula é logicamente equivalente a ¬A ∨ B.",
+        "en": "Construct the truth table for A → B and demonstrate that this formula is logically equivalent to ¬A ∨ B."
+      },
+      "solution": {
+        "pt": "Tabela de verdade:\n\n| A | B | A → B | ¬A ∨ B |\n|---|---|-------|--------|\n| 0 | 0 | 1 | 1 |\n| 0 | 1 | 1 | 1 |\n| 1 | 0 | 0 | 0 |\n| 1 | 1 | 1 | 1 |\n\nAs duas expressões possuem exatamente os mesmos valores de verdade em todas as valorações possíveis. Logo, A → B ≡ ¬A ∨ B.\n\n**Critérios de avaliação:** 40% pela tabela completa e correta; 30% pela avaliação da implicação; 30% pela justificação da equivalência através da igualdade das colunas.",
+        "en": "Truth table:\n\n| A | B | A → B | ¬A ∨ B |\n|---|---|-------|--------|\n| 0 | 0 | 1     | 1      |\n| 0 | 1 | 1     | 1      |\n| 1 | 0 | 0     | 0      |\n| 1 | 1 | 1     | 1      |\n\nBoth expressions evaluate to identical truth values across all four possible truth valuations. Therefore, A → B ≡ ¬A ∨ B.\n\n**Grading criteria:** 40% for the complete, correct truth table; 30% for evaluating the implication; 30% for formally justifying equivalence via column identity."
+      },
+      "explanation": {
+        "pt": "Duas fórmulas são logicamente equivalentes quando possuem o mesmo valor de verdade para todas as valorações possíveis.",
+        "en": "Two formulas are logically equivalent when they evaluate to the exact same truth value under all possible truth valuations."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é decidível o problema SAT na lógica proposicional?",
+        "en": "Why is the Boolean Satisfiability problem (SAT) decidable in propositional logic?"
+      },
+      "options": {
+        "pt": [
+          "Porque todas as fórmulas são satisfatíveis",
+          "Porque existe um algoritmo que termina e decide a satisfatibilidade",
+          "Porque todas as fórmulas podem ser resolvidas em tempo constante",
+          "Porque a lógica proposicional não utiliza variáveis"
+        ],
+        "en": [
+          "Because all propositional formulas are satisfiable",
+          "Because there exists an algorithm that always terminates and decides satisfiability",
+          "Because all propositional formulas can be solved in polynomial time",
+          "Because propositional logic does not use variables"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "É possível enumerar todas as valorações das variáveis de uma fórmula proposicional finita. Embora esta abordagem possa exigir tempo exponencial, termina e permite decidir a satisfatibilidade.",
+        "en": "For any finite propositional formula over n variables, one can systematically inspect all 2^n valuations (e.g. via truth tables or DPLL/CDCL). Although worst-case time is exponential, the procedure is guaranteed to terminate, proving decidability."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Explique as diferenças entre satisfatibilidade, validade, refutabilidade e insatisfatibilidade. Indique um exemplo de fórmula para cada situação relevante.",
+        "en": "Explain the differences between satisfiability, validity, refutability, and unsatisfiability. Provide an example formula for each concept."
+      },
+      "solution": {
+        "pt": "**Satisfatibilidade:** existe pelo menos uma valoração que torna a fórmula verdadeira. Exemplo: A ∧ B.\n\n**Validade:** todas as valorações tornam a fórmula verdadeira. Exemplo: A ∨ ¬A.\n\n**Refutabilidade:** existe pelo menos uma valoração que torna a fórmula falsa. Exemplo: A → B.\n\n**Insatisfatibilidade:** nenhuma valoração torna a fórmula verdadeira. Exemplo: A ∧ ¬A.\n\nUma fórmula pode ser simultaneamente satisfatível e refutável. Uma fórmula válida não é refutável, enquanto uma fórmula insatisfatível é refutável.\n\n**Critérios de avaliação:** 20% por cada definição correta e 20% pela identificação das relações entre os conceitos e pelos exemplos adequados.",
+        "en": "**Satisfiability:** there exists at least one valuation under which the formula evaluates to true. Example: A ∧ B.\n\n**Validity:** all valuations make the formula true (tautology). Example: A ∨ ¬A.\n\n**Refutability:** there exists at least one valuation under which the formula evaluates to false (falsifiable). Example: A → B.\n\n**Unsatisfiability:** no valuation makes the formula true (contradiction). Example: A ∧ ¬A.\n\nA formula can be simultaneously satisfiable and refutable (contingent). A valid formula is non-refutable, whereas an unsatisfiable formula is always refutable.\n\n**Grading criteria:** 20% for each correct definition with examples; 20% for explaining the relationships between the concepts."
+      },
+      "explanation": {
+        "pt": "A distinção fundamental está nos quantificadores implícitos: satisfatibilidade e refutabilidade exigem a existência de uma valoração; validade e insatisfatibilidade dizem respeito a todas as valorações.",
+        "en": "The fundamental distinction lies in implicit quantification: satisfiability and refutability require the existence of at least one valuation, whereas validity and unsatisfiability concern all valuations."
+      }
+    }
+  ]
+}

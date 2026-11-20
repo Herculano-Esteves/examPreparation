@@ -10,6 +10,7 @@ import { elements } from '../elements.js';
 import { escapeHTML, getLocalizedText, getLocalizedList } from '../utils.js';
 import { renderMarkdown } from '../renderer.js';
 import { t, getCurrentLanguage } from '../i18n.js';
+import { APP_CONFIG, normalizeQuestionType } from '../config.js';
 import { selectOption, confirmMultipleChoiceAnswer, revealWrittenAnswer, assessWrittenAnswer } from './questionEvaluation.js';
 
 /**
@@ -114,11 +115,11 @@ export function renderFeedbackUI(q) {
         return;
     }
 
-    const qType = q.type || q.tipo;
+    const qType = normalizeQuestionType(q.type || q.tipo);
     const rawSolution = q.solution !== undefined ? q.solution : q.solucao;
     const rawExplanation = q.explanation || q.explicacao;
 
-    if (qType === 'escrita') {
+    if (qType === APP_CONFIG.questionTypes.WRITTEN) {
         const ans = State.examAnswers ? State.examAnswers[State.question.index] : null;
         const isAssessedCorrect = ans && ans.isCorrect === true;
         const isAssessedIncorrect = ans && ans.isCorrect === false;

@@ -1,0 +1,523 @@
+{
+  "title": {
+    "pt": "Exame 4 — Cloud Computing: IaaS, PaaS, SaaS e OpenStack",
+    "en": "Exam 4 — Cloud Computing: IaaS, PaaS, SaaS, and OpenStack"
+  },
+  "description": {
+    "pt": "Nível 4/6 — Intermédio a avançado. Aborda modelos de serviço, responsabilidades do fornecedor e do utilizador, OpenStack, armazenamento, redes, monitorização, elasticidade, conveniência e perda de controlo.",
+    "en": "Level 4/6 — Intermediate to advanced. Addresses service models, cloud provider vs tenant responsibilities, OpenStack, storage, networking, monitoring, elasticity, convenience, and vendor lock-in/loss of control."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes opções apresenta corretamente as três abstrações principais de Cloud Computing estudadas?",
+        "en": "Which of the following options correctly lists the three primary Cloud Computing service abstractions studied?"
+      },
+      "options": {
+        "pt": [
+          "Infrastructure-as-a-Service, Platform-as-a-Service e Software-as-a-Service.",
+          "Infrastructure-as-a-Service, Processing-as-a-Service e Storage-as-a-Service.",
+          "Integration-as-a-Service, Platform-as-a-Service e Storage-as-a-Service.",
+          "Infrastructure-as-a-Service, Provisioning-as-a-Service e Security-as-a-Service."
+        ],
+        "en": [
+          "Infrastructure-as-a-Service, Platform-as-a-Service, and Software-as-a-Service.",
+          "Infrastructure-as-a-Service, Processing-as-a-Service, and Storage-as-a-Service.",
+          "Integration-as-a-Service, Platform-as-a-Service, and Storage-as-a-Service.",
+          "Infrastructure-as-a-Service, Provisioning-as-a-Service, and Security-as-a-Service."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Os modelos principais apresentados são IaaS, PaaS e SaaS. Diferem sobretudo no nível de abstração e na distribuição de responsabilidades.",
+        "en": "The primary service models presented are IaaS, PaaS, and SaaS, differing fundamentally in abstraction level and shared responsibility boundaries."
+      }
+    },
+    {
+      "id": 2,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a característica fundamental de IaaS?",
+        "en": "What is the fundamental characteristic of IaaS?"
+      },
+      "options": {
+        "pt": [
+          "Disponibilizar recursos computacionais, armazenamento e redes virtualizados.",
+          "Disponibilizar exclusivamente aplicações finais acessíveis por um navegador.",
+          "Disponibilizar apenas bibliotecas para desenvolver aplicações distribuídas.",
+          "Disponibilizar exclusivamente serviços de monitorização de infraestruturas."
+        ],
+        "en": [
+          "Providing virtualized compute, storage, and networking resources.",
+          "Exclusively providing end-user applications accessible via a web browser.",
+          "Providing only programming libraries for developing distributed applications.",
+          "Exclusively providing infrastructure monitoring services."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "IaaS disponibiliza recursos de infraestrutura virtualizados, normalmente com aprovisionamento a pedido e pagamento segundo utilização.",
+        "en": "IaaS provisions virtualized infrastructure primitives, typically on-demand with pay-as-you-go utility billing."
+      }
+    },
+    {
+      "id": 3,
+      "type": "boolean",
+      "question": {
+        "pt": "Num modelo IaaS, o cliente pode continuar responsável pela instalação e configuração do sistema operativo e das aplicações.",
+        "en": "In an IaaS model, the customer remains responsible for installing and configuring the operating system and application stack."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. IaaS abstrai a infraestrutura física, mas o utilizador mantém controlo e responsabilidades sobre vários níveis de software.",
+        "en": "True. IaaS abstracts the underlying physical hardware, but the tenant retains control and operational responsibility for the OS, middleware, and applications."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal diferença entre IaaS e PaaS?",
+        "en": "What is the primary difference between IaaS and PaaS?"
+      },
+      "options": {
+        "pt": [
+          "IaaS disponibiliza recursos de infraestrutura; PaaS abstrai-os e centra-se na aplicação.",
+          "IaaS disponibiliza aplicações completas; PaaS disponibiliza exclusivamente armazenamento.",
+          "IaaS elimina a gestão de sistemas operativos; PaaS exige a sua configuração direta.",
+          "IaaS fornece apenas servidores físicos; PaaS fornece exclusivamente máquinas virtuais."
+        ],
+        "en": [
+          "IaaS provides infrastructure resources; PaaS abstracts them away and focuses on the application lifecycle.",
+          "IaaS provides complete software applications; PaaS provides exclusively storage.",
+          "IaaS eliminates operating system management; PaaS requires direct OS configuration.",
+          "IaaS provides only bare-metal servers; PaaS provides exclusively virtual machines."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Em PaaS, o foco desloca-se dos recursos físicos ou virtuais para a aplicação a desenvolver e executar.",
+        "en": "In PaaS, focus shifts from provisioning raw virtual machines and OS kernels to developing and executing the application itself."
+      }
+    },
+    {
+      "id": 5,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal característica de SaaS?",
+        "en": "What is the main characteristic of SaaS?"
+      },
+      "options": {
+        "pt": [
+          "Fornecer software ou funcionalidades completas como serviço.",
+          "Fornecer máquinas virtuais para instalação autónoma de aplicações.",
+          "Fornecer exclusivamente redes virtuais configuráveis pelo utilizador.",
+          "Fornecer sistemas operativos para administração direta pelo cliente."
+        ],
+        "en": [
+          "Delivering complete software applications or functionality as a service.",
+          "Providing virtual machines for autonomous software installation.",
+          "Providing exclusively user-configurable virtual software networks.",
+          "Providing operating systems for direct administration by the client."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "SaaS disponibiliza aplicações ou componentes de software acessíveis através de interfaces e APIs.",
+        "en": "SaaS provides fully managed software applications consumed directly via user interfaces or web APIs without underlying infrastructure management."
+      }
+    },
+    {
+      "id": 6,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Um programador pretende executar uma aplicação sem escolher diretamente o tipo de máquina virtual ou administrar o sistema operativo. Qual é o modelo mais alinhado com este objetivo?",
+        "en": "A developer wishes to run an application without directly sizing virtual machines or administering operating system patches. Which model is most aligned with this objective?"
+      },
+      "options": {
+        "pt": [
+          "IaaS, porque o programador administra os recursos virtualizados.",
+          "PaaS, porque a plataforma abstrai os recursos utilizados pela aplicação.",
+          "SaaS, porque o programador administra diretamente a infraestrutura.",
+          "IaaS, porque todos os componentes são automaticamente geridos pelo fornecedor."
+        ],
+        "en": [
+          "IaaS, because the developer administers virtualized resources.",
+          "PaaS, because the platform abstracts the underlying infrastructure used by the application.",
+          "SaaS, because the developer directly administers infrastructure.",
+          "IaaS, because all components are automatically managed by the cloud provider."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "PaaS permite concentrar a atenção na aplicação em vez de exigir gestão direta dos recursos de infraestrutura.",
+        "en": "PaaS allows developers to focus purely on application code and runtime deployment while the platform manages OS provisioning, patching, and scaling."
+      }
+    },
+    {
+      "id": 7,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o objetivo principal do OpenStack?",
+        "en": "What is the primary objective of OpenStack?"
+      },
+      "options": {
+        "pt": [
+          "Criar e administrar infraestruturas cloud através de serviços integrados.",
+          "Executar exclusivamente aplicações web sem acesso a recursos de infraestrutura.",
+          "Substituir todas as bases de dados relacionais por armazenamento de objetos.",
+          "Desenvolver aplicações cliente sem necessidade de componentes distribuídos."
+        ],
+        "en": [
+          "Creating and managing cloud infrastructures through integrated services.",
+          "Exclusively executing web applications without infrastructure access.",
+          "Replacing all relational databases with object storage.",
+          "Developing client applications without needing distributed components."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "OpenStack é uma plataforma open-source para construir clouds privadas ou públicas e gerir recursos de computação, armazenamento e rede.",
+        "en": "OpenStack is an open-source platform for orchestrating private and public clouds, controlling pools of compute, storage, and networking resources."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal responsabilidade do serviço Nova no OpenStack?",
+        "en": "What is the primary responsibility of OpenStack's Nova service?"
+      },
+      "options": {
+        "pt": [
+          "Gerir instâncias e recursos de computação.",
+          "Fornecer armazenamento persistente por volumes.",
+          "Gerir serviços de identidade e autenticação.",
+          "Disponibilizar armazenamento distribuído por objetos."
+        ],
+        "en": [
+          "Managing compute instances and compute resource pools.",
+          "Providing persistent block storage via volumes.",
+          "Managing identity and authentication services.",
+          "Providing distributed object storage."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Nova é o serviço de computação e permite gerir instâncias, incluindo máquinas virtuais e outros tipos de recursos computacionais.",
+        "en": "Nova is the compute fabric controller, orchestrating the lifecycle of compute instances (VMs, bare-metal, or containers)."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a associação correta entre Keystone, Glance, Neutron e Placement?",
+        "en": "What is the correct mapping between Keystone, Glance, Neutron, and Placement?"
+      },
+      "options": {
+        "pt": [
+          "Identidade, imagens, redes e acompanhamento de recursos disponíveis.",
+          "Imagens, redes, identidade e armazenamento persistente.",
+          "Redes, identidade, armazenamento e execução aplicacional.",
+          "Autenticação, volumes, imagens e armazenamento de objetos."
+        ],
+        "en": [
+          "Identity, image service, networking, and tracking available resource inventory.",
+          "Images, networking, identity, and persistent block storage.",
+          "Networking, identity, storage, and application runtime.",
+          "Authentication, volumes, images, and object storage."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Keystone fornece identidade e autenticação; Glance mantém imagens; Neutron fornece redes; Placement acompanha recursos disponíveis e apoia a sua alocação.",
+        "en": "Keystone manages identity/authentication; Glance hosts VM disk images; Neutron handles networking; Placement tracks resource inventory and usage for scheduling."
+      }
+    },
+    {
+      "id": 10,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal função do serviço Cinder?",
+        "en": "What is the primary function of the Cinder service?"
+      },
+      "options": {
+        "pt": [
+          "Disponibilizar armazenamento persistente em blocos através de volumes.",
+          "Disponibilizar armazenamento de objetos acessível por uma API key-value.",
+          "Disponibilizar sistemas de ficheiros partilhados entre múltiplas instâncias.",
+          "Disponibilizar armazenamento temporário associado ao ciclo de vida da instância."
+        ],
+        "en": [
+          "Providing persistent block storage through attached volumes.",
+          "Providing object storage accessible via a key-value API.",
+          "Providing shared file systems across multiple instances.",
+          "Providing temporary storage tied strictly to the instance lifecycle."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Cinder fornece block storage, normalmente sob a forma de volumes que podem ser associados a instâncias.",
+        "en": "Cinder provides block storage volumes that persist independently of the VM compute lifecycle and can be attached to instances."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal função do serviço Manila?",
+        "en": "What is the primary function of the Manila service?"
+      },
+      "options": {
+        "pt": [
+          "Disponibilizar sistemas de ficheiros partilhados entre instâncias.",
+          "Disponibilizar discos efémeros associados a instâncias de computação.",
+          "Disponibilizar armazenamento de objetos através de identificadores.",
+          "Disponibilizar exclusivamente imagens para criar máquinas virtuais."
+        ],
+        "en": [
+          "Providing shared file systems across multiple instances (Shared File Systems).",
+          "Providing ephemeral disks attached to compute instances.",
+          "Providing object storage through URI identifiers.",
+          "Exclusively providing images for creating virtual machines."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Manila disponibiliza serviços de ficheiros, semelhantes a um sistema de ficheiros partilhado em rede.",
+        "en": "Manila provides Shared File Systems as a Service (e.g., NFS, CIFS/SMB) across multi-tenant cloud environments."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Que serviço OpenStack é mais adequado para armazenar grandes quantidades de imagens e vídeos como objetos?",
+        "en": "Which OpenStack service is best suited for storing vast quantities of images and videos as objects?"
+      },
+      "options": {
+        "pt": [
+          "Cinder, porque disponibiliza volumes de blocos persistentes.",
+          "Manila, porque disponibiliza sistemas de ficheiros partilhados.",
+          "Swift, porque disponibiliza armazenamento distribuído por objetos.",
+          "Nova, porque disponibiliza armazenamento efémero das instâncias."
+        ],
+        "en": [
+          "Cinder, because it provides persistent block volumes.",
+          "Manila, because it provides shared file systems.",
+          "Swift, because it provides distributed object storage.",
+          "Nova, because it provides ephemeral instance storage."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Swift disponibiliza object storage, adequado a dados não estruturados, como imagens e vídeos.",
+        "en": "Swift provides distributed, highly available, scalable object storage, ideal for unstructured media content such as photos and video streams."
+      }
+    },
+    {
+      "id": 13,
+      "type": "boolean",
+      "question": {
+        "pt": "O armazenamento efémero associado a instâncias Nova deve ser considerado equivalente a armazenamento persistente independente da instância.",
+        "en": "Ephemeral storage associated with Nova compute instances should be considered equivalent to persistent storage independent of the instance."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. Os diapositivos distinguem armazenamento efémero, cujo conteúdo é eliminado com a terminação da instância, de serviços persistentes como Cinder.",
+        "en": "False. Ephemeral storage is discarded when the VM instance is terminated. For persistent state, dedicated storage services like Cinder must be used."
+      }
+    },
+    {
+      "id": 14,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função principal do Neutron?",
+        "en": "What is the primary function of Neutron?"
+      },
+      "options": {
+        "pt": [
+          "Disponibilizar e gerir recursos de rede para ambientes computacionais.",
+          "Recolher e armazenar métricas de desempenho das máquinas virtuais.",
+          "Gerir imagens de sistemas operativos utilizadas na criação de instâncias.",
+          "Fornecer sistemas de ficheiros partilhados entre diferentes aplicações."
+        ],
+        "en": [
+          "Provisioning and managing virtual networking resources for compute environments.",
+          "Collecting and storing performance metrics from virtual machines.",
+          "Managing operating system images used for instance creation.",
+          "Providing shared file systems across different applications."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Neutron fornece Networking-as-a-Service e segue princípios de Software-Defined Networking.",
+        "en": "Neutron provides Networking-as-a-Service (NaaS), implementing Software-Defined Networking (SDN) for virtual ports, switches, subnets, routers, and floating IPs."
+      }
+    },
+    {
+      "id": 15,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função dos serviços de Telemetry apresentados na matéria?",
+        "en": "What is the function of the Telemetry services presented in the course?"
+      },
+      "options": {
+        "pt": [
+          "Recolher métricas, armazená-las e desencadear ações segundo regras.",
+          "Gerir volumes, distribuir ficheiros e controlar permissões de acesso.",
+          "Criar instâncias, configurar imagens e instalar aplicações nos servidores.",
+          "Encaminhar pacotes, distribuir endereços e configurar redes privadas."
+        ],
+        "en": [
+          "Collecting metrics, storing them, and triggering actions based on alarm rules.",
+          "Managing volumes, distributing files, and enforcing access control permissions.",
+          "Creating instances, configuring images, and installing applications on servers.",
+          "Forwarding packets, assigning IP addresses, and configuring private networks."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Telemetry permite observar recursos físicos e virtuais, persistir métricas e desencadear ações quando são satisfeitas determinadas condições.",
+        "en": "Telemetry monitors physical and virtual resources, aggregates time-series metrics, supports metering/billing, and triggers autoscaling events via alarms."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença principal entre elasticidade em IaaS e PaaS, segundo os diapositivos?",
+        "en": "What is the main difference between elasticity in IaaS and PaaS, according to the lecture slides?"
+      },
+      "options": {
+        "pt": [
+          "Em IaaS ajustam-se recursos; em PaaS a plataforma pode ajustar instâncias aplicacionais.",
+          "Em IaaS ajustam-se aplicações; em PaaS apenas se ajustam servidores físicos.",
+          "Em IaaS a elasticidade é sempre automática; em PaaS exige sempre intervenção manual.",
+          "Em IaaS a elasticidade depende de SaaS; em PaaS depende exclusivamente do utilizador."
+        ],
+        "en": [
+          "In IaaS, raw resources are scaled; in PaaS, the platform can automatically scale application instances.",
+          "In IaaS, applications are scaled; in PaaS, only physical servers are adjusted.",
+          "In IaaS, elasticity is always automatic; in PaaS, it always requires manual intervention.",
+          "In IaaS, elasticity depends on SaaS; in PaaS, it depends solely on the user."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Em IaaS, o utilizador pode aumentar ou diminuir recursos, manualmente ou com ferramentas. Em PaaS, a elasticidade é frequentemente gerida pelo fornecedor e a unidade de escala tende a ser a aplicação.",
+        "en": "In IaaS, elasticity involves provisioning/deprovisioning VM or container infrastructure. In PaaS, the scaling unit is typically the application runtime itself, often automated natively by the platform."
+      }
+    },
+    {
+      "id": 17,
+      "type": "boolean",
+      "question": {
+        "pt": "A adoção de modelos cloud de maior abstração pode reduzir o controlo direto do utilizador sobre a infraestrutura.",
+        "en": "Adopting higher-abstraction cloud models can reduce the user's direct control over the underlying infrastructure."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Existe um compromisso entre conveniência e controlo. Em modelos mais abstratos, mais responsabilidades são transferidas para o fornecedor.",
+        "en": "True. There is an inherent trade-off between convenience and control. As abstraction increases (IaaS -> PaaS -> SaaS), more control and operational responsibility are ceded to the cloud provider."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Seleciona as DUAS afirmações corretas.",
+        "en": "Select the TWO correct statements."
+      },
+      "options": {
+        "pt": [
+          "Em IaaS, o utilizador mantém responsabilidades de administração de software.",
+          "Em SaaS, o utilizador administra necessariamente o sistema operativo.",
+          "Em PaaS, a plataforma pode disponibilizar ferramentas de deployment e monitorização.",
+          "Em IaaS, o fornecedor gere obrigatoriamente o código das aplicações do cliente."
+        ],
+        "en": [
+          "In IaaS, the user retains software administration responsibilities.",
+          "In SaaS, the user necessarily administers the operating system.",
+          "In PaaS, the platform can provide integrated deployment and monitoring tools.",
+          "In IaaS, the cloud provider mandatorily manages client application code."
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "IaaS disponibiliza infraestrutura, mantendo várias responsabilidades no utilizador. PaaS disponibiliza um ambiente e ferramentas de desenvolvimento e execução.",
+        "en": "In IaaS, the user is responsible for managing the OS, runtime, and software stack. In PaaS, the provider delivers rich deployment, logging, and runtime tooling."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escrita",
+      "question": {
+        "pt": "Uma empresa pretende migrar três componentes para a cloud: uma aplicação antiga que necessita de controlo do sistema operativo, uma nova aplicação web que deve ser desenvolvida rapidamente e um serviço de correio eletrónico. Escolhe o modelo cloud mais adequado para cada componente e justifica.",
+        "en": "A company intends to migrate three components to the cloud: a legacy application requiring custom OS kernel tuning, a new web application that must be rapidly developed and deployed, and an enterprise email service. Choose the most appropriate cloud service model for each component and justify your choices."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**Aplicação antiga: IaaS.** Permite gerir máquinas virtuais e manter maior controlo sobre o sistema operativo, dependências e configuração. Facilita a migração de aplicações que não foram desenvolvidas especificamente para plataformas cloud.\n\n**Nova aplicação web: PaaS.** Permite concentrar os esforços no desenvolvimento e deployment da aplicação, beneficiando de ferramentas e abstrações fornecidas pela plataforma.\n\n**Correio eletrónico: SaaS.** Um serviço de correio existente pode ser utilizado diretamente sem necessidade de desenvolver ou administrar toda a infraestrutura correspondente.\n\nA decisão envolve compromissos: IaaS oferece maior controlo e maior responsabilidade operacional; PaaS reduz a gestão de infraestrutura; SaaS proporciona maior abstração, mas menor controlo sobre a implementação interna.\n\n**Critérios de avaliação — 10 pontos:** escolha e justificação de IaaS (3); PaaS (3); SaaS (2); discussão dos compromissos de controlo e responsabilidade (2).",
+        "en": "Model answer:\n\n**Legacy application: IaaS.** Provides virtual machines with full administrative/root control over the operating system, custom dependencies, and kernel parameters. Facilitates \"lift-and-shift\" migrations for software not designed for modern cloud-native runtimes.\n\n**New web application: PaaS.** Allows developers to focus entirely on code and deployment workflows, leveraging automated buildpacks, database bindings, and autoscaling managed by the platform.\n\n**Email service: SaaS.** Turnkey commercial email platforms (e.g., Google Workspace, Microsoft 365) satisfy business communication requirements directly without the operational overhead of managing mail transfer agents, spam filtering, and storage infrastructure.\n\nThe decision reflects core architectural trade-offs: IaaS offers maximum control alongside high operational overhead; PaaS abstracts infrastructure to accelerate development; SaaS maximizes convenience but delegates internal implementation control entirely to the vendor.\n\n**Grading criteria — 10 points:** IaaS choice and justification (3); PaaS choice and justification (3); SaaS choice and justification (2); discussion of control vs convenience trade-offs (2)."
+      },
+      "explanation": {
+        "pt": "Os modelos não representam tecnologias concorrentes em todos os casos. Podem coexistir numa mesma organização.",
+        "en": "Cloud models are not mutually exclusive and frequently coexist within an enterprise cloud portfolio."
+      }
+    },
+    {
+      "id": 20,
+      "type": "escrita",
+      "question": {
+        "pt": "Pretendes criar uma aplicação em OpenStack com servidores de computação, base de dados persistente, armazenamento de imagens e comunicação entre componentes. Identifica os principais serviços OpenStack envolvidos e explica a função de cada um.",
+        "en": "You intend to build an application architecture in OpenStack featuring compute nodes, a persistent database, image storage, and inter-component network communication. Identify the key OpenStack services involved and explain the role of each."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**Nova:** criação e gestão das instâncias computacionais que executam os componentes.\n\n**Glance:** armazenamento e disponibilização das imagens utilizadas para iniciar instâncias.\n\n**Keystone:** identidade e autenticação dos utilizadores e serviços.\n\n**Neutron:** criação e gestão das redes que permitem a comunicação entre componentes.\n\n**Cinder:** volumes persistentes adequados ao armazenamento da base de dados.\n\n**Swift:** armazenamento de objetos, por exemplo, imagens carregadas pelos utilizadores.\n\n**Placement:** acompanhamento e alocação dos recursos computacionais disponíveis.\n\n**Telemetry:** recolha de métricas e possibilidade de desencadear ações segundo regras definidas.\n\n**Manila:** poderia ser utilizado caso existisse necessidade de partilhar ficheiros ou diretórios entre instâncias.\n\n**Critérios de avaliação — 10 pontos:** Nova (1,5); Cinder e Swift (2,5); Neutron (1,5); Keystone e Glance (1,5); Placement e Telemetry (2); coerência da solução (1).",
+        "en": "Model answer:\n\n**Nova:** creates and manages the lifecycle of compute virtual instances executing application logic.\n\n**Glance:** stores and serves baseline operating system images and snapshots used to spawn instances.\n\n**Keystone:** handles identity, authentication, API service catalog discovery, and token verification across all components.\n\n**Neutron:** creates and configures software-defined networks, subnets, routers, security groups, and floating IPs to interconnect components securely.\n\n**Cinder:** provides persistent block storage volumes attached to compute instances, essential for relational database data durability.\n\n**Swift:** provides distributed object storage suitable for storing static media, user uploads, or backups.\n\n**Placement:** tracks hardware resource inventory and allocation constraints to assist Nova's scheduler.\n\n**Telemetry (Ceilometer/Aodh):** gathers performance telemetry and triggers autoscaling or alert notifications based on configured thresholds.\n\n**Manila:** can optionally provide shared multi-instance network file storage (NFS) if components share file systems.\n\n**Grading criteria — 10 points:** Nova (1.5); Cinder and Swift (2.5); Neutron (1.5); Keystone and Glance (1.5); Placement and Telemetry (2); architectural coherence (1)."
+      },
+      "explanation": {
+        "pt": "O objetivo é compreender como diferentes serviços especializados cooperam na construção de uma infraestrutura cloud.",
+        "en": "Evaluates understanding of how specialized modular OpenStack microservices collaborate to deliver a cohesive cloud platform."
+      }
+    }
+  ]
+}

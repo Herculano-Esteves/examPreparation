@@ -8,18 +8,18 @@ export const JSON_INSTRUCTIONS = {
 ================================================================================
 Existem exatamente 3 tipos de perguntas suportadas pelo simulador:
 
-1. "escolha_multipla" (Escolha Múltipla):
+1. "${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}" (Escolha Múltipla):
    - "options": Obrigatório. Lista com as opções de resposta (alíneas A, B, C, D...).
    - "solution": Obrigatório. Array com os índices (base 0) da(s) resposta(s) correta(s).
      Exemplo: [0] para a 1ª opção, [1] para a 2ª opção, ou [0, 2] se existirem múltiplas opções corretas.
 
-2. "boolean" (Verdadeiro ou Falso):
+2. "${APP_CONFIG.questionTypes.BOOLEAN}" (Verdadeiro ou Falso):
    - "options": NÃO se usa este campo (é gerado automaticamente pelo simulador).
    - "solution": Obrigatório. Inteiro com o valor da verdade:
      * 0 = Verdadeiro (True)
      * 1 = Falso (False)
 
-3. "escrita" (Desenvolvimento / Resposta Aberta):
+3. "${APP_CONFIG.questionTypes.WRITTEN}" (Desenvolvimento / Resposta Aberta):
    - "options": NÃO se usa este campo.
    - "solution": Obrigatório. Texto detalhado com a resolução modelo e critérios de correção.
 
@@ -36,7 +36,7 @@ Campos Opcionais (comuns a qualquer tipo):
   "languages": ["pt"],
   "questions": [
     {
-      "type": "escolha_multipla",
+      "type": "${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}",
       "header": "\`\`\`c\\nint pid = fork();\\nif (pid == 0) { printf(\\"Filho\\"); }\\n\`\`\`",
       "question": "Qual é a saída do processo filho?",
       "options": [
@@ -49,14 +49,14 @@ Campos Opcionais (comuns a qualquer tipo):
       "explanation": "No processo filho, o fork() retorna 0, executando o bloco if."
     },
     {
-      "type": "boolean",
+      "type": "${APP_CONFIG.questionTypes.BOOLEAN}",
       "header": "\`\`\`bash\\n$ ls -la /var/log\\n\`\`\`",
       "question": "O comando acima lista ficheiros no formato longo incluindo ficheiros ocultos.",
       "solution": 0,
       "explanation": "A flag -a mostra ficheiros iniciados por '.' e -l usa formato longo."
     },
     {
-      "type": "escrita",
+      "type": "${APP_CONFIG.questionTypes.WRITTEN}",
       "question": "Explique a diferença entre paginação e segmentação de memória.",
       "solution": "A **paginação** divide a memória em blocos de tamanho fixo (frames/páginas).\\nA **segmentação** divide em blocos de tamanho variável com base na estrutura lógica.",
       "explanation": "Critérios: referir tamanho fixo vs variável e fragmentação externa vs interna."
@@ -82,7 +82,7 @@ Em "options", cada idioma deve ter um array com a mesma quantidade de opções e
   "languages": ["pt", "en"],
   "questions": [
     {
-      "type": "escolha_multipla",
+      "type": "${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}",
       "question": {
         "pt": "Qual das seguintes métricas penaliza fortemente outliers na regressão?",
         "en": "Which of the following metrics heavily penalises outliers in regression?"
@@ -98,7 +98,7 @@ Em "options", cada idioma deve ter um array com a mesma quantidade de opções e
       }
     },
     {
-      "type": "boolean",
+      "type": "${APP_CONFIG.questionTypes.BOOLEAN}",
       "question": {
         "pt": "Num problema de classificação binária, o atributo target é contínuo.",
         "en": "In a binary classification problem, the target attribute is continuous."
@@ -110,7 +110,7 @@ Em "options", cada idioma deve ter um array com a mesma quantidade de opções e
       }
     },
     {
-      "type": "escrita",
+      "type": "${APP_CONFIG.questionTypes.WRITTEN}",
       "question": {
         "pt": "Explique as consequências de aplicar discretização de igual largura num atributo com assimetria positiva.",
         "en": "Explain the consequences of applying equal width binning to an attribute with positive skewness."
@@ -141,18 +141,18 @@ Sabendo as instruções anteriores quero que faça um exame segundo o que o util
 ================================================================================
 There are exactly 3 question types supported by the simulator:
 
-1. "escolha_multipla" (Multiple Choice):
+1. "${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}" (Multiple Choice):
    - "options": Required. Array of answer choices (options A, B, C, D...).
    - "solution": Required. Array of 0-based indices corresponding to the correct answer(s).
      Example: [0] for the 1st option, [1] for the 2nd option, or [0, 2] for multiple correct answers.
 
-2. "boolean" (True or False):
+2. "${APP_CONFIG.questionTypes.BOOLEAN}" (True or False):
    - "options": DO NOT include this field (automatically rendered by the simulator).
    - "solution": Required. Integer representing the truth value:
      * 0 = True (Verdadeiro)
      * 1 = False (Falso)
 
-3. "escrita" (Open / Written Response):
+3. "${APP_CONFIG.questionTypes.WRITTEN}" (Open / Written Response):
    - "options": DO NOT include this field.
    - "solution": Required. Detailed model answer and grading criteria.
 
@@ -169,7 +169,7 @@ Optional Fields (applicable to any question type):
   "languages": ["en"],
   "questions": [
     {
-      "type": "escolha_multipla",
+      "type": "${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}",
       "header": "\`\`\`c\\nint pid = fork();\\nif (pid == 0) { printf(\\"Child\\"); }\\n\`\`\`",
       "question": "What is the output of the child process?",
       "options": [
@@ -182,14 +182,14 @@ Optional Fields (applicable to any question type):
       "explanation": "In the child process, fork() returns 0, executing the if block."
     },
     {
-      "type": "boolean",
+      "type": "${APP_CONFIG.questionTypes.BOOLEAN}",
       "header": "\`\`\`bash\\n$ ls -la /var/log\\n\`\`\`",
       "question": "The command above lists files in long format including hidden files.",
       "solution": 0,
       "explanation": "The -a flag lists entries starting with '.' and -l uses long format."
     },
     {
-      "type": "escrita",
+      "type": "${APP_CONFIG.questionTypes.WRITTEN}",
       "question": "Explain the difference between memory paging and segmentation.",
       "solution": "**Paging** divides memory into fixed-size blocks (pages/frames).\\n**Segmentation** divides memory into variable-sized logical blocks.",
       "explanation": "Grading criteria: mention fixed vs variable block size and internal vs external fragmentation."
@@ -215,7 +215,7 @@ In "options", each language must contain an array with identical option count an
   "languages": ["en", "pt"],
   "questions": [
     {
-      "type": "escolha_multipla",
+      "type": "${APP_CONFIG.questionTypes.MULTIPLE_CHOICE}",
       "question": {
         "en": "Which of the following metrics heavily penalises outliers in regression?",
         "pt": "Qual das seguintes métricas penaliza fortemente outliers na regressão?"
@@ -231,7 +231,7 @@ In "options", each language must contain an array with identical option count an
       }
     },
     {
-      "type": "boolean",
+      "type": "${APP_CONFIG.questionTypes.BOOLEAN}",
       "question": {
         "en": "In a binary classification problem, the target attribute is continuous.",
         "pt": "Num problema de classificação binária, o atributo target é contínuo."
@@ -243,7 +243,7 @@ In "options", each language must contain an array with identical option count an
       }
     },
     {
-      "type": "escrita",
+      "type": "${APP_CONFIG.questionTypes.WRITTEN}",
       "question": {
         "en": "Explain the consequences of applying equal width binning to an attribute with positive skewness.",
         "pt": "Explique as consequências de aplicar discretização de igual largura num atributo com assimetria positiva."

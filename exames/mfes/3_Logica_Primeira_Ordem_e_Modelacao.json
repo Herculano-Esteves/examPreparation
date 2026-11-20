@@ -1,0 +1,455 @@
+{
+  "title": {
+    "pt": "MFES — Exame 3: Lógica de Primeira Ordem e Modelação de Domínios",
+    "en": "MFES — Exam 3: First-Order Logic and Domain Modeling"
+  },
+  "description": {
+    "pt": "Nível 3/6 — Progressão da lógica proposicional para a lógica de primeira ordem. Inclui predicados, relações, funções, constantes, termos, quantificadores, variáveis livres, semântica, equivalências, modelação UML e decidibilidade. O objetivo é compreender rigorosamente como expressar propriedades sobre objetos e relações.",
+    "en": "Level 3/6 — Progression from propositional logic to First-Order Logic (FOL). Covers predicates, relations, functions, constants, terms, quantifiers (universal and existential), free and bound variables, model-theoretic semantics, logical equivalences, UML-to-FOL domain modeling, and decidability boundaries. Objective: master rigorous expression of properties over objects and structural relations."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal capacidade acrescentada pela lógica de primeira ordem relativamente à lógica proposicional?",
+        "en": "What is the primary capability introduced by First-Order Logic over Propositional Logic?"
+      },
+      "options": {
+        "pt": [
+          "Eliminar os conectivos lógicos",
+          "Raciocinar sobre objetos e relações através de predicados e variáveis quantificadas",
+          "Garantir que todos os problemas são decidíveis",
+          "Representar exclusivamente expressões aritméticas"
+        ],
+        "en": [
+          "Eliminating all logical connectives",
+          "Reasoning about objects and their relationships through predicates, variables, and quantifiers",
+          "Guaranteeing that all decision problems remain decidable",
+          "Exclusively expressing arithmetic inequalities"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A lógica de primeira ordem permite expressar propriedades sobre elementos de um domínio, recorrendo a predicados, variáveis e quantificadores.",
+        "en": "First-Order Logic extends propositional logic by introducing domain individuals, predicates representing properties and relations, function symbols, and universal/existential quantifiers over individual variables."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que representa um predicado unário P?",
+        "en": "What does a unary predicate P represent semantically in first-order logic?"
+      },
+      "options": {
+        "pt": [
+          "Uma relação entre dois elementos",
+          "Uma função que devolve obrigatoriamente um número",
+          "Um conjunto de elementos do domínio",
+          "Uma proposição que é sempre verdadeira"
+        ],
+        "en": [
+          "A relation between two elements",
+          "A function that mandatorily returns an integer",
+          "A subset of elements from the domain of discourse",
+          "A proposition that is unconditionally true"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Um predicado de aridade 1 pode ser interpretado como um conjunto de tuplos unários, ou seja, um conjunto de elementos do domínio.",
+        "en": "A predicate of arity 1 is interpreted as a set of 1-tuples over the domain D, which corresponds to a subset of domain elements satisfying that property: P^I ⊆ D."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O predicado amigo(x, y) possui que aridade?",
+        "en": "What is the arity of the predicate friend(x, y)?"
+      },
+      "options": {
+        "pt": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "en": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A aridade corresponde ao número de argumentos do predicado. Neste caso, a relação envolve dois elementos.",
+        "en": "Arity denotes the number of arguments taken by a predicate or function symbol. Since friend(x, y) relates two arguments, its arity is 2 (binary relation)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Uma relação binária R é necessariamente simétrica.",
+        "en": "A binary relation R is necessarily symmetric."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Uma relação binária pode ser simétrica ou não. A simetria exige uma restrição adicional: ∀x . ∀y . R(x,y) → R(y,x).",
+        "en": "False. A binary relation is not symmetric by default. Symmetry is a specific mathematical property requiring the explicit constraint: ∀x . ∀y . R(x, y) → R(y, x)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença fundamental entre uma função de aridade 1 e um predicado binário?",
+        "en": "What is the fundamental difference between a unary function and a binary predicate?"
+      },
+      "options": {
+        "pt": [
+          "Uma função associa a cada argumento exatamente um resultado, enquanto um predicado binário representa uma relação",
+          "Os predicados binários só podem ser verdadeiros",
+          "Uma função pode ter vários resultados para o mesmo argumento",
+          "Um predicado binário não possui interpretação"
+        ],
+        "en": [
+          "A function maps each argument to exactly one value, whereas a binary predicate represents an arbitrary relation (subset of pairs)",
+          "Binary predicates can only ever evaluate to true",
+          "A function can produce multiple distinct outputs for the same input",
+          "A binary predicate lacks a semantic interpretation"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma função unária associa exatamente um valor a cada elemento do domínio. Um predicado binário representa um conjunto de pares e não exige essa unicidade.",
+        "en": "In classical logic, a function f: D → D is total and deterministic, assigning exactly one output element to each input. A binary relation R ⊆ D × D can associate an element with zero, one, or multiple elements."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere o predicado Estudante(x).",
+        "en": "Consider the predicate Student(x)."
+      },
+      "question": {
+        "pt": "Qual é a formalização de 'Todos são estudantes'?",
+        "en": "What is the formalization of 'Everyone is a student'?"
+      },
+      "options": {
+        "pt": [
+          "∃x . Estudante(x)",
+          "∀x . Estudante(x)",
+          "∀x . ¬Estudante(x)",
+          "¬∃x . ¬Estudante(x) → Estudante(x)"
+        ],
+        "en": [
+          "∃x . Student(x)",
+          "∀x . Student(x)",
+          "∀x . ¬Student(x)",
+          "¬∃x . ¬Student(x) → Student(x)"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O quantificador universal exige que Estudante(x) seja verdadeiro para todos os elementos do domínio.",
+        "en": "The universal quantifier ∀ asserts that the predicate holds for every element in the domain: ∀x . Student(x)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere o predicado amigo(x,y).",
+        "en": "Consider the predicate friend(x, y)."
+      },
+      "question": {
+        "pt": "Qual é a formalização de 'Toda a pessoa tem pelo menos um amigo'?",
+        "en": "What is the formalization of 'Every person has at least one friend'?"
+      },
+      "options": {
+        "pt": [
+          "∃x . ∀y . amigo(x,y)",
+          "∀x . ∃y . amigo(x,y)",
+          "∀x . ∀y . amigo(x,y)",
+          "∃x . ∃y . ¬amigo(x,y)"
+        ],
+        "en": [
+          "∃x . ∀y . friend(x,y)",
+          "∀x . ∃y . friend(x,y)",
+          "∀x . ∀y . friend(x,y)",
+          "∃x . ∃y . ¬friend(x,y)"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Para cada elemento x, deve existir pelo menos um elemento y que satisfaça a relação amigo(x,y). O amigo pode ser diferente para cada pessoa.",
+        "en": "For every person x, there exists at least one person y such that x is friends with y: ∀x . ∃y . friend(x, y). The friend y can differ for each person x."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o significado de ∃y . ∀x . amigo(x,y)?",
+        "en": "What is the meaning of the formula ∃y . ∀x . friend(x, y)?"
+      },
+      "options": {
+        "pt": [
+          "Cada pessoa tem pelo menos um amigo, possivelmente diferente",
+          "Existe uma pessoa de quem todos são amigos",
+          "Todas as pessoas são amigas de todas as outras",
+          "Ninguém tem amigos"
+        ],
+        "en": [
+          "Each person has at least one friend, possibly different",
+          "There exists a person whom everyone considers a friend",
+          "Everyone is friends with everyone else",
+          "Nobody has any friends"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Existe um único elemento y que serve de testemunha para todas as escolhas de x. Isto é mais exigente do que ∀x . ∃y . amigo(x,y).",
+        "en": "The existential quantifier precedes the universal: there exists a single individual y who is simultaneously befriended by all persons x in the domain."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "As fórmulas ∀x . ∃y . R(x,y) e ∃y . ∀x . R(x,y) são logicamente equivalentes.",
+        "en": "The formulas ∀x . ∃y . R(x, y) and ∃y . ∀x . R(x, y) are logically equivalent."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "A ordem de quantificadores diferentes importa. Na primeira fórmula, cada x pode ter um y diferente. Na segunda, existe um mesmo y que satisfaz a relação para todos os x.",
+        "en": "False. Quantifier order with alternating quantifiers is not commutative. ∃y . ∀x . R(x, y) logically entails ∀x . ∃y . R(x, y), but the reverse entailment does not hold."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Na fórmula ∀x . R(x,y), qual é a variável livre?",
+        "en": "In the formula ∀x . R(x, y), which variable is free?"
+      },
+      "options": {
+        "pt": [
+          "Apenas x",
+          "Apenas y",
+          "x e y",
+          "Nenhuma"
+        ],
+        "en": [
+          "Only x",
+          "Only y",
+          "Both x and y",
+          "Neither"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "x está ligada pelo quantificador universal, enquanto y não está abrangida por qualquer quantificador. Logo, y é livre.",
+        "en": "Variable x is bound by the universal quantifier ∀x. Variable y is not bound by any quantifier, and is therefore free."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "A fórmula ∀x . ∃y . R(x,y) é uma fórmula fechada.",
+        "en": "The formula ∀x . ∃y . R(x, y) is a closed formula (a sentence)."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Todas as ocorrências de variáveis estão ligadas por quantificadores. Uma fórmula sem variáveis livres é fechada.",
+        "en": "True. A formula containing no free variable occurrences is called a sentence or closed formula. Here both x and y are bound."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que é necessário para interpretar semanticamente uma fórmula de primeira ordem com variáveis livres?",
+        "en": "What is required to semantically evaluate a first-order formula with free variables?"
+      },
+      "options": {
+        "pt": [
+          "Apenas uma tabela de verdade proposicional",
+          "Uma estrutura M = (D,I) e uma atribuição de valores às variáveis livres",
+          "Apenas o número de predicados",
+          "Uma função de ordenação das variáveis"
+        ],
+        "en": [
+          "Only a propositional truth table",
+          "A first-order structure M = (D, I) and a variable assignment assigning domain elements to free variables",
+          "Only the number of predicate symbols",
+          "A variable ordering function"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "D representa o domínio, I interpreta os símbolos e a atribuição associa elementos do domínio às variáveis livres.",
+        "en": "Evaluating a formula requires a structure M = (D, I) providing domain D and interpretation I, plus a variable valuation σ: V → D mapping free variables to domain elements."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quando é falsa a fórmula ∀x . P(x), numa determinada estrutura?",
+        "en": "Under what condition is the formula ∀x . P(x) false in a given structure?"
+      },
+      "options": {
+        "pt": [
+          "Quando existe pelo menos um elemento do domínio que não satisfaz P",
+          "Quando existe algum elemento que satisfaz P",
+          "Apenas quando todos os elementos satisfazem P",
+          "Nunca, porque é universal"
+        ],
+        "en": [
+          "When there exists at least one domain element that does not satisfy P",
+          "When there exists at least one domain element that satisfies P",
+          "Only when all domain elements satisfy P",
+          "Never, because it is universal"
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Basta encontrar um contraexemplo para refutar uma afirmação universal. A fórmula é falsa se existir x tal que ¬P(x).",
+        "en": "A universal statement ∀x . P(x) is falsified by a single counterexample: it is false in M iff there exists some d ∈ D such that P(d) is false."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a negação equivalente de ∀x . P(x)?",
+        "en": "What is the logically equivalent negation of ∀x . P(x)?"
+      },
+      "options": {
+        "pt": [
+          "∀x . ¬P(x)",
+          "∃x . ¬P(x)",
+          "∃x . P(x)",
+          "¬∃x . P(x)"
+        ],
+        "en": [
+          "∀x . ¬P(x)",
+          "∃x . ¬P(x)",
+          "∃x . P(x)",
+          "¬∃x . P(x)"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A negação troca o quantificador universal pelo existencial e nega a propriedade: ¬∀x.P(x) ≡ ∃x.¬P(x).",
+        "en": "By duality of quantifiers: ¬(∀x . P(x)) ≡ ∃x . ¬P(x)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere os predicados Estudante(x) e Pessoa(x).",
+        "en": "Consider the predicates Student(x) and Person(x)."
+      },
+      "question": {
+        "pt": "Qual é a formalização de 'Todos os estudantes são pessoas'?",
+        "en": "What is the formalization of 'All students are persons'?"
+      },
+      "options": {
+        "pt": [
+          "∀x . Estudante(x) ∧ Pessoa(x)",
+          "∀x . Estudante(x) → Pessoa(x)",
+          "∃x . Estudante(x) → Pessoa(x)",
+          "∀x . Pessoa(x) → Estudante(x)"
+        ],
+        "en": [
+          "∀x . Student(x) ∧ Person(x)",
+          "∀x . Student(x) → Person(x)",
+          "∃x . Student(x) → Person(x)",
+          "∀x . Person(x) → Student(x)"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A implicação estabelece a inclusão entre os conjuntos representados pelos predicados: todos os elementos de Estudante pertencem também a Pessoa.",
+        "en": "Restricted universal statements use implication: ∀x . (Student(x) → Person(x)). Using conjunction would assert that every entity in the entire universe is both a student and a person."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Como se expande a quantificação tipada ∃x : A . P(x)?",
+        "en": "How is the typed existential quantification ∃x : A . P(x) expanded in untyped first-order logic?"
+      },
+      "options": {
+        "pt": [
+          "∃x . A(x) → P(x)",
+          "∃x . A(x) ∧ P(x)",
+          "∀x . A(x) ∧ P(x)",
+          "∀x . A(x) → P(x)"
+        ],
+        "en": [
+          "∃x . A(x) → P(x)",
+          "∃x . A(x) ∧ P(x)",
+          "∀x . A(x) ∧ P(x)",
+          "∀x . A(x) → P(x)"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Na quantificação existencial restrita, a testemunha deve pertencer ao conjunto A e satisfazer P. Na quantificação universal restrita utiliza-se uma implicação.",
+        "en": "Restricted existential quantification requires finding an element that belongs to type A and satisfies P: ∃x . (A(x) ∧ P(x)). (Using implication would make the formula vacuously true if any element outside A exists)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "O problema geral de decidir a satisfatibilidade de fórmulas de lógica de primeira ordem é indecidível.",
+        "en": "The general problem of deciding the satisfiability of first-order logic formulas is undecidable (Church-Turing theorem)."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Ao contrário da lógica proposicional, a satisfatibilidade geral em lógica de primeira ordem é indecidível. Pode recuperar-se decidibilidade restringindo o domínio a um tamanho finito ou trabalhando em teorias e fragmentos decidíveis.",
+        "en": "True. First-Order Logic is semi-decidable: valid formulas are recursively enumerable (completeness), but satisfiability/validity over arbitrary domains is undecidable in general."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Considere um sistema de ficheiros com os predicados Object(x), Dir(x), File(x), Root(x), Entry(x), contains(x,y) e refersTo(x,y). Formalize as seguintes propriedades: (1) todos os diretórios são objetos; (2) ficheiros e diretórios são disjuntos; (3) existe exatamente uma raiz; (4) a raiz é um diretório; (5) cada entrada refere exatamente um objeto.",
+        "en": "Consider a file system with predicates Object(x), Dir(x), File(x), Root(x), Entry(x), contains(x, y), and refersTo(x, y). Formalize the following properties in First-Order Logic: (1) all directories are objects; (2) files and directories are disjoint; (3) there exists exactly one root; (4) the root is a directory; (5) each entry refers to exactly one object."
+      },
+      "solution": {
+        "pt": "**1. Diretórios são objetos:** ∀x . Dir(x) → Object(x).\n\n**2. Ficheiros e diretórios são disjuntos:** ∀x . ¬(File(x) ∧ Dir(x)).\n\n**3. Existe exatamente uma raiz:** (∃x . Root(x)) ∧ (∀x . ∀y . (Root(x) ∧ Root(y)) → x = y).\n\n**4. A raiz é um diretório:** ∀x . Root(x) → Dir(x).\n\n**5. Cada entrada refere exatamente um objeto:**\nExistência: ∀x . Entry(x) → ∃y . (Object(y) ∧ refersTo(x,y)).\nTipagem: ∀x . ∀y . refersTo(x,y) → (Entry(x) ∧ Object(y)).\nUnicidade: ∀x . ∀y . ∀z . (refersTo(x,y) ∧ refersTo(x,z)) → y = z.\n\nA existência garante pelo menos uma referência por entrada, enquanto a unicidade impede referências para dois objetos diferentes.\n\n**Critérios de avaliação:** 15% para cada uma das primeiras quatro propriedades e 40% para a última, distribuídos entre existência, tipagem e unicidade.",
+        "en": "**1. All directories are objects:**\n∀x . Dir(x) → Object(x)\n\n**2. Files and directories are disjoint:**\n∀x . ¬(File(x) ∧ Dir(x))\n\n**3. There exists exactly one root:**\n(∃x . Root(x)) ∧ (∀x . ∀y . (Root(x) ∧ Root(y)) → x = y)\n\n**4. The root is a directory:**\n∀x . Root(x) → Dir(x)\n\n**5. Each entry refers to exactly one object:**\n- Existence: ∀x . Entry(x) → ∃y . (Object(y) ∧ refersTo(x, y))\n- Typing: ∀x . ∀y . refersTo(x, y) → (Entry(x) ∧ Object(y))\n- Uniqueness: ∀x . ∀y . ∀z . (refersTo(x, y) ∧ refersTo(x, z)) → y = z\n\n**Grading criteria:** 15% for each of items (1)–(4); 40% for item (5) distributed across existence, typing, and uniqueness."
+      },
+      "explanation": {
+        "pt": "A modelação em primeira ordem exige explicitar propriedades que noutras linguagens podem estar implícitas, como inclusões, disjunções de conjuntos, tipagem e multiplicidades.",
+        "en": "First-Order Logic requires making explicit structural properties that may remain implicit in high-level languages, such as subset inclusions, disjointness, typing, and multiplicities."
+      }
+    }
+  ]
+}

@@ -16,28 +16,28 @@ class TestFilterStateMath(unittest.TestCase):
     """Testa a lógica matemática isolada de filterState."""
 
     def test_canonical_question_types(self):
-        """Valida os tipos de questão canónicos ('escolha_multipla', 'boolean', 'escrita')."""
+        """Valida os tipos de questão canónicos definidos em config.js ('multiple_choice', 'boolean', 'written')."""
         import re
         import os
-        filter_state_path = os.path.join(os.path.dirname(__file__), "..", "static", "js", "filterState.js")
-        with open(filter_state_path, "r", encoding="utf-8") as f:
+        config_path = os.path.join(os.path.dirname(__file__), "..", "static", "js", "config.js")
+        with open(config_path, "r", encoding="utf-8") as f:
             content = f.read()
-        match = re.search(r"export\s+const\s+ALL_QUESTION_TYPES\s*=\s*\[(.*?)\];", content)
+        match = re.search(r"questionTypes:\s*\{(.*?)\}", content, re.DOTALL)
         self.assertIsNotNone(match)
-        types = [t.strip().strip("'\"") for t in match.group(1).split(",") if t.strip()]
-        self.assertEqual(types, ['escolha_multipla', 'boolean', 'escrita'])
+        types = re.findall(r":\s*'([^']+)'", match.group(1))
+        self.assertEqual(types, ['multiple_choice', 'boolean', 'written'])
 
     def test_canonical_languages(self):
-        """Valida as línguas canónicas ('pt', 'en')."""
+        """Valida as línguas canónicas definidas em config.js ('en', 'pt')."""
         import re
         import os
-        filter_state_path = os.path.join(os.path.dirname(__file__), "..", "static", "js", "filterState.js")
-        with open(filter_state_path, "r", encoding="utf-8") as f:
+        config_path = os.path.join(os.path.dirname(__file__), "..", "static", "js", "config.js")
+        with open(config_path, "r", encoding="utf-8") as f:
             content = f.read()
-        match = re.search(r"export\s+const\s+ALL_LANGUAGES\s*=\s*\[(.*?)\];", content)
+        match = re.search(r"supportedLanguages:\s*\[(.*?)\]", content)
         self.assertIsNotNone(match)
         langs = [l.strip().strip("'\"") for l in match.group(1).split(",") if l.strip()]
-        self.assertEqual(langs, ['pt', 'en'])
+        self.assertEqual(set(langs), {'pt', 'en'})
 
     def test_sanitize_questions_max_preserves_lower_values(self):
         """Garante que quando o utilizador define max=10 numa cadeira de 50, o valor 10 é preservado!"""

@@ -1,0 +1,499 @@
+{
+  "title": {
+    "pt": "Exame 5 — Aprofundamento I: Routing Multicast, RPF, PIM-SM e PIM-DM",
+    "en": "Exam 5 — Advanced Study I: Multicast Routing, RPF, PIM-SM, and PIM-DM"
+  },
+  "description": {
+    "pt": "NÍVEL 5 — APROFUNDAMENTO TEÓRICO | 18 questões | Dificuldade: avançada. Primeiro exame de aprofundamento. Pressupõe o domínio do Exame 4 e explora os mecanismos internos de routing multicast apresentados no segundo PowerPoint: árvores source-based e shared, estados (S,G) e (*,G), Rendezvous Point, Reverse Path Forwarding, MRIB, Designated Router, Rendezvous Point Tree, encapsulamento, soft-state, PIM Sparse Mode e PIM Dense Mode, Prune, Graft e respetivas implicações de escalabilidade. As perguntas exigem compreensão causal e raciocínio sobre o funcionamento dos protocolos.",
+    "en": "LEVEL 5 — THEORETICAL IN-DEPTH STUDY | 18 questions | Difficulty: advanced. First advanced study exam. Assumes mastery of Exam 4 and thoroughly explores the internal mechanics of multicast routing presented in the second slide deck: source-based and shared trees, (S,G) and (*,G) forwarding states, Rendezvous Point (RP), Reverse Path Forwarding (RPF), MRIB, Designated Router (DR), Rendezvous Point Tree (RPT), data encapsulation, soft-state dynamics, PIM Sparse Mode and PIM Dense Mode, Prune, Graft, and their scalability implications. Questions demand causal reasoning and deep understanding of protocol operations."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a característica fundamental do PIM Sparse Mode (PIM-SM)?",
+        "en": "What is the fundamental operational characteristic of PIM Sparse Mode (PIM-SM)?"
+      },
+      "options": {
+        "pt": [
+          "Assume que todos os routers pretendem receber todos os grupos.",
+          "Funciona como um protocolo opt-in, encaminhando tráfego multicast para ramos que manifestaram interesse.",
+          "Utiliza exclusivamente árvores source-based e nunca utiliza RP.",
+          "Não necessita de informação sobre os recetores."
+        ],
+        "en": [
+          "It assumes that all routers on the internetwork intend to receive all multicast groups.",
+          "It operates on an opt-in model, forwarding multicast traffic only onto network branches that explicitly request it.",
+          "It exclusively constructs source-based trees and never relies on a Rendezvous Point (RP).",
+          "It forwards traffic blindly without tracking receiver group membership."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O PIM-SM é um protocolo opt-in. Os routers estabelecem participação multicast através de mensagens de controlo, permitindo construir árvores de distribuição de acordo com o interesse existente.",
+        "en": "PIM-SM employs an explicit-join (opt-in) model: routers do not forward multicast packets onto a link unless downstream routers have sent explicit Join control messages."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a característica fundamental do PIM Dense Mode (PIM-DM)?",
+        "en": "What is the fundamental operational characteristic of PIM Dense Mode (PIM-DM)?"
+      },
+      "options": {
+        "pt": [
+          "Utiliza obrigatoriamente um Rendezvous Point.",
+          "Encaminha exclusivamente dados de uma CDN.",
+          "Assume inicialmente interesse generalizado e utiliza mecanismos de flooding e pruning.",
+          "Necessita de um pedido (*,G) antes de qualquer encaminhamento."
+        ],
+        "en": [
+          "It mandatorily configures a centralized Rendezvous Point.",
+          "It exclusively delivers video streams sourced from CDNs.",
+          "It assumes widespread downstream interest, initially flooding traffic everywhere and using Prune messages to cut inactive branches.",
+          "It requires explicit (*, G) Joins prior to forwarding any initial packets."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O PIM-DM segue uma abordagem opt-out. O tráfego pode ser inicialmente distribuído de forma abrangente, sendo posteriormente removidos os ramos que não possuem recetores interessados.",
+        "en": "PIM-DM is an opt-out (flood-and-prune) protocol: it initially broadcasts multicast datagrams onto all outgoing interfaces and relies on upstream Prune messages from routers that have no interested listeners."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Em que cenário o PIM-SM tende a ser mais adequado?",
+        "en": "In which deployment scenario is PIM-SM typically the most appropriate choice?"
+      },
+      "options": {
+        "pt": [
+          "Quando existem poucos recetores interessados, dispersos numa rede extensa.",
+          "Quando todos os routers pretendem necessariamente receber o mesmo fluxo.",
+          "Quando não existem protocolos de routing.",
+          "Quando é necessário eliminar completamente as mensagens de controlo."
+        ],
+        "en": [
+          "When there are relatively few interested receivers, sparsely distributed across a wide-area network.",
+          "When every router and subnet in the network domain wants to receive the multicast stream.",
+          "When the network possesses no underlying unicast routing protocol.",
+          "When it is required to completely eliminate all control signaling messages."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O PIM-SM é especialmente adequado a ambientes sparse, nos quais os recetores estão relativamente dispersos. Evita distribuir tráfego indiscriminadamente por segmentos sem interesse.",
+        "en": "PIM-SM is tailored for sparse topologies where receivers are geographically separated across wide-area links, avoiding the massive bandwidth waste of broadcast flooding."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a finalidade principal do algoritmo Reverse Path Forwarding (RPF)?",
+        "en": "What is the primary purpose of the Reverse Path Forwarding (RPF) check?"
+      },
+      "options": {
+        "pt": [
+          "Comprimir os dados antes da transmissão.",
+          "Selecionar a representação DASH mais adequada.",
+          "Substituir o IGMP na identificação de hosts.",
+          "Verificar se os pacotes multicast chegam pela interface upstream esperada, evitando duplicações e loops."
+        ],
+        "en": [
+          "Compressing payload data prior to forwarding.",
+          "Selecting the optimal DASH bitrate representation.",
+          "Replacing IGMP in identifying local receiver subnets.",
+          "Verifying that incoming multicast packets arrive on the expected upstream interface toward the source/RP, preventing packet duplication and routing loops."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "O RPF permite verificar se um pacote chega pela interface adequada em relação à raiz relevante da árvore. Se chegar por outra interface, pode ser descartado, evitando encaminhamento incorreto e ciclos.",
+        "en": "RPF ensures loop-free delivery: a router only accepts and forwards a multicast packet if it arrives on the interface used to send unicast traffic back to the source (or RP). Packets arriving on any other interface are immediately dropped."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função da Multicast Routing Information Base (MRIB) no contexto apresentado?",
+        "en": "What is the function of the Multicast Routing Information Base (MRIB) in multicast forwarding?"
+      },
+      "options": {
+        "pt": [
+          "Guardar permanentemente todos os pacotes de vídeo.",
+          "Disponibilizar informação de encaminhamento utilizada nas consultas RPF.",
+          "Armazenar os ficheiros manifest do DASH.",
+          "Substituir os endereços multicast por endereços MAC."
+        ],
+        "en": [
+          "Permanently caching video packets for replay.",
+          "Providing routing topology information derived from unicast or multicast routing protocols to perform RPF lookups.",
+          "Storing DASH MPD manifest files.",
+          "Translating IP multicast addresses into layer-2 MAC addresses."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A MRIB disponibiliza informação utilizada para determinar a interface upstream apropriada. O PIM pode recorrer a consultas RPF baseadas nessa informação.",
+        "en": "The MRIB is the routing table topology database accessed by PIM to resolve the upstream neighbor and incoming interface (RPF interface) toward any source or RP."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um router possui três interfaces. A consulta RPF para uma determinada fonte identifica a interface 1 como upstream. Um pacote multicast dessa fonte chega pela interface 3.",
+        "en": "A router has three interfaces. An RPF lookup for source S identifies interface 1 as the incoming upstream interface. A multicast packet from S arrives on interface 3."
+      },
+      "question": {
+        "pt": "Qual deve ser o comportamento do router segundo o princípio RPF?",
+        "en": "What must the router do according to the RPF rule?"
+      },
+      "options": {
+        "pt": [
+          "Aceitar e replicar o pacote por todas as interfaces.",
+          "Enviar o pacote para a fonte por TCP.",
+          "Descartar o pacote por ter chegado pela interface incorreta.",
+          "Alterar automaticamente o endereço multicast."
+        ],
+        "en": [
+          "Accept the packet and forward it across all outgoing interfaces.",
+          "Return the packet back to the source via a TCP connection.",
+          "Drop the packet silently because it failed the RPF check (wrong incoming interface).",
+          "Automatically rewrite the destination multicast IP."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Se o pacote não chegar pela interface upstream esperada, falha a verificação RPF. O descarte evita que cópias recebidas por percursos indevidos provoquem duplicações ou ciclos.",
+        "en": "The incoming interface (interface 3) does not match the RPF interface (interface 1). The packet fails the RPF check and is dropped, preventing forwarding loops."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função do Rendezvous Point (RP) no PIM-SM?",
+        "en": "What is the role of the Rendezvous Point (RP) in PIM-SM?"
+      },
+      "options": {
+        "pt": [
+          "Servir como ponto de referência ou raiz da árvore partilhada de distribuição multicast.",
+          "Atuar obrigatoriamente como o único emissor de dados.",
+          "Substituir todos os routers da rede.",
+          "Determinar a qualidade de vídeo dos clientes DASH."
+        ],
+        "en": [
+          "Serving as the meeting place and root of the shared distribution tree (RPT) for a multicast group.",
+          "Acting mandatorily as the sole data broadcaster.",
+          "Replacing all intermediate routers across the domain.",
+          "Determining adaptive video chunk bitrates for DASH players."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "No PIM-SM, o RP é utilizado como raiz de uma árvore partilhada. Os routers interessados podem construir estados de encaminhamento em direção ao RP.",
+        "en": "The RP acts as the root of the shared tree (*, G). Sources register with the RP, and receiver routers join the shared tree toward the RP, decoupling sources from receivers."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal responsabilidade do Designated Router (DR) numa LAN com recetores multicast?",
+        "en": "What is the primary responsibility of the Designated Router (DR) on a multi-access LAN with multicast receivers?"
+      },
+      "options": {
+        "pt": [
+          "Executar obrigatoriamente a aplicação multimédia.",
+          "Substituir os switches da rede local.",
+          "Armazenar todos os ficheiros transmitidos.",
+          "Assumir a responsabilidade de aderir ao grupo multicast e participar no encaminhamento para a LAN."
+        ],
+        "en": [
+          "Mandatorily executing the application-layer media player.",
+          "Replacing link-layer Ethernet switches on the LAN.",
+          "Caching all files transmitted across the subnet.",
+          "Acting on behalf of local hosts to send PIM Join/Prune messages upstream and forward multicast traffic onto the LAN."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "No cenário apresentado de PIM-SM, um router é selecionado como DR na rede local. Esse router desempenha um papel central na participação multicast e no encaminhamento de tráfego para os recetores locais.",
+        "en": "On a shared multi-access LAN, one router is elected DR (highest IP by default) to avoid duplicate traffic: the receiver DR sends PIM Joins upstream on behalf of local IGMP listeners."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No PIM-SM, qual é o efeito das mensagens PIM (*,G) Join enviadas em direção ao RP?",
+        "en": "In PIM-SM, what is the effect of PIM (*, G) Join messages forwarded hop-by-hop toward the RP?"
+      },
+      "options": {
+        "pt": [
+          "Criar obrigatoriamente ligações TCP.",
+          "Estabelecer estado de encaminhamento para construir uma árvore partilhada, designada Rendezvous Point Tree.",
+          "Eliminar a necessidade de identificação dos grupos.",
+          "Converter multicast em broadcast em toda a Internet."
+        ],
+        "en": [
+          "Mandatorily establishing underlying TCP connections.",
+          "Instantiating (*, G) forwarding state in intermediate routers to construct the shared Rendezvous Point Tree (RPT).",
+          "Eliminating the need to identify multicast group addresses.",
+          "Converting all multicast packets into broadcast across the entire Internet."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "As mensagens (*,G) Join permitem criar estado de encaminhamento nos routers ao longo do caminho em direção ao RP. O conjunto desses estados forma a árvore partilhada associada ao grupo.",
+        "en": "PIM (*, G) Joins travel upstream hop-by-hop toward the RP, setting up (*, G) outgoing interface lists (OIL) in each router to build the shared tree."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque pode ser necessário encapsular dados no funcionamento inicial de determinadas árvores partilhadas PIM-SM?",
+        "en": "Why is unicast encapsulation used during initial source registration in PIM-SM?"
+      },
+      "options": {
+        "pt": [
+          "Para transformar o conteúdo em texto ASCII.",
+          "Para impedir a utilização de routing IP.",
+          "Para transportar os dados desde o router associado à fonte até ao RP, onde podem ser desencapsulados.",
+          "Para garantir que todos os clientes utilizam TCP."
+        ],
+        "en": [
+          "To convert binary media payloads into ASCII text.",
+          "To bypass network-layer IP routing.",
+          "To tunnel initial multicast packets from the source's first-hop router (source DR) to the RP inside unicast PIM Register messages.",
+          "To force all receivers to establish TCP connections."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O mecanismo apresentado para árvores partilhadas unidirecionais permite transportar dados da fonte até ao RP através de encapsulamento. A partir do RP, os dados podem ser distribuídos pela árvore multicast.",
+        "en": "When a source first transmits, the source DR encapsulates multicast data inside unicast PIM Register messages sent directly to the RP, which decapsulates and forwards them onto the shared tree."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque pode o PIM-SM utilizar árvores source-based mesmo quando já existe uma árvore partilhada?",
+        "en": "Why does PIM-SM allow the last-hop router to switch from the shared tree (RPT) to a source-based tree (SPT)?"
+      },
+      "options": {
+        "pt": [
+          "Para otimizar o percurso dos dados e evitar caminhos indiretos através do RP.",
+          "Para obrigar todos os routers a receber tráfego desnecessário.",
+          "Para eliminar a utilização de endereços IP.",
+          "Para garantir que todos os participantes pertencem à mesma LAN."
+        ],
+        "en": [
+          "To optimize latency by routing data along the shortest direct path from source to receiver, avoiding triangular routing through the RP.",
+          "To force all internetwork routers to receive unwanted traffic.",
+          "To eliminate the need for IP addressing.",
+          "To ensure all communicating peers reside on the same physical subnet."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "As árvores source-based podem permitir percursos mais eficientes entre fontes e recetores. Os slides também referem a sua utilização em SSM e como forma de evitar determinados mecanismos de encapsulamento.",
+        "en": "The SPT switchover creates an (S, G) shortest-path tree directly from source to receiver DR, eliminating the sub-optimal latency and bandwidth bottlenecks of routing through the RP."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "O PIM-SM utiliza mecanismos soft-state, pelo que determinados estados de encaminhamento precisam de ser atualizados periodicamente através de mensagens de controlo.",
+        "en": "PIM-SM relies on soft-state timers, meaning forwarding state entries must be periodically refreshed by control messages (e.g., periodic Joins) or they will expire and be deleted."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Em soft-state, o estado pode expirar na ausência de atualização. As mensagens Join são retransmitidas periodicamente para manter a participação na árvore.",
+        "en": "True. In soft-state architectures, routing state automatically times out unless refreshed periodically (typically every 60 seconds), ensuring automatic recovery from link failures or router crashes."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No PIM-DM, o que acontece inicialmente ao tráfego multicast quando a distribuição é desencadeada?",
+        "en": "In PIM-DM, what initially happens to multicast packets when a new source starts transmitting?"
+      },
+      "options": {
+        "pt": [
+          "É enviado exclusivamente para o RP.",
+          "É distribuído através de flooding, sujeito às verificações de encaminhamento.",
+          "É armazenado até todos os routers enviarem um (*,G) Join.",
+          "É convertido automaticamente em tráfego HTTP."
+        ],
+        "en": [
+          "Traffic is routed exclusively to a designated Rendezvous Point.",
+          "Traffic is flooded across all downstream router interfaces subject to RPF checks.",
+          "Traffic is buffered until every leaf router returns a (*, G) Join.",
+          "Traffic is converted into unicast HTTP streams."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O PIM-DM assume inicialmente que existe interesse generalizado. O tráfego pode ser encaminhado para diferentes partes do domínio, respeitando verificações como o RPF.",
+        "en": "PIM-DM operates on a flood-and-prune model: the first packet is flooded out all non-incoming interfaces that pass RPF checks, reaching all edges of the network domain."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quando um router PIM-DM não necessita de receber os dados de uma fonte para um determinado grupo, que mensagem pode enviar?",
+        "en": "When a PIM-DM router has no downstream receivers for group G, which control message does it send upstream?"
+      },
+      "options": {
+        "pt": [
+          "IGMP Report.",
+          "PIM (*,G) Join.",
+          "PIM (S,G) Prune.",
+          "HTTP GET."
+        ],
+        "en": [
+          "An IGMP Report.",
+          "A PIM (*, G) Join.",
+          "A PIM (S, G) Prune message.",
+          "An HTTP GET request."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O router pode enviar uma mensagem PIM (S,G) Prune em direção ao upstream. O objetivo é interromper o envio de tráfego da fonte S para o grupo G através daquele ramo.",
+        "en": "The router transmits a PIM (S, G) Prune message toward the upstream neighbor on the RPF interface, removing itself from the source distribution tree for that group."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que acontece quando o estado Prune de um router PIM-DM expira?",
+        "en": "What occurs in PIM-DM when a router's Prune state timer expires?"
+      },
+      "options": {
+        "pt": [
+          "O estado de exclusão deixa de estar ativo e o tráfego pode voltar a circular pelo ramo.",
+          "Todos os recetores são automaticamente removidos da rede.",
+          "O endereço multicast deixa de existir.",
+          "O router converte-se obrigatoriamente num RP."
+        ],
+        "en": [
+          "The pruned state times out, unpruning the branch and causing multicast traffic to be flooded down that link again.",
+          "All end-host receivers are forcibly disconnected from the network.",
+          "The multicast IP group address is permanently deregistered.",
+          "The downstream router is promoted to a Rendezvous Point."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O estado Prune não é permanente. Quando expira, a distribuição pode voltar a abranger o ramo anteriormente excluído, sendo necessário voltar a indicar falta de interesse quando apropriado.",
+        "en": "Prune state has a finite lifetime (typically 3 minutes). Upon expiration, the upstream router resumes flooding down that branch until a new Prune is received."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um segmento de rede foi anteriormente removido da árvore de distribuição PIM-DM através de um Prune. Entretanto, surge nesse segmento um novo recetor interessado.",
+        "en": "A network segment was previously pruned from a PIM-DM distribution tree. An interested receiver now joins that subnet before the prune timer expires."
+      },
+      "question": {
+        "pt": "Qual é o mecanismo previsto para recuperar a participação sem esperar simplesmente pela expiração do Prune?",
+        "en": "What mechanism allows the router to immediately rejoin the distribution tree without waiting for the prune timer to expire?"
+      },
+      "options": {
+        "pt": [
+          "Enviar uma mensagem SMTP.",
+          "Criar um novo endereço IP unicast.",
+          "Reiniciar obrigatoriamente todos os routers.",
+          "Enviar uma mensagem PIM (S,G) Graft em direção ao upstream."
+        ],
+        "en": [
+          "Sending an SMTP notification.",
+          "Allocating a new unicast IP address.",
+          "Rebooting intermediate backbone routers.",
+          "Transmitting a PIM (S, G) Graft message upstream."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "O Graft permite solicitar explicitamente a reintegração de um ramo anteriormente removido. Nos slides, o Graft é identificado como uma situação particular no PIM em que existe confirmação explícita através de acknowledgment.",
+        "en": "A PIM (S, G) Graft message is sent upstream to immediately cancel the prune state. Uniquely in PIM, Graft messages require an explicit Graft-Ack confirmation from the upstream router."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes afirmações compara corretamente as árvores source-based e shared?",
+        "en": "Which statement accurately compares source-based trees with shared distribution trees?"
+      },
+      "options": {
+        "pt": [
+          "As árvores source-based usam sempre menos estado do que as shared, independentemente do número de fontes.",
+          "As shared trees garantem obrigatoriamente o caminho mais curto entre todas as fontes e todos os recetores.",
+          "As source-based podem oferecer percursos eficientes, mas exigem estado por fonte; as shared permitem partilhar uma árvore, podendo introduzir percursos indiretos.",
+          "Ambas exigem obrigatoriamente um RP para cada fonte."
+        ],
+        "en": [
+          "Source-based trees consume less router state than shared trees regardless of the number of sources.",
+          "Shared trees guarantee shortest paths between all transmitting sources and receivers.",
+          "Source-based trees provide optimal end-to-end delay paths but require state per source (S, G); shared trees aggregate all sources into a single (*, G) tree rooted at an RP, but can introduce indirect, higher-delay paths.",
+          "Both tree architectures require configuring a separate RP per individual source."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Esta é uma das principais decisões de desenho do multicast. A utilização de árvores por fonte pode melhorar os caminhos dos dados, enquanto a utilização de uma árvore partilhada reduz a necessidade de manter árvores independentes para todas as fontes.",
+        "en": "Source-based trees optimize delay at the cost of (S, G) state scaling with S × G. Shared trees reduce router memory consumption to (*, G), but route packets indirectly through the RP."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Compare detalhadamente o funcionamento do PIM Sparse Mode e do PIM Dense Mode. Comece por explicar os pressupostos de cada protocolo relativamente à distribuição dos recetores. Descreva como são construídas as árvores, que mensagens de controlo são utilizadas, como funciona o RPF, qual é o papel do RP e em que situações surgem Prune e Graft. Termine justificando qual dos protocolos escolheria para uma rede extensa com poucos recetores interessados e para um domínio pequeno onde quase todos os segmentos pretendem receber o tráfego.",
+        "en": "Provide a comprehensive comparative analysis of PIM Sparse Mode (PIM-SM) and PIM Dense Mode (PIM-DM). Begin by explaining the receiver distribution assumptions of each protocol. Describe how distribution trees are constructed, the control messages involved, how RPF verification operates, the role of the Rendezvous Point (RP), and when Prune and Graft messages are triggered. Conclude by justifying which protocol you would deploy in: (1) a wide-area network with a few sparsely distributed receivers; and (2) a small campus LAN domain where almost all subnets require the multicast feed."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. PIM Sparse Mode:**\n- É um protocolo opt-in.\n- Foi concebido para ambientes em que os recetores interessados estão relativamente dispersos.\n- O tráfego multicast é encaminhado para ramos que manifestaram interesse.\n- Pode utilizar árvores partilhadas e árvores source-based.\n- Nas árvores partilhadas existe um Rendezvous Point.\n- Os routers utilizam mensagens (*,G) Join para construir estado de encaminhamento em direção ao RP.\n- O DR desempenha um papel importante na participação multicast da rede local.\n- O PIM-SM utiliza soft-state, exigindo atualizações periódicas.\n- Pode utilizar mecanismos de encapsulamento para transportar dados da fonte ao RP.\n- Pode recorrer a árvores source-based para melhorar os percursos.\n\n**2. PIM Dense Mode:**\n- É um protocolo opt-out.\n- Assume que a maioria dos segmentos do domínio pode estar interessada no tráfego.\n- Utiliza árvores source-based.\n- O tráfego é inicialmente distribuído através de flooding.\n- Os routers utilizam verificações RPF para evitar encaminhamento incorreto.\n- Quando não existe interesse num ramo, pode ser enviada uma mensagem (S,G) Prune.\n- Os estados Prune podem expirar.\n- Quando surge interesse num ramo previamente excluído, pode ser enviada uma mensagem (S,G) Graft.\n- O Graft é confirmado através de uma mensagem de acknowledgment.\n\n**3. RPF:**\n- Determina a interface upstream esperada relativamente à raiz relevante.\n- Pacotes recebidos por interfaces incorretas podem ser descartados.\n- Ajuda a evitar duplicações e loops.\n- Pode recorrer a informação da MRIB.\n\n**4. Comparação:**\n- Sparse Mode evita flooding generalizado e é adequado a redes com recetores dispersos.\n- Dense Mode pode ser eficiente em domínios pequenos onde existe interesse generalizado.\n- Sparse Mode oferece flexibilidade com árvores partilhadas e por fonte.\n- Dense Mode mantém estado associado a fontes e pode desperdiçar recursos quando existem muitos segmentos sem recetores.\n\n**5. Escolha:**\n- Rede extensa com poucos recetores: PIM-SM.\n- Domínio pequeno com recetores densamente distribuídos: PIM-DM pode ser adequado.\n\n**CRITÉRIOS DE CORREÇÃO — 20 pontos:**\n- Explicar os pressupostos sparse e dense: 3 pontos.\n- Explicar corretamente PIM-SM: 4 pontos.\n- Explicar corretamente PIM-DM: 4 pontos.\n- Explicar RPF e MRIB: 3 pontos.\n- Explicar RP e árvores partilhadas: 2 pontos.\n- Explicar Prune, Graft e atualização de estados: 2 pontos.\n- Justificar corretamente as escolhas para os cenários: 2 pontos.",
+        "en": "MODEL ANSWER:\n\n**1. PIM Sparse Mode (PIM-SM):**\n- Explicit-join (opt-in) model, tailored for wide-area topologies with sparsely distributed receivers.\n- Constructs shared trees (*, G) rooted at a Rendezvous Point (RP) using periodic PIM (*, G) Join messages.\n- Receiver Designated Routers (DR) forward Joins upstream toward the RP.\n- Sources initially register with the RP via unicast encapsulated PIM Register messages.\n- Can switch over to source-based Shortest Path Trees (SPT) via (S, G) Joins to eliminate sub-optimal paths through the RP.\n- Soft-state refreshes maintain tree state.\n\n**2. PIM Dense Mode (PIM-DM):**\n- Flood-and-prune (opt-out) model, assuming receivers are densely distributed on almost all subnets.\n- Uses source-based trees exclusively without any RP.\n- Multicast data is initially broadcast-flooded across all interfaces passing RPF.\n- Routers without interested listeners send PIM (S, G) Prune messages upstream to cut inactive branches.\n- Prune state times out (soft-state); newly active branches send explicit PIM (S, G) Graft messages, confirmed via Graft-Ack.\n\n**3. Reverse Path Forwarding (RPF):**\n- Checks whether incoming multicast packets arrive on the router interface used to reach the source/RP via the unicast MRIB.\n- Packets arriving on non-RPF interfaces are dropped, preventing routing loops and packet duplication.\n\n**4. Architectural Comparison:**\n- Bandwidth efficiency: PIM-SM sends zero unwanted traffic to branches without receivers; PIM-DM floods entire domains periodically.\n- State scaling: PIM-SM shared trees aggregate state as (*, G); PIM-DM maintains state for every active source (S, G).\n\n**5. Scenario Justifications:**\n- Sparse WAN: PIM-SM is mandatory to avoid saturating WAN transit links with broadcast flooding.\n- Small dense domain: PIM-DM is acceptable and simple (no RP configuration required).\n\n**GRADING CRITERIA — 20 points:**\n- Explain sparse vs dense receiver assumptions: 3 points.\n- Correctly explain PIM-SM operation and tree construction: 4 points.\n- Correctly explain PIM-DM flooding and pruning: 4 points.\n- Explain RPF verification and MRIB lookups: 3 points.\n- Explain RP role and shared tree mechanisms: 2 points.\n- Explain Prune, Graft, and soft-state refreshes: 2 points.\n- Justify protocol selections for the given scenarios: 2 points."
+      },
+      "explanation": {
+        "pt": "Esta é uma pergunta de aprofundamento central. Não basta memorizar que Sparse Mode é opt-in e Dense Mode é opt-out. É necessário explicar como esses pressupostos determinam a construção das árvores, a utilização de mensagens de controlo e o consumo de recursos.",
+        "en": "This is a core in-depth theoretical synthesis question. Candidates must show not only that Sparse Mode is opt-in and Dense Mode is opt-out, but how those design philosophies govern state scaling, control overhead, and bandwidth consumption."
+      }
+    }
+  ]
+}

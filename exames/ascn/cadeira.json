@@ -1,0 +1,6 @@
+{
+  "nome": "Aplicações e Serviços de Computação em Nuvem",
+  "sigla": "ASCN",
+  "icon": "fa-cloud",
+  "descricao": "Aplicações distribuídas, DevOps, Infrastructure as Code, provisionamento de sistemas, Cloud Computing (IaaS, PaaS, SaaS), OpenStack e arquiteturas cloud."
+}

@@ -10,7 +10,7 @@
  * ensure the values are always derived from the current State.
  */
 
-import { getInitialLanguage } from './config.js';
+import { APP_CONFIG, getInitialLanguage } from './config.js';
 
 export const State = {
     // Active language from configuration / storage
@@ -40,7 +40,7 @@ export const State = {
     // Exam sorting & global filters
     examSort: 'default', // 'default' | 'score_desc' | 'score_asc' | 'questions_desc' | 'questions_asc' | 'title_asc' | 'title_desc'
     examSearch: '',
-    globalQuestionTypes: ['escolha_multipla', 'boolean', 'escrita'],
+    globalQuestionTypes: Object.values(APP_CONFIG.questionTypes),
     examStateFilter: ['completed', 'pending'], // ['completed', 'pending']
     examLanguageFilter: ['pt', 'en'], // ['pt', 'en']
     prioritizedLanguage: 'pt', // 'pt' | 'en' (idioma prioritário nos blocos)

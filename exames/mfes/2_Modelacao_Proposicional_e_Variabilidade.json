@@ -1,0 +1,505 @@
+{
+  "title": {
+    "pt": "MFES — Exame 2: Modelação Proposicional e Análise de Variabilidade",
+    "en": "MFES — Exam 2: Propositional Modeling and Variability Analysis"
+  },
+  "description": {
+    "pt": "Nível 2/6 — Aplicação dos fundamentos de lógica proposicional à modelação de problemas. Abrange problemas de alocação, restrições genéricas, verificação de propriedades, software product lines, feature models, features opcionais, obrigatórias, dead e core. Progressão das restrições elementares para a formalização e análise de modelos.",
+    "en": "Level 2/6 — Application of propositional logic foundations to problem modeling. Covers allocation problems, generic constraints, property verification, Software Product Lines (SPL), feature models, optional/mandatory features, and dead/core feature analysis. Progression from elementary constraints to model formalization and automated analysis."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "A modelação formal permite representar um problema através de expressões de uma linguagem formal, possibilitando a análise matemática das suas propriedades.",
+        "en": "Formal modeling represents a domain problem using expressions of a formal language, enabling rigorous mathematical analysis of its properties."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "A modelação formal traduz entidades, decisões e restrições para um formalismo com semântica definida, permitindo analisar propriedades como consistência, satisfatibilidade e consequência lógica.",
+        "en": "Formal modeling maps domain entities, decisions, and constraints into a formal mathematical language with unambiguous semantics, enabling automated analysis of consistency, satisfiability, and logical entailment."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num problema de alocação com 4 objetos e 3 contentores, quantas variáveis proposicionais são necessárias na representação matricial apresentada nas aulas?",
+        "en": "In an allocation problem with 4 objects and 3 containers, how many propositional variables are required in the matrix representation presented in lectures?"
+      },
+      "options": {
+        "pt": [
+          "7",
+          "12",
+          "16",
+          "64"
+        ],
+        "en": [
+          "7",
+          "12",
+          "16",
+          "64"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Declara-se uma variável por cada par objeto-contentor. Portanto, 4 × 3 = 12 variáveis.",
+        "en": "One propositional variable is declared for each object-container pair (xi,j). Therefore, 4 × 3 = 12 propositional variables are needed."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere três contentores e as variáveis p1, p2 e p3, em que pi significa que um determinado objeto está no contentor i.",
+        "en": "Consider three containers and variables p1, p2, and p3, where pi signifies that a given object is placed in container i."
+      },
+      "question": {
+        "pt": "Qual é a fórmula que impõe que o objeto esteja em pelo menos um contentor?",
+        "en": "Which formula enforces the constraint that the object must be in at least one container?"
+      },
+      "options": {
+        "pt": [
+          "p1 ∧ p2 ∧ p3",
+          "¬p1 ∧ ¬p2 ∧ ¬p3",
+          "p1 ∨ p2 ∨ p3",
+          "¬p1 ∨ ¬p2 ∨ ¬p3"
+        ],
+        "en": [
+          "p1 ∧ p2 ∧ p3",
+          "¬p1 ∧ ¬p2 ∧ ¬p3",
+          "p1 ∨ p2 ∨ p3",
+          "¬p1 ∨ ¬p2 ∨ ¬p3"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Uma disjunção exige que pelo menos uma das proposições seja verdadeira, permitindo uma ou várias alocações.",
+        "en": "A disjunction p1 ∨ p2 ∨ p3 requires at least one of the allocation literals to evaluate to true, allowing one or multiple container allocations."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere duas posições disponíveis, representadas por p1 e p2.",
+        "en": "Consider two available positions represented by p1 and p2."
+      },
+      "question": {
+        "pt": "Qual das seguintes fórmulas impõe que um objeto ocupe no máximo uma posição?",
+        "en": "Which formula enforces that an object occupies at most one position?"
+      },
+      "options": {
+        "pt": [
+          "p1 ∨ p2",
+          "p1 ∧ p2",
+          "¬p1 ∨ ¬p2",
+          "p1 ↔ p2"
+        ],
+        "en": [
+          "p1 ∨ p2",
+          "p1 ∧ p2",
+          "¬p1 ∨ ¬p2",
+          "p1 ↔ p2"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A expressão ¬p1 ∨ ¬p2 é equivalente a ¬(p1 ∧ p2). Impede que as duas posições estejam selecionadas simultaneamente.",
+        "en": "The clause ¬p1 ∨ ¬p2 is equivalent to ¬(p1 ∧ p2), forbidding both positions from being selected simultaneously (at-most-one constraint)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Como se formaliza a restrição de que exatamente uma das variáveis A e B deve ser verdadeira?",
+        "en": "How is the constraint that exactly one of the variables A and B must be true formalized in propositional logic?"
+      },
+      "options": {
+        "pt": [
+          "A ∨ B",
+          "(A ∨ B) ∧ ¬(A ∧ B)",
+          "A ∧ B",
+          "A ↔ B"
+        ],
+        "en": [
+          "A ∨ B",
+          "(A ∨ B) ∧ ¬(A ∧ B)",
+          "A ∧ B",
+          "A ↔ B"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Exatamente uma significa conjugar duas condições: pelo menos uma deve ser verdadeira e não podem ser ambas verdadeiras.",
+        "en": "'Exactly one' conjoins the 'at least one' clause (A ∨ B) with the 'at most one' clause ¬(A ∧ B) (or equivalently, ¬A ∨ ¬B), corresponding to the exclusive OR (XOR)."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "A restrição de que cada pessoa ocupa pelo menos uma cadeira garante, por si só, que duas pessoas nunca ocupam a mesma cadeira.",
+        "en": "The constraint that each person occupies at least one chair guarantees, by itself, that two persons never share the same chair."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "São restrições distintas. É necessário acrescentar a condição de que cada cadeira pode ser ocupada por, no máximo, uma pessoa.",
+        "en": "False. These are orthogonal constraints: one enforces that every person has a seat (person → chair existence), while the other requires that each chair can accommodate at most one occupant (chair exclusivity)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere A1 e B1, que indicam respetivamente se os objetos A e B estão no contentor 1.",
+        "en": "Consider A1 and B1, indicating respectively whether objects A and B are in container 1."
+      },
+      "question": {
+        "pt": "Selecione todas as fórmulas que impedem A e B de ocupar simultaneamente o contentor 1.",
+        "en": "Select all formulas that prevent objects A and B from concurrently occupying container 1."
+      },
+      "options": {
+        "pt": [
+          "¬(A1 ∧ B1)",
+          "A1 ∧ B1",
+          "¬A1 ∨ ¬B1",
+          "A1 ↔ B1"
+        ],
+        "en": [
+          "¬(A1 ∧ B1)",
+          "A1 ∧ B1",
+          "¬A1 ∨ ¬B1",
+          "A1 ↔ B1"
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "As duas expressões são equivalentes por De Morgan e impedem a alocação simultânea. A segunda exige precisamente a situação proibida.",
+        "en": "¬(A1 ∧ B1) and ¬A1 ∨ ¬B1 are logically equivalent by De Morgan's Law, mutually excluding concurrent allocation to container 1."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Considere dois objetos A e B e dois contentores 1 e 2. Formalize em lógica proposicional as condições: cada objeto deve estar em exatamente um contentor e os dois objetos não podem estar no mesmo contentor.",
+        "en": "Consider two objects A and B, and two containers 1 and 2. Formalize in propositional logic the constraints: each object must be placed in exactly one container, and both objects cannot occupy the same container."
+      },
+      "solution": {
+        "pt": "Definem-se as variáveis A1, A2, B1 e B2.\n\n**Pelo menos um contentor por objeto:**\n(A1 ∨ A2) ∧ (B1 ∨ B2)\n\n**No máximo um contentor por objeto:**\n(¬A1 ∨ ¬A2) ∧ (¬B1 ∨ ¬B2)\n\n**Objetos em contentores diferentes:**\n(¬A1 ∨ ¬B1) ∧ (¬A2 ∨ ¬B2)\n\nA especificação final é a conjunção das três partes. Existem exatamente duas alocações possíveis: A no contentor 1 e B no 2, ou A no 2 e B no 1.\n\n**Critérios de avaliação:** 20% pela definição das variáveis; 25% pela condição de existência; 25% pela unicidade; 20% pela exclusão de objetos no mesmo contentor; 10% pela identificação das soluções.",
+        "en": "Define propositional variables A1, A2, B1, and B2.\n\n**1. At least one container per object:**\n(A1 ∨ A2) ∧ (B1 ∨ B2)\n\n**2. At most one container per object:**\n(¬A1 ∨ ¬A2) ∧ (¬B1 ∨ ¬B2)\n\n**3. Exclusivity (no two objects share a container):**\n(¬A1 ∨ ¬B1) ∧ (¬A2 ∨ ¬B2)\n\nThe complete formal specification is the conjunction of these three constraint sets. There are exactly two valid configurations: {A1, B2} and {A2, B1}.\n\n**Grading criteria:** 20% for variable definitions; 25% for existence clauses; 25% for uniqueness clauses; 20% for container mutual exclusion; 10% for identifying solutions."
+      },
+      "explanation": {
+        "pt": "Problemas de alocação são modelados através de variáveis que representam escolhas e fórmulas que representam as restrições genéricas e específicas.",
+        "en": "Allocation problems are modeled via decision variables representing choices, constrained by existence, uniqueness, and exclusivity formulas."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere uma especificação Φ e uma propriedade P que pretende verificar.",
+        "en": "Consider a specification Φ and a property P that you wish to verify."
+      },
+      "question": {
+        "pt": "Como se determina se P é uma consequência lógica de Φ?",
+        "en": "How do you verify whether property P is a logical consequence of specification Φ using a SAT solver?"
+      },
+      "options": {
+        "pt": [
+          "Verificando se Φ ∧ P é satisfatível",
+          "Verificando se Φ ∧ ¬P é insatisfatível",
+          "Verificando apenas se P é satisfatível",
+          "Verificando se Φ é insatisfatível e P é falsa"
+        ],
+        "en": [
+          "By verifying whether Φ ∧ P is satisfiable",
+          "By verifying whether Φ ∧ ¬P is unsatisfiable",
+          "By verifying only whether P is satisfiable",
+          "By verifying whether Φ is unsatisfiable and P is false"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Φ ⊨ P se e só se Φ ∧ ¬P é insatisfatível. Se existir um modelo desta conjunção, esse modelo é um contraexemplo à propriedade.",
+        "en": "Φ ⊨ P if and only if Φ ∧ ¬P is unsatisfiable. If Φ ∧ ¬P is satisfiable, any satisfying model constitutes a concrete counterexample where the specification holds but the property is violated."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que caracteriza uma Software Product Line (SPL)?",
+        "en": "What characterizes a Software Product Line (SPL)?"
+      },
+      "options": {
+        "pt": [
+          "Um único programa sem variantes",
+          "Uma família de produtos de software com funcionalidades potencialmente diferentes",
+          "Um conjunto de computadores com o mesmo sistema operativo",
+          "Uma linguagem lógica sem variáveis"
+        ],
+        "en": [
+          "A single monolithic software program without variants",
+          "A family of software products sharing a common core architecture with configurable optional and mandatory features",
+          "A pool of servers running the identical operating system kernel",
+          "A formal specification language lacking variables"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Uma SPL representa uma família de produtos relacionados, cujas variantes podem incluir diferentes combinações de funcionalidades, denominadas features.",
+        "en": "A Software Product Line (SPL) represents a family of related software systems developed from a common set of core assets in a prescribed way, differentiated by varying combinations of features."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num feature model, como é representada uma feature raiz R que deve existir em todos os produtos?",
+        "en": "In a feature model, how is a root feature R that must be present in all valid configurations encoded?"
+      },
+      "options": {
+        "pt": [
+          "¬R",
+          "R",
+          "R → ¬R",
+          "R ↔ ¬R"
+        ],
+        "en": [
+          "¬R",
+          "R",
+          "R → ¬R",
+          "R ↔ ¬R"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A feature raiz é obrigatória em qualquer produto válido. A fórmula inclui R como uma restrição.",
+        "en": "The root feature is mandatory in every valid product configuration. It is encoded as a unit clause asserting literal R."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere P como feature pai e F como subfeature opcional.",
+        "en": "Consider P as a parent feature and F as an optional subfeature."
+      },
+      "question": {
+        "pt": "Qual é a restrição correta?",
+        "en": "Which formula correctly represents this optional relationship?"
+      },
+      "options": {
+        "pt": [
+          "P → F",
+          "F → P",
+          "F ↔ P",
+          "F ∧ ¬P"
+        ],
+        "en": [
+          "P → F",
+          "F → P",
+          "F ↔ P",
+          "F ∧ ¬P"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Uma subfeature opcional só pode existir se o pai estiver presente. O pai pode existir sem a subfeature. Por isso, F → P.",
+        "en": "An optional child feature F can only be selected if its parent feature P is present. If the parent is absent, F cannot be included. Thus, F → P."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere P como feature pai e F como subfeature obrigatória.",
+        "en": "Consider P as a parent feature and F as a mandatory subfeature."
+      },
+      "question": {
+        "pt": "Qual é a restrição correta?",
+        "en": "Which formula correctly represents this mandatory relationship?"
+      },
+      "options": {
+        "pt": [
+          "F → P",
+          "P → F",
+          "F ↔ P",
+          "¬F ∨ ¬P"
+        ],
+        "en": [
+          "F → P",
+          "P → F",
+          "F ↔ P",
+          "¬F ∨ ¬P"
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Uma subfeature obrigatória está presente exatamente quando o pai está presente. A equivalência impõe ambas as implicações.",
+        "en": "A mandatory child feature F must be included if and only if parent P is selected: (P → F) ∧ (F → P) ≡ F ↔ P."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere P como pai de duas subfeatures A e B pertencentes a um grupo XOR.",
+        "en": "Consider P as the parent of two subfeatures A and B belonging to an alternative (XOR) feature group."
+      },
+      "question": {
+        "pt": "Qual das seguintes expressões modela corretamente o grupo?",
+        "en": "Which expression correctly models this alternative (XOR) feature group?"
+      },
+      "options": {
+        "pt": [
+          "P ↔ (A ∨ B)",
+          "(P ↔ (A ∨ B)) ∧ ¬(A ∧ B)",
+          "P ↔ (A ∧ B)",
+          "A ↔ B"
+        ],
+        "en": [
+          "P ↔ (A ∨ B)",
+          "(P ↔ (A ∨ B)) ∧ ¬(A ∧ B)",
+          "P ↔ (A ∧ B)",
+          "A ↔ B"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A equivalência exige que, quando P está presente, pelo menos uma subfeature esteja presente, e que as subfeatures dependam do pai. A exclusão impede selecionar ambas.",
+        "en": "When parent P is selected, exactly one of the child features must be selected: P ↔ (A ∨ B) ensures at least one child is chosen when P is present, and ¬(A ∧ B) enforces mutual exclusion."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Selecione todas as traduções corretas das restrições entre features.",
+        "en": "Select all correct propositional translations of cross-tree feature constraints."
+      },
+      "options": {
+        "pt": [
+          "A requires B corresponde a A → B",
+          "A excludes B corresponde a A ↔ B",
+          "A excludes B corresponde a ¬(A ∧ B)",
+          "A requires B corresponde a B → A"
+        ],
+        "en": [
+          "'A requires B' corresponds to A → B",
+          "'A excludes B' corresponds to A ↔ B",
+          "'A excludes B' corresponds to ¬(A ∧ B)",
+          "'A requires B' corresponds to B → A"
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "Requires significa que selecionar A obriga a selecionar B. Excludes impede que A e B sejam selecionadas simultaneamente.",
+        "en": "'A requires B' means selecting A implies selecting B (A → B). 'A excludes B' means selecting A forbids selecting B, encoded as ¬(A ∧ B) or ¬A ∨ ¬B."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere Φ como a fórmula que representa um feature model.",
+        "en": "Consider Φ as the propositional formula encoding a feature model."
+      },
+      "question": {
+        "pt": "Como se verifica se o feature model não é void?",
+        "en": "How do you verify whether the feature model is non-void (valid)?"
+      },
+      "options": {
+        "pt": [
+          "Verificando se Φ é válida",
+          "Verificando se Φ é satisfatível",
+          "Verificando se ¬Φ é satisfatível",
+          "Verificando se todas as features são opcionais"
+        ],
+        "en": [
+          "By verifying whether Φ is valid (tautological)",
+          "By verifying whether Φ is satisfiable (SAT)",
+          "By verifying whether ¬Φ is satisfiable",
+          "By verifying whether all features are optional"
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Um feature model não é void quando admite pelo menos um produto válido. Isso equivale à existência de uma valoração que satisfaz Φ.",
+        "en": "A feature model is non-void if it permits at least one valid product configuration. This is verified by checking whether the formula Φ is satisfiable (SAT)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere Φ como um feature model e F como uma feature.",
+        "en": "Consider Φ as a feature model and F as a specific feature."
+      },
+      "question": {
+        "pt": "Selecione todas as afirmações corretas.",
+        "en": "Select all correct statements regarding dead and core features."
+      },
+      "options": {
+        "pt": [
+          "F é dead se Φ ∧ F for insatisfatível",
+          "F é core se Φ ∧ F for insatisfatível",
+          "F é core se Φ ∧ ¬F for insatisfatível",
+          "F é dead se Φ ∧ ¬F for satisfatível"
+        ],
+        "en": [
+          "F is a dead feature if Φ ∧ F is unsatisfiable (UNSAT)",
+          "F is a core feature if Φ ∧ F is unsatisfiable (UNSAT)",
+          "F is a core feature if Φ ∧ ¬F is unsatisfiable (UNSAT)",
+          "F is a dead feature if Φ ∧ ¬F is satisfiable (SAT)"
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "Uma feature dead não aparece em nenhum produto válido. Uma feature core está presente em todos os produtos válidos. Estas condições são determinadas através dos respetivos testes de insatisfatibilidade.",
+        "en": "A dead feature can never appear in any valid product: Φ ∧ F is UNSAT. A core feature must appear in every valid product: Φ ⊨ F, which holds if and only if Φ ∧ ¬F is UNSAT."
+      }
+    },
+    {
+      "type": "escrita",
+      "header": {
+        "pt": "Considere o modelo Φ = P ∧ (A ↔ P) ∧ (B → P) ∧ (C → B) ∧ ¬(A ∧ C).",
+        "en": "Consider the model Φ = P ∧ (A ↔ P) ∧ (B → P) ∧ (C → B) ∧ ¬(A ∧ C)."
+      },
+      "question": {
+        "pt": "Determine se Φ é satisfatível, identifique as features core e dead e indique quantos produtos válidos existem. Justifique formalmente.",
+        "en": "Determine whether Φ is satisfiable, identify all core and dead features, and state how many valid product configurations exist. Provide a rigorous formal justification."
+      },
+      "solution": {
+        "pt": "Como P é obrigatório e A ↔ P, temos P = 1 e A = 1 em todos os produtos válidos.\n\nA restrição ¬(A ∧ C), juntamente com A = 1, obriga C = 0.\n\nB é opcional, pois apenas tem de satisfazer B → P. Como P = 1, B pode assumir 0 ou 1.\n\n**Produtos válidos:**\n1. P = 1, A = 1, B = 0, C = 0.\n2. P = 1, A = 1, B = 1, C = 0.\n\n**Conclusões:** Φ é satisfatível; P e A são core; C é dead; B é opcional e existem exatamente 2 produtos.\n\n**Verificações formais:** Φ ∧ ¬P e Φ ∧ ¬A são insatisfatíveis; Φ ∧ C é insatisfatível; Φ ∧ B e Φ ∧ ¬B são satisfatíveis.\n\n**Critérios de avaliação:** 20% pela satisfatibilidade; 25% pelas features core; 20% pela feature dead; 20% pela contagem; 15% pela justificação através das restrições.",
+        "en": "**1. Step-by-step analysis:**\n- P is asserted: P = 1.\n- A ↔ P: with P = 1, we must have A = 1.\n- Cross-tree exclusion ¬(A ∧ C): since A = 1, C must be 0 (C = 0 in all models).\n- B is optional under P: B → P holds vacuously since P = 1, so B can take either 0 or 1.\n- C → B: holds since C = 0 regardless of B.\n\n**2. Valid product configurations:**\nProduct 1: {P=1, A=1, B=0, C=0}\nProduct 2: {P=1, A=1, B=1, C=0}\n\n**3. Formal conclusions:**\n- Φ is satisfiable (exactly 2 valid products exist).\n- Core features: P and A (Φ ∧ ¬P is UNSAT, Φ ∧ ¬A is UNSAT).\n- Dead feature: C (Φ ∧ C is UNSAT).\n- Optional feature: B (both Φ ∧ B and Φ ∧ ¬B are SAT).\n\n**Grading criteria:** 20% for satisfiability check; 25% for identifying core features; 20% for identifying dead feature; 20% for enumerating valid configurations; 15% for constraint justification."
+      },
+      "explanation": {
+        "pt": "Este exercício combina satisfatibilidade, consequência lógica e análise de variabilidade. Para contar produtos, devem considerar-se apenas as valorações que satisfazem todas as restrições.",
+        "en": "This exercise synthesises satisfiability, logical entailment, and feature model analysis. To enumerate products, only valuations satisfying all constraints simultaneously must be considered."
+      }
+    }
+  ]
+}

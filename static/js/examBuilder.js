@@ -55,7 +55,7 @@ export function initExamBuilder() {
 
     // Add question button (bottom of questions section)
     const handleAddQ = () => {
-        addQuestionBox(createDefaultQuestion('escolha_multipla'));
+        addQuestionBox(createDefaultQuestion());
         handleVisualChange();
         const visualBody = document.querySelector('.builder-visual-body');
         if (visualBody) {
@@ -199,7 +199,7 @@ export function resetExamBuilder() {
     if (listContainer) listContainer.innerHTML = '';
 
     // Add 1 default question
-    addQuestionBox(createDefaultQuestion('escolha_multipla'));
+    addQuestionBox(createDefaultQuestion());
     handleVisualChange();
 }
 

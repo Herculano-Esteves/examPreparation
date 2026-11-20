@@ -1,0 +1,164 @@
+[
+  {
+    "id": "1_Fundamentos_Aplicacoes_Infraestrutura_e_Distribuicao",
+    "title": {
+      "pt": "Exame 1 — Fundamentos: Aplicações, Infraestrutura e Distribuição",
+      "en": "Exam 1 — Foundations: Applications, Infrastructure, and Distribution"
+    },
+    "description": {
+      "pt": "Nível 1/6 — Introdutório. Objetivo: compreender a estrutura de uma aplicação, os desafios operacionais, as motivações para distribuir sistemas e os primeiros mecanismos de distribuição. A sequência começa nas aplicações tradicionais e termina na análise de arquiteturas distribuídas.",
+      "en": "Level 1/6 — Introductory. Objective: understand application structure, operational challenges, motivations for distributed systems, and initial distribution mechanisms. The sequence progresses from traditional applications to distributed architecture analysis."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 13,
+      "boolean": 5,
+      "written": 2
+    },
+    "path": "exames/ascn/1_Fundamentos_Aplicacoes_Infraestrutura_e_Distribuicao.json"
+  },
+  {
+    "id": "2_Arquiteturas_Distribuidas_e_Desafios_de_Coordenacao",
+    "title": {
+      "pt": "Exame 2 — Arquiteturas Distribuídas e Desafios de Coordenação",
+      "en": "Exam 2 — Distributed Architectures and Coordination Challenges"
+    },
+    "description": {
+      "pt": "Nível 2/6 — Básico a intermédio. Aprofunda as arquiteturas client-server, proxy-server, manager-worker, server group, bus e multi-tier. Introduz problemas de estado, consistência, coordenação e pontos únicos de falha.",
+      "en": "Level 2/6 — Basic to intermediate. Explores client-server, proxy-server, manager-worker, server group, bus, and multi-tier architectures. Introduces state management, consistency, coordination challenges, and single points of failure."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 14,
+      "boolean": 4,
+      "written": 2
+    },
+    "path": "exames/ascn/2_Arquiteturas_Distribuidas_e_Desafios_de_Coordenacao.json"
+  },
+  {
+    "id": "3_DevOps_Infrastructure_as_Code_e_System_Provisioning",
+    "title": {
+      "pt": "Exame 3 — DevOps, Infrastructure as Code e System Provisioning",
+      "en": "Exam 3 — DevOps, Infrastructure as Code, and System Provisioning"
+    },
+    "description": {
+      "pt": "Nível 3/6 — Intermédio. Desenvolve os conceitos de desenvolvimento ágil, operações, Infrastructure as Code, provisioning, deployment, gestão de configuração e Ansible. As questões progridem da motivação teórica para a interpretação de mecanismos de automatização.",
+      "en": "Level 3/6 — Intermediate. Covers agile development, operations, Infrastructure as Code, provisioning, deployment, configuration management, and Ansible. Questions progress from theoretical rationale to interpreting automation mechanisms."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 14,
+      "boolean": 4,
+      "written": 2
+    },
+    "path": "exames/ascn/3_DevOps_Infrastructure_as_Code_e_System_Provisioning.json"
+  },
+  {
+    "id": "4_Cloud_Computing_IaaS_PaaS_SaaS_e_OpenStack",
+    "title": {
+      "pt": "Exame 4 — Cloud Computing: IaaS, PaaS, SaaS e OpenStack",
+      "en": "Exam 4 — Cloud Computing: IaaS, PaaS, SaaS, and OpenStack"
+    },
+    "description": {
+      "pt": "Nível 4/6 — Intermédio a avançado. Aborda modelos de serviço, responsabilidades do fornecedor e do utilizador, OpenStack, armazenamento, redes, monitorização, elasticidade, conveniência e perda de controlo.",
+      "en": "Level 4/6 — Intermediate to advanced. Addresses service models, cloud provider vs tenant responsibilities, OpenStack, storage, networking, monitoring, elasticity, convenience, and vendor lock-in/loss of control."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 15,
+      "boolean": 3,
+      "written": 2
+    },
+    "path": "exames/ascn/4_Cloud_Computing_IaaS_PaaS_SaaS_e_OpenStack.json"
+  },
+  {
+    "id": "5_Aprofundamento_I_Analise_Arquiteturas_e_Resolucao_Problemas",
+    "title": {
+      "pt": "Exame 5 — Aprofundamento I: Análise de Arquiteturas e Resolução de Problemas",
+      "en": "Exam 5 — Advanced Focus I: Architecture Analysis and Problem Solving"
+    },
+    "description": {
+      "pt": "Nível 5/6 — Avançado. Primeiro exame de aprofundamento. Integra os conceitos de aplicações distribuídas, modularidade, escalabilidade, redundância, consistência, estado, proxy-server, manager-worker, server group e automatização. As perguntas exigem raciocínio sobre situações que combinam vários conceitos.",
+      "en": "Level 5/6 — Advanced. First advanced focus exam. Integrates distributed applications, modularity, scalability, redundancy, consistency, state, proxy-server, manager-worker, server group, and automation. Questions require reasoning across multi-concept architectural scenarios."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 20,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 16,
+      "boolean": 2,
+      "written": 2
+    },
+    "path": "exames/ascn/5_Aprofundamento_I_Analise_Arquiteturas_e_Resolucao_Problemas.json"
+  },
+  {
+    "id": "6_Aprofundamento_II_Integracao_Global_e_Decisoes_Arquitetura_Cloud",
+    "title": {
+      "pt": "Exame 6 — Aprofundamento II: Integração Global e Decisões de Arquitetura Cloud",
+      "en": "Exam 6 — Advanced Focus II: Global Integration and Cloud Architecture Decisions"
+    },
+    "description": {
+      "pt": "Nível 6/6 — Avançado. Exame final integrador. Combina os quatro conjuntos teóricos através de problemas que exigem selecionar serviços cloud, compreender responsabilidades, planear automação, analisar armazenamento, avaliar falhas e estabelecer compromissos. A dificuldade aumenta até às questões finais de desenho e justificação arquitetural.",
+      "en": "Level 6/6 — Advanced. Final capstone exam. Combines all four theoretical modules through real-world scenarios: selecting cloud services, shared responsibility models, automation planning, storage trade-offs, fault evaluation, and architectural decision justification."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 19,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 15,
+      "boolean": 2,
+      "written": 2
+    },
+    "path": "exames/ascn/6_Aprofundamento_II_Integracao_Global_e_Decisoes_Arquitetura_Cloud.json"
+  }
+]

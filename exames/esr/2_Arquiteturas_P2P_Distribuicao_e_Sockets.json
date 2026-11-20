@@ -1,0 +1,431 @@
+{
+  "title": {
+    "pt": "Exame 2 — Arquiteturas P2P, Distribuição de Ficheiros e Programação com Sockets",
+    "en": "Exam 2 — P2P Architectures, File Distribution, and Socket Programming"
+  },
+  "description": {
+    "pt": "NÍVEL 2 — COMPREENSÃO E APLICAÇÃO | 16 questões | Dificuldade: básica a intermédia. Continuação do Exame 1. Aprofunda as arquiteturas cliente-servidor e P2P, os limites teóricos dos tempos de distribuição, a escalabilidade, o funcionamento do BitTorrent, os mecanismos rarest first e tit-for-tat e a comunicação através de sockets TCP e UDP. Baseado nas secções 2.5 e 2.7 do PowerPoint Application Layer. As perguntas evoluem de conceitos para interpretação de fórmulas e análise de mecanismos.",
+    "en": "LEVEL 2 — COMPREHENSION AND APPLICATION | 16 questions | Difficulty: basic to intermediate. Continuation of Exam 1. Explores client-server and P2P architectures in depth, theoretical distribution time bounds, self-scalability, BitTorrent operation, rarest-first and tit-for-tat mechanisms, and network communication via TCP and UDP sockets. Based on sections 2.5 and 2.7 of the Application Layer slide deck. Questions progress from conceptual foundations to formula interpretation and protocol mechanism analysis."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num sistema cliente-servidor tradicional, de que depende fortemente o tempo necessário para distribuir um ficheiro a muitos clientes?",
+        "en": "In a traditional client-server system, on what does the time required to distribute a file to many clients strongly depend?"
+      },
+      "options": {
+        "pt": [
+          "Apenas da capacidade de upload dos clientes.",
+          "Da capacidade de upload do servidor, do número de clientes e das capacidades de download.",
+          "Exclusivamente da quantidade de memória disponível nos clientes.",
+          "Apenas do número de routers existentes na Internet."
+        ],
+        "en": [
+          "Only on the upload capacity of the clients.",
+          "On the server's upload capacity, the number of clients, and the clients' download capacities.",
+          "Exclusively on the RAM available on client machines.",
+          "Only on the total number of routers across the Internet."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O servidor necessita de enviar uma cópia do ficheiro para cada cliente. Assim, a sua capacidade de upload constitui um limite importante, especialmente quando o número de clientes aumenta.",
+        "en": "The server must transmit a separate copy of the file to each client. Consequently, its upload capacity is a critical bottleneck, particularly as the number of clients scales up."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Considere um ficheiro de dimensão F, um servidor com capacidade de upload us, N clientes e dmin como a menor capacidade de download entre os clientes.",
+        "en": "Consider a file of size F, a server with upload capacity us, N clients, and dmin as the minimum download capacity among all clients."
+      },
+      "question": {
+        "pt": "Qual é a expressão correta para o limite inferior do tempo de distribuição numa arquitetura cliente-servidor?",
+        "en": "What is the correct expression for the lower bound of distribution time in a client-server architecture?"
+      },
+      "options": {
+        "pt": [
+          "Dcs ≥ F / (N × us).",
+          "Dcs ≥ F / us.",
+          "Dcs ≥ max(NF / us, F / dmin).",
+          "Dcs ≥ NF / Σui."
+        ],
+        "en": [
+          "Dcs ≥ F / (N × us).",
+          "Dcs ≥ F / us.",
+          "Dcs ≥ max(NF / us, F / dmin).",
+          "Dcs ≥ NF / Σui."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O servidor precisa de enviar N cópias, exigindo pelo menos NF/us unidades de tempo. Simultaneamente, o cliente mais lento necessita de pelo menos F/dmin para descarregar o ficheiro. O limite inferior corresponde ao maior dos dois valores.",
+        "en": "The server must upload N file copies, requiring at least NF/us time. Simultaneously, the bottleneck client requires at least F/dmin to download the file. The lower bound is governed by the maximum of these two constraints."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um servidor distribui um ficheiro de 100 MB a 5 clientes. A capacidade de upload do servidor é de 10 MB/s e todos os clientes conseguem descarregar a pelo menos 20 MB/s.",
+        "en": "A server distributes a 100 MB file to 5 clients. The server upload capacity is 10 MB/s and all clients can download at least at 20 MB/s."
+      },
+      "question": {
+        "pt": "Qual é o limite inferior teórico do tempo de distribuição cliente-servidor, segundo o modelo dos slides?",
+        "en": "What is the theoretical lower bound for client-server distribution time, according to the slide model?"
+      },
+      "options": {
+        "pt": [
+          "5 segundos.",
+          "10 segundos.",
+          "25 segundos.",
+          "50 segundos."
+        ],
+        "en": [
+          "5 seconds.",
+          "10 seconds.",
+          "25 seconds.",
+          "50 seconds."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "NF/us = 5 × 100 / 10 = 50 segundos. F/dmin = 100 / 20 = 5 segundos. O limite inferior é max(50, 5) = 50 segundos. Este valor representa um limite teórico, não necessariamente o tempo real observado.",
+        "en": "NF/us = 5 × 100 / 10 = 50 seconds. F/dmin = 100 / 20 = 5 seconds. The theoretical lower bound is max(50, 5) = 50 seconds."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal diferença entre a distribuição cliente-servidor e a distribuição P2P?",
+        "en": "What is the primary difference between client-server distribution and P2P distribution?"
+      },
+      "options": {
+        "pt": [
+          "Em P2P, os clientes também podem contribuir com capacidade de upload.",
+          "Em P2P, nenhum participante necessita de descarregar dados.",
+          "Na arquitetura cliente-servidor, os clientes enviam sempre dados uns aos outros.",
+          "Em P2P, a largura de banda disponível é obrigatoriamente ilimitada."
+        ],
+        "en": [
+          "In P2P, clients (peers) also contribute upload capacity to the network.",
+          "In P2P, no participant needs to download data.",
+          "In client-server architecture, clients always relay data to each other.",
+          "In P2P, available bandwidth is inherently infinite."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A propriedade fundamental do P2P é a contribuição dos próprios participantes para a distribuição. Cada novo peer pode aumentar tanto a procura como a capacidade de serviço.",
+        "en": "The defining property of P2P is that participating peers contribute upload capacity while downloading. Each joining peer introduces both workload and service capacity."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "No modelo P2P, F é a dimensão do ficheiro, N o número de peers, us o upload do servidor inicial, dmin o menor download e Σui a soma das capacidades de upload dos peers.",
+        "en": "In the theoretical P2P model, F is the file size, N the number of peers, us the initial server upload, dmin the minimum client download rate, and Σui the sum of peer upload capacities."
+      },
+      "question": {
+        "pt": "Qual é o limite inferior teórico apresentado para o tempo de distribuição P2P?",
+        "en": "What is the theoretical lower bound presented for P2P distribution time?"
+      },
+      "options": {
+        "pt": [
+          "Dp2p ≥ max(F/us, F/dmin, NF/(us + Σui)).",
+          "Dp2p ≥ NF/us.",
+          "Dp2p ≥ F/(N × dmin).",
+          "Dp2p ≥ NF/dmin."
+        ],
+        "en": [
+          "Dp2p ≥ max(F/us, F/dmin, NF/(us + Σui)).",
+          "Dp2p ≥ NF/us.",
+          "Dp2p ≥ F/(N × dmin).",
+          "Dp2p ≥ NF/dmin."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O servidor precisa de disponibilizar pelo menos uma cópia completa, cada peer precisa de descarregar o ficheiro e a capacidade total de upload tem de suportar a distribuição de NF unidades de dados. O maior destes três limites condiciona o tempo mínimo.",
+        "en": "The server must upload at least one full copy (F/us), each peer must download the full file (F/dmin), and overall system upload must distribute N × F bits (NF/(us + Σui)). The maximum of these three sets the lower bound."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "Num sistema P2P, a entrada de um novo peer pode aumentar simultaneamente a procura de dados e a capacidade total de distribuição.",
+        "en": "In a P2P system, the arrival of a new peer can simultaneously increase both data demand and total distribution capacity."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Esta característica é designada self-scalability. A contribuição dos novos participantes pode ajudar a suportar o aumento da procura, embora o desempenho dependa das capacidades reais dos peers.",
+        "en": "True. This inherent property is known as self-scalability. As new peers arrive seeking data, they bring their own upload bandwidth to serve others."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No BitTorrent, qual é a principal função do tracker?",
+        "en": "In BitTorrent, what is the primary function of the tracker?"
+      },
+      "options": {
+        "pt": [
+          "Guardar obrigatoriamente uma cópia integral do ficheiro.",
+          "Encriptar todos os ficheiros partilhados.",
+          "Acompanhar os peers participantes e ajudar novos peers a descobrir outros participantes.",
+          "Garantir que todos os peers possuem os mesmos chunks."
+        ],
+        "en": [
+          "Mandatorily storing an entire copy of the file.",
+          "Encrypting all shared files.",
+          "Tracking participating peers and assisting new peers in discovering neighbours in the swarm.",
+          "Ensuring all peers possess identical chunks at all times."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "No modelo BitTorrent apresentado, o tracker mantém informação sobre os peers participantes num torrent. Um novo peer pode consultar o tracker para descobrir participantes com os quais estabelecerá ligações.",
+        "en": "In the classic BitTorrent architecture, the tracker maintains the registry of active peers in the swarm. A new peer contacts the tracker to obtain an initial list of peer IP addresses and ports to connect to."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é que o BitTorrent divide os ficheiros em chunks?",
+        "en": "Why does BitTorrent divide files into chunks?"
+      },
+      "options": {
+        "pt": [
+          "Para impedir que os peers transmitam dados antes de terem o ficheiro completo.",
+          "Para permitir que diferentes partes sejam obtidas e distribuídas entre vários peers.",
+          "Para eliminar a necessidade de capacidade de upload.",
+          "Para transformar automaticamente a comunicação em multicast IP."
+        ],
+        "en": [
+          "To prevent peers from transmitting data until they possess the complete file.",
+          "To allow different file pieces to be concurrently downloaded and distributed among peers.",
+          "To eliminate the need for peer upload capacity.",
+          "To automatically convert communication into IP multicast."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A divisão em chunks permite que os peers descarreguem partes diferentes de várias fontes e redistribuam os chunks que já possuem, mesmo antes de completarem o ficheiro.",
+        "en": "Dividing files into chunks (typically 256 KB) allows peers to immediately upload pieces they have already received to other peers, enabling highly parallel and distributed file sharing."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o objetivo da estratégia rarest first utilizada na seleção de chunks?",
+        "en": "What is the objective of the 'rarest first' chunk selection policy in BitTorrent?"
+      },
+      "options": {
+        "pt": [
+          "Descarregar primeiro os chunks que são menos frequentes entre os peers conhecidos.",
+          "Descarregar sempre os chunks por ordem numérica.",
+          "Descarregar apenas chunks já armazenados localmente.",
+          "Escolher obrigatoriamente os chunks de maior dimensão."
+        ],
+        "en": [
+          "To request first the chunks that have the fewest copies among known peer neighbours.",
+          "To always request chunks in strict sequential numeric order.",
+          "To only download chunks already stored locally.",
+          "To mandatorily select chunks with the largest byte size."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Ao priorizar chunks menos frequentes, o sistema procura aumentar a disponibilidade das partes mais raras do ficheiro, reduzindo o risco de ficarem indisponíveis.",
+        "en": "Requesting the rarest chunks first multiplies the copies of scarce pieces within the swarm, balancing chunk distribution and minimizing the risk of pieces disappearing if an initial seeder departs."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o princípio do mecanismo tit-for-tat apresentado para o BitTorrent?",
+        "en": "What is the operating principle of the 'tit-for-tat' incentive mechanism in BitTorrent?"
+      },
+      "options": {
+        "pt": [
+          "Enviar chunks apenas ao primeiro peer que entra no torrent.",
+          "Distribuir todos os chunks exclusivamente através do tracker.",
+          "Impedir que um peer descarregue enquanto envia dados.",
+          "Favorecer peers que estão a contribuir com melhores taxas de upload para o participante."
+        ],
+        "en": [
+          "Sending chunks only to the first peer that joined the torrent.",
+          "Distributing all chunks exclusively through the tracker.",
+          "Preventing a peer from downloading while it is uploading data.",
+          "Prioritising peers that are currently reciprocating with the highest upload rates to that participant."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "O mecanismo incentiva a reciprocidade. Nos slides, Alice favorece quatro peers que lhe fornecem chunks às taxas mais elevadas, reavaliando periodicamente as suas escolhas.",
+        "en": "Tit-for-tat enforces reciprocity: a peer unchokes and sends data to the top k (typically 4) neighbours currently delivering data at the highest transmission rates, re-evaluating rankings every 10 seconds."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a finalidade do optimistic unchoking no BitTorrent?",
+        "en": "What is the purpose of 'optimistic unchoking' in BitTorrent?"
+      },
+      "options": {
+        "pt": [
+          "Eliminar permanentemente o peer mais lento.",
+          "Selecionar periodicamente um peer adicional, permitindo descobrir oportunidades de cooperação.",
+          "Impedir a entrada de novos peers.",
+          "Substituir o mecanismo de seleção de chunks."
+        ],
+        "en": [
+          "Permanently disconnecting the slowest peer in the swarm.",
+          "Periodically selecting a random additional peer to unchoke, exploring new mutually beneficial exchange opportunities.",
+          "Preventing newly joined peers from entering the swarm.",
+          "Replacing the chunk selection policy entirely."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "No mecanismo apresentado, aproximadamente a cada 30 segundos é escolhido outro peer para receber dados. Isto permite explorar novas relações de troca e possibilitar que participantes anteriormente bloqueados comecem a contribuir.",
+        "en": "Every 30 seconds, BitTorrent optimistically unchokes a randomly chosen peer. This allows newly joined peers (with no initial data to trade) to acquire their first chunks, and discovers peers with potentially better transfer rates."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "O churn num sistema P2P refere-se à entrada e saída de peers, podendo ocorrer mesmo quando alguns participantes ainda possuem apenas uma parte do ficheiro.",
+        "en": "Peer 'churn' in a P2P network refers to the dynamic arrival and departure of peers, which can occur even when participants hold only a fraction of the file chunks."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Os peers podem entrar e sair dinamicamente, incluindo quando possuem apenas alguns chunks. Esta instabilidade aumenta a complexidade da gestão e influencia a disponibilidade dos dados.",
+        "en": "True. Peer churn represents the unpredictable join/leave behaviour of nodes in distributed P2P systems, posing challenges for data persistence and chunk availability."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Na programação com sockets UDP, como é identificado o destino de um datagrama enviado pela aplicação?",
+        "en": "In UDP socket programming, how is the destination of an outgoing datagram identified by the application?"
+      },
+      "options": {
+        "pt": [
+          "Pelo endereço IP e pela porta de destino indicados no envio.",
+          "Através de uma ligação TCP estabelecida anteriormente.",
+          "Apenas pelo endereço MAC do servidor.",
+          "Exclusivamente através do nome do processo."
+        ],
+        "en": [
+          "By the destination IP address and port number explicitly specified in the transmission call.",
+          "Through a previously established connection handshake.",
+          "Only by the MAC address of the destination gateway.",
+          "Exclusively via the process name on the remote host."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Na comunicação UDP, o envio de um datagrama através de sendto inclui o endereço e a porta do destinatário. Não é necessário estabelecer previamente uma ligação como acontece no TCP.",
+        "en": "In connectionless UDP programming, each datagram is sent via sendto() with the explicit destination IP address and destination port attached to the packet."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença fundamental entre SOCK_DGRAM e SOCK_STREAM nos exemplos apresentados nas aulas?",
+        "en": "What is the fundamental difference between SOCK_DGRAM and SOCK_STREAM in socket programming?"
+      },
+      "options": {
+        "pt": [
+          "SOCK_DGRAM utiliza TCP e SOCK_STREAM utiliza UDP.",
+          "Ambos representam obrigatoriamente ligações TCP.",
+          "SOCK_DGRAM está associado a datagramas UDP e SOCK_STREAM a fluxos de bytes TCP.",
+          "SOCK_STREAM só pode ser utilizado por servidores."
+        ],
+        "en": [
+          "SOCK_DGRAM uses TCP, whereas SOCK_STREAM uses UDP.",
+          "Both types mandatorily establish TCP byte-stream connections.",
+          "SOCK_DGRAM is associated with UDP datagrams, while SOCK_STREAM provides reliable TCP byte streams.",
+          "SOCK_STREAM can only ever be invoked by server processes."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "SOCK_DGRAM é utilizado nos exemplos UDP, que comunicam através de datagramas. SOCK_STREAM é utilizado nos exemplos TCP, que disponibilizam um fluxo ordenado e fiável de bytes.",
+        "en": "SOCK_DGRAM creates an unreliable datagram socket over UDP, while SOCK_STREAM creates a reliable, connection-oriented, full-duplex byte-stream socket over TCP."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num servidor TCP, qual é a função de accept()?",
+        "en": "In a concurrent TCP server, what is the role of accept()?"
+      },
+      "options": {
+        "pt": [
+          "Enviar automaticamente uma mensagem para todos os clientes.",
+          "Aceitar uma ligação de um cliente e obter um socket para comunicar com ele.",
+          "Terminar o funcionamento do servidor.",
+          "Criar um datagrama multicast."
+        ],
+        "en": [
+          "Automatically broadcasting an introductory message to all connected clients.",
+          "Accepting an incoming client connection request and returning a new dedicated connection socket.",
+          "Terminating the server process.",
+          "Instantiating an IP multicast datagram group."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O servidor possui um socket de escuta. Quando uma ligação é aceite, accept() devolve um novo socket associado à comunicação com esse cliente. O socket de escuta pode continuar disponível para outras ligações.",
+        "en": "A TCP server listens on a welcoming socket. Calling accept() blocks until a three-way handshake completes, then returns a newly created connection socket dedicated to communicating with that specific client."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Uma universidade pretende distribuir um ficheiro de grandes dimensões a milhares de estudantes. Compare uma solução cliente-servidor tradicional com uma solução P2P. Explique como o número de participantes influencia a distribuição, identifique vantagens e limitações de cada arquitetura e descreva como os mecanismos do BitTorrent podem contribuir para a eficiência.",
+        "en": "A university intends to distribute a very large software disk image to thousands of students. Compare a traditional client-server architecture with a P2P solution. Explain how the number of participants impacts distribution time, identify the key advantages and trade-offs of each architecture, and describe how BitTorrent protocol mechanisms optimize distribution efficiency."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. Solução cliente-servidor:**\n- O servidor disponibiliza os ficheiros e envia uma cópia para cada cliente.\n- O volume agregado de dados que necessita de enviar cresce com o número de clientes.\n- O tempo mínimo de distribuição está condicionado pela capacidade de upload do servidor e pela capacidade de download do cliente mais lento.\n- A gestão é relativamente centralizada e simples.\n- O servidor pode constituir um ponto de congestionamento ou falha.\n\n**2. Solução P2P:**\n- Os participantes descarregam e disponibilizam partes dos ficheiros.\n- Cada novo peer pode aumentar a capacidade de distribuição.\n- O tempo de distribuição depende da capacidade do servidor inicial, das capacidades de download e da capacidade agregada de upload.\n- O sistema pode apresentar boa escalabilidade, mas é mais complexo de gerir.\n- A entrada e saída de peers pode afetar a disponibilidade dos dados.\n\n**3. BitTorrent:**\n- O ficheiro é dividido em chunks.\n- Os peers descobrem outros participantes através do tracker, no modelo apresentado.\n- A estratégia rarest first favorece a distribuição de chunks menos frequentes.\n- O mecanismo tit-for-tat incentiva a reciprocidade.\n- O optimistic unchoking permite explorar novas relações de cooperação.\n\n**4. Conclusão:**\n- Cliente-servidor pode ser adequado quando se pretende maior controlo centralizado.\n- P2P pode ser especialmente vantajoso para distribuir grandes volumes de dados a muitos participantes com capacidades de upload disponíveis.\n\n**CRITÉRIOS DE CORREÇÃO — 10 pontos:**\n- Explicar o funcionamento cliente-servidor: 2 pontos.\n- Explicar corretamente a escalabilidade P2P: 2 pontos.\n- Comparar limitações de largura de banda e gestão: 2 pontos.\n- Explicar pelo menos três mecanismos BitTorrent: 3 pontos.\n- Apresentar uma conclusão tecnicamente fundamentada: 1 ponto.",
+        "en": "MODEL ANSWER:\n\n**1. Client-server solution:**\n- The server hosts the master file and uploads a dedicated copy to each requesting client.\n- The aggregate volume of data transmitted by the server scales linearly with the number of clients ($N \\times F$).\n- Minimum distribution time is constrained by server upload capacity ($NF/u_s$) and the bottleneck client download rate ($F/d_{\\min}$).\n- Management is centralized and straightforward, but the server represents a single point of failure and bottleneck.\n\n**2. P2P solution:**\n- Participants concurrently download and upload file pieces.\n- Each joining peer brings additional upload capacity, providing self-scalability.\n- Total distribution time is bounded by initial seeder upload, slowest client download, and aggregate swarm upload rate.\n- High scalability for large populations, but higher protocol complexity and vulnerability to peer churn.\n\n**3. BitTorrent mechanisms:**\n- File chunking allows immediate piece re-distribution.\n- Centralized tracker or DHT facilitates peer discovery.\n- Rarest-first policy replicates scarce pieces to prevent piece starvation.\n- Tit-for-tat incentivizes peers to contribute bandwidth, penalizing free-riders.\n- Optimistic unchoking enables bootstrap of new peers and discovers faster peers.\n\n**4. Conclusion:**\n- Client-server is preferable for modest audiences requiring strict centralized access control.\n- P2P (BitTorrent) is dramatically superior for massive, bandwidth-intensive content distribution to thousands of endpoints.\n\n**GRADING CRITERIA — 10 points:**\n- Explain client-server operation and scaling bottlenecks: 2 points.\n- Explain P2P self-scalability principles: 2 points.\n- Compare bandwidth constraints and operational complexity: 2 points.\n- Explain at least three core BitTorrent mechanisms: 3 points.\n- Provide a sound, technically reasoned conclusion: 1 point."
+      },
+      "explanation": {
+        "pt": "Este exercício integra os conceitos de arquitetura, escalabilidade e distribuição eficiente. Uma boa resposta deve demonstrar compreensão das limitações de recursos e não apenas enumerar vantagens.",
+        "en": "This exercise synthesises architecture, scalability, and content distribution efficiency. A strong answer demonstrates understanding of fundamental resource limits rather than merely listing features."
+      }
+    }
+  ]
+}

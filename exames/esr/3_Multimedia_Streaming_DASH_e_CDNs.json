@@ -1,0 +1,441 @@
+{
+  "title": {
+    "pt": "Exame 3 — Multimédia, Streaming Adaptativo, DASH e CDNs",
+    "en": "Exam 3 — Multimedia, Adaptive Streaming, DASH, and CDNs"
+  },
+  "description": {
+    "pt": "NÍVEL 3 — APLICAÇÕES MULTIMÉDIA | 16 questões | Dificuldade: intermédia. Terceiro exame do percurso. Aborda representação digital de vídeo, compressão espacial e temporal, CBR e VBR, desafios de streaming, MPEG-DASH, decisões do cliente, buffers, escalabilidade de serviços multimédia e Content Distribution Networks. Baseado principalmente na secção 2.6 do PowerPoint Application Layer. Os exemplos do trabalho prático são utilizados apenas como contexto conceptual. O objetivo é compreender como os mecanismos estudados se articulam para disponibilizar vídeo através da Internet.",
+    "en": "LEVEL 3 — MULTIMEDIA APPLICATIONS | 16 questions | Difficulty: intermediate. Third exam in the track. Covers digital video representation, spatial and temporal compression, CBR and VBR, Internet streaming challenges, MPEG-DASH, client-side adaptation decisions, playback buffers, multimedia service scalability, and Content Distribution Networks (CDNs). Primarily based on section 2.6 of the Application Layer slide deck. Practical lab examples serve purely as conceptual context. Objective: understand how these mechanisms integrate to deliver video over the Internet."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Do ponto de vista da representação digital, como pode ser descrito um vídeo?",
+        "en": "From the perspective of digital representation, how can a video be described?"
+      },
+      "options": {
+        "pt": [
+          "Como um único ficheiro de texto.",
+          "Como uma sequência de imagens apresentadas ao longo do tempo.",
+          "Como um conjunto de pacotes UDP obrigatoriamente independentes.",
+          "Como uma única imagem com resolução variável."
+        ],
+        "en": [
+          "As a single uncompressed text file.",
+          "As a sequence of digital images (frames) displayed at a constant rate over time.",
+          "As a set of mandatorily independent UDP datagrams.",
+          "As a single static image rendered with variable resolution."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Um vídeo é constituído por uma sequência de imagens, ou frames, apresentadas a uma determinada frequência. Cada imagem contém pixels que são representados digitalmente.",
+        "en": "Video consists of a sequence of bitmap images, called frames, displayed at a constant rate (e.g., 24, 30, or 60 frames per second). Each image consists of a two-dimensional grid of digital pixels."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que caracteriza a codificação espacial de vídeo?",
+        "en": "What characterizes intra-frame (spatial) video encoding?"
+      },
+      "options": {
+        "pt": [
+          "A exploração de redundância dentro da mesma imagem.",
+          "A transmissão de todos os frames sem qualquer compressão.",
+          "A exploração exclusiva de diferenças entre frames consecutivos.",
+          "A alteração automática do protocolo de transporte."
+        ],
+        "en": [
+          "Exploiting statistical redundancy within an individual frame (intra-frame compression).",
+          "Transmitting all raw pixel arrays without any compression.",
+          "Exclusively encoding differences between consecutive frames.",
+          "Automatically switching the underlying transport layer protocol."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A codificação espacial procura reduzir a quantidade de bits necessária para representar uma imagem, explorando redundâncias entre elementos do mesmo frame.",
+        "en": "Spatial encoding exploits statistical redundancy among adjacent pixels within a single video frame (similar to JPEG image compression) to reduce data volume."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal ideia da codificação temporal?",
+        "en": "What is the core principle of inter-frame (temporal) video encoding?"
+      },
+      "options": {
+        "pt": [
+          "Aumentar obrigatoriamente o número de frames por segundo.",
+          "Guardar cada imagem sempre de forma integral.",
+          "Explorar semelhanças entre imagens de diferentes instantes.",
+          "Eliminar a necessidade de representar as cores."
+        ],
+        "en": [
+          "Mandatorily increasing the frame rate (frames per second).",
+          "Always storing each successive frame as a complete bitmap.",
+          "Exploiting high similarity and correlation between consecutive frames over time (inter-frame compression).",
+          "Completely eliminating chrominance (colour) channels."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A codificação temporal explora a redundância entre frames. Em vez de representar repetidamente toda a informação, podem ser representadas alterações relativamente a imagens anteriores.",
+        "en": "Temporal compression exploits correlation across adjacent frames in time: instead of sending complete bitmaps repeatedly, encoders transmit motion vectors and residual prediction error differences."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença fundamental entre Constant Bit Rate (CBR) e Variable Bit Rate (VBR)?",
+        "en": "What is the fundamental difference between Constant Bit Rate (CBR) and Variable Bit Rate (VBR) encoding?"
+      },
+      "options": {
+        "pt": [
+          "CBR corresponde sempre a vídeo sem compressão.",
+          "VBR utiliza obrigatoriamente uma resolução superior.",
+          "CBR só pode ser utilizado em áudio.",
+          "CBR mantém uma taxa de codificação constante, enquanto VBR permite variar essa taxa."
+        ],
+        "en": [
+          "CBR always represents completely uncompressed raw video.",
+          "VBR mandatorily enforces higher display resolution.",
+          "CBR can only ever be utilized for audio signals.",
+          "CBR maintains a fixed encoding bit rate, whereas VBR varies the bit rate according to scene complexity."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "No modelo apresentado, CBR utiliza uma taxa de codificação fixa e VBR permite variar a taxa de acordo com as necessidades de codificação. A complexidade e a redundância do conteúdo podem influenciar essa variação.",
+        "en": "In CBR, the video bit rate remains fixed regardless of scene motion. In VBR, the encoder dynamically allocates more bits to high-action scenes and fewer bits to static scenes, optimizing visual quality versus file size."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é um dos principais desafios do streaming de vídeo armazenado através da Internet?",
+        "en": "What is a primary challenge of streaming stored video over the public Internet?"
+      },
+      "options": {
+        "pt": [
+          "A impossibilidade de dividir um vídeo em partes.",
+          "A variação da largura de banda e dos atrasos ao longo da transmissão.",
+          "A obrigação de utilizar sempre comunicação multicast.",
+          "A impossibilidade de armazenar o vídeo no servidor."
+        ],
+        "en": [
+          "The impossibility of dividing digital video into discrete chunks.",
+          "Time-varying network bandwidth, packet delay jitter, and congestion along the end-to-end path.",
+          "The requirement that all streaming traffic be delivered via IP multicast.",
+          "The inability to store compressed video on origin servers."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A capacidade disponível ao longo do caminho pode variar devido ao congestionamento. Perdas e atrasos podem prejudicar a reprodução ou a qualidade de vídeo.",
+        "en": "The Internet provides only best-effort service: available throughput fluctuates due to cross-traffic and bufferbloat, risking client playback buffer underruns (freezes/rebuffering)."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o significado de DASH?",
+        "en": "What does the acronym DASH stand for?"
+      },
+      "options": {
+        "pt": [
+          "Dynamic, Adaptive Streaming over HTTP.",
+          "Direct Application Socket Handling.",
+          "Distributed Audio Synchronization Host.",
+          "Digital Adaptive Secure Hosting."
+        ],
+        "en": [
+          "Dynamic, Adaptive Streaming over HTTP.",
+          "Direct Application Socket Handling.",
+          "Distributed Audio Synchronization Host.",
+          "Digital Adaptive Secure Hosting."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "DASH significa Dynamic, Adaptive Streaming over HTTP. O mecanismo permite adaptar a qualidade dos segmentos de vídeo solicitados às condições disponíveis.",
+        "en": "DASH stands for Dynamic, Adaptive Streaming over HTTP. It allows client media players to dynamically select chunk quality based on instantaneous network throughput."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a função principal do ficheiro manifest no DASH?",
+        "en": "What is the primary function of the manifest file in DASH (Media Presentation Description - MPD)?"
+      },
+      "options": {
+        "pt": [
+          "Transportar obrigatoriamente todos os frames do vídeo.",
+          "Controlar diretamente o congestionamento da camada IP.",
+          "Disponibilizar informação sobre os segmentos e representações que podem ser solicitados.",
+          "Substituir o servidor HTTP."
+        ],
+        "en": [
+          "Mandatorily transporting all compressed raw video frames in a single file.",
+          "Directly controlling IP-layer router queue congestion.",
+          "Providing metadata describing the available video representations (bitrates/resolutions) and segment URLs.",
+          "Replacing the origin HTTP web server."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O manifest apresenta informação que permite ao cliente identificar as representações e os segmentos disponíveis. No MPEG-DASH, este documento é habitualmente designado Media Presentation Description, ou MPD.",
+        "en": "The manifest file (MPD) lists all available encoding bitrates, resolutions, chunk durations, and corresponding HTTP URLs, allowing the client player to fetch appropriate segments."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No mecanismo DASH apresentado nos slides, quem toma as decisões sobre a qualidade dos segmentos a solicitar?",
+        "en": "In the DASH architecture presented in lectures, which entity makes adaptation decisions regarding chunk quality?"
+      },
+      "options": {
+        "pt": [
+          "O router mais próximo do cliente.",
+          "O cliente DASH.",
+          "O protocolo IP.",
+          "O switch da rede local."
+        ],
+        "en": [
+          "The edge router closest to the client.",
+          "The DASH client player.",
+          "The network IP protocol.",
+          "The local access switch."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A inteligência de adaptação encontra-se no cliente. Este observa as condições de comunicação e escolhe os segmentos e taxas de codificação mais adequados.",
+        "en": "DASH operates on a client-driven paradigm: the client player measures download throughput and playback buffer occupancy, requesting chunk bitrates dynamically via standard HTTP GET requests."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quais das seguintes decisões são atribuídas ao cliente DASH? Selecione todas as opções corretas.",
+        "en": "Which of the following decisions are made by the DASH client? Select all that apply."
+      },
+      "options": {
+        "pt": [
+          "Determinar quando solicitar segmentos.",
+          "Escolher a taxa de codificação dos segmentos.",
+          "Determinar de que servidor disponível solicitar conteúdo.",
+          "Reconfigurar obrigatoriamente os protocolos de routing de todos os routers."
+        ],
+        "en": [
+          "Determining when to request successive chunks (to manage playback buffer).",
+          "Choosing which encoding bitrate/quality representation to request.",
+          "Selecting which CDN edge server or URL to fetch chunks from.",
+          "Mandatorily modifying router forwarding tables across the Internet core."
+        ]
+      },
+      "solution": [
+        0,
+        1,
+        2
+      ],
+      "explanation": {
+        "pt": "O cliente pode determinar quando pedir dados, qual a representação mais adequada e onde obter os segmentos. As decisões procuram equilibrar qualidade, largura de banda e estado do buffer.",
+        "en": "The DASH client controls: (1) timing of requests (buffer management); (2) quality selection (rate adaptation); and (3) server choice (CDN selection). It has no control over network router routing protocols."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "header": {
+        "pt": "Um serviço DASH disponibiliza três representações de vídeo: 500 kbps, 1000 kbps e 2000 kbps. Considere que o cliente estima uma capacidade sustentável de 1200 kbps e que não existem outras restrições relevantes.",
+        "en": "A DASH streaming service offers three video representations: 500 kbps, 1000 kbps, and 2000 kbps. The client estimates sustained available throughput at 1200 kbps with no other constraints."
+      },
+      "question": {
+        "pt": "Segundo o critério simplificado de escolher a maior representação sustentável, qual deve ser selecionada?",
+        "en": "According to the simplified rule of selecting the highest sustainable bitrate, which representation should the client choose?"
+      },
+      "options": {
+        "pt": [
+          "500 kbps.",
+          "2000 kbps.",
+          "1000 kbps.",
+          "Nenhuma representação."
+        ],
+        "en": [
+          "500 kbps.",
+          "2000 kbps.",
+          "1000 kbps.",
+          "No representation."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "A representação de 2000 kbps excede a capacidade estimada. A de 1000 kbps é a maior que não ultrapassa os 1200 kbps disponíveis. Esta análise é simplificada: clientes reais também consideram margens de segurança e o estado do buffer.",
+        "en": "The 2000 kbps stream exceeds available bandwidth (1200 kbps). The 1000 kbps representation is the highest quality stream that fits within the 1200 kbps budget without depleting the playback buffer."
+      }
+    },
+    {
+      "type": "boolean",
+      "question": {
+        "pt": "No DASH, o cliente deve manter sempre a representação de maior qualidade, independentemente das condições da rede.",
+        "en": "In DASH, the client should always maintain the highest quality video representation, regardless of prevailing network bandwidth conditions."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. O objetivo da adaptação é precisamente ajustar a representação às condições de comunicação. Manter uma taxa excessiva pode provocar esvaziamento do buffer e interrupções na reprodução.",
+        "en": "False. The foundational premise of DASH is adaptive bit rate switching. Forcing maximum bitrate under degraded network conditions depletes client buffers, triggering video freezing and rebuffering."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Porque é que um único mega-servidor não constitui uma solução adequada para distribuir vídeo a um número muito elevado de utilizadores?",
+        "en": "Why is a single centralized mega-server inadequate for streaming high-definition video to millions of concurrent global users?"
+      },
+      "options": {
+        "pt": [
+          "Porque servidores não conseguem armazenar ficheiros multimédia.",
+          "Porque os clientes só conseguem comunicar com servidores da sua rede local.",
+          "Porque a Internet impede a transmissão de vídeos a longa distância.",
+          "Porque concentra tráfego, cria um potencial ponto de falha e pode aumentar os percursos até aos utilizadores."
+        ],
+        "en": [
+          "Because origin servers cannot store binary multimedia files.",
+          "Because client operating systems can only communicate within their local subnet.",
+          "Because Internet protocol standards forbid long-distance video traffic.",
+          "Because it concentrates massive aggregate traffic, introduces a single point of failure, and traverses long, congested transit paths."
+        ]
+      },
+      "solution": [
+        3
+      ],
+      "explanation": {
+        "pt": "Um único servidor concentra a responsabilidade de armazenamento e transmissão. Pode transformar-se num ponto de congestionamento e falha, além de obrigar muitos utilizadores a aceder a conteúdo distante.",
+        "en": "A centralized mega-server suffers from access link bandwidth saturation, single-point-of-failure vulnerabilities, and long geographical distances leading to high latency and packet loss across multiple transit ISPs."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "O que caracteriza a estratégia enter deep de uma CDN?",
+        "en": "What characterizes the 'Enter Deep' deployment philosophy of a CDN (such as Akamai)?"
+      },
+      "options": {
+        "pt": [
+          "Colocar servidores de conteúdo dentro de numerosas redes de acesso, perto dos utilizadores.",
+          "Utilizar apenas um grande servidor central.",
+          "Impedir a utilização de servidores distribuídos.",
+          "Converter obrigatoriamente todo o tráfego em multicast."
+        ],
+        "en": [
+          "Deploying server clusters deep inside hundreds of access ISP networks close to end users.",
+          "Consolidating all infrastructure into a single central data center.",
+          "Disallowing the use of geographically distributed cache nodes.",
+          "Mandatorily converting all HTTP video delivery into multicast."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A estratégia enter deep distribui servidores profundamente nas redes de acesso. O objetivo é aproximar o conteúdo dos utilizadores, reduzindo os percursos necessários para a sua entrega.",
+        "en": "'Enter Deep' deploys smaller server clusters directly within thousands of eyeball access ISP networks, placing content as close as possible to consumers to minimize transit delay and hop count."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença entre as estratégias enter deep e bring home?",
+        "en": "What is the key difference between the 'Enter Deep' and 'Bring Home' CDN architectural strategies?"
+      },
+      "options": {
+        "pt": [
+          "Enter deep usa exclusivamente UDP e bring home usa exclusivamente TCP.",
+          "Enter deep distribui servidores por muitas redes de acesso; bring home utiliza um número menor de clusters maiores próximos dessas redes.",
+          "Enter deep não permite cache de conteúdos.",
+          "Bring home depende obrigatoriamente de comunicação P2P."
+        ],
+        "en": [
+          "Enter Deep uses UDP exclusively, whereas Bring Home uses TCP exclusively.",
+          "Enter Deep deploys small server clusters across thousands of access ISPs; Bring Home deploys larger server clusters at major Internet exchange points (IXPs) near access networks.",
+          "Enter Deep forbids content caching.",
+          "Bring Home relies mandatorily on peer-to-peer relaying."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Ambas são estratégias de distribuição geográfica de conteúdo. Enter deep utiliza muitos pontos próximos dos utilizadores, enquanto bring home concentra a infraestrutura num número relativamente menor de instalações de maior dimensão.",
+        "en": "'Enter Deep' places clusters deep within numerous ISP access networks; 'Bring Home' (pioneered by Limelight) builds fewer, larger data centers located at strategic Internet Exchange Points (IXPs) interconnected via private fiber."
+      }
+    },
+    {
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "No exemplo de acesso a conteúdos através de uma CDN apresentado nos slides, qual é uma função importante do DNS?",
+        "en": "In the CDN content delivery example presented in lectures, what critical role does authoritative DNS play?"
+      },
+      "options": {
+        "pt": [
+          "Comprimir os frames de vídeo antes da transmissão.",
+          "Substituir os mecanismos de transporte TCP e UDP.",
+          "Contribuir para encaminhar logicamente o cliente para o servidor CDN apropriado através da resolução de nomes.",
+          "Garantir que todos os vídeos são transmitidos em multicast."
+        ],
+        "en": [
+          "Compressing video frames prior to network transmission.",
+          "Replacing TCP and UDP transport protocols.",
+          "Intercepting hostname resolution requests to redirect the client to an optimal nearby CDN edge server.",
+          "Ensuring all video datagrams are transmitted via IP multicast."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "O exemplo dos slides mostra uma sequência de resolução de nomes que permite ao cliente chegar ao servidor CDN que disponibiliza o vídeo. O DNS pode participar no processo de seleção do servidor de conteúdo.",
+        "en": "CDN DNS authoritative servers dynamically resolve domain names based on the client's local DNS resolver IP address, returning the IP of the geographically or network-topologically closest CDN edge cache."
+      }
+    },
+    {
+      "type": "escrita",
+      "question": {
+        "pt": "Uma plataforma de streaming pretende fornecer vídeo de diferentes qualidades a milhares de utilizadores distribuídos geograficamente. Alguns utilizadores possuem ligações rápidas e estáveis, enquanto outros utilizam redes móveis com capacidade variável. Explique como combinaria MPEG-DASH e CDNs para disponibilizar o serviço. Descreva o papel do servidor, do manifest, do cliente, do buffer e da infraestrutura CDN.",
+        "en": "A video streaming platform intends to deliver multi-bitrate video to thousands of geographically distributed users, ranging from stable gigabit fibre connections to fluctuating mobile cellular links. Explain how you would combine MPEG-DASH and Content Distribution Networks (CDNs) to deliver the service. Describe the operational roles of the content server, manifest file (MPD), client player, playback buffer, and the CDN edge infrastructure."
+      },
+      "solution": {
+        "pt": "RESPOSTA-MODELO:\n\n**1. Preparação do conteúdo:**\n- O vídeo deve estar disponível em diferentes representações, com taxas de codificação e possivelmente resoluções distintas.\n- O conteúdo é organizado em segmentos que podem ser solicitados individualmente.\n- O servidor disponibiliza os segmentos e um ficheiro manifest com informação sobre os recursos disponíveis.\n\n**2. Funcionamento do cliente DASH:**\n- O cliente consulta o manifest.\n- Estima periodicamente a capacidade disponível entre o servidor e o cliente.\n- Seleciona uma representação adequada às condições observadas.\n- Pode solicitar segmentos com taxas diferentes ao longo da reprodução.\n- Gere o momento dos pedidos tendo em consideração o buffer, procurando evitar interrupções e excesso de dados armazenados.\n\n**3. Função da CDN:**\n- Armazena cópias do conteúdo em múltiplos servidores geograficamente distribuídos.\n- Permite que diferentes utilizadores obtenham conteúdo de servidores apropriados.\n- Reduz a dependência de um único servidor central.\n- Pode reduzir percursos de comunicação, congestionamento e concentração de tráfego.\n- A escolha do servidor pode envolver mecanismos de resolução de nomes.\n\n**4. Funcionamento integrado:**\n- O utilizador seleciona o vídeo.\n- A plataforma disponibiliza informação sobre o conteúdo e os segmentos.\n- O cliente obtém os segmentos de um servidor CDN.\n- Quando a capacidade disponível diminui, o cliente pode reduzir a taxa de codificação solicitada.\n- Quando as condições melhoram e o buffer permite, pode aumentar a qualidade.\n\n**CRITÉRIOS DE CORREÇÃO — 10 pontos:**\n- Explicar as representações e a segmentação: 2 pontos.\n- Explicar a função do manifest: 1 ponto.\n- Descrever corretamente as decisões do cliente DASH: 2 pontos.\n- Explicar o papel do buffer: 1 ponto.\n- Descrever a distribuição de conteúdo através de CDNs: 2 pontos.\n- Integrar DASH e CDN num funcionamento coerente: 2 pontos.",
+        "en": "MODEL ANSWER:\n\n**1. Content preparation:**\n- The source video is encoded into multiple representations (bitrate and resolution ladders).\n- Each representation is partitioned into small independent chunks (segments), typically 2–10 seconds in duration.\n- An MPD manifest file is generated, indexing chunk durations, bitrates, resolutions, and segment URLs.\n\n**2. DASH client adaptation:**\n- The client player downloads and parses the MPD manifest.\n- It continuously monitors available bandwidth (HTTP download speed) and playback buffer fill level.\n- It selects optimal chunk bitrates dynamically, avoiding buffer underruns during network drops and upgrading quality when bandwidth permits.\n- Playback buffer absorbs short-term network jitter.\n\n**3. CDN infrastructure:**\n- Video segments are replicated and cached across a globally distributed mesh of CDN edge servers (PoPs).\n- DNS redirection routes each user to the topologically and geographically closest edge server.\n- Offloads origin servers and shields core transit links from redundant traffic.\n\n**4. End-to-end integration:**\n- The user requests the stream, receives the manifest, and begins requesting chunks from the assigned CDN edge server.\n- DASH provides dynamic adaptation to last-mile client link fluctuations.\n- CDN provides scalable, low-latency, high-throughput delivery across the wide-area Internet core.\n\n**GRADING CRITERIA — 10 points:**\n- Explain video multi-rate representations and segment chunking: 2 points.\n- Explain the role and content of the MPD manifest: 1 point.\n- Correctly describe DASH client-side rate adaptation decisions: 2 points.\n- Explain the critical function of the playback buffer: 1 point.\n- Describe CDN edge caching and DNS-based redirection: 2 points.\n- Clearly integrate DASH and CDN into a coherent end-to-end architecture: 2 points."
+      },
+      "explanation": {
+        "pt": "Este exercício é fundamental para consolidar a secção de streaming. DASH e CDNs resolvem problemas relacionados, mas distintos: o DASH adapta a qualidade solicitada, enquanto a CDN distribui geograficamente as fontes de conteúdo.",
+        "en": "This exercise consolidates Internet video streaming architectures. DASH and CDNs solve complementary challenges: DASH dynamically adapts requested bitrates to last-mile fluctuations, while CDNs geographically distribute origin content to avoid core bottlenecks."
+      }
+    }
+  ]
+}

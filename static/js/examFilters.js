@@ -13,6 +13,7 @@ import { State } from './state.js';
 import { elements } from './elements.js';
 import { ExamService } from './examService.js';
 import { showToast } from './utils.js';
+import { APP_CONFIG } from './config.js';
 import { t, updateSortDropdownLabel, getCurrentLanguage } from './i18n.js';
 import { ALL_QUESTION_TYPES, ALL_EXAM_STATES, ALL_LANGUAGES, clampQuestionsRange, clampScoreRange, sanitizeQuestionsMax, sanitizeQuestionsMin, getEffectiveTargetLanguage } from './filterState.js';
 import { createDualRangeSlider } from './dualRangeSlider.js';
@@ -273,10 +274,11 @@ export function syncLanguagePriorityUI() {
  * Cada contador reflete individualmente o número de exames abrangidos pela opção (sem parêntesis, sublinhados).
  */
 export function updateFilterOptionCounts() {
+    const { MULTIPLE_CHOICE, BOOLEAN, WRITTEN } = APP_CONFIG.questionTypes;
     const typeExamCounts = {
-        escolha_multipla: 0,
-        boolean: 0,
-        escrita: 0
+        [MULTIPLE_CHOICE]: 0,
+        [BOOLEAN]: 0,
+        [WRITTEN]: 0
     };
     let completedExamsCount = 0;
     let pendingExamsCount = 0;
@@ -299,7 +301,7 @@ export function updateFilterOptionCounts() {
         // 2. Contagem de exames que contêm cada tipo de pergunta
         const tc = ExamService.getTypesCount(exam);
         const qTypes = ExamService.getQuestionTypes(exam);
-        ['escolha_multipla', 'boolean', 'escrita'].forEach(tKey => {
+        Object.values(APP_CONFIG.questionTypes).forEach(tKey => {
             const hasType = (tc && tc[tKey] > 0) || (Array.isArray(qTypes) && qTypes.includes(tKey));
             if (hasType) {
                 typeExamCounts[tKey]++;
@@ -347,12 +349,12 @@ export function updateFilterOptionCounts() {
     if (elLangPt) elLangPt.textContent = `${langPtCount}`;
     if (elLangEn) elLangEn.textContent = `${langEnCount}`;
 
-    const elChoice = elements.countTypeChoice || document.getElementById('count-type-escolha_multipla');
-    const elBoolean = elements.countTypeBoolean || document.getElementById('count-type-boolean');
-    const elWritten = elements.countTypeWritten || document.getElementById('count-type-escrita');
-    if (elChoice) elChoice.textContent = `${typeExamCounts.escolha_multipla}`;
-    if (elBoolean) elBoolean.textContent = `${typeExamCounts.boolean}`;
-    if (elWritten) elWritten.textContent = `${typeExamCounts.escrita}`;
+    const elChoice = elements.countTypeChoice || document.getElementById(`count-type-${MULTIPLE_CHOICE}`);
+    const elBoolean = elements.countTypeBoolean || document.getElementById(`count-type-${BOOLEAN}`);
+    const elWritten = elements.countTypeWritten || document.getElementById(`count-type-${WRITTEN}`);
+    if (elChoice) elChoice.textContent = `${typeExamCounts[MULTIPLE_CHOICE]}`;
+    if (elBoolean) elBoolean.textContent = `${typeExamCounts[BOOLEAN]}`;
+    if (elWritten) elWritten.textContent = `${typeExamCounts[WRITTEN]}`;
 
     const elQuestions = elements.countFilterQuestions || document.getElementById('count-filter-questions');
     const elScore = elements.countFilterScore || document.getElementById('count-filter-score');

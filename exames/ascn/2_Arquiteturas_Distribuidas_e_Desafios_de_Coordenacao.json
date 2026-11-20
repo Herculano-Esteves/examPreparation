@@ -1,0 +1,507 @@
+{
+  "title": {
+    "pt": "Exame 2 — Arquiteturas Distribuídas e Desafios de Coordenação",
+    "en": "Exam 2 — Distributed Architectures and Coordination Challenges"
+  },
+  "description": {
+    "pt": "Nível 2/6 — Básico a intermédio. Aprofunda as arquiteturas client-server, proxy-server, manager-worker, server group, bus e multi-tier. Introduz problemas de estado, consistência, coordenação e pontos únicos de falha.",
+    "en": "Level 2/6 — Basic to intermediate. Explores client-server, proxy-server, manager-worker, server group, bus, and multi-tier architectures. Introduces state management, consistency, coordination challenges, and single points of failure."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Na arquitetura client-server descrita nos diapositivos, qual é a função principal do stub?",
+        "en": "In the client-server architecture described in the lecture slides, what is the primary role of the stub?"
+      },
+      "options": {
+        "pt": [
+          "Abstrair os detalhes do protocolo de comunicação para o cliente.",
+          "Escolher a réplica responsável por responder a cada pedido.",
+          "Manter sincronizadas as diferentes instâncias do servidor.",
+          "Distribuir automaticamente os dados por partições independentes."
+        ],
+        "en": [
+          "Abstract communication protocol details for the client.",
+          "Select the replica responsible for responding to each request.",
+          "Keep different server instances synchronized.",
+          "Automatically distribute data across independent partitions."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O stub disponibiliza uma API que abstrai detalhes do protocolo usado para comunicar com o servidor.",
+        "en": "The stub exposes an API that abstracts the underlying communication protocol details used to interact with the server."
+      }
+    },
+    {
+      "id": 2,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a diferença essencial entre um stub e um proxy no modelo apresentado?",
+        "en": "What is the essential difference between a stub and a proxy in the presented model?"
+      },
+      "options": {
+        "pt": [
+          "O stub abstrai servidores; o proxy abstrai a linguagem utilizada na aplicação.",
+          "O stub abstrai o protocolo; o proxy abstrai a interação com vários servidores.",
+          "O stub mantém os dados; o proxy assegura a persistência das mensagens.",
+          "O stub sincroniza réplicas; o proxy executa diretamente a lógica aplicacional."
+        ],
+        "en": [
+          "The stub abstracts servers; the proxy abstracts the programming language used.",
+          "The stub abstracts the protocol; the proxy abstracts interaction with multiple servers.",
+          "The stub maintains data; the proxy ensures message persistence.",
+          "The stub synchronizes replicas; the proxy directly executes business logic."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "O stub esconde detalhes de comunicação. O proxy esconde a organização dos servidores subjacentes, permitindo implementar replicação ou particionamento de forma transparente.",
+        "en": "A stub hides communication and wire-protocol details. A proxy hides the underlying server topology, enabling transparent replication or partitioning."
+      }
+    },
+    {
+      "id": 3,
+      "type": "boolean",
+      "question": {
+        "pt": "Numa arquitetura proxy-server, o cliente pode comunicar com vários servidores sem conhecer diretamente a identidade de cada um.",
+        "en": "In a proxy-server architecture, a client can communicate with multiple servers without directly knowing the identity of each one."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. A transparência relativamente aos servidores subjacentes é uma das funções principais do proxy.",
+        "en": "True. Transparency regarding the underlying servers is one of the primary functions of a proxy."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é um possível inconveniente de utilizar um único proxy para encaminhar todos os pedidos?",
+        "en": "What is a potential drawback of using a single proxy to forward all requests?"
+      },
+      "options": {
+        "pt": [
+          "O proxy impede que os servidores armazenem informação persistente.",
+          "O proxy elimina a possibilidade de acrescentar novas réplicas.",
+          "O proxy pode tornar-se um ponto único de contenção e falha.",
+          "O proxy obriga todos os servidores a executar funções diferentes."
+        ],
+        "en": [
+          "The proxy prevents servers from storing persistent data.",
+          "The proxy eliminates the ability to add new replicas.",
+          "The proxy can become a single point of contention and failure.",
+          "The proxy forces all servers to execute different functions."
+        ]
+      },
+      "solution": [
+        2
+      ],
+      "explanation": {
+        "pt": "Um proxy central pode limitar a capacidade do sistema e comprometer a disponibilidade caso falhe.",
+        "en": "A centralized single proxy can bottleneck system throughput and compromise overall availability should it fail."
+      }
+    },
+    {
+      "id": 5,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Numa arquitetura manager-worker aplicada a um sistema de armazenamento, qual é a divisão de responsabilidades apresentada?",
+        "en": "In a manager-worker architecture applied to a storage system, what is the division of responsibilities presented?"
+      },
+      "options": {
+        "pt": [
+          "O manager mantém os dados; os workers administram os clientes.",
+          "O manager gere metadados; os workers armazenam o conteúdo.",
+          "O manager sincroniza clientes; os workers mantêm o protocolo.",
+          "O manager replica pedidos; os workers gerem a autenticação."
+        ],
+        "en": [
+          "The manager maintains the data; workers administer clients.",
+          "The manager manages metadata; workers store actual content.",
+          "The manager synchronizes clients; workers maintain the protocol.",
+          "The manager replicates requests; workers manage authentication."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Em exemplos como HDFS, o manager gere a localização dos ficheiros e outros metadados, enquanto os workers armazenam os dados.",
+        "en": "In systems such as HDFS, the manager (NameNode) manages file locations and metadata, while workers (DataNodes) store the actual file blocks."
+      }
+    },
+    {
+      "id": 6,
+      "type": "boolean",
+      "question": {
+        "pt": "A arquitetura manager-worker elimina necessariamente todos os pontos únicos de falha.",
+        "en": "A manager-worker architecture necessarily eliminates all single points of failure."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. Um manager único pode constituir um ponto único de contenção e falha, mesmo que existam muitos workers.",
+        "en": "False. A single manager node can represent a single point of contention and failure, even when many worker nodes exist."
+      }
+    },
+    {
+      "id": 7,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é uma característica distintiva da arquitetura server group?",
+        "en": "What is a distinctive characteristic of the server group architecture?"
+      },
+      "options": {
+        "pt": [
+          "Apenas o servidor coordenador pode responder aos clientes.",
+          "Todos os servidores podem processar pedidos e coordenar o estado.",
+          "Cada servidor armazena obrigatoriamente uma partição exclusiva.",
+          "Todos os pedidos devem passar por um proxy centralizado."
+        ],
+        "en": [
+          "Only the coordinator server can respond to clients.",
+          "All servers can process requests and coordinate state.",
+          "Each server strictly stores an exclusive partition.",
+          "All requests must pass through a centralized proxy."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "Na arquitetura server group apresentada, os servidores podem servir pedidos e utilizam mecanismos de sincronização para manter a consistência do estado.",
+        "en": "In the server group architecture presented, servers can handle incoming client requests and use group coordination protocols to keep state consistent."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o principal compromisso associado à coordenação num server group?",
+        "en": "What is the main trade-off associated with coordination in a server group?"
+      },
+      "options": {
+        "pt": [
+          "Reduzir a dependência de servidores, aumentando a necessidade de armazenamento.",
+          "Melhorar a disponibilidade, mas introduzir custos de sincronização entre servidores.",
+          "Simplificar a consistência, mas impedir a distribuição de pedidos pelos servidores.",
+          "Melhorar o desempenho individual, mas exigir concentração da informação num manager."
+        ],
+        "en": [
+          "Reducing server dependency, while increasing storage requirements.",
+          "Improving availability, while introducing inter-server synchronization overhead.",
+          "Simplifying consistency, while preventing request distribution across servers.",
+          "Improving individual performance, while requiring data concentration in a manager."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A coordenação permite manter servidores consistentes, mas introduz comunicação e sincronização adicionais que podem dificultar o scale-out.",
+        "en": "Group coordination ensures replica consistency and fault tolerance, but incurs network communication and consensus overhead that can limit horizontal scale-out."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Numa arquitetura baseada num bus de mensagens, qual é a vantagem central do mecanismo de comunicação?",
+        "en": "In a message bus-based architecture, what is the core advantage of the communication mechanism?"
+      },
+      "options": {
+        "pt": [
+          "Permitir que componentes comuniquem através de um intermediário comum.",
+          "Garantir que todos os componentes partilham a mesma memória física.",
+          "Eliminar a necessidade de definir protocolos entre produtores e consumidores.",
+          "Obrigar cada consumidor a comunicar diretamente com todos os produtores."
+        ],
+        "en": [
+          "Allowing components to communicate through a shared intermediary.",
+          "Guaranteeing that all components share the same physical memory.",
+          "Eliminating the need to define protocols between producers and consumers.",
+          "Forcing every consumer to communicate directly with all producers."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O bus desacopla produtores e consumidores. Os componentes comunicam através de uma infraestrutura comum em vez de estabelecerem necessariamente ligações diretas entre todos.",
+        "en": "A message bus decouples producers and consumers. Components communicate asynchronously via message topics or channels rather than direct point-to-point connections."
+      }
+    },
+    {
+      "id": 10,
+      "type": "boolean",
+      "question": {
+        "pt": "Apache Kafka é apresentado na matéria como exemplo de tecnologia associada a arquiteturas baseadas em mensagens.",
+        "en": "Apache Kafka is presented in the course material as an example of technology associated with message-based architectures."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Kafka surge nos diapositivos como exemplo associado à arquitetura bus.",
+        "en": "True. Kafka is featured in the lecture slides as a prominent distributed event streaming platform embodying the bus architecture."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes situações favorece particularmente uma arquitetura baseada em bus?",
+        "en": "Which of the following situations particularly favours a bus-based architecture?"
+      },
+      "options": {
+        "pt": [
+          "Vários serviços independentes precisam de consumir eventos produzidos por outros componentes.",
+          "Uma aplicação necessita de aumentar exclusivamente a frequência do processador.",
+          "Um servidor precisa de manter todas as funcionalidades numa única instância.",
+          "Um cliente necessita de aceder diretamente à memória de um servidor remoto."
+        ],
+        "en": [
+          "Multiple independent services need to consume events produced by other components.",
+          "An application strictly needs to increase its processor clock frequency.",
+          "A server needs to maintain all functionalities in a single instance.",
+          "A client needs to directly access the memory of a remote server."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A arquitetura bus é útil quando diferentes componentes produzem e consomem mensagens ou eventos, favorecendo o desacoplamento.",
+        "en": "A message bus is especially beneficial when diverse components produce and consume asynchronous events, fostering loose coupling and broadcast distribution."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a característica principal de uma arquitetura multi-tier?",
+        "en": "What is the main characteristic of a multi-tier architecture?"
+      },
+      "options": {
+        "pt": [
+          "Separar responsabilidades em diferentes camadas funcionais.",
+          "Duplicar todos os componentes em servidores independentes.",
+          "Distribuir dados exclusivamente através de particionamento.",
+          "Concentrar as operações de coordenação numa camada física."
+        ],
+        "en": [
+          "Separating responsibilities into distinct functional layers.",
+          "Duplicating all components across independent servers.",
+          "Distributing data exclusively through partitioning.",
+          "Concentrating coordination operations into a single physical layer."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Uma arquitetura multi-tier organiza o sistema em camadas, por exemplo, apresentação, aplicação e dados. A separação permite gerir responsabilidades distintas.",
+        "en": "A multi-tier architecture organises a system into separate logical layers (e.g., presentation, application logic, persistence), allowing independent development and management."
+      }
+    },
+    {
+      "id": 13,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num sistema multi-tier, qual é a consequência potencial de armazenar sessões dos utilizadores exclusivamente na memória de cada servidor aplicacional?",
+        "en": "In a multi-tier system, what is the potential consequence of storing user sessions exclusively in the in-memory state of each application server?"
+      },
+      "options": {
+        "pt": [
+          "Os pedidos podem exigir encaminhamento para a mesma instância ou partilha de estado.",
+          "Os pedidos tornam-se independentes da localização de todas as instâncias.",
+          "As sessões passam automaticamente a ser persistidas na camada de dados.",
+          "As réplicas mantêm necessariamente uma visão consistente das sessões."
+        ],
+        "en": [
+          "Requests may require sticky routing to the same instance or shared state storage.",
+          "Requests become entirely independent of instance location.",
+          "Sessions are automatically persisted into the data tier.",
+          "Replicas necessarily maintain a consistent view of user sessions."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Se o estado da sessão for local, pedidos enviados para servidores diferentes podem encontrar estados diferentes. Podem ser necessárias sessões persistentes, armazenamento partilhado ou outro mecanismo de coordenação.",
+        "en": "If session state is local to memory, routing a user's request to a different server instance fails to find that session. Sticky sessions or a shared session store (e.g., Redis) become necessary."
+      }
+    },
+    {
+      "id": 14,
+      "type": "boolean",
+      "question": {
+        "pt": "Uma aplicação stateless permite, em geral, maior flexibilidade na distribuição de pedidos entre instâncias equivalentes.",
+        "en": "A stateless application generally allows greater flexibility when distributing requests across equivalent instances."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. Quando o processamento de um pedido não depende de estado local mantido por uma instância específica, é mais simples encaminhar pedidos para diferentes servidores.",
+        "en": "True. When request processing does not depend on local in-memory session state maintained by a specific instance, any server can handle any request interchangeably."
+      }
+    },
+    {
+      "id": 15,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Um serviço tem quatro réplicas aplicacionais. A base de dados, porém, existe num único servidor. Qual é a afirmação mais correta?",
+        "en": "A service has four application replicas, but the database resides on a single server. Which statement is most accurate?"
+      },
+      "options": {
+        "pt": [
+          "O sistema deixou de possuir pontos únicos de falha porque a aplicação foi replicada.",
+          "A base de dados pode continuar a comprometer a disponibilidade global.",
+          "A replicação aplicacional garante consistência e redundância da base de dados.",
+          "A base de dados deixa de necessitar de recursos de armazenamento persistente."
+        ],
+        "en": [
+          "The system no longer possesses single points of failure because the application is replicated.",
+          "The database can still compromise overall availability as a single point of failure.",
+          "Application replication guarantees database consistency and redundancy.",
+          "The database no longer requires persistent storage resources."
+        ]
+      },
+      "solution": [
+        1
+      ],
+      "explanation": {
+        "pt": "A disponibilidade global depende dos componentes críticos. Replicar a aplicação não elimina o risco associado a uma base de dados única.",
+        "en": "Overall system availability depends on every critical link in the path. Replicating the compute layer does not eliminate failure risk if the database remains a single point of failure."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Num sistema particionado, o servidor responsável por uma partição fica indisponível e não existem réplicas. Qual é a consequência mais provável?",
+        "en": "In a partitioned system, the server responsible for a partition becomes unavailable and no replicas exist. What is the most likely consequence?"
+      },
+      "options": {
+        "pt": [
+          "Os dados dessa partição podem tornar-se temporariamente inacessíveis.",
+          "Todos os dados ficam automaticamente acessíveis pelos restantes servidores.",
+          "O sistema aumenta a capacidade de resposta para os pedidos afetados.",
+          "Os clientes passam a utilizar apenas os dados das outras partições sem limitações."
+        ],
+        "en": [
+          "Data within that partition may become temporarily inaccessible.",
+          "All data automatically becomes accessible through the remaining servers.",
+          "The system increases response capacity for the affected requests.",
+          "Clients seamlessly use data from other partitions without limitation."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O particionamento distribui a responsabilidade pelos dados. Sem redundância, a falha de um servidor pode comprometer o acesso à sua partição.",
+        "en": "Sharding distributes disjoint slices of data across nodes. Without replication, node failure directly compromises access to the data partition it holds."
+      }
+    },
+    {
+      "id": 17,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Seleciona as DUAS afirmações corretas sobre microserviços.",
+        "en": "Select the TWO correct statements regarding microservices."
+      },
+      "options": {
+        "pt": [
+          "Permitem escalar funcionalidades específicas de forma independente.",
+          "Garantem consistência automática entre todas as bases de dados.",
+          "Podem aumentar a complexidade de deployment e testes.",
+          "Eliminam a necessidade de comunicação entre componentes."
+        ],
+        "en": [
+          "They enable independent scaling of specific capabilities.",
+          "They guarantee automatic consistency across all databases.",
+          "They can increase deployment and integration testing complexity.",
+          "They eliminate the need for inter-component communication."
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "A escalabilidade independente é uma vantagem, mas a distribuição introduz desafios de integração, consistência, deployment e testes.",
+        "en": "Independent scaling is a key benefit, but distribution introduces challenges in network communication, distributed transactions, deployment orchestration, and testing."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma aplicação recebe pedidos através de um proxy, utiliza três servidores aplicacionais equivalentes e consulta uma base de dados particionada. Quais são os mecanismos de distribuição presentes?",
+        "en": "An application receives requests via a proxy, utilises three equivalent application servers, and queries a partitioned database. What distribution mechanisms are present?"
+      },
+      "options": {
+        "pt": [
+          "Replicação aplicacional e particionamento de dados.",
+          "Replicação de dados e particionamento aplicacional.",
+          "Particionamento aplicacional e escalabilidade vertical.",
+          "Replicação integral e concentração dos dados."
+        ],
+        "en": [
+          "Application replication and data partitioning.",
+          "Data replication and application partitioning.",
+          "Application partitioning and vertical scaling.",
+          "Full replication and data centralization."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Os servidores aplicacionais equivalentes representam replicação de funcionalidade. A base de dados distribuída por subconjuntos representa particionamento.",
+        "en": "The three identical application servers exemplify functional compute replication. Distributing the database into subsets exemplifies horizontal partitioning."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escrita",
+      "question": {
+        "pt": "Compara as arquiteturas proxy-server, manager-worker e server group. Explica como distribuem responsabilidades e identifica os seus principais riscos de disponibilidade e escalabilidade.",
+        "en": "Compare the proxy-server, manager-worker, and server group architectures. Explain how they distribute responsibilities and identify their primary risks regarding availability and scalability."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**Proxy-server:** um proxy recebe pedidos e abstrai a interação com múltiplos servidores. É particularmente adequado para esconder replicação e particionamento dos clientes. O proxy pode constituir um ponto único de contenção e falha.\n\n**Manager-worker:** o manager executa funções de coordenação ou gestão de metadados; os workers executam o trabalho ou armazenam dados. A separação favorece a distribuição de responsabilidades, mas um manager único pode constituir um ponto crítico.\n\n**Server group:** vários servidores podem responder a pedidos. Um protocolo de sincronização permite coordenar e manter o estado das réplicas. Evita a dependência de um único servidor, mas o custo de coordenação pode dificultar a escalabilidade.\n\n**Critérios de avaliação — 10 pontos:** descrição do proxy-server (2); manager-worker (2); server group (2); identificação de riscos de falha (2); comparação dos custos de coordenação e escalabilidade (2).",
+        "en": "Model answer:\n\n**Proxy-server:** a proxy receives client requests and abstracts interaction with multiple back-end servers. It is well-suited for hiding replication and partitioning from clients. The proxy can become a single point of contention and failure.\n\n**Manager-worker:** the manager handles coordination, scheduling, or metadata management; workers execute compute jobs or store content. This division of labor structures responsibilities clearly, but a single manager node represents a critical single point of failure.\n\n**Server group:** multiple peer servers handle client requests. Group synchronization protocols coordinate and maintain replica state. This avoids dependency on a single centralized coordinator, but consensus and synchronization costs can hinder horizontal scale-out.\n\n**Grading criteria — 10 points:** proxy-server description (2); manager-worker description (2); server group description (2); failure risk identification (2); comparison of coordination costs and scalability trade-offs (2)."
+      },
+      "explanation": {
+        "pt": "A questão relaciona transparência, divisão de responsabilidades, redundância e sincronização.",
+        "en": "This question connects transparency, division of responsibilities, redundancy, and coordination mechanisms."
+      }
+    },
+    {
+      "id": 20,
+      "type": "escrita",
+      "question": {
+        "pt": "Pretendes transformar uma aplicação monolítica numa arquitetura distribuída capaz de suportar muitos utilizadores e falhas ocasionais. Explica uma evolução arquitetural possível, desde a separação das camadas até à introdução de mecanismos de redundância.",
+        "en": "You intend to transform a monolithic application into a distributed architecture capable of supporting heavy user traffic and occasional hardware faults. Explain a possible architectural evolution path, from tier separation to introducing redundancy mechanisms."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n1. Identificar as responsabilidades existentes no monólito, como apresentação, lógica aplicacional e persistência.\n2. Separar componentes que beneficiem de gestão ou escalabilidade independente.\n3. Criar instâncias adicionais dos componentes sujeitos a maior carga.\n4. Introduzir um mecanismo de encaminhamento, como um proxy, para distribuir pedidos entre servidores.\n5. Avaliar particionamento dos dados quando a dimensão ou a carga justificarem a divisão.\n6. Introduzir réplicas dos componentes críticos para reduzir o impacto das falhas.\n7. Definir mecanismos adequados de sincronização e gestão de estado.\n8. Identificar potenciais pontos únicos de falha, incluindo proxy, base de dados e serviços de coordenação.\n\nA distribuição não elimina automaticamente todos os problemas. Aumenta também a complexidade de comunicação, configuração e operação.\n\n**Critérios de avaliação — 10 pontos:** decomposição funcional (2); estratégia de escala (2); redundância (2); gestão de dados e estado (2); identificação de compromissos e limitações (2).",
+        "en": "Model answer:\n\n1. Identify existing responsibilities within the monolith (presentation, business logic, persistence).\n2. Decouple components that benefit from independent scaling and maintenance.\n3. Instantiate multiple replicas of components experiencing heavy workloads.\n4. Introduce a routing mechanism, such as a reverse proxy or load balancer, to distribute requests across servers.\n5. Assess database partitioning (sharding) when data volume or write throughput justifies it.\n6. Introduce replicas for critical components (application and database) to mitigate failure impact.\n7. Implement appropriate state management strategies (e.g., stateless services, external distributed cache).\n8. Identify and mitigate remaining single points of failure (load balancer, primary database, coordination services).\n\nNote that distribution does not eliminate all problems; it increases complexity in networking, configuration, deployment, and observability.\n\n**Grading criteria — 10 points:** functional decomposition (2); scaling strategy (2); redundancy design (2); data and state management (2); identifying trade-offs and operational complexity (2)."
+      },
+      "explanation": {
+        "pt": "Não existe uma única arquitetura correta. Importa justificar como cada decisão responde a um requisito e quais os novos problemas introduzidos.",
+        "en": "There is no single universal architecture. Every decision must be justified by requirements while evaluating the trade-offs introduced."
+      }
+    }
+  ]
+}

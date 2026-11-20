@@ -12,7 +12,7 @@ import { getLocalizedText, getLocalizedList } from './utils.js';
 import { getQuestionTypeInfo } from './questionTypes.js';
 import { QuestionStatus } from './storage.js';
 import { getCurrentLanguage } from './i18n.js';
-import { APP_CONFIG } from './config.js';
+import { APP_CONFIG, normalizeQuestionType } from './config.js';
 
 export class ExamService {
     /**
@@ -89,17 +89,24 @@ export class ExamService {
     }
 
     /**
-     * Extracts question types count breakdown (e.g. { escrita: 7, boolean: 24 }).
+     * Extracts question types count breakdown (e.g. { written: 7, boolean: 24 }).
+     * Normalizes legacy Portuguese keys to canonical English IDs.
      * @param {object} exam
      * @returns {object|null}
      */
     static getTypesCount(exam) {
         if (!exam) return null;
-        if (exam.types_count && typeof exam.types_count === 'object') {
-            return exam.types_count;
-        }
-        if (exam.tipos_contagem && typeof exam.tipos_contagem === 'object') {
-            return exam.tipos_contagem;
+        const rawCounts = (exam.types_count && typeof exam.types_count === 'object')
+            ? exam.types_count
+            : (exam.tipos_contagem && typeof exam.tipos_contagem === 'object' ? exam.tipos_contagem : null);
+
+        if (rawCounts) {
+            const normalized = {};
+            for (const [k, v] of Object.entries(rawCounts)) {
+                const canonical = normalizeQuestionType(k);
+                normalized[canonical] = (normalized[canonical] || 0) + v;
+            }
+            return normalized;
         }
         const questionsList = exam.questions || exam.perguntas;
         if (Array.isArray(questionsList)) {
@@ -119,7 +126,8 @@ export class ExamService {
      * @returns {string[]}
      */
     static getQuestionTypes(exam) {
-        if (!exam) return ['escolha_multipla'];
+        const defaultType = APP_CONFIG.questionTypes.MULTIPLE_CHOICE;
+        if (!exam) return [defaultType];
         const typesList = exam.question_types || exam.tipos_perguntas;
         if (Array.isArray(typesList) && typesList.length > 0) {
             return [...new Set(typesList.map(t => getQuestionTypeInfo(t).id))];
@@ -128,7 +136,7 @@ export class ExamService {
         if (Array.isArray(questionsList) && questionsList.length > 0) {
             return [...new Set(questionsList.map(q => getQuestionTypeInfo(q.type || q.tipo).id))];
         }
-        return ['escolha_multipla'];
+        return [defaultType];
     }
 
     /**
@@ -234,11 +242,11 @@ export class ExamService {
      * @param {object} q
      */
     static shuffleOptions(q) {
-        const qType = q.type || q.tipo;
+        const qType = normalizeQuestionType(q.type || q.tipo);
         const opts = q.options || q.opcoes;
         const sol = q.solution !== undefined ? q.solution : q.solucao;
 
-        if (qType === 'escrita' || qType === 'boolean' || !opts) {
+        if (qType === APP_CONFIG.questionTypes.WRITTEN || qType === APP_CONFIG.questionTypes.BOOLEAN || !opts) {
             return;
         }
 

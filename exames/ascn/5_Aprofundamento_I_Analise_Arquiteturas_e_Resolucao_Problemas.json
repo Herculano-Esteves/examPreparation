@@ -1,0 +1,539 @@
+{
+  "title": {
+    "pt": "Exame 5 — Aprofundamento I: Análise de Arquiteturas e Resolução de Problemas",
+    "en": "Exam 5 — Advanced Focus I: Architecture Analysis and Problem Solving"
+  },
+  "description": {
+    "pt": "Nível 5/6 — Avançado. Primeiro exame de aprofundamento. Integra os conceitos de aplicações distribuídas, modularidade, escalabilidade, redundância, consistência, estado, proxy-server, manager-worker, server group e automatização. As perguntas exigem raciocínio sobre situações que combinam vários conceitos.",
+    "en": "Level 5/6 — Advanced. First advanced focus exam. Integrates distributed applications, modularity, scalability, redundancy, consistency, state, proxy-server, manager-worker, server group, and automation. Questions require reasoning across multi-concept architectural scenarios."
+  },
+  "languages": [
+    "pt",
+    "en"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a conclusão arquitetural mais adequada?",
+        "en": "What is the most appropriate architectural conclusion?"
+      },
+      "options": {
+        "pt": [
+          "A capacidade global pode continuar limitada pela base de dados partilhada.",
+          "A capacidade global aumenta necessariamente de forma proporcional às réplicas.",
+          "A base de dados deixa de influenciar o desempenho por existirem várias aplicações.",
+          "O particionamento aplicacional elimina automaticamente contenção na persistência."
+        ],
+        "en": [
+          "Overall capacity may still remain constrained by the shared database.",
+          "Overall capacity necessarily increases proportionally with the number of replicas.",
+          "The database ceases to influence performance due to having multiple application instances.",
+          "Application partitioning automatically eliminates contention in persistence."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A escalabilidade de um componente não elimina os limites dos restantes. A base de dados partilhada pode tornar-se o principal bottleneck.",
+        "en": "Scaling one component does not eliminate bottlenecks elsewhere. The shared database can become the primary bottleneck."
+      }
+    },
+    {
+      "id": 2,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a avaliação mais correta desta arquitetura?",
+        "en": "What is the most accurate evaluation of this architecture?"
+      },
+      "options": {
+        "pt": [
+          "Melhora a distribuição de carga, mas cada partição depende do respetivo servidor.",
+          "Melhora a redundância, mas concentra toda a computação numa única máquina.",
+          "Garante disponibilidade integral, mas impede o crescimento do armazenamento.",
+          "Garante consistência global, mas exige sincronização de todas as réplicas."
+        ],
+        "en": [
+          "It improves load distribution, but each partition depends on its respective server.",
+          "It improves redundancy, but concentrates all computation on a single machine.",
+          "It guarantees full availability, but prevents storage growth.",
+          "It guarantees global consistency, but requires synchronization across all replicas."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O partitioning pode melhorar a capacidade, mas não fornece automaticamente redundância. Cada partição continua vulnerável à falha do servidor responsável.",
+        "en": "Partitioning improves capacity and load distribution, but does not inherently provide redundancy. Each partition remains vulnerable to node failure."
+      }
+    },
+    {
+      "id": 3,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal vantagem desta combinação?",
+        "en": "What is the primary advantage of this combination?"
+      },
+      "options": {
+        "pt": [
+          "Permitir distribuir dados e manter redundância para cada partição.",
+          "Eliminar a necessidade de sincronização entre cópias de cada partição.",
+          "Garantir que todas as operações são executadas exclusivamente num servidor.",
+          "Evitar a necessidade de localizar a partição responsável por cada pedido."
+        ],
+        "en": [
+          "Allowing data distribution while maintaining redundancy for each partition.",
+          "Eliminating the need for synchronization between copies of each partition.",
+          "Guaranteeing that all operations execute exclusively on a single server.",
+          "Avoiding the need to locate the partition responsible for each request."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O partitioning distribui dados e carga. A replicação introduz redundância. Contudo, continua a ser necessário encaminhar pedidos e coordenar cópias.",
+        "en": "Partitioning shards data and load; replication introduces redundancy. Routing and replica coordination remain necessary."
+      }
+    },
+    {
+      "id": 4,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal vantagem da decomposição em serviços nesta situação?",
+        "en": "What is the primary advantage of service decomposition in this situation?"
+      },
+      "options": {
+        "pt": [
+          "Permitir aumentar independentemente as instâncias do serviço de inscrições.",
+          "Permitir replicar necessariamente todos os serviços com a mesma intensidade.",
+          "Permitir eliminar completamente a comunicação com os restantes serviços.",
+          "Permitir garantir consistência automática entre todos os componentes."
+        ],
+        "en": [
+          "Allowing the enrollment service instances to scale independently.",
+          "Requiring all services to be replicated with identical intensity.",
+          "Completely eliminating communication with the remaining services.",
+          "Automatically guaranteeing consistency across all components."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A decomposição funcional permite atribuir recursos adicionais aos serviços com maior carga sem replicar obrigatoriamente todo o sistema.",
+        "en": "Functional decomposition allows allocating extra resources to high-demand services without having to replicate the entire monolithic system."
+      }
+    },
+    {
+      "id": 5,
+      "type": "boolean",
+      "question": {
+        "pt": "A decomposição em microserviços pode melhorar a modularidade e a escalabilidade, mas aumentar a complexidade operacional.",
+        "en": "Microservice decomposition can improve modularity and scalability, but increases operational complexity."
+      },
+      "solution": 0,
+      "explanation": {
+        "pt": "Verdadeiro. A matéria identifica escalabilidade independente como benefício e deployment, testes e consistência como desafios.",
+        "en": "True. The course identifies independent scalability as a key benefit, while highlighting deployment, testing, and consistency as major operational challenges."
+      }
+    },
+    {
+      "id": 6,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o principal problema arquitetural que permanece?",
+        "en": "What is the primary architectural issue that remains?"
+      },
+      "options": {
+        "pt": [
+          "Um ponto central cuja falha pode impedir o acesso aos servidores.",
+          "A impossibilidade de distribuir pedidos por mais de dois servidores.",
+          "A necessidade de todos os servidores executarem funcionalidades distintas.",
+          "A impossibilidade de utilizar simultaneamente replicação e particionamento."
+        ],
+        "en": [
+          "A single central point whose failure can prevent access to all back-end servers.",
+          "The inability to distribute requests across more than two servers.",
+          "The requirement for all servers to run distinct functionalities.",
+          "The impossibility of simultaneously utilizing replication and partitioning."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O proxy pode constituir um ponto único de falha. A redundância dos servidores não é suficiente se o caminho de acesso ao serviço depender de um único componente.",
+        "en": "A centralized reverse proxy or load balancer constitutes a single point of failure. Server redundancy is insufficient if traffic routing depends on an un-replicated ingress gateway."
+      }
+    },
+    {
+      "id": 7,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Se o manager deixar de responder, qual é a consequência mais coerente com esta arquitetura?",
+        "en": "If the manager stops responding, what is the most consistent consequence under this architecture?"
+      },
+      "options": {
+        "pt": [
+          "Os dados podem permanecer nos workers, mas a sua localização pode deixar de estar acessível.",
+          "Todos os dados são necessariamente apagados dos workers quando o manager falha.",
+          "Os workers passam automaticamente a administrar todos os metadados sem coordenação.",
+          "A arquitetura transforma-se automaticamente num server group totalmente sincronizado."
+        ],
+        "en": [
+          "Data may remain intact on worker nodes, but block locations and metadata may become inaccessible.",
+          "All data is necessarily deleted from workers when the manager fails.",
+          "Workers automatically take over managing all metadata without coordination.",
+          "The architecture automatically transforms into a fully synchronized server group."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A falha do manager pode impedir operações dependentes dos metadados, apesar de os dados físicos continuarem armazenados nos workers.",
+        "en": "In a manager-worker storage architecture, manager failure renders metadata and namespace resolution unavailable, preventing clients from reading or writing files despite data residing on workers."
+      }
+    },
+    {
+      "id": 8,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual das seguintes afirmações descreve melhor o compromisso de uma arquitetura server group?",
+        "en": "Which of the following statements best describes the trade-off of a server group architecture?"
+      },
+      "options": {
+        "pt": [
+          "A redundância reduz dependências centrais, mas a sincronização pode limitar o scale-out.",
+          "A centralização simplifica as operações, mas impede qualquer forma de replicação.",
+          "O particionamento elimina a coordenação, mas exige um servidor manager único.",
+          "A distribuição de funcionalidades elimina os problemas de consistência entre servidores."
+        ],
+        "en": [
+          "Redundancy eliminates centralized dependencies, but synchronization overhead can limit horizontal scale-out.",
+          "Centralization simplifies operations, but prevents any form of replication.",
+          "Partitioning eliminates coordination, but requires a single manager server.",
+          "Functional distribution eliminates consistency issues between servers."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Num server group, vários servidores podem assumir pedidos, mas manter o seu estado coordenado introduz custos adicionais.",
+        "en": "In a server group, eliminating a single master prevents single points of failure, but peer-to-peer consensus and replica state synchronization increase message overhead and restrict high scale-out."
+      }
+    },
+    {
+      "id": 9,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o problema demonstrado?",
+        "en": "What problem is demonstrated?"
+      },
+      "options": {
+        "pt": [
+          "Divergência temporária entre estados replicados.",
+          "Particionamento vertical de funcionalidades.",
+          "Insuficiência de recursos físicos numa única instância.",
+          "Ausência de separação entre apresentação e aplicação."
+        ],
+        "en": [
+          "Temporary state divergence between replicas (eventual consistency lag).",
+          "Vertical functional partitioning.",
+          "Insufficient physical resources on a single instance.",
+          "Absence of separation between presentation and application layers."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "As réplicas podem apresentar estados diferentes enquanto não ocorre a sincronização necessária. Trata-se de um problema de consistência.",
+        "en": "Replicas can reflect differing states until synchronization propagation completes. This illustrates a distributed data consistency challenge."
+      }
+    },
+    {
+      "id": 10,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a origem mais provável do problema?",
+        "en": "What is the most probable root cause of the problem?"
+      },
+      "options": {
+        "pt": [
+          "A sessão depende de estado local não partilhado entre instâncias.",
+          "A aplicação utiliza obrigatoriamente particionamento dos dados.",
+          "A infraestrutura possui demasiados recursos computacionais.",
+          "O sistema necessita de aumentar a capacidade do armazenamento de objetos."
+        ],
+        "en": [
+          "The user session depends on local in-memory state not shared across instances.",
+          "The application mandatorily uses data partitioning.",
+          "The infrastructure has too many computational resources.",
+          "The system needs to increase object storage capacity."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O estado local dificulta o encaminhamento livre dos pedidos. É necessário gerir adequadamente as sessões, por exemplo, através de armazenamento partilhado ou encaminhamento consistente.",
+        "en": "Local in-memory session state causes user sessions to be lost when subsequent requests are routed to different server instances. An external session cache or sticky routing is required."
+      }
+    },
+    {
+      "id": 11,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a principal vantagem de manter os servidores aplicacionais stateless, sempre que a arquitetura o permita?",
+        "en": "What is the primary advantage of keeping application servers stateless whenever architecture allows?"
+      },
+      "options": {
+        "pt": [
+          "Facilitar a substituição de instâncias e a distribuição de pedidos.",
+          "Eliminar a necessidade de persistência de dados em qualquer componente.",
+          "Garantir que a comunicação entre serviços ocorre sem protocolos.",
+          "Impedir que as aplicações necessitem de autenticação de utilizadores."
+        ],
+        "en": [
+          "Facilitating instance replacement and flexible request load distribution.",
+          "Eliminating the need for data persistence across all components.",
+          "Guaranteeing that inter-service communication occurs without protocols.",
+          "Preventing applications from requiring user authentication."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Se as instâncias não dependem de estado local específico, tornam-se mais facilmente substituíveis e os pedidos podem ser distribuídos com maior flexibilidade.",
+        "en": "When application instances hold no local state, any instance can handle any incoming request, greatly simplifying horizontal autoscaling, rolling deployments, and failover."
+      }
+    },
+    {
+      "id": 12,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o principal problema que permanece?",
+        "en": "What is the primary issue that remains?"
+      },
+      "options": {
+        "pt": [
+          "As configurações podem divergir apesar de o provisioning estar automatizado.",
+          "A infraestrutura deixa de suportar qualquer forma de deployment.",
+          "A criação automática de VMs impede o controlo das versões do software.",
+          "O sistema deixa de permitir alterações posteriores às configurações."
+        ],
+        "en": [
+          "Configurations can diverge despite provisioning being automated.",
+          "The infrastructure no longer supports any form of deployment.",
+          "Automated VM creation prevents software version control.",
+          "The system no longer allows subsequent configuration changes."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "Automatizar o provisioning não elimina as inconsistências se a configuração e o deployment continuarem dependentes de procedimentos manuais.",
+        "en": "Automating virtual machine provisioning alone does not prevent snowflake servers and configuration drift if application deployment and server configuration are still applied manually."
+      }
+    },
+    {
+      "id": 13,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é o comportamento desejável?",
+        "en": "What is the desired behavior?"
+      },
+      "options": {
+        "pt": [
+          "Verificar o estado e evitar alterações quando os recursos já estão corretos.",
+          "Remover e reinstalar todos os componentes para garantir uma instalação recente.",
+          "Reiniciar todos os serviços independentemente do estado das configurações.",
+          "Executar apenas nos servidores adicionados ao inventory desde a primeira execução."
+        ],
+        "en": [
+          "Inspecting current state and avoiding alterations when resources already match the desired state.",
+          "Removing and reinstalling all components to guarantee a fresh installation.",
+          "Restarting all services regardless of configuration status.",
+          "Running strictly on servers added to the inventory since the first execution."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A idempotência permite repetir a execução e manter o estado desejado sem operações desnecessárias.",
+        "en": "Idempotence ensures that reapplying an automation recipe checks the existing state and modifies only resources that have drifted, avoiding unnecessary restarts and churn."
+      }
+    },
+    {
+      "id": 14,
+      "type": "boolean",
+      "question": {
+        "pt": "Uma infraestrutura totalmente automatizada deixa de necessitar de monitorização porque os servidores são reproduzíveis.",
+        "en": "A fully automated infrastructure no longer requires monitoring because servers are reproducible."
+      },
+      "solution": 1,
+      "explanation": {
+        "pt": "Falso. A automatização melhora a configuração e reprodução, mas não elimina falhas, problemas de desempenho ou necessidades de observação.",
+        "en": "False. Automation improves consistency and repeatability, but does not eliminate hardware faults, performance regressions, network partitions, or runtime anomalies."
+      }
+    },
+    {
+      "id": 15,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Quais são os componentes cuja falha individual deve ser analisada prioritariamente como possível ponto único de falha?",
+        "en": "Which components should be analyzed with highest priority as potential single points of failure?"
+      },
+      "options": {
+        "pt": [
+          "O proxy e a base de dados, devido à sua centralização.",
+          "Os dois servidores web, porque executam funções equivalentes.",
+          "O serviço de armazenamento de objetos, independentemente da sua implementação.",
+          "As sessões dos utilizadores, porque constituem sempre serviços autónomos."
+        ],
+        "en": [
+          "The proxy and the database, due to their centralized architecture.",
+          "The two web servers, because they execute identical functions.",
+          "The object storage service, regardless of its implementation.",
+          "User sessions, because they are always autonomous services."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "O proxy e a base de dados foram explicitamente descritos como componentes únicos. Já o armazenamento de objetos exige conhecer a sua arquitetura para avaliar a redundância.",
+        "en": "Centralized components without redundancy (such as a single ingress reverse proxy or a single database master) represent immediate single points of failure."
+      }
+    },
+    {
+      "id": 16,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Seleciona as DUAS afirmações corretas.",
+        "en": "Select the TWO correct statements."
+      },
+      "options": {
+        "pt": [
+          "A replicação pode melhorar a disponibilidade, mas pode exigir sincronização.",
+          "O particionamento garante que todas as partições resistem à perda de um servidor.",
+          "A orientação a serviços permite separar responsabilidades e escalar componentes.",
+          "A utilização de microserviços garante que os testes de integração são dispensáveis."
+        ],
+        "en": [
+          "Replication can improve availability, but may require complex synchronization.",
+          "Partitioning guarantees that all partitions survive the loss of a server.",
+          "Service orientation allows decoupling responsibilities and independently scaling components.",
+          "Using microservices ensures that integration testing can be dispensed with."
+        ]
+      },
+      "solution": [
+        0,
+        2
+      ],
+      "explanation": {
+        "pt": "Replicação e orientação a serviços respondem a necessidades diferentes. A replicação envolve desafios de consistência; a modularidade permite escalabilidade independente.",
+        "en": "Replication addresses availability at the expense of consistency synchronization; service orientation decouples functional boundaries to enable independent component scaling."
+      }
+    },
+    {
+      "id": 17,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Qual é a interpretação inicial mais fundamentada?",
+        "en": "What is the most well-founded initial interpretation?"
+      },
+      "options": {
+        "pt": [
+          "Pode existir um bottleneck associado à partição ou ao servidor responsável.",
+          "O problema demonstra necessariamente uma falha do sistema de autenticação.",
+          "O problema demonstra que todos os servidores possuem recursos insuficientes.",
+          "O problema confirma que existe sincronização excessiva entre todas as réplicas."
+        ],
+        "en": [
+          "A bottleneck may exist associated with the specific partition or its hosting server.",
+          "The problem necessarily proves a failure in the authentication subsystem.",
+          "The problem proves that all servers possess insufficient hardware resources.",
+          "The problem confirms excessive synchronization overhead across all replicas."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A degradação localizada sugere investigar o servidor, o volume de carga ou os recursos associados à partição afetada.",
+        "en": "Localized performance degradation affecting a subset of keys points to hotspotting, partition skew, or resource exhaustion on the specific node hosting that partition."
+      }
+    },
+    {
+      "id": 18,
+      "type": "escolha_multipla",
+      "question": {
+        "pt": "Uma aplicação precisa de responder ao aumento de carga e continuar operacional perante a falha de uma instância aplicacional. Que estratégia é mais adequada?",
+        "en": "An application must handle workload spikes while remaining operational during the failure of an application instance. Which strategy is most appropriate?"
+      },
+      "options": {
+        "pt": [
+          "Replicar instâncias aplicacionais e distribuir pedidos, verificando os restantes pontos críticos.",
+          "Aumentar exclusivamente a memória da instância e manter uma única execução.",
+          "Dividir a interface gráfica em componentes sem alterar a infraestrutura de execução.",
+          "Criar partições de dados sem redundância e manter um único servidor aplicacional."
+        ],
+        "en": [
+          "Replicate application instances and distribute requests, while inspecting other critical bottlenecks.",
+          "Exclusively increase instance memory while maintaining a single execution thread.",
+          "Split the UI into components without altering the underlying execution infrastructure.",
+          "Partition data without redundancy while keeping a single application server."
+        ]
+      },
+      "solution": [
+        0
+      ],
+      "explanation": {
+        "pt": "A replicação com distribuição de pedidos pode melhorar capacidade e disponibilidade. É necessário assegurar que não existem outros componentes críticos sem redundância.",
+        "en": "Application layer replication behind a load balancer enhances capacity and fault tolerance. However, holistic reliability requires evaluating database and storage bottlenecks."
+      }
+    },
+    {
+      "id": 19,
+      "type": "escrita",
+      "question": {
+        "pt": "Uma aplicação suporta 1000 utilizadores. Pretende-se aumentar a capacidade para 10000 utilizadores e tolerar a falha de um servidor. Propõe uma arquitetura distribuída, justifica os mecanismos escolhidos e identifica pelo menos três novos desafios.",
+        "en": "An application currently supports 1,000 users. The goal is to scale capacity to 10,000 users while tolerating the failure of any single server. Propose a distributed architecture, justify the chosen mechanisms, and identify at least three emerging technical challenges."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\nUma solução possível é separar a camada aplicacional da camada de dados e utilizar várias instâncias aplicacionais equivalentes. Um componente de encaminhamento distribui os pedidos entre as instâncias disponíveis.\n\nCaso a base de dados se torne o principal bottleneck, deve avaliar-se a utilização de replicação para distribuir determinadas operações e particionamento para dividir o conjunto de dados ou a carga.\n\nA disponibilidade exige redundância dos componentes críticos, não apenas dos servidores aplicacionais. Também o mecanismo de encaminhamento e os componentes de armazenamento devem ser analisados.\n\n**Novos desafios:**\n\n1. Sincronização e consistência das réplicas.\n2. Gestão de sessões e estado entre instâncias.\n3. Monitorização de um maior número de componentes.\n4. Automatização do provisioning e deployment.\n5. Coordenação entre serviços e identificação de pontos únicos de falha.\n6. Avaliação de bottlenecks que possam surgir na base de dados ou na comunicação.\n\nO aumento de dez vezes no número de utilizadores não implica necessariamente multiplicar por dez o número de servidores. O dimensionamento depende da carga efetiva e do comportamento da aplicação.\n\n**Critérios de avaliação — 10 pontos:** proposta arquitetural coerente (3); escalabilidade (2); disponibilidade e redundância (2); identificação e explicação de pelo menos três desafios (3).",
+        "en": "Model answer:\n\nA feasible architectural pattern decouples the application tier from the persistence tier. Multiple stateless, identical application instances are deployed behind a redundant reverse proxy/load balancing pool.\n\nIf the database becomes the bottleneck, implement read replication (for read-heavy traffic) or horizontal database partitioning (sharding) by user domain.\n\nHigh availability requires redundancy across all architectural tiers—not just compute. Ingress load balancers (e.g., active-passive Keepalived or Anycast) and storage nodes must possess automated failover mechanisms.\n\n**Emerging technical challenges:**\n\n1. Replica synchronization, eventual consistency, and replication lag.\n2. Distributed session management and state externalization (e.g., Redis cluster).\n3. Distributed observability, log aggregation, and distributed tracing across microservices.\n4. Automated CI/CD provisioning, canary deployments, and configuration management.\n5. Coordination consensus overhead and mitigation of cascaded failure modes.\n6. Hotspotting and cross-shard queries in the partitioned data store.\n\nA tenfold increase in users does not strictly require 10x servers, as architectural efficiency, caching, and connection pooling alter resource demands.\n\n**Grading criteria — 10 points:** coherent architectural design (3); scalability strategy (2); availability and redundancy mechanisms (2); identification and thorough explanation of at least three challenges (3)."
+      },
+      "explanation": {
+        "pt": "A escalabilidade de sistemas distribuídos exige compreender a interação entre os componentes e não apenas aumentar o número de servidores.",
+        "en": "Scaling distributed systems demands holistic component interaction analysis rather than simply multiplying server counts."
+      }
+    },
+    {
+      "id": 20,
+      "type": "escrita",
+      "question": {
+        "pt": "Compara duas soluções para um serviço distribuído: A utiliza um proxy central e várias réplicas independentes; B utiliza um server group com protocolo de sincronização. Discute disponibilidade, escalabilidade, coordenação e complexidade.",
+        "en": "Compare two solutions for a distributed service: Solution A uses a centralized reverse proxy with independent stateless replicas; Solution B uses a decentralized server group with a state synchronization protocol. Discuss availability, scalability, coordination, and operational complexity."
+      },
+      "solution": {
+        "pt": "Resposta-modelo:\n\n**Solução A — Proxy e réplicas:**\n\nO proxy abstrai os servidores e pode distribuir os pedidos pelas réplicas. A arquitetura permite adicionar instâncias, mas o proxy pode tornar-se um ponto único de contenção e falha. A gestão de consistência depende da natureza dos dados e das funcionalidades replicadas.\n\n**Solução B — Server group:**\n\nOs servidores podem servir pedidos e coordenam o seu estado através de um protocolo de sincronização. A arquitetura evita depender necessariamente de um servidor central, mas a coordenação introduz custos de comunicação e pode limitar a escalabilidade.\n\n**Comparação:**\n\nA solução A simplifica a visão que os clientes têm dos servidores, mas concentra a intermediação. A solução B distribui a capacidade de servir pedidos e requer coordenação explícita entre servidores.\n\nA escolha depende dos requisitos de consistência, disponibilidade, desempenho e complexidade operacional.\n\n**Critérios de avaliação — 10 pontos:** funcionamento de A (2); funcionamento de B (2); disponibilidade (2); escalabilidade e coordenação (2); comparação fundamentada (2).",
+        "en": "Model answer:\n\n**Solution A — Centralized Proxy and Replicas:**\n\nThe reverse proxy presents a single unified endpoint, routing traffic across back-end replicas. Adding compute nodes is straightforward, providing high read scalability. However, the centralized proxy is a single point of failure and bandwidth bottleneck unless deployed in a high-availability active-passive cluster. Consistency management depends on back-end storage rather than peer communication.\n\n**Solution B — Server Group with Consensus Protocol:**\n\nAll servers are active peers capable of accepting client requests, coordinating state changes via distributed consensus algorithms (e.g., Raft, Paxos, Viewstamped Replication). This eliminates reliance on a central master, enhancing availability against node crashes. However, inter-node network communication and consensus rounds introduce latency overhead that limits horizontal scale-out.\n\n**Comparison:**\n\nSolution A provides transparent client routing and operational simplicity at the cost of centralized ingress. Solution B achieves masterless resilience but demands sophisticated consensus logic, tuning of election timeouts, and network partition handling.\n\nThe optimal selection depends on workload characteristics: read-heavy web tier services favor Solution A; critical coordination, metadata stores, or distributed locking favor Solution B.\n\n**Grading criteria — 10 points:** operation of Solution A (2); operation of Solution B (2); availability comparison (2); scalability and coordination trade-offs (2); well-reasoned comparative synthesis (2)."
+      },
+      "explanation": {
+        "pt": "A questão pretende demonstrar que arquiteturas diferentes resolvem problemas semelhantes através de compromissos diferentes.",
+        "en": "Demonstrates how distinct architectural styles resolve common distributed computing problems through contrasting trade-offs."
+      }
+    }
+  ]
+}

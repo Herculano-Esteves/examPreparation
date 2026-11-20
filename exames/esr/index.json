@@ -1,0 +1,164 @@
+[
+  {
+    "id": "1_Fundamentos_Camada_Aplicacao_e_Rede",
+    "title": {
+      "pt": "Exame 1 — Fundamentos da Camada de Aplicação e Comunicações em Rede",
+      "en": "Exam 1 — Application Layer Foundations and Network Communications"
+    },
+    "description": {
+      "pt": "NÍVEL 1 — FUNDAMENTOS | 16 questões | Dificuldade: introdutória. Primeiro exame do percurso de Engenharia de Serviços em Rede. Estuda os conceitos fundamentais da camada de aplicação, arquiteturas cliente-servidor e P2P, processos, sockets, identificação de serviços, protocolos de transporte, requisitos das aplicações, segurança e digitalização de informação. Baseado principalmente nas secções introdutórias e finais do PowerPoint Application Layer. Objetivo: compreender os conceitos e estabelecer as bases necessárias para os exames seguintes. Resolve as perguntas pela ordem apresentada.",
+      "en": "LEVEL 1 — FOUNDATIONS | 16 questions | Difficulty: introductory. First exam in the Network Services Engineering track. Covers fundamental concepts of the application layer, client-server and P2P architectures, processes, sockets, service identification, transport protocols, application requirements, security, and information digitisation. Primarily based on the introductory and concluding sections of the Application Layer slide deck. Objective: understand the core concepts and establish the necessary foundation for subsequent exams. Solve questions in the presented order."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 13,
+      "boolean": 2,
+      "written": 1
+    },
+    "path": "exames/esr/1_Fundamentos_Camada_Aplicacao_e_Rede.json"
+  },
+  {
+    "id": "2_Arquiteturas_P2P_Distribuicao_e_Sockets",
+    "title": {
+      "pt": "Exame 2 — Arquiteturas P2P, Distribuição de Ficheiros e Programação com Sockets",
+      "en": "Exam 2 — P2P Architectures, File Distribution, and Socket Programming"
+    },
+    "description": {
+      "pt": "NÍVEL 2 — COMPREENSÃO E APLICAÇÃO | 16 questões | Dificuldade: básica a intermédia. Continuação do Exame 1. Aprofunda as arquiteturas cliente-servidor e P2P, os limites teóricos dos tempos de distribuição, a escalabilidade, o funcionamento do BitTorrent, os mecanismos rarest first e tit-for-tat e a comunicação através de sockets TCP e UDP. Baseado nas secções 2.5 e 2.7 do PowerPoint Application Layer. As perguntas evoluem de conceitos para interpretação de fórmulas e análise de mecanismos.",
+      "en": "LEVEL 2 — COMPREHENSION AND APPLICATION | 16 questions | Difficulty: basic to intermediate. Continuation of Exam 1. Explores client-server and P2P architectures in depth, theoretical distribution time bounds, self-scalability, BitTorrent operation, rarest-first and tit-for-tat mechanisms, and network communication via TCP and UDP sockets. Based on sections 2.5 and 2.7 of the Application Layer slide deck. Questions progress from conceptual foundations to formula interpretation and protocol mechanism analysis."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 13,
+      "boolean": 2,
+      "written": 1
+    },
+    "path": "exames/esr/2_Arquiteturas_P2P_Distribuicao_e_Sockets.json"
+  },
+  {
+    "id": "3_Multimedia_Streaming_DASH_e_CDNs",
+    "title": {
+      "pt": "Exame 3 — Multimédia, Streaming Adaptativo, DASH e CDNs",
+      "en": "Exam 3 — Multimedia, Adaptive Streaming, DASH, and CDNs"
+    },
+    "description": {
+      "pt": "NÍVEL 3 — APLICAÇÕES MULTIMÉDIA | 16 questões | Dificuldade: intermédia. Terceiro exame do percurso. Aborda representação digital de vídeo, compressão espacial e temporal, CBR e VBR, desafios de streaming, MPEG-DASH, decisões do cliente, buffers, escalabilidade de serviços multimédia e Content Distribution Networks. Baseado principalmente na secção 2.6 do PowerPoint Application Layer. Os exemplos do trabalho prático são utilizados apenas como contexto conceptual. O objetivo é compreender como os mecanismos estudados se articulam para disponibilizar vídeo através da Internet.",
+      "en": "LEVEL 3 — MULTIMEDIA APPLICATIONS | 16 questions | Difficulty: intermediate. Third exam in the track. Covers digital video representation, spatial and temporal compression, CBR and VBR, Internet streaming challenges, MPEG-DASH, client-side adaptation decisions, playback buffers, multimedia service scalability, and Content Distribution Networks (CDNs). Primarily based on section 2.6 of the Application Layer slide deck. Practical lab examples serve purely as conceptual context. Objective: understand how these mechanisms integrate to deliver video over the Internet."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 14,
+      "boolean": 1,
+      "written": 1
+    },
+    "path": "exames/esr/3_Multimedia_Streaming_DASH_e_CDNs.json"
+  },
+  {
+    "id": "4_Multicast_IP_IGMP_ASM_SSM_Arvores",
+    "title": {
+      "pt": "Exame 4 — Multicast IP, IGMP, ASM, SSM e Árvores de Distribuição",
+      "en": "Exam 4 — IP Multicast, IGMP, ASM, SSM, and Distribution Trees"
+    },
+    "description": {
+      "pt": "NÍVEL 4 — FUNDAMENTOS DE MULTICAST | 16 questões | Dificuldade: intermédia a avançada. Quarto exame do percurso, dedicado ao segundo PowerPoint teórico. Desenvolve progressivamente os conceitos de unicast e multicast, grupos, replicação de tráfego, descoberta de membros, IGMP, MLD, IGMPv1/v2/v3, ASM, SSM, modelos opt-in e opt-out e árvores de distribuição. Prepara diretamente os conceitos necessários ao estudo aprofundado do PIM no Exame 5.",
+      "en": "LEVEL 4 — MULTICAST FOUNDATIONS | 16 questions | Difficulty: intermediate to advanced. Fourth exam in the track, dedicated to the second theoretical slide deck. Systematically develops unicast vs multicast concepts, multicast group addressing, in-network packet replication, group membership discovery, IGMP, MLD, IGMPv1/v2/v3 evolutions, ASM vs SSM, opt-in vs opt-out distribution models, and tree architectures. Directly prepares the foundational concepts required for in-depth study of PIM in Exam 5."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 16,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 13,
+      "boolean": 2,
+      "written": 1
+    },
+    "path": "exames/esr/4_Multicast_IP_IGMP_ASM_SSM_Arvores.json"
+  },
+  {
+    "id": "5_Routing_Multicast_RPF_PIM_SM_e_PIM_DM",
+    "title": {
+      "pt": "Exame 5 — Aprofundamento I: Routing Multicast, RPF, PIM-SM e PIM-DM",
+      "en": "Exam 5 — Advanced Study I: Multicast Routing, RPF, PIM-SM, and PIM-DM"
+    },
+    "description": {
+      "pt": "NÍVEL 5 — APROFUNDAMENTO TEÓRICO | 18 questões | Dificuldade: avançada. Primeiro exame de aprofundamento. Pressupõe o domínio do Exame 4 e explora os mecanismos internos de routing multicast apresentados no segundo PowerPoint: árvores source-based e shared, estados (S,G) e (*,G), Rendezvous Point, Reverse Path Forwarding, MRIB, Designated Router, Rendezvous Point Tree, encapsulamento, soft-state, PIM Sparse Mode e PIM Dense Mode, Prune, Graft e respetivas implicações de escalabilidade. As perguntas exigem compreensão causal e raciocínio sobre o funcionamento dos protocolos.",
+      "en": "LEVEL 5 — THEORETICAL IN-DEPTH STUDY | 18 questions | Difficulty: advanced. First advanced study exam. Assumes mastery of Exam 4 and thoroughly explores the internal mechanics of multicast routing presented in the second slide deck: source-based and shared trees, (S,G) and (*,G) forwarding states, Rendezvous Point (RP), Reverse Path Forwarding (RPF), MRIB, Designated Router (DR), Rendezvous Point Tree (RPT), data encapsulation, soft-state dynamics, PIM Sparse Mode and PIM Dense Mode, Prune, Graft, and their scalability implications. Questions demand causal reasoning and deep understanding of protocol operations."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 18,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 16,
+      "boolean": 1,
+      "written": 1
+    },
+    "path": "exames/esr/5_Routing_Multicast_RPF_PIM_SM_e_PIM_DM.json"
+  },
+  {
+    "id": "6_Integracao_P2P_Streaming_Transporte_Multicast",
+    "title": {
+      "pt": "Exame 6 — Aprofundamento II: Integração de P2P, Streaming, Transporte e Multicast",
+      "en": "Exam 6 — Advanced Study II: Synthesis of P2P, Streaming, Transport, and Multicast"
+    },
+    "description": {
+      "pt": "NÍVEL 6 — DOMÍNIO AVANÇADO E SÍNTESE | 18 questões | Dificuldade: avançada a muito avançada. Exame final de integração. Combina os conteúdos dos dois PowerPoints teóricos em problemas de raciocínio, cálculos de distribuição, decisões de arquitetura, adaptação de streaming, mecanismos de transporte, identificação de gargalos, escalabilidade e routing multicast. Alguns cenários utilizam o trabalho prático TP1 como contexto conceptual, sem exigir conhecimentos de instalação, comandos ou operação de ferramentas. O objetivo é verificar se o estudante consegue explicar consequências, comparar alternativas e tomar decisões tecnicamente justificadas.",
+      "en": "LEVEL 6 — ADVANCED MASTERY AND SYNTHESIS | 18 questions | Difficulty: advanced to very advanced. Final comprehensive capstone exam. Synthesises the contents of both theoretical slide decks through complex reasoning problems, distribution time calculations, architectural trade-offs, adaptive streaming dynamics, transport mechanism selection, bottleneck identification, scalability analysis, and multicast routing. Select scenarios utilise Lab Project TP1 as conceptual context without requiring operational tooling commands. Objective: verify whether the student can analyse consequences, critically compare competing paradigms, and make technically sound architectural decisions."
+    },
+    "languages": [
+      "pt",
+      "en"
+    ],
+    "questions_count": 18,
+    "question_types": [
+      "boolean",
+      "multiple_choice",
+      "written"
+    ],
+    "types_count": {
+      "multiple_choice": 15,
+      "boolean": 1,
+      "written": 2
+    },
+    "path": "exames/esr/6_Integracao_P2P_Streaming_Transporte_Multicast.json"
+  }
+]

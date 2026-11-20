@@ -7,57 +7,49 @@
 
 import { escapeHTML } from './utils.js';
 import { t } from './i18n.js';
+import { APP_CONFIG, normalizeQuestionType } from './config.js';
+
+const { MULTIPLE_CHOICE, BOOLEAN, WRITTEN } = APP_CONFIG.questionTypes;
 
 /**
  * Registry defining metadata, display labels, icons, and CSS badges for each question type.
  */
 export const QUESTION_TYPES = {
-    escolha_multipla: {
-        id: 'escolha_multipla',
-        label: 'Escolha Múltipla',
-        shortLabel: 'Múltipla',
+    [MULTIPLE_CHOICE]: {
+        id: MULTIPLE_CHOICE,
+        label: 'Multiple Choice',
+        shortLabel: 'Multiple',
         icon: 'fa-list-check',
         badgeClass: 'badge-type-choice',
-        description: 'Questões com várias opções de seleção (alíneas A, B, C, D).'
+        description: 'Questions with multiple selectable options (options A, B, C, D).'
     },
-    boolean: {
-        id: 'boolean',
-        label: 'Verdadeiro / Falso',
-        shortLabel: 'V / F',
+    [BOOLEAN]: {
+        id: BOOLEAN,
+        label: 'True / False',
+        shortLabel: 'T / F',
         icon: 'fa-check-double',
         badgeClass: 'badge-type-boolean',
-        description: 'Questões binárias de afirmações verdadeiras ou falsas.'
+        description: 'Binary questions with true or false statements.'
     },
-    escrita: {
-        id: 'escrita',
-        label: 'Desenvolvimento',
-        shortLabel: 'Escrita',
+    [WRITTEN]: {
+        id: WRITTEN,
+        label: 'Essay / Written',
+        shortLabel: 'Written',
         icon: 'fa-pen-to-square',
         badgeClass: 'badge-type-written',
-        description: 'Questões abertas de redação e reflexão escrita com solução esperada.'
+        description: 'Open-ended essay and written reflection questions with model solutions.'
     }
 };
 
 /**
- * Retrieves metadata for a specific question type with safe fallback to 'escolha_multipla'.
+ * Retrieves metadata for a specific question type with safe fallback to MULTIPLE_CHOICE.
  *
- * @param {string} tipo - The type identifier from question JSON.
+ * @param {string} rawType - The type identifier from question JSON.
  * @returns {object} The question type definition with localized labels.
  */
-export function getQuestionTypeInfo(tipo) {
-    const key = (tipo || '').toLowerCase().trim();
-    let base = QUESTION_TYPES[key];
-    if (!base) {
-        if (key === 'multipla' || key === 'multiple_choice' || key === 'multiple-choice') {
-            base = QUESTION_TYPES.escolha_multipla;
-        } else if (key === 'true_false' || key === 'verdadeiro_falso' || key === 'tf') {
-            base = QUESTION_TYPES.boolean;
-        } else if (key === 'essay' || key === 'aberta' || key === 'redacao' || key === 'desenvolvimento') {
-            base = QUESTION_TYPES.escrita;
-        } else {
-            base = QUESTION_TYPES.escolha_multipla;
-        }
-    }
+export function getQuestionTypeInfo(rawType) {
+    const canonicalId = normalizeQuestionType(rawType);
+    const base = QUESTION_TYPES[canonicalId] || QUESTION_TYPES[MULTIPLE_CHOICE];
 
     return {
         ...base,
@@ -74,11 +66,11 @@ export function getQuestionTypeInfo(tipo) {
  * @returns {string[]} Array of normalized type identifiers.
  */
 export function getExamQuestionTypes(exam) {
-    if (!exam) return ['escolha_multipla'];
+    if (!exam) return [MULTIPLE_CHOICE];
 
     const typesList = exam.question_types || exam.tipos_perguntas;
     if (Array.isArray(typesList) && typesList.length > 0) {
-        return [...new Set(typesList.map(t => getQuestionTypeInfo(t).id))];
+        return [...new Set(typesList.map(typeId => getQuestionTypeInfo(typeId).id))];
     }
 
     const questionsList = exam.questions || exam.perguntas;
@@ -86,7 +78,7 @@ export function getExamQuestionTypes(exam) {
         return [...new Set(questionsList.map(q => getQuestionTypeInfo(q.type || q.tipo).id))];
     }
 
-    return ['escolha_multipla'];
+    return [MULTIPLE_CHOICE];
 }
 
 /**
@@ -99,7 +91,7 @@ export function getExamQuestionTypes(exam) {
  */
 export function renderQuestionTypeTagsHTML(types, excludedTypes = []) {
     if (!Array.isArray(types) || types.length === 0) {
-        types = ['escolha_multipla'];
+        types = [MULTIPLE_CHOICE];
     }
 
     const segmentsHTML = types.map(tipo => {
@@ -153,22 +145,22 @@ export function validateQuestionSchema(q) {
     const qSol = q.solution !== undefined ? q.solution : q.solucao;
     const qOpts = q.options !== undefined ? q.options : q.opcoes;
 
-    if (info.id === 'escrita') {
+    if (info.id === WRITTEN) {
         if (qSol === undefined || (typeof qSol !== 'string' && typeof qSol !== 'object')) {
-            return { valid: false, error: "Tipo 'escrita' requer 'solution' textual válida." };
+            return { valid: false, error: `Type '${WRITTEN}' requires a valid textual 'solution'.` };
         }
         return { valid: true };
     }
 
-    if (info.id === 'boolean') {
+    if (info.id === BOOLEAN) {
         const isValid = qSol === 0 || qSol === 1 || (Array.isArray(qSol) && qSol.length > 0 && (qSol[0] === 0 || qSol[0] === 1));
         if (!isValid) {
-            return { valid: false, error: "Tipo 'boolean' requer 'solution' 0 (Verdadeiro) ou 1 (Falso)." };
+            return { valid: false, error: `Type '${BOOLEAN}' requires 'solution' to be 0 (True) or 1 (False).` };
         }
         return { valid: true };
     }
 
-    // Default: escolha_multipla
+    // Default: multiple_choice
     let optCount = 0;
     if (Array.isArray(qOpts)) {
         optCount = qOpts.length;
@@ -178,16 +170,16 @@ export function validateQuestionSchema(q) {
     }
 
     if (optCount < 2) {
-        return { valid: false, error: "Tipo 'escolha_multipla' requer pelo menos 2 opções em 'options'." };
+        return { valid: false, error: `Type '${MULTIPLE_CHOICE}' requires at least 2 items in 'options'.` };
     }
 
     if (!Array.isArray(qSol) || qSol.length === 0) {
-        return { valid: false, error: "Tipo 'escolha_multipla' requer array com índices em 'solution'." };
+        return { valid: false, error: `Type '${MULTIPLE_CHOICE}' requires an array of indices in 'solution'.` };
     }
 
     for (const s of qSol) {
         if (typeof s !== 'number' || s < 0 || s >= optCount) {
-            return { valid: false, error: `Índice de solução [${s}] fora do intervalo de opções (0 a ${optCount - 1}).` };
+            return { valid: false, error: `Solution index [${s}] is out of bounds for options (0 to ${optCount - 1}).` };
         }
     }
 

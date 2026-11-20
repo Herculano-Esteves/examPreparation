@@ -124,17 +124,15 @@ export const pt = {
         flag_title_en: 'Inglês',
 
         // Question Types
-        type_escolha_multipla: 'Escolha Múltipla',
         type_multiple_choice: 'Escolha Múltipla',
-        type_escolha_multipla_short: 'Múltipla',
-        type_escolha_multipla_desc: 'Questões com várias opções de seleção (alíneas A, B, C, D).',
+        type_multiple_choice_short: 'Múltipla',
+        type_multiple_choice_desc: 'Questões com várias opções de seleção (alíneas A, B, C, D).',
         type_boolean: 'Verdadeiro / Falso',
         type_boolean_short: 'V / F',
         type_boolean_desc: 'Questões binárias de afirmações verdadeiras ou falsas.',
-        type_escrita: 'Desenvolvimento',
         type_written: 'Desenvolvimento',
-        type_escrita_short: 'Escrita',
-        type_escrita_desc: 'Questões abertas de redação e reflexão escrita com solução esperada.',
+        type_written_short: 'Escrita',
+        type_written_desc: 'Questões abertas de redação e reflexão escrita com solução esperada.',
 
         // Copy Buttons
         btn_copy: 'Copiar',

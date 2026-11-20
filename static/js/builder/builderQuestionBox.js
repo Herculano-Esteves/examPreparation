@@ -8,6 +8,7 @@ import { isBilingualMode, createDefaultQuestion } from './builderTemplates.js';
 import { escapeHTML, getLocalizedText } from '../utils.js';
 import { t } from '../i18n.js';
 import { handleVisualChange } from '../examBuilder.js';
+import { APP_CONFIG, normalizeQuestionType } from '../config.js';
 
 /**
  * Creates and appends a visual question card respecting bilingual or monolingual mode.
@@ -21,8 +22,9 @@ export function addQuestionBox(qData = {}, triggerSync = true) {
     const emptyNotice = listContainer.querySelector('.builder-empty-notice');
     if (emptyNotice) emptyNotice.remove();
 
+    const { MULTIPLE_CHOICE, BOOLEAN, WRITTEN } = APP_CONFIG.questionTypes;
     const qIndex = listContainer.querySelectorAll('.builder-question-card').length;
-    const qType = qData.type || 'escolha_multipla';
+    const qType = normalizeQuestionType(qData.type || qData.tipo);
     const bilingual = isBilingualMode();
 
     const card = document.createElement('div');
@@ -81,9 +83,9 @@ export function addQuestionBox(qData = {}, triggerSync = true) {
             <div class="builder-q-header-left">
                 <span class="builder-q-num-badge">Q${qIndex + 1}</span>
                 <select class="builder-q-type-select" aria-label="Tipo de Questão">
-                    <option value="escolha_multipla" ${qType === 'escolha_multipla' ? 'selected' : ''}>${t('builder_q_type_choice')}</option>
-                    <option value="boolean" ${qType === 'boolean' ? 'selected' : ''}>${t('builder_q_type_boolean')}</option>
-                    <option value="escrita" ${qType === 'escrita' ? 'selected' : ''}>${t('builder_q_type_written')}</option>
+                    <option value="${MULTIPLE_CHOICE}" ${qType === MULTIPLE_CHOICE ? 'selected' : ''}>${t('builder_q_type_choice')}</option>
+                    <option value="${BOOLEAN}" ${qType === BOOLEAN ? 'selected' : ''}>${t('builder_q_type_boolean')}</option>
+                    <option value="${WRITTEN}" ${qType === WRITTEN ? 'selected' : ''}>${t('builder_q_type_written')}</option>
                 </select>
             </div>
             <div class="builder-q-header-right">
@@ -188,7 +190,7 @@ export function renderDynamicArea(container, qType, qData, qIndex) {
         container.querySelectorAll('input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', handleVisualChange);
         });
-    } else if (qType === 'escrita') {
+    } else if (qType === APP_CONFIG.questionTypes.WRITTEN) {
         if (bilingual) {
             const solPt = typeof qData.solution === 'object' && qData.solution !== null ? (qData.solution.pt || '') : (qData.solution || '');
             const solEn = typeof qData.solution === 'object' && qData.solution !== null ? (qData.solution.en || '') : '';
@@ -223,7 +225,7 @@ export function renderDynamicArea(container, qType, qData, qIndex) {
             if (solInput) solInput.addEventListener('input', handleVisualChange);
         }
     } else {
-        // escolha_multipla
+        // multiple_choice
         const solution = Array.isArray(qData.solution) ? qData.solution : [0];
 
         container.innerHTML = `
