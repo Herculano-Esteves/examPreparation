@@ -23,6 +23,18 @@ Build your own exams with a visual editor or import existing ones from JSON and 
 
 ---
 
+## 📸 Screenshots
+
+| Subjects Catalog | Exam List & Filters |
+| :---: | :---: |
+| ![Subjects Catalog](docs/screenshots/1_courses_catalog.png) | ![Exam List and Filters](docs/screenshots/2_exam_list_filters.png) |
+
+| Interactive Exam Solver | Dual-Pane Exam Builder |
+| :---: | :---: |
+| ![Interactive Exam Solver](docs/screenshots/3_exam_solver.png) | ![Dual-Pane Exam Builder](docs/screenshots/4_exam_builder.png) |
+
+---
+
 ## ✨ Features
 
 - **🎯 Interactive Practice Modes**:

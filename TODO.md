@@ -12,7 +12,7 @@ Lista de tarefas acionáveis para aumentar a visibilidade do projeto e evoluir f
   - [ ] **Description** clara em inglês com termos pesquisáveis (*free open-source exam simulator, quiz builder, JSON import, GitHub Pages*)
   - [ ] **Website** (`https://herculano-esteves.github.io/examPreparation/`)
   - [ ] **Topics** (15–20 tags relevantes, ex.: `exam-simulator`, `exam-preparation`, `quiz-builder`, `study-tool`, `github-pages`, `json`, `open-source`)
-- [ ] Adicionar **screenshots** (do simulador de exames e do editor visual) e um **GIF / vídeo curto** de demonstração no `README.md`
+- [x] Adicionar **screenshots** (do simulador de exames e do editor visual) ao `README.md` *(opcional: adicionar também um GIF/vídeo curto de demonstração)*
 - [ ] Verificar indexação do site no **Google Search Console** e **Bing Webmaster Tools**
 - [ ] Divulgar o projeto em comunidades técnicas e académicas relevantes
 
